@@ -8,7 +8,7 @@
 #    define DELEGATEUI_EXPORT Q_DECL_IMPORT
 #  endif
 #else
-#  define Q_QUICK_EXPORT
+#  define DELEGATEUI_EXPORT
 #endif
 
 #define DEL_PROPERTY(type, get, set) \
