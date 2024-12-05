@@ -10,7 +10,7 @@
 #include <QJsonObject>
 #include <QHash>
 
-enum class Function : uint8_t
+enum class Function : uint16_t
 {
     GenColor,
     GenFontSize,
@@ -23,7 +23,7 @@ enum class Function : uint8_t
     Multiply
 };
 
-enum class Component : uint8_t
+enum class Component : uint16_t
 {
     DelButton,
     DelTourFocus,
@@ -41,9 +41,13 @@ static QHash<QString, Component> g_componentTable
 
 struct ThemeData
 {
+    struct Component
+    {
+        QString path;
+        QVariantMap *varMap;
+    };
     QObject *theme = nullptr;
-    QString themePath;
-    QMap<QString, QVariantMap *> component;
+    QMap<QString, Component> component;
 };
 
 class DelThemePrivate
