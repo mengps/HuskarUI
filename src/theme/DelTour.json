@@ -1,0 +1,13 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSizeTitle": "@fontPrimarySizeHeading5",
+    "fontSizeDescription": "@fontPrimarySize",
+    "fontSizeIndicator": "@fontPrimarySize",
+    "fontSizeButton": "@fontPrimarySize",
+    "fontHeight": "@fontPrimaryHeight",
+    "fontLineHeight": "1.0",
+    "colorText": "@colorTextBase",
+    "colorBg": "$lighter(@colorBgBase)",
+    "colorOverlay": "$alpha(@colorTextBase, 0.2)",
+    "radiusCard": "8"
+}
