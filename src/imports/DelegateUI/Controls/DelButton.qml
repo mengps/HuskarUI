@@ -55,7 +55,7 @@ T.Button {
                                                           control.hovered ? DelTheme.DelButton.colorBorderHover :
                                                                             DelTheme.DelButton.colorBorder) :
                                           DelTheme.DelButton.colorBorder
-    property string contentDescription: ""
+    property string contentDescription: text
 
     width: implicitContentWidth + leftPadding + rightPadding
     height: implicitContentHeight + topPadding + bottomPadding
