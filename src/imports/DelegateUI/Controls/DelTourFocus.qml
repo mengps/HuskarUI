@@ -1,11 +1,12 @@
 import QtQuick
 import QtQuick.Templates as T
+import DelegateUI
 
 T.Popup {
     id: root
 
     property Item currentTarget: null
-    property color overlayColor: "#80000000"
+    property color overlayColor: DelTheme.DelTour.colorOverlay
     property real focusMargin: 5
     property real focusWidth: currentTarget ? (currentTarget.width + focusMargin * 2) : 0
     property real focusHeight: currentTarget ? (currentTarget.height + focusMargin * 2) : 0

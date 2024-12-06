@@ -339,8 +339,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
         auto key = g_componentTable[component];
         switch (key) {
         case Component::DelButton: registerThemeComponent(q, component, &q->m_DelButton, themePath, m_defaultTheme); break;
-        case Component::DelTourFocus: registerThemeComponent(q, component, &q->m_DelTourFocus, themePath, m_defaultTheme); break;
-        case Component::DelTourStep: registerThemeComponent(q, component, &q->m_DelTourStep, themePath, m_defaultTheme); break;
+        case Component::DelTour: registerThemeComponent(q, component, &q->m_DelTour, themePath, m_defaultTheme); break;
         default:
             break;
         }
@@ -415,7 +414,7 @@ void DelTheme::reloadDefaultTheme()
     }
 }
 
-void DelTheme::installThemePrimary(const QColor &color)
+void DelTheme::installThemePrimaryColor(const QColor &color)
 {
     Q_D(DelTheme);
 

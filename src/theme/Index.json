@@ -21,9 +21,9 @@
         "colorPrimaryHover":"@colorPrimaryBase-5",
         "colorPrimary": "@colorPrimaryBase-6",
         "colorPrimaryActive": "@colorPrimaryBase-7",
-        "colorPrimaryTextHover": "@colorPrimaryBase-6",
-        "colorPrimaryText": "@colorPrimaryBase-7",
-        "colorPrimaryTextActive": "@colorPrimaryBase-10",
+        "colorPrimaryTextHover": "@colorPrimaryBase-5",
+        "colorPrimaryText": "@colorPrimaryBase-4",
+        "colorPrimaryTextActive": "@colorPrimaryBase-6",
 
         "colorPrimaryContainerBgHover": "@colorPrimaryBase-5",
         "colorPrimaryContainerBg": "@colorPrimaryBase-6",
@@ -105,7 +105,6 @@
     },
     "componentStyle": {
         "DelButton": ":/DelegateUI/theme/DelButton.json",
-        "DelTourFocus": ":/DelegateUI/theme/DelTour.json",
-        "DelTourStep": ":/DelegateUI/theme/DelTour.json"
+        "DelTour": ":/DelegateUI/theme/DelTour.json"
     }
 }

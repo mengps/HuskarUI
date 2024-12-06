@@ -10,27 +10,27 @@ T.Popup {
 
     stepTitleFont {
         bold: true
-        family: DelTheme.DelTourStep.fontFamily
-        pixelSize: DelTheme.DelTourStep.fontSizeTitle
+        family: DelTheme.DelTour.fontFamily
+        pixelSize: DelTheme.DelTour.fontSizeTitle
     }
     stepDescriptionFont {
-        family: DelTheme.DelTourStep.fontFamily
-        pixelSize: DelTheme.DelTourStep.fontSizeDescription
+        family: DelTheme.DelTour.fontFamily
+        pixelSize: DelTheme.DelTour.fontSizeDescription
     }
-    indicatorFont{
-        family: DelTheme.DelTourStep.fontFamily
-        pixelSize: DelTheme.DelTourStep.fontSizeIndicator
+    indicatorFont {
+        family: DelTheme.DelTour.fontFamily
+        pixelSize: DelTheme.DelTour.fontSizeIndicator
     }
     buttonFont {
-        family: DelTheme.DelTourStep.fontFamily
-        pixelSize: DelTheme.DelTourStep.fontSizeButton
+        family: DelTheme.DelTour.fontFamily
+        pixelSize: DelTheme.DelTour.fontSizeButton
     }
 
     property bool animationEnabled: DelTheme.animationEnabled
     property var stepModel: []
     property Item currentTarget: null
     property int currentStep: 0
-    property color overlayColor: DelTheme.DelTourStep.colorOverlay
+    property color overlayColor: DelTheme.DelTour.colorOverlay
     property bool showArrow: true
     property real arrowWidth: 20
     property real arrowHeight: 10
@@ -38,14 +38,14 @@ T.Popup {
     property real focusWidth: currentTarget ? (currentTarget.width + focusMargin * 2) : 0
     property real focusHeight: currentTarget ? (currentTarget.height + focusMargin * 2) : 0
     property real stepCardWidth: 250
-    property real stepCardRadius: DelTheme.DelTourStep.radiusCard
-    property color stepCardColor: DelTheme.DelTourStep.colorBg
+    property real stepCardRadius: DelTheme.DelTour.radiusCard
+    property color stepCardColor: DelTheme.DelTour.colorBg
     property font stepTitleFont
-    property color stepTitleColor: DelTheme.DelTourStep.colorText
+    property color stepTitleColor: DelTheme.DelTour.colorText
     property font stepDescriptionFont
-    property color stepDescriptionColor: DelTheme.DelTourStep.colorText
+    property color stepDescriptionColor: DelTheme.DelTour.colorText
     property font indicatorFont
-    property color indicatorColor: DelTheme.DelTourStep.colorText
+    property color indicatorColor: DelTheme.DelTour.colorText
     property font buttonFont
     property Component arrowDelegate:  Canvas {
         id: __arrowDelegate
@@ -126,11 +126,12 @@ T.Popup {
 
                 DelButton {
                     id: __prevButton
-                    text: qsTr("上一步")
+                    height: parent.height
                     anchors.right: __nextButton.left
                     anchors.rightMargin: 15
                     anchors.bottom: __nextButton.bottom
                     visible: control.currentStep != 0
+                    text: qsTr("上一步")
                     font: control.buttonFont
                     type: DelButton.Type_Primary
                     onClicked: {
@@ -144,10 +145,11 @@ T.Popup {
 
                 DelButton {
                     id: __nextButton
-                    text: (control.currentStep + 1 == control.stepModel.length) ? qsTr("结束导览") : qsTr("下一步")
+                    height: parent.height
                     anchors.right: parent.right
                     anchors.rightMargin: 15
                     anchors.bottom: parent.bottom
+                    text: (control.currentStep + 1 == control.stepModel.length) ? qsTr("结束导览") : qsTr("下一步")
                     font: control.buttonFont
                     type: DelButton.Type_Primary
                     onClicked: {

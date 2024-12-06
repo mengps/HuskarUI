@@ -22,9 +22,7 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
     DEL_PROPERTY_READONLY(QVariantMap, Primary); /*! 所有 {Index.json} 中的变量 */
 
     DEL_PROPERTY_READONLY(QVariantMap, DelButton);
-    DEL_PROPERTY_READONLY(QVariantMap, DelTourFocus);
-    DEL_PROPERTY_READONLY(QVariantMap, DelTourStep);
-
+    DEL_PROPERTY_READONLY(QVariantMap, DelTour);
 public:
     enum class DarkMode {
         System,
@@ -44,7 +42,7 @@ public:
 
     Q_INVOKABLE void reloadDefaultTheme();
 
-    Q_INVOKABLE void installThemePrimary(const QColor &color);
+    Q_INVOKABLE void installThemePrimaryColor(const QColor &color);
 
     Q_INVOKABLE void installIndexTheme(const QString &themePath);
     Q_INVOKABLE void installIndexThemeKV(const QString &key, const QString &value);
