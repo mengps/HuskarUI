@@ -85,7 +85,7 @@ T.Button {
             radius: control.shape == DelButton.Shape_Default ? DelTheme.DelButton.radiusBg : height * 0.5
             anchors.centerIn: parent
             color: "transparent"
-            border.width: 12
+            border.width: control.down || control.hovered ? 12 : 0
             border.color: control.enabled ? DelTheme.DelButton.colorBorderHover : "transparent"
             opacity: 0.7
 
