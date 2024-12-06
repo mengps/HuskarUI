@@ -12,7 +12,7 @@ static const auto g_darkColorCount = 4; // 深色数量，主色下
 
 [[maybe_unused]] static auto qHash(DelColorGenerator::Preset preset)
 {
-    return static_cast<std::underlying_type<DelColorGenerator::Preset>::type>(DelColorGenerator::Preset::Preset_Red);
+    return static_cast<std::underlying_type<DelColorGenerator::Preset>::type>(preset);
 }
 
 static QColor mix(const QColor &rgb1, const QColor &rgb2, int amount)
