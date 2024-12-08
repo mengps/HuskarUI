@@ -82,6 +82,7 @@ T.Popup {
         height: stepData.cardHeight ? stepData.cardHeight : (__stepCardColumn.height + 20)
         color: stepData.cardColor ? stepData.cardColor : control.stepCardColor
         radius: stepData.cardRadius ? stepData.cardRadius : control.stepCardRadius
+        clip: true
 
         property var stepData: new Object
 
@@ -107,8 +108,12 @@ T.Popup {
             }
 
             Text {
+                width: parent.width - 20
                 anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WrapAnywhere
                 text: stepData.description || ""
+                visible: text.length !== 0
                 color: stepData.descriptionColor ? stepData.descriptionColor : control.stepDescriptionColor
                 font: control.stepDescriptionFont
             }
@@ -133,7 +138,7 @@ T.Popup {
                     visible: control.currentStep != 0
                     text: qsTr("上一步")
                     font: control.buttonFont
-                    type: DelButton.Type_Primary
+                    type: DelButtonType.Type_Primary
                     onClicked: {
                         if (control.currentStep > 0) {
                             control.currentStep -= 1;
@@ -151,7 +156,7 @@ T.Popup {
                     anchors.bottom: parent.bottom
                     text: (control.currentStep + 1 == control.stepModel.length) ? qsTr("结束导览") : qsTr("下一步")
                     font: control.buttonFont
-                    type: DelButton.Type_Primary
+                    type: DelButtonType.Type_Primary
                     onClicked: {
                         if ((control.currentStep + 1 == control.stepModel.length))
                             control.close();
