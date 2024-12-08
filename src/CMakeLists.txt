@@ -41,13 +41,22 @@ qt_add_qml_module(${PROJECT_NAME}
     OUTPUT_DIRECTORY ${DELEGATEUI_QML_OUTPUT_DIRECTORY}
     QML_FILES
         imports/DelegateUI/Controls/DelButton.qml
+        imports/DelegateUI/Controls/DelIconButton.qml
         imports/DelegateUI/Controls/DelTourFocus.qml imports/DelegateUI/Controls/DelTourStep.qml #Tour
+        imports/DelegateUI/Controls/DelIconText.qml
     SOURCES
         cpp/delglobal.h
         cpp/theme/deltheme.h cpp/theme/deltheme.cpp cpp/theme/deltheme_p.h
         cpp/theme/delcolorgenerator.h cpp/theme/delcolorgenerator.cpp
         cpp/theme/delsystemthemehelper.h cpp/theme/delsystemthemehelper.cpp
         cpp/theme/delsizegenerator.h cpp/theme/delsizegenerator.cpp
+        cpp/controls/deliconfont.h cpp/controls/deliconfont.cpp
+)
+
+qt_add_resources(${PROJECT_NAME} "resources"
+    PREFIX "/DelegateUI"
+    FILES
+        ../resources/font/delfont.ttf
 )
 
 qt_add_resources(${PROJECT_NAME} "theme"
@@ -56,6 +65,8 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/Index.json
         theme/DelButton.json
         theme/DelTour.json
+        theme/DelIconText.json
+        theme/DelIconButton.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
@@ -89,6 +100,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/cpp/controls
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp/theme
 )
 

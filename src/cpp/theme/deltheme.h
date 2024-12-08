@@ -2,7 +2,7 @@
 #define DELTHEME_H
 
 #include <QObject>
-#include <QQmlEngine>
+#include <QtQml/qqml.h>
 
 #include "delglobal.h"
 
@@ -23,6 +23,9 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
 
     DEL_PROPERTY_READONLY(QVariantMap, DelButton);
     DEL_PROPERTY_READONLY(QVariantMap, DelTour);
+    DEL_PROPERTY_READONLY(QVariantMap, DelIconText);
+    DEL_PROPERTY_READONLY(QVariantMap, DelIconButton);
+
 public:
     enum class DarkMode {
         System,

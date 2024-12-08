@@ -1,0 +1,16 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "fontHeight": "@fontPrimaryHeight",
+    "fontLineHeight": "1.0",
+    "colorIcon": "@colorTextBase",
+    "colorIconHover": "@colorPrimaryTextHover",
+    "colorIconActive": "@colorPrimaryTextActive",
+    "colorBg": "@colorBgBase",
+    "colorBgHover": "@colorBgBase",
+    "colorBgActive": "@colorBgBase",
+    "colorBorder": "@colorPrimaryContainerBorder",
+    "colorBorderHover": "@colorPrimaryBorderHover",
+    "colorBorderActive": "@colorPrimaryBorderActive",
+    "radiusBg": "6"
+}
