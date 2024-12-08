@@ -5,6 +5,8 @@
 #include <QObject>
 #include <qqmlintegration.h>
 
+#include "delglobal.h"
+
 QT_FORWARD_DECLARE_CLASS(QWindow);
 QT_FORWARD_DECLARE_CLASS(QWidget);
 
@@ -12,7 +14,7 @@ QT_FORWARD_DECLARE_CLASS(DelSystemThemeHelperPrivate);
 
 Q_DECLARE_OPAQUE_POINTER(QWindow *);
 
-class DelSystemThemeHelper : public QObject
+class DELEGATEUI_EXPORT DelSystemThemeHelper : public QObject
 {
     Q_OBJECT
 

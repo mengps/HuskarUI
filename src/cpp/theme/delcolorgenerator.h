@@ -5,7 +5,9 @@
 #include <QColor>
 #include <qqmlintegration.h>
 
-class DelColorGenerator : public QObject
+#include "delglobal.h"
+
+class DELEGATEUI_EXPORT DelColorGenerator : public QObject
 {
     Q_OBJECT
     QML_NAMED_ELEMENT(DelColorGenerator)

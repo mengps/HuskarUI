@@ -2,9 +2,11 @@
 #define DELSIZEGENERATOR_H
 
 #include <QObject>
-#include <QQmlEngine>
+#include <qqmlintegration.h>
 
-class DelSizeGenerator : public QObject
+#include "delglobal.h"
+
+class DELEGATEUI_EXPORT DelSizeGenerator : public QObject
 {
     Q_OBJECT
     QML_NAMED_ELEMENT(DelSizeGenerator)
