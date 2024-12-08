@@ -5,28 +5,19 @@ import DelegateUI
 T.Button {
     id: control
 
-    enum ButtonType {
-        Type_Default = 0,
-        Type_Primary = 1
-    }
-
-    enum ButtonShape {
-        Shape_Default = 0,
-        Shape_Circle = 1
-    }
-
     property bool animationEnabled: true //不绑定 DelTheme.animationEnabled
-    property int type: DelButton.Type_Default
-    property int shape: DelButton.Shape_Default
+    property int type: DelButtonType.Type_Default
+    property int shape: DelButtonType.Shape_Default
+    property int radiusBg: DelTheme.DelButton.radiusBg
     property color colorText: {
         if (enabled) {
             switch(control.type)
             {
-            case DelButton.Type_Default:
+            case DelButtonType.Type_Default:
                 return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
                                                         DelTheme.DelButton.colorText
-            case DelButton.Type_Primary: return "white";
+            case DelButtonType.Type_Primary: return "white";
             default: return DelTheme.DelButton.colorText;
             }
         } else {
@@ -37,11 +28,11 @@ T.Button {
         if (enabled) {
             switch(control.type)
             {
-            case DelButton.Type_Default:
+            case DelButtonType.Type_Default:
                 return control.down ? DelTheme.DelButton.colorBgActive :
                                       control.hovered ? DelTheme.DelButton.colorBgHover :
                                                         DelTheme.DelButton.colorBg;
-            case DelButton.Type_Primary:
+            case DelButtonType.Type_Primary:
                 return control.down ? DelTheme.Primary.colorPrimaryContainerBgActive:
                                       control.hovered ? DelTheme.Primary.colorPrimaryContainerBgHover :
                                                         DelTheme.Primary.colorPrimaryContainerBg;
@@ -82,12 +73,12 @@ T.Button {
             id: __effect
             width: __bg.width
             height: __bg.height
-            radius: control.shape == DelButton.Shape_Default ? DelTheme.DelButton.radiusBg : height * 0.5
+            radius: __bg.radius
             anchors.centerIn: parent
             color: "transparent"
             border.width: control.down || control.hovered ? 12 : 0
             border.color: control.enabled ? DelTheme.DelButton.colorBorderHover : "transparent"
-            opacity: 0.7
+            opacity: 0.6
 
             ParallelAnimation {
                 id: __animation
@@ -100,7 +91,7 @@ T.Button {
                     duration: DelTheme.Primary.durationMid
                 }
                 NumberAnimation {
-                    target: __effect; property: "opacity"; from: 0.7; to: 0;
+                    target: __effect; property: "opacity"; from: 0.6; to: 0;
                     duration: DelTheme.Primary.durationMid
                 }
             }
@@ -118,12 +109,12 @@ T.Button {
             width: control.pressed ? realWidth - 1 : realWidth
             height: control.pressed ? realHeight - 1 : realHeight
             anchors.centerIn: parent
-            radius: control.shape == DelButton.Shape_Default ? DelTheme.DelButton.radiusBg : height * 0.5
+            radius: control.shape == DelButtonType.Shape_Default ? control.radiusBg : height * 0.5
             color: control.colorBg
             border.color: control.colorBorder
 
-            property real realWidth: control.shape == DelButton.Shape_Default ? parent.width : parent.height
-            property real realHeight: control.shape == DelButton.Shape_Default ? parent.height : parent.height
+            property real realWidth: control.shape == DelButtonType.Shape_Default ? parent.width : parent.height
+            property real realHeight: control.shape == DelButtonType.Shape_Default ? parent.height : parent.height
 
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
             Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }

@@ -1,6 +1,8 @@
 #ifndef DELGLOBAL_H
 #define DELGLOBAL_H
 
+#include <QtQml/qqml.h>
+
 #if !defined(BUILD_DELEGATEUI_STATIC_LIBRARY)
 #  if defined(BUILD_DELEGATEUI_LIB)
 #    define DELEGATEUI_EXPORT Q_DECL_EXPORT
@@ -37,5 +39,24 @@ public: \
 Q_SIGNAL void get##Changed(); \
 private: \
     type m_##get;
+
+namespace DelButtonType {
+    Q_NAMESPACE
+
+    enum class ButtonType {
+        Type_Default = 0,
+        Type_Primary = 1
+    };
+
+    enum class ButtonShape {
+        Shape_Default = 0,
+        Shape_Circle = 1
+    };
+
+    Q_ENUM_NS(ButtonType);
+    Q_ENUM_NS(ButtonShape);
+
+    QML_NAMED_ELEMENT(DelButtonType);
+}
 
 #endif // DELGLOBAL_H

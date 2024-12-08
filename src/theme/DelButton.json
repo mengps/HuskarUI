@@ -9,7 +9,7 @@
     "colorBg": "@colorBgBase",
     "colorBgHover": "@colorBgBase",
     "colorBgActive": "@colorBgBase",
-    "colorBorder": "#80404040",
+    "colorBorder": "@colorPrimaryContainerBorder",
     "colorBorderHover": "@colorPrimaryBorderHover",
     "colorBorderActive": "@colorPrimaryBorderActive",
     "radiusBg": "6"
