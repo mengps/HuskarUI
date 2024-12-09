@@ -56,7 +56,7 @@ qt_add_qml_module(${PROJECT_NAME}
 qt_add_resources(${PROJECT_NAME} "resources"
     PREFIX "/DelegateUI"
     FILES
-        ../resources/font/delfont.ttf
+        "../resources/font/Segoe Fluent Icons.ttf"
 )
 
 qt_add_resources(${PROJECT_NAME} "theme"
@@ -66,7 +66,6 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelButton.json
         theme/DelTour.json
         theme/DelIconText.json
-        theme/DelIconButton.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
