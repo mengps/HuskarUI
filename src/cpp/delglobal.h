@@ -44,8 +44,10 @@ namespace DelButtonType {
     Q_NAMESPACE
 
     enum class ButtonType {
-        Type_Default = 0,
-        Type_Primary = 1
+        Type_Outlined = 0,
+        Type_Primary = 1,
+        Type_Filled = 2,
+        Type_Text = 3
     };
 
     enum class ButtonShape {
