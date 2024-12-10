@@ -44,10 +44,11 @@ namespace DelButtonType {
     Q_NAMESPACE
 
     enum class ButtonType {
-        Type_Outlined = 0,
-        Type_Primary = 1,
-        Type_Filled = 2,
-        Type_Text = 3
+        Type_Default = 0,
+        Type_Outlined = 1,
+        Type_Primary = 2,
+        Type_Filled = 3,
+        Type_Text = 4
     };
 
     enum class ButtonShape {
@@ -55,8 +56,14 @@ namespace DelButtonType {
         Shape_Circle = 1
     };
 
+    enum class ButtonIconPosition {
+        Position_Start = 0,
+        Position_End = 1
+    };
+
     Q_ENUM_NS(ButtonType);
     Q_ENUM_NS(ButtonShape);
+    Q_ENUM_NS(ButtonIconPosition);
 
     QML_NAMED_ELEMENT(DelButtonType);
 }

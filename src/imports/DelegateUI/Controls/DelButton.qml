@@ -6,13 +6,18 @@ T.Button {
     id: control
 
     property bool animationEnabled: true //不绑定 DelTheme.animationEnabled
-    property int type: DelButtonType.Type_Outlined
+    property bool effectEnabled: true
+    property int type: DelButtonType.Type_Default
     property int shape: DelButtonType.Shape_Default
     property int radiusBg: DelTheme.DelButton.radiusBg
     property color colorText: {
         if (enabled) {
             switch(control.type)
             {
+            case DelButtonType.Type_Default:
+                return control.down ? DelTheme.DelButton.colorTextActive :
+                                      control.hovered ? DelTheme.DelButton.colorTextHover :
+                                                        DelTheme.Primary.colorTextBase;
             case DelButtonType.Type_Outlined:
                 return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
@@ -29,6 +34,7 @@ T.Button {
         if (enabled) {
             switch(control.type)
             {
+            case DelButtonType.Type_Default:
             case DelButtonType.Type_Outlined:
                 return control.down ? DelTheme.DelButton.colorBgActive :
                                       control.hovered ? DelTheme.DelButton.colorBgHover :
@@ -63,17 +69,31 @@ T.Button {
             return DelTheme.Primary.colorPrimaryContainerBgDisabled;
         }
     }
-    property color colorBorder: enabled ? (control.down ? DelTheme.DelButton.colorBorderActive :
-                                                          control.hovered ? DelTheme.DelButton.colorBorderHover :
-                                                                            DelTheme.DelButton.colorBorder) :
-                                          DelTheme.DelButton.colorBorder
+    property color colorBorder: {
+        if (enabled) {
+            switch(control.type)
+            {
+            case DelButtonType.Type_Default:
+                return control.down ? DelTheme.DelButton.colorBorderActive :
+                                      control.hovered ? DelTheme.DelButton.colorBorderHover :
+                                                        DelTheme.DelButton.colorDefaultBorder;
+            default:
+                return control.down ? DelTheme.DelButton.colorBorderActive :
+                                      control.hovered ? DelTheme.DelButton.colorBorderHover :
+                                                        DelTheme.DelButton.colorBorder;
+            }
+        } else {
+            return DelTheme.DelButton.colorBorder;
+        }
+    }
+
     property string contentDescription: text
 
     width: implicitContentWidth + leftPadding + rightPadding
     height: implicitContentHeight + topPadding + bottomPadding
     padding: 10
-    topPadding: 8
-    bottomPadding: 8
+    topPadding: 5
+    bottomPadding: 5
     font {
         family: DelTheme.DelButton.fontFamily
         pixelSize: DelTheme.DelButton.fontSize
@@ -96,6 +116,7 @@ T.Button {
             height: __bg.height
             radius: __bg.radius
             anchors.centerIn: parent
+            visible: control.effectEnabled
             color: "transparent"
             border.width: 0
             border.color: control.enabled ? DelTheme.DelButton.colorBorderHover : "transparent"
@@ -123,7 +144,7 @@ T.Button {
             Connections {
                 target: control
                 function onReleased() {
-                    if (control.animationEnabled) {
+                    if (control.animationEnabled && control.effectEnabled) {
                         __effect.border.width = 8;
                         __animation.restart();
                     }
@@ -138,7 +159,7 @@ T.Button {
             radius: control.shape == DelButtonType.Shape_Default ? control.radiusBg : height * 0.5
             color: control.colorBg
             border.width: (control.type == DelButtonType.Type_Filled || control.type == DelButtonType.Type_Text) ? 0 : 1
-            border.color: control.colorBorder
+            border.color: control.enabled ? control.colorBorder : "transparent"
 
             property real realWidth: control.shape == DelButtonType.Shape_Default ? parent.width : parent.height
             property real realHeight: control.shape == DelButtonType.Shape_Default ? parent.height : parent.height

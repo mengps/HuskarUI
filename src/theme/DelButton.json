@@ -9,7 +9,7 @@
     "colorIcon": "@colorPrimaryText",
     "colorIconHover": "@colorPrimaryTextHover",
     "colorIconActive": "@colorPrimaryTextActive",
-    "colorBg": "@colorBgBase",
+    "colorBg": "$alpha(@colorBgBase, 0)",
     "colorBgHover": "@colorBgBase",
     "colorBgActive": "@colorBgBase",
     "colorFillBg": "@colorPrimaryBase-10",
@@ -18,5 +18,6 @@
     "colorBorder": "@colorPrimaryBorder",
     "colorBorderHover": "@colorPrimaryBorderHover",
     "colorBorderActive": "@colorPrimaryBorderActive",
+    "colorDefaultBorder": "#80808080",
     "radiusBg": "6"
 }
