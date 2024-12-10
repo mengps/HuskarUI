@@ -12,12 +12,12 @@
         "fontLineHeightBase": "$genFontLineHeight(16)"
     },
     "primaryColorStyle": {
-        "colorPrimaryBgHover": "@colorPrimaryBase-2",
         "colorPrimaryBg": "@colorPrimaryBase-1",
+        "colorPrimaryBgHover": "@colorPrimaryBase-2",
         "colorPrimaryBgActive": "@colorPrimaryBase-3",
         "colorPrimaryBorderHover": "@colorPrimaryBase-4",
-        "colorPrimaryBorder": "@colorPrimaryBase-3",
-        "colorPrimaryBorderActive": "@colorPrimaryBase-5",
+        "colorPrimaryBorder": "@colorPrimaryBase-5",
+        "colorPrimaryBorderActive": "@colorPrimaryBase-6",
         "colorPrimaryHover":"@colorPrimaryBase-5",
         "colorPrimary": "@colorPrimaryBase-6",
         "colorPrimaryActive": "@colorPrimaryBase-7",
@@ -45,7 +45,6 @@
     
         "colorErrorBg": "@colorErrorBase-1",
         "colorErrorBgHover": "@colorErrorBase-2",
-        "colorErrorBgFilledHover": "",
         "colorErrorBgActive": "@colorErrorBase-3",
         "colorErrorBorder": "@colorErrorBase-3",
         "colorErrorBorderHover": "@colorErrorBase-4",
@@ -106,6 +105,7 @@
     "componentStyle": {
         "DelButton": ":/DelegateUI/theme/DelButton.json",
         "DelIconButton": ":/DelegateUI/theme/DelButton.json",
+        "DelCaptionButton": ":/DelegateUI/theme/DelCaptionButton.json",
         "DelTour": ":/DelegateUI/theme/DelTour.json",
         "DelIconText": ":/DelegateUI/theme/DelIconText.json"
     }

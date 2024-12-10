@@ -1,0 +1,14 @@
+{
+    "fontSize": "@fontPrimarySize",
+    "colorIcon": "@colorTextBase",
+    "colorIconHover": "@colorTextBase",
+    "colorIconActive": "@colorTextBase",
+    "colorIconChecked": "@colorPrimaryTextHover",
+    "colorBg": "$alpha(@colorTextBase, 0)",
+    "colorBgHover": "$alpha(@colorTextBase, 0.06)",
+    "colorBgActive": "$alpha(@colorTextBase, 0.15)",
+    "colorErrorBg": "$alpha(@colorError, 0)",
+    "colorErrorBgHover": "@colorErrorHover",
+    "colorErrorBgActive": "@colorErrorActive",
+    "radiusBg": "6"
+}
