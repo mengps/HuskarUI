@@ -104,7 +104,6 @@
     },
     "componentStyle": {
         "DelButton": ":/DelegateUI/theme/DelButton.json",
-        "DelIconButton": ":/DelegateUI/theme/DelButton.json",
         "DelCaptionButton": ":/DelegateUI/theme/DelCaptionButton.json",
         "DelTour": ":/DelegateUI/theme/DelTour.json",
         "DelIconText": ":/DelegateUI/theme/DelIconText.json"

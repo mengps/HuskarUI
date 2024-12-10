@@ -26,19 +26,19 @@ enum class Function : uint16_t
 enum class Component : uint16_t
 {
     DelButton,
-    DelTour,
     DelIconText,
-    DelIconButton,
+    DelCaptionButton,
+    DelTour,
 
     Size
 };
 
 static QHash<QString, Component> g_componentTable
 {
-    { "DelButton",     Component::DelButton     },
-    { "DelTour",       Component::DelTour       },
-    { "DelIconText",   Component::DelIconText   },
-    { "DelIconButton", Component::DelIconButton },
+    { "DelButton",        Component::DelButton        },
+    { "DelIconText",      Component::DelIconText      },
+    { "DelCaptionButton", Component::DelCaptionButton },
+    { "DelTour",          Component::DelTour          }
 };
 
 struct ThemeData

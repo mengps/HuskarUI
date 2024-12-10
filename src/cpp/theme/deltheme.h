@@ -22,9 +22,9 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
     DEL_PROPERTY_READONLY(QVariantMap, Primary); /*! 所有 {Index.json} 中的变量 */
 
     DEL_PROPERTY_READONLY(QVariantMap, DelButton);
-    DEL_PROPERTY_READONLY(QVariantMap, DelTour);
     DEL_PROPERTY_READONLY(QVariantMap, DelIconText);
-    DEL_PROPERTY_READONLY(QVariantMap, DelIconButton);
+    DEL_PROPERTY_READONLY(QVariantMap, DelCaptionButton);
+    DEL_PROPERTY_READONLY(QVariantMap, DelTour);
 
 public:
     enum class DarkMode {
