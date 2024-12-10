@@ -47,12 +47,13 @@ T.Popup {
     property font indicatorFont
     property color indicatorColor: DelTheme.DelTour.colorText
     property font buttonFont
-    property Component arrowDelegate:  Canvas {
+    property Component arrowDelegate: Canvas {
         id: __arrowDelegate
         width: arrowWidth
         height: arrowHeight
         onWidthChanged: requestPaint();
         onHeightChanged: requestPaint();
+        onFillStyleChanged: requestPaint();
         onPaint: {
             const ctx = getContext("2d");
             ctx.fillStyle = fillStyle;
@@ -70,7 +71,7 @@ T.Popup {
             function onCurrentTargetChanged() {
                 if (control.stepModel.length > control.currentStep) {
                     const stepData = control.stepModel[control.currentStep];
-                    __arrowDelegate.fillStyle = stepData.cardColor ? stepData.cardColor : control.stepCardColor;
+                    __arrowDelegate.fillStyle = Qt.binding(()=>stepData.cardColor ? stepData.cardColor : control.stepCardColor);
                 }
                 __arrowDelegate.requestPaint();
             }
@@ -138,7 +139,7 @@ T.Popup {
                     visible: control.currentStep != 0
                     text: qsTr("上一步")
                     font: control.buttonFont
-                    type: DelButtonType.Type_Primary
+                    type: DelButtonType.Type_Outlined
                     onClicked: {
                         if (control.currentStep > 0) {
                             control.currentStep -= 1;
@@ -158,15 +159,31 @@ T.Popup {
                     font: control.buttonFont
                     type: DelButtonType.Type_Primary
                     onClicked: {
-                        if ((control.currentStep + 1 == control.stepModel.length))
+                        if ((control.currentStep + 1 == control.stepModel.length)) {
+                            control.resetStep();
                             control.close();
-                        else if (control.currentStep + 1 < control.stepModel.length) {
+                        } else if (control.currentStep + 1 < control.stepModel.length) {
                             control.currentStep += 1;
                             __stepCardDelegate.stepData = control.stepModel[control.currentStep];
                             control.currentTarget = __stepCardDelegate.stepData.target;
                         }
                     }
                 }
+            }
+        }
+
+        DelCaptionButton {
+            width: 30
+            height: 30
+            radiusBg: 4
+            anchors.right: parent.right
+            anchors.rightMargin: 5
+            anchors.top: parent.top
+            anchors.topMargin: 5
+            iconSource: DelIcon.CloseOutlined
+            onClicked: {
+                control.resetStep();
+                control.close();
             }
         }
     }
@@ -246,9 +263,9 @@ T.Popup {
     parent: T.Overlay.overlay
     focus: true
     modal: true
-    background: Column {
+    background: Item {
         width: stepLoader.item == null ? control.arrowWidth : Math.max(control.arrowWidth, stepLoader.item.width)
-        spacing: -1
+        height: stepLoader.item == null ? control.arrowHeight : (control.arrowHeight + stepLoader.item.height - 1)
 
         Loader {
             id: arrowLoader
@@ -260,6 +277,8 @@ T.Popup {
 
         Loader {
             id: stepLoader
+            anchors.top: arrowLoader.bottom
+            anchors.topMargin: -1
             anchors.horizontalCenter: parent.horizontalCenter
             sourceComponent: control.stepCardDelegate
         }
