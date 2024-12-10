@@ -42,8 +42,10 @@ qt_add_qml_module(${PROJECT_NAME}
     QML_FILES
         imports/DelegateUI/Controls/DelButton.qml
         imports/DelegateUI/Controls/DelIconButton.qml
+        imports/DelegateUI/Controls/DelCaptionButton.qml
         imports/DelegateUI/Controls/DelTourFocus.qml imports/DelegateUI/Controls/DelTourStep.qml #Tour
         imports/DelegateUI/Controls/DelIconText.qml
+        imports/DelegateUI/Controls/DelCaptionBar.qml
     SOURCES
         cpp/delglobal.h
         cpp/theme/deltheme.h cpp/theme/deltheme.cpp cpp/theme/deltheme_p.h
@@ -56,7 +58,7 @@ qt_add_qml_module(${PROJECT_NAME}
 qt_add_resources(${PROJECT_NAME} "resources"
     PREFIX "/DelegateUI"
     FILES
-        "../resources/font/Segoe Fluent Icons.ttf"
+        "../resources/font/DelegateUI-Icons.ttf"
 )
 
 qt_add_resources(${PROJECT_NAME} "theme"
@@ -64,6 +66,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
     FILES
         theme/Index.json
         theme/DelButton.json
+        theme/DelCaptionButton.json
         theme/DelTour.json
         theme/DelIconText.json
 )

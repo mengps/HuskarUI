@@ -14,6 +14,6 @@ Text {
 
     FontLoader {
         id: __loader
-        source: "qrc:/DelegateUI/resources/font/Segoe Fluent Icons.ttf"
+        source: "qrc:/DelegateUI/resources/font/DelegateUI-Icons.ttf"
     }
 }
