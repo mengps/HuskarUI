@@ -149,9 +149,8 @@ DelSystemThemeHelper::ColorScheme DelSystemThemeHelper::colorScheme()
 
 bool DelSystemThemeHelper::setWindowTitleBarMode(QWindow *window, bool isDark)
 {
-    return false;
 #ifdef Q_OS_WIN
-    //return bool(pDwmSetWindowAttribute ? !pDwmSetWindowAttribute(HWND(window->winId()), 20, &isDark, sizeof(BOOL)) : false);
+    return bool(pDwmSetWindowAttribute ? !pDwmSetWindowAttribute(HWND(window->winId()), 20, &isDark, sizeof(BOOL)) : false);
 #else
     return false;
 #endif //Q_OS_WIN
