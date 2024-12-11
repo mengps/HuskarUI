@@ -477,10 +477,10 @@ DelTheme::DelTheme(QObject *parent)
 
     connect(this, &DelTheme::darkModeChanged, this, [this]{
         Q_D(DelTheme);
-        emit isDarkChanged();
         d->reloadIndexTheme();
         d->reloadComponentDefaultTheme();
         d->reloadComponentCustomTheme();
+        emit isDarkChanged();
     });
     connect(d->m_helper, &DelSystemThemeHelper::colorSchemeChanged, this, [this]{
         if (m_darkMode == int(DarkMode::System)) {
