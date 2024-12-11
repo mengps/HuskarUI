@@ -17,7 +17,7 @@ T.Button {
             case DelButtonType.Type_Default:
                 return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
-                                                        DelTheme.Primary.colorTextBase;
+                                                        DelTheme.DelButton.colorTextBase;
             case DelButtonType.Type_Outlined:
                 return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
@@ -27,7 +27,7 @@ T.Button {
             default: return DelTheme.DelButton.colorText;
             }
         } else {
-            return DelTheme.Primary.colorPrimaryTextDisabled;
+            return DelTheme.DelButton.colorTextDisabled;
         }
     }
     property color colorBg: {
@@ -40,18 +40,18 @@ T.Button {
                                       control.hovered ? DelTheme.DelButton.colorBgHover :
                                                         DelTheme.DelButton.colorBg;
             case DelButtonType.Type_Primary:
-                return control.down ? DelTheme.Primary.colorPrimaryContainerBgActive:
-                                      control.hovered ? DelTheme.Primary.colorPrimaryContainerBgHover :
-                                                        DelTheme.Primary.colorPrimaryContainerBg;
+                return control.down ? DelTheme.DelButton.colorPrimaryBgActive:
+                                      control.hovered ? DelTheme.DelButton.colorPrimaryBgHover :
+                                                        DelTheme.DelButton.colorPrimaryBg;
             case DelButtonType.Type_Filled:
                 if (DelTheme.isDark) {
+                    return control.down ? DelTheme.DelButton.colorFillDarkBgActive:
+                                          control.hovered ? DelTheme.DelButton.colorFillDarkBgHover :
+                                                            DelTheme.DelButton.colorFillDarkBg;
+                } else {
                     return control.down ? DelTheme.DelButton.colorFillBgActive:
                                           control.hovered ? DelTheme.DelButton.colorFillBgHover :
                                                             DelTheme.DelButton.colorFillBg;
-                } else {
-                    return control.down ? DelTheme.Primary.colorPrimaryBgActive:
-                                          control.hovered ? DelTheme.Primary.colorPrimaryBgHover :
-                                                            DelTheme.Primary.colorPrimaryBg;
                 }
             case DelButtonType.Type_Text:
                 if (DelTheme.isDark) {
@@ -59,14 +59,14 @@ T.Button {
                                           control.hovered ? DelTheme.DelButton.colorFillBg :
                                                             DelTheme.DelButton.colorBg;
                 } else {
-                    return control.down ? DelTheme.Primary.colorPrimaryBgHover:
-                                          control.hovered ? DelTheme.Primary.colorPrimaryBg :
-                                                            DelTheme.DelButton.colorBg;
+                    return control.down ? DelTheme.DelButton.colorTextBgActive:
+                                          control.hovered ? DelTheme.DelButton.colorTextBgHover :
+                                                            DelTheme.DelButton.colorTextBg;
                 }
             default: return DelTheme.DelButton.colorBg;
             }
         } else {
-            return DelTheme.Primary.colorPrimaryContainerBgDisabled;
+            return DelTheme.DelButton.colorBgDisabled;
         }
     }
     property color colorBorder: {

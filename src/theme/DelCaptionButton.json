@@ -1,9 +1,11 @@
 {
     "fontSize": "@fontPrimarySize",
+    "colorIconDisabled": "@colorPrimaryTextDisabled",
     "colorIcon": "@colorTextBase",
     "colorIconHover": "@colorTextBase",
     "colorIconActive": "@colorTextBase",
     "colorIconChecked": "@colorPrimaryTextHover",
+    "colorBgDisabled": "@colorPrimaryContainerBgDisabled",
     "colorBg": "$alpha(@colorTextBase, 0)",
     "colorBgHover": "$alpha(@colorTextBase, 0.06)",
     "colorBgActive": "$alpha(@colorTextBase, 0.15)",

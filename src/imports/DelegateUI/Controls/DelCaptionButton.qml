@@ -6,8 +6,8 @@ DelIconButton {
 
     property bool isError: false
 
-    width: 40
-    height: 30
+    leftPadding: 12
+    rightPadding: 12
     radiusBg: 0
     type: DelButtonType.Type_Text
     iconSize: DelTheme.DelCaptionButton.fontSize
@@ -17,7 +17,7 @@ DelIconButton {
             return checked ? DelTheme.DelCaptionButton.colorIconChecked :
                              DelTheme.DelCaptionButton.colorIcon;
         } else {
-            return DelTheme.Primary.colorPrimaryTextDisabled;
+            return DelTheme.DelCaptionButton.colorIconDisabled;
         }
     }
     colorBg: {
@@ -32,7 +32,7 @@ DelIconButton {
                                                         DelTheme.DelCaptionButton.colorBg;
             }
         } else {
-            return DelTheme.Primary.colorPrimaryContainerBgDisabled;
+            return DelTheme.DelCaptionButton.colorBgDisabled;
         }
     }
 }
