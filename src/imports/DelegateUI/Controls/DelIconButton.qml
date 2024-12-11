@@ -15,7 +15,7 @@ DelButton {
             case DelButtonType.Type_Default:
                 return control.down ? DelTheme.DelButton.colorIconActive :
                                       control.hovered ? DelTheme.DelButton.colorIconHover :
-                                                        DelTheme.Primary.colorTextBase;
+                                                        DelTheme.DelButton.colorTextBase;
             case DelButtonType.Type_Outlined:
                 return control.down ? DelTheme.DelButton.colorIconActive :
                                       control.hovered ? DelTheme.DelButton.colorIconHover :
@@ -25,34 +25,40 @@ DelButton {
             default: return DelTheme.DelButton.colorIcon;
             }
         } else {
-            return DelTheme.Primary.colorPrimaryTextDisabled;
+            return DelTheme.DelButton.coloTextDisabled;
         }
     }
-    contentItem: Row {
-        spacing: control.iconSpacing
-        layoutDirection: control.iconPosition === DelButtonType.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
+    contentItem: Item {
+        implicitHeight: Math.max(__icon.implicitHeight, __text.implicitHeight)
+        implicitWidth: __row.implicitWidth
 
-        DelIconText {
-            height: parent.height
-            color: control.colorIcon
-            iconSource: control.iconSource
-            iconSize: control.iconSize
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+        Row {
+            id: __row
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: control.iconSpacing
+            layoutDirection: control.iconPosition === DelButtonType.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
 
-            Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
-        }
+            DelIconText {
+                id: __icon
+                anchors.verticalCenter: parent.verticalCenter
+                color: control.colorIcon
+                iconSource: control.iconSource
+                verticalAlignment: Text.AlignVCenter
 
-        Text {
-            text: control.text
-            font: control.font
-            lineHeight: DelTheme.DelButton.fontLineHeight
-            color: control.colorText
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            elide: Text.ElideRight
+                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+            }
 
-            Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+            Text {
+                id: __text
+                anchors.verticalCenter: parent.verticalCenter
+                text: control.text
+                font: control.font
+                lineHeight: DelTheme.DelButton.fontLineHeight
+                color: control.colorText
+                elide: Text.ElideRight
+
+                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+            }
         }
     }
 }
