@@ -1,10 +1,10 @@
 #ifndef DELTHEME_H
 #define DELTHEME_H
 
-#include <QObject>
 #include <QtQml/qqml.h>
 
 #include "delglobal.h"
+#include "deldefinitions.h"
 
 QT_FORWARD_DECLARE_CLASS(DelThemePrivate)
 
