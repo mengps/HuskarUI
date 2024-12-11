@@ -16,6 +16,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
 
+#QWindowKit
+set(QWindowKit_DIR ../3rdparty/QWindowKit/lib/cmake/QWindowKit)
+find_package(QWindowKit COMPONENTS Core Quick REQUIRED)
+
 set(DELEGATEUI_QML_OUTPUT_DIRECTORY "" CACHE PATH "DelegateUI plugin output dir.")
 if(NOT DELEGATEUI_QML_OUTPUT_DIRECTORY)
     set(DELEGATEUI_QML_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/DelegateUI)
@@ -43,11 +47,15 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelButton.qml
         imports/DelegateUI/Controls/DelIconButton.qml
         imports/DelegateUI/Controls/DelCaptionButton.qml
-        imports/DelegateUI/Controls/DelTourFocus.qml imports/DelegateUI/Controls/DelTourStep.qml #Tour
+        imports/DelegateUI/Controls/DelTourFocus.qml imports/DelegateUI/Controls/DelTourStep.qml
         imports/DelegateUI/Controls/DelIconText.qml
         imports/DelegateUI/Controls/DelCaptionBar.qml
+        imports/DelegateUI/Controls/DelWindow.qml
+        imports/DelegateUI/Controls/DelMenu.qml
     SOURCES
         cpp/delglobal.h
+        cpp/deldefinitions.h
+        cpp/delapp.h cpp/delapp.cpp
         cpp/theme/deltheme.h cpp/theme/deltheme.cpp cpp/theme/deltheme_p.h
         cpp/theme/delcolorgenerator.h cpp/theme/delcolorgenerator.cpp
         cpp/theme/delsystemthemehelper.h cpp/theme/delsystemthemehelper.cpp
@@ -97,6 +105,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
+    QWindowKit::Quick
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
