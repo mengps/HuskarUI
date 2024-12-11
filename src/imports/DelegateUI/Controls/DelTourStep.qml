@@ -173,13 +173,11 @@ T.Popup {
         }
 
         DelCaptionButton {
-            width: 30
-            height: 30
             radiusBg: 4
             anchors.right: parent.right
-            anchors.rightMargin: 5
+            anchors.rightMargin: 2
             anchors.top: parent.top
-            anchors.topMargin: 5
+            anchors.topMargin: 2
             iconSource: DelIcon.CloseOutlined
             onClicked: {
                 control.resetStep();
