@@ -9,7 +9,7 @@ class DELEGATEUI_EXPORT DelApp : public QObject
 {
     Q_OBJECT
     QML_SINGLETON
-    QML_NAMED_ELEMENT(DelIcon)
+    QML_NAMED_ELEMENT(DelApp)
 
 public:
     ~DelApp();
