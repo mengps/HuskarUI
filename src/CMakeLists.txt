@@ -56,6 +56,7 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/delglobal.h
         cpp/deldefinitions.h
         cpp/delapp.h cpp/delapp.cpp
+        cpp/utils/delapi.h cpp/utils/delapi.cpp
         cpp/theme/deltheme.h cpp/theme/deltheme.cpp cpp/theme/deltheme_p.h
         cpp/theme/delcolorgenerator.h cpp/theme/delcolorgenerator.cpp
         cpp/theme/delsystemthemehelper.h cpp/theme/delsystemthemehelper.cpp
@@ -113,6 +114,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp/controls
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp/theme
+    ${CMAKE_CURRENT_SOURCE_DIR}/cpp/utils
 )
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/DelegateUI DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)
