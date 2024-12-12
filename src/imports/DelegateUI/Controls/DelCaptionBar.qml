@@ -34,7 +34,7 @@ Rectangle {
 
     property var returnCallback: ()=>{ }
     property var themeCallback: ()=>{ DelTheme.darkMode = DelTheme.isDark ? DelTheme.Light : DelTheme.Dark; }
-    property var topCallback: ()=>{ }
+    property var topCallback: (checked)=>{ }
     property var minimizeCallback:
         ()=>{
             if (targetWindow) targetWindow.showMinimized();
@@ -104,6 +104,7 @@ Rectangle {
         DelCaptionButton {
             id: __themeButton
             Layout.alignment: Qt.AlignVCenter
+            visible: false
             iconSource: DelTheme.isDark ? DelIcon.MoonOutlined : DelIcon.SunOutlined
             iconSize: 16
             onClicked: themeCallback();
@@ -112,10 +113,11 @@ Rectangle {
         DelCaptionButton {
             id: __topButton
             Layout.alignment: Qt.AlignVCenter
+            visible: false
             iconSource: DelIcon.PushpinOutlined
             iconSize: 16
             checkable: true
-            onClicked: topCallback();
+            onClicked: topCallback(checked);
         }
 
         DelCaptionButton {
