@@ -21,13 +21,13 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Navigation/ExpMenu.qml
         qml/Gallery.qml
     SOURCES
-        src/customtheme.h src/customtheme.cpp
-        src/main.cpp
+        cpp/customtheme.h cpp/customtheme.cpp
+        cpp/main.cpp
     RESOURCES
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    src
+    cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Quick DelegateUIPlugin)
