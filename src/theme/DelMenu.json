@@ -7,5 +7,5 @@
     "colorBg": "$alpha(@colorPrimaryBase-3, 0)",
     "colorBgHover": "$alpha(@colorPrimaryBase-3, 0.1)",
     "colorBgActive": "$alpha(@colorPrimaryBase-3, 0.2)",
-    "colorEdge": "$alpha(@colorBgBase, 0.2)"
+    "colorEdge": "$alpha(@colorTextBase, 0.2)"
 }
