@@ -22,6 +22,15 @@ Qt QML 的 Ant 设计组件库
 [issues-image]: https://flat.badgen.net/github/label-issues/mengps/DelegateUI/open
 [issues-url]: https://github.com/mengps/DelegateUI/issues
 
+<div align=center>
+
+## 🌈 陈列室预览
+
+<img width=900 height=600 src="preview/light.png">
+<img width=900 height=600 src="preview/dark.png">
+
+</div>
+
 ## ✨ 特性
 
 - 📦 一套开箱即用的优质 Qml 组件.

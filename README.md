@@ -22,6 +22,15 @@ English | [中文](./README-zh_CN.md)
 [issues-image]: https://flat.badgen.net/github/label-issues/mengps/DelegateUI/open
 [issues-url]: https://github.com/mengps/DelegateUI/issues
 
+<div align=center>
+
+## 🌈 Gallery Preview
+
+<img width=900 height=600 src="preview/light.png">
+<img width=900 height=600 src="preview/dark.png">
+
+</div>
+
 ## ✨ Features
 
 - 📦 A set of high-quality Qml components out of the box.
