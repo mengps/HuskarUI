@@ -29,6 +29,7 @@ enum class Component : uint16_t
     DelIconText,
     DelCaptionButton,
     DelTour,
+    DelMenu,
 
     Size
 };
@@ -38,7 +39,8 @@ static QHash<QString, Component> g_componentTable
     { "DelButton",        Component::DelButton        },
     { "DelIconText",      Component::DelIconText      },
     { "DelCaptionButton", Component::DelCaptionButton },
-    { "DelTour",          Component::DelTour          }
+    { "DelTour",          Component::DelTour          },
+    { "DelMenu",          Component::DelMenu          }
 };
 
 struct ThemeData

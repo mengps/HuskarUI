@@ -342,6 +342,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
         case Component::DelIconText: registerThemeComponent(q, component, &q->m_DelIconText, themePath, m_defaultTheme); break;
         case Component::DelCaptionButton: registerThemeComponent(q, component, &q->m_DelCaptionButton, themePath, m_defaultTheme); break;
         case Component::DelTour: registerThemeComponent(q, component, &q->m_DelTour, themePath, m_defaultTheme); break;
+        case Component::DelMenu: registerThemeComponent(q, component, &q->m_DelMenu, themePath, m_defaultTheme); break;
         default:
             break;
         }

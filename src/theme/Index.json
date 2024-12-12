@@ -106,6 +106,7 @@
         "DelButton": ":/DelegateUI/theme/DelButton.json",
         "DelCaptionButton": ":/DelegateUI/theme/DelCaptionButton.json",
         "DelTour": ":/DelegateUI/theme/DelTour.json",
-        "DelIconText": ":/DelegateUI/theme/DelIconText.json"
+        "DelIconText": ":/DelegateUI/theme/DelIconText.json",
+        "DelMenu": ":/DelegateUI/theme/DelMenu.json"
     }
 }

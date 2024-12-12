@@ -78,6 +78,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelCaptionButton.json
         theme/DelTour.json
         theme/DelIconText.json
+        theme/DelMenu.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
