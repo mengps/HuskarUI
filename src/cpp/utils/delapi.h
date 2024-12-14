@@ -21,6 +21,9 @@ public:
 
     Q_INVOKABLE void setWindowStaysOnTopHint(QWindow *window, bool hint);
 
+    Q_INVOKABLE QString getClipbordText();
+    Q_INVOKABLE void setClipbordText(const QString &text);
+
 private:
     explicit DelApi(QObject *parent = nullptr);
 };

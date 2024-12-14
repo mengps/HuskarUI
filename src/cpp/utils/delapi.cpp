@@ -1,5 +1,8 @@
 #include "delapi.h"
 
+#include <QClipboard>
+#include <QGuiApplication>
+
 #ifdef Q_OS_WIN
 #include <Windows.h>
 #endif
@@ -36,6 +39,16 @@ void DelApi::setWindowStaysOnTopHint(QWindow *window, bool hint)
         window()->setFlag(Qt::WindowStaysOnTopHint, hint);
 #endif
     }
+}
+
+QString DelApi::getClipbordText()
+{
+    return QGuiApplication::clipboard()->text();
+}
+
+void DelApi::setClipbordText(const QString &text)
+{
+    QGuiApplication::clipboard()->setText(text);
 }
 
 DelApi::DelApi(QObject *parent)
