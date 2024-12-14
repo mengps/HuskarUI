@@ -106,7 +106,7 @@ DelWindow {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            menuDefaultIconSize: 16
+            defaultIconSize: 16
             onClickMenu: function(deep, data) {
                 console.debug("onClickMenu", deep, JSON.stringify(data));
                 if (data && data.source) {
@@ -126,6 +126,10 @@ DelWindow {
                         {
                             title: qsTr("按钮"),
                             source: "./Examples/General/ExpButton.qml"
+                        },
+                        {
+                            title: qsTr("图标文本"),
+                            source: "./Examples/General/ExpIconText.qml"
                         }
                     ]
                 },
@@ -179,12 +183,18 @@ DelWindow {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.margins: 5
+            clip: true
 
             Loader {
                 id: containerLoader
                 anchors.fill: parent
-                opacity: status == Loader.Ready ? 1 : 0
-                Behavior on opacity { NumberAnimation { duration: DelTheme.Primary.durationMid } }
+
+                NumberAnimation on opacity {
+                    running: containerLoader.status == Loader.Ready
+                    from: 0
+                    to: 1
+                    duration: DelTheme.Primary.durationSlow
+                }
             }
         }
     }

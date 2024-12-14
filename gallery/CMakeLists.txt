@@ -17,8 +17,10 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataDisplay/ExpTourStep.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/General/ExpButton.qml
+        qml/Examples/General/ExpIconText.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Examples/Navigation/ExpMenu.qml
+        qml/Controls//CodeBox.qml
         qml/Gallery.qml
     SOURCES
         cpp/customtheme.h cpp/customtheme.cpp
