@@ -31,7 +31,6 @@ Rectangle {
             width: parent.width
             height: 25
             visible: false
-            titlePadding: 30
             title: qsTr("示例")
         }
 
@@ -44,7 +43,6 @@ Rectangle {
             id: descDivider
             width: parent.width
             height: 25
-            titlePadding: 30
             title: qsTr("说明")
         }
 
