@@ -3,7 +3,7 @@
     "colorTextDisabled": "@colorPrimaryTextDisabled",
     "colorText": "@colorTextBase",
     "colorTextActive": "@colorPrimaryTextHover",
-    "colorBgDisabled": "@colorPrimaryContainerBgDisabled",
+    "colorBgDisabled": "transparent",
     "colorBg": "$alpha(@colorPrimaryBase-3, 0)",
     "colorBgHover": "$alpha(@colorPrimaryBase-3, 0.1)",
     "colorBgActive": "$alpha(@colorPrimaryBase-3, 0.2)",
