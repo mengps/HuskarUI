@@ -42,6 +42,7 @@ DelButton {
                 id: __icon
                 anchors.verticalCenter: parent.verticalCenter
                 color: control.colorIcon
+                iconSize: control.iconSize
                 iconSource: control.iconSource
                 verticalAlignment: Text.AlignVCenter
 
