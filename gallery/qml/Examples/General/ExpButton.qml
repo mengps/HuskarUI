@@ -81,7 +81,7 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`enabled\` 属性启用或禁用按钮，禁用的按钮不会相应任何交互。\n
+通过 \`enabled\` 属性启用或禁用按钮，禁用的按钮不会响应任何交互。\n
                        `)
             code: `
                 import QtQuick
