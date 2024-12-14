@@ -55,9 +55,9 @@ T.Button {
                 }
             case DelButtonType.Type_Text:
                 if (DelTheme.isDark) {
-                    return control.down ? DelTheme.DelButton.colorFillBgHover:
-                                          control.hovered ? DelTheme.DelButton.colorFillBg :
-                                                            DelTheme.DelButton.colorBg;
+                    return control.down ? DelTheme.DelButton.colorFillDarkBgActive:
+                                          control.hovered ? DelTheme.DelButton.colorFillDarkBgHover :
+                                                            DelTheme.DelButton.colorTextBg;
                 } else {
                     return control.down ? DelTheme.DelButton.colorTextBgActive:
                                           control.hovered ? DelTheme.DelButton.colorTextBgHover :
