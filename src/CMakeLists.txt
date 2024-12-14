@@ -52,12 +52,14 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelCaptionBar.qml
         imports/DelegateUI/Controls/DelWindow.qml
         imports/DelegateUI/Controls/DelMenu.qml
+        imports/DelegateUI/Controls/DelDivider.qml
     SOURCES
         cpp/delglobal.h
         cpp/deldefinitions.h
         cpp/delapp.h cpp/delapp.cpp
         cpp/utils/delapi.h cpp/utils/delapi.cpp
         cpp/theme/deltheme.h cpp/theme/deltheme.cpp cpp/theme/deltheme_p.h
+        cpp/theme/delthemefunctions.h cpp/theme/delthemefunctions.cpp
         cpp/theme/delcolorgenerator.h cpp/theme/delcolorgenerator.cpp
         cpp/theme/delsystemthemehelper.h cpp/theme/delsystemthemehelper.cpp
         cpp/theme/delsizegenerator.h cpp/theme/delsizegenerator.cpp
@@ -79,6 +81,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelTour.json
         theme/DelIconText.json
         theme/DelMenu.json
+        theme/DelDivider.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"

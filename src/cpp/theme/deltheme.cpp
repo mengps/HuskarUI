@@ -1,6 +1,5 @@
 #include "deltheme_p.h"
-#include "delcolorgenerator.h"
-#include "delsizegenerator.h"
+#include "delthemefunctions.h"
 
 void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varName, const QString &expr)
 {
@@ -15,8 +14,6 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
         { "alpha", Function::Alpha },
         { "multiply", Function::Multiply }
     };
-
-    static int g_defaultFactor = 140;
 
     static QRegularExpression g_funcRegex("\\$([^)]+)\\(");
     static QRegularExpression g_argsRegex("\\(([^)]+)\\)");
@@ -33,7 +30,7 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                 QColor color(args);
                 if (color.isValid()) {
                     auto colorBgBase = m_indexVariableTable["colorBgBase"].value<QColor>();
-                    auto colors = DelColorGenerator::generate(args, !q->isDark(), colorBgBase);
+                    auto colors = DelThemeFunctions::genColor(args, !q->isDark(), colorBgBase);
                     if (q->isDark()) {
                         /*! 暗黑模式需要翻转色表 */
                         std::reverse(colors.begin(), colors.end());
@@ -52,7 +49,7 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                 bool ok = false;
                 auto base = args.toDouble(&ok);
                 if (ok) {
-                    const auto fontSizes = DelSizeGenerator::generateFontSize(base);
+                    const auto fontSizes = DelThemeFunctions::genFontSize(base);
                     for (int i = 0; i < fontSizes.length(); i++) {
                         auto genFontSize = fontSizes.at(i);
                         auto key = varName + "-" + QString::number(i + 1);
@@ -67,7 +64,7 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                 bool ok = false;
                 auto base = args.toDouble(&ok);
                 if (ok) {
-                    const auto fontLineHeights = DelSizeGenerator::generateFontLineHeight(base);
+                    const auto fontLineHeights = DelThemeFunctions::genFontLineHeight(base);
                     for (int i = 0; i < fontLineHeights.length(); i++) {
                         auto genFontLineHeight = fontLineHeights.at(i);
                         auto key = varName + "-" + QString::number(i + 1);
@@ -82,11 +79,11 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                 auto argList = args.split(',');
                 if (argList.length() == 1) {
                     auto arg1 = colorFromIndexTable(argList.at(0));
-                    out[varName] = arg1.darker(g_defaultFactor);
+                    out[varName] = DelThemeFunctions::darker(arg1);
                 } else if (argList.length() == 2) {
                     auto arg1 = colorFromIndexTable(argList.at(0));
                     auto arg2 = numberFromIndexTable(argList.at(1));
-                    out[varName] = arg1.darker(arg2);
+                    out[varName] = DelThemeFunctions::darker(arg1, arg2);
                 } else {
                     qDebug() << QString("func darker() only accepts 1/2 parameters:(%1)").arg(args);
                 }
@@ -96,11 +93,11 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                 auto argList = args.split(',');
                 if (argList.length() == 1) {
                     auto arg1 = colorFromIndexTable(argList.at(0));
-                    out[varName] = arg1.lighter(g_defaultFactor);
+                    out[varName] = DelThemeFunctions::lighter(arg1);
                 } else if (argList.length() == 2) {
                     auto arg1 = colorFromIndexTable(argList.at(0));
                     auto arg2 = numberFromIndexTable(argList.at(1));
-                    out[varName] = arg1.lighter(arg2);
+                    out[varName] = DelThemeFunctions::lighter(arg1, arg2);
                 } else {
                     qDebug() << QString("func lighter() only accepts 1/2 parameters:(%1)").arg(args);
                 }
@@ -110,13 +107,12 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                 auto argList = args.split(',');
                 if (argList.length() == 1) {
                     auto arg1 = colorFromIndexTable(argList.at(0));
-                    arg1.setAlphaF(0.5);
-                    out[varName] = arg1;
+                    out[varName] = DelThemeFunctions::alpha(arg1);
                 } else if (argList.length() == 2) {
                     auto arg1 = colorFromIndexTable(argList.at(0));
                     auto arg2 = numberFromIndexTable(argList.at(1));
                     arg1.setAlphaF(arg2);
-                    out[varName] = arg1;
+                    out[varName] = DelThemeFunctions::alpha(arg1, arg2);
                 } else {
                     qDebug() << QString("func alpha() only accepts 1/2 parameters:(%1)").arg(args);
                 }
@@ -127,7 +123,7 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                 if (argList.length() == 2) {
                     auto arg1 = numberFromIndexTable(argList.at(0));
                     auto arg2 = numberFromIndexTable(argList.at(1));
-                    out[varName] = arg1 * arg2;
+                    out[varName] = DelThemeFunctions::multiply(arg1, arg2);
                 } else {
                     qDebug() << QString("func multiply() only accepts 2 parameters:(%1)").arg(args);
                 }
@@ -343,6 +339,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
         case Component::DelCaptionButton: registerThemeComponent(q, component, &q->m_DelCaptionButton, themePath, m_defaultTheme); break;
         case Component::DelTour: registerThemeComponent(q, component, &q->m_DelTour, themePath, m_defaultTheme); break;
         case Component::DelMenu: registerThemeComponent(q, component, &q->m_DelMenu, themePath, m_defaultTheme); break;
+        case Component::DelDivider: registerThemeComponent(q, component, &q->m_DelDivider, themePath, m_defaultTheme); break;
         default:
             break;
         }
@@ -368,13 +365,13 @@ DelTheme *DelTheme::instance()
 {
     static DelTheme *theme = new DelTheme;
 
-    theme->reloadDefaultTheme();
-
     return theme;
 }
 
 DelTheme *DelTheme::create(QQmlEngine *, QJSEngine *)
 {
+    instance()->reloadDefaultTheme();
+
     return instance();
 }
 

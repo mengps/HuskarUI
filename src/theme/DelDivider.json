@@ -1,0 +1,7 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorText": "@colorTextBase",
+    "colorBg": "$alpha(@colorPrimaryBase-3, 0)",
+    "colorSplit": "$alpha(@colorTextBase, 0.2)"
+}

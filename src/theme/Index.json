@@ -107,6 +107,7 @@
         "DelCaptionButton": ":/DelegateUI/theme/DelCaptionButton.json",
         "DelTour": ":/DelegateUI/theme/DelTour.json",
         "DelIconText": ":/DelegateUI/theme/DelIconText.json",
-        "DelMenu": ":/DelegateUI/theme/DelMenu.json"
+        "DelMenu": ":/DelegateUI/theme/DelMenu.json",
+        "DelDivider": ":/DelegateUI/theme/DelDivider.json"
     }
 }
