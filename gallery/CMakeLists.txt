@@ -21,6 +21,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Theme/ExpTheme.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Controls//CodeBox.qml
+        qml/Controls/CodeRunner.qml
         qml/Gallery.qml
     SOURCES
         cpp/customtheme.h cpp/customtheme.cpp

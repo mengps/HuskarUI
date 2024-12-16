@@ -67,7 +67,7 @@ Rectangle {
                 spacing: 10
                 DelIconButton {
                     padding: 5
-                    iconSize: 18
+                    iconSize: DelTheme.Primary.fontPrimarySizeHeading4
                     iconSource: DelIcon.ColumnHeightOutlined
                     onClicked: {
                         codeText.expanded = !codeText.expanded;
@@ -75,10 +75,14 @@ Rectangle {
                 }
                 DelIconButton {
                     padding: 5
-                    iconSize: 18
+                    iconSize: DelTheme.Primary.fontPrimarySizeHeading4
                     iconSource: DelIcon.CodeOutlined
                     onClicked: {
-
+                        const component = Qt.createComponent("CodeRunner.qml", );
+                        if (component.status === Component.Ready) {
+                            let win = component.createObject();
+                            win.createQmlObject(code);
+                        }
                     }
                 }
             }
