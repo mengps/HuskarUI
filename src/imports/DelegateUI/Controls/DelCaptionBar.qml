@@ -25,12 +25,12 @@ Rectangle {
     property color winTitleColor: DelTheme.Primary.colorTextBase
     property alias winTitleVisible: __winTitleLoader.visible
 
-    property alias returnButtonVisible: __returnButton.visible
-    property alias themeButtonVisible: __themeButton.visible
-    property alias topButtonVisible: __topButton.visible
-    property alias minimizeButtonVisible: __minimizeButton.visible
-    property alias maximizeButtonVisible: __maximizeButton.visible
-    property alias closeButtonVisible: __closeButton.visible
+    property bool returnButtonVisible: false
+    property bool themeButtonVisible: false
+    property bool topButtonVisible: false
+    property bool minimizeButtonVisible: true
+    property bool maximizeButtonVisible: true
+    property bool closeButtonVisible: true
 
     property var returnCallback: ()=>{ }
     property var themeCallback: ()=>{ DelTheme.darkMode = DelTheme.isDark ? DelTheme.Light : DelTheme.Dark; }
@@ -58,6 +58,57 @@ Rectangle {
         color: winTitleColor
         font: winTitleFont
     }
+    property Component winButtonsDelegate: Row {
+        Connections {
+            target: control
+            function onWindowAgentChanged() {
+                if (windowAgent) {
+                    windowAgent.setSystemButton(WindowAgent.Minimize, __minimizeButton);
+                    windowAgent.setSystemButton(WindowAgent.Maximize, __maximizeButton);
+                    windowAgent.setSystemButton(WindowAgent.Close, __closeButton);
+                }
+            }
+        }
+
+        DelCaptionButton {
+            id: __themeButton
+            visible: control.themeButtonVisible
+            iconSource: DelTheme.isDark ? DelIcon.MoonOutlined : DelIcon.SunOutlined
+            iconSize: DelTheme.DelCaptionButton.fontSize + 2
+            onClicked: themeCallback();
+        }
+
+        DelCaptionButton {
+            id: __topButton
+            visible: control.topButtonVisible
+            iconSource: DelIcon.PushpinOutlined
+            iconSize: DelTheme.DelCaptionButton.fontSize + 2
+            checkable: true
+            onClicked: topCallback(checked);
+        }
+
+        DelCaptionButton {
+            id: __minimizeButton
+            visible: control.minimizeButtonVisible
+            iconSource: DelIcon.LineOutlined
+            onClicked: minimizeCallback();
+        }
+
+        DelCaptionButton {
+            id: __maximizeButton
+            visible: control.maximizeButtonVisible
+            iconSource: targetWindow.visibility === Window.Maximized ? DelIcon.SwitcherOutlined : DelIcon.BorderOutlined
+            onClicked: maximizeCallback();
+        }
+
+        DelCaptionButton {
+            id: __closeButton
+            visible: control.closeButtonVisible
+            iconSource: DelIcon.CloseOutlined
+            isError: true
+            onClicked: closeCallback();
+        }
+    }
 
     RowLayout {
         id: __row
@@ -68,7 +119,8 @@ Rectangle {
             id: __returnButton
             Layout.alignment: Qt.AlignVCenter
             iconSource: DelIcon.ArrowLeftOutlined
-            iconSize: 16
+            iconSize: DelTheme.DelCaptionButton.fontSize + 2
+            visible: control.returnButtonVisible
             onClicked: returnCallback();
         }
 
@@ -83,6 +135,8 @@ Rectangle {
 
             Row {
                 spacing: 10
+                anchors.left: parent.left
+                anchors.leftMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
 
                 Loader {
@@ -101,57 +155,11 @@ Rectangle {
             }
         }
 
-        DelCaptionButton {
-            id: __themeButton
+        Loader {
             Layout.alignment: Qt.AlignVCenter
-            visible: false
-            iconSource: DelTheme.isDark ? DelIcon.MoonOutlined : DelIcon.SunOutlined
-            iconSize: 16
-            onClicked: themeCallback();
-        }
-
-        DelCaptionButton {
-            id: __topButton
-            Layout.alignment: Qt.AlignVCenter
-            visible: false
-            iconSource: DelIcon.PushpinOutlined
-            iconSize: 16
-            checkable: true
-            onClicked: topCallback(checked);
-        }
-
-        DelCaptionButton {
-            id: __minimizeButton
-            Layout.alignment: Qt.AlignVCenter
-            iconSource: DelIcon.LineOutlined
-            onClicked: minimizeCallback();
-            Component.onCompleted: {
-                if (windowAgent)
-                    windowAgent.setSystemButton(WindowAgent.Minimize, __minimizeButton);
-            }
-        }
-
-        DelCaptionButton {
-            id: __maximizeButton
-            Layout.alignment: Qt.AlignVCenter
-            iconSource: targetWindow.visibility === Window.Maximized ? DelIcon.SwitcherOutlined : DelIcon.BorderOutlined
-            onClicked: maximizeCallback();
-            Component.onCompleted: {
-                if (windowAgent)
-                    windowAgent.setSystemButton(WindowAgent.Maximize, __maximizeButton);
-            }
-        }
-
-        DelCaptionButton {
-            id: __closeButton
-            Layout.alignment: Qt.AlignVCenter
-            iconSource: DelIcon.CloseOutlined
-            isError: true
-            onClicked: closeCallback();
-            Component.onCompleted: {
-                if (windowAgent)
-                    windowAgent.setSystemButton(WindowAgent.Close, __closeButton);
-            }
+            width: item ? item.width : 0
+            height: item ? item.height : 0
+            sourceComponent: winButtonsDelegate
         }
     }
 }
