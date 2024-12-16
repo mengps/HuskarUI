@@ -106,7 +106,7 @@ DelWindow {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            defaultIconSize: 16
+            defaultIconSize: DelTheme.Primary.fontPrimarySizeHeading5
             onClickMenu: function(deep, data) {
                 console.debug("onClickMenu", deep, JSON.stringify(data));
                 if (data && data.source) {
@@ -124,12 +124,22 @@ DelWindow {
                     iconSource: DelIcon.ProductOutlined,
                     menuChildren: [
                         {
-                            title: qsTr("按钮"),
+                            title: qsTr("DelButton 按钮"),
                             source: "./Examples/General/ExpButton.qml"
                         },
                         {
-                            title: qsTr("图标文本"),
+                            title: qsTr("DelIconText 图标文本"),
                             source: "./Examples/General/ExpIconText.qml"
+                        }
+                    ]
+                },
+                {
+                    title: qsTr("布局"),
+                    iconSource: DelIcon.ProductOutlined,
+                    menuChildren: [
+                        {
+                            title: qsTr("DelDivider 分割线"),
+                            source: "./Examples/General/ExpDivider.qml"
                         }
                     ]
                 },
@@ -138,7 +148,7 @@ DelWindow {
                     iconSource: DelIcon.SendOutlined,
                     menuChildren: [
                         {
-                            title: qsTr("菜单"),
+                            title: qsTr("DelMenu 菜单"),
                             source: "./Examples/Navigation/ExpMenu.qml",
                         }
                     ]
@@ -154,11 +164,7 @@ DelWindow {
                     iconSource: DelIcon.FundProjectionScreenOutlined,
                     menuChildren: [
                         {
-                            title: qsTr("漫游焦点"),
-                            source: "./Examples/DataDisplay/ExpTourFocus.qml",
-                        },
-                        {
-                            title: qsTr("漫游引导"),
+                            title: qsTr("DelTourStep 漫游式引导"),
                             source: "./Examples/DataDisplay/ExpTourStep.qml",
                         }
                     ]
@@ -168,7 +174,7 @@ DelWindow {
                     iconSource: DelIcon.SkinOutlined,
                     menuChildren: [
                         {
-                            title: qsTr("主题定制"),
+                            title: qsTr("DelTheme 主题定制"),
                             source: "./Examples/Theme/ExpTheme.qml",
                         }
                     ]
