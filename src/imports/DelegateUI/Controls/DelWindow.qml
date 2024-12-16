@@ -15,6 +15,7 @@ Window {
     Component.onCompleted: {
         windowAgent.setup(window);
         windowAgent.setWindowAttribute("dark-mode", DelTheme.isDark);
+        __captionBar.windowAgent = __windowAgent;
         initialized = true;
         window.visible = true;
     }
@@ -87,6 +88,5 @@ Window {
         width: parent.width
         height: 30
         targetWindow: window
-        windowAgent: __windowAgent
     }
 }
