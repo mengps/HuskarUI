@@ -24,6 +24,7 @@ Item {
     property color colorText: DelTheme.DelDivider.colorText
     property color colorSplit: DelTheme.DelDivider.colorSplit
     property int style: ShapePath.SolidLine
+    property int orientation: Qt.Horizontal
 
     property Component titleDelegate: Text {
         font: control.font
@@ -33,6 +34,7 @@ Item {
     property Component splitDelegate: Shape {
         id: __shape
 
+        property real lineX: __titleLoader.x + __titleLoader.implicitWidth * 0.5
         property real lineY: __titleLoader.y + __titleLoader.implicitHeight * 0.5
 
         ShapePath {
@@ -40,9 +42,18 @@ Item {
             strokeColor: control.colorSplit
             strokeWidth: 1
             fillColor: "transparent"
-            startX: 0
-            startY: __shape.lineY
-            PathLine { x: control.title == "" ? 0 : __titleLoader.x - 10; y: __shape.lineY }
+            startX: control.orientation == Qt.Horizontal ? 0 : __shape.lineX
+            startY: control.orientation == Qt.Horizontal ? __shape.lineY : 0
+            PathLine {
+                x: {
+                    if (control.orientation == Qt.Horizontal) {
+                        return control.title == "" ? 0 : __titleLoader.x - 10;
+                    } else {
+                        return __shape.lineX;
+                    }
+                }
+                y: control.orientation == Qt.Horizontal ? __shape.lineY : __titleLoader.y - 10
+            }
         }
 
         ShapePath {
@@ -50,9 +61,18 @@ Item {
             strokeColor: control.colorSplit
             strokeWidth: 1
             fillColor: "transparent"
-            startX: control.title == "" ? 0 : (__titleLoader.x + __titleLoader.implicitWidth + 10)
-            startY: __shape.lineY
-            PathLine { x: control.width; y: __shape.lineY }
+            startX: {
+                if (control.orientation == Qt.Horizontal) {
+                    return control.title == "" ? 0 : __titleLoader.x + __titleLoader.implicitWidth + 10;
+                } else {
+                    return __shape.lineX;
+                }
+            }
+            startY: control.orientation == Qt.Horizontal ? __shape.lineY : (__titleLoader.y + __titleLoader.implicitHeight + 10)
+            PathLine {
+                x: control.orientation == Qt.Horizontal ?  control.width : __shape.lineX
+                y: control.orientation == Qt.Horizontal ? __shape.lineY : control.height
+            }
         }
     }
 
@@ -67,12 +87,16 @@ Item {
     Loader {
         id: __titleLoader
         z: 1
-        anchors.left: control.titleAlign == DelDivider.Left ? parent.left : undefined
-        anchors.leftMargin: control.titleAlign == DelDivider.Left ? control.titlePadding : 0
-        anchors.right: control.titleAlign == DelDivider.Right ? parent.right : undefined
-        anchors.rightMargin: control.titleAlign == DelDivider.Right ? control.titlePadding : 0
-        anchors.horizontalCenter: control.titleAlign == DelDivider.Center ? parent.horizontalCenter : undefined
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.top: (control.orientation != Qt.Horizontal && control.titleAlign == DelDivider.Left) ? parent.top : undefined
+        anchors.topMargin: (control.orientation != Qt.Horizontal && control.titleAlign == DelDivider.Left) ? control.titlePadding : 0
+        anchors.bottom: (control.orientation != Qt.Horizontal && control.titleAlign == DelDivider.Right) ? parent.right : undefined
+        anchors.bottomMargin: (control.orientation != Qt.Horizontal && control.titleAlign == DelDivider.Right) ? control.titlePadding : 0
+        anchors.left: (control.orientation == Qt.Horizontal && control.titleAlign == DelDivider.Left) ? parent.left : undefined
+        anchors.leftMargin: (control.orientation == Qt.Horizontal && control.titleAlign == DelDivider.Left) ? control.titlePadding : 0
+        anchors.right: (control.orientation == Qt.Horizontal && control.titleAlign == DelDivider.Right) ? parent.right : undefined
+        anchors.rightMargin: (control.orientation == Qt.Horizontal && control.titleAlign == DelDivider.Right) ? control.titlePadding : 0
+        anchors.horizontalCenter: (control.orientation != Qt.Horizontal || control.titleAlign == DelDivider.Center) ? parent.horizontalCenter : undefined
+        anchors.verticalCenter: (control.orientation == Qt.Horizontal || control.titleAlign == DelDivider.Center) ? parent.verticalCenter : undefined
         sourceComponent: titleDelegate
     }
 }
