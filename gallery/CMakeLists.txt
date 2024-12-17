@@ -15,11 +15,11 @@ qt_add_qml_module(${PROJECT_NAME}
     RESOURCE_PREFIX "/"
     QML_FILES
         qml/Examples/DataDisplay/ExpTourStep.qml
-        qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/General/ExpButton.qml
         qml/Examples/General/ExpIconText.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Examples/Navigation/ExpMenu.qml
+        qml/Examples/Layout/ExpDivider.qml
         qml/Controls//CodeBox.qml
         qml/Controls/CodeRunner.qml
         qml/Gallery.qml

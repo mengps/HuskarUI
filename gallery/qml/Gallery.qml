@@ -139,7 +139,7 @@ DelWindow {
                     menuChildren: [
                         {
                             title: qsTr("DelDivider 分割线"),
-                            source: "./Examples/General/ExpDivider.qml"
+                            source: "./Examples/Layout/ExpDivider.qml"
                         }
                     ]
                 },
