@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Layouts
 import DelegateUI
 
 import "../../Controls"
@@ -15,7 +14,12 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`type\` 属性改变按钮样式，支持的样式：默认按钮{ Type_Default } | 线框按钮{ Type_Outlined } | 主要按钮{ Type_Primary } | 填充按钮{ Type_Filled } | 文本按钮{ Type_Text }。
+通过 \`type\` 属性改变按钮类型，支持的类型：\n
+- 默认按钮{ DelButtonType.Type_Default }\n
+- 线框按钮{ DelButtonType.Type_Outlined }\n
+- 主要按钮{ DelButtonType.Type_Primary }\n
+- 填充按钮{ DelButtonType.Type_Filled }\n
+- 文本按钮{ DelButtonType.Type_Text }。
                        `)
             code: `
                 import QtQuick
@@ -157,7 +161,9 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`shape\` 属性改变按钮形状，支持的形状：默认形状{ Shape_Default }、圆形{ Shape_Circle }。
+通过 \`shape\` 属性改变按钮形状，支持的形状：\n
+- 默认形状{ DelButtonType.Shape_Default }\n
+- 圆形{ DelButtonType.Shape_Circle }。
                        `)
             code: `
                 import QtQuick
@@ -233,7 +239,13 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-如果需要带图标的按钮，可以使用 \`DelIconButton\` 来创建，并且继承{ DelButton }中的属性，通过 \`iconSource\` 属性设置图标源{ DelIcon中定义 }。
+**DelIconButton 带图标的按钮**\n
+DelIconButton继承{ DelButton }中的属性\n
+通过 \`iconSource\` 属性设置图标源{ DelIcon中定义 }\n
+通过 \`iconSize\` 属性设置图标大小\n
+通过 \`iconPosition\` 属性设置图标位置，支持的位置有：\n
+- 图标处于开始位置(默认){ DelButtonType.Position_Start }\n
+- 图标处于结束位置{ DelButtonType.Position_End }。。
                        `)
             code: `
                 import QtQuick
