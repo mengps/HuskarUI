@@ -10,7 +10,6 @@ Item {
     property bool animationEnabled: DelTheme.animationEnabled
     property int defaultIconSize: DelTheme.DelMenu.fontSize
     property int defaultIconSpacing: 5
-    property int defaultIconPosition: DelButtonType.Position_Start
     property int defaultWidth: 300
     property int defaultHieght: 40
     property int defaultSpacing: 5
