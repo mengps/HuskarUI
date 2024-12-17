@@ -7,6 +7,6 @@ option(BUILD_DELEGATEUI_STATIC_LIBRARY "Build DelegateUI as a static library." O
 
 add_subdirectory(src)
 
-if (BUILD_DELEGATEUI_EXAMPLE)
+if (BUILD_DELEGATEUI_GALLERY)
     add_subdirectory(gallery)
 endif()
