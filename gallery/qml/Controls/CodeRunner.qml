@@ -44,6 +44,7 @@ DelWindow {
             if (created)
                 created.destroy();
             created = Qt.createQmlObject(codeEdit.text, runnerBlock);
+            created.parent = runnerBlock;
         } catch (error) {
             errorEdit.text = error.message;
         }
@@ -88,8 +89,9 @@ DelWindow {
             DelDivider {
                 id: divider1
                 width: parent.width
-                height: 1
+                height: 10
                 anchors.bottom: errorView.top
+                title: qsTr("错误")
             }
 
             ScrollView {
@@ -107,8 +109,8 @@ DelWindow {
                         family: DelTheme.Primary.fontPrimaryFamily
                         pixelSize: DelTheme.Primary.fontPrimarySize
                     }
-                    color: DelTheme.Primary.colorTextBase
-                    wrapMode: Text.WrapAnywhere
+                    color: DelTheme.Primary.colorError
+                    wrapMode: Text.WordWrap
                 }
             }
         }
@@ -119,7 +121,7 @@ DelWindow {
             height: parent.height
             anchors.left: codeBlock.right
             orientation: Qt.Vertical
-            titleAlign: DelDivider.Center
+            titleAlign: DelDividerType.Center
             titleDelegate: DelIconButton {
                 padding: 5
                 iconSize: DelTheme.Primary.fontPrimarySizeHeading4
