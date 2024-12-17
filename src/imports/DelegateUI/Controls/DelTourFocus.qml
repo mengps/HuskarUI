@@ -3,13 +3,11 @@ import QtQuick.Templates as T
 import DelegateUI
 
 T.Popup {
-    id: root
+    id: control
 
-    property Item currentTarget: null
+    property Item target: null
     property color overlayColor: DelTheme.DelTour.colorOverlay
     property real focusMargin: 5
-    property real focusWidth: currentTarget ? (currentTarget.width + focusMargin * 2) : 0
-    property real focusHeight: currentTarget ? (currentTarget.height + focusMargin * 2) : 0
 
     onAboutToShow: __private.recalcPosition();
 
@@ -17,11 +15,13 @@ T.Popup {
         id: __private
         property real focusX: 0
         property real focusY: 0
+        property real focusWidth: control.target ? (control.target.width + control.focusMargin * 2) : 0
+        property real focusHeight: control.target ? (control.target.height + control.focusMargin * 2) : 0
         function recalcPosition() {
-            if (!root.currentTarget) return;
-            const pos = root.currentTarget.mapToItem(null, 0, 0);
-            focusX = pos.x - root.focusMargin;
-            focusY = pos.y - root.focusMargin;
+            if (!control.target) return;
+            const pos = control.target.mapToItem(null, 0, 0);
+            focusX = pos.x - control.focusMargin;
+            focusY = pos.y - control.focusMargin;
         }
     }
 
@@ -36,9 +36,9 @@ T.Popup {
             layer.enabled: true
             layer.effect: ShaderEffect {
                 property real xMin: __private.focusX / source.width
-                property real xMax: (__private.focusX + focusWidth) / source.width
+                property real xMax: (__private.focusX + __private.focusWidth) / source.width
                 property real yMin: __private.focusY / source.height
-                property real yMax: (__private.focusY + focusHeight) / source.height
+                property real yMax: (__private.focusY + __private.focusHeight) / source.height
                 fragmentShader: "qrc:/DelegateUI/shaders/deltour.frag.qsb"
             }
         }
