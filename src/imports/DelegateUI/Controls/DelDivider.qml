@@ -5,12 +5,6 @@ import DelegateUI
 Item {
     id: control
 
-    enum Align {
-        Left = 0,
-        Center = 1,
-        Right = 2
-    }
-
     font {
         family: DelTheme.DelDivider.fontFamily
         pixelSize: DelTheme.DelDivider.fontSize
@@ -19,11 +13,11 @@ Item {
     property bool animationEnabled: DelTheme.animationEnabled
     property font font
     property string title: ""
-    property int titleAlign: DelDivider.Left
+    property int titleAlign: DelDividerType.Left
     property int titlePadding: 20
     property color colorText: DelTheme.DelDivider.colorText
     property color colorSplit: DelTheme.DelDivider.colorSplit
-    property int style: ShapePath.SolidLine
+    property int style: DelDividerType.SolidLine
     property int orientation: Qt.Horizontal
 
     property Component titleDelegate: Text {
@@ -38,7 +32,7 @@ Item {
         property real lineY: __titleLoader.y + __titleLoader.implicitHeight * 0.5
 
         ShapePath {
-            strokeStyle: control.style
+            strokeStyle: control.style == DelDividerType.SolidLine ? ShapePath.SolidLine : ShapePath.DashLine
             strokeColor: control.colorSplit
             strokeWidth: 1
             fillColor: "transparent"
@@ -57,7 +51,7 @@ Item {
         }
 
         ShapePath {
-            strokeStyle: control.style
+            strokeStyle: control.style == DelDividerType.SolidLine ? ShapePath.SolidLine : ShapePath.DashLine
             strokeColor: control.colorSplit
             strokeWidth: 1
             fillColor: "transparent"
@@ -87,16 +81,16 @@ Item {
     Loader {
         id: __titleLoader
         z: 1
-        anchors.top: (control.orientation != Qt.Horizontal && control.titleAlign == DelDivider.Left) ? parent.top : undefined
-        anchors.topMargin: (control.orientation != Qt.Horizontal && control.titleAlign == DelDivider.Left) ? control.titlePadding : 0
-        anchors.bottom: (control.orientation != Qt.Horizontal && control.titleAlign == DelDivider.Right) ? parent.right : undefined
-        anchors.bottomMargin: (control.orientation != Qt.Horizontal && control.titleAlign == DelDivider.Right) ? control.titlePadding : 0
-        anchors.left: (control.orientation == Qt.Horizontal && control.titleAlign == DelDivider.Left) ? parent.left : undefined
-        anchors.leftMargin: (control.orientation == Qt.Horizontal && control.titleAlign == DelDivider.Left) ? control.titlePadding : 0
-        anchors.right: (control.orientation == Qt.Horizontal && control.titleAlign == DelDivider.Right) ? parent.right : undefined
-        anchors.rightMargin: (control.orientation == Qt.Horizontal && control.titleAlign == DelDivider.Right) ? control.titlePadding : 0
-        anchors.horizontalCenter: (control.orientation != Qt.Horizontal || control.titleAlign == DelDivider.Center) ? parent.horizontalCenter : undefined
-        anchors.verticalCenter: (control.orientation == Qt.Horizontal || control.titleAlign == DelDivider.Center) ? parent.verticalCenter : undefined
+        anchors.top: (control.orientation != Qt.Horizontal && control.titleAlign == DelDividerType.Left) ? parent.top : undefined
+        anchors.topMargin: (control.orientation != Qt.Horizontal && control.titleAlign == DelDividerType.Left) ? control.titlePadding : 0
+        anchors.bottom: (control.orientation != Qt.Horizontal && control.titleAlign == DelDividerType.Right) ? parent.right : undefined
+        anchors.bottomMargin: (control.orientation != Qt.Horizontal && control.titleAlign == DelDividerType.Right) ? control.titlePadding : 0
+        anchors.left: (control.orientation == Qt.Horizontal && control.titleAlign == DelDividerType.Left) ? parent.left : undefined
+        anchors.leftMargin: (control.orientation == Qt.Horizontal && control.titleAlign == DelDividerType.Left) ? control.titlePadding : 0
+        anchors.right: (control.orientation == Qt.Horizontal && control.titleAlign == DelDividerType.Right) ? parent.right : undefined
+        anchors.rightMargin: (control.orientation == Qt.Horizontal && control.titleAlign == DelDividerType.Right) ? control.titlePadding : 0
+        anchors.horizontalCenter: (control.orientation != Qt.Horizontal || control.titleAlign == DelDividerType.Center) ? parent.horizontalCenter : undefined
+        anchors.verticalCenter: (control.orientation == Qt.Horizontal || control.titleAlign == DelDividerType.Center) ? parent.verticalCenter : undefined
         sourceComponent: titleDelegate
     }
 }
