@@ -20,6 +20,11 @@ Window {
         window.visible = true;
     }
 
+    function setCaptionMode(isDark) {
+        if (window.initialized)
+            windowAgent.setWindowAttribute("dark-mode", isDark);
+    }
+
     function setSpecialEffect(specialEffect) {
         /*! 仅支持Windows */
         if (Qt.platform.os !== "windows") return;
