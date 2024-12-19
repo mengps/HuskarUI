@@ -78,9 +78,9 @@ Rectangle {
                     iconSize: DelTheme.Primary.fontPrimarySizeHeading4
                     iconSource: DelIcon.CodeOutlined
                     onClicked: {
-                        const component = Qt.createComponent("CodeRunner.qml", );
+                        const component = Qt.createComponent("CodeRunner.qml");
                         if (component.status === Component.Ready) {
-                            let win = component.createObject();
+                            let win = component.createObject(root);
                             win.createQmlObject(code);
                         }
                     }
