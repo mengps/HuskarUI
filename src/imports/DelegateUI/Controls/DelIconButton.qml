@@ -25,7 +25,7 @@ DelButton {
             default: return DelTheme.DelButton.colorIcon;
             }
         } else {
-            return DelTheme.DelButton.coloTextDisabled;
+            return DelTheme.DelButton.colorTextDisabled;
         }
     }
     contentItem: Item {

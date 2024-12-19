@@ -23,7 +23,9 @@ T.Button {
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
                                                         DelTheme.DelButton.colorText;
             case DelButtonType.Type_Primary: return "white";
-            case DelButtonType.Type_Filled: return DelTheme.DelButton.colorText;
+            case DelButtonType.Type_Filled:
+            case DelButtonType.Type_Text:
+                return DelTheme.DelButton.colorText;
             default: return DelTheme.DelButton.colorText;
             }
         } else {
