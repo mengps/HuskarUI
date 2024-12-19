@@ -4,8 +4,8 @@
     "colorText": "@colorTextBase",
     "colorTextActive": "@colorPrimaryTextHover",
     "colorBgDisabled": "transparent",
-    "colorBg": "$alpha(@colorPrimaryBase-3, 0)",
-    "colorBgHover": "$alpha(@colorPrimaryBase-3, 0.1)",
-    "colorBgActive": "$alpha(@colorPrimaryBase-3, 0.2)",
+    "colorBg": "$alpha(@colorPrimaryBgActive, 0)",
+    "colorBgHover": "$alpha(@colorPrimaryBgActive, 0.1)",
+    "colorBgActive": "$alpha(@colorPrimaryBgActive, 0.2)",
     "colorEdge": "$alpha(@colorTextBase, 0.2)"
 }
