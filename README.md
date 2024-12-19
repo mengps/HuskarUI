@@ -3,7 +3,7 @@
 
 # 「 DelegateUI 」 Modern UI for Qml 
 
-Ant Design component library for Qt QML
+Ant Design component library for Qt Qml
 
 If you need Qt5 impl [DelegateUI for Qt5](https://github.com/mengps/QmlControls)
 

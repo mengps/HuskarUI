@@ -3,7 +3,7 @@
 
 # 「 DelegateUI 」 基于 Qml 的现代 UI
 
-Qt QML 的 Ant 设计组件库
+Qt Qml 的 Ant 设计组件库
 
 如果你需要 Qt5 实现 [DelegateUI for Qt5](https://github.com/mengps/QmlControls)
 
