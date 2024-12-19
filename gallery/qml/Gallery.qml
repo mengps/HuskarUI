@@ -66,8 +66,7 @@ DelWindow {
                 if (window.specialEffect === DelWindowSpecialEffect.None)
                     window.color = DelTheme.Primary.colorBgBase;
                 background.color = DelTheme.Primary.colorBgBase;
-                if (window.initialized)
-                    windowAgent.setWindowAttribute("dark-mode", DelTheme.isDark);
+                window.setCaptionMode(DelTheme.isDark);
             }
         }
 
@@ -83,8 +82,7 @@ DelWindow {
                 if (window.specialEffect === DelWindowSpecialEffect.None)
                     window.color = DelTheme.Primary.colorBgBase;
                 background.color = DelTheme.Primary.colorBgBase;
-                if (window.initialized)
-                    windowAgent.setWindowAttribute("dark-mode", DelTheme.isDark);
+                window.setCaptionMode(DelTheme.isDark);
             }
             onFinished: {
                 themeCircle.width = 0;
