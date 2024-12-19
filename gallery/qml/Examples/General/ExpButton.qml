@@ -19,7 +19,7 @@ Flickable {
 - 线框按钮{ DelButtonType.Type_Outlined }\n
 - 主要按钮{ DelButtonType.Type_Primary }\n
 - 填充按钮{ DelButtonType.Type_Filled }\n
-- 文本按钮{ DelButtonType.Type_Text }。
+- 文本按钮{ DelButtonType.Type_Text }
                        `)
             code: `
                 import QtQuick
@@ -163,7 +163,7 @@ Flickable {
             desc: qsTr(`
 通过 \`shape\` 属性改变按钮形状，支持的形状：\n
 - 默认形状{ DelButtonType.Shape_Default }\n
-- 圆形{ DelButtonType.Shape_Circle }。
+- 圆形{ DelButtonType.Shape_Circle }
                        `)
             code: `
                 import QtQuick
@@ -245,7 +245,7 @@ DelIconButton继承{ DelButton }中的属性\n
 通过 \`iconSize\` 属性设置图标大小\n
 通过 \`iconPosition\` 属性设置图标位置，支持的位置有：\n
 - 图标处于开始位置(默认){ DelButtonType.Position_Start }\n
-- 图标处于结束位置{ DelButtonType.Position_End }。。
+- 图标处于结束位置{ DelButtonType.Position_End }
                        `)
             code: `
                 import QtQuick
