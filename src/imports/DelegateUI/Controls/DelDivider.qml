@@ -19,7 +19,6 @@ Item {
     property color colorSplit: DelTheme.DelDivider.colorSplit
     property int style: DelDividerType.SolidLine
     property int orientation: Qt.Horizontal
-
     property Component titleDelegate: Text {
         font: control.font
         text: control.title
@@ -69,6 +68,7 @@ Item {
             }
         }
     }
+    property string contentDescription: title
 
     Behavior on colorSplit { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
     Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
@@ -93,4 +93,8 @@ Item {
         anchors.verticalCenter: (control.orientation == Qt.Horizontal || control.titleAlign == DelDividerType.Center) ? parent.verticalCenter : undefined
         sourceComponent: titleDelegate
     }
+
+    Accessible.role: Accessible.Separator
+    Accessible.name: control.title
+    Accessible.description: control.contentDescription
 }

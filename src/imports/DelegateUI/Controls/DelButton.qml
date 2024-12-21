@@ -88,7 +88,6 @@ T.Button {
             return DelTheme.DelButton.colorBorder;
         }
     }
-
     property string contentDescription: text
 
     width: implicitContentWidth + leftPadding + rightPadding
@@ -172,6 +171,6 @@ T.Button {
     }
     Accessible.role: Accessible.Button
     Accessible.name: control.text
-    Accessible.description: contentDescription
+    Accessible.description: control.contentDescription
     Accessible.onPressAction: control.clicked();
 }

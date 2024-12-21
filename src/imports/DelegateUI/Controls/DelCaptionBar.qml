@@ -25,6 +25,8 @@ Rectangle {
     property color winTitleColor: DelTheme.Primary.colorTextBase
     property alias winTitleVisible: __winTitleLoader.visible
 
+    property string contentDescription: targetWindow ? targetWindow.title : ""
+
     property bool returnButtonVisible: false
     property bool themeButtonVisible: false
     property bool topButtonVisible: false
@@ -76,6 +78,7 @@ Rectangle {
             iconSource: DelTheme.isDark ? DelIcon.MoonOutlined : DelIcon.SunOutlined
             iconSize: DelTheme.DelCaptionButton.fontSize + 2
             onClicked: themeCallback();
+            contentDescription: qsTr("明暗主题切换")
         }
 
         DelCaptionButton {
@@ -85,6 +88,7 @@ Rectangle {
             iconSize: DelTheme.DelCaptionButton.fontSize + 2
             checkable: true
             onClicked: topCallback(checked);
+            contentDescription: qsTr("置顶")
         }
 
         DelCaptionButton {
@@ -92,6 +96,7 @@ Rectangle {
             visible: control.minimizeButtonVisible
             iconSource: DelIcon.LineOutlined
             onClicked: minimizeCallback();
+            contentDescription: qsTr("最小化")
         }
 
         DelCaptionButton {
@@ -99,6 +104,7 @@ Rectangle {
             visible: control.maximizeButtonVisible
             iconSource: targetWindow.visibility === Window.Maximized ? DelIcon.SwitcherOutlined : DelIcon.BorderOutlined
             onClicked: maximizeCallback();
+            contentDescription: qsTr("最大化")
         }
 
         DelCaptionButton {
@@ -107,6 +113,7 @@ Rectangle {
             iconSource: DelIcon.CloseOutlined
             isError: true
             onClicked: closeCallback();
+            contentDescription: qsTr("关闭")
         }
     }
 
@@ -122,6 +129,7 @@ Rectangle {
             iconSize: DelTheme.DelCaptionButton.fontSize + 2
             visible: control.returnButtonVisible
             onClicked: returnCallback();
+            contentDescription: qsTr("返回")
         }
 
         Item {
@@ -162,4 +170,8 @@ Rectangle {
             sourceComponent: winButtonsDelegate
         }
     }
+
+    Accessible.role: Accessible.TitleBar
+    Accessible.name: control.contentDescription
+    Accessible.description: control.contentDescription
 }

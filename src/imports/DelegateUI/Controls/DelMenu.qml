@@ -8,12 +8,12 @@ Item {
 
     signal clickMenu(int deep, var data);
     property bool animationEnabled: DelTheme.animationEnabled
+    property string contentDescription: ""
     property int defaultIconSize: DelTheme.DelMenu.fontSize
     property int defaultIconSpacing: 5
     property int defaultWidth: 300
     property int defaultHieght: 40
     property int defaultSpacing: 5
-
     property var model: []
     property Component menuDelegate: Item {
         id: __rootItem
@@ -236,4 +236,7 @@ Item {
         delegate: menuDelegate
         property int menuDeep: 0
     }
+
+    Accessible.role: Accessible.Tree
+    Accessible.description: control.contentDescription
 }
