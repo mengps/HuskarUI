@@ -155,6 +155,10 @@ DelWindow {
                     title: qsTr("数据录入"),
                     iconSource: DelIcon.InsertRowBelowOutlined,
                     menuChildren: [
+                        {
+                            title: qsTr("DelSwitch 开关"),
+                            source: "./Examples/DataEnter/ExpSwitch.qml",
+                        }
                     ]
                 },
                 {

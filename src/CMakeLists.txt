@@ -24,7 +24,7 @@ set(DELEGATEUI_QML_OUTPUT_DIRECTORY "" CACHE PATH "DelegateUI plugin output dir.
 if(NOT DELEGATEUI_QML_OUTPUT_DIRECTORY)
     set(DELEGATEUI_QML_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/DelegateUI)
     if(BUILD_DELEGATEUI_STATIC_LIBRARY)
-        set(DELEGATEUI_QML_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/DelegateUI)
+        set(DELEGATEUI_QML_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../DelegateUI)
     endif()
 endif()
 
@@ -53,6 +53,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelWindow.qml
         imports/DelegateUI/Controls/DelMenu.qml
         imports/DelegateUI/Controls/DelDivider.qml
+        imports/DelegateUI/Controls/DelSwitch.qml
     SOURCES
         cpp/delglobal.h
         cpp/deldefinitions.h
@@ -82,6 +83,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelIconText.json
         theme/DelMenu.json
         theme/DelDivider.json
+        theme/DelSwitch.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
@@ -121,4 +123,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp/utils
 )
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/DelegateUI DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)
+install(DIRECTORY ${DELEGATEUI_QML_OUTPUT_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)

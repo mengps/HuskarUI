@@ -27,6 +27,7 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
     DEL_PROPERTY_READONLY(QVariantMap, DelTour);
     DEL_PROPERTY_READONLY(QVariantMap, DelMenu);
     DEL_PROPERTY_READONLY(QVariantMap, DelDivider);
+    DEL_PROPERTY_READONLY(QVariantMap, DelSwitch);
 
 public:
     enum class DarkMode {

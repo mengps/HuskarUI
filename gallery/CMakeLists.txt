@@ -14,12 +14,13 @@ qt_add_qml_module(${PROJECT_NAME}
     VERSION 1.0
     RESOURCE_PREFIX "/"
     QML_FILES
-        qml/Examples/DataDisplay/ExpTourStep.qml
         qml/Examples/General/ExpButton.qml
         qml/Examples/General/ExpIconText.qml
-        qml/Examples/Theme/ExpTheme.qml
+        qml/Examples/DataEnter/ExpSwitch.qml
+        qml/Examples/DataDisplay/ExpTourStep.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Layout/ExpDivider.qml
+        qml/Examples/Theme/ExpTheme.qml
         qml/Controls//CodeBox.qml
         qml/Controls/CodeRunner.qml
         qml/Gallery.qml
