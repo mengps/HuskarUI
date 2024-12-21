@@ -12,6 +12,29 @@
         "fontLineHeightBase": "$genFontLineHeight(16)"
     },
     "primaryColorStyle": {
+        "colorText": "$alpha(@colorTextBase, 0.88)",
+        "colorTextSecondary": "$alpha(@colorTextBase, 0.65)",
+        "colorTextTertiary": "$alpha(@colorTextBase, 0.45)",
+        "colorTextQuaternary": "$alpha(@colorTextBase, 0.25)",
+
+        "colorFill": "$alpha(@colorTextBase, 0.15)",
+        "colorFillSecondary": "$alpha(@colorTextBase, 0.06)",
+        "colorFillTertiary": "$alpha(@colorTextBase, 0.04)",
+        "colorFillQuaternary": "$alpha(@colorTextBase, 0.02)",
+
+        "colorBgSolid": "$alpha(@colorTextBase, 1)",
+        "colorBgSolidHover": "$alpha(@colorTextBase, 0.75)",
+        "colorBgSolidActive": "$alpha(@colorTextBase, 0.95)",
+
+        "colorBgLayout": "$darker(@colorBgBase)",
+        "colorBgContainer": "$darker(@colorBgBase, 0)",
+        "colorBgElevated": "$darker(@colorBgBase, 0)",
+        "colorBgSpotlight": "$alpha(@colorTextBase, 0.85)",
+        "colorBgBlur": "transparent",
+
+        "colorBorder": "$darker(@colorBgBase)",
+        "colorBorderSecondary": "$darker(@colorBgBase)",
+
         "colorPrimaryBg": "@colorPrimaryBase-1",
         "colorPrimaryBgHover": "@colorPrimaryBase-2",
         "colorPrimaryBgActive": "@colorPrimaryBase-3",
@@ -108,6 +131,7 @@
         "DelTour": ":/DelegateUI/theme/DelTour.json",
         "DelIconText": ":/DelegateUI/theme/DelIconText.json",
         "DelMenu": ":/DelegateUI/theme/DelMenu.json",
-        "DelDivider": ":/DelegateUI/theme/DelDivider.json"
+        "DelDivider": ":/DelegateUI/theme/DelDivider.json",
+        "DelSwitch": ":/DelegateUI/theme/DelSwitch.json"
     }
 }
