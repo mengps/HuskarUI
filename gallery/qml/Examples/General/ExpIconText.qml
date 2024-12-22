@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import DelegateUI
 
+import "../../Controls"
+
 Item {
 
     Component.onCompleted: {
@@ -14,11 +16,34 @@ Item {
         }
     }
 
+    Description {
+        id: description
+        desc: qsTr(`
+## DelIconText 图标文本\n
+使用开关切换两种状态之间。\n
+* **继承自 { Text }**\n
+支持的代理：\n
+- 无\n
+支持的属性：\n
+属性名 | 类型 | 描述
+------ | --- | ---
+iconSource | int | 图标源(来自 DelIcon)
+iconSize | int | 图标大小
+colorIcon | color | 图标颜色
+contentDescription | string | 内容描述(提高可用性)
+                   `)
+    }
+
     GridView {
         id: gridView
-        anchors.fill: parent
-        cellWidth: Math.floor(width / 6)
-        cellHeight: 100
+        anchors.top: description.bottom
+        anchors.topMargin: 10
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        cellWidth: Math.floor(width / 8)
+        cellHeight: 110
+        clip: true
         model: ListModel { id: listModel }
         delegate: Item {
             id: rootItem
@@ -72,7 +97,7 @@ Item {
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
                         text: rootItem.iconName
-                        color: icon.iconColor
+                        color: icon.colorIcon
                         wrapMode: Text.WrapAnywhere
                     }
                 }

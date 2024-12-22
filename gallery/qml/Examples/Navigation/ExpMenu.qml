@@ -11,10 +11,45 @@ Flickable {
         width: parent.width
         spacing: 30
 
+        Description {
+            desc: qsTr(`
+## DelMenu 菜单\n
+为页面和功能提供导航的菜单列表。\n
+* **继承自 { Item }**\n
+支持的代理：\n
+- **menuDelegate: Component** 菜单项代理\n
+支持的属性：\n
+属性名 | 类型 | 描述
+------ | --- | ---
+animationEnabled | bool | 是否开启动画(默认true)
+contentDescription | string | 内容描述(提高可用性)
+defaultIconSize | int | 默认图标大小
+defaultIconSpacing | int | 默认图标间隔
+defaultHieght | int | 默认高度
+defaultSpacing | int | 默认间隔
+model | list | 菜单模型
+\n支持的信号：\n
+- \`clickMenu(deep: int, menuData: Object)\` 点击任意菜单项时发出\n
+  - \`deep\` 菜单项深度\n
+  - \`menuData\` 菜单项数据\n
+                       `)
+        }
+
+        Text {
+            width: parent.width - 20
+            height: implicitHeight - 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("代码演示")
+            font {
+                family: DelTheme.Primary.fontPrimaryFamily
+                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
+            }
+            color: DelTheme.Primary.colorTextBase
+        }
+
         CodeBox {
             width: parent.width
             desc: qsTr(`
-支持的属性：\n
 通过 \`model\` 属性设置菜单模型{需为list}，菜单项支持的属性有：\n
 - { title: 标题 }\n
 - { height: 本菜单项高度 }\n

@@ -11,10 +11,45 @@ Flickable {
         width: parent.width
         spacing: 30
 
+        Description {
+            desc: qsTr(`
+## DelDivider 分割线\n
+区隔内容的分割线。\n
+* **继承自 { Item }**\n
+支持的代理：\n
+- **titleDelegate: Component** 标题代理\n
+- **splitDelegate: Component** 分割线代理\n
+支持的属性：\n
+属性名 | 类型 | 描述
+------ | --- | ---
+animationEnabled | bool | 是否开启动画(默认true)
+title | string | 标题
+titleFont | font | 标题字体
+titleAlign | int | 标题对齐(来自 DelDividerType)
+titlePadding | int | 标题填充
+colorText | color | 标题颜色
+colorSplit | color | 分割线颜色
+contentDescription | string | 内容描述(提高可用性)
+style | int | 分割线样式(来自 DelDividerType)
+orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
+                       `)
+        }
+
+        Text {
+            width: parent.width - 20
+            height: implicitHeight - 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("代码演示")
+            font {
+                family: DelTheme.Primary.fontPrimaryFamily
+                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
+            }
+            color: DelTheme.Primary.colorTextBase
+        }
+
         CodeBox {
             width: parent.width
             desc: qsTr(`
-支持的属性：\n
 通过 \`title\` 属性改变标题文字\n
 通过 \`titleAlign\` 属性改变标题对齐，支持的对齐：\n
 - 居左(默认){ DelDividerType.Left }\n

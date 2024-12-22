@@ -11,84 +11,58 @@ Flickable {
         width: parent.width
         spacing: 30
 
-        CodeBox {
-            width: parent.width
+        Description {
             desc: qsTr(`
-**DelTourFocus 漫游焦点**\n
+## DelTourStep 漫游式引导\n
+用于分步引导用户了解产品功能的气泡组件。\n
+* **继承自 { Popup }**\n
+支持的代理：\n
+- **arrowDelegate: Component** 步骤箭头代理\n
+- **stepCardDelegate: Component** 步骤卡片代理\n
+- **indicatorDelegate: Component** 步骤指示器代理\n
 支持的属性：\n
-通过 \`target\` 属性设置焦点目标\n
-通过 \`overlayColor\` 属性设置覆盖层颜色\n
-通过 \`focusMargin\` 属性设置焦点边距\n
+属性名 | 类型 | 描述
+------ | --- | ---
+animationEnabled | bool | 是否开启动画(默认true)
+stepModel | list | 步骤模型
+currentTarget | Item | 当前步骤目标
+currentStep | int | 当前步数
+overlayColor | color | 覆盖层颜色
+showArrow | bool |  是否显示箭头(默认true)
+arrowWidth | int | 箭头宽度
+arrowHeight | int | 箭头高度
+stepCardWidth | int | 步骤卡片宽度
+radiusStepCard | int | 步骤默认卡片半径
+colorStepCard | color | 步骤默认卡片颜色
+stepTitleFont | font | 步骤默认标题字体
+colorStepTitle | color | 步骤默认标题颜色
+stepDescriptionFont | font | 步骤默认描述字体
+colorStepDescription | color | 步骤默认描述颜色
+indicatorFont | font | 步骤默认指示器字体
+colorIndicator | color | 步骤默认指示器颜色
+buttonFont | font | 步骤默认按钮字体
+\n支持的函数：\n
+- \`resetStep()\` 重置步骤\n
+- \`appendStep(object: Object)\` 添加步骤\n
+  - \`object\` 步骤对象\n
                        `)
-            code: `
-                import QtQuick
-                import DelegateUI
+        }
 
-                Column {
-                    spacing: 10
-
-                    DelButton {
-                        text: qsTr("漫游焦点")
-                        type: DelButtonType.Type_Primary
-                        onClicked: {
-                            tourFocus.open();
-                        }
-
-                        DelTourFocus {
-                            id: tourFocus
-                            target: tourFocus1
-                        }
-                    }
-
-                    Row {
-                        spacing: 10
-
-                        DelButton {
-                            id: tourFocus1
-                            text: qsTr("漫游焦点1")
-                            type: DelButtonType.Type_Outlined
-                        }
-                    }
-                }
-            `
-            exampleDelegate: Column {
-                spacing: 10
-
-                DelButton {
-                    text: qsTr("漫游焦点")
-                    type: DelButtonType.Type_Primary
-                    onClicked: {
-                        tourFocus.open();
-                    }
-
-                    DelTourFocus {
-                        id: tourFocus
-                        target: tourFocus1
-                    }
-                }
-
-                Row {
-                    spacing: 10
-
-                    DelButton {
-                        id: tourFocus1
-                        text: qsTr("漫游焦点1")
-                        type: DelButtonType.Type_Outlined
-                    }
-                }
+        Text {
+            width: parent.width - 20
+            height: implicitHeight - 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("代码演示")
+            font {
+                family: DelTheme.Primary.fontPrimaryFamily
+                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
             }
+            color: DelTheme.Primary.colorTextBase
         }
 
         CodeBox {
             width: parent.width
             desc: qsTr(`
-**DelTourStep 漫游步骤**\n
- \n
-支持的代理：\n
-**arrowDelegate: Component** 步骤箭头代理\n
-**stepCardDelegate: Component** 步骤卡片代理\n
-**indicatorDelegate: Component** 步骤指示器代理\n
-支持的属性：\n
 通过 \`currentTarget\` 属性获取当前步骤目标\n
 通过 \`currentStep\` 属性获取当前步数\n
 通过 \`overlayColor\` 属性设置覆盖层颜色\n

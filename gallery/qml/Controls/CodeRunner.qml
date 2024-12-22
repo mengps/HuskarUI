@@ -15,13 +15,13 @@ DelWindow {
     captionBar.winIconDelegate: Item {
         DelIconText {
             iconSize: 22
-            iconColor: "#C44545"
+            colorIcon: "#C44545"
             font.bold: true
             iconSource: DelIcon.DelegateUIPath1
         }
         DelIconText {
             iconSize: 22
-            iconColor: "#C44545"
+            colorIcon: "#C44545"
             font.bold: true
             iconSource: DelIcon.DelegateUIPath2
         }

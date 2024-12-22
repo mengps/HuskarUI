@@ -11,6 +11,40 @@ Flickable {
         width: parent.width
         spacing: 30
 
+        Description {
+            desc: qsTr(`
+## DelButton 按钮\n
+按钮用于开始一个即时操作。\n
+* **继承自 { Button }**\n
+支持的代理：\n
+- 无\n
+支持的属性：\n
+属性名 | 类型 | 描述
+------ | --- | ---
+animationEnabled | bool | 是否开启动画(默认true)
+effectEnabled | bool | 是否开启点击效果(默认true)
+type | int | 按钮类型(来自 DelButtonType)
+shape | int | 按钮形状(来自 DelButtonType)
+radiusBg | int | 背景半径
+colorText | color | 文本颜色
+colorBg | color | 背景颜色
+colorBorder | color | 边框颜色
+contentDescription | string | 内容描述(提高可用性)
+                       `)
+        }
+
+        Text {
+            width: parent.width - 20
+            height: implicitHeight - 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("代码演示")
+            font {
+                family: DelTheme.Primary.fontPrimaryFamily
+                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
+            }
+            color: DelTheme.Primary.colorTextBase
+        }
+
         CodeBox {
             width: parent.width
             desc: qsTr(`
@@ -232,86 +266,6 @@ Flickable {
                     text: qsTr("A")
                     type: DelButtonType.Type_Text
                     shape: DelButtonType.Shape_Circle
-                }
-            }
-        }
-
-        CodeBox {
-            width: parent.width
-            desc: qsTr(`
-**DelIconButton 带图标的按钮**\n
-DelIconButton继承{ DelButton }中的属性\n
-通过 \`iconSource\` 属性设置图标源{ DelIcon中定义 }\n
-通过 \`iconSize\` 属性设置图标大小\n
-通过 \`iconPosition\` 属性设置图标位置，支持的位置有：\n
-- 图标处于开始位置(默认){ DelButtonType.Position_Start }\n
-- 图标处于结束位置{ DelButtonType.Position_End }
-                       `)
-            code: `
-                import QtQuick
-                import DelegateUI
-
-                Row {
-                    spacing: 15
-
-                    DelIconButton {
-                        text: qsTr("搜索")
-                        iconSource: DelIcon.SearchOutlined
-                    }
-
-                    DelIconButton {
-                        text: qsTr("搜索")
-                        type: DelButtonType.Type_Outlined
-                        iconSource: DelIcon.SearchOutlined
-                    }
-
-                    DelIconButton {
-                        type: DelButtonType.Type_Primary
-                        iconSource: DelIcon.SearchOutlined
-                    }
-
-                    DelIconButton {
-                        text: qsTr("搜索")
-                        type: DelButtonType.Type_Filled
-                        iconSource: DelIcon.SearchOutlined
-                    }
-
-                    DelIconButton {
-                        text: qsTr("搜索")
-                        type: DelButtonType.Type_Text
-                        iconSource: DelIcon.SearchOutlined
-                    }
-                }
-            `
-            exampleDelegate: Row {
-                spacing: 15
-
-                DelIconButton {
-                    text: qsTr("搜索")
-                    iconSource: DelIcon.SearchOutlined
-                }
-
-                DelIconButton {
-                    text: qsTr("搜索")
-                    type: DelButtonType.Type_Outlined
-                    iconSource: DelIcon.SearchOutlined
-                }
-
-                DelIconButton {
-                    type: DelButtonType.Type_Primary
-                    iconSource: DelIcon.SearchOutlined
-                }
-
-                DelIconButton {
-                    text: qsTr("搜索")
-                    type: DelButtonType.Type_Filled
-                    iconSource: DelIcon.SearchOutlined
-                }
-
-                DelIconButton {
-                    text: qsTr("搜索")
-                    type: DelButtonType.Type_Text
-                    iconSource: DelIcon.SearchOutlined
                 }
             }
         }
