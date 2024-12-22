@@ -65,6 +65,7 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/theme/delsystemthemehelper.h cpp/theme/delsystemthemehelper.cpp
         cpp/theme/delsizegenerator.h cpp/theme/delsizegenerator.cpp
         cpp/controls/deliconfont.h cpp/controls/deliconfont.cpp
+        cpp/controls/delwindowagent.h cpp/controls/delwindowagent.cpp
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
