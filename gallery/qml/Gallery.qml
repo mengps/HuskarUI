@@ -18,13 +18,13 @@ DelWindow {
     captionBar.winIconDelegate: Item {
         DelIconText {
             iconSize: 22
-            iconColor: "#C44545"
+            colorIcon: "#C44545"
             font.bold: true
             iconSource: DelIcon.DelegateUIPath1
         }
         DelIconText {
             iconSize: 22
-            iconColor: "#C44545"
+            colorIcon: "#C44545"
             font.bold: true
             iconSource: DelIcon.DelegateUIPath2
         }
@@ -38,6 +38,7 @@ DelWindow {
     Rectangle {
         id: background
         anchors.fill: content
+        opacity: 0
     }
 
     Rectangle {
@@ -58,7 +59,10 @@ DelWindow {
             from: 0
             to: themeCircle.r * 2
             duration: DelTheme.Primary.durationMid
-            onStarted: themeCircle.visible = true;
+            onStarted: {
+                window.setCaptionBarMode(true);
+                themeCircle.visible = true;
+            }
             onFinished: {
                 themeCircle.visible = false;
                 themeCircle.width = Qt.binding(()=>themeCircle.r * 2);
@@ -66,7 +70,6 @@ DelWindow {
                 if (window.specialEffect === DelWindowSpecialEffect.None)
                     window.color = DelTheme.Primary.colorBgBase;
                 background.color = DelTheme.Primary.colorBgBase;
-                window.setCaptionMode(DelTheme.isDark);
             }
         }
 
@@ -78,11 +81,11 @@ DelWindow {
             to: 0
             duration: DelTheme.Primary.durationMid
             onStarted: {
+                window.setCaptionBarMode(false);
                 themeCircle.visible = true;
                 if (window.specialEffect === DelWindowSpecialEffect.None)
                     window.color = DelTheme.Primary.colorBgBase;
                 background.color = DelTheme.Primary.colorBgBase;
-                window.setCaptionMode(DelTheme.isDark);
             }
             onFinished: {
                 themeCircle.width = 0;
@@ -108,14 +111,20 @@ DelWindow {
             onClickMenu: function(deep, data) {
                 console.debug("onClickMenu", deep, JSON.stringify(data));
                 if (data && data.source) {
+                    containerLoader.visible = true;
+                    themeLoader.visible = false;
                     containerLoader.source = "";
                     containerLoader.source = data.source;
+                } else if (data && data.isTheme) {
+                    containerLoader.visible = false;
+                    themeLoader.visible = true;
                 }
             }
             model: [
                 {
                     title: qsTr("首页"),
-                    iconSource: DelIcon.HomeOutlined
+                    iconSource: DelIcon.HomeOutlined,
+                    source: "./HomePage.qml"
                 },
                 {
                     title: qsTr("通用"),
@@ -126,6 +135,10 @@ DelWindow {
                             source: "./Examples/General/ExpButton.qml"
                         },
                         {
+                            title: qsTr("DelIconButton 图标按钮"),
+                            source: "./Examples/General/ExpIconButton.qml"
+                        },
+                        {
                             title: qsTr("DelIconText 图标文本"),
                             source: "./Examples/General/ExpIconText.qml"
                         }
@@ -133,7 +146,7 @@ DelWindow {
                 },
                 {
                     title: qsTr("布局"),
-                    iconSource: DelIcon.ProductOutlined,
+                    iconSource: DelIcon.BarsOutlined,
                     menuChildren: [
                         {
                             title: qsTr("DelDivider 分割线"),
@@ -157,7 +170,7 @@ DelWindow {
                     menuChildren: [
                         {
                             title: qsTr("DelSwitch 开关"),
-                            source: "./Examples/DataEnter/ExpSwitch.qml",
+                            source: "./Examples/DataEntry/ExpSwitch.qml",
                         }
                     ]
                 },
@@ -165,6 +178,10 @@ DelWindow {
                     title: qsTr("数据展示"),
                     iconSource: DelIcon.FundProjectionScreenOutlined,
                     menuChildren: [
+                        {
+                            title: qsTr("DelTourFocus 漫游焦点"),
+                            source: "./Examples/DataDisplay/ExpTourFocus.qml",
+                        },
                         {
                             title: qsTr("DelTourStep 漫游式引导"),
                             source: "./Examples/DataDisplay/ExpTourStep.qml",
@@ -177,7 +194,7 @@ DelWindow {
                     menuChildren: [
                         {
                             title: qsTr("DelTheme 主题定制"),
-                            source: "./Examples/Theme/ExpTheme.qml",
+                            isTheme: true
                         }
                     ]
                 }
@@ -199,6 +216,19 @@ DelWindow {
 
                 NumberAnimation on opacity {
                     running: containerLoader.status == Loader.Ready
+                    from: 0
+                    to: 1
+                    duration: DelTheme.Primary.durationSlow
+                }
+            }
+
+            Loader {
+                id: themeLoader
+                anchors.fill: parent
+                source: "./Examples/Theme/ExpTheme.qml"
+                visible: false
+
+                NumberAnimation on opacity {
                     from: 0
                     to: 1
                     duration: DelTheme.Primary.durationSlow

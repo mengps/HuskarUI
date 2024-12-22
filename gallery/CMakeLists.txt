@@ -15,15 +15,19 @@ qt_add_qml_module(${PROJECT_NAME}
     RESOURCE_PREFIX "/"
     QML_FILES
         qml/Examples/General/ExpButton.qml
+        qml/Examples/General/ExpIconButton.qml
         qml/Examples/General/ExpIconText.qml
-        qml/Examples/DataEnter/ExpSwitch.qml
+        qml/Examples/DataEntry/ExpSwitch.qml
+        qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Layout/ExpDivider.qml
         qml/Examples/Theme/ExpTheme.qml
-        qml/Controls//CodeBox.qml
+        qml/Controls/CodeBox.qml
+        qml/Controls/Description.qml
         qml/Controls/CodeRunner.qml
         qml/Gallery.qml
+        qml/HomePage.qml
     SOURCES
         cpp/customtheme.h cpp/customtheme.cpp
         cpp/main.cpp
