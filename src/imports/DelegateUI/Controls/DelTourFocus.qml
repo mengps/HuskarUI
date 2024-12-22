@@ -6,7 +6,7 @@ T.Popup {
     id: control
 
     property Item target: null
-    property color overlayColor: DelTheme.DelTour.colorOverlay
+    property color colorOverlay: DelTheme.DelTour.colorOverlay
     property real focusMargin: 5
 
     onAboutToShow: __private.recalcPosition();
@@ -31,7 +31,7 @@ T.Popup {
 
         Rectangle {
             id: source
-            color: overlayColor
+            color: control.colorOverlay
             anchors.fill: parent
             layer.enabled: true
             layer.effect: ShaderEffect {

@@ -6,7 +6,7 @@ Text {
 
     property int iconSource: 0
     property alias iconSize: control.font.pixelSize
-    property alias iconColor: control.color
+    property alias colorIcon: control.color
     property string contentDescription: text
 
     text: String.fromCharCode(iconSource)

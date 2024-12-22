@@ -13,6 +13,7 @@ T.Switch {
     property int checkedIconSource: 0
     property int uncheckedIconSource: 0
     property string contentDescription: ""
+    property int radiusBg: __bg.height * 0.5
     property color colorHandle: DelTheme.DelSwitch.colorHandle
     property color colorBg: {
         if (!enabled)
@@ -26,6 +27,27 @@ T.Switch {
             return control.down ? DelTheme.DelSwitch.colorBgActive :
                                   control.hovered ? DelTheme.DelSwitch.colorBgHover :
                                                     DelTheme.DelSwitch.colorBg;
+    }
+    property Component handleDelegate: Rectangle {
+        radius: height * 0.5
+        color: control.colorHandle
+
+        DelIconText {
+            anchors.centerIn: parent
+            iconSize: parent.height - 4
+            iconSource: DelIcon.LoadingOutlined
+            colorIcon: control.colorBg
+            visible: control.loading
+            transformOrigin: Item.Center
+
+            NumberAnimation on rotation {
+                running: control.loading
+                from: 0
+                to: 360
+                loops: Animation.Infinite
+                duration: 1000
+            }
+        }
     }
 
     width: implicitIndicatorWidth + leftPadding + rightPadding
@@ -84,7 +106,7 @@ T.Switch {
             width: Math.max(Math.max(checkedWidth, uncheckedWidth) + __handle.width, height * 2)
             height: Math.max(Math.max(checkedHeight, uncheckedHeight), 22)
             anchors.centerIn: parent
-            radius: height * 0.5
+            radius: control.radiusBg
             color: control.colorBg
             clip: true
 
@@ -97,7 +119,7 @@ T.Switch {
 
             Text {
                 id: __checkedText
-                width: text.length === 0 ? 0 : implicitWidth + 8
+                width: text.length === 0 ? 0 : Math.max(implicitWidth + 8, __uncheckedText.implicitWidth + 8)
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: __handle.left
                 font: control.font
@@ -109,7 +131,7 @@ T.Switch {
 
             Text {
                 id: __uncheckedText
-                width: text.length === 0 ? 0 : implicitWidth + 8
+                width: text.length === 0 ? 0 : Math.max(implicitWidth + 8, __checkedText.implicitWidth + 8)
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: __handle.right
                 font: control.font
@@ -126,7 +148,7 @@ T.Switch {
                 anchors.right: __handle.left
                 iconSize: control.font.pixelSize
                 iconSource: control.checkedIconSource
-                iconColor: control.colorHandle
+                colorIcon: control.colorHandle
                 horizontalAlignment: Text.AlignHCenter
                 visible: iconSource != 0
             }
@@ -138,38 +160,20 @@ T.Switch {
                 anchors.left: __handle.right
                 iconSize: control.font.pixelSize
                 iconSource: control.uncheckedIconSource
-                iconColor: control.colorHandle
+                colorIcon: control.colorHandle
                 horizontalAlignment: Text.AlignHCenter
                 visible: iconSource != 0
             }
 
-            Rectangle {
+            Loader {
                 id: __handle
                 x: control.checked ? (parent.width - width - 2) : 2
                 width: height
                 height: parent.height - 4
                 anchors.verticalCenter: parent.verticalCenter
-                radius: height * 0.5
-                color: control.colorHandle
+                sourceComponent: handleDelegate
 
                 Behavior on x { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
-
-                DelIconText {
-                    anchors.centerIn: parent
-                    iconSize: parent.height - 4
-                    iconSource: DelIcon.LoadingOutlined
-                    iconColor: control.colorBg
-                    visible: control.loading
-                    transformOrigin: Item.Center
-
-                    NumberAnimation on rotation {
-                        running: control.loading
-                        from: 0
-                        to: 360
-                        loops: Animation.Infinite
-                        duration: 1000
-                    }
-                }
             }
         }
     }

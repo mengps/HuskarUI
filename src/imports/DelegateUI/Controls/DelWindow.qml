@@ -1,5 +1,4 @@
 import QtQuick
-import QWindowKit
 import DelegateUI
 
 Window {
@@ -13,14 +12,13 @@ Window {
 
     objectName: "__DelWindow__"
     Component.onCompleted: {
-        windowAgent.setup(window);
-        windowAgent.setWindowAttribute("dark-mode", DelTheme.isDark);
+        setCaptionBarMode(DelTheme.isDark);
         __captionBar.windowAgent = __windowAgent;
         initialized = true;
         window.visible = true;
     }
 
-    function setCaptionMode(isDark) {
+    function setCaptionBarMode(isDark) {
         if (window.initialized)
             windowAgent.setWindowAttribute("dark-mode", isDark);
     }
@@ -83,7 +81,7 @@ Window {
         }
     }
 
-    WindowAgent {
+    DelWindowAgent {
         id: __windowAgent
     }
 

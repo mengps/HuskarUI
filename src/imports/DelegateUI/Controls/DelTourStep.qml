@@ -30,7 +30,7 @@ T.Popup {
     property var stepModel: []
     property Item currentTarget: null
     property int currentStep: 0
-    property color overlayColor: DelTheme.DelTour.colorOverlay
+    property color colorOverlay: DelTheme.DelTour.colorOverlay
     property bool showArrow: true
     property real arrowWidth: 20
     property real arrowHeight: 10
@@ -38,14 +38,14 @@ T.Popup {
     property real focusWidth: currentTarget ? (currentTarget.width + focusMargin * 2) : 0
     property real focusHeight: currentTarget ? (currentTarget.height + focusMargin * 2) : 0
     property real stepCardWidth: 250
-    property real stepCardRadius: DelTheme.DelTour.radiusCard
-    property color stepCardColor: DelTheme.DelTour.colorBg
+    property real radiusStepCard: DelTheme.DelTour.radiusCard
+    property color colorStepCard: DelTheme.DelTour.colorBg
     property font stepTitleFont
-    property color stepTitleColor: DelTheme.DelTour.colorText
+    property color colorStepTitle: DelTheme.DelTour.colorText
     property font stepDescriptionFont
-    property color stepDescriptionColor: DelTheme.DelTour.colorText
+    property color colorStepDescription: DelTheme.DelTour.colorText
     property font indicatorFont
-    property color indicatorColor: DelTheme.DelTour.colorText
+    property color colorIndicator: DelTheme.DelTour.colorText
     property font buttonFont
     property Component arrowDelegate: Canvas {
         id: __arrowDelegate
@@ -64,14 +64,14 @@ T.Popup {
             ctx.closePath();
             ctx.fill();
         }
-        property color fillStyle: control.stepCardColor
+        property color fillStyle: control.colorStepCard
 
         Connections {
             target: control
             function onCurrentTargetChanged() {
                 if (control.stepModel.length > control.currentStep) {
                     const stepData = control.stepModel[control.currentStep];
-                    __arrowDelegate.fillStyle = Qt.binding(()=>stepData.cardColor ? stepData.cardColor : control.stepCardColor);
+                    __arrowDelegate.fillStyle = Qt.binding(()=>stepData.cardColor ? stepData.cardColor : control.colorStepCard);
                 }
                 __arrowDelegate.requestPaint();
             }
@@ -81,8 +81,8 @@ T.Popup {
         id: __stepCardDelegate
         width: stepData.cardWidth ? stepData.cardWidth : control.stepCardWidth
         height: stepData.cardHeight ? stepData.cardHeight : (__stepCardColumn.height + 20)
-        color: stepData.cardColor ? stepData.cardColor : control.stepCardColor
-        radius: stepData.cardRadius ? stepData.cardRadius : control.stepCardRadius
+        color: stepData.cardColor ? stepData.cardColor : control.colorStepCard
+        radius: stepData.cardRadius ? stepData.cardRadius : control.radiusStepCard
         clip: true
 
         property var stepData: new Object
@@ -104,7 +104,7 @@ T.Popup {
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: stepData.title ? stepData.title : ""
-                color: stepData.titleColor ? stepData.titleColor : control.stepTitleColor
+                color: stepData.titleColor ? stepData.titleColor : control.colorStepTitle
                 font: control.stepTitleFont
             }
 
@@ -115,7 +115,7 @@ T.Popup {
                 wrapMode: Text.WrapAnywhere
                 text: stepData.description || ""
                 visible: text.length !== 0
-                color: stepData.descriptionColor ? stepData.descriptionColor : control.stepDescriptionColor
+                color: stepData.descriptionColor ? stepData.descriptionColor : control.colorStepDescription
                 font: control.stepDescriptionFont
             }
 
@@ -188,7 +188,7 @@ T.Popup {
     property Component indicatorDelegate: Text {
         text: (control.currentStep + 1) + " / " + control.stepModel.length
         font: control.indicatorFont
-        color: control.indicatorColor
+        color: control.colorIndicator
     }
 
     function resetStep() {
@@ -239,7 +239,7 @@ T.Popup {
 
         Rectangle {
             id: source
-            color: overlayColor
+            color: colorOverlay
             anchors.fill: parent
             layer.enabled: true
             layer.effect: ShaderEffect {

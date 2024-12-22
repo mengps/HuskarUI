@@ -192,7 +192,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 visible: __menuButtonImpl.expandedVisible
                 iconSource: DelIcon.DownOutlined
-                iconColor: __menuButtonImpl.colorText
+                colorIcon: __menuButtonImpl.colorText
                 transform: Rotation {
                     origin {
                         x: 0

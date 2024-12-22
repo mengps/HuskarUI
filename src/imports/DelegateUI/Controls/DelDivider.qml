@@ -5,14 +5,14 @@ import DelegateUI
 Item {
     id: control
 
-    font {
+    titleFont {
         family: DelTheme.DelDivider.fontFamily
         pixelSize: DelTheme.DelDivider.fontSize
     }
 
     property bool animationEnabled: DelTheme.animationEnabled
-    property font font
     property string title: ""
+    property font titleFont
     property int titleAlign: DelDividerType.Left
     property int titlePadding: 20
     property color colorText: DelTheme.DelDivider.colorText
@@ -20,8 +20,8 @@ Item {
     property int style: DelDividerType.SolidLine
     property int orientation: Qt.Horizontal
     property Component titleDelegate: Text {
-        font: control.font
         text: control.title
+        font: control.titleFont
         color: control.colorText
     }
     property Component splitDelegate: Shape {
