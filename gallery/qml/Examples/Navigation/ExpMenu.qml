@@ -1,10 +1,12 @@
 import QtQuick
+import QtQuick.Controls.Basic
 import DelegateUI
 
 import "../../Controls"
 
 Flickable {
     contentHeight: column.height
+    ScrollBar.vertical: DelScrollBar { }
 
     Column {
         id: column

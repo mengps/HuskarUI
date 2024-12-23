@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import DelegateUI
 
@@ -45,6 +46,7 @@ contentDescription | string | 内容描述(提高可用性)
         cellHeight: 110
         clip: true
         model: ListModel { id: listModel }
+        ScrollBar.vertical: DelScrollBar { }
         delegate: Item {
             id: rootItem
             width: gridView.cellWidth
