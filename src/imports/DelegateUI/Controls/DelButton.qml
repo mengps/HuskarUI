@@ -5,7 +5,7 @@ import DelegateUI
 T.Button {
     id: control
 
-    property bool animationEnabled: true //不绑定 DelTheme.animationEnabled
+    property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
     property int type: DelButtonType.Type_Default
     property int shape: DelButtonType.Shape_Default

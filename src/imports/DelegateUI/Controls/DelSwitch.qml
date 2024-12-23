@@ -5,7 +5,7 @@ import DelegateUI
 T.Switch {
     id: control
 
-    property bool animationEnabled: true //不绑定 DelTheme.animationEnabled
+    property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
     property bool loading: false
     property string checkedText: ""
