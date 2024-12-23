@@ -21,6 +21,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml
         qml/Examples/Navigation/ExpMenu.qml
+        qml/Examples/Navigation/ExpScrollBar.qml
         qml/Examples/Layout/ExpDivider.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Controls/CodeBox.qml
@@ -28,10 +29,18 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Controls/CodeRunner.qml
         qml/Gallery.qml
         qml/HomePage.qml
+        qml/SettingsPage.qml
     SOURCES
         cpp/customtheme.h cpp/customtheme.cpp
         cpp/main.cpp
     RESOURCES
+)
+
+qt_add_shaders(${PROJECT_NAME} "shaders"
+    PREFIX "/Gallery"
+    FILES
+        shaders/effect1.vert
+        shaders/effect1.frag
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE

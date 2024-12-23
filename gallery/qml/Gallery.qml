@@ -6,7 +6,7 @@ import DelegateUI
 import "./Examples"
 
 DelWindow {
-    id: window
+    id: galleryWindow
     width: 1200
     height: 800
     title: qsTr("DelegateUI Gallery")
@@ -30,7 +30,7 @@ DelWindow {
         }
     }
     captionBar.topCallback: (checked) => {
-                                DelApi.setWindowStaysOnTopHint(window, checked);
+                                DelApi.setWindowStaysOnTopHint(galleryWindow, checked);
                             }
 
     Component.onCompleted: setSpecialEffect(DelWindowSpecialEffect.Mica);
@@ -60,15 +60,15 @@ DelWindow {
             to: themeCircle.r * 2
             duration: DelTheme.Primary.durationMid
             onStarted: {
-                window.setCaptionBarMode(true);
+                galleryWindow.setCaptionBarMode(true);
                 themeCircle.visible = true;
             }
             onFinished: {
                 themeCircle.visible = false;
                 themeCircle.width = Qt.binding(()=>themeCircle.r * 2);
                 themeCircle.height = Qt.binding(()=>themeCircle.r * 2);
-                if (window.specialEffect === DelWindowSpecialEffect.None)
-                    window.color = DelTheme.Primary.colorBgBase;
+                if (galleryWindow.specialEffect === DelWindowSpecialEffect.None)
+                    galleryWindow.color = DelTheme.Primary.colorBgBase;
                 background.color = DelTheme.Primary.colorBgBase;
             }
         }
@@ -81,10 +81,10 @@ DelWindow {
             to: 0
             duration: DelTheme.Primary.durationMid
             onStarted: {
-                window.setCaptionBarMode(false);
+                galleryWindow.setCaptionBarMode(false);
                 themeCircle.visible = true;
-                if (window.specialEffect === DelWindowSpecialEffect.None)
-                    window.color = DelTheme.Primary.colorBgBase;
+                if (galleryWindow.specialEffect === DelWindowSpecialEffect.None)
+                    galleryWindow.color = DelTheme.Primary.colorBgBase;
                 background.color = DelTheme.Primary.colorBgBase;
             }
             onFinished: {
@@ -96,17 +96,24 @@ DelWindow {
 
     Item {
         id: content
-        anchors.top: window.captionBar.bottom
+        anchors.top: galleryWindow.captionBar.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+
+        SettingsPage {
+            id: setttingsPopup
+            width: 500
+            height: 600
+            anchors.centerIn: content
+        }
 
         DelMenu {
             id: menu
             width: 300
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.bottom: parent.bottom
+            anchors.bottom: setttingsButton.top
             defaultIconSize: DelTheme.Primary.fontPrimarySizeHeading5
             onClickMenu: function(deep, data) {
                 console.debug("onClickMenu", deep, JSON.stringify(data));
@@ -161,6 +168,10 @@ DelWindow {
                         {
                             title: qsTr("DelMenu 菜单"),
                             source: "./Examples/Navigation/ExpMenu.qml",
+                        },
+                        {
+                            title: qsTr("DelScrollBar 滚动条"),
+                            source: "./Examples/Navigation/ExpScrollBar.qml",
                         }
                     ]
                 },
@@ -201,6 +212,22 @@ DelWindow {
             ]
         }
 
+        DelIconButton {
+            id: setttingsButton
+            width: menu.width
+            height: 40
+            anchors.bottom: parent.bottom
+            radiusBg: 0
+            text: qsTr("设置")
+            iconSource: DelIcon.SettingOutlined
+            onClicked: {
+                if (setttingsPopup.opened)
+                    setttingsPopup.close();
+                else
+                    setttingsPopup.open();
+            }
+        }
+
         Item {
             id: container
             anchors.left: menu.right
@@ -227,12 +254,6 @@ DelWindow {
                 anchors.fill: parent
                 source: "./Examples/Theme/ExpTheme.qml"
                 visible: false
-
-                NumberAnimation on opacity {
-                    from: 0
-                    to: 1
-                    duration: DelTheme.Primary.durationSlow
-                }
             }
         }
     }
