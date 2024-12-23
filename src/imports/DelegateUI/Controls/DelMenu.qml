@@ -1,10 +1,12 @@
 import QtQuick
+import QtQuick.Templates as T
 import DelegateUI
 
 Item {
     id: control
 
     width: defaultWidth
+    clip: true
 
     signal clickMenu(int deep, var data);
     property bool animationEnabled: DelTheme.animationEnabled
@@ -19,6 +21,7 @@ Item {
         id: __rootItem
         width: ListView.view.width
         height: __layout.height
+        clip: true
 
         property var view: ListView.view
         property bool menuEnabled: (modelData.enabled === undefined) ? true : modelData.enabled
@@ -107,6 +110,8 @@ Item {
                 anchors.leftMargin: __menuButton.iconSize * menuDeep
                 anchors.right: parent.right
                 spacing: control.defaultSpacing
+                boundsBehavior: Flickable.StopAtBounds
+                interactive: false
                 model: __rootItem.menuChildren
                 delegate: menuDelegate
                 clip: true
@@ -188,7 +193,6 @@ Item {
             DelIconText {
                 id: __expandedIcon
                 anchors.right: parent.right
-                anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
                 visible: __menuButtonImpl.expandedVisible
                 iconSource: DelIcon.DownOutlined
@@ -227,6 +231,7 @@ Item {
         id: listView
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.rightMargin: 8
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.margins: 5
@@ -234,6 +239,7 @@ Item {
         spacing: control.defaultSpacing
         model: control.model
         delegate: menuDelegate
+        T.ScrollBar.vertical: DelScrollBar { anchors.rightMargin: -8 }
         property int menuDeep: 0
     }
 
