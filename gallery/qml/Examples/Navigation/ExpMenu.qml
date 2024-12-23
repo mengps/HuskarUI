@@ -29,10 +29,12 @@ defaultIconSize | int | 默认图标大小
 defaultIconSpacing | int | 默认图标间隔
 defaultHieght | int | 默认高度
 defaultSpacing | int | 默认间隔
+defaultSelectedKey | list | 初始选中的菜单项 key 数组
 model | list | 菜单模型
 \n支持的信号：\n
-- \`clickMenu(deep: int, menuData: Object)\` 点击任意菜单项时发出\n
+- \`clickMenu(deep: int, menuKey: string, menuData: Object)\` 点击任意菜单项时发出\n
   - \`deep\` 菜单项深度\n
+  - \`menuKey\` 菜单项的键\n
   - \`menuData\` 菜单项数据\n
                        `)
         }
@@ -53,6 +55,7 @@ model | list | 菜单模型
             width: parent.width
             desc: qsTr(`
 通过 \`model\` 属性设置菜单模型{需为list}，菜单项支持的属性有：\n
+- { key: 菜单键(最好唯一) }\n
 - { title: 标题 }\n
 - { height: 本菜单项高度 }\n
 - { enabled: 是否启用(false则禁用该菜单项) }\n
@@ -60,7 +63,7 @@ model | list | 菜单模型
 - { iconSource: 图标源 }\n
 - { iconSpacing: 图标间隔 }\n
 - { menuChildren: 子菜单(支持无限嵌套) }\n
-点击任意菜单项将发出 \`clickMenu(deep, menuData)\` 信号。
+点击任意菜单项将发出 \`clickMenu(deep, menuKey, menuData)\` 信号。
                        `)
             code: `
                 import QtQuick
