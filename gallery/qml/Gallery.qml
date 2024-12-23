@@ -115,8 +115,8 @@ DelWindow {
             anchors.top: parent.top
             anchors.bottom: setttingsButton.top
             defaultIconSize: DelTheme.Primary.fontPrimarySizeHeading5
-            onClickMenu: function(deep, data) {
-                console.debug("onClickMenu", deep, JSON.stringify(data));
+            onClickMenu: function(deep, key, data) {
+                console.debug("onClickMenu", deep, key, JSON.stringify(data));
                 if (data && data.source) {
                     containerLoader.visible = true;
                     themeLoader.visible = false;
@@ -127,8 +127,10 @@ DelWindow {
                     themeLoader.visible = true;
                 }
             }
+            defaultSelectedKey: ["HomePage"]
             model: [
                 {
+                    key: "HomePage",
                     title: qsTr("首页"),
                     iconSource: DelIcon.HomeOutlined,
                     source: "./HomePage.qml"
