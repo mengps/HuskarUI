@@ -8,7 +8,7 @@ Item {
     width: defaultWidth
     clip: true
 
-    signal clickMenu(int deep, var data);
+    signal clickMenu(int deep, string menuKey, var menuData);
     property bool animationEnabled: DelTheme.animationEnabled
     property string contentDescription: ""
     property int defaultIconSize: DelTheme.DelMenu.fontSize
@@ -16,14 +16,23 @@ Item {
     property int defaultWidth: 300
     property int defaultHieght: 40
     property int defaultSpacing: 5
+    property var defaultSelectedKey: []
     property var model: []
     property Component menuDelegate: Item {
         id: __rootItem
         width: ListView.view.width
         height: __layout.height
         clip: true
+        Component.onCompleted: {
+            if (control.defaultSelectedKey.length != 0) {
+                if (control.defaultSelectedKey.indexOf(menuKey) != -1) {
+                    __menuButton.clicked();
+                }
+            }
+        }
 
         property var view: ListView.view
+        property string menuKey: modelData.key || ""
         property bool menuEnabled: (modelData.enabled === undefined) ? true : modelData.enabled
         property string menuTitle: modelData.title || ""
         property int menuHeight: modelData.height || control.defaultHieght
@@ -93,7 +102,7 @@ Item {
                 isCurrent: __rootItem.isCurrent
                 onClicked: {
                     if (__rootItem.menuChildrenLength == 0) {
-                        control.clickMenu(__rootItem.view.menuDeep, modelData);
+                        control.clickMenu(__rootItem.view.menuDeep, __rootItem.menuKey, modelData);
                         __private.selectedItem = __rootItem;
                         __rootItem.selectedCurrentParentMenu();
                     }
