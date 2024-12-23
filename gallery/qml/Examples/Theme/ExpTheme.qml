@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import DelegateUI
 
@@ -75,6 +76,34 @@ Item {
                             }
                         }
                         property int currentIndex: 8
+                    }
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            desc: qsTr(`
+通过 \`DelTheme.animationEnabled\` 属性开启/关闭全局动画，关闭动画资源占用更低。
+                       `)
+            code: `
+                DelTheme.animationEnabled = true;
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                DelDivider {
+                    width: parent.width
+                    height: 30
+                    title: qsTr("更改全局动画")
+                }
+
+                DelSwitch {
+                    checked: DelTheme.animationEnabled
+                    checkedText: qsTr("开启")
+                    uncheckedText: qsTr("关闭")
+                    onToggled: {
+                        DelTheme.animationEnabled = checked;
                     }
                 }
             }
