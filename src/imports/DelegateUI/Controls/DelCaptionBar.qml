@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import QWindowKit
 import DelegateUI
 
 Rectangle {
@@ -8,7 +7,7 @@ Rectangle {
     color: "transparent"
 
     property var targetWindow: null
-    property WindowAgent windowAgent: null
+    property DelWindowAgent windowAgent: null
 
     property alias layoutDirection: __row.layoutDirection
 
@@ -65,9 +64,9 @@ Rectangle {
             target: control
             function onWindowAgentChanged() {
                 if (windowAgent) {
-                    windowAgent.setSystemButton(WindowAgent.Minimize, __minimizeButton);
-                    windowAgent.setSystemButton(WindowAgent.Maximize, __maximizeButton);
-                    windowAgent.setSystemButton(WindowAgent.Close, __closeButton);
+                    windowAgent.setSystemButton(DelWindowAgent.Minimize, __minimizeButton);
+                    windowAgent.setSystemButton(DelWindowAgent.Maximize, __maximizeButton);
+                    windowAgent.setSystemButton(DelWindowAgent.Close, __closeButton);
                 }
             }
         }
