@@ -132,6 +132,7 @@
         "DelIconText": ":/DelegateUI/theme/DelIconText.json",
         "DelMenu": ":/DelegateUI/theme/DelMenu.json",
         "DelDivider": ":/DelegateUI/theme/DelDivider.json",
-        "DelSwitch": ":/DelegateUI/theme/DelSwitch.json"
+        "DelSwitch": ":/DelegateUI/theme/DelSwitch.json",
+        "DelScrollBar": ":/DelegateUI/theme/DelScrollBar.json"
     }
 }
