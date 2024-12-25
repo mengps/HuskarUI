@@ -71,6 +71,10 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                         text: qsTr("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.")
                         wrapMode: Text.WrapAnywhere
                         color: DelTheme.Primary.colorTextBase
+                        font {
+                            family: DelTheme.Primary.fontPrimaryFamily
+                            pixelSize: DelTheme.Primary.fontPrimarySize
+                        }
                     }
 
                     DelDivider {
@@ -103,6 +107,10 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                     text: qsTr("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.")
                     wrapMode: Text.WrapAnywhere
                     color: DelTheme.Primary.colorTextBase
+                    font {
+                        family: DelTheme.Primary.fontPrimaryFamily
+                        pixelSize: DelTheme.Primary.fontPrimarySize
+                    }
                 }
 
                 DelDivider {
@@ -149,6 +157,10 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                         text: qsTr("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.")
                         wrapMode: Text.WrapAnywhere
                         color: DelTheme.Primary.colorTextBase
+                        font {
+                            family: DelTheme.Primary.fontPrimaryFamily
+                            pixelSize: DelTheme.Primary.fontPrimarySize
+                        }
                     }
 
                     DelDivider {
@@ -173,6 +185,10 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                     text: qsTr("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.")
                     wrapMode: Text.WrapAnywhere
                     color: DelTheme.Primary.colorTextBase
+                    font {
+                        family: DelTheme.Primary.fontPrimaryFamily
+                        pixelSize: DelTheme.Primary.fontPrimarySize
+                    }
                 }
 
                 DelDivider {
@@ -210,6 +226,10 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                         text: qsTr("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.")
                         wrapMode: Text.WrapAnywhere
                         color: DelTheme.Primary.colorTextBase
+                        font {
+                            family: DelTheme.Primary.fontPrimaryFamily
+                            pixelSize: DelTheme.Primary.fontPrimarySize
+                        }
                     }
 
                     DelDivider {
@@ -234,6 +254,10 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                     text: qsTr("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.")
                     wrapMode: Text.WrapAnywhere
                     color: DelTheme.Primary.colorTextBase
+                    font {
+                        family: DelTheme.Primary.fontPrimaryFamily
+                        pixelSize: DelTheme.Primary.fontPrimarySize
+                    }
                 }
 
                 DelDivider {

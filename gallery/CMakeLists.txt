@@ -16,8 +16,10 @@ qt_add_qml_module(${PROJECT_NAME}
     QML_FILES
         qml/Examples/General/ExpButton.qml
         qml/Examples/General/ExpIconButton.qml
+        qml/Examples/General/ExpCaptionButton.qml
         qml/Examples/General/ExpIconText.qml
         qml/Examples/DataEntry/ExpSwitch.qml
+        qml/Examples/DataEntry/ExpSlider.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml
         qml/Examples/Navigation/ExpMenu.qml
