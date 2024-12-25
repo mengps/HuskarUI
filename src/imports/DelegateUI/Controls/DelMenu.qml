@@ -63,7 +63,7 @@ Item {
             for (let i = 0; i < childrenListView.count; i++) {
                 let item = childrenListView.itemAtIndex(i);
                 if (item)
-                    item.clearIsCurrentParent()
+                    item.clearIsCurrentParent();
             }
         }
         /*! 选中当前菜单的所有父菜单 */
