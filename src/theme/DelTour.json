@@ -4,10 +4,8 @@
     "fontSizeDescription": "@fontPrimarySize",
     "fontSizeIndicator": "@fontPrimarySize",
     "fontSizeButton": "@fontPrimarySize",
-    "fontHeight": "@fontPrimaryHeight",
-    "fontLineHeight": "1.0",
     "colorText": "@colorTextBase",
     "colorBg": "$lighter(@colorBgBase)",
     "colorOverlay": "$alpha(@colorTextBase, 0.3)",
-    "radiusCard": "8"
+    "radiusCard": "6"
 }
