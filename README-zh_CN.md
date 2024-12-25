@@ -59,4 +59,4 @@ Use `MIT LICENSE`
 
 ## 🌇 环境
 
-Windows 11, Qt 6.7.3
+Windows 11, Qt Version >= 6.5
