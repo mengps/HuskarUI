@@ -23,12 +23,14 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
 
     DEL_PROPERTY_READONLY(QVariantMap, DelButton);
     DEL_PROPERTY_READONLY(QVariantMap, DelIconText);
+    DEL_PROPERTY_READONLY(QVariantMap, DelCopyableText);
     DEL_PROPERTY_READONLY(QVariantMap, DelCaptionButton);
     DEL_PROPERTY_READONLY(QVariantMap, DelTour);
     DEL_PROPERTY_READONLY(QVariantMap, DelMenu);
     DEL_PROPERTY_READONLY(QVariantMap, DelDivider);
     DEL_PROPERTY_READONLY(QVariantMap, DelSwitch);
     DEL_PROPERTY_READONLY(QVariantMap, DelScrollBar);
+    DEL_PROPERTY_READONLY(QVariantMap, DelSlider);
 
 public:
     enum class DarkMode {
@@ -50,6 +52,8 @@ public:
     Q_INVOKABLE void reloadDefaultTheme();
 
     Q_INVOKABLE void installThemePrimaryColor(const QColor &color);
+    Q_INVOKABLE void installThemePrimaryFontSize(int fontSize);
+    Q_INVOKABLE void installThemePrimaryFontFamily(const QString &family);
 
     Q_INVOKABLE void installIndexTheme(const QString &themePath);
     Q_INVOKABLE void installIndexThemeKV(const QString &key, const QString &value);

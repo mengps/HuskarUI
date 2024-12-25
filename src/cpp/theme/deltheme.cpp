@@ -336,12 +336,14 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
         switch (key) {
         case Component::DelButton: registerThemeComponent(q, component, &q->m_DelButton, themePath, m_defaultTheme); break;
         case Component::DelIconText: registerThemeComponent(q, component, &q->m_DelIconText, themePath, m_defaultTheme); break;
+        case Component::DelCopyableText: registerThemeComponent(q, component, &q->m_DelCopyableText, themePath, m_defaultTheme); break;
         case Component::DelCaptionButton: registerThemeComponent(q, component, &q->m_DelCaptionButton, themePath, m_defaultTheme); break;
         case Component::DelTour: registerThemeComponent(q, component, &q->m_DelTour, themePath, m_defaultTheme); break;
         case Component::DelMenu: registerThemeComponent(q, component, &q->m_DelMenu, themePath, m_defaultTheme); break;
         case Component::DelDivider: registerThemeComponent(q, component, &q->m_DelDivider, themePath, m_defaultTheme); break;
         case Component::DelSwitch: registerThemeComponent(q, component, &q->m_DelSwitch, themePath, m_defaultTheme); break;
         case Component::DelScrollBar: registerThemeComponent(q, component, &q->m_DelScrollBar, themePath, m_defaultTheme); break;
+        case Component::DelSlider: registerThemeComponent(q, component, &q->m_DelSlider, themePath, m_defaultTheme); break;
         default:
             break;
         }
@@ -420,12 +422,21 @@ void DelTheme::installThemePrimaryColor(const QColor &color)
 {
     Q_D(DelTheme);
 
-    auto variableTable = d->m_indexObject["%VariableTable%"].toObject();
-    variableTable["colorPrimaryBase"] = QString("$genColor(%1)").arg(color.name());
-    d->m_indexObject["%VariableTable%"] = variableTable;
-    d->reloadIndexTheme();
-    d->reloadComponentDefaultTheme();
-    d->reloadComponentCustomTheme();
+    installIndexThemeKV("colorPrimaryBase", QString("$genColor(%1)").arg(color.name()));
+}
+
+void DelTheme::installThemePrimaryFontSize(int fontSize)
+{
+    Q_D(DelTheme);
+
+    installIndexThemeKV("fontSizeBase", QString("$genFontSize(%1)").arg(fontSize));
+}
+
+void DelTheme::installThemePrimaryFontFamily(const QString &family)
+{
+    Q_D(DelTheme);
+
+    installIndexThemeKV("fontPrimaryFamily", family);
 }
 
 void DelTheme::installIndexTheme(const QString &themePath)
