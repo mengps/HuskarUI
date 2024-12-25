@@ -104,12 +104,14 @@ T.Switch {
         Rectangle {
             id: __bg
             width: Math.max(Math.max(checkedWidth, uncheckedWidth) + __handle.width, height * 2)
-            height: Math.max(Math.max(checkedHeight, uncheckedHeight), 22)
+            height: hasText ? Math.max(checkedHeight, uncheckedHeight, 22) : 22
             anchors.centerIn: parent
             radius: control.radiusBg
             color: control.colorBg
             clip: true
 
+            property bool hasText: control.checkedIconSource !== 0 || control.uncheckedIconSource !== 0  ||
+                                   control.checkedText.length !== 0 || control.uncheckedText.length !== 0
             property real checkedWidth: control.checkedIconSource == 0 ? __checkedText.width + 6 : __checkedIcon.width + 6
             property real uncheckedWidth: control.checkedIconSource == 0 ? __uncheckedText.width + 6 : __uncheckedIcon.width + 6
             property real checkedHeight: control.checkedIconSource == 0 ? __checkedText.height + 4 : __checkedIcon.height + 4

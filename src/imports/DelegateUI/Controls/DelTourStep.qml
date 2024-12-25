@@ -132,7 +132,7 @@ T.Popup {
 
                 DelButton {
                     id: __prevButton
-                    height: parent.height
+                    anchors.verticalCenter: parent.verticalCenter
                     anchors.right: __nextButton.left
                     anchors.rightMargin: 15
                     anchors.bottom: __nextButton.bottom
@@ -151,7 +151,7 @@ T.Popup {
 
                 DelButton {
                     id: __nextButton
-                    height: parent.height
+                    anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
                     anchors.rightMargin: 15
                     anchors.bottom: parent.bottom

@@ -1,5 +1,5 @@
 {
-    "fontSize": "@fontPrimarySize",
+    "fontSize": "14",
     "colorIconDisabled": "@colorPrimaryTextDisabled",
     "colorIcon": "@colorTextBase",
     "colorIconHover": "@colorTextBase",

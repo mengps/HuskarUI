@@ -11,6 +11,7 @@ DelIconButton {
     radiusBg: 0
     type: DelButtonType.Type_Text
     iconSize: DelTheme.DelCaptionButton.fontSize
+    font.pixelSize: DelTheme.DelCaptionButton.fontSize
     effectEnabled: false
     colorIcon: {
         if (enabled) {

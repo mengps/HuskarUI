@@ -4,6 +4,7 @@ import DelegateUI
 
 Rectangle {
     id: control
+
     color: "transparent"
 
     property var targetWindow: null
@@ -19,7 +20,7 @@ Rectangle {
     property font winTitleFont
     winTitleFont {
         family: DelTheme.Primary.fontPrimaryFamily
-        pixelSize: DelTheme.Primary.fontPrimarySize
+        pixelSize: 14
     }
     property color winTitleColor: DelTheme.Primary.colorTextBase
     property alias winTitleVisible: __winTitleLoader.visible
@@ -75,7 +76,7 @@ Rectangle {
             id: __themeButton
             visible: control.themeButtonVisible
             iconSource: DelTheme.isDark ? DelIcon.MoonOutlined : DelIcon.SunOutlined
-            iconSize: DelTheme.DelCaptionButton.fontSize + 2
+            iconSize: 16
             onClicked: themeCallback();
             contentDescription: qsTr("明暗主题切换")
         }
@@ -84,7 +85,7 @@ Rectangle {
             id: __topButton
             visible: control.topButtonVisible
             iconSource: DelIcon.PushpinOutlined
-            iconSize: DelTheme.DelCaptionButton.fontSize + 2
+            iconSize: 16
             checkable: true
             onClicked: topCallback(checked);
             contentDescription: qsTr("置顶")
