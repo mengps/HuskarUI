@@ -36,7 +36,7 @@ DelWindow {
     Component.onCompleted: setSpecialEffect(DelWindowSpecialEffect.Mica);
 
     Rectangle {
-        id: background
+        id: galleryBackground
         anchors.fill: content
         opacity: 0
     }
@@ -69,7 +69,7 @@ DelWindow {
                 themeCircle.height = Qt.binding(()=>themeCircle.r * 2);
                 if (galleryWindow.specialEffect === DelWindowSpecialEffect.None)
                     galleryWindow.color = DelTheme.Primary.colorBgBase;
-                background.color = DelTheme.Primary.colorBgBase;
+                galleryBackground.color = DelTheme.Primary.colorBgBase;
             }
         }
 
@@ -85,7 +85,7 @@ DelWindow {
                 themeCircle.visible = true;
                 if (galleryWindow.specialEffect === DelWindowSpecialEffect.None)
                     galleryWindow.color = DelTheme.Primary.colorBgBase;
-                background.color = DelTheme.Primary.colorBgBase;
+                galleryBackground.color = DelTheme.Primary.colorBgBase;
             }
             onFinished: {
                 themeCircle.width = 0;
@@ -103,8 +103,6 @@ DelWindow {
 
         SettingsPage {
             id: setttingsPopup
-            width: 500
-            height: 600
             anchors.centerIn: content
         }
 
@@ -148,6 +146,10 @@ DelWindow {
                             source: "./Examples/General/ExpIconButton.qml"
                         },
                         {
+                            title: qsTr("DelCaptionButton 标题按钮"),
+                            source: "./Examples/General/ExpCaptionButton.qml"
+                        },
+                        {
                             title: qsTr("DelIconText 图标文本"),
                             source: "./Examples/General/ExpIconText.qml"
                         }
@@ -184,6 +186,10 @@ DelWindow {
                         {
                             title: qsTr("DelSwitch 开关"),
                             source: "./Examples/DataEntry/ExpSwitch.qml",
+                        },
+                        {
+                            title: qsTr("DelSlider 滑动输入条"),
+                            source: "./Examples/DataEntry/ExpSlider.qml",
                         }
                     ]
                 },
