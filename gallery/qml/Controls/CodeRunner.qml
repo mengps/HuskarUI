@@ -72,16 +72,11 @@ DelWindow {
                 width: parent.width
                 anchors.top: parent.top
                 anchors.bottom: divider1.top
+                ScrollBar.vertical: DelScrollBar { }
 
-                TextArea {
+                DelCopyableText {
                     id: codeEdit
-                    selectByKeyboard: true
-                    selectByMouse: true
-                    font {
-                        family: DelTheme.Primary.fontPrimaryFamily
-                        pixelSize: DelTheme.Primary.fontPrimarySize
-                    }
-                    color: DelTheme.Primary.colorTextBase
+                    readOnly: false
                     wrapMode: Text.WrapAnywhere
                 }
             }

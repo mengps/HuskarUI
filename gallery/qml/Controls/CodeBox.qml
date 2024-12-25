@@ -46,14 +46,9 @@ Rectangle {
             title: qsTr("说明")
         }
 
-        Text {
+        DelCopyableText {
             id: descText
             width: parent.width
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySize
-            }
-            color: DelTheme.Primary.colorTextBase
             textFormat: Text.MarkdownText
             wrapMode: Text.WrapAnywhere
         }
@@ -88,17 +83,11 @@ Rectangle {
             }
         }
 
-        TextEdit {
+        DelCopyableText {
             id: codeText
             clip: true
-            selectByMouse: true
             width: parent.width
             height: expanded ? implicitHeight : 0
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySize
-            }
-            color: DelTheme.Primary.colorTextBase
             wrapMode: Text.WrapAnywhere
             property bool expanded: false
 
