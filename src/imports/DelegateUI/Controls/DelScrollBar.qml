@@ -22,21 +22,21 @@ T.ScrollBar {
         property bool visible: control.hovered || control.pressed
     }
 
-    width: control.orientation == Qt.Vertical ? 12 : parent.width
-    height: control.orientation == Qt.Horizontal ? 12 : parent.height
+    width: control.orientation == Qt.Vertical ? 10 : parent.width
+    height: control.orientation == Qt.Horizontal ? 10 : parent.height
     anchors.right: control.orientation == Qt.Vertical ? parent.right : undefined
     anchors.bottom: control.orientation == Qt.Horizontal ? parent.bottom : undefined
-    leftPadding: control.orientation == Qt.Horizontal ? (leftInset + 12) : leftInset
-    rightPadding: control.orientation == Qt.Horizontal ? (rightInset + 12) : rightInset
-    topPadding: control.orientation == Qt.Vertical ? (topInset + 12) : topInset
-    bottomPadding: control.orientation == Qt.Vertical ? (bottomInset + 12) : bottomInset
+    leftPadding: control.orientation == Qt.Horizontal ? (leftInset + 10) : leftInset
+    rightPadding: control.orientation == Qt.Horizontal ? (rightInset + 10) : rightInset
+    topPadding: control.orientation == Qt.Vertical ? (topInset + 10) : topInset
+    bottomPadding: control.orientation == Qt.Vertical ? (bottomInset + 10) : bottomInset
     policy: T.ScrollBar.AlwaysOn
     visible: (control.policy != T.ScrollBar.AlwaysOff) && control.size !== 1
     contentItem: Item {
         Rectangle {
             width: {
                 if (control.orientation == Qt.Vertical) {
-                    return __private.visible ? 8 : 2;
+                    return __private.visible ? 6 : 2;
                 } else {
                     return parent.width;
                 }
@@ -45,7 +45,7 @@ T.ScrollBar {
                 if (control.orientation == Qt.Vertical) {
                     return parent.height;
                 } else {
-                    return __private.visible ? 8 : 2;
+                    return __private.visible ? 6 : 2;
                 }
             }
             anchors.verticalCenter: parent.verticalCenter
@@ -73,6 +73,7 @@ T.ScrollBar {
 
         Loader {
             active: control.orientation == Qt.Vertical
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             sourceComponent: DelIconText {
                 iconSize: parent.width
@@ -83,6 +84,7 @@ T.ScrollBar {
 
         Loader {
             active: control.orientation == Qt.Vertical
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
             sourceComponent: DelIconText {
                 iconSize: parent.width
@@ -93,6 +95,7 @@ T.ScrollBar {
 
         Loader {
             active: control.orientation == Qt.Horizontal
+            anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             sourceComponent: DelIconText {
                 iconSize: parent.height
@@ -103,6 +106,7 @@ T.ScrollBar {
 
         Loader {
             active: control.orientation == Qt.Horizontal
+            anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             sourceComponent: DelIconText {
                 iconSize: parent.height
