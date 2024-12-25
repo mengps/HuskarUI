@@ -130,9 +130,11 @@
         "DelCaptionButton": ":/DelegateUI/theme/DelCaptionButton.json",
         "DelTour": ":/DelegateUI/theme/DelTour.json",
         "DelIconText": ":/DelegateUI/theme/DelIconText.json",
+        "DelCopyableText": ":/DelegateUI/theme/DelCopyableText.json",
         "DelMenu": ":/DelegateUI/theme/DelMenu.json",
         "DelDivider": ":/DelegateUI/theme/DelDivider.json",
         "DelSwitch": ":/DelegateUI/theme/DelSwitch.json",
-        "DelScrollBar": ":/DelegateUI/theme/DelScrollBar.json"
+        "DelScrollBar": ":/DelegateUI/theme/DelScrollBar.json",
+        "DelSlider": ":/DelegateUI/theme/DelSlider.json"
     }
 }

@@ -49,6 +49,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelCaptionButton.qml
         imports/DelegateUI/Controls/DelTourFocus.qml imports/DelegateUI/Controls/DelTourStep.qml
         imports/DelegateUI/Controls/DelIconText.qml
+        imports/DelegateUI/Controls/DelCopyableText.qml
         imports/DelegateUI/Controls/DelCaptionBar.qml
         imports/DelegateUI/Controls/DelWindow.qml
         imports/DelegateUI/Controls/DelMenu.qml
@@ -58,6 +59,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelResizeMouseArea.qml
         imports/DelegateUI/Controls/DelMoveMouseArea.qml
         imports/DelegateUI/Controls/DelAcrylic.qml
+        imports/DelegateUI/Controls/DelSlider.qml
     SOURCES
         cpp/delglobal.h
         cpp/deldefinitions.h
@@ -86,10 +88,12 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelCaptionButton.json
         theme/DelTour.json
         theme/DelIconText.json
+        theme/DelCopyableText.json
         theme/DelMenu.json
         theme/DelDivider.json
         theme/DelSwitch.json
         theme/DelScrollBar.json
+        theme/DelSlider.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
