@@ -72,7 +72,7 @@ Item {
 
         HoverHandler {
             id: __mouse
-            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+            acceptedDevices: PointerDevice.AllDevices
         }
     }
     property Component bgDelegate: Item {
