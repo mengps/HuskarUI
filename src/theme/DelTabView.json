@@ -1,0 +1,10 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorTab": "@colorTextBase",
+    "colorTabHover": "@colorPrimaryHover",
+    "colorTabActive": "@colorPrimaryActive",
+    "colorSeparator": "$alpha(@colorTextBase, 0.2)",
+    "colorHightlight": "@colorPrimaryBase-6",
+    "colorHightlightDark": "@colorPrimaryBase-5"
+}
