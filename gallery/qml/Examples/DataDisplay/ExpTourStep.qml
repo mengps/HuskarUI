@@ -10,7 +10,7 @@ Flickable {
 
     Column {
         id: column
-        width: parent.width
+        width: parent.width - 15
         spacing: 30
 
         Description {
