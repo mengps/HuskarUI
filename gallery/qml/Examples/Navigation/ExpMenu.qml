@@ -10,7 +10,7 @@ Flickable {
 
     Column {
         id: column
-        width: parent.width
+        width: parent.width - 15
         spacing: 30
 
         Description {
@@ -19,7 +19,9 @@ Flickable {
 为页面和功能提供导航的菜单列表。\n
 * **继承自 { Item }**\n
 支持的代理：\n
-- **menuDelegate: Component** 菜单项代理\n
+- **menuDelegate: Component** 菜单项代理，代理可访问属性：\n
+  - \`index\` 菜单项索引\n
+  - \`modelData\` 菜单项数据\n
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
@@ -31,6 +33,8 @@ defaultHieght | int | 默认高度
 defaultSpacing | int | 默认间隔
 defaultSelectedKey | list | 初始选中的菜单项 key 数组
 model | list | 菜单模型
+\n支持的函数：\n
+- \`gotoMenu(key: string)\` 跳转到菜单键为 \`key\` 处的菜单项 \n
 \n支持的信号：\n
 - \`clickMenu(deep: int, menuKey: string, menuData: Object)\` 点击任意菜单项时发出\n
   - \`deep\` 菜单项深度\n

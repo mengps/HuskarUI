@@ -26,6 +26,7 @@ Item {
         Component.onCompleted: {
             if (control.defaultSelectedKey.length != 0) {
                 if (control.defaultSelectedKey.indexOf(menuKey) != -1) {
+                    __rootItem.expandParent();
                     __menuButton.clicked();
                 }
             }
@@ -46,7 +47,12 @@ Item {
         property bool isCurrent: __private.selectedItem === __rootItem || isCurrentParent
         property bool isCurrentParent: false
 
-        /*! 清除当前菜单的根菜单 */
+        function expandMenu() {
+            if (__menuButton.expandedVisible)
+                __menuButton.expanded = true;
+        }
+
+        /*! 查找当前菜单的根菜单 */
         function findRootMenu() {
             let parent = parentMenu;
             while (parent !== null) {
@@ -56,6 +62,18 @@ Item {
             }
             /*! 根菜单返回自身 */
             return __rootItem;
+        }
+        /*! 展开当前菜单的所有父菜单 */
+        function expandParent() {
+            let parent = parentMenu;
+            while (parent !== null) {
+                if (parent.parentMenu === null) {
+                    parent.expandMenu();
+                    return;
+                }
+                parent.expandMenu();
+                parent = parent.parentMenu;
+            }
         }
         /*! 清除当前菜单的所有子菜单 */
         function clearIsCurrentParent() {
@@ -79,6 +97,16 @@ Item {
                 if (parent.parentMenu === null)
                     return;
                 parent = parent.parentMenu;
+            }
+        }
+
+        Connections {
+            target: __private
+            function onGotoMenu(key) {
+                if (__rootItem.menuKey !== "" && __rootItem.menuKey === key) {
+                    __rootItem.expandParent();
+                    __menuButton.clicked();
+                }
             }
         }
 
@@ -134,6 +162,10 @@ Item {
                 }
             }
         }
+    }
+
+    function gotoMenu(key) {
+        __private.gotoMenu(key);
     }
 
     component MenuButton: DelButton {
@@ -226,6 +258,7 @@ Item {
 
     QtObject {
         id: __private
+        signal gotoMenu(string key)
         property var selectedItem: null
     }
 
