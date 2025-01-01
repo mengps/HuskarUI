@@ -73,6 +73,7 @@ DelWindow {
                 anchors.top: parent.top
                 anchors.bottom: divider1.top
                 ScrollBar.vertical: DelScrollBar { }
+                ScrollBar.horizontal: DelScrollBar { }
 
                 DelCopyableText {
                     id: codeEdit

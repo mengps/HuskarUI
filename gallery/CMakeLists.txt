@@ -22,6 +22,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpSlider.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml
+        qml/Examples/DataDisplay/ExpTabView.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Navigation/ExpScrollBar.qml
         qml/Examples/Layout/ExpDivider.qml

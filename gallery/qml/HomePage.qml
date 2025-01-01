@@ -29,16 +29,19 @@ Rectangle {
         ScrollBar.vertical: DelScrollBar { }
 
         component Card: Item {
+            id: __cardComp
             width: 300
             height: 200
             scale: hovered ? 1.01 : 1
 
+            signal clicked();
             property bool hovered: false
             property alias icon: __icon
             property alias title: __title
             property alias desc: __desc
             property alias linkIcon: __linkIcon
             property string link: ""
+            property alias isNew: __new.visible
 
             Behavior on scale { NumberAnimation { duration: DelTheme.Primary.durationFast } }
 
@@ -48,7 +51,9 @@ Rectangle {
                 onEntered: parent.hovered = true;
                 onExited: parent.hovered = false;
                 onClicked: {
-                    Qt.openUrlExternally(link);
+                    __cardComp.clicked();
+                    if (__cardComp.link.length != 0)
+                        Qt.openUrlExternally(link);
                 }
             }
 
@@ -108,6 +113,52 @@ Rectangle {
                 }
             }
 
+            DropShadow {
+                anchors.fill: __new
+                radius: 4
+                horizontalOffset: 4
+                verticalOffset: 4
+                color: __new.color
+                source: __new
+                opacity: 0.3
+                visible: __new.visible
+            }
+
+            Rectangle {
+                id: __new
+                width: __row.width + 12
+                height: __row.height + 6
+                anchors.right: parent.right
+                anchors.rightMargin: -width * 0.2
+                anchors.top: parent.top
+                anchors.topMargin: 5
+                radius: 2
+                color: "#F5222D"
+                visible: false
+
+                Row {
+                    id: __row
+                    anchors.centerIn: parent
+
+                    DelIconText {
+                        anchors.verticalCenter: parent.verticalCenter
+                        iconSize: DelTheme.Primary.fontPrimarySize
+                        iconSource: DelIcon.FireFilled
+                        color: "white"
+                    }
+
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: "NEW"
+                        font {
+                            family: DelTheme.Primary.fontPrimaryFamily
+                            pixelSize: DelTheme.Primary.fontPrimarySize
+                        }
+                        color: "white"
+                    }
+                }
+            }
+
             DelIconText {
                 id: __linkIcon
                 anchors.right: parent.right
@@ -122,6 +173,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             font {
                 family: DelTheme.Primary.fontPrimaryFamily
+                pixelSize: DelTheme.Primary.fontPrimarySize
             }
             color: DelTheme.Primary.colorTextBase
         }
@@ -199,7 +251,6 @@ Rectangle {
 
             MyText {
                 text: qsTr("助力开发者「更灵活」地搭建出「更美」的产品，让用户「快乐工作」～")
-                font.pixelSize: DelTheme.Primary.fontPrimarySize
             }
 
             Row {
@@ -222,7 +273,6 @@ Rectangle {
 
             MyText {
                 text: qsTr("DelegateUI 支持全局/组件的样式定制，内置多种接口让你定制主题更简单")
-                font.pixelSize: DelTheme.Primary.fontPrimarySize
             }
 
             Card {
@@ -241,7 +291,58 @@ Rectangle {
 
             MyText {
                 text: qsTr("DelegateUI 提供大量实用组件满足你的需求，基于代理的方式实现灵活定制与拓展")
-                font.pixelSize: DelTheme.Primary.fontPrimarySize
+            }
+
+            ListView {
+                id: newView
+                width: parent.width
+                height: 180
+                orientation: Qt.Horizontal
+                spacing: -80
+                model: ListModel {
+                    ListElement { isNew: true; name: qsTr("DelTabView"); desc: qsTr("DelTabView 是通过选项卡标签切换内容的组件。\n") }
+                    ListElement { isNew: false; name: qsTr("DelMenu"); desc: qsTr("新增 gotoMenu() 函数。\n") }
+                    ListElement { isNew: false; name: qsTr("DelIconText"); desc: qsTr("示例增加了图标分类。\n") }
+                }
+                delegate: Item {
+                    id: __rootItem
+                    z: index
+                    width: __card.hovered ? 390 : 250
+                    height: newView.height - 30
+                    required property int index
+                    required property bool isNew
+                    required property string name
+                    required property string desc
+
+                    Behavior on width { NumberAnimation { duration: DelTheme.Primary.durationMid } }
+
+                    Card {
+                        id: __card
+                        width: 250
+                        height: parent.height
+                        anchors.centerIn: parent
+                        title.text: __rootItem.name
+                        desc.text: __rootItem.desc
+                        isNew: __rootItem.isNew
+                        transform: Rotation {
+                            origin.x: __rootItem.width * 0.5
+                            origin.y: __rootItem.height * 0.5
+                            axis {
+                                x: 0
+                                y: 1
+                                z: 0
+                            }
+                            angle: __card.hovered ? 0 : 45
+
+                            Behavior on angle { NumberAnimation { duration: DelTheme.Primary.durationMid } }
+                        }
+                        onClicked: {
+                            galleryMenu.gotoMenu(__rootItem.name);
+                        }
+                    }
+                }
+
+                ScrollBar.horizontal: DelScrollBar { }
             }
         }
     }

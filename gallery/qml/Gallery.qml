@@ -107,7 +107,7 @@ DelWindow {
         }
 
         DelMenu {
-            id: menu
+            id: galleryMenu
             width: 300
             anchors.left: parent.left
             anchors.top: parent.top
@@ -138,18 +138,22 @@ DelWindow {
                     iconSource: DelIcon.ProductOutlined,
                     menuChildren: [
                         {
+                            key: "DelButton",
                             title: qsTr("DelButton 按钮"),
                             source: "./Examples/General/ExpButton.qml"
                         },
                         {
+                            key: "DelIconButton",
                             title: qsTr("DelIconButton 图标按钮"),
                             source: "./Examples/General/ExpIconButton.qml"
                         },
                         {
+                            key: "DelCaptionButton",
                             title: qsTr("DelCaptionButton 标题按钮"),
                             source: "./Examples/General/ExpCaptionButton.qml"
                         },
                         {
+                            key: "DelIconText",
                             title: qsTr("DelIconText 图标文本"),
                             source: "./Examples/General/ExpIconText.qml"
                         }
@@ -160,6 +164,7 @@ DelWindow {
                     iconSource: DelIcon.BarsOutlined,
                     menuChildren: [
                         {
+                            key: "DelDivider",
                             title: qsTr("DelDivider 分割线"),
                             source: "./Examples/Layout/ExpDivider.qml"
                         }
@@ -170,10 +175,12 @@ DelWindow {
                     iconSource: DelIcon.SendOutlined,
                     menuChildren: [
                         {
+                            key: "DelMenu",
                             title: qsTr("DelMenu 菜单"),
                             source: "./Examples/Navigation/ExpMenu.qml",
                         },
                         {
+                            key: "DelScrollBar",
                             title: qsTr("DelScrollBar 滚动条"),
                             source: "./Examples/Navigation/ExpScrollBar.qml",
                         }
@@ -184,10 +191,12 @@ DelWindow {
                     iconSource: DelIcon.InsertRowBelowOutlined,
                     menuChildren: [
                         {
+                            key: "DelSwitch",
                             title: qsTr("DelSwitch 开关"),
                             source: "./Examples/DataEntry/ExpSwitch.qml",
                         },
                         {
+                            key: "DelSlider",
                             title: qsTr("DelSlider 滑动输入条"),
                             source: "./Examples/DataEntry/ExpSlider.qml",
                         }
@@ -198,12 +207,19 @@ DelWindow {
                     iconSource: DelIcon.FundProjectionScreenOutlined,
                     menuChildren: [
                         {
+                            key: "DelTourFocus",
                             title: qsTr("DelTourFocus 漫游焦点"),
                             source: "./Examples/DataDisplay/ExpTourFocus.qml",
                         },
                         {
+                            key: "DelTourStep",
                             title: qsTr("DelTourStep 漫游式引导"),
                             source: "./Examples/DataDisplay/ExpTourStep.qml",
+                        },
+                        {
+                            key: "DelTabView",
+                            title: qsTr("DelTabView 标签视图"),
+                            source: "./Examples/DataDisplay/ExpTabView.qml",
                         }
                     ]
                 },
@@ -212,6 +228,7 @@ DelWindow {
                     iconSource: DelIcon.SkinOutlined,
                     menuChildren: [
                         {
+                            key: "DelTheme",
                             title: qsTr("DelTheme 主题定制"),
                             isTheme: true
                         }
@@ -222,7 +239,7 @@ DelWindow {
 
         DelIconButton {
             id: setttingsButton
-            width: menu.width
+            width: galleryMenu.width
             height: 40
             anchors.bottom: parent.bottom
             radiusBg: 0
@@ -238,7 +255,7 @@ DelWindow {
 
         Item {
             id: container
-            anchors.left: menu.right
+            anchors.left: galleryMenu.right
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
