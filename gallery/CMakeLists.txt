@@ -18,6 +18,8 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/General/ExpIconButton.qml
         qml/Examples/General/ExpCaptionButton.qml
         qml/Examples/General/ExpIconText.qml
+        qml/Examples/General/ExpCopyableText.qml
+        qml/Examples/General/ExpRectangle.qml
         qml/Examples/DataEntry/ExpSwitch.qml
         qml/Examples/DataEntry/ExpSlider.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
@@ -26,6 +28,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Navigation/ExpScrollBar.qml
         qml/Examples/Layout/ExpDivider.qml
+        qml/Examples/Effect/ExpAcrylic.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Controls/CodeBox.qml
         qml/Controls/Description.qml
@@ -37,6 +40,7 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/customtheme.h cpp/customtheme.cpp
         cpp/main.cpp
     RESOURCES
+        ../UpdateLists.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "shaders"
