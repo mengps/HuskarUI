@@ -1,0 +1,32 @@
+[
+    {
+        "isNew": true,
+        "name": "DelRectangle",
+        "desc": "使用 DelRectangle 可以轻松实现任意四个对角方向上的圆角矩形。"
+    },
+    {
+        "isNew": true,
+        "name": "DelCopyableText",
+        "desc": "使用 DelCopyableText 可以代替 Text 以提供可复制的文本。"
+    },
+    {
+        "isNew": true,
+        "name": "DelAcrylic",
+        "desc": "使用 DelAcrylic 可以轻松实现亚克力/毛玻璃效果。"
+    },
+    {
+        "isNew": true,
+        "name": "DelTabView",
+        "desc": "DelTabView 是通过选项卡标签切换内容的组件。"
+    },
+    {
+        "isNew": false,
+        "name": "DelMenu",
+        "desc": "新增 gotoMenu() 函数。\n新增 get() 函数。\n新增 set() 函数。\n新增 setProperty() 函数。\n新增 move() 函数。新增 insert() 函数。\n新增 append() 函数。\n新增 removeAt() 函数。"
+    },
+    {
+        "isNew": false,
+        "name": "DelIconText",
+        "desc": "示例增加了图标分类。"
+    }
+]

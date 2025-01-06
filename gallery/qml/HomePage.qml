@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import Qt5Compat.GraphicalEffects
 import DelegateUI
@@ -28,13 +29,20 @@ Rectangle {
         contentHeight: column.height + 20
         ScrollBar.vertical: DelScrollBar { }
 
-        component Card: Item {
+        component Card: MouseArea {
             id: __cardComp
             width: 300
             height: 200
             scale: hovered ? 1.01 : 1
+            hoverEnabled: true
+            onEntered: hovered = true;
+            onExited: hovered = false;
+            onClicked: {
+                print("onClicked")
+                if (__cardComp.link.length != 0)
+                    Qt.openUrlExternally(link);
+            }
 
-            signal clicked();
             property bool hovered: false
             property alias icon: __icon
             property alias title: __title
@@ -44,18 +52,6 @@ Rectangle {
             property alias isNew: __new.visible
 
             Behavior on scale { NumberAnimation { duration: DelTheme.Primary.durationFast } }
-
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: parent.hovered = true;
-                onExited: parent.hovered = false;
-                onClicked: {
-                    __cardComp.clicked();
-                    if (__cardComp.link.length != 0)
-                        Qt.openUrlExternally(link);
-                }
-            }
 
             DropShadow {
                 anchors.fill: __rect
@@ -78,38 +74,56 @@ Rectangle {
                 Behavior on color { ColorAnimation { duration: DelTheme.Primary.durationMid } }
             }
 
-            Column {
+            ColumnLayout {
                 width: parent.width
                 anchors.top: parent.top
-                anchors.topMargin: 10
+                anchors.topMargin: 5
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
                 spacing: 10
 
                 DelIconText {
                     id: __icon
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    Layout.preferredWidth: width
+                    Layout.preferredHeight: iconSource == 0 ? 0 : height
+                    Layout.alignment: Qt.AlignHCenter
                     iconSize: 60
                 }
 
                 Text {
                     id: __title
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    Layout.preferredWidth: parent.width - 10
+                    Layout.preferredHeight: height
+                    Layout.alignment: Qt.AlignHCenter
                     font {
                         family: DelTheme.Primary.fontPrimaryFamily
-                        pixelSize: DelTheme.Primary.fontPrimarySize
+                        pixelSize: DelTheme.Primary.fontPrimarySizeHeading4
+                        bold: true
                     }
                     color: DelTheme.Primary.colorTextBase
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WrapAnywhere
                 }
 
-                Text {
-                    id: __desc
-                    width: parent.width - 40
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font {
-                        family: DelTheme.Primary.fontPrimaryFamily
-                        pixelSize: DelTheme.Primary.fontPrimarySize
+                Flickable {
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignHCenter
+                    width: parent.width - 50
+                    contentHeight: __desc.contentHeight
+                    ScrollBar.vertical: DelScrollBar { }
+                    clip: true
+                    interactive: false
+
+                    Text {
+                        id: __desc
+                        width: parent.width - 10
+                        color: DelTheme.Primary.colorTextBase
+                        font {
+                            family: DelTheme.Primary.fontPrimaryFamily
+                            pixelSize: DelTheme.Primary.fontPrimarySize
+                        }
+                        wrapMode: Text.WrapAnywhere
                     }
-                    color: DelTheme.Primary.colorTextBase
-                    wrapMode: Text.WrapAnywhere
                 }
             }
 
@@ -296,13 +310,12 @@ Rectangle {
             ListView {
                 id: newView
                 width: parent.width
-                height: 180
+                height: 200
                 orientation: Qt.Horizontal
                 spacing: -80
-                model: ListModel {
-                    ListElement { isNew: true; name: qsTr("DelTabView"); desc: qsTr("DelTabView 是通过选项卡标签切换内容的组件。\n") }
-                    ListElement { isNew: false; name: qsTr("DelMenu"); desc: qsTr("新增 gotoMenu() 函数。\n") }
-                    ListElement { isNew: false; name: qsTr("DelIconText"); desc: qsTr("示例增加了图标分类。\n") }
+                Component.onCompleted: {
+                    const updates = DelApi.readFileToString(":/Gallery/UpdateLists.json");
+                    newView.model = JSON.parse(updates);
                 }
                 delegate: Item {
                     id: __rootItem
