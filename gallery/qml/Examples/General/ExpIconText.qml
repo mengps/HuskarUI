@@ -34,7 +34,7 @@ contentDescription | string | 内容描述(提高可用性)
         anchors.right: parent.right
         tabCentered: true
         defaultTabWidth: 120
-        model: [
+        initModel: [
             {
                 key: "1",
                 title: qsTr("线框风格图标"),
@@ -51,16 +51,12 @@ contentDescription | string | 内容描述(提高可用性)
                 styleFilter: "Path1,Path2,Path3,Path4"
             }
         ]
-        contentDelegate: GridView {
-            id: gridView
-            cellWidth: Math.floor(width / 8)
-            cellHeight: 110
-            clip: true
-            model: ListModel { id: listModel }
-            ScrollBar.vertical: DelScrollBar { }
+        contentDelegate: Item {
+            id: contentItem
+
             Component.onCompleted: {
                 const map = DelIcon.allIconNames();
-                const filter = modelData.styleFilter.split(',');
+                const filter = model.styleFilter.split(',');
                 for (const key in map) {
                     let has = false;
                     filter.forEach((filterKey)=>{
@@ -76,60 +72,70 @@ contentDescription | string | 内容描述(提高可用性)
                     }
                 }
             }
-            delegate: Item {
-                id: rootItem
-                width: gridView.cellWidth
-                height: gridView.cellHeight
 
-                required property string iconName
-                required property int iconSource
+            GridView {
+                id: gridView
+                anchors.fill: parent
+                cellWidth: Math.floor(width / 8)
+                cellHeight: 110
+                clip: true
+                model: ListModel { id: listModel }
+                ScrollBar.vertical: DelScrollBar { }
+                delegate: Item {
+                    id: rootItem
+                    width: gridView.cellWidth
+                    height: gridView.cellHeight
 
-                Rectangle {
-                    anchors.fill: parent
-                    anchors.margins: 10
-                    color: mouseAre.pressed ? DelThemeFunctions.darker(DelTheme.Primary.colorPrimaryBorder) :
-                                              mouseAre.hovered ? DelThemeFunctions.lighter(DelTheme.Primary.colorPrimaryBorder)  :
-                                                                 DelThemeFunctions.alpha(DelTheme.Primary.colorPrimaryBorder, 0);
-                    radius: 5
+                    required property string iconName
+                    required property int iconSource
 
-                    Behavior on color { enabled: DelTheme.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
-
-                    MouseArea {
-                        id: mouseAre
+                    Rectangle {
                         anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: hovered = true;
-                        onExited: hovered = false;
-                        onClicked: {
-                            DelApi.setClipbordText(`DelIcon.${rootItem.iconName}`);
-                        }
-                        property bool hovered: false
-                    }
+                        anchors.margins: 10
+                        color: mouseAre.pressed ? DelThemeFunctions.darker(DelTheme.Primary.colorPrimaryBorder) :
+                                                  mouseAre.hovered ? DelThemeFunctions.lighter(DelTheme.Primary.colorPrimaryBorder)  :
+                                                                     DelThemeFunctions.alpha(DelTheme.Primary.colorPrimaryBorder, 0);
+                        radius: 5
 
-                    ColumnLayout {
-                        anchors.fill: parent
-                        anchors.topMargin: 10
-                        anchors.bottomMargin: 10
-                        spacing: 10
+                        Behavior on color { enabled: DelTheme.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
-                        DelIconText {
-                            id: icon
-                            Layout.preferredWidth: 28
-                            Layout.preferredHeight: 28
-                            Layout.alignment: Qt.AlignHCenter
-                            iconSize: 28
-                            iconSource: rootItem.iconSource
+                        MouseArea {
+                            id: mouseAre
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: hovered = true;
+                            onExited: hovered = false;
+                            onClicked: {
+                                DelApi.setClipbordText(`DelIcon.${rootItem.iconName}`);
+                            }
+                            property bool hovered: false
                         }
 
-                        Text {
-                            Layout.preferredWidth: parent.width - 10
-                            Layout.fillHeight: true
-                            Layout.alignment: Qt.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignHCenter
-                            text: rootItem.iconName
-                            color: icon.colorIcon
-                            wrapMode: Text.WrapAnywhere
+                        ColumnLayout {
+                            anchors.fill: parent
+                            anchors.topMargin: 10
+                            anchors.bottomMargin: 10
+                            spacing: 10
+
+                            DelIconText {
+                                id: icon
+                                Layout.preferredWidth: 28
+                                Layout.preferredHeight: 28
+                                Layout.alignment: Qt.AlignHCenter
+                                iconSize: 28
+                                iconSource: rootItem.iconSource
+                            }
+
+                            Text {
+                                Layout.preferredWidth: parent.width - 10
+                                Layout.fillHeight: true
+                                Layout.alignment: Qt.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignHCenter
+                                text: rootItem.iconName
+                                color: icon.colorIcon
+                                wrapMode: Text.WrapAnywhere
+                            }
                         }
                     }
                 }
