@@ -1,10 +1,18 @@
 {
     "fontFamily": "@fontPrimaryFamily",
     "fontSize": "@fontPrimarySize",
+    "colorTabClose": "$alpha(@colorTextBase, 0.4)",
+    "colorTabCloseHover": "@colorTextBase",
     "colorTab": "@colorTextBase",
     "colorTabHover": "@colorPrimaryHover",
     "colorTabActive": "@colorPrimaryActive",
-    "colorSeparator": "$alpha(@colorTextBase, 0.2)",
+    "colorTabCardBorder": "$alpha(@colorTextBase, 0.2)",
+    "colorTabCardBg": "$darker(@colorBgBase, 105)",
+    "colorTabCardBgChecked": "@colorBgBase",
+    "colorTabCardBgDark": "$lighter(@colorBgBase, 200)",
+    "colorTabCardBgCheckedDark": "@colorBgBase",
     "colorHightlight": "@colorPrimaryBase-6",
-    "colorHightlightDark": "@colorPrimaryBase-5"
+    "colorHightlightDark": "@colorPrimaryBase-5",
+    "radiusButton": "6",
+    "radiusTabBg": "6"
 }
