@@ -92,8 +92,8 @@ T.Button {
     }
     property string contentDescription: text
 
-    width: implicitContentWidth + leftPadding + rightPadding
-    height: implicitContentHeight + topPadding + bottomPadding
+    implicitWidth: implicitContentWidth + leftPadding + rightPadding
+    implicitHeight: implicitContentHeight + topPadding + bottomPadding
     padding: 10
     topPadding: 5
     bottomPadding: 5
