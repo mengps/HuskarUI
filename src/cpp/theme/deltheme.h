@@ -14,7 +14,7 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
     QML_SINGLETON
     QML_NAMED_ELEMENT(DelTheme)
 
-    Q_PROPERTY(bool isDark READ isDark NOTIFY isDarkChanged CONSTANT)
+    Q_PROPERTY(bool isDark READ isDark NOTIFY isDarkChanged)
 
     DEL_PROPERTY(int, darkMode, setDarkMode);
     DEL_PROPERTY_INIT(bool, animationEnabled, setAnimationEnabled, true);
