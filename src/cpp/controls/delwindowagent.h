@@ -9,6 +9,7 @@
 class DELEGATEUI_EXPORT DelWindowAgent : public QWK::QuickWindowAgent, public QQmlParserStatus
 {
     Q_OBJECT
+    Q_INTERFACES(QQmlParserStatus)
     QML_NAMED_ELEMENT(DelWindowAgent)
 
 public:
