@@ -38,7 +38,6 @@ Rectangle {
             onEntered: hovered = true;
             onExited: hovered = false;
             onClicked: {
-                print("onClicked")
                 if (__cardComp.link.length != 0)
                     Qt.openUrlExternally(link);
             }
