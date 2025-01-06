@@ -1,6 +1,7 @@
 #include "delapi.h"
 
 #include <QClipboard>
+#include <QFile>
 #include <QGuiApplication>
 
 #ifdef Q_OS_WIN
@@ -49,6 +50,19 @@ QString DelApi::getClipbordText()
 void DelApi::setClipbordText(const QString &text)
 {
     QGuiApplication::clipboard()->setText(text);
+}
+
+QString DelApi::readFileToString(const QString &fileName)
+{
+    QString result;
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadOnly)) {
+        result = file.readAll();
+    } else {
+        qDebug() << "Open file error:" << file.errorString();
+    }
+
+    return result;
 }
 
 DelApi::DelApi(QObject *parent)

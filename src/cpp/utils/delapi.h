@@ -24,6 +24,8 @@ public:
     Q_INVOKABLE QString getClipbordText();
     Q_INVOKABLE void setClipbordText(const QString &text);
 
+    Q_INVOKABLE QString readFileToString(const QString &fileName);
+
 private:
     explicit DelApi(QObject *parent = nullptr);
 };
