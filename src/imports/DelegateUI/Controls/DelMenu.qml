@@ -8,7 +8,8 @@ Item {
     width: defaultWidth
     clip: true
 
-    signal clickMenu(int deep, string menuKey, var menuData);
+    signal clickMenu(deep: int, menuKey: string, menuData: var)
+
     property bool animationEnabled: DelTheme.animationEnabled
     property string contentDescription: ""
     property int defaultIconSize: DelTheme.DelMenu.fontSize
@@ -17,13 +18,17 @@ Item {
     property int defaultHieght: 40
     property int defaultSpacing: 5
     property var defaultSelectedKey: []
-    property var model: []
+    property var initModel: []
     property Component menuDelegate: Item {
         id: __rootItem
         width: ListView.view.width
         height: __layout.height
         clip: true
         Component.onCompleted: {
+            /*! menuChildren 类型会从 `[] -> QQmlListModel` */
+            for (let i = 0; i < menuChildren.count; i++) {
+                __childrenModel.append(__private.initObject(Object.assign({}, menuChildren.get(i))));
+            }
             if (control.defaultSelectedKey.length != 0) {
                 if (control.defaultSelectedKey.indexOf(menuKey) != -1) {
                     __rootItem.expandParent();
@@ -33,17 +38,17 @@ Item {
         }
 
         property var view: ListView.view
-        property string menuKey: modelData.key || ""
-        property bool menuEnabled: (modelData.enabled === undefined) ? true : modelData.enabled
-        property string menuTitle: modelData.title || ""
-        property int menuHeight: modelData.height || control.defaultHieght
-        property int menuIconSize: modelData.iconSize || defaultIconSize
-        property int menuIconSource: modelData.iconSource || 0
-        property int menuIconSpacing: modelData.iconSpacing || defaultIconSpacing
-        property var menuChildren: modelData.menuChildren || []
+        property string menuKey: model.key
+        property bool menuEnabled: model.enabled
+        property string menuTitle: model.title
+        property int menuHeight: model.height
+        property int menuIconSize: model.iconSize
+        property int menuIconSource: model.iconSource
+        property int menuIconSpacing: model.iconSpacing
+        property var menuChildren: model.menuChildren
 
         property var parentMenu: view.menuDeep === 0 ? null : view.parentMenu
-        property int menuChildrenLength: menuChildren.length
+        property int menuChildrenLength: menuChildren.count
         property bool isCurrent: __private.selectedItem === __rootItem || isCurrentParent
         property bool isCurrentParent: false
 
@@ -86,8 +91,8 @@ Item {
         }
         /*! 选中当前菜单的所有父菜单 */
         function selectedCurrentParentMenu() {
-            for (let i = 0; i < listView.count; i++) {
-                let item = listView.itemAtIndex(i);
+            for (let i = 0; i < __listView.count; i++) {
+                let item = __listView.itemAtIndex(i);
                 if (item)
                     item.clearIsCurrentParent();
             }
@@ -130,7 +135,7 @@ Item {
                 isCurrent: __rootItem.isCurrent
                 onClicked: {
                     if (__rootItem.menuChildrenLength == 0) {
-                        control.clickMenu(__rootItem.view.menuDeep, __rootItem.menuKey, modelData);
+                        control.clickMenu(__rootItem.view.menuDeep, __rootItem.menuKey, model.__data);
                         __private.selectedItem = __rootItem;
                         __rootItem.selectedCurrentParentMenu();
                     }
@@ -149,10 +154,11 @@ Item {
                 spacing: control.defaultSpacing
                 boundsBehavior: Flickable.StopAtBounds
                 interactive: false
-                model: __rootItem.menuChildren
+                model: ListModel { id: __childrenModel }
                 delegate: menuDelegate
+                onContentHeightChanged: cacheBuffer = contentHeight;
                 clip: true
-                /* 子ListView从父ListView的深度累加可实现自动计算 */
+                /* 子 ListView 从父 ListView 的深度累加可实现自动计算 */
                 property int menuDeep: __rootItem.view.menuDeep + 1
                 property var parentMenu: __rootItem
 
@@ -164,8 +170,47 @@ Item {
         }
     }
 
+    onInitModelChanged: {
+        clear();
+        for (const object of initModel) {
+            append(object);
+        }
+    }
+
     function gotoMenu(key) {
         __private.gotoMenu(key);
+    }
+
+    function get(index) {
+        return __menuModel.get(index);
+    }
+
+    function set(index, object) {
+        __menuModel.set(index, __private.initObject(object));
+    }
+
+    function setProperty(index, propertyName, value) {
+        __menuModel.setProperty(index, propertyName, value);
+    }
+
+    function move(from, to, count = 1) {
+        __menuModel.move(from, to, count);
+    }
+
+    function insert(index, object) {
+        __menuModel.insert(index, __private.initObject(object));
+    }
+
+    function append(object) {
+        __menuModel.append(__private.initObject(object));
+    }
+
+    function removeAt(index, count = 1) {
+        __menuModel.remove(index, count);
+    }
+
+    function clear() {
+        __menuModel.clear();
     }
 
     component MenuButton: DelButton {
@@ -258,8 +303,24 @@ Item {
 
     QtObject {
         id: __private
-        signal gotoMenu(string key)
+        signal gotoMenu(key: string)
         property var selectedItem: null
+        function initObject(object) {
+            if (!object.hasOwnProperty("key")) object.key = "";
+            if (!object.hasOwnProperty("enabled")) object.enabled = true;
+            if (!object.hasOwnProperty("title")) object.title = "";
+            if (!object.hasOwnProperty("height")) object.height = defaultHieght;
+            if (!object.hasOwnProperty("iconSize")) object.iconSize = defaultIconSize;
+            if (!object.hasOwnProperty("iconSource")) object.iconSource = 0;
+            if (!object.hasOwnProperty("iconSpacing")) object.iconSpacing = defaultIconSpacing;
+            if (!object.hasOwnProperty("menuChildren")) object.menuChildren = [];
+
+            /*! 保存副本 */
+            object.__data = {};
+            Object.assign(object.__data, object);
+
+            return object;
+        }
     }
 
     Rectangle {
@@ -269,8 +330,13 @@ Item {
         color: DelTheme.DelMenu.colorEdge
     }
 
+    MouseArea {
+        anchors.fill: parent
+        onWheel: (wheel) => wheel.accepeted = true;
+    }
+
     ListView {
-        id: listView
+        id: __listView
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.rightMargin: 8
@@ -279,8 +345,9 @@ Item {
         anchors.margins: 5
         boundsBehavior: Flickable.StopAtBounds
         spacing: control.defaultSpacing
-        model: control.model
+        model: ListModel { id: __menuModel }
         delegate: menuDelegate
+        onContentHeightChanged: cacheBuffer = contentHeight;
         T.ScrollBar.vertical: DelScrollBar { anchors.rightMargin: -8 }
         property int menuDeep: 0
     }
