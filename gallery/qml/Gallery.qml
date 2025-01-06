@@ -126,7 +126,7 @@ DelWindow {
                 }
             }
             defaultSelectedKey: ["HomePage"]
-            model: [
+            initModel: [
                 {
                     key: "HomePage",
                     title: qsTr("首页"),
@@ -156,6 +156,16 @@ DelWindow {
                             key: "DelIconText",
                             title: qsTr("DelIconText 图标文本"),
                             source: "./Examples/General/ExpIconText.qml"
+                        },
+                        {
+                            key: "DelCopyableText",
+                            title: qsTr("DelCopyableText 可复制文本"),
+                            source: "./Examples/General/ExpCopyableText.qml"
+                        },
+                        {
+                            key: "DelRectangle",
+                            title: qsTr("DelRectangle 圆角矩形"),
+                            source: "./Examples/General/ExpRectangle.qml"
                         }
                     ]
                 },
@@ -220,6 +230,17 @@ DelWindow {
                             key: "DelTabView",
                             title: qsTr("DelTabView 标签视图"),
                             source: "./Examples/DataDisplay/ExpTabView.qml",
+                        }
+                    ]
+                },
+                {
+                    title: qsTr("效果"),
+                    iconSource: DelIcon.FireOutlined,
+                    menuChildren: [
+                        {
+                            key: "DelAcrylic",
+                            title: qsTr("DelAcrylic 亚克力效果"),
+                            source: "./Examples/Effect/ExpAcrylic.qml",
                         }
                     ]
                 },
