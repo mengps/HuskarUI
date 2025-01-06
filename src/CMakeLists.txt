@@ -18,7 +18,7 @@ find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
 
 #QWindowKit
 set(QWindowKit_DIR ../3rdparty/QWindowKit/lib/cmake/QWindowKit)
-find_package(QWindowKit COMPONENTS Core Quick REQUIRED)
+find_package(QWindowKit COMPONENTS Core Quick QuickPrivate REQUIRED)
 
 set(DELEGATEUI_QML_OUTPUT_DIRECTORY "" CACHE PATH "DelegateUI plugin output dir.")
 if(NOT DELEGATEUI_QML_OUTPUT_DIRECTORY)
@@ -73,6 +73,7 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/theme/delsizegenerator.h cpp/theme/delsizegenerator.cpp
         cpp/controls/deliconfont.h cpp/controls/deliconfont.cpp
         cpp/controls/delwindowagent.h cpp/controls/delwindowagent.cpp
+        cpp/controls/delrectangle.h cpp/controls/delrectangle.cpp
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
@@ -124,6 +125,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
+    Qt6::QuickPrivate
     QWindowKit::Quick
 )
 
