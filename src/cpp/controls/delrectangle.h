@@ -20,6 +20,10 @@ class DELEGATEUI_EXPORT DelPen: public QObject
 
 public:
     DelPen(QObject *parent = nullptr) : QObject{parent} { }
+
+    bool isValid() const {
+        return m_width > 0 && m_color.isValid() && m_color.alpha() > 0;
+    }
 };
 
 class DELEGATEUI_EXPORT DelRectangle: public QQuickPaintedItem

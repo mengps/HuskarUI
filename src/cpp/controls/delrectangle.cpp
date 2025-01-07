@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QPainterPath>
+#include <QPainterPathStroker>
 
 #include <private/qqmlglobal_p.h>
 
@@ -42,6 +43,10 @@ void DelRectangle::setRadius(qreal radius)
 
     if (d->m_radius != radius) {
         d->m_radius = radius;
+        d->m_topLeftRadius = radius;
+        d->m_topRightRadius = radius;
+        d->m_bottomLeftRadius = radius;
+        d->m_bottomRightRadius = radius;
         emit radiusChanged();
         update();
     }
@@ -159,8 +164,21 @@ void DelRectangle::paint(QPainter *painter)
     painter->save();
     painter->setRenderHint(QPainter::Antialiasing);
 
-    QPainterPath path;
     QRectF rect = boundingRect();
+    if (d->m_pen && d->m_pen->isValid()) {
+        rect = boundingRect();
+        if (rect.width() > d->m_pen->width() * 2) {
+            auto dx = d->m_pen->width() * 0.5;
+            rect.adjust(dx, 0, -dx, 0);
+        }
+        if (rect.height() > d->m_pen->width() * 2) {
+            auto dy = d->m_pen->width() * 0.5;
+            rect.adjust(0, dy, 0, -dy);
+        }
+        painter->setPen(QPen(d->m_pen->color(), d->m_pen->width(), Qt::SolidLine, Qt::SquareCap, Qt::SvgMiterJoin));
+    }
+
+    QPainterPath path;
     path.moveTo(rect.bottomRight() - QPointF(0, d->m_bottomRightRadius));
     path.lineTo(rect.topRight() + QPointF(0, d->m_topRightRadius));
     path.arcTo(QRectF(QPointF(rect.topRight() - QPointF(d->m_topRightRadius * 2, 0)),
@@ -173,11 +191,10 @@ void DelRectangle::paint(QPainter *painter)
     path.lineTo(rect.bottomRight() - QPointF(d->m_bottomRightRadius, 0));
     path.arcTo(QRectF(QPointF(rect.bottomRight() - QPointF(d->m_bottomRightRadius * 2, d->m_bottomRightRadius * 2)),
                       QSize(d->m_bottomRightRadius * 2, d->m_bottomRightRadius * 2)), 270, 90);
-    painter->fillPath(path, d->m_color);
 
-    if (d->m_pen) {
-        painter->strokePath(path, QPen(d->m_pen->color(), d->m_pen->width()));
-    }
+    painter->setBrush(d->m_color);
+
+    painter->drawPath(path);
 
     painter->restore();
 }
