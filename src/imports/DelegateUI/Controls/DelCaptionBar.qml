@@ -51,8 +51,6 @@ Rectangle {
     property var closeCallback: ()=>{ if (targetWindow) targetWindow.close(); }
 
     property Component winIconDelegate: Image {
-        width: 20
-        height: 20
         source: control.winIcon
         sourceSize.width: width
         sourceSize.height: height
@@ -152,6 +150,8 @@ Rectangle {
 
                 Loader {
                     id: __winIconLoader
+                    width: 20
+                    height: 20
                     anchors.verticalCenter: parent.verticalCenter
                     sourceComponent: winIconDelegate
                 }
