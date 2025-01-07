@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelWindow",
+        "desc": "使用 DelWindow 可以轻松创建跨平台无边框窗口。"
+    },
+    {
+        "isNew": true,
         "name": "DelRectangle",
         "desc": "使用 DelRectangle 可以轻松实现任意四个对角方向上的圆角矩形。"
     },
