@@ -10,15 +10,15 @@ Window {
     property bool initialized: false
     property int specialEffect: DelWindowSpecialEffect.None
 
+    visible: true
     objectName: "__DelWindow__"
     Component.onCompleted: {
-        setCaptionBarMode(DelTheme.isDark);
+        setWindowMode(DelTheme.isDark);
         __captionBar.windowAgent = __windowAgent;
         initialized = true;
-        window.visible = true;
     }
 
-    function setCaptionBarMode(isDark) {
+    function setWindowMode(isDark) {
         if (window.initialized)
             windowAgent.setWindowAttribute("dark-mode", isDark);
     }
@@ -63,7 +63,6 @@ Window {
             break;
         case DelWindowSpecialEffect.None:
         default:
-            //window.color = DelTheme.Primary.colorBgBase;
             windowAgent.setWindowAttribute("dwm-blur", false);
             windowAgent.setWindowAttribute("acrylic-material", false);
             windowAgent.setWindowAttribute("mica", false);
@@ -77,6 +76,8 @@ Window {
         target: DelTheme
         enabled: window.followThemeSwitch
         function onIsDarkChanged() {
+            if (window.specialEffect == DelWindowSpecialEffect.None)
+                window.color = DelTheme.Primary.colorBgBase;
             __windowAgent.setWindowAttribute("dark-mode", DelTheme.isDark);
         }
     }
@@ -90,6 +91,7 @@ Window {
         z: 65535
         width: parent.width
         height: 30
+        anchors.top: parent.top
         targetWindow: window
     }
 }
