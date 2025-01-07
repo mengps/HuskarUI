@@ -12,6 +12,7 @@ Rectangle {
 
     property alias layoutDirection: __row.layoutDirection
 
+    property string winTitle: targetWindow ? targetWindow.title : ""
     property string winIcon: ""
     property alias winIconWidth: __winIconLoader.width
     property alias winIconHeight: __winIconLoader.height
@@ -50,13 +51,15 @@ Rectangle {
     property var closeCallback: ()=>{ if (targetWindow) targetWindow.close(); }
 
     property Component winIconDelegate: Image {
+        width: 20
+        height: 20
         source: control.winIcon
         sourceSize.width: width
         sourceSize.height: height
         mipmap: true
     }
     property Component winTitleDelegate: Text {
-        text: targetWindow ? targetWindow.title : ""
+        text: winTitle
         color: winTitleColor
         font: winTitleFont
     }
@@ -142,15 +145,13 @@ Rectangle {
             }
 
             Row {
-                spacing: 10
+                spacing: 5
                 anchors.left: parent.left
                 anchors.leftMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
 
                 Loader {
                     id: __winIconLoader
-                    width: 20
-                    height: 20
                     anchors.verticalCenter: parent.verticalCenter
                     sourceComponent: winIconDelegate
                 }
