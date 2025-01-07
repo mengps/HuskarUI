@@ -60,7 +60,7 @@ DelWindow {
             to: themeCircle.r * 2
             duration: DelTheme.Primary.durationMid
             onStarted: {
-                galleryWindow.setCaptionBarMode(true);
+                galleryWindow.setWindowMode(true);
                 themeCircle.visible = true;
             }
             onFinished: {
@@ -81,7 +81,7 @@ DelWindow {
             to: 0
             duration: DelTheme.Primary.durationMid
             onStarted: {
-                galleryWindow.setCaptionBarMode(false);
+                galleryWindow.setWindowMode(false);
                 themeCircle.visible = true;
                 if (galleryWindow.specialEffect === DelWindowSpecialEffect.None)
                     galleryWindow.color = DelTheme.Primary.colorBgBase;
@@ -137,6 +137,11 @@ DelWindow {
                     title: qsTr("通用"),
                     iconSource: DelIcon.ProductOutlined,
                     menuChildren: [
+                        {
+                            key: "DelWindow",
+                            title: qsTr("DelWindow 无边框窗口"),
+                            source: "./Examples/General/ExpWindow.qml"
+                        },
                         {
                             key: "DelButton",
                             title: qsTr("DelButton 按钮"),
