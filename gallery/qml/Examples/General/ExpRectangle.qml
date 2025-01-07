@@ -16,7 +16,8 @@ Flickable {
         Description {
             desc: qsTr(`
 ## DelRectangle 圆角矩形\n
-在需要任意四个方向的圆角矩形时使用(替代Rectangle)。\n
+在需要任意四个方向的圆角矩形时使用。\n
+**注意** Qt6.7 以后则可以直接使用 Rectangle。\n
 * **继承自 { QQuickPaintedItem }**\n
 支持的代理：\n
 - 无\n
@@ -127,6 +128,8 @@ border.width | int | 边框线宽度
                         width: 200
                         height: 200
                         color: "#60ff0000"
+                        border.width: 1
+                        border.color: DelTheme.Primary.colorTextBase
                         topLeftRadius: topLeftSlider.currentValue
                         topRightRadius: topRightSlider.currentValue
                         bottomLeftRadius: bottomLeftSlider.currentValue
@@ -205,6 +208,8 @@ border.width | int | 边框线宽度
                     width: 200
                     height: 200
                     color: "#60ff0000"
+                    border.width: 1
+                    border.color: DelTheme.Primary.colorTextBase
                     topLeftRadius: topLeftSlider.currentValue
                     topRightRadius: topRightSlider.currentValue
                     bottomLeftRadius: bottomLeftSlider.currentValue
