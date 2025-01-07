@@ -11,7 +11,7 @@ Item {
         id: description
         desc: qsTr(`
 ## DelIconText 图标文本\n
-使用开关切换两种状态之间。\n
+语义化的图标文本。\n
 * **继承自 { Text }**\n
 支持的代理：\n
 - 无\n
@@ -32,6 +32,7 @@ contentDescription | string | 内容描述(提高可用性)
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+        addButtonDelegate: Item {}
         tabCentered: true
         defaultTabWidth: 120
         initModel: [
