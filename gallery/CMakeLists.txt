@@ -14,6 +14,7 @@ qt_add_qml_module(${PROJECT_NAME}
     VERSION 1.0
     RESOURCE_PREFIX "/"
     QML_FILES
+        qml/Examples/General/ExpWindow.qml
         qml/Examples/General/ExpButton.qml
         qml/Examples/General/ExpIconButton.qml
         qml/Examples/General/ExpCaptionButton.qml
