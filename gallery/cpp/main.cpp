@@ -12,6 +12,10 @@ Q_IMPORT_QML_PLUGIN(DelegateUI)
 
 int main(int argc, char *argv[])
 {
+    auto defaultFormat = QSurfaceFormat::defaultFormat();
+    defaultFormat.setSamples(8);
+    QSurfaceFormat::setDefaultFormat(defaultFormat);
+
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 
     QGuiApplication app(argc, argv);
