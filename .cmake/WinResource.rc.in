@@ -1,0 +1,38 @@
+#include <windows.h>
+
+@RC_ICONS@
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     @RC_VERSION@
+PRODUCTVERSION  @RC_VERSION@
+FILEFLAGSMASK   0x3fL
+#ifdef _DEBUG
+FILEFLAGS       VS_FF_DEBUG
+#else
+FILEFLAGS       0x0L
+#endif
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        @RC_FILE_TYPE@
+FILESUBTYPE     VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments",         "@RC_COMMENTS@"
+            VALUE "CompanyName",      "@RC_COMPANY@"
+            VALUE "FileDescription",  "@RC_DESCRIPTION@"
+            VALUE "FileVersion",      "@RC_VERSION_STRING@"
+            VALUE "InternalName",     "@RC_INTERNAL_NAME@"
+            VALUE "LegalCopyright",   "@RC_COPYRIGHT@"
+            VALUE "LegalTrademarks",  "@RC_TRADEMARK@"
+            VALUE "OriginalFilename", "@RC_FILENAME@"
+            VALUE "ProductName",      "@RC_PROJECT_NAME@"
+            VALUE "ProductVersion",   "@RC_VERSION_STRING@"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
