@@ -10,13 +10,16 @@ else()
     project(DelegateUIPlugin VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 endif()
 
+#Add DeleagteUIHelper
+include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/DelegateUIHelper.cmake)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
 
-#QWindowKit
+#Add QWindowKit
 set(QWindowKit_DIR ../3rdparty/QWindowKit/lib/cmake/QWindowKit)
 find_package(QWindowKit COMPONENTS Core Quick QuickPrivate REQUIRED)
 
@@ -34,6 +37,21 @@ if(BUILD_DELEGATEUI_STATIC_LIBRARY)
 else()
     set(PLUGIN_NAME ${PROJECT_NAME})
     qt_add_library(${PROJECT_NAME} SHARED)
+endif()
+
+set(DELEGATEUI_RC_FILE "")
+if (WIN32)
+    set(DELEGATEUI_RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_Resource.rc)
+    del_add_win_rc(${PROJECT_NAME}
+        COMMENTS "Modern UI-Kit for Qml { Design reference Ant-d }"
+        NAME "${PROJECT_NAME}.dll"
+        COMPANY "DelegateUI"
+        DESCRIPTION "https://github.com/mengps/DelegateUI"
+        VERSION "${PROJECT_VERSION}"
+        COPYRIGHT "Copyright (C) 2025 mengps. All rights reserved."
+        OUTPUT_FILE "${DELEGATEUI_RC_FILE}"
+    )
+    message(${DELEGATEUI_RC_FILE})
 endif()
 
 qt_add_qml_module(${PROJECT_NAME}
@@ -62,6 +80,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelSlider.qml
         imports/DelegateUI/Controls/DelTabView.qml
     SOURCES
+        $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
         cpp/deldefinitions.h
         cpp/delapp.h cpp/delapp.cpp
@@ -103,14 +122,6 @@ qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
     PREFIX "/DelegateUI"
     FILES
         shaders/deltour.frag
-)
-
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER delegateui.com
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE

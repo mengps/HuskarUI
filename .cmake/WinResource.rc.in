@@ -23,7 +23,7 @@ BEGIN
             VALUE "CompanyName",      "@RC_COMPANY@"
             VALUE "FileDescription",  "@RC_DESCRIPTION@"
             VALUE "FileVersion",      "@RC_VERSION_STRING@"
-            VALUE "InternalName",     "@RC_INTERNAL_NAME@"
+            VALUE "InternalName",     "@RC_PROJECT_NAME@"
             VALUE "LegalCopyright",   "@RC_COPYRIGHT@"
             VALUE "LegalTrademarks",  "@RC_TRADEMARK@"
             VALUE "OriginalFilename", "@RC_FILENAME@"

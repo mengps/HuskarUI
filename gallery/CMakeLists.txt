@@ -8,6 +8,24 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
+#Add DeleagteUIHelper
+include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/DelegateUIHelper.cmake)
+
+set(GALLERY_RC_FILE "")
+if (WIN32)
+    set(GALLERY_RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_Resource.rc)
+    del_add_win_rc(${PROJECT_NAME}
+        COMMENTS "DelegateUI Gallery"
+        NAME "${PROJECT_NAME}.exe"
+        COMPANY "DelegateUI"
+        DESCRIPTION "https://github.com/mengps/DelegateUI"
+        VERSION "${PROJECT_VERSION}"
+        COPYRIGHT "Copyright (C) 2025 mengps. All rights reserved."
+        ICONS ../resources/delegateui_icon.ico
+        OUTPUT_FILE "${GALLERY_RC_FILE}"
+    )
+endif()
+
 qt_add_executable(${PROJECT_NAME})
 qt_add_qml_module(${PROJECT_NAME}
     URI Gallery
@@ -38,6 +56,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/HomePage.qml
         qml/SettingsPage.qml
     SOURCES
+        $<$<BOOL:${WIN32}>:${GALLERY_RC_FILE}>
         cpp/customtheme.h cpp/customtheme.cpp
         cpp/main.cpp
     RESOURCES
@@ -49,6 +68,14 @@ qt_add_shaders(${PROJECT_NAME} "shaders"
     FILES
         shaders/effect1.vert
         shaders/effect1.frag
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    MACOSX_BUNDLE_GUI_IDENTIFIER delegateui.com
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
