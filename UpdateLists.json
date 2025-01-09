@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelToolTip",
+        "desc": "简单的文字提示气泡框，用来代替 ToolTip。"
+    },
+    {
+        "isNew": true,
         "name": "DelWindow",
         "desc": "使用 DelWindow 可以轻松创建跨平台无边框窗口。"
     },
