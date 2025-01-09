@@ -52,17 +52,19 @@ Item {
                 return slider.leftPadding + visualPosition * (slider.availableHeight - height);
             }
         }
-        implicitWidth: __mouse.hovered ? 18 : 14
-        implicitHeight: __mouse.hovered ? 18 : 14
+        implicitWidth: active ? 18 : 14
+        implicitHeight: active ? 18 : 14
         radius: height * 0.5
         color: control.colorHandle
         border.color: {
             if (DelTheme.isDark)
-                return __mouse.hovered ? DelTheme.DelSlider.colorHandleBorderHoverDark : DelTheme.DelSlider.colorHandleBorderDark;
+                return active ? DelTheme.DelSlider.colorHandleBorderHoverDark : DelTheme.DelSlider.colorHandleBorderDark;
             else
-                return __mouse.hovered ? DelTheme.DelSlider.colorHandleBorderHover : DelTheme.DelSlider.colorHandleBorder;
+                return active ? DelTheme.DelSlider.colorHandleBorderHover : DelTheme.DelSlider.colorHandleBorder;
         }
-        border.width: __mouse.hovered ? 4 : 2
+        border.width: active ? 4 : 2
+
+        property bool active: __hoverHandler.hovered || pressed
 
         Behavior on implicitWidth { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
         Behavior on implicitHeight { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
@@ -71,7 +73,7 @@ Item {
         Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
         HoverHandler {
-            id: __mouse
+            id: __hoverHandler
             acceptedDevices: PointerDevice.AllDevices
         }
     }
@@ -174,6 +176,7 @@ Item {
                 sourceComponent: handleDelegate
                 property alias slider: __control
                 property alias visualPosition: __control.visualPosition
+                property alias pressed: __control.pressed
             }
             background: Loader {
                 sourceComponent: bgDelegate
@@ -208,6 +211,7 @@ Item {
                 sourceComponent: handleDelegate
                 property alias slider: __control
                 property alias visualPosition: __control.first.visualPosition
+                property alias pressed: __control.first.pressed
             }
             first.onMoved: control.firstMoved();
             first.onPressedChanged: {
@@ -218,6 +222,7 @@ Item {
                 sourceComponent: handleDelegate
                 property alias slider: __control
                 property alias visualPosition: __control.second.visualPosition
+                property alias pressed: __control.second.pressed
             }
             second.onMoved: control.secondMoved();
             second.onPressedChanged: {
