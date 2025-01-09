@@ -2,7 +2,6 @@
 
 #include <QPainter>
 #include <QPainterPath>
-#include <QPainterPathStroker>
 
 #include <private/qqmlglobal_p.h>
 
