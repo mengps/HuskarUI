@@ -11,7 +11,7 @@ If you need Qt5 impl [DelegateUI for Qt5](https://github.com/mengps/QmlControls)
 
 <div align=center>
 
-![win-badge] [![Issues][issues-image]][issues-url]
+![win-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
 
 English | [中文](./README-zh_CN.md)
 
@@ -21,6 +21,9 @@ English | [中文](./README-zh_CN.md)
 
 [issues-image]: https://flat.badgen.net/github/label-issues/mengps/DelegateUI/open
 [issues-url]: https://github.com/mengps/DelegateUI/issues
+
+[qqgroup-image]: https://img.shields.io/badge/QQGroup-490328047-f74658?style=flat-square
+[qqgroup-url]: https://qm.qq.com/q/cMNHn2tWeY
 
 <div align=center>
 
@@ -35,6 +38,7 @@ English | [中文](./README-zh_CN.md)
 
 - 📦 A set of high-quality Qml components out of the box.
 - 🎨 Powerful theme customization system.
+- 💻 Based on Qml, completely cross platform.
 
 ## 🔨 How to Build
 

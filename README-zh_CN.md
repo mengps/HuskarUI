@@ -11,7 +11,7 @@ Qt Qml 的 Ant 设计组件库
 
 <div align=center>
 
-![win-badge] [![Issues][issues-image]][issues-url]
+![win-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
 
 [English](./README.md) | 中文
 
@@ -21,6 +21,9 @@ Qt Qml 的 Ant 设计组件库
 
 [issues-image]: https://flat.badgen.net/github/label-issues/mengps/DelegateUI/open
 [issues-url]: https://github.com/mengps/DelegateUI/issues
+
+[qqgroup-image]: https://img.shields.io/badge/QQ群-490328047-f74658?style=flat-square
+[qqgroup-url]: https://qm.qq.com/q/cMNHn2tWeY
 
 <div align=center>
 
@@ -35,6 +38,7 @@ Qt Qml 的 Ant 设计组件库
 
 - 📦 一套开箱即用的优质 Qml 组件.
 - 🎨 强大的主题定制系统.
+- 💻 基于Qml，完全跨平台.
 
 ## 🔨 如何构建
 
