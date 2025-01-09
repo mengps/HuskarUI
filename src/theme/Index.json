@@ -136,6 +136,7 @@
         "DelSwitch": ":/DelegateUI/theme/DelSwitch.json",
         "DelScrollBar": ":/DelegateUI/theme/DelScrollBar.json",
         "DelSlider": ":/DelegateUI/theme/DelSlider.json",
-        "DelTabView": ":/DelegateUI/theme/DelTabView.json"
+        "DelTabView": ":/DelegateUI/theme/DelTabView.json",
+        "DelToolTip": ":/DelegateUI/theme/DelToolTip.json"
     }
 }

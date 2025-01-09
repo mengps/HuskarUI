@@ -122,7 +122,7 @@ namespace DelTabViewType {
         Top = 0,
         Bottom = 1,
         Left = 2,
-        Right
+        Right = 3
     };
 
     enum class TabType
@@ -143,6 +143,22 @@ namespace DelTabViewType {
     Q_ENUM_NS(TabSize);
 
     QML_NAMED_ELEMENT(DelTabViewType);
+}
+
+namespace DelToolTipType {
+    Q_NAMESPACE
+
+    enum class Position
+    {
+        Top = 0,
+        Bottom = 1,
+        Left = 2,
+        Right = 3
+    };
+
+    Q_ENUM_NS(Position);
+
+    QML_NAMED_ELEMENT(DelToolTipType);
 }
 
 #endif // DELDEFINITIONS_H

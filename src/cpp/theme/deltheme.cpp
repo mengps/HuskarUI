@@ -345,6 +345,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
         case Component::DelScrollBar: registerThemeComponent(q, component, &q->m_DelScrollBar, themePath, m_defaultTheme); break;
         case Component::DelSlider: registerThemeComponent(q, component, &q->m_DelSlider, themePath, m_defaultTheme); break;
         case Component::DelTabView: registerThemeComponent(q, component, &q->m_DelTabView, themePath, m_defaultTheme); break;
+        case Component::DelToolTip: registerThemeComponent(q, component, &q->m_DelToolTip, themePath, m_defaultTheme); break;
         default:
             break;
         }
