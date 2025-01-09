@@ -20,8 +20,8 @@ Flickable {
 * **继承自 { Item }**\n
 支持的代理：\n
 - **menuDelegate: Component** 菜单项代理，代理可访问属性：\n
-  - \`index\` 菜单项索引\n
-  - \`model\` 菜单项数据\n
+  - \`index: int\` 菜单项索引\n
+  - \`model: var\` 菜单项数据\n
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---

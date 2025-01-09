@@ -49,12 +49,10 @@ luminosity | real | 亮度
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`type\` 属性改变按钮类型，支持的类型：\n
-- 默认按钮{ DelButtonType.Type_Default }\n
-- 线框按钮{ DelButtonType.Type_Outlined }\n
-- 主要按钮{ DelButtonType.Type_Primary }\n
-- 填充按钮{ DelButtonType.Type_Filled }\n
-- 文本按钮{ DelButtonType.Type_Text }
+通过 \`sourceItem\` 属性设置需要该效果的项目，**注意** \`DelAcrylic\` 不能为 \`sourceItem\` 的子项 \n
+通过 \`opacityTint\` 属性设置色调透明度 \n
+通过 \`luminosity\` 属性设置亮度 \n
+通过 \`radiusBlur\` 模糊半径 \n
                        `)
             code: `
                 import QtQuick

@@ -20,11 +20,12 @@ Flickable {
 * **继承自 { Item }**\n
 支持的代理：\n
 - **handleDelgate: Component** 滑块代理，代理可访问属性：\n
-  - \`slider\` 滑动条本身 { Slider / RangeSlider }
-  - \`visualPosition\` 滑块的有效视觉位置\n
+  - \`slider: Slider / RangeSlider\` 滑动条本身
+  - \`visualPosition: real\` 滑块的有效视觉位置\n
+  - \`pressed: bool\` 当前滑块是否被按下 \n
 - **bgDelegate: Component** 背景代理，代理可访问属性：\n
-  - \`slider\` 滑动条本身 { Slider / RangeSlider }
-  - \`visualPosition\` 滑块的有效视觉位置\n
+  - \`slider: Slider / RangeSlider\` 滑动条本身
+  - \`visualPosition: bool\` 滑块的有效视觉位置\n
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---

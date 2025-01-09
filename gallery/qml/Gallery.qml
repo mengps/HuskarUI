@@ -222,6 +222,11 @@ DelWindow {
                     iconSource: DelIcon.FundProjectionScreenOutlined,
                     menuChildren: [
                         {
+                            key: "DelToolTip",
+                            title: qsTr("DelToolTip 文字提示"),
+                            source: "./Examples/DataDisplay/ExpToolTip.qml",
+                        },
+                        {
                             key: "DelTourFocus",
                             title: qsTr("DelTourFocus 漫游焦点"),
                             source: "./Examples/DataDisplay/ExpTourFocus.qml",
@@ -246,6 +251,28 @@ DelWindow {
                             key: "DelAcrylic",
                             title: qsTr("DelAcrylic 亚克力效果"),
                             source: "./Examples/Effect/ExpAcrylic.qml",
+                        }
+                    ]
+                },
+                {
+                    title: qsTr("工具"),
+                    iconSource: DelIcon.ToolOutlined,
+                    menuChildren: [
+                        {
+                            key: "DelAsyncHasher",
+                            title: qsTr("DelAsyncHasher 异步哈希器"),
+                            source: "./Examples/Utils/DelAsyncHasher.qml",
+                        }
+                    ]
+                },
+                {
+                    title: qsTr("反馈"),
+                    iconSource: DelIcon.MessageOutlined,
+                    menuChildren: [
+                        {
+                            key: "DelWatermark",
+                            title: qsTr("DelWatermark 水印"),
+                            source: "./Examples/Feedback/DelWatermark.qml",
                         }
                     ]
                 },
