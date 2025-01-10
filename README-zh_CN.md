@@ -52,10 +52,51 @@ cd DelegateUI
 cmake -S . -B build 
 cmake --build build --config Release --target all --parallel
 ```
+默认情况下，`plugin` 将构建在 `[QtDir]/[QtVersion]/[Kit]/qml/DeleagetUI` 目录中。
 - 安装
 ```cmake
 cmake --intall --prefix <install_dir>
 ```
+安装目录结构
+```auto
+──<install_dir>
+    ├─include
+    │   *.h
+    ├─bin
+    │   *.dll
+    ├─lib
+    │   *.lib
+    └─imports
+        └─DeleagetUI
+```
+- 使用
+  - 链接 `<install_dir>/lib`.
+  - 包含 `<install_dir>/include`.
+  - 复制 `<install_dir>/imports/DeleagetUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
+
+## 📦 上手
+ - 创建 QtQuick 应用 `QtVersion >= 6.5`
+ - 添加下面的 cmake 命令到你的项目 `CMakeLists.txt` 中
+ ```cmake
+  target_include_directories(<your_target> PRIVATE DelegateUI/include)
+  target_link_directories(<your_target> PRIVATE DelegateUI/lib)
+  target_link_libraries(<your_target> PRIVATE DelegateUIPlugin)
+ ```
+ - 添加下面的代码到 `main.cpp` 中
+ ```cpp
+  #include "delapp.h"
+
+  int main(int argc, char *argv[])
+  {
+      ...
+      QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+      QGuiApplication app(argc, argv);
+      QQmlApplicationEngine engine;
+      DelApp::initialize(&engine);
+      ...
+  }
+ ```
+好了，你现在可以愉快的开始使用 DelegateUI 了。
 
 ## 🚩 参考
 

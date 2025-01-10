@@ -52,10 +52,52 @@ cd DelegateUI
 cmake -S . -B build 
 cmake --build build --config Release --target all --parallel
 ```
+By default, the `plugin` will be builded in the `[QtDir]/[QtVersion]/[Kit]/qml/DeleagetUI` directory.
+
 - Install
 ```cmake
 cmake --intall --prefix <install_dir>
 ```
+The installation directory structure
+```auto
+──<install_dir>
+    ├─include
+    │   *.h
+    ├─bin
+    │   *.dll
+    ├─lib
+    │   *.lib
+    └─imports
+        └─DeleagetUI
+```
+- Usage
+  - Link the `<install_dir>/lib`.
+  - Include the `<install_dir>/include`.
+  - Copy the `<install_dir>/imports/DeleagetUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
+
+## 📦 Get started 
+ - Create QtQuick application `QtVersion >= 6.5`
+ - Add the following cmake command to your project `CMakeLists.txt`
+ ```cmake
+  target_include_directories(<your_target> PRIVATE DelegateUI/include)
+  target_link_directories(<your_target> PRIVATE DelegateUI/lib)
+  target_link_libraries(<your_target> PRIVATE DelegateUIPlugin)
+ ```
+ - Add the following code to your `main.cpp`
+ ```cpp
+  #include "delapp.h"
+
+  int main(int argc, char *argv[])
+  {
+      ...
+      QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+      QGuiApplication app(argc, argv);
+      QQmlApplicationEngine engine;
+      DelApp::initialize(&engine);
+      ...
+  }
+ ```
+ Alright, you can now enjoy using DelegateUI.
 
 ## 🚩 Reference
 
