@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(Gallery VERSION 1.0 LANGUAGES CXX)
+project(Gallery VERSION 0.1.2 LANGUAGES CXX)
 
 find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
 

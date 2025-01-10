@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.1.1)
+set(DELEGATEUI_VERSION 0.1.2)
 
 option(BUILD_DELEGATEUI_STATIC_LIBRARY "Build DelegateUI as a static library." OFF)
 
@@ -21,8 +21,9 @@ find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
 
 #Add QWindowKit
 set(QWindowKit_DIR ../3rdparty/QWindowKit/lib/cmake/QWindowKit)
-find_package(QWindowKit COMPONENTS Core Quick QuickPrivate REQUIRED)
+find_package(QWindowKit COMPONENTS Core Quick REQUIRED)
 
+#Set plugin output dir
 set(DELEGATEUI_QML_OUTPUT_DIRECTORY "" CACHE PATH "DelegateUI plugin output dir.")
 if(NOT DELEGATEUI_QML_OUTPUT_DIRECTORY)
     set(DELEGATEUI_QML_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/DelegateUI)
@@ -150,4 +151,24 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp/utils
 )
 
-install(DIRECTORY ${DELEGATEUI_QML_OUTPUT_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)
+install(TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/DelegateUI/bin
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/DelegateUI/lib
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/DelegateUI/lib
+)
+
+install(
+    FILES cpp/delglobal.h cpp/delapp.h cpp/deldefinitions.h
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/DelegateUI/include
+)
+
+install(
+    DIRECTORY cpp/controls cpp/theme cpp/utils
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/DelegateUI/include
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN "*_p.h" EXCLUDE
+)
+
+install(
+    DIRECTORY ${DELEGATEUI_QML_OUTPUT_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/DelegateUI/imports
+)
