@@ -143,10 +143,11 @@ Rectangle {
             }
 
             Row {
-                spacing: 5
+                height: parent.height
                 anchors.left: parent.left
-                anchors.leftMargin: 5
+                anchors.leftMargin: 8
                 anchors.verticalCenter: parent.verticalCenter
+                spacing: 5
 
                 Loader {
                     id: __winIconLoader
