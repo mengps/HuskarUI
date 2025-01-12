@@ -261,7 +261,7 @@ DelWindow {
                         {
                             key: "DelAsyncHasher",
                             title: qsTr("DelAsyncHasher 异步哈希器"),
-                            source: "./Examples/Utils/DelAsyncHasher.qml",
+                            source: "./Examples/Utils/ExpAsyncHasher.qml",
                         }
                     ]
                 },
@@ -272,7 +272,7 @@ DelWindow {
                         {
                             key: "DelWatermark",
                             title: qsTr("DelWatermark 水印"),
-                            source: "./Examples/Feedback/DelWatermark.qml",
+                            source: "./Examples/Feedback/ExpWatermark.qml",
                         }
                     ]
                 },

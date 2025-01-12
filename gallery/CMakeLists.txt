@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(Gallery VERSION 0.1.2 LANGUAGES CXX)
+project(Gallery VERSION 0.1.3 LANGUAGES CXX)
 
 find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
 
@@ -49,6 +49,8 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Navigation/ExpScrollBar.qml
         qml/Examples/Layout/ExpDivider.qml
         qml/Examples/Effect/ExpAcrylic.qml
+        qml/Examples/Feedback/ExpWatermark.qml
+        qml/Examples/Utils/ExpAsyncHasher.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Controls/CodeBox.qml
         qml/Controls/Description.qml
