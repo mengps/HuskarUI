@@ -97,6 +97,13 @@ The installation directory structure
       ...
   }
  ```
+- Add the following code to your `.qml`
+ ```qml
+  import DelegateUI
+  DelWindow { 
+    ...
+  }
+ ```
  Alright, you can now enjoy using DelegateUI.
 
 ## 🚩 Reference

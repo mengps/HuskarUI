@@ -82,7 +82,7 @@ cmake --intall --prefix <install_dir>
   target_link_directories(<your_target> PRIVATE DelegateUI/lib)
   target_link_libraries(<your_target> PRIVATE DelegateUIPlugin)
  ```
- - 添加下面的代码到 `main.cpp` 中
+ - 添加下面的代码到您的 `main.cpp` 中
  ```cpp
   #include "delapp.h"
 
@@ -96,6 +96,13 @@ cmake --intall --prefix <install_dir>
       ...
   }
  ```
+ - 添加下面的代码到您的 `.qml` 中
+ ```qml
+  import DelegateUI
+  DelWindow { 
+    ...
+  }
+ ```
 好了，你现在可以愉快的开始使用 DelegateUI 了。
 
 ## 🚩 参考
@@ -104,7 +111,7 @@ Ant 设计: https://ant-design.antgroup.com/docs/spec/introduce-cn
 
 ## 💓 许可证
 
-Use `MIT LICENSE`
+使用 `MIT LICENSE`
 
 ## 🌇 环境
 
