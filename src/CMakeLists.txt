@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.1.2)
+set(DELEGATEUI_VERSION 0.1.3)
 
 option(BUILD_DELEGATEUI_STATIC_LIBRARY "Build DelegateUI as a static library." OFF)
 
@@ -17,7 +17,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
+find_package(Qt6 6.5 COMPONENTS Quick Concurrent ShaderTools REQUIRED)
 
 #Add QWindowKit
 set(QWindowKit_DIR ../3rdparty/QWindowKit/lib/cmake/QWindowKit)
@@ -87,6 +87,7 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/deldefinitions.h
         cpp/delapp.h cpp/delapp.cpp
         cpp/utils/delapi.h cpp/utils/delapi.cpp
+        cpp/utils/delasynchasher.h cpp/utils/delasynchasher.cpp
         cpp/theme/deltheme.h cpp/theme/deltheme.cpp cpp/theme/deltheme_p.h
         cpp/theme/delthemefunctions.h cpp/theme/delthemefunctions.cpp
         cpp/theme/delcolorgenerator.h cpp/theme/delcolorgenerator.cpp
@@ -95,6 +96,7 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/controls/deliconfont.h cpp/controls/deliconfont.cpp
         cpp/controls/delwindowagent.h cpp/controls/delwindowagent.cpp
         cpp/controls/delrectangle.h cpp/controls/delrectangle.cpp
+        cpp/controls/delwatermark.h cpp/controls/delwatermark.cpp
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
@@ -140,6 +142,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::QuickPrivate
+    Qt6::Concurrent
     QWindowKit::Quick
 )
 
