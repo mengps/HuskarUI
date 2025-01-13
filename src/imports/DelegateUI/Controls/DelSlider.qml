@@ -37,7 +37,9 @@ Item {
         else
             return hovered ? DelTheme.DelSlider.colorTrackHover : DelTheme.DelSlider.colorTrack;
     }
+    property Component handleToolTipDelegate: Item { }
     property Component handleDelegate: Rectangle {
+        id: __handleItem
         x: {
             if (control.orientation == Qt.Horizontal) {
                 return slider.leftPadding + visualPosition * (slider.availableWidth - width);
@@ -64,13 +66,21 @@ Item {
         }
         border.width: active ? 4 : 2
 
-        property bool active: __hoverHandler.hovered || pressed
+        property bool down: pressed
+        property bool active: __hoverHandler.hovered || down
 
         Behavior on implicitWidth { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
         Behavior on implicitHeight { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
         Behavior on border.width { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
         Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+
+        Loader {
+            sourceComponent: handleToolTipDelegate
+            onLoaded: item.parent = __handleItem;
+            property alias handleHovered: __hoverHandler.hovered
+            property alias handlePressed: __handleItem.down
+        }
 
         HoverHandler {
             id: __hoverHandler
