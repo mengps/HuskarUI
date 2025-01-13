@@ -16,6 +16,8 @@ public:
 
     static void initialize(QQmlEngine *engine);
 
+    Q_INVOKABLE static QString libVersion();
+
     static DelApp *instance();
     static DelApp *create(QQmlEngine *, QJSEngine *);
 

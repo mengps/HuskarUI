@@ -12,6 +12,11 @@ void DelApp::initialize(QQmlEngine *engine)
     QWK::registerTypes(engine);
 }
 
+QString DelApp::libVersion()
+{
+    return DELEGATEUI_LIBRARY_VERSION;
+}
+
 DelApp *DelApp::instance()
 {
     static DelApp *ins = new DelApp;
