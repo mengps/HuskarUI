@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.1.3)
+set(DELEGATEUI_VERSION 0.1.3.0)
 
 option(BUILD_DELEGATEUI_STATIC_LIBRARY "Build DelegateUI as a static library." OFF)
 
@@ -131,6 +131,7 @@ qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     BUILD_DELEGATEUI_LIB
+    DELEGATEUI_LIBRARY_VERSION="${DELEGATEUI_VERSION}"
     $<$<BOOL:${BUILD_DELEGATEUI_STATIC_LIBRARY}>:BUILD_DELEGATEUI_STATIC_LIBRARY>
     $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
 )
