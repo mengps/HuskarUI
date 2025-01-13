@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(Gallery VERSION 0.1.3 LANGUAGES CXX)
+project(Gallery VERSION 0.1.3.0 LANGUAGES CXX)
 
 find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
 
@@ -18,7 +18,7 @@ if (WIN32)
         COMMENTS "DelegateUI Gallery"
         NAME "${PROJECT_NAME}.exe"
         COMPANY "DelegateUI"
-        DESCRIPTION "https://github.com/mengps/DelegateUI"
+        DESCRIPTION ""
         VERSION "${PROJECT_VERSION}"
         COPYRIGHT "Copyright (C) 2025 mengps. All rights reserved."
         ICONS ../resources/delegateui_icon.ico
@@ -57,6 +57,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Controls/CodeRunner.qml
         qml/Gallery.qml
         qml/HomePage.qml
+        qml/AboutPage.qml
         qml/SettingsPage.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${GALLERY_RC_FILE}>
@@ -71,6 +72,8 @@ qt_add_shaders(${PROJECT_NAME} "shaders"
     FILES
         shaders/effect1.vert
         shaders/effect1.frag
+        shaders/effect2.vert
+        shaders/effect2.frag
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
