@@ -9,6 +9,8 @@ DelWindow {
     id: galleryWindow
     width: 1200
     height: 800
+    minimumWidth: 800
+    minimumHeight: 600
     title: qsTr("DelegateUI Gallery")
     followThemeSwitch: false
     captionBar.themeButtonVisible: true
@@ -33,7 +35,22 @@ DelWindow {
                                 DelApi.setWindowStaysOnTopHint(galleryWindow, checked);
                             }
 
-    Component.onCompleted: setSpecialEffect(DelWindowSpecialEffect.Mica);
+    Component.onCompleted: {
+        setSpecialEffect(DelWindowSpecialEffect.Mica);
+
+        const about = Qt.createComponent("AboutPage.qml");
+        if (about.status === Component.Ready) {
+            aboutWindow = about.createObject(galleryWindow);
+        }
+
+        const settings = Qt.createComponent("SettingsPage.qml");
+        if (settings.status === Component.Ready) {
+            setttingsWindow = settings.createObject(galleryWindow);
+        }
+    }
+
+    property var aboutWindow: undefined
+    property var setttingsWindow: undefined
 
     Rectangle {
         id: galleryBackground
@@ -101,17 +118,12 @@ DelWindow {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        SettingsPage {
-            id: setttingsPopup
-            anchors.centerIn: content
-        }
-
         DelMenu {
             id: galleryMenu
             width: 300
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.bottom: setttingsButton.top
+            anchors.bottom: aboutButton.top
             defaultIconSize: DelTheme.Primary.fontPrimarySizeHeading5
             onClickMenu: function(deep, key, data) {
                 console.debug("onClickMenu", deep, key, JSON.stringify(data));
@@ -290,19 +302,49 @@ DelWindow {
             ]
         }
 
+        DelDivider {
+            width: galleryMenu.width
+            height: 1
+            anchors.bottom: aboutButton.top
+        }
+
+        DelIconButton {
+            id: aboutButton
+            width: galleryMenu.width
+            height: 40
+            anchors.bottom: setttingsButton.top
+            type: DelButtonType.Type_Text
+            radiusBg: 0
+            text: qsTr("关于")
+            colorText: DelTheme.Primary.colorTextBase
+            iconSource: DelIcon.UserOutlined
+            onClicked: {
+                if (aboutWindow.visible)
+                    aboutWindow.show();
+                else {
+                    setttingsWindow.close();
+                    aboutWindow.show();
+                }
+            }
+        }
+
         DelIconButton {
             id: setttingsButton
             width: galleryMenu.width
             height: 40
             anchors.bottom: parent.bottom
+            type: DelButtonType.Type_Text
             radiusBg: 0
             text: qsTr("设置")
+            colorText: DelTheme.Primary.colorTextBase
             iconSource: DelIcon.SettingOutlined
             onClicked: {
-                if (setttingsPopup.opened)
-                    setttingsPopup.close();
-                else
-                    setttingsPopup.open();
+                if (setttingsWindow.visible)
+                    setttingsWindow.close();
+                else {
+                    aboutWindow.close();
+                    setttingsWindow.show();
+                }
             }
         }
 
