@@ -12,6 +12,8 @@ layout(std140, binding = 0) uniform buf {
 float gTime = 0.;
 const float REPEAT = 5.0;
 
+//来自 https://www.shadertoy.com/view/tlVGDt
+
 // 回転行列
 mat2 rot(float a) {
     float c = cos(a), s = sin(a);
