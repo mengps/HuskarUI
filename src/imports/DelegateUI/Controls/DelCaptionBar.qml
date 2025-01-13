@@ -103,7 +103,7 @@ Rectangle {
         DelCaptionButton {
             id: __maximizeButton
             visible: control.maximizeButtonVisible
-            iconSource: targetWindow.visibility === Window.Maximized ? DelIcon.SwitcherOutlined : DelIcon.BorderOutlined
+            iconSource: targetWindow ? (targetWindow.visibility === Window.Maximized ? DelIcon.SwitcherOutlined : DelIcon.BorderOutlined) : 0
             onClicked: maximizeCallback();
             contentDescription: qsTr("最大化")
         }
