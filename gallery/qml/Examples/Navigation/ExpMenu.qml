@@ -81,12 +81,23 @@ model | list | 菜单模型
                 import DelegateUI
 
                 Item {
+                    width: parent.width
                     height: 300
 
+                    DelButton {
+                        text: qsTr("添加")
+                        anchors.right: parent.right
+                        onClicked: menu.append({
+                                                   title: qsTr("Test"),
+                                                   iconSource: DelIcon.HomeOutlined
+                                               });
+                    }
+
                     DelMenu {
+                        id: menu
                         width: 300
                         height: 300
-                        model: [
+                        initModel: [
                             {
                                 title: qsTr("首页1"),
                                 iconSource: DelIcon.HomeOutlined
