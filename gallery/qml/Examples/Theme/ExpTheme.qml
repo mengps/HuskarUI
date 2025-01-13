@@ -5,13 +5,16 @@ import DelegateUI
 
 import "../../Controls"
 
-Item {
+Flickable {
+    contentHeight: column.height
+    ScrollBar.vertical: DelScrollBar { }
 
     DelColorGenerator {
         id: delColorGenerator
     }
 
     Column {
+        id: column
         width: parent.width
         spacing: 30
 
@@ -77,6 +80,25 @@ Item {
                         }
                         property int currentIndex: 8
                     }
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            desc: qsTr(`
+通过 \`DelTheme.installThemePrimaryFontSize()\` 方法设置全局主题的主要字体大小，主要字体大小影响所有字体大小的生成。
+                       `)
+            code: `
+                DelTheme.installThemePrimaryFontSize(32);
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                DelDivider {
+                    width: parent.width
+                    height: 30
+                    title: qsTr("更改主要字体大小")
                 }
             }
         }
