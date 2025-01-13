@@ -18,7 +18,6 @@ function(del_get_dir_sources)
         list(APPEND TEMP_OUTPUT ${filename})
     endforeach (filepath)
     set(${PARAM_OUTPUT} ${TEMP_OUTPUT} PARENT_SCOPE)
-    unset(TEMP_OUTPUT)
 endfunction()
 
 #[[
