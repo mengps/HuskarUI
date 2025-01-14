@@ -42,7 +42,7 @@
     {
         "isNew": false,
         "name": "DelMenu",
-        "desc": "新增 gotoMenu() 函数。\n新增 get() 函数。\n新增 set() 函数。\n新增 setProperty() 函数。\n新增 move() 函数。新增 insert() 函数。\n新增 append() 函数。\n新增 removeAt() 函数。"
+        "desc": "新增 gotoMenu() 函数。\n新增 get() 函数。\n新增 set() 函数。\n新增 setProperty() 函数。\n新增 move() 函数。\n新增 insert() 函数。\n新增 append() 函数。\n新增 removeAt() 函数。"
     },
     {
         "isNew": false,
