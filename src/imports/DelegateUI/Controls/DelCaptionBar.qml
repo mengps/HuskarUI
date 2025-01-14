@@ -66,6 +66,8 @@ Rectangle {
             target: control
             function onWindowAgentChanged() {
                 if (windowAgent) {
+                    windowAgent.setHitTestVisible(__themeButton, true);
+                    windowAgent.setHitTestVisible(__topButton, true);
                     windowAgent.setSystemButton(DelWindowAgent.Minimize, __minimizeButton);
                     windowAgent.setSystemButton(DelWindowAgent.Maximize, __maximizeButton);
                     windowAgent.setSystemButton(DelWindowAgent.Close, __closeButton);
