@@ -50,7 +50,25 @@ specialEffect | int | 特殊效果(仅windows有效，来自 DelWindowSpecialEff
         CodeBox {
             width: parent.width
             desc: qsTr(`
-使用方法等同于 \`Window\`
+使用方法等同于 \`Window\` \n
+**注意** 不要嵌套使用 DelWindow (源于Qt的某些BUG)：\n
+\`\`\`qml
+DelWindow {
+    DelWindow { }
+}
+\`\`\`
+更应该使用动态创建：\n
+\`\`\`qml
+DelWindow {
+   Loader {
+       id: loader
+       visible: false
+       sourceComponent: DelWindow {
+           visible: loader.visible
+       }
+   }
+}
+\`\`\`
                        `)
             code: `
                 import QtQuick
@@ -60,20 +78,24 @@ specialEffect | int | 特殊效果(仅windows有效，来自 DelWindowSpecialEff
                     height: 50
 
                     DelButton {
-                        text: (window.visible ? qsTr("隐藏") : qsTr("显示")) + qsTr("窗口")
+                        text: (windowLoader.visible ? qsTr("隐藏") : qsTr("显示")) + qsTr("窗口")
                         type: DelButtonType.Type_Primary
-                        onClicked: window.visible = !window.visible;
+                        onClicked: windowLoader.visible = !windowLoader.visible;
                     }
 
-                    DelWindow {
-                        id: window
-                        width: 600
-                        height: 400
+                    Loader {
+                        id: windowLoader
                         visible: false
-                        title: qsTr("无边框窗口")
-                        transientParent: null
-                        captionBar.winTitle: ""
-                        captionBar.winIconDelegate: Item { }
+                        sourceComponent:  DelWindow {
+                            width: 600
+                            height: 400
+                            visible: windowLoader.visible
+                            title: qsTr("无边框窗口")
+                            captionBar.winIconWidth: 0
+                            captionBar.winIconHeight: 0
+                            captionBar.winIconDelegate: Item { }
+                            captionBar.closeCallback: () => windowLoader.visible = false;
+                        }
                     }
                 }
             `
@@ -81,20 +103,24 @@ specialEffect | int | 特殊效果(仅windows有效，来自 DelWindowSpecialEff
                 height: 50
 
                 DelButton {
-                    text: (window.visible ? qsTr("隐藏") : qsTr("显示")) + qsTr("窗口")
+                    text: (windowLoader.visible ? qsTr("隐藏") : qsTr("显示")) + qsTr("窗口")
                     type: DelButtonType.Type_Primary
-                    onClicked: window.visible = !window.visible;
+                    onClicked: windowLoader.visible = !windowLoader.visible;
                 }
 
-                DelWindow {
-                    id: window
-                    width: 600
-                    height: 400
+                Loader {
+                    id: windowLoader
                     visible: false
-                    title: qsTr("无边框窗口")
-                    transientParent: null
-                    captionBar.winTitle: ""
-                    captionBar.winIconDelegate: Item { }
+                    sourceComponent:  DelWindow {
+                        width: 600
+                        height: 400
+                        visible: windowLoader.visible
+                        title: qsTr("无边框窗口")
+                        captionBar.winIconWidth: 0
+                        captionBar.winIconHeight: 0
+                        captionBar.winIconDelegate: Item { }
+                        captionBar.closeCallback: () => windowLoader.visible = false;
+                    }
                 }
             }
         }
