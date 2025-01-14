@@ -14,12 +14,12 @@ Item {
     property real min: 0
     property real max: 100
     property real stepSize: 0.0
-    property var value: range ? 0 : [0, 0]
+    property var value: range ? [0, 0] : 0
     readonly property var currentValue: {
         if (__sliderLoader.item) {
             return range ? [__sliderLoader.item.first.value, __sliderLoader.item.second.value] : __sliderLoader.item.value;
         } else {
-            return 0;
+            return value;
         }
     }
     property bool range: false
