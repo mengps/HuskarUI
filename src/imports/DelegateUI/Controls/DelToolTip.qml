@@ -147,8 +147,6 @@ T.ToolTip {
                 }
             }
         }
-
-
     }
     background: Item { }
 
