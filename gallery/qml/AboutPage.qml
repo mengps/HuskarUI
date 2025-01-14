@@ -8,7 +8,8 @@ DelWindow {
     id: root
     width: 400
     height: 500
-    visible: false
+    minimumWidth: 400
+    minimumHeight: 500
     captionBar.minimizeButtonVisible: false
     captionBar.maximizeButtonVisible: false
     captionBar.winTitle: qsTr("关于")
@@ -26,7 +27,7 @@ DelWindow {
             iconSource: DelIcon.DelegateUIPath2
         }
     }
-    captionBar.closeCallback: () => root.close();
+    captionBar.closeCallback: () => aboutLoader.visible = false;
 
     Item {
         anchors.fill: parent
@@ -46,15 +47,14 @@ DelWindow {
             border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.2)
         }
 
-        Rectangle {
+        Item {
             anchors.fill: parent
-            color: DelThemeFunctions.alpha(DelTheme.Primary.colorBgBase, 0.5)
 
             ShaderEffect {
                 anchors.fill: parent
                 vertexShader: "qrc:/Gallery/shaders/effect2.vert.qsb"
                 fragmentShader: "qrc:/Gallery/shaders/effect2.frag.qsb"
-                opacity: 0.7
+                opacity: 0.5
 
                 property vector3d iResolution: Qt.vector3d(width, height, 0)
                 property real iTime: 0
@@ -63,7 +63,7 @@ DelWindow {
                     running: true
                     repeat: true
                     interval: 10
-                    onTriggered: parent.iTime += 0.01;
+                    onTriggered: parent.iTime += 0.03;
                 }
             }
         }

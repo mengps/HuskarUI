@@ -37,20 +37,7 @@ DelWindow {
 
     Component.onCompleted: {
         setSpecialEffect(DelWindowSpecialEffect.Mica);
-
-        const about = Qt.createComponent("AboutPage.qml");
-        if (about.status === Component.Ready) {
-            aboutWindow = about.createObject(galleryWindow);
-        }
-
-        const settings = Qt.createComponent("SettingsPage.qml");
-        if (settings.status === Component.Ready) {
-            setttingsWindow = settings.createObject(galleryWindow);
-        }
     }
-
-    property var aboutWindow: undefined
-    property var setttingsWindow: undefined
 
     Rectangle {
         id: galleryBackground
@@ -308,6 +295,18 @@ DelWindow {
             anchors.bottom: aboutButton.top
         }
 
+        Loader {
+            id: aboutLoader
+            visible: false
+            sourceComponent: AboutPage { visible: aboutLoader.visible }
+        }
+
+        Loader {
+            id: settingsLoader
+            visible: false
+            sourceComponent: SettingsPage { visible: settingsLoader.visible }
+        }
+
         DelIconButton {
             id: aboutButton
             width: galleryMenu.width
@@ -319,11 +318,11 @@ DelWindow {
             colorText: DelTheme.Primary.colorTextBase
             iconSource: DelIcon.UserOutlined
             onClicked: {
-                if (aboutWindow.visible)
-                    aboutWindow.show();
+                if (aboutLoader.visible)
+                    aboutLoader.visible = false;
                 else {
-                    setttingsWindow.close();
-                    aboutWindow.show();
+                    aboutLoader.visible = true;
+                    settingsLoader.visible = false;
                 }
             }
         }
@@ -339,11 +338,11 @@ DelWindow {
             colorText: DelTheme.Primary.colorTextBase
             iconSource: DelIcon.SettingOutlined
             onClicked: {
-                if (setttingsWindow.visible)
-                    setttingsWindow.close();
+                if (settingsLoader.visible)
+                    settingsLoader.visible = false;
                 else {
-                    aboutWindow.close();
-                    setttingsWindow.show();
+                    settingsLoader.visible = true;
+                    aboutLoader.visible = false;
                 }
             }
         }

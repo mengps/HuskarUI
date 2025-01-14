@@ -8,10 +8,11 @@ DelWindow {
     id: root
     width: 400
     height: 500
-    visible: false
+    minimumWidth: 400
+    minimumHeight: 500
     captionBar.minimizeButtonVisible: false
     captionBar.maximizeButtonVisible: false
-    captionBar.winTitle: qsTr("关于")
+    captionBar.winTitle: qsTr("设置")
     captionBar.winIconDelegate: Item {
         DelIconText {
             iconSize: 22
@@ -26,7 +27,7 @@ DelWindow {
             iconSource: DelIcon.DelegateUIPath2
         }
     }
-    captionBar.closeCallback: () => root.close();
+    captionBar.closeCallback: () => settingsLoader.visible = false;
 
     component MySlider: RowLayout {
         height: 30
@@ -114,15 +115,14 @@ DelWindow {
             border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.2)
         }
 
-        Rectangle {
+        Item {
             anchors.fill: parent
-            color: DelThemeFunctions.alpha(DelTheme.Primary.colorBgBase, 0.5)
 
             ShaderEffect {
                 anchors.fill: parent
                 vertexShader: "qrc:/Gallery/shaders/effect2.vert.qsb"
                 fragmentShader: "qrc:/Gallery/shaders/effect2.frag.qsb"
-                opacity: 0.7
+                opacity: 0.5
 
                 property vector3d iResolution: Qt.vector3d(width, height, 0)
                 property real iTime: 0
@@ -131,7 +131,7 @@ DelWindow {
                     running: true
                     repeat: true
                     interval: 10
-                    onTriggered: parent.iTime += 0.01;
+                    onTriggered: parent.iTime += 0.03;
                 }
             }
         }
@@ -139,14 +139,15 @@ DelWindow {
         Column {
             width: parent.width
             anchors.top: parent.top
-            anchors.topMargin: captionBar.height
+            anchors.topMargin: captionBar.height + 20
             spacing: 20
 
             MySlider {
                 id: bgOpacitySlider
                 label.text: qsTr("背景透明度")
+                slider.value: galleryBackground.opacity
                 slider.snapMode: DelSliderType.SnapOnRelease
-                slider.onCurrentValueChanged: {
+                slider.onFirstMoved: {
                     galleryBackground.opacity = slider.currentValue;
                 }
                 slider.handleToolTipDelegate: DelToolTip {
@@ -161,7 +162,7 @@ DelWindow {
                 slider.min: 12
                 slider.max: 24
                 slider.stepSize: 4
-                slider.value: 16
+                slider.value: DelTheme.Primary.fontPrimarySizeHeading5
                 slider.snapMode: DelSliderType.SnapAlways
                 slider.onFirstReleased: {
                     DelTheme.installThemePrimaryFontSize(slider.currentValue);
