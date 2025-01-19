@@ -137,6 +137,7 @@
         "DelScrollBar": ":/DelegateUI/theme/DelScrollBar.json",
         "DelSlider": ":/DelegateUI/theme/DelSlider.json",
         "DelTabView": ":/DelegateUI/theme/DelTabView.json",
-        "DelToolTip": ":/DelegateUI/theme/DelToolTip.json"
+        "DelToolTip": ":/DelegateUI/theme/DelToolTip.json",
+        "DelSelect": ":/DelegateUI/theme/DelSelect.json"
     }
 }

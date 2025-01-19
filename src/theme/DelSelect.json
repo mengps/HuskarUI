@@ -1,0 +1,19 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorText": "@colorTextBase",
+    "colorTextDisabled": "@colorPrimaryTextDisabled",
+    "colorBorder": "@colorTextQuaternary",
+    "colorBorderHover": "@colorPrimary",
+    "colorBorderDisabled": "transparent",
+    "colorBg": "@colorBgBase",
+    "colorBgDisabled": "$alpha(@colorTextBase, 0.1)",
+    "colorPopupBg": "@colorBgBase",
+    "colorPopupBgDark": "#222",
+    "colorItemText": "@colorTextBase",
+    "colorItemTextDisabled": "@colorPrimaryTextDisabled",
+    "colorItemBg": "transparent",
+    "colorItemBgHover": "$alpha(@colorTextBase, 0.1)",
+    "colorItemBgActive": "$alpha(@colorPrimary, 0.15)",
+    "colorItemBgDisabled": "transparent"
+}

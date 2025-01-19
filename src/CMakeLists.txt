@@ -81,6 +81,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelSlider.qml
         imports/DelegateUI/Controls/DelTabView.qml
         imports/DelegateUI/Controls/DelToolTip.qml
+        imports/DelegateUI/Controls/DelSelect.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
@@ -121,6 +122,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelSlider.json
         theme/DelTabView.json
         theme/DelToolTip.json
+        theme/DelSelect.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
