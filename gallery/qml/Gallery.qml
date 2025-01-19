@@ -213,6 +213,11 @@ DelWindow {
                             key: "DelSlider",
                             title: qsTr("DelSlider 滑动输入条"),
                             source: "./Examples/DataEntry/ExpSlider.qml",
+                        },
+                        {
+                            key: "DelSelect",
+                            title: qsTr("DelSelect 选择器"),
+                            source: "./Examples/DataEntry/ExpSelect.qml",
                         }
                     ]
                 },
