@@ -1,6 +1,16 @@
 [
     {
         "isNew": true,
+        "name": "DelSelect",
+        "desc": "下拉选择器(即传统组合框)。"
+    },
+    {
+        "isNew": false,
+        "name": "DelSlider",
+        "desc": "新增 handleToolTipDelegate 滑块文字提示代理。"
+    },
+    {
+        "isNew": true,
         "name": "DelAsyncHasher",
         "desc": "可对任意数据(url/text/object)生成加密哈希的异步散列器。"
     },
