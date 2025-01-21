@@ -214,7 +214,7 @@ Item {
                     iconSource: __tabItem.iconSource
                     verticalAlignment: Text.AlignVCenter
 
-                    Behavior on color { enabled: __tabItem.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
                 }
 
                 Text {
@@ -229,7 +229,7 @@ Item {
                     color: __tabItem.colorText
                     elide: Text.ElideRight
 
-                    Behavior on color { enabled: __tabItem.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
                 }
             }
             onTabWidthChanged: {
@@ -606,7 +606,7 @@ Item {
         y: {
             switch (tabPosition) {
             case DelTabViewType.Top:
-                return Math.max(0, __tabView.y + __tabView.contentHeight - height);
+                return Math.max(0, __tabView.y + __tabView.height - height);
             case DelTabViewType.Bottom:
                 return __tabView.y;
             case DelTabViewType.Left:
