@@ -26,7 +26,7 @@ Flickable {
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
 arrowVisible | bool | 是否显示箭头(默认true)
-position | int | 文字提示的位置(来自 DelToolTipType)
+position | int | 文字提示的位置(来自 DelToolTip)
 colorText | color | 文本颜色
 colorBg | color | 背景颜色
                        `)
@@ -49,10 +49,10 @@ colorBg | color | 背景颜色
             desc: qsTr(`
 通过 \`arrowVisible\` 属性设置是否显示箭头 \n
 通过 \`position\` 属性设置文字提示的位置，支持的位置：\n
-- 文字提示在项目上方(默认){ DelToolTipType.Top }\n
-- 文字提示在项目下方{ DelToolTipType.Bottom }\n
-- 文字提示在项目左方{ DelToolTipType.Left }\n
-- 文字提示在项目右方{ DelToolTipType.Right }\n
+- 文字提示在项目上方(默认){ DelToolTip.Position_Top }\n
+- 文字提示在项目下方{ DelToolTip.Position_Bottom }\n
+- 文字提示在项目左方{ DelToolTip.Position_Left }\n
+- 文字提示在项目右方{ DelToolTip.Position_Right }\n
                        `)
             code: `
                 import QtQuick
@@ -86,7 +86,7 @@ colorBg | color | 背景颜色
                             DelToolTip {
                                 visible: parent.hovered
                                 text: qsTr("左方文字提示")
-                                position: DelToolTipType.Left
+                                position: DelToolTip.Position_Left
                             }
                         }
 
@@ -98,7 +98,7 @@ colorBg | color | 背景颜色
                                 x: 0
                                 visible: parent.hovered
                                 text: qsTr("箭头中心会自动指向 parent 的中心")
-                                position: DelToolTipType.Top
+                                position: DelToolTip.Position_Top
                             }
                         }
                         DelButton {
@@ -108,7 +108,7 @@ colorBg | color | 背景颜色
                             DelToolTip {
                                 visible: parent.hovered
                                 text: qsTr("右方文字提示")
-                                position: DelToolTipType.Right
+                                position: DelToolTip.Position_Right
                             }
                         }
 
@@ -120,7 +120,7 @@ colorBg | color | 背景颜色
                             DelToolTip {
                                 visible: parent.hovered
                                 text: qsTr("下方文字提示")
-                                position: DelToolTipType.Bottom
+                                position: DelToolTip.Position_Bottom
                             }
                         }
                     }
@@ -152,7 +152,7 @@ colorBg | color | 背景颜色
                         DelToolTip {
                             visible: parent.hovered
                             text: qsTr("左方文字提示")
-                            position: DelToolTipType.Left
+                            position: DelToolTip.Position_Left
                         }
                     }
 
@@ -164,7 +164,7 @@ colorBg | color | 背景颜色
                             x: 0
                             visible: parent.hovered
                             text: qsTr("箭头中心会自动指向 parent 的中心")
-                            position: DelToolTipType.Top
+                            position: DelToolTip.Position_Top
                         }
                     }
                     DelButton {
@@ -174,7 +174,7 @@ colorBg | color | 背景颜色
                         DelToolTip {
                             visible: parent.hovered
                             text: qsTr("右方文字提示")
-                            position: DelToolTipType.Right
+                            position: DelToolTip.Position_Right
                         }
                     }
 
@@ -186,7 +186,7 @@ colorBg | color | 背景颜色
                         DelToolTip {
                             visible: parent.hovered
                             text: qsTr("下方文字提示")
-                            position: DelToolTipType.Bottom
+                            position: DelToolTip.Position_Bottom
                         }
                     }
                 }
