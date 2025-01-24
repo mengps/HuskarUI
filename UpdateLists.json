@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelInput",
+        "desc": "通过鼠标或键盘输入内容，是最基础的表单域的包装(即传统输入框)。"
+    },
+    {
+        "isNew": true,
         "name": "DelSelect",
         "desc": "下拉选择器(即传统组合框)。"
     },

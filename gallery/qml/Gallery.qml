@@ -218,6 +218,11 @@ DelWindow {
                             key: "DelSelect",
                             title: qsTr("DelSelect 选择器"),
                             source: "./Examples/DataEntry/ExpSelect.qml",
+                        },
+                        {
+                            key: "DelInput",
+                            title: qsTr("DelInput 输入框"),
+                            source: "./Examples/DataEntry/ExpInput.qml",
                         }
                     ]
                 },
