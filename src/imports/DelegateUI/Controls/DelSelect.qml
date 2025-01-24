@@ -18,6 +18,7 @@ T.ComboBox {
 
     property int radiusBg: 6
     property int radiusPopupBg: 6
+    property string contentDescription: ""
 
     property Component indicatorDelegate: DelIconText {
         iconSize: 12
@@ -73,8 +74,8 @@ T.ComboBox {
         rightPadding: 4
         topPadding: 6
         bottomPadding: 6
-        enter: Transition { enabled: control.animationEnabled; NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: DelTheme.Primary.durationFast } }
-        exit: Transition { enabled: control.animationEnabled; NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: DelTheme.Primary.durationFast } }
+        enter: Transition { enabled: control.animationEnabled; NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: DelTheme.Primary.durationMid } }
+        exit: Transition { enabled: control.animationEnabled; NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: DelTheme.Primary.durationMid } }
         background: Item {
             MultiEffect {
                 anchors.fill: __popupRect
@@ -150,7 +151,7 @@ T.ComboBox {
                         arrowVisible: false
                         visible: __popupDelegate.hovered
                         text: __popupDelegate.model[control.textRole]
-                        position: DelToolTipType.Bottom
+                        position: DelToolTip.Position_Bottom
                     }
                 }
             }
@@ -159,4 +160,8 @@ T.ComboBox {
             Behavior on height { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
         }
     }
+
+    Accessible.role: Accessible.ComboBox
+    Accessible.name: control.displayText
+    Accessible.description: control.contentDescription
 }
