@@ -67,6 +67,11 @@ Rectangle {
                     onClicked: {
                         codeText.expanded = !codeText.expanded;
                     }
+                    DelToolTip {
+                        arrowVisible: false
+                        visible: parent.hovered
+                        text: codeText.expanded ? qsTr("收起代码") : qsTr("展开代码")
+                    }
                 }
                 DelIconButton {
                     padding: 5
@@ -78,6 +83,11 @@ Rectangle {
                             let win = component.createObject(root);
                             win.createQmlObject(code);
                         }
+                    }
+                    DelToolTip {
+                        arrowVisible: false
+                        visible: parent.hovered
+                        text: qsTr("运行代码")
                     }
                 }
             }

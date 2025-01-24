@@ -125,6 +125,10 @@ DelWindow {
                 onClicked: {
                     root.updateCode();
                 }
+                DelToolTip {
+                    visible: parent.hovered
+                    text: qsTr("运行")
+                }
             }
         }
 
