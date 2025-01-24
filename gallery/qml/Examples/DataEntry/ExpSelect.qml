@@ -33,6 +33,7 @@ colorBorder | color | 边框颜色
 colorBg | color | 背景颜色
 radiusBg | int | 背景半径
 radiusPopupBg | int | 弹窗背景半径
+contentDescription | string | 内容描述(提高可用性)
                        `)
         }
 
