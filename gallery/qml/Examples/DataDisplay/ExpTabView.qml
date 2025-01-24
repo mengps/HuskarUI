@@ -34,15 +34,15 @@ animationEnabled | bool | 是否开启动画(默认true)
 initModel | list | 标签页初始模型
 count | int | 当前标签页数量
 currentIndex | int | 当前标签页索引(更改该值可切换页)
-tabType | int | 标签类型(来自 DelTabViewType)
-tabPosition | int | 标签位置(来自 DelTabViewType)
+tabType | int | 标签类型(来自 DelTabView)
+tabPosition | int | 标签位置(来自 DelTabView)
 tabCentered | bool | 标签是否居中(默认false)
-tabCardMovable | bool | 标签卡片是否可移动(tabType == Card*生效)
+tabCardMovable | bool | 标签卡片是否可移动(tabType == Type_Card*生效)
 defaultTabWidth | int | 默认标签宽度
 defaultTabHeight | int | 默认标签高度
 defaultTabSpacing | int | 默认标签间隔
-defaultTabBgRadius | int | 默认标签背景半径(tabType == Card*生效)
-defaultHighlightWidth | int | 默认高亮条宽度半径(tabType == Default生效)
+defaultTabBgRadius | int | 默认标签背景半径(tabType == Type_Card*生效)
+defaultHighlightWidth | int | 默认高亮条宽度半径(tabType == Type_Default生效)
 addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 \n支持的函数：\n    
 - \`flick(index: int)\` 等同于调用 \`Flickable.flick()\` \n
@@ -83,15 +83,15 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 - { iconSpacing: 本标签和文本间隔 }\n
 - { tabWidth: 本标签宽度 }\n
 - { tabHeight: 本标签高度 }\n
-- { editable: 本标签是否可编辑(tabType == CardEditable时生效) }\n
+- { editable: 本标签是否可编辑(tabType == Type_CardEditable时生效) }\n
 通过 \`tabPosition\` 属性设置标签位置，支持的位置：\n
-- 标签在上方(默认){ DelTabViewType.Top }\n
-- 标签在下方{ DelTabViewType.Bottom }\n
-- 标签在左方{ DelTabViewType.Left }\n
-- 标签在右方{ DelTabViewType.Right }\n
+- 标签在上方(默认){ DelTabView.Position_Top }\n
+- 标签在下方{ DelTabView.Position_Bottom }\n
+- 标签在左方{ DelTabView.Position_Left }\n
+- 标签在右方{ DelTabView.Position_Right }\n
 通过 \`tabSize\` 属性设置标签大小计算方式，支持的方式：\n
-- 自动计算标签大小(取决于文本大小){ DelTabViewType.Auto }\n
-- 固定标签大小(取决于 tabWidth 和 defaultTabWidth){ DelTabViewType.Fixed }\n
+- 自动计算标签大小(取决于文本大小){ DelTabView.Size_Auto }\n
+- 固定标签大小(取决于 tabWidth 和 defaultTabWidth){ DelTabView.Size_Fixed }\n
 通过 \`tabCentered\` 属性设置标签列表是否居中\n
                        `)
             code: `
@@ -108,22 +108,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         DelButton {
                             text: qsTr("上")
                             type: DelButtonType.Type_Outlined
-                            onClicked: defaultTabView.tabPosition = DelTabViewType.Top;
+                            onClicked: defaultTabView.tabPosition = DelTabView.Position_Top;
                         }
                         DelButton {
                             text: qsTr("下")
                             type: DelButtonType.Type_Outlined
-                            onClicked: defaultTabView.tabPosition = DelTabViewType.Bottom;
+                            onClicked: defaultTabView.tabPosition = DelTabView.Position_Bottom;
                         }
                         DelButton {
                             text: qsTr("左")
                             type: DelButtonType.Type_Outlined
-                            onClicked: defaultTabView.tabPosition = DelTabViewType.Left;
+                            onClicked: defaultTabView.tabPosition = DelTabView.Position_Left;
                         }
                         DelButton {
                             text: qsTr("右")
                             type: DelButtonType.Type_Outlined
-                            onClicked: defaultTabView.tabPosition = DelTabViewType.Right;
+                            onClicked: defaultTabView.tabPosition = DelTabView.Position_Right;
                         }
                     }
 
@@ -172,7 +172,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         width: parent.width
                         height: 200
                         defaultTabWidth: 40
-                        tabSize: sizeSwitch.checked ? DelTabViewType.Fixed : DelTabViewType.Auto
+                        tabSize: sizeSwitch.checked ? DelTabView.Size_Fixed : DelTabView.Size_Auto
                         tabCentered: isCenterSwitch.checked
                         addTabCallback:
                             () => {
@@ -231,22 +231,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     DelButton {
                         text: qsTr("上")
                         type: DelButtonType.Type_Outlined
-                        onClicked: defaultTabView.tabPosition = DelTabViewType.Top;
+                        onClicked: defaultTabView.tabPosition = DelTabView.Position_Top;
                     }
                     DelButton {
                         text: qsTr("下")
                         type: DelButtonType.Type_Outlined
-                        onClicked: defaultTabView.tabPosition = DelTabViewType.Bottom;
+                        onClicked: defaultTabView.tabPosition = DelTabView.Position_Bottom;
                     }
                     DelButton {
                         text: qsTr("左")
                         type: DelButtonType.Type_Outlined
-                        onClicked: defaultTabView.tabPosition = DelTabViewType.Left;
+                        onClicked: defaultTabView.tabPosition = DelTabView.Position_Left;
                     }
                     DelButton {
                         text: qsTr("右")
                         type: DelButtonType.Type_Outlined
-                        onClicked: defaultTabView.tabPosition = DelTabViewType.Right;
+                        onClicked: defaultTabView.tabPosition = DelTabView.Position_Right;
                     }
                 }
 
@@ -295,7 +295,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     width: parent.width
                     height: 200
                     defaultTabWidth: 40
-                    tabSize: sizeSwitch.checked ? DelTabViewType.Fixed : DelTabViewType.Auto
+                    tabSize: sizeSwitch.checked ? DelTabView.Size_Fixed : DelTabView.Size_Auto
                     tabCentered: isCenterSwitch.checked
                     addTabCallback:
                         () => {
@@ -350,9 +350,9 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
             width: parent.width
             desc: qsTr(`
 通过 \`tabType\` 属性设置标签类型，支持的类型：\n
-- 默认标签(默认){ DelTabViewType.Default }\n
-- 卡片标签{ DelTabViewType.Card }\n
-- 可编辑卡片标签{ DelTabViewType.CardEditable }\n
+- 默认标签(默认){ DelTabView.Type_Default }\n
+- 卡片标签{ DelTabView.Type_Card }\n
+- 可编辑卡片标签{ DelTabView.Type_CardEditable }\n
                        `)
             code: `
                 import QtQuick
@@ -368,22 +368,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         DelButton {
                             text: qsTr("上")
                             type: DelButtonType.Type_Outlined
-                            onClicked: cardTabView.tabPosition = DelTabViewType.Top;
+                            onClicked: cardTabView.tabPosition = DelTabView.Position_Top;
                         }
                         DelButton {
                             text: qsTr("下")
                             type: DelButtonType.Type_Outlined
-                            onClicked: cardTabView.tabPosition = DelTabViewType.Bottom;
+                            onClicked: cardTabView.tabPosition = DelTabView.Position_Bottom;
                         }
                         DelButton {
                             text: qsTr("左")
                             type: DelButtonType.Type_Outlined
-                            onClicked: cardTabView.tabPosition = DelTabViewType.Left;
+                            onClicked: cardTabView.tabPosition = DelTabView.Position_Left;
                         }
                         DelButton {
                             text: qsTr("右")
                             type: DelButtonType.Type_Outlined
-                            onClicked: cardTabView.tabPosition = DelTabViewType.Right;
+                            onClicked: cardTabView.tabPosition = DelTabView.Position_Right;
                         }
                     }
 
@@ -452,8 +452,8 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         width: parent.width
                         height: 200
                         defaultTabWidth: 50
-                        tabSize: sizeSwitch2.checked ? DelTabViewType.Fixed : DelTabViewType.Auto
-                        tabType: typeSwitch.checked ? DelTabViewType.CardEditable :  DelTabViewType.Card
+                        tabSize: sizeSwitch2.checked ? DelTabView.Size_Fixed : DelTabView.Size_Auto
+                        tabType: typeSwitch.checked ? DelTabView.Type_CardEditable :  DelTabView.Type_Card
                         tabCentered: isCenterSwitch2.checked
                         addTabCallback:
                             () => {
@@ -513,22 +513,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     DelButton {
                         text: qsTr("上")
                         type: DelButtonType.Type_Outlined
-                        onClicked: cardTabView.tabPosition = DelTabViewType.Top;
+                        onClicked: cardTabView.tabPosition = DelTabView.Position_Top;
                     }
                     DelButton {
                         text: qsTr("下")
                         type: DelButtonType.Type_Outlined
-                        onClicked: cardTabView.tabPosition = DelTabViewType.Bottom;
+                        onClicked: cardTabView.tabPosition = DelTabView.Position_Bottom;
                     }
                     DelButton {
                         text: qsTr("左")
                         type: DelButtonType.Type_Outlined
-                        onClicked: cardTabView.tabPosition = DelTabViewType.Left;
+                        onClicked: cardTabView.tabPosition = DelTabView.Position_Left;
                     }
                     DelButton {
                         text: qsTr("右")
                         type: DelButtonType.Type_Outlined
-                        onClicked: cardTabView.tabPosition = DelTabViewType.Right;
+                        onClicked: cardTabView.tabPosition = DelTabView.Position_Right;
                     }
                 }
 
@@ -597,8 +597,8 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     width: parent.width
                     height: 200
                     defaultTabWidth: 50
-                    tabSize: sizeSwitch2.checked ? DelTabViewType.Fixed : DelTabViewType.Auto
-                    tabType: typeSwitch.checked ? DelTabViewType.CardEditable :  DelTabViewType.Card
+                    tabSize: sizeSwitch2.checked ? DelTabView.Size_Fixed : DelTabView.Size_Auto
+                    tabType: typeSwitch.checked ? DelTabView.Type_CardEditable :  DelTabView.Type_Card
                     tabCentered: isCenterSwitch2.checked
                     addTabCallback:
                         () => {

@@ -114,35 +114,4 @@ namespace DelSliderType {
     QML_NAMED_ELEMENT(DelSliderType);
 }
 
-namespace DelTabViewType {
-    Q_NAMESPACE
-
-    enum class TabPosition
-    {
-        Top = 0,
-        Bottom = 1,
-        Left = 2,
-        Right = 3
-    };
-
-    enum class TabType
-    {
-        Default = 0,
-        Card = 1,
-        CardEditable = 2
-    };
-
-    enum class TabSize
-    {
-        Auto = 0,
-        Fixed = 1
-    };
-
-    Q_ENUM_NS(TabPosition);
-    Q_ENUM_NS(TabType);
-    Q_ENUM_NS(TabSize);
-
-    QML_NAMED_ELEMENT(DelTabViewType);
-}
-
 #endif // DELDEFINITIONS_H
