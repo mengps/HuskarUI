@@ -1,0 +1,16 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "fontIconSize": "@fontPrimarySizeHeading5",
+    "colorText": "@colorTextBase",
+    "colorTextDisabled": "@colorPrimaryTextDisabled",
+    "colorPlaceholderText": "@colorTextQuaternary",
+    "colorPlaceholderTextDisabled": "@colorPrimaryTextDisabled",
+    "colorSelectedText": "@colorTextBase",
+    "colorSelection": "$alpha(@colorPrimary, 0.6)",
+    "colorBorder": "@colorTextQuaternary",
+    "colorBorderHover": "@colorPrimary",
+    "colorBorderDisabled": "transparent",
+    "colorBg": "@colorBgBase",
+    "colorBgDisabled": "$alpha(@colorTextBase, 0.1)"
+}

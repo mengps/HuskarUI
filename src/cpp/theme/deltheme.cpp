@@ -6,13 +6,13 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
     Q_Q(DelTheme);
 
     static QHash<QString, Function> g_funcTable {
-        { "genColor", Function::GenColor },
-        { "genFontSize", Function::GenFontSize },
+        { "genColor",          Function::GenColor },
+        { "genFontSize",       Function::GenFontSize },
         { "genFontLineHeight", Function::GenFontLineHeight },
-        { "darker", Function::Darker },
-        { "lighter", Function::Lighter },
-        { "alpha", Function::Alpha },
-        { "multiply", Function::Multiply }
+        { "darker",            Function::Darker },
+        { "lighter",           Function::Lighter },
+        { "alpha",             Function::Alpha },
+        { "multiply",          Function::Multiply }
     };
 
     static QRegularExpression g_funcRegex("\\$([^)]+)\\(");
@@ -331,22 +331,25 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
 {
     Q_Q(DelTheme);
 
+#define ADD_COMPONENT_CASE(ComponentName) case Component::ComponentName: registerThemeComponent(q, component, &q->m_##ComponentName, themePath, m_defaultTheme); break;
+
     if (g_componentTable.contains(component)) {
         auto key = g_componentTable[component];
         switch (key) {
-        case Component::DelButton: registerThemeComponent(q, component, &q->m_DelButton, themePath, m_defaultTheme); break;
-        case Component::DelIconText: registerThemeComponent(q, component, &q->m_DelIconText, themePath, m_defaultTheme); break;
-        case Component::DelCopyableText: registerThemeComponent(q, component, &q->m_DelCopyableText, themePath, m_defaultTheme); break;
-        case Component::DelCaptionButton: registerThemeComponent(q, component, &q->m_DelCaptionButton, themePath, m_defaultTheme); break;
-        case Component::DelTour: registerThemeComponent(q, component, &q->m_DelTour, themePath, m_defaultTheme); break;
-        case Component::DelMenu: registerThemeComponent(q, component, &q->m_DelMenu, themePath, m_defaultTheme); break;
-        case Component::DelDivider: registerThemeComponent(q, component, &q->m_DelDivider, themePath, m_defaultTheme); break;
-        case Component::DelSwitch: registerThemeComponent(q, component, &q->m_DelSwitch, themePath, m_defaultTheme); break;
-        case Component::DelScrollBar: registerThemeComponent(q, component, &q->m_DelScrollBar, themePath, m_defaultTheme); break;
-        case Component::DelSlider: registerThemeComponent(q, component, &q->m_DelSlider, themePath, m_defaultTheme); break;
-        case Component::DelTabView: registerThemeComponent(q, component, &q->m_DelTabView, themePath, m_defaultTheme); break;
-        case Component::DelToolTip: registerThemeComponent(q, component, &q->m_DelToolTip, themePath, m_defaultTheme); break;
-        case Component::DelSelect: registerThemeComponent(q, component, &q->m_DelSelect, themePath, m_defaultTheme); break;
+            ADD_COMPONENT_CASE(DelButton)
+            ADD_COMPONENT_CASE(DelIconText)
+            ADD_COMPONENT_CASE(DelCopyableText)
+            ADD_COMPONENT_CASE(DelCaptionButton)
+            ADD_COMPONENT_CASE(DelTour)
+            ADD_COMPONENT_CASE(DelMenu)
+            ADD_COMPONENT_CASE(DelDivider)
+            ADD_COMPONENT_CASE(DelSwitch)
+            ADD_COMPONENT_CASE(DelScrollBar)
+            ADD_COMPONENT_CASE(DelSlider)
+            ADD_COMPONENT_CASE(DelTabView)
+            ADD_COMPONENT_CASE(DelToolTip)
+            ADD_COMPONENT_CASE(DelSelect)
+            ADD_COMPONENT_CASE(DelInput)
         default:
             break;
         }

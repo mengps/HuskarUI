@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.1.3.0)
+set(DELEGATEUI_VERSION 0.1.4.0)
 
 option(BUILD_DELEGATEUI_STATIC_LIBRARY "Build DelegateUI as a static library." OFF)
 
@@ -82,6 +82,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelTabView.qml
         imports/DelegateUI/Controls/DelToolTip.qml
         imports/DelegateUI/Controls/DelSelect.qml
+        imports/DelegateUI/Controls/DelInput.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
@@ -123,6 +124,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelTabView.json
         theme/DelToolTip.json
         theme/DelSelect.json
+        theme/DelInput.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
