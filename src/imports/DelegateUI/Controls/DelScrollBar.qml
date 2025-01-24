@@ -8,13 +8,13 @@ T.ScrollBar {
     property bool animationEnabled: DelTheme.animationEnabled
     property color colorBar: control.pressed ? DelTheme.DelScrollBar.colorBarActive :
                                                control.hovered ? DelTheme.DelScrollBar.colorBarHover :
-                                                                 DelTheme.DelScrollBar.colorBar;
+                                                                 DelTheme.DelScrollBar.colorBar
     property color colorBg: control.pressed ? DelTheme.DelScrollBar.colorBgActive :
                                               control.hovered ? DelTheme.DelScrollBar.colorBgHover :
-                                                                DelTheme.DelScrollBar.colorBg;
+                                                                DelTheme.DelScrollBar.colorBg
     property color colorIcon: control.pressed ? DelTheme.DelScrollBar.colorIconActive :
                                                 control.hovered ? DelTheme.DelScrollBar.colorIconHover :
-                                                                  DelTheme.DelScrollBar.colorIcon;
+                                                                  DelTheme.DelScrollBar.colorIcon
     property string contentDescription: ""
 
     QtObject {
