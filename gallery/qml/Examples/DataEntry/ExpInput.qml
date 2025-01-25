@@ -63,6 +63,29 @@ contentDescription | string | 内容描述(提高可用性)
                 import QtQuick.Layouts
                 import DelegateUI
 
+                Row {
+                    spacing: 10
+
+                    DelInput {
+                        width: 120
+                        placeholderText: qsTr("Basic usage")
+                    }
+
+                    DelInput {
+                        width: 120
+                        iconPosition: DelInput.Position_Left
+                        iconSource: DelIcon.UserOutlined
+                        placeholderText: qsTr("Username")
+                    }
+
+                    DelInput {
+                        width: 120
+                        iconPosition: DelInput.Position_Right
+                        iconSource: DelIcon.UserOutlined
+                        placeholderText: qsTr("Username")
+                    }
+                }
+
             `
             exampleDelegate: Row {
                 spacing: 10
