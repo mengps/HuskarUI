@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelOTPInput",
+        "desc": "用于接收和验证一次性口令的输入框组合，通常用于验证码或密码。"
+    },
+    {
+        "isNew": true,
         "name": "DelInput",
         "desc": "通过鼠标或键盘输入内容，是最基础的表单域的包装(即传统输入框)。"
     },

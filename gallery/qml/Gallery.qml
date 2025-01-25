@@ -223,6 +223,11 @@ DelWindow {
                             key: "DelInput",
                             title: qsTr("DelInput 输入框"),
                             source: "./Examples/DataEntry/ExpInput.qml",
+                        },
+                        {
+                            key: "DelOTPInput",
+                            title: qsTr("DelOTPInput 一次性口令输入框"),
+                            source: "./Examples/DataEntry/ExpOTPInput.qml",
                         }
                     ]
                 },
