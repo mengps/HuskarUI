@@ -50,7 +50,7 @@ T.TextField {
         pixelSize: DelTheme.DelInput.fontSize
     }
     background: Rectangle {
-        color:control.colorBg
+        color: control.colorBg
         border.color: control.colorBorder
         radius: control.radiusBg
 
