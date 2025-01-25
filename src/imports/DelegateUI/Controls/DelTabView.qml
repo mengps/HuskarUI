@@ -501,8 +501,7 @@ Item {
         onContentHeightChanged: if (!__private.isHorizontal) cacheBuffer = contentHeight;
         spacing: defaultTabSpacing
         move: Transition {
-            enabled: control.animationEnabled
-            NumberAnimation { properties: "x,y"; duration: DelTheme.Primary.durationMid }
+            NumberAnimation { properties: "x,y"; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 }
         }
         model: ListModel { id: __tabModel }
         delegate: tabDelegate

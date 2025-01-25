@@ -80,12 +80,10 @@ T.ToolTip {
     }
 
     enter: Transition {
-        enabled: control.animationEnabled
-        NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: DelTheme.Primary.durationMid }
+        NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 }
     }
     exit: Transition {
-        enabled: control.animationEnabled
-        NumberAnimation { property: "opacity"; from: 1.0; to: 0.0; duration: DelTheme.Primary.durationMid }
+        NumberAnimation { property: "opacity"; from: 1.0; to: 0.0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 }
     }
 
     delay: 300

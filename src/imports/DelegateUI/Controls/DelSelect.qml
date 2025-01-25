@@ -74,8 +74,8 @@ T.ComboBox {
         rightPadding: 4
         topPadding: 6
         bottomPadding: 6
-        enter: Transition { enabled: control.animationEnabled; NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: DelTheme.Primary.durationMid } }
-        exit: Transition { enabled: control.animationEnabled; NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: DelTheme.Primary.durationMid } }
+        enter: Transition { NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
+        exit: Transition { NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
         background: Item {
             MultiEffect {
                 anchors.fill: __popupRect
