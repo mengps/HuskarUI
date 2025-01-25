@@ -83,6 +83,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelToolTip.qml
         imports/DelegateUI/Controls/DelSelect.qml
         imports/DelegateUI/Controls/DelInput.qml
+        imports/DelegateUI/Controls/DelOTPInput.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
