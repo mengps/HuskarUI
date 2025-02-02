@@ -117,7 +117,7 @@ DelWindow {
             height: parent.height
             anchors.left: codeBlock.right
             orientation: Qt.Vertical
-            titleAlign: DelDividerType.Center
+            titleAlign: DelDivider.AlignCenter
             titleDelegate: DelIconButton {
                 padding: 5
                 iconSize: DelTheme.Primary.fontPrimarySizeHeading4

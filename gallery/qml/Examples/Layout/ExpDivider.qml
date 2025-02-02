@@ -27,12 +27,12 @@ Flickable {
 animationEnabled | bool | 是否开启动画(默认true)
 title | string | 标题
 titleFont | font | 标题字体
-titleAlign | int | 标题对齐(来自 DelDividerType)
+titleAlign | int | 标题对齐(来自 DelDivider)
 titlePadding | int | 标题填充
 colorText | color | 标题颜色
 colorSplit | color | 分割线颜色
 contentDescription | string | 内容描述(提高可用性)
-style | int | 分割线样式(来自 DelDividerType)
+style | int | 分割线样式(来自 DelDivider)
 orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                        `)
         }
@@ -54,9 +54,9 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
             desc: qsTr(`
 通过 \`title\` 属性改变标题文字\n
 通过 \`titleAlign\` 属性改变标题对齐，支持的对齐：\n
-- 居左(默认){ DelDividerType.Left }\n
-- 居中{ DelDividerType.Center }\n
-- 居右{ DelDividerType.Right }
+- 居左(默认){ DelDivider.AlignLeft }\n
+- 居中{ DelDivider.AlignCenter }\n
+- 居右{ DelDivider.AlignRight }
                        `)
             code: `
                 import QtQuick
@@ -81,21 +81,21 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                         width: parent.width
                         height: 30
                         title: qsTr("水平分割线-居左")
-                        titleAlign: DelDividerType.Left
+                        titleAlign: DelDivider.AlignLeft
                     }
 
                     DelDivider {
                         width: parent.width
                         height: 30
                         title: qsTr("水平分割线-居中")
-                        titleAlign: DelDividerType.Center
+                        titleAlign: DelDivider.AlignCenter
                     }
 
                     DelDivider {
                         width: parent.width
                         height: 30
                         title: qsTr("水平分割线-居右")
-                        titleAlign: DelDividerType.Right
+                        titleAlign: DelDivider.AlignRight
                     }
                 }
             `
@@ -117,21 +117,21 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                     width: parent.width
                     height: 30
                     title: qsTr("水平分割线-居左")
-                    titleAlign: DelDividerType.Left
+                    titleAlign: DelDivider.AlignLeft
                 }
 
                 DelDivider {
                     width: parent.width
                     height: 30
                     title: qsTr("水平分割线-居中")
-                    titleAlign: DelDividerType.Center
+                    titleAlign: DelDivider.AlignCenter
                 }
 
                 DelDivider {
                     width: parent.width
                     height: 30
                     title: qsTr("水平分割线-居右")
-                    titleAlign: DelDividerType.Right
+                    titleAlign: DelDivider.AlignRight
                 }
             }
         }
@@ -210,8 +210,8 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
             width: parent.width
             desc: qsTr(`
 通过 \`style\` 属性改变线条风格，支持的风格：\n
-- 实线(默认){ DelDividerType.SolidLine }\n
-- 虚线{ DelDividerType.DashLine }
+- 实线(默认){ DelDivider.SolidLine }\n
+- 虚线{ DelDivider.DashLine }
                        `)
             code: `
                 import QtQuick
@@ -241,7 +241,7 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                     DelDivider {
                         width: parent.width
                         height: 30
-                        style: DelDividerType.DashLine
+                        style: DelDivider.DashLine
                         title: qsTr("虚线分割线")
                     }
                 }
@@ -269,7 +269,7 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                 DelDivider {
                     width: parent.width
                     height: 30
-                    style: DelDividerType.DashLine
+                    style: DelDivider.DashLine
                     title: qsTr("虚线分割线")
                 }
             }

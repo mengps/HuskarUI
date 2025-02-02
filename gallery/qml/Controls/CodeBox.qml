@@ -57,7 +57,7 @@ Rectangle {
             width: parent.width
             height: 30
             title: qsTr("代码")
-            titleAlign: DelDividerType.Center
+            titleAlign: DelDivider.AlignCenter
             titleDelegate: Row {
                 spacing: 10
                 DelIconButton {
