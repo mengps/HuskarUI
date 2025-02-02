@@ -5,6 +5,13 @@ import DelegateUI
 Item {
     id: control
 
+    enum SnapMode
+    {
+        NoSnap = 0,
+        SnapAlways = 1,
+        SnapOnRelease = 2
+    }
+
     signal firstMoved();
     signal firstReleased();
     signal secondMoved();
@@ -24,7 +31,7 @@ Item {
     }
     property bool range: false
     property bool hovered: __sliderLoader.item ? __sliderLoader.item.hovered : false
-    property int snapMode: DelSliderType.NoSnap
+    property int snapMode: DelSlider.NoSnap
     property int orientation: Qt.Horizontal
     property int radiusBg: 6
     property color colorBg: (enabled && hovered) ? DelTheme.DelSlider.colorBgHover : DelTheme.DelSlider.colorBg
@@ -177,8 +184,8 @@ Item {
             orientation: control.orientation
             snapMode: {
                 switch (control.snapMode) {
-                case DelSliderType.SnapAlways: return T.Slider.SnapAlways;
-                case DelSliderType.SnapOnRelease: return T.Slider.SnapOnRelease;
+                case DelSlider.SnapAlways: return T.Slider.SnapAlways;
+                case DelSlider.SnapOnRelease: return T.Slider.SnapOnRelease;
                 default: return T.Slider.NoSnap;
                 }
             }
@@ -211,8 +218,8 @@ Item {
             stepSize: control.stepSize
             snapMode: {
                 switch (control.snapMode) {
-                case DelSliderType.SnapAlways: return T.RangeSlider.SnapAlways;
-                case DelSliderType.SnapOnRelease: return T.RangeSlider.SnapOnRelease;
+                case DelSlider.SnapAlways: return T.RangeSlider.SnapAlways;
+                case DelSlider.SnapOnRelease: return T.RangeSlider.SnapOnRelease;
                 default: return T.RangeSlider.NoSnap;
                 }
             }

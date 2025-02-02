@@ -41,7 +41,7 @@ currentValue(readonly) | number / [number, number] | 获取当前滑块值, rang
 contentDescription | string | 内容描述(提高可用性)
 range | bool | 双滑块模式
 hovered | bool | 是否悬浮在滑动条上
-snapMode | int | 滑块对齐模式(来自 DelSliderType)
+snapMode | int | 滑块对齐模式(来自 DelSlider)
 orientation | int | 滑动条方向( Qt.Horizontal 或 Qt.Vertical )
 radiusBg | int | 背景半径
 colorHandle | color | 滑块颜色
@@ -253,9 +253,9 @@ colorBg | color | 背景颜色
             width: parent.width
             desc: qsTr(`
 通过 \`snapMode\` 属性改变滑块对齐模式，支持的模式：\n
-- 不对齐(默认){ DelSliderType.NoSnap }\n
-- 拖动控制柄时滑块会自动对齐 { DelSliderType.SnapAlways }\n
-- 滑块在拖动时不会对齐，但只有在释放滑块后才会对齐 { DelSliderType.SnapOnRelease }\n
+- 不对齐(默认){ DelSlider.NoSnap }\n
+- 拖动控制柄时滑块会自动对齐 { DelSlider.SnapAlways }\n
+- 滑块在拖动时不会对齐，但只有在释放滑块后才会对齐 { DelSlider.SnapOnRelease }\n
                        `)
             code: `
                 import QtQuick
@@ -268,7 +268,7 @@ colorBg | color | 背景颜色
                         min: 0
                         max: 10
                         stepSize: 1
-                        snapMode: DelSliderType.NoSnap
+                        snapMode: DelSlider.NoSnap
 
                         DelCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
@@ -284,7 +284,7 @@ colorBg | color | 背景颜色
                         min: 0
                         max: 10
                         stepSize: 1
-                        snapMode: DelSliderType.SnapAlways
+                        snapMode: DelSlider.SnapAlways
 
                         DelCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
@@ -300,7 +300,7 @@ colorBg | color | 背景颜色
                         min: 0
                         max: 10
                         stepSize: 1
-                        snapMode: DelSliderType.SnapOnRelease
+                        snapMode: DelSlider.SnapOnRelease
 
                         DelCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
@@ -318,7 +318,7 @@ colorBg | color | 背景颜色
                     min: 0
                     max: 10
                     stepSize: 1
-                    snapMode: DelSliderType.NoSnap
+                    snapMode: DelSlider.NoSnap
 
                     DelCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
@@ -334,7 +334,7 @@ colorBg | color | 背景颜色
                     min: 0
                     max: 10
                     stepSize: 1
-                    snapMode: DelSliderType.SnapAlways
+                    snapMode: DelSlider.SnapAlways
 
                     DelCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
@@ -350,7 +350,7 @@ colorBg | color | 背景颜色
                     min: 0
                     max: 10
                     stepSize: 1
-                    snapMode: DelSliderType.SnapOnRelease
+                    snapMode: DelSlider.SnapOnRelease
 
                     DelCopyableText {
                         anchors.verticalCenter: parent.verticalCenter

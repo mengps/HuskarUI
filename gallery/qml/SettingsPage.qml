@@ -146,7 +146,7 @@ DelWindow {
                 id: bgOpacitySlider
                 label.text: qsTr("背景透明度")
                 slider.value: galleryBackground.opacity
-                slider.snapMode: DelSliderType.SnapOnRelease
+                slider.snapMode: DelSlider.SnapOnRelease
                 slider.onFirstMoved: {
                     galleryBackground.opacity = slider.currentValue;
                 }
@@ -163,7 +163,7 @@ DelWindow {
                 slider.max: 24
                 slider.stepSize: 4
                 slider.value: DelTheme.Primary.fontPrimarySizeHeading5
-                slider.snapMode: DelSliderType.SnapAlways
+                slider.snapMode: DelSlider.SnapAlways
                 slider.onFirstReleased: {
                     DelTheme.installThemePrimaryFontSize(slider.currentValue);
                 }

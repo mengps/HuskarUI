@@ -99,19 +99,4 @@ namespace DelDividerType {
     QML_NAMED_ELEMENT(DelDividerType);
 }
 
-namespace DelSliderType {
-    Q_NAMESPACE
-
-    enum class SnapMode
-    {
-        NoSnap = 0,
-        SnapAlways = 1,
-        SnapOnRelease = 2
-    };
-
-    Q_ENUM_NS(SnapMode);
-
-    QML_NAMED_ELEMENT(DelSliderType);
-}
-
 #endif // DELDEFINITIONS_H
