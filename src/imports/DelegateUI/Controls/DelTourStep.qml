@@ -139,7 +139,7 @@ T.Popup {
                     visible: control.currentStep != 0
                     text: qsTr("上一步")
                     font: control.buttonFont
-                    type: DelButtonType.Type_Outlined
+                    type: DelButton.Type_Outlined
                     onClicked: {
                         if (control.currentStep > 0) {
                             control.currentStep -= 1;
@@ -157,7 +157,7 @@ T.Popup {
                     anchors.bottom: parent.bottom
                     text: (control.currentStep + 1 == control.stepModel.length) ? qsTr("结束导览") : qsTr("下一步")
                     font: control.buttonFont
-                    type: DelButtonType.Type_Primary
+                    type: DelButton.Type_Primary
                     onClicked: {
                         if ((control.currentStep + 1 == control.stepModel.length)) {
                             control.resetStep();

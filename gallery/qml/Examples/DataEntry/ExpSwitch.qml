@@ -86,7 +86,7 @@ Switch 失效状态，由 \`enabled\` 属性控制。
 
                     DelButton {
                         text: qsTr("切换 enabled")
-                        type: DelButtonType.Type_Primary
+                        type: DelButton.Type_Primary
                         onClicked: switch1.enabled = !switch1.enabled;
                     }
                 }
@@ -101,7 +101,7 @@ Switch 失效状态，由 \`enabled\` 属性控制。
 
                 DelButton {
                     text: qsTr("切换 enabled")
-                    type: DelButtonType.Type_Primary
+                    type: DelButton.Type_Primary
                     onClicked: switch1.enabled = !switch1.enabled;
                 }
             }

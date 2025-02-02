@@ -88,7 +88,7 @@ buttonFont | font | 步骤默认按钮字体
 
                     DelButton {
                         text: qsTr("漫游步骤")
-                        type: DelButtonType.Type_Primary
+                        type: DelButton.Type_Primary
                         onClicked: {
                             tourStep.resetStep();
                             tourStep.open();
@@ -145,7 +145,7 @@ buttonFont | font | 步骤默认按钮字体
 
                 DelButton {
                     text: qsTr("漫游步骤")
-                    type: DelButtonType.Type_Primary
+                    type: DelButton.Type_Primary
                     onClicked: {
                         tourStep.resetStep();
                         tourStep.open();

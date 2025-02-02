@@ -25,8 +25,8 @@ Flickable {
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
 effectEnabled | bool | 是否开启点击效果(默认true)
-type | int | 按钮类型(来自 DelButtonType)
-shape | int | 按钮形状(来自 DelButtonType)
+type | int | 按钮类型(来自 DelButton)
+shape | int | 按钮形状(来自 DelButton)
 radiusBg | int | 背景半径
 colorText | color | 文本颜色
 colorBg | color | 背景颜色
@@ -51,11 +51,11 @@ contentDescription | string | 内容描述(提高可用性)
             width: parent.width
             desc: qsTr(`
 通过 \`type\` 属性改变按钮类型，支持的类型：\n
-- 默认按钮{ DelButtonType.Type_Default }\n
-- 线框按钮{ DelButtonType.Type_Outlined }\n
-- 主要按钮{ DelButtonType.Type_Primary }\n
-- 填充按钮{ DelButtonType.Type_Filled }\n
-- 文本按钮{ DelButtonType.Type_Text }
+- 默认按钮{ DelButton.Type_Default }\n
+- 线框按钮{ DelButton.Type_Outlined }\n
+- 主要按钮{ DelButton.Type_Primary }\n
+- 填充按钮{ DelButton.Type_Filled }\n
+- 文本按钮{ DelButton.Type_Text }
                        `)
             code: `
                 import QtQuick
@@ -70,22 +70,22 @@ contentDescription | string | 内容描述(提高可用性)
 
                     DelButton {
                         text: qsTr("线框")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                     }
 
                     DelButton {
                         text: qsTr("主要")
-                        type: DelButtonType.Type_Primary
+                        type: DelButton.Type_Primary
                     }
 
                     DelButton {
                         text: qsTr("填充")
-                        type: DelButtonType.Type_Filled
+                        type: DelButton.Type_Filled
                     }
 
                     DelButton {
                         text: qsTr("文本")
-                        type: DelButtonType.Type_Text
+                        type: DelButton.Type_Text
                     }
                 }
             `
@@ -98,22 +98,22 @@ contentDescription | string | 内容描述(提高可用性)
 
                 DelButton {
                     text: qsTr("线框")
-                    type: DelButtonType.Type_Outlined
+                    type: DelButton.Type_Outlined
                 }
 
                 DelButton {
                     text: qsTr("主要")
-                    type: DelButtonType.Type_Primary
+                    type: DelButton.Type_Primary
                 }
 
                 DelButton {
                     text: qsTr("填充")
-                    type: DelButtonType.Type_Filled
+                    type: DelButton.Type_Filled
                 }
 
                 DelButton {
                     text: qsTr("文本")
-                    type: DelButtonType.Type_Text
+                    type: DelButton.Type_Text
                 }
             }
         }
@@ -137,25 +137,25 @@ contentDescription | string | 内容描述(提高可用性)
 
                     DelButton {
                         text: qsTr("线框")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         enabled: false
                     }
 
                     DelButton {
                         text: qsTr("主要")
-                        type: DelButtonType.Type_Primary
+                        type: DelButton.Type_Primary
                         enabled: false
                     }
 
                     DelButton {
                         text: qsTr("填充")
-                        type: DelButtonType.Type_Filled
+                        type: DelButton.Type_Filled
                         enabled: false
                     }
 
                     DelButton {
                         text: qsTr("文本")
-                        type: DelButtonType.Type_Text
+                        type: DelButton.Type_Text
                         enabled: false
                     }
                 }
@@ -170,25 +170,25 @@ contentDescription | string | 内容描述(提高可用性)
 
                 DelButton {
                     text: qsTr("线框")
-                    type: DelButtonType.Type_Outlined
+                    type: DelButton.Type_Outlined
                     enabled: false
                 }
 
                 DelButton {
                     text: qsTr("主要")
-                    type: DelButtonType.Type_Primary
+                    type: DelButton.Type_Primary
                     enabled: false
                 }
 
                 DelButton {
                     text: qsTr("填充")
-                    type: DelButtonType.Type_Filled
+                    type: DelButton.Type_Filled
                     enabled: false
                 }
 
                 DelButton {
                     text: qsTr("文本")
-                    type: DelButtonType.Type_Text
+                    type: DelButton.Type_Text
                     enabled: false
                 }
             }
@@ -198,8 +198,8 @@ contentDescription | string | 内容描述(提高可用性)
             width: parent.width
             desc: qsTr(`
 通过 \`shape\` 属性改变按钮形状，支持的形状：\n
-- 默认形状{ DelButtonType.Shape_Default }\n
-- 圆形{ DelButtonType.Shape_Circle }
+- 默认形状{ DelButton.Shape_Default }\n
+- 圆形{ DelButton.Shape_Circle }
                        `)
             code: `
                 import QtQuick
@@ -210,31 +210,31 @@ contentDescription | string | 内容描述(提高可用性)
 
                     DelButton {
                         text: qsTr("A")
-                        shape: DelButtonType.Shape_Circle
+                        shape: DelButton.Shape_Circle
                     }
 
                     DelButton {
                         text: qsTr("A")
-                        type: DelButtonType.Type_Outlined
-                        shape: DelButtonType.Shape_Circle
+                        type: DelButton.Type_Outlined
+                        shape: DelButton.Shape_Circle
                     }
 
                     DelButton {
                         text: qsTr("A")
-                        type: DelButtonType.Type_Primary
-                        shape: DelButtonType.Shape_Circle
+                        type: DelButton.Type_Primary
+                        shape: DelButton.Shape_Circle
                     }
 
                     DelButton {
                         text: qsTr("A")
-                        type: DelButtonType.Type_Filled
-                        shape: DelButtonType.Shape_Circle
+                        type: DelButton.Type_Filled
+                        shape: DelButton.Shape_Circle
                     }
 
                     DelButton {
                         text: qsTr("A")
-                        type: DelButtonType.Type_Text
-                        shape: DelButtonType.Shape_Circle
+                        type: DelButton.Type_Text
+                        shape: DelButton.Shape_Circle
                     }
                 }
             `
@@ -243,31 +243,31 @@ contentDescription | string | 内容描述(提高可用性)
 
                 DelButton {
                     text: qsTr("A")
-                    shape: DelButtonType.Shape_Circle
+                    shape: DelButton.Shape_Circle
                 }
 
                 DelButton {
                     text: qsTr("A")
-                    type: DelButtonType.Type_Outlined
-                    shape: DelButtonType.Shape_Circle
+                    type: DelButton.Type_Outlined
+                    shape: DelButton.Shape_Circle
                 }
 
                 DelButton {
                     text: qsTr("A")
-                    type: DelButtonType.Type_Primary
-                    shape: DelButtonType.Shape_Circle
+                    type: DelButton.Type_Primary
+                    shape: DelButton.Shape_Circle
                 }
 
                 DelButton {
                     text: qsTr("A")
-                    type: DelButtonType.Type_Filled
-                    shape: DelButtonType.Shape_Circle
+                    type: DelButton.Type_Filled
+                    shape: DelButton.Shape_Circle
                 }
 
                 DelButton {
                     text: qsTr("A")
-                    type: DelButtonType.Type_Text
-                    shape: DelButtonType.Shape_Circle
+                    type: DelButton.Type_Text
+                    shape: DelButton.Shape_Circle
                 }
             }
         }

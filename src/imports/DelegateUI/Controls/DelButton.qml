@@ -5,26 +5,44 @@ import DelegateUI
 T.Button {
     id: control
 
+    enum Type {
+        Type_Default = 0,
+        Type_Outlined = 1,
+        Type_Primary = 2,
+        Type_Filled = 3,
+        Type_Text = 4
+    }
+
+    enum Shape {
+        Shape_Default = 0,
+        Shape_Circle = 1
+    }
+
+    enum IconPosition {
+        Position_Start = 0,
+        Position_End = 1
+    }
+
     property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
-    property int type: DelButtonType.Type_Default
-    property int shape: DelButtonType.Shape_Default
+    property int type: DelButton.Type_Default
+    property int shape: DelButton.Shape_Default
     property int radiusBg: DelTheme.DelButton.radiusBg
     property color colorText: {
         if (enabled) {
             switch(control.type)
             {
-            case DelButtonType.Type_Default:
+            case DelButton.Type_Default:
                 return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
                                                         DelTheme.DelButton.colorTextBase;
-            case DelButtonType.Type_Outlined:
+            case DelButton.Type_Outlined:
                 return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
                                                         DelTheme.DelButton.colorText;
-            case DelButtonType.Type_Primary: return "white";
-            case DelButtonType.Type_Filled:
-            case DelButtonType.Type_Text:
+            case DelButton.Type_Primary: return "white";
+            case DelButton.Type_Filled:
+            case DelButton.Type_Text:
                 return control.down ? DelTheme.DelButton.colorTextHover :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
                                                         DelTheme.DelButton.colorText;
@@ -38,16 +56,16 @@ T.Button {
         if (enabled) {
             switch(control.type)
             {
-            case DelButtonType.Type_Default:
-            case DelButtonType.Type_Outlined:
+            case DelButton.Type_Default:
+            case DelButton.Type_Outlined:
                 return control.down ? DelTheme.DelButton.colorBgActive :
                                       control.hovered ? DelTheme.DelButton.colorBgHover :
                                                         DelTheme.DelButton.colorBg;
-            case DelButtonType.Type_Primary:
+            case DelButton.Type_Primary:
                 return control.down ? DelTheme.DelButton.colorPrimaryBgActive:
                                       control.hovered ? DelTheme.DelButton.colorPrimaryBgHover :
                                                         DelTheme.DelButton.colorPrimaryBg;
-            case DelButtonType.Type_Filled:
+            case DelButton.Type_Filled:
                 if (DelTheme.isDark) {
                     return control.down ? DelTheme.DelButton.colorFillDarkBgActive:
                                           control.hovered ? DelTheme.DelButton.colorFillDarkBgHover :
@@ -57,7 +75,7 @@ T.Button {
                                           control.hovered ? DelTheme.DelButton.colorFillBgHover :
                                                             DelTheme.DelButton.colorFillBg;
                 }
-            case DelButtonType.Type_Text:
+            case DelButton.Type_Text:
                 if (DelTheme.isDark) {
                     return control.down ? DelTheme.DelButton.colorFillDarkBgActive:
                                           control.hovered ? DelTheme.DelButton.colorFillDarkBgHover :
@@ -77,7 +95,7 @@ T.Button {
         if (enabled) {
             switch(control.type)
             {
-            case DelButtonType.Type_Default:
+            case DelButton.Type_Default:
                 return control.down ? DelTheme.DelButton.colorBorderActive :
                                       control.hovered ? DelTheme.DelButton.colorBorderHover :
                                                         DelTheme.DelButton.colorDefaultBorder;
@@ -159,13 +177,13 @@ T.Button {
             width: realWidth
             height: realHeight
             anchors.centerIn: parent
-            radius: control.shape == DelButtonType.Shape_Default ? control.radiusBg : height * 0.5
+            radius: control.shape == DelButton.Shape_Default ? control.radiusBg : height * 0.5
             color: control.colorBg
-            border.width: (control.type == DelButtonType.Type_Filled || control.type == DelButtonType.Type_Text) ? 0 : 1
+            border.width: (control.type == DelButton.Type_Filled || control.type == DelButton.Type_Text) ? 0 : 1
             border.color: control.enabled ? control.colorBorder : "transparent"
 
-            property real realWidth: control.shape == DelButtonType.Shape_Default ? parent.width : parent.height
-            property real realHeight: control.shape == DelButtonType.Shape_Default ? parent.height : parent.height
+            property real realWidth: control.shape == DelButton.Shape_Default ? parent.width : parent.height
+            property real realHeight: control.shape == DelButton.Shape_Default ? parent.height : parent.height
 
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
             Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }

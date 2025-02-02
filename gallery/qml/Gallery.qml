@@ -327,7 +327,7 @@ DelWindow {
             width: galleryMenu.width
             height: 40
             anchors.bottom: setttingsButton.top
-            type: DelButtonType.Type_Text
+            type: DelButton.Type_Text
             radiusBg: 0
             text: qsTr("关于")
             colorText: DelTheme.Primary.colorTextBase
@@ -347,7 +347,7 @@ DelWindow {
             width: galleryMenu.width
             height: 40
             anchors.bottom: parent.bottom
-            type: DelButtonType.Type_Text
+            type: DelButton.Type_Text
             radiusBg: 0
             text: qsTr("设置")
             colorText: DelTheme.Primary.colorTextBase

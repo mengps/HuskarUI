@@ -57,7 +57,7 @@ focusMargin | int | 焦点边距
 
                     DelButton {
                         text: qsTr("漫游焦点")
-                        type: DelButtonType.Type_Primary
+                        type: DelButton.Type_Primary
                         onClicked: {
                             tourFocus.open();
                         }
@@ -74,7 +74,7 @@ focusMargin | int | 焦点边距
                         DelButton {
                             id: tourFocus1
                             text: qsTr("漫游焦点1")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                         }
                     }
                 }
@@ -84,7 +84,7 @@ focusMargin | int | 焦点边距
 
                 DelButton {
                     text: qsTr("漫游焦点")
-                    type: DelButtonType.Type_Primary
+                    type: DelButton.Type_Primary
                     onClicked: {
                         tourFocus.open();
                     }
@@ -101,7 +101,7 @@ focusMargin | int | 焦点边距
                     DelButton {
                         id: tourFocus1
                         text: qsTr("漫游焦点1")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                     }
                 }
             }

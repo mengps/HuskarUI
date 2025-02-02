@@ -9,7 +9,7 @@ DelIconButton {
     leftPadding: 12
     rightPadding: 12
     radiusBg: 0
-    type: DelButtonType.Type_Text
+    type: DelButton.Type_Text
     iconSize: DelTheme.DelCaptionButton.fontSize
     font.pixelSize: DelTheme.DelCaptionButton.fontSize
     effectEnabled: false

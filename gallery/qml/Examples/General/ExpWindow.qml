@@ -79,7 +79,7 @@ DelWindow {
 
                     DelButton {
                         text: (windowLoader.visible ? qsTr("隐藏") : qsTr("显示")) + qsTr("窗口")
-                        type: DelButtonType.Type_Primary
+                        type: DelButton.Type_Primary
                         onClicked: windowLoader.visible = !windowLoader.visible;
                     }
 
@@ -104,7 +104,7 @@ DelWindow {
 
                 DelButton {
                     text: (windowLoader.visible ? qsTr("隐藏") : qsTr("显示")) + qsTr("窗口")
-                    type: DelButtonType.Type_Primary
+                    type: DelButton.Type_Primary
                     onClicked: windowLoader.visible = !windowLoader.visible;
                 }
 

@@ -7,7 +7,7 @@ DelButton {
     property int iconSource: 0
     property int iconSize: DelTheme.DelButton.fontSize
     property int iconSpacing: 5
-    property int iconPosition: DelButtonType.Position_Start
+    property int iconPosition: DelButton.Position_Start
     property color colorIcon: colorText
     contentItem: Item {
         implicitWidth: __row.implicitWidth
@@ -18,7 +18,7 @@ DelButton {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             spacing: control.iconSpacing
-            layoutDirection: control.iconPosition === DelButtonType.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
+            layoutDirection: control.iconPosition === DelButton.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
 
             DelIconText {
                 id: __icon
