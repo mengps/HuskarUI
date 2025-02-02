@@ -54,9 +54,9 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
             desc: qsTr(`
 通过 \`title\` 属性改变标题文字\n
 通过 \`titleAlign\` 属性改变标题对齐，支持的对齐：\n
-- 居左(默认){ DelDivider.AlignLeft }\n
-- 居中{ DelDivider.AlignCenter }\n
-- 居右{ DelDivider.AlignRight }
+- 居左(默认){ DelDivider.Align_Left }\n
+- 居中{ DelDivider.Align_Center }\n
+- 居右{ DelDivider.Align_Right }
                        `)
             code: `
                 import QtQuick
@@ -81,21 +81,21 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                         width: parent.width
                         height: 30
                         title: qsTr("水平分割线-居左")
-                        titleAlign: DelDivider.AlignLeft
+                        titleAlign: DelDivider.Align_Left
                     }
 
                     DelDivider {
                         width: parent.width
                         height: 30
                         title: qsTr("水平分割线-居中")
-                        titleAlign: DelDivider.AlignCenter
+                        titleAlign: DelDivider.Align_Center
                     }
 
                     DelDivider {
                         width: parent.width
                         height: 30
                         title: qsTr("水平分割线-居右")
-                        titleAlign: DelDivider.AlignRight
+                        titleAlign: DelDivider.Align_Right
                     }
                 }
             `
@@ -117,21 +117,21 @@ orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
                     width: parent.width
                     height: 30
                     title: qsTr("水平分割线-居左")
-                    titleAlign: DelDivider.AlignLeft
+                    titleAlign: DelDivider.Align_Left
                 }
 
                 DelDivider {
                     width: parent.width
                     height: 30
                     title: qsTr("水平分割线-居中")
-                    titleAlign: DelDivider.AlignCenter
+                    titleAlign: DelDivider.Align_Center
                 }
 
                 DelDivider {
                     width: parent.width
                     height: 30
                     title: qsTr("水平分割线-居右")
-                    titleAlign: DelDivider.AlignRight
+                    titleAlign: DelDivider.Align_Right
                 }
             }
         }
