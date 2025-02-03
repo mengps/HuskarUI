@@ -447,7 +447,10 @@ void DelTheme::installThemePrimaryFontFamily(const QString &family)
 
 void DelTheme::installIndexTheme(const QString &themePath)
 {
+    Q_D(DelTheme);
 
+    d->m_themeIndexPath = themePath;
+    d->reloadIndexTheme();
 }
 
 void DelTheme::installIndexThemeKV(const QString &key, const QString &value)
