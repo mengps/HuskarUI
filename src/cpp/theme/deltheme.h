@@ -62,6 +62,7 @@ public:
     Q_INVOKABLE void installIndexTheme(const QString &themePath);
     Q_INVOKABLE void installIndexThemeKV(const QString &key, const QString &value);
     Q_INVOKABLE void installIndexThemeJSON(const QString &json);
+
     Q_INVOKABLE void installComponentTheme(const QString &componenet, const QString &themePath);
     Q_INVOKABLE void installComponentThemeKV(const QString &componenet, const QString &key, const QString &value);
     Q_INVOKABLE void installComponentThemeJSON(const QString &componenet, const QString &json);

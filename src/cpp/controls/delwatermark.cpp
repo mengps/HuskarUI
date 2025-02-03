@@ -48,7 +48,7 @@ void DelWatermarkPrivate::updateImage()
             if (qmlEngine(q)) {
                 m_manager = qmlEngine(q)->networkAccessManager();
             } else {
-                qWarning() << "DelWatermark ithout QmlEngine, we cannot get QNetworkAccessManager!";
+                qWarning() << "DelWatermark without QmlEngine, we cannot get QNetworkAccessManager!";
             }
         }
 
