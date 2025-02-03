@@ -16,6 +16,8 @@ Window {
         setWindowMode(DelTheme.isDark);
         __captionBar.windowAgent = __windowAgent;
         initialized = true;
+        if (followThemeSwitch)
+            __connections.onIsDarkChanged();
     }
 
     function setWindowMode(isDark) {
@@ -73,6 +75,7 @@ Window {
     }
 
     Connections {
+        id: __connections
         target: DelTheme
         enabled: window.followThemeSwitch
         function onIsDarkChanged() {
