@@ -27,7 +27,7 @@ public:
     QPointF m_offset { 50, 50 };
     qreal m_rotate = -22;
     QFont m_font { "sans-serif", 16 };
-    QColor m_fontColor { 0, 0, 0, 15 };
+    QColor m_colorText { 0, 0, 0, 15 };
 };
 
 void DelWatermarkPrivate::updateImage()
@@ -231,20 +231,20 @@ void DelWatermark::setFont(const QFont &font)
     }
 }
 
-QColor DelWatermark::fontColor() const
+QColor DelWatermark::colorText() const
 {
     Q_D(const DelWatermark);
 
-    return d->m_fontColor;
+    return d->m_colorText;
 }
 
-void DelWatermark::setFontColor(const QColor &fontColor)
+void DelWatermark::setColorText(const QColor &colorText)
 {
     Q_D(DelWatermark);
 
-    if (d->m_fontColor != fontColor) {
-        d->m_fontColor = fontColor;
-        emit fontColorChanged();
+    if (d->m_colorText != colorText) {
+        d->m_colorText = colorText;
+        emit colorTextChanged();
         update();
     }
 }
@@ -257,7 +257,7 @@ void DelWatermark::paint(QPainter *painter)
     painter->setRenderHint(QPainter::Antialiasing);
 
     painter->setFont(d->m_font);
-    painter->setPen(d->m_fontColor);
+    painter->setPen(d->m_colorText);
 
     int markWidth = d->m_markSize.width();
     int markHeight = d->m_markSize.height();

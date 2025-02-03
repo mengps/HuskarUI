@@ -29,8 +29,8 @@ markSize | size | 水印大小
 gap | point | 水印间隔
 offset | point | 水印偏移
 rotate | real | 水印旋转角度(0~360)
-font | font | 字体
-fontColor | color | 字体颜色
+font | font | 水印字体
+colorText | color | 水印文本颜色
                        `)
         }
 
@@ -87,7 +87,7 @@ fontColor | color | 字体颜色
                             text: qsTr("DelegateUI")
                             rotate: slider1.currentValue
                             font.family: DelTheme.Primary.fontPrimaryFamily
-                            fontColor: "#80ff0000"
+                            colorText: "#80ff0000"
                         }
 
                         Text {
@@ -134,7 +134,7 @@ fontColor | color | 字体颜色
                         text: qsTr("DelegateUI")
                         rotate: slider1.currentValue
                         font.family: DelTheme.Primary.fontPrimaryFamily
-                        fontColor: "#80ff0000"
+                        colorText: "#80ff0000"
                     }
 
                     Text {
@@ -192,7 +192,7 @@ fontColor | color | 字体颜色
                             markSize.width: 100
                             markSize.height: 100
                             rotate: slider2.currentValue
-                            fontColor: "#80ff0000"
+                            colorText: "#80ff0000"
                             font.family: DelTheme.Primary.fontPrimaryFamily
                         }
 
@@ -241,7 +241,7 @@ fontColor | color | 字体颜色
                         markSize.width: 100
                         markSize.height: 100
                         rotate: slider2.currentValue
-                        fontColor: "#80ff0000"
+                        colorText: "#80ff0000"
                         font.family: DelTheme.Primary.fontPrimaryFamily
                     }
 

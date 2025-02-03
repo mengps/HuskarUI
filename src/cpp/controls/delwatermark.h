@@ -18,7 +18,7 @@ class DELEGATEUI_EXPORT DelWatermark : public QQuickPaintedItem
     Q_PROPERTY(QPointF offset READ offset WRITE setOffset NOTIFY offsetChanged FINAL)
     Q_PROPERTY(qreal rotate READ rotate WRITE setRotate NOTIFY rotateChanged FINAL)
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged FINAL)
-    Q_PROPERTY(QColor fontColor READ fontColor WRITE setFontColor NOTIFY fontColorChanged FINAL)
+    Q_PROPERTY(QColor colorText READ colorText WRITE setColorText NOTIFY colorTextChanged FINAL)
 
     QML_NAMED_ELEMENT(DelWatermark)
 
@@ -47,8 +47,8 @@ public:
     QFont font() const;
     void setFont(const QFont &font);
 
-    QColor fontColor() const;
-    void setFontColor(const QColor &fontColor);
+    QColor colorText() const;
+    void setColorText(const QColor &colorText);
 
 protected:
     void paint(QPainter *painter);
@@ -61,7 +61,7 @@ signals:
     void offsetChanged();
     void rotateChanged();
     void fontChanged();
-    void fontColorChanged();
+    void colorTextChanged();
 
 private:
     Q_DECLARE_PRIVATE(DelWatermark);
