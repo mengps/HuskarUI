@@ -43,16 +43,21 @@ endif()
 set(DELEGATEUI_RC_FILE "")
 if (WIN32)
     set(DELEGATEUI_RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_Resource.rc)
+    set(RC_NAME "")
+    if(BUILD_DELEGATEUI_STATIC_LIBRARY)
+        set(RC_NAME "${PROJECT_NAME}.lib")
+    else()
+        set(RC_NAME "${PROJECT_NAME}.dll")
+    endif()
     del_add_win_rc(${PROJECT_NAME}
         COMMENTS "Modern UI-Kit for Qml { Design reference Ant-d }"
-        NAME "${PROJECT_NAME}.dll"
+        NAME ${RC_NAME}
         COMPANY "DelegateUI"
         DESCRIPTION "https://github.com/mengps/DelegateUI"
         VERSION "${PROJECT_VERSION}"
         COPYRIGHT "Copyright (C) 2025 mengps. All rights reserved."
         OUTPUT_FILE "${DELEGATEUI_RC_FILE}"
     )
-    message(${DELEGATEUI_RC_FILE})
 endif()
 
 qt_add_qml_module(${PROJECT_NAME}
