@@ -16,7 +16,7 @@ Flickable {
         Description {
             desc: qsTr(`
 ## DelScrollBar 滚动条\n
-滚动条是一个交互式栏，用于滚动某个区域或视图到特定位置\n
+滚动条是一个交互式栏，用于滚动某个区域或视图到特定位置。\n
 * **继承自 { ScrollBar }**\n
 支持的代理：\n
 - 无\n
@@ -30,16 +30,15 @@ colorIcon | color | 图标颜色(即箭头颜色)
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+当一个项超出其容器大小时使用，提供比原生[ScrollBar]更好的外观和操作体验。
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {

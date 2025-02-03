@@ -49,21 +49,21 @@ radiusBg | int | 输入项背景半径
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+需要用户输入[密码/验证码/激活码]等一次性口令时。\n
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {
             width: parent.width
             desc: qsTr(`
+默认验证器为数字验证器。\n
 通过 \`length\` 属性设置输入元素数量\n
 通过 \`enabled\` 属性设置是否启用\n
 通过 \`itemValidator\` 属性设置验证器\n
@@ -112,6 +112,7 @@ radiusBg | int | 输入项背景半径
         CodeBox {
             width: parent.width
             desc: qsTr(`
+将输入格式化为大写。\n
 通过 \`formatter\` 属性设置输入项的格式化器\n
 格式化器是形如：\`function(text: string): string { }\` 的函数\n
                        `)

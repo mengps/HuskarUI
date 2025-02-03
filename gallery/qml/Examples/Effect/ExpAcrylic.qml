@@ -34,16 +34,15 @@ luminosity | real | 亮度
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+当用户需要实现[亚克力/毛玻璃]的效果时。
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {

@@ -23,16 +23,15 @@ Flickable {
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+Qml中普通文本(Text)无法复制，因此在需要可复制的文本时建议使用。
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {

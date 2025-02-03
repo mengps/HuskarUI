@@ -50,6 +50,11 @@ contentDescription | string | 内容描述(提高可用性)
                 key: "3",
                 title: qsTr("双色风格图标"),
                 styleFilter: "Path1,Path2,Path3,Path4"
+            },
+            {
+                key: "4",
+                title: qsTr("IcoMoon图标"),
+                styleFilter: "IcoMoon"
             }
         ]
         contentDelegate: Item {
@@ -93,15 +98,15 @@ contentDescription | string | 内容描述(提高可用性)
                     Rectangle {
                         anchors.fill: parent
                         anchors.margins: 10
-                        color: mouseAre.pressed ? DelThemeFunctions.darker(DelTheme.Primary.colorPrimaryBorder) :
-                                                  mouseAre.hovered ? DelThemeFunctions.lighter(DelTheme.Primary.colorPrimaryBorder)  :
+                        color: mouseArea.pressed ? DelThemeFunctions.darker(DelTheme.Primary.colorPrimaryBorder) :
+                                                  mouseArea.hovered ? DelThemeFunctions.lighter(DelTheme.Primary.colorPrimaryBorder)  :
                                                                      DelThemeFunctions.alpha(DelTheme.Primary.colorPrimaryBorder, 0);
                         radius: 5
 
                         Behavior on color { enabled: DelTheme.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
                         MouseArea {
-                            id: mouseAre
+                            id: mouseArea
                             anchors.fill: parent
                             hoverEnabled: true
                             onEntered: hovered = true;

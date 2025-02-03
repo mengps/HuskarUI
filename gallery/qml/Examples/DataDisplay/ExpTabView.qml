@@ -60,16 +60,19 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+提供平级的区域将大块内容进行收纳和展现，保持界面整洁。\n
+**DelegateUI** 依次提供了三级选项卡，分别用于不同的场景。\n
+- 卡片式的页签，提供可关闭的样式，常用于容器顶部。\n
+- 既可用于容器顶部，也可用于容器内部，是最通用的 Tabs。\n
+- [DelRadioButton](internal://DelRadioButton) 可作为更次级的页签来使用。\n
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {
@@ -107,22 +110,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 
                         DelButton {
                             text: qsTr("上")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                             onClicked: defaultTabView.tabPosition = DelTabView.Position_Top;
                         }
                         DelButton {
                             text: qsTr("下")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                             onClicked: defaultTabView.tabPosition = DelTabView.Position_Bottom;
                         }
                         DelButton {
                             text: qsTr("左")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                             onClicked: defaultTabView.tabPosition = DelTabView.Position_Left;
                         }
                         DelButton {
                             text: qsTr("右")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                             onClicked: defaultTabView.tabPosition = DelTabView.Position_Right;
                         }
                     }
@@ -230,22 +233,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 
                     DelButton {
                         text: qsTr("上")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         onClicked: defaultTabView.tabPosition = DelTabView.Position_Top;
                     }
                     DelButton {
                         text: qsTr("下")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         onClicked: defaultTabView.tabPosition = DelTabView.Position_Bottom;
                     }
                     DelButton {
                         text: qsTr("左")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         onClicked: defaultTabView.tabPosition = DelTabView.Position_Left;
                     }
                     DelButton {
                         text: qsTr("右")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         onClicked: defaultTabView.tabPosition = DelTabView.Position_Right;
                     }
                 }
@@ -367,22 +370,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 
                         DelButton {
                             text: qsTr("上")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                             onClicked: cardTabView.tabPosition = DelTabView.Position_Top;
                         }
                         DelButton {
                             text: qsTr("下")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                             onClicked: cardTabView.tabPosition = DelTabView.Position_Bottom;
                         }
                         DelButton {
                             text: qsTr("左")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                             onClicked: cardTabView.tabPosition = DelTabView.Position_Left;
                         }
                         DelButton {
                             text: qsTr("右")
-                            type: DelButtonType.Type_Outlined
+                            type: DelButton.Type_Outlined
                             onClicked: cardTabView.tabPosition = DelTabView.Position_Right;
                         }
                     }
@@ -512,22 +515,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 
                     DelButton {
                         text: qsTr("上")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         onClicked: cardTabView.tabPosition = DelTabView.Position_Top;
                     }
                     DelButton {
                         text: qsTr("下")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         onClicked: cardTabView.tabPosition = DelTabView.Position_Bottom;
                     }
                     DelButton {
                         text: qsTr("左")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         onClicked: cardTabView.tabPosition = DelTabView.Position_Left;
                     }
                     DelButton {
                         text: qsTr("右")
-                        type: DelButtonType.Type_Outlined
+                        type: DelButton.Type_Outlined
                         onClicked: cardTabView.tabPosition = DelTabView.Position_Right;
                     }
                 }

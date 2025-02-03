@@ -37,16 +37,16 @@ colorBg | color | 背景颜色
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+- 需要表示开关状态/两种状态之间的切换时。\n
+- 和 \`DelCheckBox\` 的区别是，切换 \`DelSwitch\` 会直接触发状态改变，而 \`DelCheckBox\` 一般用于状态标记，需要和提交操作配合。\n
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {

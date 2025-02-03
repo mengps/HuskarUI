@@ -35,16 +35,21 @@ contentDescription | string | 内容描述(提高可用性)
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。\n
+在 DelegateUI 中我们提供了五种按钮。\n
+- 默认按钮：用于没有主次之分的一组行动点。\n
+- 主要按钮：用于主行动点，一个操作区域只能有一个主按钮。\n
+- 线框按钮：等同于默认按钮，但线框使用了主要颜色。\n
+- 填充按钮：用于次级的行动点。\n
+- 文本按钮：用于最次级的行动点。\n
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {

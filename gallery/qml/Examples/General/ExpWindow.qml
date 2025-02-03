@@ -17,7 +17,7 @@ Flickable {
             id: description
             desc: qsTr(`
 ## DelWindow 无边框窗口\n
-跨平台无边框窗口的最佳实现。\n
+跨平台无边框窗口的最佳实现，基于 [QWindowKit](https://github.com/stdware/qwindowkit)。\n
 * **继承自 { Window }**\n
 支持的代理：\n
 - 无\n
@@ -35,16 +35,15 @@ specialEffect | int | 特殊效果(仅windows有效，来自 DelWindowSpecialEff
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+当用户需要自定义窗口形态时作为基础无边框窗口使用，默认提供一个 [DelCaptionBar](internal://DelCaptionBar)。
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {
@@ -86,7 +85,7 @@ DelWindow {
                     Loader {
                         id: windowLoader
                         visible: false
-                        sourceComponent:  DelWindow {
+                        sourceComponent: DelWindow {
                             width: 600
                             height: 400
                             visible: windowLoader.visible
@@ -111,7 +110,7 @@ DelWindow {
                 Loader {
                     id: windowLoader
                     visible: false
-                    sourceComponent:  DelWindow {
+                    sourceComponent: DelWindow {
                         width: 600
                         height: 400
                         visible: windowLoader.visible

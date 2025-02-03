@@ -50,16 +50,18 @@ model | list | 菜单模型
                        `)
         }
 
-        Text {
-            width: parent.width - 20
-            height: implicitHeight - 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("代码演示")
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
-            }
-            color: DelTheme.Primary.colorTextBase
+        Description {
+            title: qsTr("何时使用")
+            desc: qsTr(`
+菜单是一个应用的灵魂，用户依赖导航在各个页面中进行跳转。\n
+一般分为顶部导航和侧边导航。\n
+- 顶部导航提供全局性的类目和功能。\n
+- 侧边导航提供多级结构来收纳和排列网站架构。\n
+                       `)
+        }
+
+        Description {
+            title: qsTr("代码演示")
         }
 
         CodeBox {
