@@ -8,7 +8,6 @@
 #include <QQmlEngine>
 #include <QRunnable>
 #include <QThreadPool>
-#include <QtConcurrent>
 
 class AsyncRunnable : public QObject, public QRunnable
 {
@@ -189,7 +188,7 @@ void DelAsyncHasher::setSource(const QUrl &source)
                 if (qmlEngine(this)) {
                     d->m_manager = qmlEngine(this)->networkAccessManager();
                 } else {
-                    qWarning() << "DelAsyncHasher Without QmlEngine, we cannot get QNetworkAccessManager!";
+                    qWarning() << "DelAsyncHasher without QmlEngine, we cannot get QNetworkAccessManager!";
                 }
             }
             if (d->m_manager) {
@@ -324,13 +323,6 @@ bool DelAsyncHasher::operator==(const DelAsyncHasher &hasher)
 bool DelAsyncHasher::operator!=(const DelAsyncHasher &hasher)
 {
     return !(*this == hasher);
-}
-
-QFuture<QByteArray> DelAsyncHasher::hash(const QByteArray &data, QCryptographicHash::Algorithm algorithm)
-{
-    return QtConcurrent::run([data, algorithm]()->QByteArray{
-        return QCryptographicHash::hash(data, algorithm);
-    });
 }
 
 #include "delasynchasher.moc"
