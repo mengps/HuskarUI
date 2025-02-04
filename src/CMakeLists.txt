@@ -89,6 +89,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelSelect.qml
         imports/DelegateUI/Controls/DelInput.qml
         imports/DelegateUI/Controls/DelOTPInput.qml
+        imports/DelegateUI/Controls/DelRate.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
@@ -131,12 +132,14 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelToolTip.json
         theme/DelSelect.json
         theme/DelInput.json
+        theme/DelRate.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
     PREFIX "/DelegateUI"
     FILES
         shaders/deltour.frag
+        shaders/delrate.frag
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
