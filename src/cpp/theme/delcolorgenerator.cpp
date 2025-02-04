@@ -106,6 +106,31 @@ QColor DelColorGenerator::reverseColor(const QColor &color)
     return QColor(255 - color.red(), 255 - color.green(), 255 - color.blue(), color.alpha());
 }
 
+QColor DelColorGenerator::presetToColor(const QString &color)
+{
+    using PresetTableType = QHash<QString, QColor>;
+    static PresetTableType g_presetTable {
+        { QString("Preset_Red"),      QColor(0xF5222D) },
+        { QString("Preset_Volcano"),  QColor(0xFA541C) },
+        { QString("Preset_Orange"),   QColor(0xFA8C16) },
+        { QString("Preset_Gold"),     QColor(0xFAAD14) },
+        { QString("Preset_Yellow"),   QColor(0xFADB14) },
+        { QString("Preset_Lime"),     QColor(0xA0D911) },
+        { QString("Preset_Green"),    QColor(0x52C41A) },
+        { QString("Preset_Cyan"),     QColor(0x13C2C2) },
+        { QString("Preset_Blue"),     QColor(0x1677FF) },
+        { QString("Preset_Geekblue"), QColor(0x2F54EB) },
+        { QString("Preset_Purple"),   QColor(0x722ED1) },
+        { QString("Preset_Magenta"),  QColor(0xEB2F96) },
+        { QString("Preset_Grey"),     QColor(0x666666) }
+    };
+
+    if (g_presetTable.contains(color))
+        return g_presetTable[color];
+    else
+        return QColor(QColor::Invalid);
+}
+
 QColor DelColorGenerator::presetToColor(DelColorGenerator::Preset color)
 {
     using PresetTableType = QHash<DelColorGenerator::Preset, QColor>;

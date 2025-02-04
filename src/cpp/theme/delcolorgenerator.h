@@ -35,6 +35,7 @@ public:
     ~DelColorGenerator();
 
     Q_INVOKABLE static QColor reverseColor(const QColor &color);
+    Q_INVOKABLE static QColor presetToColor(const QString& color);
     Q_INVOKABLE static QColor presetToColor(DelColorGenerator::Preset color);
     Q_INVOKABLE static QList<QColor> generate(DelColorGenerator::Preset color, bool light = true, const QColor &background = QColor(QColor::Invalid));
     Q_INVOKABLE static QList<QColor> generate(const QColor &color, bool light = true, const QColor &background = QColor(QColor::Invalid));
