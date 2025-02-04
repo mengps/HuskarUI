@@ -44,6 +44,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpSelect.qml
         qml/Examples/DataEntry/ExpInput.qml
         qml/Examples/DataEntry/ExpOTPInput.qml
+        qml/Examples/DataEntry/ExpRate.qml
         qml/Examples/DataDisplay/ExpToolTip.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml

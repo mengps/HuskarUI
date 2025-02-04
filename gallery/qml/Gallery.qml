@@ -42,7 +42,7 @@ DelWindow {
     Rectangle {
         id: galleryBackground
         anchors.fill: content
-        opacity: 0
+        opacity: 0.2
     }
 
     Rectangle {
@@ -228,6 +228,11 @@ DelWindow {
                             key: "DelOTPInput",
                             title: qsTr("DelOTPInput 一次性口令输入框"),
                             source: "./Examples/DataEntry/ExpOTPInput.qml",
+                        },
+                        {
+                            key: "DelRate",
+                            title: qsTr("DelRate 评分"),
+                            source: "./Examples/DataEntry/ExpRate.qml",
                         }
                     ]
                 },

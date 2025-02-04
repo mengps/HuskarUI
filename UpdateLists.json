@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelRate",
+        "desc": "用于对事物进行评分操作。"
+    },
+    {
+        "isNew": true,
         "name": "DelOTPInput",
         "desc": "用于接收和验证一次性口令的输入框组合，通常用于验证码或密码。"
     },
