@@ -1,4 +1,5 @@
 #include "deltheme_p.h"
+#include "delcolorgenerator.h"
 #include "delthemefunctions.h"
 
 void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varName, const QString &expr)
@@ -155,7 +156,11 @@ QColor DelThemePrivate::colorFromIndexTable(const QString &varName)
             qDebug() << QString("Index Var(%1) not found!").arg(refVarName);
         }
     } else {
+        /*! 按颜色处理 */
         color = QColor(varName);
+        /*! 从预置颜色中获取 */
+        if (varName.startsWith("#Preset_"))
+            color = DelColorGenerator::presetToColor(varName.mid(1));
         if (!color.isValid()) {
             qDebug() << QString("Var toColor faild:(%1)").arg(varName);
         }
@@ -205,6 +210,9 @@ void DelThemePrivate::indexExprParse(const QString &varName, const QString &expr
     } else if (expr.startsWith('#')) {
         /*! 按颜色处理 */
         auto color = QColor(expr);
+        /*! 从预置颜色中获取 */
+        if (expr.startsWith("Preset_"))
+            color = DelColorGenerator::presetToColor(expr.mid(1));
         if (!color.isValid())
             qDebug() << "Unknown color:" << expr;
         m_indexVariableTable[varName] = color;
@@ -293,6 +301,9 @@ void DelThemePrivate::reloadComponentTheme(QMap<QObject *, ThemeData> &dataMap)
                         } else if (value.startsWith('#')) {
                             /*! 按颜色处理 */
                             auto color = QColor(value);
+                            /*! 从预置颜色中获取 */
+                            if (value.startsWith("Preset_"))
+                                color = DelColorGenerator::presetToColor(value.mid(1));
                             if (!color.isValid())
                                 qDebug() << QString("Component [%1]: Unknown color:") << value;
                             map_ptr->insert(key, color);
@@ -350,6 +361,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
             ADD_COMPONENT_CASE(DelToolTip)
             ADD_COMPONENT_CASE(DelSelect)
             ADD_COMPONENT_CASE(DelInput)
+            ADD_COMPONENT_CASE(DelRate)
         default:
             break;
         }
