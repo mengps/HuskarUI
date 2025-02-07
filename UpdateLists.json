@@ -1,8 +1,8 @@
 [
     {
-        "isNew": true,
+        "isNew": false,
         "name": "DelRate",
-        "desc": "用于对事物进行评分操作。"
+        "desc": "新增 toolTipDelegate 星星上方的文字提示代理。"
     },
     {
         "isNew": true,

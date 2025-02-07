@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 ## DelRate 评分 \n
 用于对事物进行评分操作。\n
-* **继承自 { TextField }**\n
+* **继承自 { Item }**\n
 支持的代理：\n
 - **fillDelegate: Component** 满星代理，代理可访问属性：\n
   - \`index: int\` 当前星星索引\n
@@ -29,17 +29,26 @@ Flickable {
 - **halfDelegate: Component** 半星代理，代理可访问属性：\n
   - \`index: int\` 当前星星索引\n
   - \`hovered: bool\` 是否悬浮在当前星星上\n
+- **toolTipDelegate: Component** 文字提示代理，代理可访问属性：\n
+  - \`index: int\` 当前星星索引\n
+  - \`hovered: bool\` 是否悬浮在当前星星上\n
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
+animationEnabled | bool | 是否开启动画(默认true)
 count | int | 星星数量
 initValue | int | 初始值
 value | int | 当前值
 spacing | int | 星星间隔
 iconSize | int | 图标大小
+toolTipFont | font | 文字提示字体
+toolTipVisible | bool | 是否显示文字提示(默认false)
+toolTipTexts | list | 文字提示文本列表(长度需等于count)
 colorFill | color | 满星颜色
 colorEmpty | color | 空星颜色
 colorHalf | color | 半星颜色
+colorToolTipText | color | 文字提示文本颜色
+colorToolTipBg | color | 文字提示背景颜色
 allowHalf | bool | 是否允许半星(默认false)
 isDone | bool | 是否已经完成评分
 fillIcon | int | 满星图标(来自 DelIcon)
@@ -47,7 +56,7 @@ emptyIcon | int | 空星图标(来自 DelIcon)
 halfIcon | int | 半星图标(来自 DelIcon)
 \n支持的信号：\n
 - \`done(value: int)\` 完成评分时发出\n
-**提供一个半星助手**：\`halfRateHelper\` 来把任意项变为半星\n
+**提供一个半星助手**：\`halfRateHelper\` 可将任意项变为半星\n
                        `)
         }
 
@@ -111,6 +120,37 @@ halfIcon | int | 半星图标(来自 DelIcon)
                     allowHalf: true
                     initValue: 2.5
                     enabled: false
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            desc: qsTr(`
+通过 \`toolTipVisible\` 设置是否显示文字提示。\n
+通过 \`toolTipTexts\` 设置文字提示文本列表。\n
+                       `)
+            code: `
+                import QtQuick
+                import DelegateUI
+
+                Column {
+                    spacing: 10
+
+                    DelRate {
+                        initValue: 3
+                        toolTipVisible: true
+                        toolTipTexts: ['terrible', 'bad', 'normal', 'good', 'wonderful']
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                DelRate {
+                    initValue: 3
+                    toolTipVisible: true
+                    toolTipTexts: ['terrible', 'bad', 'normal', 'good', 'wonderful']
                 }
             }
         }
@@ -319,7 +359,7 @@ halfIcon | int | 半星图标(来自 DelIcon)
                     DelRate {
                         id: custom3
                         allowHalf: true
-                        initValue: 3
+                        initValue: 3.5
                         colorFill: "green"
                         colorEmpty: "green"
                         colorHalf: "green"
@@ -362,7 +402,7 @@ halfIcon | int | 半星图标(来自 DelIcon)
                         function drawHexagon(ctx, x, y, radius, color, isFill = true) {
                             ctx.beginPath();
                             for (let i = 0; i < 6; i++) {
-                                const angle = (i * Math.PI / 3) - Math.PI / 6; // -30° 让顶点朝上
+                                const angle = (i * Math.PI / 3) - Math.PI / 6;
                                 const xPos = x + radius * Math.cos(angle);
                                 const yPos = y + radius * Math.sin(angle);
                                 if (i === 0) {
@@ -390,7 +430,7 @@ halfIcon | int | 半星图标(来自 DelIcon)
                 DelRate {
                     id: custom3
                     allowHalf: true
-                    initValue: 3
+                    initValue: 3.5
                     colorFill: "green"
                     colorEmpty: "green"
                     colorHalf: "green"
@@ -433,7 +473,7 @@ halfIcon | int | 半星图标(来自 DelIcon)
                     function drawHexagon(ctx, x, y, radius, color, isFill = true) {
                         ctx.beginPath();
                         for (let i = 0; i < 6; i++) {
-                            const angle = (i * Math.PI / 3) - Math.PI / 6; // -30° 让顶点朝上
+                            const angle = (i * Math.PI / 3) - Math.PI / 6;
                             const xPos = x + radius * Math.cos(angle);
                             const yPos = y + radius * Math.sin(angle);
                             if (i === 0) {
