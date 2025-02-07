@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import DelegateUI
 
 Item {
@@ -6,15 +7,26 @@ Item {
 
     implicitWidth: __mouseArea.width
     implicitHeight: __mouseArea.height
+    toolTipFont {
+        family: DelTheme.DelRate.fontFamily
+        pixelSize: DelTheme.DelRate.fontSize
+    }
 
+    property bool animationEnabled: DelTheme.animationEnabled
     property int count: 5
     property real initValue: -1
     property real value: 0
     property alias spacing: __row.spacing
     property int iconSize: 24
+    /* 文字提示 */
+    property font toolTipFont
+    property bool toolTipVisible: false
+    property list<string> toolTipTexts: []
     property color colorFill: DelTheme.DelRate.colorFill
     property color colorEmpty: DelTheme.DelRate.colorEmpty
     property color colorHalf: DelTheme.DelRate.colorHalf
+    property color colorToolTipText: DelTheme.DelRate.colorToolTipText
+    property color colorToolTipBg: DelTheme.isDark ? DelTheme.DelRate.colorToolTipBgDark : DelTheme.DelRate.colorToolTipBg
     /* 允许半星 */
     property bool allowHalf: false
     property bool isDone: false
@@ -37,6 +49,7 @@ Item {
         iconSize: control.iconSize
 
         DelIconText {
+            id: __source
             colorIcon: control.colorHalf
             iconSource: control.halfIcon
             iconSize: control.iconSize
@@ -44,6 +57,70 @@ Item {
             layer.effect: halfRateHelper
         }
     }
+    property Component toolTipDelegate: Item {
+        width: 12
+        height: 6
+        opacity: hovered ? 1 : 0
+
+        Behavior on opacity { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
+
+        MultiEffect {
+            anchors.fill: __item
+            source: __item
+            shadowEnabled: true
+            shadowColor: control.colorToolTipBg
+            shadowBlur: DelTheme.isDark ? 0.8 : 0.4
+            shadowOpacity: DelTheme.isDark ? 0.8 : 0.4
+        }
+
+        Item {
+            id: __item
+            width: __toolTipBg.width
+            height: __arrow.height + __toolTipBg.height - 1
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+
+            Rectangle {
+                id: __toolTipBg
+                width: __toolTipText.implicitWidth + 14
+                height: __toolTipText.implicitHeight + 12
+                anchors.bottom: __arrow.top
+                anchors.bottomMargin: -1
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: control.colorToolTipBg
+                radius: 4
+
+                Text {
+                    id: __toolTipText
+                    color: control.colorToolTipText
+                    text: control.toolTipTexts[index]
+                    font: control.toolTipFont
+                    anchors.centerIn: parent
+                }
+            }
+
+            Canvas {
+                id: __arrow
+                width: 12
+                height: 6
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                onColorBgChanged: requestPaint();
+                onPaint: {
+                    const ctx = getContext("2d");
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(width, 0);
+                    ctx.lineTo(width * 0.5, height);
+                    ctx.closePath();
+                    ctx.fillStyle = colorBg;
+                    ctx.fill();
+                }
+                property color colorBg: control.colorToolTipBg
+            }
+        }
+    }
+
     property Component halfRateHelper: ShaderEffect {
         fragmentShader: "qrc:/DelegateUI/shaders/delrate.frag.qsb"
     }
@@ -79,6 +156,11 @@ Item {
 
             Repeater {
                 id: __repeater
+
+                property int fillCount: Math.floor(control.value)
+                property int emptyStartIndex: Math.round(control.value)
+                property bool hasHalf: control.value - fillCount > 0
+
                 model: control.count
                 delegate: MouseArea {
                     id: __rootItem
@@ -112,29 +194,35 @@ Item {
 
                     Loader {
                         active: index < __repeater.fillCount
-                        sourceComponent: fillDelegate
+                        sourceComponent: control.fillDelegate
                         property int index: __rootItem.index
                         property bool hovered: __rootItem.hovered
                     }
 
                     Loader {
                         active: __repeater.hasHalf && index === (__repeater.emptyStartIndex - 1)
-                        sourceComponent: halfDelegate
+                        sourceComponent: control.halfDelegate
                         property int index: __rootItem.index
                         property bool hovered: __rootItem.hovered
                     }
 
                     Loader {
                         active: index >= __repeater.emptyStartIndex
-                        sourceComponent: emptyDelegate
+                        sourceComponent: control.emptyDelegate
+                        property int index: __rootItem.index
+                        property bool hovered: __rootItem.hovered
+                    }
+
+                    Loader {
+                        x: (parent.width - width) * 0.5
+                        y: -height - 4
+                        z: 10
+                        active: control.toolTipVisible
+                        sourceComponent: control.toolTipDelegate
                         property int index: __rootItem.index
                         property bool hovered: __rootItem.hovered
                     }
                 }
-
-                property int fillCount: Math.floor(control.value)
-                property int emptyStartIndex: Math.round(control.value)
-                property bool hasHalf: control.value - fillCount > 0
             }
         }
     }
