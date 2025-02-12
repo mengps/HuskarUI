@@ -60,7 +60,6 @@ contentDescription | string | 内容描述(提高可用性)
                        `)
             code: `
                 import QtQuick
-                import QtQuick.Layouts
                 import DelegateUI
 
                 Row {
