@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.1.5.0)
+set(DELEGATEUI_VERSION 0.1.6.0)
 
 option(BUILD_DELEGATEUI_STATIC_LIBRARY "Build DelegateUI as a static library." OFF)
 
@@ -90,6 +90,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelInput.qml
         imports/DelegateUI/Controls/DelOTPInput.qml
         imports/DelegateUI/Controls/DelRate.qml
+        imports/DelegateUI/Controls/DelRadio.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
@@ -133,6 +134,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelSelect.json
         theme/DelInput.json
         theme/DelRate.json
+        theme/DelRadio.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"

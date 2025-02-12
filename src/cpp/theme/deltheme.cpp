@@ -362,6 +362,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
             ADD_COMPONENT_CASE(DelSelect)
             ADD_COMPONENT_CASE(DelInput)
             ADD_COMPONENT_CASE(DelRate)
+            ADD_COMPONENT_CASE(DelRadio)
         default:
             break;
         }
@@ -408,7 +409,7 @@ bool DelTheme::isDark() const
     }
 }
 
-void DelTheme::registerCustomThemeComponent(QObject *theme, const QString &component, QVariantMap *themeMap, const QString &themePath)
+void DelTheme::registerComponentCustomTheme(QObject *theme, const QString &component, QVariantMap *themeMap, const QString &themePath)
 {
     Q_D(DelTheme);
 

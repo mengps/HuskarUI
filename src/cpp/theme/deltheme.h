@@ -36,6 +36,7 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
     DEL_PROPERTY_READONLY(QVariantMap, DelSelect);
     DEL_PROPERTY_READONLY(QVariantMap, DelInput);
     DEL_PROPERTY_READONLY(QVariantMap, DelRate);
+    DEL_PROPERTY_READONLY(QVariantMap, DelRadio);
 
 public:
     enum class DarkMode {
@@ -52,7 +53,7 @@ public:
 
     bool isDark() const;
 
-    void registerCustomThemeComponent(QObject *theme, const QString &component, QVariantMap *themeMap, const QString &themePath);
+    void registerComponentCustomTheme(QObject *theme, const QString &component, QVariantMap *themeMap, const QString &themePath);
 
     Q_INVOKABLE void reloadDefaultTheme();
 
