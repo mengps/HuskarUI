@@ -233,6 +233,11 @@ DelWindow {
                             key: "DelRate",
                             title: qsTr("DelRate 评分"),
                             source: "./Examples/DataEntry/ExpRate.qml",
+                        },
+                        {
+                            key: "DelRadio",
+                            title: qsTr("DelRadio 单选框"),
+                            source: "./Examples/DataEntry/ExpRadio.qml",
                         }
                     ]
                 },

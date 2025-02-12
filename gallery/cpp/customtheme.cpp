@@ -14,7 +14,7 @@ CustomTheme *CustomTheme::create(QQmlEngine *, QJSEngine *)
 
 void CustomTheme::registerAll()
 {
-    //DelTheme::instance()->registerCustomThemeComponent(this, "MyControl", &m_MyControl, ":/Gallery/theme/MyControl.json");
+    //DelTheme::instance()->registerComponentCustomTheme(this, "MyControl", &m_MyControl, ":/Gallery/theme/MyControl.json");
 }
 
 CustomTheme::CustomTheme(QObject *parent)

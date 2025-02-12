@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(Gallery VERSION 0.1.5.0 LANGUAGES CXX)
+project(Gallery VERSION 0.1.6.0 LANGUAGES CXX)
 
 find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
 
@@ -45,6 +45,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpInput.qml
         qml/Examples/DataEntry/ExpOTPInput.qml
         qml/Examples/DataEntry/ExpRate.qml
+        qml/Examples/DataEntry/ExpRadio.qml
         qml/Examples/DataDisplay/ExpToolTip.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml

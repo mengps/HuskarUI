@@ -1,5 +1,10 @@
 [
     {
+        "isNew": true,
+        "name": "DelRadio",
+        "desc": "用于在多个备选项中选中单个状态。"
+    },
+    {
         "isNew": false,
         "name": "DelRate",
         "desc": "新增 toolTipDelegate 星星上方的文字提示代理。"
