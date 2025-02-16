@@ -33,7 +33,8 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                     auto colorBgBase = m_indexVariableTable["colorBgBase"].value<QColor>();
                     auto colors = DelThemeFunctions::genColor(args, !q->isDark(), colorBgBase);
                     if (q->isDark()) {
-                        /*! 暗黑模式需要翻转色表 */
+                        /*! 暗黑模式需要后移并翻转色表 */
+                        colors.append(colors[0]);
                         std::reverse(colors.begin(), colors.end());
                     }
                     for (int i = 0; i < colors.length(); i++) {
