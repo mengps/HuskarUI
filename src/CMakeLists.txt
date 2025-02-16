@@ -91,6 +91,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelOTPInput.qml
         imports/DelegateUI/Controls/DelRate.qml
         imports/DelegateUI/Controls/DelRadio.qml
+        imports/DelegateUI/Controls/DelRadioBlock.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h

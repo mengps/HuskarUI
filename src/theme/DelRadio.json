@@ -4,9 +4,21 @@
     "colorText": "@colorTextBase",
     "colorTextDisabled": "@colorPrimaryTextDisabled",
     "colorIndicator": "@colorBgBase",
-    "colorIndicatorChecked": "@colorPrimaryBorderActive",
-    "colorIndicatorDisabled": "$alpha(@colorTextBase, 0.1)",
+    "colorIndicatorChecked": "@colorPrimary",
+    "colorIndicatorDisabled": "$alpha(@colorTextBase, 0.05)",
     "colorIndicatorBorder": "@colorTextQuaternary",
     "colorIndicatorBorderChecked": "@colorPrimaryBorderActive",
-    "colorEffectBg": "@colorTextTertiary"
+    "colorEffectBg": "@colorTextTertiary",
+
+    "colorBlockText": "@colorTextBase",
+    "colorBlockTextFilledChecked": "#fff",
+    "colorBlockTextChecked": "@colorPrimary",
+    "colorBlockTextDisabled": "@colorPrimaryTextDisabled",
+    "colorBlockBg": "@colorBgBase",
+    "colorBlockBgChecked": "@colorPrimary",
+    "colorBlockBgHover": "@colorPrimaryContainerBgHover",
+    "colorBlockBgActive": "@colorPrimaryContainerBgActive",
+    "colorBlockBgDisabled": "$alpha(@colorTextBase, 0.05)",
+    "colorBlockBorder": "@colorTextQuaternary",
+    "colorBlockBorderChecked": "@colorPrimaryBorderActive"
 }
