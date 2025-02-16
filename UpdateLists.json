@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelRadioBlock",
+        "desc": "DelRadio 的变体，用于在多个备选项中选中单个状态。"
+    },
+    {
+        "isNew": true,
         "name": "DelRadio",
         "desc": "用于在多个备选项中选中单个状态。"
     },
