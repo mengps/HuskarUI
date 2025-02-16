@@ -67,7 +67,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 **DelegateUI** 依次提供了三级选项卡，分别用于不同的场景。\n
 - 卡片式的页签，提供可关闭的样式，常用于容器顶部。\n
 - 既可用于容器顶部，也可用于容器内部，是最通用的 Tabs。\n
-- [DelRadioButton](internal://DelRadioButton) 可作为更次级的页签来使用。\n
+- [DelRadio](internal://DelRadio) 可作为更次级的页签来使用。\n
                        `)
         }
 
@@ -105,29 +105,15 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     width: parent.width
                     spacing: 10
 
-                    Row {
-                        spacing: 2
-
-                        DelButton {
-                            text: qsTr("上")
-                            type: DelButton.Type_Outlined
-                            onClicked: defaultTabView.tabPosition = DelTabView.Position_Top;
-                        }
-                        DelButton {
-                            text: qsTr("下")
-                            type: DelButton.Type_Outlined
-                            onClicked: defaultTabView.tabPosition = DelTabView.Position_Bottom;
-                        }
-                        DelButton {
-                            text: qsTr("左")
-                            type: DelButton.Type_Outlined
-                            onClicked: defaultTabView.tabPosition = DelTabView.Position_Left;
-                        }
-                        DelButton {
-                            text: qsTr("右")
-                            type: DelButton.Type_Outlined
-                            onClicked: defaultTabView.tabPosition = DelTabView.Position_Right;
-                        }
+                    DelRadioBlock {
+                        id: positionRadio1
+                        initCheckedIndex: 0
+                        model: [
+                            { label: qsTr("上"), value: DelTabView.Position_Top },
+                            { label: qsTr("下"), value: DelTabView.Position_Bottom },
+                            { label: qsTr("左"), value: DelTabView.Position_Left },
+                            { label: qsTr("右"), value: DelTabView.Position_Right }
+                        ]
                     }
 
                     Row {
@@ -175,6 +161,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         width: parent.width
                         height: 200
                         defaultTabWidth: 40
+                        tabPosition: positionRadio1.currentCheckedValue
                         tabSize: sizeSwitch.checked ? DelTabView.Size_Fixed : DelTabView.Size_Auto
                         tabCentered: isCenterSwitch.checked
                         addTabCallback:
@@ -228,29 +215,15 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
             exampleDelegate: Column {
                 spacing: 10
 
-                Row {
-                    spacing: 2
-
-                    DelButton {
-                        text: qsTr("上")
-                        type: DelButton.Type_Outlined
-                        onClicked: defaultTabView.tabPosition = DelTabView.Position_Top;
-                    }
-                    DelButton {
-                        text: qsTr("下")
-                        type: DelButton.Type_Outlined
-                        onClicked: defaultTabView.tabPosition = DelTabView.Position_Bottom;
-                    }
-                    DelButton {
-                        text: qsTr("左")
-                        type: DelButton.Type_Outlined
-                        onClicked: defaultTabView.tabPosition = DelTabView.Position_Left;
-                    }
-                    DelButton {
-                        text: qsTr("右")
-                        type: DelButton.Type_Outlined
-                        onClicked: defaultTabView.tabPosition = DelTabView.Position_Right;
-                    }
+                DelRadioBlock {
+                    id: positionRadio1
+                    initCheckedIndex: 0
+                    model: [
+                        { label: qsTr("上"), value: DelTabView.Position_Top },
+                        { label: qsTr("下"), value: DelTabView.Position_Bottom },
+                        { label: qsTr("左"), value: DelTabView.Position_Left },
+                        { label: qsTr("右"), value: DelTabView.Position_Right }
+                    ]
                 }
 
                 Row {
@@ -298,6 +271,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     width: parent.width
                     height: 200
                     defaultTabWidth: 40
+                    tabPosition: positionRadio1.currentCheckedValue
                     tabSize: sizeSwitch.checked ? DelTabView.Size_Fixed : DelTabView.Size_Auto
                     tabCentered: isCenterSwitch.checked
                     addTabCallback:
@@ -365,29 +339,15 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     width: parent.width
                     spacing: 10
 
-                    Row {
-                        spacing: 2
-
-                        DelButton {
-                            text: qsTr("上")
-                            type: DelButton.Type_Outlined
-                            onClicked: cardTabView.tabPosition = DelTabView.Position_Top;
-                        }
-                        DelButton {
-                            text: qsTr("下")
-                            type: DelButton.Type_Outlined
-                            onClicked: cardTabView.tabPosition = DelTabView.Position_Bottom;
-                        }
-                        DelButton {
-                            text: qsTr("左")
-                            type: DelButton.Type_Outlined
-                            onClicked: cardTabView.tabPosition = DelTabView.Position_Left;
-                        }
-                        DelButton {
-                            text: qsTr("右")
-                            type: DelButton.Type_Outlined
-                            onClicked: cardTabView.tabPosition = DelTabView.Position_Right;
-                        }
+                    DelRadioBlock {
+                        id: positionRadio2
+                        initCheckedIndex: 0
+                        model: [
+                            { label: qsTr("上"), value: DelTabView.Position_Top },
+                            { label: qsTr("下"), value: DelTabView.Position_Bottom },
+                            { label: qsTr("左"), value: DelTabView.Position_Left },
+                            { label: qsTr("右"), value: DelTabView.Position_Right }
+                        ]
                     }
 
                     Row {
@@ -455,6 +415,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         width: parent.width
                         height: 200
                         defaultTabWidth: 50
+                        tabPosition: positionRadio2.currentCheckedValue
                         tabSize: sizeSwitch2.checked ? DelTabView.Size_Fixed : DelTabView.Size_Auto
                         tabType: typeSwitch.checked ? DelTabView.Type_CardEditable :  DelTabView.Type_Card
                         tabCentered: isCenterSwitch2.checked
@@ -510,29 +471,15 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
             exampleDelegate: Column {
                 spacing: 10
 
-                Row {
-                    spacing: 2
-
-                    DelButton {
-                        text: qsTr("上")
-                        type: DelButton.Type_Outlined
-                        onClicked: cardTabView.tabPosition = DelTabView.Position_Top;
-                    }
-                    DelButton {
-                        text: qsTr("下")
-                        type: DelButton.Type_Outlined
-                        onClicked: cardTabView.tabPosition = DelTabView.Position_Bottom;
-                    }
-                    DelButton {
-                        text: qsTr("左")
-                        type: DelButton.Type_Outlined
-                        onClicked: cardTabView.tabPosition = DelTabView.Position_Left;
-                    }
-                    DelButton {
-                        text: qsTr("右")
-                        type: DelButton.Type_Outlined
-                        onClicked: cardTabView.tabPosition = DelTabView.Position_Right;
-                    }
+                DelRadioBlock {
+                    id: positionRadio2
+                    initCheckedIndex: 0
+                    model: [
+                        { label: qsTr("上"), value: DelTabView.Position_Top },
+                        { label: qsTr("下"), value: DelTabView.Position_Bottom },
+                        { label: qsTr("左"), value: DelTabView.Position_Left },
+                        { label: qsTr("右"), value: DelTabView.Position_Right }
+                    ]
                 }
 
                 Row {
@@ -600,6 +547,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     width: parent.width
                     height: 200
                     defaultTabWidth: 50
+                    tabPosition: positionRadio2.currentCheckedValue
                     tabSize: sizeSwitch2.checked ? DelTabView.Size_Fixed : DelTabView.Size_Auto
                     tabType: typeSwitch.checked ? DelTabView.Type_CardEditable :  DelTabView.Type_Card
                     tabCentered: isCenterSwitch2.checked
