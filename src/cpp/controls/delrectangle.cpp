@@ -175,6 +175,8 @@ void DelRectangle::paint(QPainter *painter)
             rect.adjust(0, dy, 0, -dy);
         }
         painter->setPen(QPen(d->m_pen->color(), d->m_pen->width(), Qt::SolidLine, Qt::SquareCap, Qt::SvgMiterJoin));
+    } else {
+        painter->setPen(QPen(Qt::transparent));
     }
 
     QPainterPath path;
