@@ -16,7 +16,7 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelRadio 输入框 \n
+## DelRadio 单选框 \n
 用于在多个备选项中选中单个状态。\n
 * **继承自 { RadioButton }**\n
 支持的代理：\n

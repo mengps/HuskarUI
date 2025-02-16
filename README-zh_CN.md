@@ -76,7 +76,7 @@ cmake --intall --prefix <install_dir>
 
 ## 📦 上手
  - 创建 QtQuick 应用 `QtVersion >= 6.5`
- - 添加下面的 cmake 命令到你的项目 `CMakeLists.txt` 中
+ - 添加下面的 cmake 命令到您的项目 `CMakeLists.txt` 中
  ```cmake
   target_include_directories(<your_target> PRIVATE DelegateUI/include)
   target_link_directories(<your_target> PRIVATE DelegateUI/lib)
