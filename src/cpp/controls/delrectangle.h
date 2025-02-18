@@ -16,6 +16,8 @@ class DELEGATEUI_EXPORT DelPen: public QObject
     DEL_PROPERTY_INIT(qreal, width, setWidth, 1)
     DEL_PROPERTY_INIT(QColor, color, setColor, Qt::transparent)
 
+    QML_NAMED_ELEMENT(DelPen)
+
 public:
     DelPen(QObject *parent = nullptr) : QObject{parent} { }
 
