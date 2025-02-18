@@ -243,6 +243,11 @@ DelWindow {
                             key: "DelRadioBlock",
                             title: qsTr("DelRadioBlock 单选块"),
                             source: "./Examples/DataEntry/ExpRadioBlock.qml",
+                        },
+                        {
+                            key: "DelCheckBox",
+                            title: qsTr("DelCheckBox 多选框"),
+                            source: "./Examples/DataEntry/ExpCheckBox.qml",
                         }
                     ]
                 },
