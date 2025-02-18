@@ -364,6 +364,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
             ADD_COMPONENT_CASE(DelInput)
             ADD_COMPONENT_CASE(DelRate)
             ADD_COMPONENT_CASE(DelRadio)
+            ADD_COMPONENT_CASE(DelCheckBox)
         default:
             break;
         }

@@ -141,6 +141,7 @@
         "DelSelect": ":/DelegateUI/theme/DelSelect.json",
         "DelInput": ":/DelegateUI/theme/DelInput.json",
         "DelRate": ":/DelegateUI/theme/DelRate.json",
-        "DelRadio": ":/DelegateUI/theme/DelRadio.json"
+        "DelRadio": ":/DelegateUI/theme/DelRadio.json",
+        "DelCheckBox": ":/DelegateUI/theme/DelCheckBox.json"
     }
 }

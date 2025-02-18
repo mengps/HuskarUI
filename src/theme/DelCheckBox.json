@@ -1,0 +1,12 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorText": "@colorTextBase",
+    "colorTextDisabled": "@colorPrimaryTextDisabled",
+    "colorIndicator": "@colorBgBase",
+    "colorIndicatorChecked": "@colorPrimary",
+    "colorIndicatorDisabled": "$alpha(@colorTextBase, 0.1)",
+    "colorIndicatorBorder": "@colorTextQuaternary",
+    "colorIndicatorBorderChecked": "@colorPrimaryBorderActive",
+    "colorEffectBg": "@colorTextTertiary"
+}

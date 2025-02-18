@@ -92,6 +92,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelRate.qml
         imports/DelegateUI/Controls/DelRadio.qml
         imports/DelegateUI/Controls/DelRadioBlock.qml
+        imports/DelegateUI/Controls/DelCheckBox.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
@@ -136,6 +137,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelInput.json
         theme/DelRate.json
         theme/DelRadio.json
+        theme/DelCheckBox.json
 )
 
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
@@ -144,6 +146,13 @@ qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
         shaders/deltour.frag
         shaders/delrate.frag
 )
+
+if (MINGW)
+    set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wa,-mbig-obj)
+elseif (MSVC)
+    set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     BUILD_DELEGATEUI_LIB
