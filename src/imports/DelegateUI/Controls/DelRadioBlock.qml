@@ -70,12 +70,12 @@ Item {
         implicitHeight: control.size == DelRadioBlock.Size_Auto ? (implicitContentHeight + topPadding + bottomPadding) :
                                                                   control.radioHeight
         z: (hovered || checked) ? 1 : 0
-        enabled: modelData.enabled === undefined ? true : modelData.enabled
+        enabled: control.enabled && (modelData.enabled === undefined ? true : modelData.enabled)
         font: control.font
         type: DelButton.Type_Default
         text: modelData.label
-        colorBorder: (!enabled && checked) ? DelTheme.DelRadio.colorBlockBorderChecked :
-                                             DelTheme.DelRadio.colorBlockBorder;
+        colorBorder: (enabled && checked) ? DelTheme.DelRadio.colorBlockBorderChecked :
+                                            DelTheme.DelRadio.colorBlockBorder;
         colorText: {
             if (enabled) {
                 if (control.type == DelRadioBlock.Type_Filled) {
@@ -101,7 +101,7 @@ Item {
                     return DelTheme.DelRadio.colorBlockBg;
                 }
             } else {
-                return DelTheme.DelRadio.colorBlockBgDisabled;
+                return checked ? DelTheme.DelRadio.colorBlockBgCheckedDisabled : DelTheme.DelRadio.colorBlockBgDisabled;
             }
         }
         checkable: true
@@ -114,7 +114,7 @@ Item {
                 visible: __rootItem.effectEnabled
                 color: "transparent"
                 border.width: 0
-                border.color: __rootItem.enabled ? DelTheme.DelButton.colorBorderHover : "transparent"
+                border.color: __rootItem.enabled ? DelTheme.DelRadio.colorBlockEffectBg : "transparent"
                 opacity: 0.2
 
                 ParallelAnimation {
@@ -146,6 +146,7 @@ Item {
                     }
                 }
             }
+
             DelRectangle {
                 id: __bg
                 width: parent.width

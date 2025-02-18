@@ -12,7 +12,8 @@ T.RadioButton {
     property color colorIndicator: enabled ?
                                        checked ? DelTheme.DelRadio.colorIndicatorChecked :
                                                  DelTheme.DelRadio.colorIndicator : DelTheme.DelRadio.colorIndicatorDisabled
-    property color colorIndicatorBorder: checked ? DelTheme.DelRadio.colorIndicatorBorderChecked : DelTheme.DelRadio.colorIndicatorBorder
+    property color colorIndicatorBorder: (enabled && (hovered || checked)) ? DelTheme.DelRadio.colorIndicatorBorderChecked :
+                                                                             DelTheme.DelRadio.colorIndicatorBorder
     property string contentDescription: ""
 
     font {
@@ -21,9 +22,10 @@ T.RadioButton {
     }
 
     implicitWidth: implicitContentWidth + leftPadding + rightPadding
-    implicitHeight: implicitContentHeight + topPadding + bottomPadding
+    implicitHeight: Math.max(implicitContentHeight, implicitIndicatorHeight) + topPadding + bottomPadding
     spacing: 8
     indicator: Item {
+        x: control.leftPadding
         implicitWidth: __bg.width
         implicitHeight: __bg.height
         anchors.verticalCenter: parent.verticalCenter
@@ -104,7 +106,7 @@ T.RadioButton {
     background: Item { }
 
     Accessible.role: Accessible.RadioButton
-    Accessible.name: control.contentDescription
+    Accessible.name: control.text
     Accessible.description: control.contentDescription
     Accessible.onPressAction: control.clicked();
 }

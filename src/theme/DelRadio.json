@@ -18,7 +18,9 @@
     "colorBlockBgChecked": "@colorPrimary",
     "colorBlockBgHover": "@colorPrimaryContainerBgHover",
     "colorBlockBgActive": "@colorPrimaryContainerBgActive",
+    "colorBlockBgCheckedDisabled": "$alpha(@colorTextBase, 0.2)",
     "colorBlockBgDisabled": "$alpha(@colorTextBase, 0.05)",
     "colorBlockBorder": "@colorTextQuaternary",
-    "colorBlockBorderChecked": "@colorPrimaryBorderActive"
+    "colorBlockBorderChecked": "@colorPrimaryBorderActive",
+    "colorBlockEffectBg": "@colorPrimaryBorderHover"
 }
