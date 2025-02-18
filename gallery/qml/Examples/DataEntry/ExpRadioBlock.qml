@@ -32,7 +32,7 @@ model | list | 单选块模型
 count | int | 单选数量
 initCheckedIndex | int | 初始选择的单选项索引
 currentCheckedIndex | int | 当前选择的单选项索引
-currentCheckedValue | int | 当前选择的单选项的值
+currentCheckedValue | var | 当前选择的单选项的值
 type | enum | 单选项类型(来自 DelRadioBlock)
 size | enum | 单选项大小(来自 DelRadioBlock)
 radioWidth | int | 单选项宽度(size == DelRadioBlock.Size_Fixed 生效)
@@ -51,6 +51,7 @@ contentDescription | string | 内容描述(提高可用性)
             desc: qsTr(`
 - 用于在多个备选项中选中单个状态。\n
 - 和 [DelSelect](internal://DelSelect) 的区别是，DelRadioBlock 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。\n
+- 和 [DelRadio](internal://DelRadio) 的区别是，DelRadioBlock 是成组的，通过 \`model\` 统一设置。\n
                        `)
         }
 
@@ -103,6 +104,16 @@ contentDescription | string | 内容描述(提高可用性)
                             { label: 'Orange', value: 'Orange' },
                         ]
                     }
+
+                    DelRadioBlock {
+                        enabled: false
+                        initCheckedIndex: 2
+                        model: [
+                            { label: 'Apple', value: 'Apple' },
+                            { label: 'Pear', value: 'Pear', enabled: false },
+                            { label: 'Orange', value: 'Orange' },
+                        ]
+                    }
                 }
             `
             exampleDelegate: Column {
@@ -128,6 +139,16 @@ contentDescription | string | 内容描述(提高可用性)
                 }
 
                 DelRadioBlock {
+                    initCheckedIndex: 2
+                    model: [
+                        { label: 'Apple', value: 'Apple' },
+                        { label: 'Pear', value: 'Pear', enabled: false },
+                        { label: 'Orange', value: 'Orange' },
+                    ]
+                }
+
+                DelRadioBlock {
+                    enabled: false
                     initCheckedIndex: 2
                     model: [
                         { label: 'Apple', value: 'Apple' },

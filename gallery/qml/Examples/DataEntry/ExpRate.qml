@@ -24,7 +24,7 @@ Flickable {
   - \`index: int\` 当前星星索引\n
   - \`hovered: bool\` 是否悬浮在当前星星上\n
 - **emptyDelegate: Component** 空星代理，代理可访问属性：\n
-  - \`index: bool\` 当前星星索引\n
+  - \`index: int\` 当前星星索引\n
   - \`hovered: bool\` 是否悬浮在当前星星上\n
 - **halfDelegate: Component** 半星代理，代理可访问属性：\n
   - \`index: int\` 当前星星索引\n
