@@ -104,9 +104,9 @@ contentDescription | string | 内容描述(提高可用性)
             width: parent.width
             desc: qsTr(`
 通过 \`format\` 属性设置显示时间格式，支持的格式：\n
-- 小时分钟秒[mm:ss](默认){ DelTimePicker.Format_HHMMSS }\n
-- 小时分钟[mm:ss]{ DelTimePicker.Format_HHMM }\n
-- 分钟秒[mm:ss]{ DelTimePicker.Format_MMSS }\n
+- 小时分钟秒{hh:mm:ss}(默认){ DelTimePicker.Format_HHMMSS }\n
+- 小时分钟{hh:mm}{ DelTimePicker.Format_HHMM }\n
+- 分钟秒{mm:ss}{ DelTimePicker.Format_MMSS }\n
                        `)
             code: `
                 import QtQuick
