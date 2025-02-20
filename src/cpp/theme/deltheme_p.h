@@ -42,6 +42,7 @@ enum class Component : uint16_t
     DelRate,
     DelRadio,
     DelCheckBox,
+    DelTimePicker,
 
     Size
 };
@@ -65,6 +66,7 @@ static QHash<QString, Component> g_componentTable
     { "DelRate",          Component::DelRate          },
     { "DelRadio",         Component::DelRadio         },
     { "DelCheckBox",      Component::DelCheckBox      },
+    { "DelTimePicker",    Component::DelTimePicker    },
 };
 
 struct ThemeData

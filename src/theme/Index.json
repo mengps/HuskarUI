@@ -12,7 +12,7 @@
         "fontLineHeightBase": "$genFontLineHeight(16)"
     },
     "primaryColorStyle": {
-        "colorText": "$alpha(@colorTextBase, 0.88)",
+        "colorTextPrimary": "$alpha(@colorTextBase, 0.88)",
         "colorTextSecondary": "$alpha(@colorTextBase, 0.65)",
         "colorTextTertiary": "$alpha(@colorTextBase, 0.45)",
         "colorTextQuaternary": "$alpha(@colorTextBase, 0.25)",
@@ -142,6 +142,7 @@
         "DelInput": ":/DelegateUI/theme/DelInput.json",
         "DelRate": ":/DelegateUI/theme/DelRate.json",
         "DelRadio": ":/DelegateUI/theme/DelRadio.json",
-        "DelCheckBox": ":/DelegateUI/theme/DelCheckBox.json"
+        "DelCheckBox": ":/DelegateUI/theme/DelCheckBox.json",
+        "DelTimePicker": ":/DelegateUI/theme/DelTimePicker.json"
     }
 }
