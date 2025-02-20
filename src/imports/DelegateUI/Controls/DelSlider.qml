@@ -66,10 +66,14 @@ Item {
         radius: height * 0.5
         color: control.colorHandle
         border.color: {
-            if (DelTheme.isDark)
-                return active ? DelTheme.DelSlider.colorHandleBorderHoverDark : DelTheme.DelSlider.colorHandleBorderDark;
-            else
-                return active ? DelTheme.DelSlider.colorHandleBorderHover : DelTheme.DelSlider.colorHandleBorder;
+            if (control.enabled) {
+                if (DelTheme.isDark)
+                    return active ? DelTheme.DelSlider.colorHandleBorderHoverDark : DelTheme.DelSlider.colorHandleBorderDark;
+                else
+                    return active ? DelTheme.DelSlider.colorHandleBorderHover : DelTheme.DelSlider.colorHandleBorder;
+            } else {
+                return DelTheme.DelSlider.colorHandleBorderDisabled;
+            }
         }
         border.width: active ? 4 : 2
 
