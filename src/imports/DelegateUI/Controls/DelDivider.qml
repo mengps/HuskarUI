@@ -69,12 +69,19 @@ Item {
             fillColor: "transparent"
             startX: {
                 if (control.orientation == Qt.Horizontal) {
-                    return control.title == "" ? 0 : __titleLoader.x + __titleLoader.implicitWidth + 10;
+                    return control.title == "" ? 0 : (__titleLoader.x + __titleLoader.implicitWidth + 10);
                 } else {
                     return __shape.lineX;
                 }
             }
-            startY: control.orientation == Qt.Horizontal ? __shape.lineY : (__titleLoader.y + __titleLoader.implicitHeight + 10)
+            startY: {
+                if (control.orientation == Qt.Horizontal) {
+                    return __shape.lineY;
+                } else {
+                    return control.title == "" ? 0 : (__titleLoader.y + __titleLoader.implicitHeight + 10);
+                }
+            }
+
             PathLine {
                 x: control.orientation == Qt.Horizontal ?  control.width : __shape.lineX
                 y: control.orientation == Qt.Horizontal ? __shape.lineY : control.height
