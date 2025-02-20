@@ -1,9 +1,15 @@
 [
     {
         "isNew": true,
+        "name": "DelTimePicker",
+        "desc": "输入或选择时间的控件。"
+    },
+    {
+        "isNew": true,
         "name": "DelCheckBox",
         "desc": "收集用户的多项选择。"
     },
+
     {
         "isNew": true,
         "name": "DelRadioBlock",

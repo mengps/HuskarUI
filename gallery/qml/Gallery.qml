@@ -248,6 +248,11 @@ DelWindow {
                             key: "DelCheckBox",
                             title: qsTr("DelCheckBox 多选框"),
                             source: "./Examples/DataEntry/ExpCheckBox.qml",
+                        },
+                        {
+                            key: "DelTimePicker",
+                            title: qsTr("DelTimePicker 时间选择框"),
+                            source: "./Examples/DataEntry/ExpTimePicker.qml",
                         }
                     ]
                 },

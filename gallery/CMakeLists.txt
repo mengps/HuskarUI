@@ -48,6 +48,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpRadio.qml
         qml/Examples/DataEntry/ExpRadioBlock.qml
         qml/Examples/DataEntry/ExpCheckBox.qml
+        qml/Examples/DataEntry/ExpTimePicker.qml
         qml/Examples/DataDisplay/ExpToolTip.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml
