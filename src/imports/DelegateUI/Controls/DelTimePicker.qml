@@ -138,11 +138,14 @@ T.TextField {
 
         ListView {
             id: __listView
-            anchors.fill: parent
+            height: parent.height
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 2
             clip: true
             boundsBehavior: Flickable.StopAtBounds
             delegate: T.AbstractButton {
-                width: __rootItem.width
+                width: __listView.width
                 height: 28
                 checkable: true
                 contentItem: Text {
@@ -311,8 +314,8 @@ T.TextField {
         id: __picker
         implicitWidth: implicitContentWidth + leftPadding + rightPadding
         implicitHeight: implicitContentHeight + topPadding + bottomPadding
-        leftPadding: 4
-        rightPadding: 4
+        leftPadding: 2
+        rightPadding: 2
         topPadding: 6
         bottomPadding: 6
         closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent
