@@ -80,3 +80,7 @@ cmake_install.cmake
 install_manifest.txt
 Makefile
 
+# VS Code
+.vscode/
+.qmlls.ini
+
