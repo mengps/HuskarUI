@@ -125,16 +125,19 @@ buttonFont | font | 步骤默认按钮字体
                         DelButton {
                             id: tourStep1
                             text: qsTr("漫游步骤1")
+                            type: DelButton.Type_Outlined
                         }
 
                         DelButton {
                             id: tourStep2
                             text: qsTr("漫游步骤2")
+                            type: DelButton.Type_Outlined
                         }
 
                         DelButton {
                             id: tourStep3
                             text: qsTr("漫游步骤3   ####")
+                            type: DelButton.Type_Outlined
                         }
                     }
                 }
@@ -182,16 +185,19 @@ buttonFont | font | 步骤默认按钮字体
                     DelButton {
                         id: tourStep1
                         text: qsTr("漫游步骤1")
+                        type: DelButton.Type_Outlined
                     }
 
                     DelButton {
                         id: tourStep2
                         text: qsTr("漫游步骤2")
+                        type: DelButton.Type_Outlined
                     }
 
                     DelButton {
                         id: tourStep3
                         text: qsTr("漫游步骤3   ####")
+                        type: DelButton.Type_Outlined
                     }
                 }
             }
