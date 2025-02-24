@@ -18,7 +18,7 @@ Item {
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
-iconSource | int | 图标源(来自 DelIcon)
+iconSource | enum | 图标源(来自 DelIcon)
 iconSize | int | 图标大小
 colorIcon | color | 图标颜色
 contentDescription | string | 内容描述(提高可用性)

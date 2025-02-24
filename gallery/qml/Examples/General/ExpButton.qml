@@ -25,8 +25,8 @@ Flickable {
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
 effectEnabled | bool | 是否开启点击效果(默认true)
-type | int | 按钮类型(来自 DelButton)
-shape | int | 按钮形状(来自 DelButton)
+type | enum | 按钮类型(来自 DelButton)
+shape | enum | 按钮形状(来自 DelButton)
 radiusBg | int | 背景半径
 colorText | color | 文本颜色
 colorBg | color | 背景颜色
