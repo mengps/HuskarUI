@@ -26,9 +26,9 @@ Flickable {
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
 active(readonly) | bool | 是否处于激活状态
-iconSource | int | 图标源(来自 DelIcon)
+iconSource | enum | 图标源(来自 DelIcon)
 iconSize | int | 图标大小
-iconPosition | int | 图标位置(来自 DelInput)
+iconPosition | enum | 图标位置(来自 DelInput)
 colorIcon | color | 图标颜色
 colorText | color | 文本颜色
 colorBorder | color | 边框颜色

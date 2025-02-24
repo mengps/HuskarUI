@@ -23,7 +23,7 @@ Flickable {
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
-algorithm | int | 哈希算法(来自 DelAsyncHasher)
+algorithm | enum | 哈希算法(来自 DelAsyncHasher)
 asynchronous | bool | 是否异步
 hashValue | string | 目标的哈希值
 hashLength | int | 目标的哈希长度

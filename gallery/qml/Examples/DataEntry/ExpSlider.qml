@@ -41,8 +41,8 @@ currentValue(readonly) | number / [number, number] | 获取当前滑块值, rang
 contentDescription | string | 内容描述(提高可用性)
 range | bool | 双滑块模式
 hovered | bool | 是否悬浮在滑动条上
-snapMode | int | 滑块对齐模式(来自 DelSlider)
-orientation | int | 滑动条方向( Qt.Horizontal 或 Qt.Vertical )
+snapMode | enum | 滑块对齐模式(来自 DelSlider)
+orientation | enum | 滑动条方向( Qt.Horizontal 或 Qt.Vertical )
 radiusBg | int | 背景半径
 colorHandle | color | 滑块颜色
 colorTrack | color | 滑块轨道颜色

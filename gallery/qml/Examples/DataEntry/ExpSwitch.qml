@@ -28,8 +28,8 @@ effectEnabled | bool | 是否开启点击效果(默认true)
 loading | bool | 是否在加载中
 checkedText | string | 选中文本
 uncheckedText | string | 未选中文本
-checkedIconSource | int | 选中图标(来自 DelIcon)
-uncheckedIconSource | int | 未选中图标(来自 DelIcon)
+checkedIconSource | enum | 选中图标(来自 DelIcon)
+uncheckedIconSource | enum | 未选中图标(来自 DelIcon)
 contentDescription | string | 内容描述(提高可用性)
 radiusBg | int | 背景半径
 colorHandle | color | 把手颜色

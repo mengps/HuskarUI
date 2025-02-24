@@ -34,8 +34,8 @@ animationEnabled | bool | 是否开启动画(默认true)
 initModel | list | 标签页初始模型
 count | int | 当前标签页数量
 currentIndex | int | 当前标签页索引(更改该值可切换页)
-tabType | int | 标签类型(来自 DelTabView)
-tabPosition | int | 标签位置(来自 DelTabView)
+tabType | enum | 标签类型(来自 DelTabView)
+tabPosition | enum | 标签位置(来自 DelTabView)
 tabCentered | bool | 标签是否居中(默认false)
 tabCardMovable | bool | 标签卡片是否可移动(tabType == Type_Card*生效)
 defaultTabWidth | int | 默认标签宽度

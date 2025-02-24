@@ -27,13 +27,13 @@ Flickable {
 animationEnabled | bool | 是否开启动画(默认true)
 title | string | 标题
 titleFont | font | 标题字体
-titleAlign | int | 标题对齐(来自 DelDivider)
+titleAlign | enum | 标题对齐(来自 DelDivider)
 titlePadding | int | 标题填充
 colorText | color | 标题颜色
 colorSplit | color | 分割线颜色
 contentDescription | string | 内容描述(提高可用性)
-style | int | 分割线样式(来自 DelDivider)
-orientation | int | 方向( Qt.Horizontal 或 Qt.Vertical )
+style | enum | 分割线样式(来自 DelDivider)
+orientation | enum | 方向( Qt.Horizontal 或 Qt.Vertical )
                        `)
         }
 

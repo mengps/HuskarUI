@@ -32,7 +32,7 @@ itemWidth | int | 输入项宽度
 itemHeight | int | 输入项高度
 itemSpacing | int | 输入项间隔
 itemValidator | Validator | 输入项的验证器
-itemInputMethodHints | int | 输入项的输入法提示(例如: Qt.ImhHiddenText)
+itemInputMethodHints | enum | 输入项的输入法提示(例如: Qt.ImhHiddenText)
 itemPassword | bool | 输入项是否为密码(显示为: itemPasswordCharacter)
 itemPasswordCharacter | string | 输入项的密码字符(itemPassword为true时启用)
 formatter | Function | 格式化器(将为每一项调用)

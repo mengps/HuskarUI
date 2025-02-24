@@ -26,9 +26,9 @@ Flickable {
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
 active(readonly) | bool | 是否处于激活状态
-format | int | 时间格式(来自 DelTimePicker)
+format | enum | 时间格式(来自 DelTimePicker)
 iconSize | int | 图标大小
-iconPosition | int | 图标位置(来自 DelTimePicker)
+iconPosition | enum | 图标位置(来自 DelTimePicker)
 colorText | color | 输入框文本颜色
 colorBorder | color | 输入框边框颜色
 colorBg | color | 输入框背景颜色

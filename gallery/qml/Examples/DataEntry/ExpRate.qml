@@ -51,9 +51,9 @@ colorToolTipText | color | 文字提示文本颜色
 colorToolTipBg | color | 文字提示背景颜色
 allowHalf | bool | 是否允许半星(默认false)
 isDone | bool | 是否已经完成评分
-fillIcon | int | 满星图标(来自 DelIcon)
-emptyIcon | int | 空星图标(来自 DelIcon)
-halfIcon | int | 半星图标(来自 DelIcon)
+fillIcon | enum | 满星图标(来自 DelIcon)
+emptyIcon | enum | 空星图标(来自 DelIcon)
+halfIcon | enum | 半星图标(来自 DelIcon)
 \n支持的信号：\n
 - \`done(value: int)\` 完成评分时发出\n
 **提供一个半星助手**：\`halfRateHelper\` 可将任意项变为半星\n
