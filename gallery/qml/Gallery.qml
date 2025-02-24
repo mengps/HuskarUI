@@ -1,9 +1,7 @@
-import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
-import DelegateUI
+pragma ComponentBehavior: Bound
 
-import "./Examples"
+import QtQuick
+import DelegateUI
 
 DelWindow {
     id: galleryWindow
@@ -77,7 +75,7 @@ DelWindow {
             }
         }
 
-        NumberAnimation on width {
+        NumberAnimation {
             running: !DelTheme.isDark
             properties: "width,height"
             target: themeCircle
