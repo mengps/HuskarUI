@@ -19,10 +19,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(Qt6 6.5 COMPONENTS Quick Concurrent ShaderTools REQUIRED)
 
-#Add QWindowKit
-set(QWindowKit_DIR ../3rdparty/QWindowKit/lib/cmake/QWindowKit)
-find_package(QWindowKit COMPONENTS Core Quick REQUIRED)
-
 #Set plugin output dir
 set(DELEGATEUI_QML_OUTPUT_DIRECTORY "" CACHE PATH "DelegateUI plugin output dir.")
 if(NOT DELEGATEUI_QML_OUTPUT_DIRECTORY)
@@ -170,7 +166,8 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::QuickPrivate
-    QWindowKit::Quick
+    QWKCore
+    QWKQuick
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
