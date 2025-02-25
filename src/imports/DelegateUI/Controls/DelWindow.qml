@@ -13,9 +13,9 @@ Window {
     visible: true
     objectName: "__DelWindow__"
     Component.onCompleted: {
+        initialized = true;
         setWindowMode(DelTheme.isDark);
         __captionBar.windowAgent = __windowAgent;
-        initialized = true;
         if (followThemeSwitch)
             __connections.onIsDarkChanged();
     }

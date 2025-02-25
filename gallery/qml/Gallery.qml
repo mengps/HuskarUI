@@ -34,7 +34,7 @@ DelWindow {
                             }
 
     Component.onCompleted: {
-        setSpecialEffect(DelWindowSpecialEffect.Mica);
+        setSpecialEffect(DelWindowSpecialEffect.MicaAlt);
     }
 
     Rectangle {

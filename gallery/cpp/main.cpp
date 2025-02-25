@@ -13,6 +13,7 @@ Q_IMPORT_QML_PLUGIN(DelegateUI)
 int main(int argc, char *argv[])
 {
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+    QQuickWindow::setDefaultAlphaBuffer(true);
 
     QGuiApplication app(argc, argv);
 
