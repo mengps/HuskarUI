@@ -91,6 +91,8 @@ The installation directory structure
   {
       ...
       QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+      QQuickWindow::setDefaultAlphaBuffer(true);
+      ...
       QGuiApplication app(argc, argv);
       QQmlApplicationEngine engine;
       DelApp::initialize(&engine);
