@@ -37,7 +37,7 @@ void DelApi::setWindowStaysOnTopHint(QWindow *window, bool hint)
             ::SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
         }
 #else
-        window()->setFlag(Qt::WindowStaysOnTopHint, hint);
+        window->setFlag(Qt::WindowStaysOnTopHint, hint);
 #endif
     }
 }

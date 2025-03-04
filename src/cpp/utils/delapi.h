@@ -2,10 +2,9 @@
 #define DELAPI_H
 
 #include <QtQml/qqml.h>
+#include <QtGui/QWindow>
 
 #include "delglobal.h"
-
-QT_FORWARD_DECLARE_CLASS(QWindow)
 
 class DELEGATEUI_EXPORT DelApi : public QObject
 {

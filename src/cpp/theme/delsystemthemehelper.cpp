@@ -39,7 +39,8 @@ static inline bool initializeFunctionPointers() {
 
     return initialized;
 }
-
+#else //Q_OS_LINUX
+#include <QPalette>
 #endif //Q_OS_WIN
 
 class DelSystemThemeHelperPrivate
@@ -107,6 +108,8 @@ QColor DelSystemThemeHelper::getThemeColor() const
 
 #ifdef Q_OS_WIN
     return QColor::fromRgb(d->m_themeColorSettings.value("ColorizationColor").toUInt());
+#else
+    return QPalette().color(QPalette::Highlight);
 #endif
 }
 
