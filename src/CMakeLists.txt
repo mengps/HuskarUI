@@ -2,29 +2,27 @@ cmake_minimum_required(VERSION 3.16)
 
 set(DELEGATEUI_VERSION 0.1.7.0)
 
-option(BUILD_DELEGATEUI_STATIC_LIBRARY "Build DelegateUI as a static library." OFF)
+message(STATUS "Configuring DelegateUI Version: ${DELEGATEUI_VERSION}")
 
-if(BUILD_DELEGATEUI_STATIC_LIBRARY)
-    project(DelegateUI VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
-else()
-    project(DelegateUIPlugin VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
-endif()
+project(DelegateUI VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 
 #Add DeleagteUIHelper
 include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/DelegateUIHelper.cmake)
 
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(Qt6 6.5 COMPONENTS Quick Concurrent ShaderTools REQUIRED)
+find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
+qt_standard_project_setup(REQUIRES 6.5)
 
 #Set plugin output dir
-set(DELEGATEUI_QML_OUTPUT_DIRECTORY "" CACHE PATH "DelegateUI plugin output dir.")
-if(NOT DELEGATEUI_QML_OUTPUT_DIRECTORY)
-    set(DELEGATEUI_QML_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/DelegateUI)
+set(DELEGATEUI_LIBRARY_OUTPUT_DIRECTORY "" CACHE PATH "DelegateUI library output dir.")
+set(DELEGATEUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "DelegateUI plugin output dir.")
+if(NOT DELEGATEUI_PLUGIN_OUTPUT_DIRECTORY)
+    set(DELEGATEUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
+    set(DELEGATEUI_PLUGIN_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/DelegateUI)
     if(BUILD_DELEGATEUI_STATIC_LIBRARY)
-        set(DELEGATEUI_QML_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../DelegateUI)
+        set(DELEGATEUI_PLUGIN_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/DelegateUI)
     endif()
 endif()
 
@@ -32,12 +30,12 @@ if(BUILD_DELEGATEUI_STATIC_LIBRARY)
     set(PLUGIN_NAME "")
     qt_add_library(${PROJECT_NAME} STATIC)
 else()
-    set(PLUGIN_NAME ${PROJECT_NAME})
+    set(PLUGIN_NAME delegateuiplugin)
     qt_add_library(${PROJECT_NAME} SHARED)
 endif()
 
 set(DELEGATEUI_RC_FILE "")
-if (WIN32)
+if(WIN32)
     set(DELEGATEUI_RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_Resource.rc)
     set(RC_NAME "")
     if(BUILD_DELEGATEUI_STATIC_LIBRARY)
@@ -59,10 +57,12 @@ endif()
 qt_add_qml_module(${PROJECT_NAME}
     URI DelegateUI
     VERSION 1.0
-    PLUGIN_TARGET ${PLUGIN_NAME}
+    DESIGNER_SUPPORTED
+    PLUGIN_TARGET delegateuiplugin
+    NO_GENERATE_PLUGIN_SOURCE
     RESOURCE_PREFIX "/"
     TYPEINFO "plugins.qmltypes"
-    OUTPUT_DIRECTORY ${DELEGATEUI_QML_OUTPUT_DIRECTORY}
+    OUTPUT_DIRECTORY ${DELEGATEUI_PLUGIN_OUTPUT_DIRECTORY}
     QML_FILES
         imports/DelegateUI/Controls/DelButton.qml
         imports/DelegateUI/Controls/DelIconButton.qml
@@ -94,24 +94,19 @@ qt_add_qml_module(${PROJECT_NAME}
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
         cpp/deldefinitions.h
+        cpp/delegateuiplugin.cpp
         cpp/delapp.h cpp/delapp.cpp
-        cpp/utils/delapi.h cpp/utils/delapi.cpp
-        cpp/utils/delasynchasher.h cpp/utils/delasynchasher.cpp
         cpp/theme/deltheme.h cpp/theme/deltheme.cpp cpp/theme/deltheme_p.h
         cpp/theme/delthemefunctions.h cpp/theme/delthemefunctions.cpp
         cpp/theme/delcolorgenerator.h cpp/theme/delcolorgenerator.cpp
         cpp/theme/delsystemthemehelper.h cpp/theme/delsystemthemehelper.cpp
         cpp/theme/delsizegenerator.h cpp/theme/delsizegenerator.cpp
-        cpp/controls/deliconfont.h cpp/controls/deliconfont.cpp
+        cpp/utils/delapi.h cpp/utils/delapi.cpp
+        cpp/utils/delasynchasher.h cpp/utils/delasynchasher.cpp
         cpp/controls/delwindowagent.h cpp/controls/delwindowagent.cpp
+        cpp/controls/deliconfont.h cpp/controls/deliconfont.cpp
         cpp/controls/delrectangle.h cpp/controls/delrectangle.cpp
         cpp/controls/delwatermark.h cpp/controls/delwatermark.cpp
-)
-
-qt_add_resources(${PROJECT_NAME} "resources"
-    PREFIX "/DelegateUI"
-    FILES
-        "../resources/font/DelegateUI-Icons.ttf"
 )
 
 qt_add_resources(${PROJECT_NAME} "theme"
@@ -138,6 +133,12 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelTimePicker.json
 )
 
+qt_add_resources(${PROJECT_NAME} "resources"
+    PREFIX "/DelegateUI"
+    FILES
+        "../resources/font/DelegateUI-Icons.ttf"
+)
+
 qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
     PREFIX "/DelegateUI"
     FILES
@@ -145,11 +146,19 @@ qt_add_shaders(${PROJECT_NAME} "delegateui_shaders"
         shaders/delrate.frag
 )
 
-if (MINGW)
+# DelegateUI library output dir
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${DELEGATEUI_LIBRARY_OUTPUT_DIRECTORY}/bin
+    LIBRARY_OUTPUT_DIRECTORY ${DELEGATEUI_LIBRARY_OUTPUT_DIRECTORY}/lib
+    ARCHIVE_OUTPUT_DIRECTORY ${DELEGATEUI_LIBRARY_OUTPUT_DIRECTORY}/lib
+)
+
+if(MINGW)
     set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
     target_compile_options(${PROJECT_NAME} PRIVATE -Wa,-mbig-obj)
-elseif (MSVC)
+elseif(MSVC)
     set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
+    target_compile_options(${PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/utf-8;/Zi>)
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
@@ -157,10 +166,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
     DELEGATEUI_LIBRARY_VERSION="${DELEGATEUI_VERSION}"
     $<$<BOOL:${BUILD_DELEGATEUI_STATIC_LIBRARY}>:BUILD_DELEGATEUI_STATIC_LIBRARY>
     $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
-)
-
-target_compile_options(${PROJECT_NAME} PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:/utf-8;/Zi>
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
@@ -173,8 +178,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/cpp/controls
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp/theme
+    ${CMAKE_CURRENT_SOURCE_DIR}/cpp/controls
     ${CMAKE_CURRENT_SOURCE_DIR}/cpp/utils
 )
 
@@ -197,5 +202,5 @@ install(
 )
 
 install(
-    DIRECTORY ${DELEGATEUI_QML_OUTPUT_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/DelegateUI/imports
+    DIRECTORY ${DELEGATEUI_PLUGIN_OUTPUT_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/DelegateUI/imports
 )
