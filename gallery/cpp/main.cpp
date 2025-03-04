@@ -16,6 +16,10 @@ int main(int argc, char *argv[])
     QQuickWindow::setDefaultAlphaBuffer(true);
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("MenPenS");
+    app.setApplicationName("DelegateUI");
+    app.setApplicationName("DelegateUI Gallery");
+    app.setApplicationVersion(DelApp::libVersion());
 
     QQmlApplicationEngine engine;
 
