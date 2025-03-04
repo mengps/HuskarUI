@@ -1,0 +1,102 @@
+# This starter workflow is for a CMake project running on multiple platforms. There is a different starter workflow if you just want a single platform.
+# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-single-platform.yml
+name: CMake on Linux
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        build_types: [Release]
+        c_compiler: [gcc]
+        cxx_compiler: [g++]
+        include:
+          - qt_ver: 6.7.3  
+            qt_arch: linux_gcc_64
+
+    env:
+      targetName: Gallery
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.qt_ver }}
+          arch: ${{ matrix.qt_arch }}
+          modules: 'qt5compat qtshadertools'
+      
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v3
+        with:
+          version: 1.10.2
+          
+      - name: Ubuntu install GL library
+        run: sudo apt-get install -y libxcb-cursor0 libgl1-mesa-dev libxcb1-dev libgtk-3-dev libxkbcommon-x11-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-sync-dev  libxcb-render-util0-dev libxcb-shm0-dev
+        
+      - name: Ubuntu install libfuse2
+        run: sudo apt install libfuse2
+
+      - name: Set reusable strings
+        # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+        id: strings
+        shell: bash
+        run: |
+          echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+        
+      - name: Build
+        id: build
+        run: |
+          ninja --version
+          cmake --version
+          cmake -B ${{ steps.strings.outputs.build-output-dir }} -S ${{ github.workspace }} \
+            -DCMAKE_MESSAGE_LOG_LEVEL=STATUS \
+            -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
+            -DCMAKE_CXX_COMPILER=${{ matrix.cxx_compiler }} \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_types }} \
+            -DCMAKE_PREFIX_PATH=${{ env.Qt6_DIR }} \
+            -GNinja
+          cd ${{ steps.strings.outputs.build-output-dir }}
+          cmake --build . --config ${{ matrix.build_types }} --parallel --target all --
+          
+      - name: Install Linux QtDeploy
+        uses: miurahr/install-linuxdeploy-action@v1
+        with:
+          plugins: qt appimage
+          
+      - name: Check if svg file exists
+        run: if [ ! -f "${targetName}.svg" ]; then echo "File not found, creating..."; touch ${targetName}.svg; fi
+
+      - name: Package
+        run: |
+          # 确保Qt插件找到Qml源代码, 以便部署导入的文件
+          export QML_SOURCES_PATHS=./
+          # 拷贝依赖
+          linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=bin/Release/${targetName} --appdir bin/release/
+          mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}.AppImage
+        
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}
+          path: ${{ env.targetName }}.AppImage
+
+      - name: Upload Release
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.targetName }}.AppImage
+          asset_name: ${{ env.targetName }}_${{  github.ref_name }}_${{ matrix.os }}_Qt${{ matrix.qt_ver }}.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
