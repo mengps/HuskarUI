@@ -64,7 +64,7 @@ The installation directory structure
     ├─include
     │   *.h
     ├─bin
-    │   *.dll
+    │   *.dll/so
     ├─lib
     │   *.lib
     └─imports
@@ -73,6 +73,7 @@ The installation directory structure
 - Usage
   - Link the `<install_dir>/lib`.
   - Include the `<install_dir>/include`.
+  - Copy the `<install_dir>/bin/DeleagetUI.[dll/so]` to `[QtDir]/[QtVersion]/[Kit]/bin`.
   - Copy the `<install_dir>/imports/DeleagetUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 📦 Get started 
@@ -81,7 +82,7 @@ The installation directory structure
  ```cmake
   target_include_directories(<your_target> PRIVATE DelegateUI/include)
   target_link_directories(<your_target> PRIVATE DelegateUI/lib)
-  target_link_libraries(<your_target> PRIVATE DelegateUIPlugin)
+  target_link_libraries(<your_target> PRIVATE DelegateUI)
  ```
  - Add the following code to your `main.cpp`
  ```cpp
