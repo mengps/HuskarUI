@@ -73,7 +73,10 @@ CMakeLists.txt.user*
 *.exe
 
 # CMake generated files
+DelegateUI/
 build/
+bin/
+package/
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
