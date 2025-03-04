@@ -105,9 +105,9 @@ Rectangle {
                 }
 
                 Flickable {
+                    Layout.preferredWidth: parent.width - 50
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignHCenter
-                    width: parent.width - 50
                     contentHeight: __desc.contentHeight
                     ScrollBar.vertical: DelScrollBar { }
                     clip: true
