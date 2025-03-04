@@ -32,21 +32,4 @@ Q_SIGNAL void get##Changed(); \
 private: \
     type m_##get;
 
-namespace DelWindowSpecialEffect {
-    Q_NAMESPACE
-
-    enum class SpecialEffect
-    {
-        None = 0,
-        DwmBlur = 1,
-        AcrylicMaterial = 2,
-        Mica = 3,
-        MicaAlt = 4
-    };
-
-    Q_ENUM_NS(SpecialEffect);
-
-    QML_NAMED_ELEMENT(DelWindowSpecialEffect);
-}
-
 #endif // DELDEFINITIONS_H

@@ -28,7 +28,7 @@ captionBar | DelCaptionBar | 窗口标题栏
 windowAgent | DelWindowAgent | 窗口代理
 followThemeSwitch | bool | 是否跟随系统明/暗模式自动切换
 initialized | bool | 指示窗口是否已经初始化完毕
-specialEffect | enum | 特殊效果(仅windows有效，来自 DelWindowSpecialEffect)
+specialEffect | enum | 特殊效果(仅windows有效，来自 DelWindow)
 \n支持的函数：\n
 - \`setWindowMode(isDark: bool)\` 设置窗口明/暗模式 \n
 - \`setSpecialEffect(specialEffect: int)\` 设置窗口的特殊效果(仅windows有效) \n

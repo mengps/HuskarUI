@@ -34,7 +34,7 @@ DelWindow {
                             }
 
     Component.onCompleted: {
-        setSpecialEffect(DelWindowSpecialEffect.MicaAlt);
+        setSpecialEffect(DelWindow.MicaAlt);
     }
 
     Rectangle {
@@ -69,7 +69,7 @@ DelWindow {
                 themeCircle.visible = false;
                 themeCircle.width = Qt.binding(()=>themeCircle.r * 2);
                 themeCircle.height = Qt.binding(()=>themeCircle.r * 2);
-                if (galleryWindow.specialEffect === DelWindowSpecialEffect.None)
+                if (galleryWindow.specialEffect === DelWindow.None)
                     galleryWindow.color = DelTheme.Primary.colorBgBase;
                 galleryBackground.color = DelTheme.Primary.colorBgBase;
             }
@@ -85,7 +85,7 @@ DelWindow {
             onStarted: {
                 galleryWindow.setWindowMode(false);
                 themeCircle.visible = true;
-                if (galleryWindow.specialEffect === DelWindowSpecialEffect.None)
+                if (galleryWindow.specialEffect === DelWindow.None)
                     galleryWindow.color = DelTheme.Primary.colorBgBase;
                 galleryBackground.color = DelTheme.Primary.colorBgBase;
             }

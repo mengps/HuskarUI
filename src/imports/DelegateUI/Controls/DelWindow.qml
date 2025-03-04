@@ -4,11 +4,20 @@ import DelegateUI
 Window {
     id: window
 
+    enum SpecialEffect
+    {
+        None = 0,
+        DwmBlur = 1,
+        AcrylicMaterial = 2,
+        Mica = 3,
+        MicaAlt = 4
+    }
+
     property alias captionBar: __captionBar
     property alias windowAgent: __windowAgent
     property bool followThemeSwitch: true
     property bool initialized: false
-    property int specialEffect: DelWindowSpecialEffect.None
+    property int specialEffect: DelWindow.None
 
     visible: true
     objectName: "__DelWindow__"
@@ -31,45 +40,45 @@ Window {
 
         switch (specialEffect)
         {
-        case DelWindowSpecialEffect.DwmBlur:
+        case DelWindow.DwmBlur:
             window.color = "transparent"
             windowAgent.setWindowAttribute("acrylic-material", false);
             windowAgent.setWindowAttribute("mica", false);
             windowAgent.setWindowAttribute("mica-alt", false);
             windowAgent.setWindowAttribute("dwm-blur", true);
-            window.specialEffect = DelWindowSpecialEffect.DwmBlur;
+            window.specialEffect = DelWindow.DwmBlur;
             break;
-        case DelWindowSpecialEffect.AcrylicMaterial:
+        case DelWindow.AcrylicMaterial:
             window.color = "transparent";
             windowAgent.setWindowAttribute("dwm-blur", false);
             windowAgent.setWindowAttribute("mica", false);
             windowAgent.setWindowAttribute("mica-alt", false);
             windowAgent.setWindowAttribute("acrylic-material", true);
-            window.specialEffect = DelWindowSpecialEffect.AcrylicMaterial;
+            window.specialEffect = DelWindow.AcrylicMaterial;
             break;
-        case DelWindowSpecialEffect.Mica:
+        case DelWindow.Mica:
             window.color = "transparent";
             windowAgent.setWindowAttribute("dwm-blur", false);
             windowAgent.setWindowAttribute("acrylic-material", false);
             windowAgent.setWindowAttribute("mica-alt", false);
             windowAgent.setWindowAttribute("mica", true);
-            window.specialEffect = DelWindowSpecialEffect.Mica;
+            window.specialEffect = DelWindow.Mica;
             break;
-        case DelWindowSpecialEffect.MicaAlt:
+        case DelWindow.MicaAlt:
             window.color = "transparent";
             windowAgent.setWindowAttribute("dwm-blur", false);
             windowAgent.setWindowAttribute("acrylic-material", false);
             windowAgent.setWindowAttribute("mica", false);
             windowAgent.setWindowAttribute("mica-alt", true);
-            window.specialEffect = DelWindowSpecialEffect.MicaAlt;
+            window.specialEffect = DelWindow.MicaAlt;
             break;
-        case DelWindowSpecialEffect.None:
+        case DelWindow.None:
         default:
             windowAgent.setWindowAttribute("dwm-blur", false);
             windowAgent.setWindowAttribute("acrylic-material", false);
             windowAgent.setWindowAttribute("mica", false);
             windowAgent.setWindowAttribute("mica-alt", false);
-            window.specialEffect = DelWindowSpecialEffect.None;
+            window.specialEffect = DelWindow.None;
             break;
         }
     }
@@ -79,7 +88,7 @@ Window {
         target: DelTheme
         enabled: window.followThemeSwitch
         function onIsDarkChanged() {
-            if (window.specialEffect == DelWindowSpecialEffect.None)
+            if (window.specialEffect == DelWindow.None)
                 window.color = DelTheme.Primary.colorBgBase;
             __windowAgent.setWindowAttribute("dark-mode", DelTheme.isDark);
         }
