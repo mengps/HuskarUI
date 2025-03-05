@@ -11,13 +11,14 @@ If you need Qt5 impl [DelegateUI for Qt5](https://github.com/mengps/QmlControls)
 
 <div align=center>
 
-![win-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
+![win-badge] ![linux-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
 
 English | [中文](./README-zh_CN.md)
 
 </div>
 
 [win-badge]: https://img.shields.io/badge/Windows-passing-brightgreen?style=flat-square
+[linux-badge]: https://img.shields.io/badge/Linux-passing-brightgreen?style=flat-square
 
 [issues-image]: https://flat.badgen.net/github/label-issues/mengps/DelegateUI/open
 [issues-url]: https://github.com/mengps/DelegateUI/issues
@@ -77,6 +78,7 @@ The installation directory structure
   - Copy the `<install_dir>/imports/DeleagetUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 📦 Get started 
+
  - Create QtQuick application `QtVersion >= 6.5`
  - Add the following cmake command to your project `CMakeLists.txt`
  ```cmake
@@ -111,6 +113,7 @@ The installation directory structure
 
 ## 🚩 Reference
 
+Ant-d Components: https://ant-design.antgroup.com/components/overview
 Ant Design: https://ant-design.antgroup.com/docs/spec/introduce
 
 ## 💓 LICENSE
@@ -119,4 +122,4 @@ Use `MIT LICENSE`
 
 ## 🌇 Environment
 
-Windows 11, Qt Version >= 6.5
+Windows 11 / Ubuntu 24.04.2, Qt Version >= 6.5

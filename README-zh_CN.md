@@ -11,13 +11,14 @@ Qt Qml 的 Ant 设计组件库
 
 <div align=center>
 
-![win-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
+![win-badge] ![linux-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
 
 [English](./README.md) | 中文
 
 </div>
 
 [win-badge]: https://img.shields.io/badge/Windows-passing-brightgreen?style=flat-square
+[linux-badge]: https://img.shields.io/badge/Linux-passing-brightgreen?style=flat-square
 
 [issues-image]: https://flat.badgen.net/github/label-issues/mengps/DelegateUI/open
 [issues-url]: https://github.com/mengps/DelegateUI/issues
@@ -76,6 +77,7 @@ cmake --intall --prefix <install_dir>
   - 复制 `<install_dir>/imports/DeleagetUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 📦 上手
+
  - 创建 QtQuick 应用 `QtVersion >= 6.5`
  - 添加下面的 cmake 命令到您的项目 `CMakeLists.txt` 中
  ```cmake
@@ -110,6 +112,7 @@ cmake --intall --prefix <install_dir>
 
 ## 🚩 参考
 
+Ant-d 组件: https://ant-design.antgroup.com/components/overview
 Ant 设计: https://ant-design.antgroup.com/docs/spec/introduce-cn
 
 ## 💓 许可证
@@ -118,4 +121,4 @@ Ant 设计: https://ant-design.antgroup.com/docs/spec/introduce-cn
 
 ## 🌇 环境
 
-Windows 11, Qt Version >= 6.5
+Windows 11 / Ubuntu 24.04.2, Qt Version >= 6.5
