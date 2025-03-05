@@ -120,6 +120,16 @@ Rectangle {
         }
     }
 
+    function addInteractionItem(item) {
+        if (windowAgent)
+            windowAgent.setHitTestVisible(item, true);
+    }
+
+    function removeInteractionItem(item) {
+        if (windowAgent)
+            windowAgent.setHitTestVisible(item, false);
+    }
+
     RowLayout {
         id: __row
         anchors.fill: parent
