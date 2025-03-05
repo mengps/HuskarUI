@@ -31,6 +31,7 @@
         "colorBgElevated": "$darker(@colorBgBase, 0)",
         "colorBgSpotlight": "$alpha(@colorTextBase, 0.85)",
         "colorBgBlur": "transparent",
+        "colorBgMask": "$alpha(#000, 0.45)",
 
         "colorBorder": "$darker(@colorBgBase)",
         "colorBorderSecondary": "$darker(@colorBgBase)",
@@ -107,7 +108,6 @@
     "primaryFontStyle": {
         "fontPrimaryFamily": "微软雅黑",
         "fontPrimarySize": "@fontSizeBase-1",
-        "fontPrimaryLineHeight": "@fontLineHeightBase-1",
         "fontPrimaryHeight": "$multiply(@fontSizeBase-1,@fontLineHeightBase-1)",
         "fontPrimarySizeHeading1": "@fontSizeBase-6",
         "fontPrimarySizeHeading2": "@fontSizeBase-5",
@@ -143,6 +143,7 @@
         "DelRate": ":/DelegateUI/theme/DelRate.json",
         "DelRadio": ":/DelegateUI/theme/DelRadio.json",
         "DelCheckBox": ":/DelegateUI/theme/DelCheckBox.json",
-        "DelTimePicker": ":/DelegateUI/theme/DelTimePicker.json"
+        "DelTimePicker": ":/DelegateUI/theme/DelTimePicker.json",
+        "DelDrawer": ":/DelegateUI/theme/DelDrawer.json"
     }
 }

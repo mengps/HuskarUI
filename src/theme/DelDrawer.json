@@ -1,0 +1,8 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSizeTitle": "@fontPrimarySizeHeading5",
+    "colorTitle": "@colorTextBase",
+    "colorShadow": "@colorTextBase",
+    "colorBg": "$lighter(@colorBgBase)",
+    "colorOverlay": "@colorBgMask"
+}
