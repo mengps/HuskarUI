@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelDrawer",
+        "desc": "屏幕边缘滑出的浮层面板。"
+    },
+    {
+        "isNew": true,
         "name": "DelTimePicker",
         "desc": "输入或选择时间的控件。"
     },

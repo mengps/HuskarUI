@@ -310,6 +310,11 @@ DelWindow {
                             key: "DelWatermark",
                             title: qsTr("DelWatermark 水印"),
                             source: "./Examples/Feedback/ExpWatermark.qml",
+                        },
+                        {
+                            key: "DelDrawer",
+                            title: qsTr("DelDrawer 抽屉"),
+                            source: "./Examples/Feedback/ExpDrawer.qml",
                         }
                     ]
                 },
