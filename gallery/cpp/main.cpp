@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     app.setOrganizationName("MenPenS");
     app.setApplicationName("DelegateUI");
-    app.setApplicationName("DelegateUI Gallery");
+    app.setApplicationDisplayName("DelegateUI Gallery");
     app.setApplicationVersion(DelApp::libVersion());
 
     QQmlApplicationEngine engine;
