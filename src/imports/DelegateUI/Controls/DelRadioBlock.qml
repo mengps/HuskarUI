@@ -93,7 +93,7 @@ Item {
         colorBg: {
             if (enabled) {
                 if (control.type == DelRadioBlock.Type_Filled) {
-                    return down ? DelTheme.DelRadio.colorBlockBgActive :
+                    return down ? (checked ? DelTheme.DelRadio.colorBlockBgActive : DelTheme.DelRadio.colorBlockBg) :
                                   hovered ? (checked ? DelTheme.DelRadio.colorBlockBgHover : DelTheme.DelRadio.colorBlockBg) :
                                             checked ? DelTheme.DelRadio.colorBlockBgChecked :
                                                       DelTheme.DelRadio.colorBlockBg;
