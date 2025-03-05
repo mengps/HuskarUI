@@ -6,6 +6,6 @@
     "fontSizeButton": "@fontPrimarySize",
     "colorText": "@colorTextBase",
     "colorBg": "$lighter(@colorBgBase)",
-    "colorOverlay": "$alpha(@colorTextBase, 0.3)",
+    "colorOverlay": "@colorBgMask",
     "radiusCard": "6"
 }
