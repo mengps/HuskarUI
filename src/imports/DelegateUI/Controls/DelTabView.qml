@@ -445,6 +445,10 @@ Item {
                     onClicked: {
                         control.removeAt(index);
                     }
+
+                    HoverHandler {
+                        cursorShape: Qt.PointingHandCursor
+                    }
                 }
             }
         }
