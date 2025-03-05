@@ -73,7 +73,7 @@ CMakeLists.txt.user*
 *.exe
 
 # CMake generated files
-DelegateUI/
+/DelegateUI/
 build/
 bin/
 package/
