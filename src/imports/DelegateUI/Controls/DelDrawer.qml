@@ -19,6 +19,8 @@ T.Drawer {
     property color colorBg: DelTheme.DelDrawer.colorBg
     property color colorOverlay: DelTheme.DelDrawer.colorOverlay
     property Component titleDelegate: Item {
+        height: 56
+
         Row {
             height: parent.height
             anchors.left: parent.left
@@ -88,7 +90,6 @@ T.Drawer {
     contentItem: ColumnLayout {
         Loader {
             Layout.fillWidth: true
-            Layout.preferredHeight: 56
             sourceComponent: titleDelegate
         }
         Loader {
