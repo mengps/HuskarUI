@@ -28,6 +28,7 @@ Item {
     property int expandIcon: DelIcon.RightOutlined
     property font titleFont
     property color colorBg: DelTheme.DelCollapse.colorBg
+    property color colorIcon: DelTheme.DelCollapse.colorIcon
     property color colorTitle: DelTheme.DelCollapse.colorTitle
     property color colorTitleBg: DelTheme.DelCollapse.colorTitleBg
     property font contentFont
@@ -45,6 +46,7 @@ Item {
             id: __icon
             anchors.verticalCenter: parent.verticalCenter
             iconSource: control.expandIcon
+            colorIcon: control.colorIcon
             rotation: isActive ? 90 : 0
 
             Behavior on rotation { enabled: control.animationEnabled; RotationAnimation { duration: DelTheme.Primary.durationFast } }

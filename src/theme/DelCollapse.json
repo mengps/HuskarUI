@@ -4,6 +4,7 @@
     "fontSizeContent": "@fontPrimarySize",
     "colorBorder": "@colorBorder",
     "colorBorderDark": "#424242",
+    "colorIcon": "@colorTextPrimary",
     "colorTitle": "@colorTextPrimary",
     "colorTitleBg": "@colorFillTertiary",
     "colorContent": "@colorTextPrimary",
