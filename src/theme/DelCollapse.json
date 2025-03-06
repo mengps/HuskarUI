@@ -1,0 +1,12 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSizeTitle": "@fontPrimarySize",
+    "fontSizeContent": "@fontPrimarySize",
+    "colorBorder": "@colorBorder",
+    "colorBorderDark": "#424242",
+    "colorTitle": "@colorTextPrimary",
+    "colorTitleBg": "@colorFillTertiary",
+    "colorContent": "@colorTextPrimary",
+    "colorContentBg": "@colorBgBase",
+    "colorBg": "@colorBgBase"
+}

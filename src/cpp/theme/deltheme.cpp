@@ -281,8 +281,7 @@ void DelThemePrivate::reloadComponentTheme(QMap<QObject *, ThemeData> &dataMap)
             auto component = it.value();
             auto componentName = it.key();
             auto map_ptr = component.varMap;
-            QFile theme(component.path);
-            if (theme.open(QIODevice::ReadOnly)) {
+            if (QFile theme(component.path); theme.open(QIODevice::ReadOnly)) {
                 QJsonParseError error;
                 QJsonDocument themeDoc = QJsonDocument::fromJson(theme.readAll(), &error);
                 if (error.error == QJsonParseError::NoError) {
@@ -346,8 +345,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
 #define ADD_COMPONENT_CASE(ComponentName) case Component::ComponentName: registerThemeComponent(q, component, &q->m_##ComponentName, themePath, m_defaultTheme); break;
 
     if (g_componentTable.contains(component)) {
-        auto key = g_componentTable[component];
-        switch (key) {
+        switch (auto key = g_componentTable[component]; key) {
             ADD_COMPONENT_CASE(DelButton)
             ADD_COMPONENT_CASE(DelIconText)
             ADD_COMPONENT_CASE(DelCopyableText)
@@ -367,6 +365,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
             ADD_COMPONENT_CASE(DelCheckBox)
             ADD_COMPONENT_CASE(DelTimePicker)
             ADD_COMPONENT_CASE(DelDrawer)
+            ADD_COMPONENT_CASE(DelCollapse)
         default:
             break;
         }
