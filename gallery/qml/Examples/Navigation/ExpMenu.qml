@@ -32,7 +32,7 @@ defaultIconSpacing | int | 默认图标间隔
 defaultHieght | int | 默认高度
 defaultSpacing | int | 默认间隔
 defaultSelectedKey | list | 初始选中的菜单项 key 数组
-model | list | 菜单模型
+initModel | list | 初始菜单模型
 \n支持的函数：\n
 - \`gotoMenu(key: string)\` 跳转到菜单键为 \`key\` 处的菜单项 \n
 - \`Object get(index: int)\` 获取 \`index\` 处的模型数据 \n
@@ -42,6 +42,7 @@ model | list | 菜单模型
 - \`insert(index: int, object: Object)\` 插入标签 \`object\` 到 \`index\` 处 \n
 - \`append(object: Object)\` 在末尾添加标签 \`object\` \n
 - \`removeAt(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
+- \`clear()\` 清空所有模型数据 \n
 \n支持的信号：\n
 - \`clickMenu(deep: int, menuKey: string, menuData: Object)\` 点击任意菜单项时发出\n
   - \`deep\` 菜单项深度\n
