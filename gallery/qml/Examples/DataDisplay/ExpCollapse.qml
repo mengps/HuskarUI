@@ -42,6 +42,7 @@ expandIcon | int | 展开图标(来自 DelIcon)
 titleFont | font | 标题字体
 contentFont | font | 内容字体
 colorBg | color | 背景颜色
+colorIcon | color | 展开图标颜色
 colorTitle | color | 标题文本颜色
 colorTitleBg | color | 标题背景颜色
 colorContent | color | 内容文本颜色
