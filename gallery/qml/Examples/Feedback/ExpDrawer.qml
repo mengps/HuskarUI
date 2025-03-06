@@ -25,7 +25,7 @@ Flickable {
 属性名 | 类型 | 描述
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
-edge | enum | 抽屉打开的位置
+edge | enum | 抽屉打开的位置(来自 Qt.*Edge)
 title | string | 标题文本
 titleFont | font | 标题字体
 colorTitle | color | 标题颜色
