@@ -277,6 +277,11 @@ DelWindow {
                             key: "DelTabView",
                             title: qsTr("DelTabView 标签视图"),
                             source: "./Examples/DataDisplay/ExpTabView.qml",
+                        },
+                        {
+                            key: "DelCollapse",
+                            title: qsTr("DelCollapse 折叠面板"),
+                            source: "./Examples/DataDisplay/ExpCollapse.qml",
                         }
                     ]
                 },
