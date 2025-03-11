@@ -13,6 +13,7 @@ T.Drawer {
     }
 
     property bool animationEnabled: DelTheme.animationEnabled
+    property int drawerSize: 378
     property string title: ""
     property font titleFont
     property color colorTitle: DelTheme.DelDrawer.colorTitle
@@ -39,9 +40,6 @@ T.Drawer {
                 onClicked: {
                     control.close();
                 }
-                Component.onCompleted: {
-                    captionBar.addInteractionItem(__close);
-                }
 
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
@@ -67,8 +65,8 @@ T.Drawer {
     enter: Transition { NumberAnimation { duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
     exit: Transition { NumberAnimation { duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
 
-    width: edge == Qt.LeftEdge || edge == Qt.RightEdge ? 378 : parent.width
-    height: edge == Qt.LeftEdge || edge == Qt.RightEdge ? parent.height : 378
+    width: edge == Qt.LeftEdge || edge == Qt.RightEdge ? drawerSize : parent.width
+    height: edge == Qt.LeftEdge || edge == Qt.RightEdge ? parent.height : drawerSize
     edge: Qt.RightEdge
     parent: T.Overlay.overlay
     modal: true
@@ -91,6 +89,11 @@ T.Drawer {
         Loader {
             Layout.fillWidth: true
             sourceComponent: titleDelegate
+            onLoaded: {
+                /*! 无边框窗口的标题栏会阻止事件传递, 需要调这个 */
+                if (captionBar)
+                    captionBar.addInteractionItem(item);
+            }
         }
         Loader {
             Layout.fillWidth: true
