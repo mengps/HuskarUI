@@ -23,8 +23,8 @@ Flickable {
 - **titleDelegate: Component** 卡片标题代理\n
 - **extraDelegate: Component** 卡片右上角操作代理\n
 - **coverDelegate: Component** 卡片封面代理\n
-- **bodyDeleagte: Component** 卡片主体代理\n
-- **actionDeleagte: Component** 卡片动作代理\n
+- **bodyDelegate: Component** 卡片主体代理\n
+- **actionDelegate: Component** 卡片动作代理\n
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
@@ -99,8 +99,8 @@ colorBodyDescription | color | 主体部分描述颜色
 - **titleDelegate: Component** 卡片标题代理\n
 - **extraDelegate: Component** 卡片右上角操作代理\n
 - **coverDelegate: Component** 卡片封面代理\n
-- **bodyDeleagte: Component** 卡片主体代理\n
-- **actionDeleagte: Component** 卡片动作代理\n
+- **bodyDelegate: Component** 卡片主体代理\n
+- **actionDelegate: Component** 卡片动作代理\n
 将代理设置为 \`Item {}\` 可以隐藏该部分。\n
                        `)
             code: `
@@ -119,7 +119,7 @@ colorBodyDescription | color | 主体部分描述颜色
                         bodyAvatarIcon: DelIcon.AccountBookOutlined
                         bodyTitle: "Card Meta title"
                         bodyDescription: "This is the description"
-                        actionDeleagte: Item {
+                        actionDelegate: Item {
                             height: 45
 
                             DelDivider {
@@ -193,7 +193,7 @@ colorBodyDescription | color | 主体部分描述颜色
                     bodyAvatarIcon: DelIcon.AccountBookOutlined
                     bodyTitle: qsTr("Card Meta title")
                     bodyDescription: qsTr("This is the description")
-                    actionDeleagte: Item {
+                    actionDelegate: Item {
                         height: 45
 
                         DelDivider {
@@ -329,7 +329,7 @@ colorBodyDescription | color | 主体部分描述颜色
                         }
                     }
                     Area {
-                        text: qsTr("actionDeleagte\n设置卡片动作区域代理")
+                        text: qsTr("actionDelegate\n设置卡片动作区域代理")
                         onHoveredChanged: {
                             setArea(0, 340, card.width, 45);
                         }

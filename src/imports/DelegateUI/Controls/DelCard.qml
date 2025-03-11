@@ -89,7 +89,7 @@ Rectangle {
         source: control.coverSource
         fillMode: control.coverFillMode
     }
-    property Component bodyDeleagte: Item {
+    property Component bodyDelegate: Item {
         height: 100
 
         RowLayout {
@@ -141,7 +141,7 @@ Rectangle {
             }
         }
     }
-    property Component actionDeleagte: Item { }
+    property Component actionDelegate: Item { }
 
     Column {
         id: __column
@@ -157,11 +157,11 @@ Rectangle {
         }
         Loader {
             width: parent.width
-            sourceComponent: bodyDeleagte
+            sourceComponent: bodyDelegate
         }
         Loader {
             width: parent.width
-            sourceComponent: actionDeleagte
+            sourceComponent: actionDelegate
         }
     }
 }
