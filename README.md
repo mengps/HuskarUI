@@ -113,8 +113,8 @@ The installation directory structure
 
 ## 🚩 Reference
 
-Ant-d Components: https://ant-design.antgroup.com/components/overview
-Ant Design: https://ant-design.antgroup.com/docs/spec/introduce
+- Ant-d Components: https://ant-design.antgroup.com/components/overview
+- Ant Design: https://ant-design.antgroup.com/docs/spec/introduce
 
 ## 💓 LICENSE
 

@@ -112,8 +112,8 @@ cmake --intall --prefix <install_dir>
 
 ## 🚩 参考
 
-Ant-d 组件: https://ant-design.antgroup.com/components/overview
-Ant 设计: https://ant-design.antgroup.com/docs/spec/introduce-cn
+- Ant-d 组件: https://ant-design.antgroup.com/components/overview-cn
+- Ant 设计: https://ant-design.antgroup.com/docs/spec/introduce-cn
 
 ## 💓 许可证
 
