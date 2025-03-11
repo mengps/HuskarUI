@@ -366,6 +366,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
             ADD_COMPONENT_CASE(DelTimePicker)
             ADD_COMPONENT_CASE(DelDrawer)
             ADD_COMPONENT_CASE(DelCollapse)
+            ADD_COMPONENT_CASE(DelCard)
         default:
             break;
         }
@@ -423,8 +424,7 @@ void DelTheme::reloadDefaultTheme()
 {
     Q_D(DelTheme);
 
-    QFile index(d->m_themeIndexPath);
-    if (index.open(QIODevice::ReadOnly)) {
+    if (QFile index(d->m_themeIndexPath); index.open(QIODevice::ReadOnly)) {
         QJsonParseError error;
         QJsonDocument indexDoc = QJsonDocument::fromJson(index.readAll(), &error);
         if (error.error == QJsonParseError::NoError) {

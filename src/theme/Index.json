@@ -145,6 +145,7 @@
         "DelCheckBox": ":/DelegateUI/theme/DelCheckBox.json",
         "DelTimePicker": ":/DelegateUI/theme/DelTimePicker.json",
         "DelDrawer": ":/DelegateUI/theme/DelDrawer.json",
-        "DelCollapse": ":/DelegateUI/theme/DelCollapse.json"
+        "DelCollapse": ":/DelegateUI/theme/DelCollapse.json",
+        "DelCard": ":/DelegateUI/theme/DelCard.json"
     }
 }
