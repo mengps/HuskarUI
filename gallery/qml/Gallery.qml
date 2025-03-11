@@ -282,6 +282,16 @@ DelWindow {
                             key: "DelCollapse",
                             title: qsTr("DelCollapse 折叠面板"),
                             source: "./Examples/DataDisplay/ExpCollapse.qml",
+                        },
+                        {
+                            key: "DelAvatar",
+                            title: qsTr("DelAvatar 头像"),
+                            source: "./Examples/DataDisplay/ExpAvatar.qml",
+                        },
+                        {
+                            key: "DelCard",
+                            title: qsTr("DelCard 卡片"),
+                            source: "./Examples/DataDisplay/ExpCard.qml",
                         }
                     ]
                 },
