@@ -10,7 +10,8 @@ T.Button {
         Type_Outlined = 1,
         Type_Primary = 2,
         Type_Filled = 3,
-        Type_Text = 4
+        Type_Text = 4,
+        Type_Link = 5
     }
 
     enum Shape {
@@ -43,6 +44,7 @@ T.Button {
             case DelButton.Type_Primary: return "white";
             case DelButton.Type_Filled:
             case DelButton.Type_Text:
+            case DelButton.Type_Link:
                 return control.down ? DelTheme.DelButton.colorTextHover :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
                                                         DelTheme.DelButton.colorText;
@@ -53,6 +55,7 @@ T.Button {
         }
     }
     property color colorBg: {
+        if (type == DelButton.Type_Link) return "transparent";
         if (enabled) {
             switch(control.type)
             {
@@ -92,6 +95,7 @@ T.Button {
         }
     }
     property color colorBorder: {
+        if (type == DelButton.Type_Link) return "transparent";
         if (enabled) {
             switch(control.type)
             {
@@ -137,7 +141,7 @@ T.Button {
             height: __bg.height
             radius: __bg.radius
             anchors.centerIn: parent
-            visible: control.effectEnabled
+            visible: control.effectEnabled && control.type != DelButton.Type_Link
             color: "transparent"
             border.width: 0
             border.color: control.enabled ? DelTheme.DelButton.colorBorderHover : "transparent"
@@ -189,6 +193,11 @@ T.Button {
             Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
         }
     }
+
+    HoverHandler {
+        cursorShape: Qt.PointingHandCursor
+    }
+
     Accessible.role: Accessible.Button
     Accessible.name: control.text
     Accessible.description: control.contentDescription
