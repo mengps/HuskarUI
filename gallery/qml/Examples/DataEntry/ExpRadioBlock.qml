@@ -162,7 +162,7 @@ contentDescription | string | 内容描述(提高可用性)
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`size\` 属性设置单选块的类型，支持的类型：\n
+通过 \`size\` 属性设置单选块调整大小的模式，支持的大小：\n
 - 自动计算大小(默认) { DelRadioBlock.Size_Auto }\n
 - 固定大小(将使用radioWidth/radioHeight) { DelRadioBlock.Size_Fixed }\n
                        `)

@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 ## DelSwitch 开关\n
 使用开关切换两种状态之间。\n
-* **继承自 { Button }**\n
+* **继承自 { Switch }**\n
 支持的代理：\n
 - **handleDelgate: Component** 开关把手代理\n
 支持的属性：\n
