@@ -45,6 +45,7 @@ contentDescription | string | 内容描述(提高可用性)
 - 线框按钮：等同于默认按钮，但线框使用了主要颜色。\n
 - 填充按钮：用于次级的行动点。\n
 - 文本按钮：用于最次级的行动点。\n
+- 链接按钮：一般用于链接，即导航至某位置。\n
                        `)
         }
 
@@ -61,6 +62,7 @@ contentDescription | string | 内容描述(提高可用性)
 - 主要按钮{ DelButton.Type_Primary }\n
 - 填充按钮{ DelButton.Type_Filled }\n
 - 文本按钮{ DelButton.Type_Text }
+- 链接按钮{ DelButton.Type_Link }
                        `)
             code: `
                 import QtQuick
@@ -92,6 +94,11 @@ contentDescription | string | 内容描述(提高可用性)
                         text: qsTr("文本")
                         type: DelButton.Type_Text
                     }
+
+                    DelButton {
+                        text: qsTr("链接")
+                        type: DelButton.Type_Link
+                    }
                 }
             `
             exampleDelegate: Row {
@@ -119,6 +126,11 @@ contentDescription | string | 内容描述(提高可用性)
                 DelButton {
                     text: qsTr("文本")
                     type: DelButton.Type_Text
+                }
+
+                DelButton {
+                    text: qsTr("链接")
+                    type: DelButton.Type_Link
                 }
             }
         }
@@ -163,6 +175,12 @@ contentDescription | string | 内容描述(提高可用性)
                         type: DelButton.Type_Text
                         enabled: false
                     }
+
+                    DelButton {
+                        text: qsTr("链接")
+                        type: DelButton.Type_Link
+                        enabled: false
+                    }
                 }
             `
             exampleDelegate: Row {
@@ -194,6 +212,12 @@ contentDescription | string | 内容描述(提高可用性)
                 DelButton {
                     text: qsTr("文本")
                     type: DelButton.Type_Text
+                    enabled: false
+                }
+
+                DelButton {
+                    text: qsTr("链接")
+                    type: DelButton.Type_Link
                     enabled: false
                 }
             }
