@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.1.9.0)
+set(DELEGATEUI_VERSION 0.2.0.0)
 
 message(STATUS "Configuring DelegateUI Version: ${DELEGATEUI_VERSION}")
 
@@ -58,7 +58,7 @@ qt_add_qml_module(${PROJECT_NAME}
     URI DelegateUI
     VERSION 1.0
     DESIGNER_SUPPORTED
-    PLUGIN_TARGET delegateuiplugin
+    PLUGIN_TARGET ${PLUGIN_NAME}
     NO_GENERATE_PLUGIN_SOURCE
     RESOURCE_PREFIX "/"
     TYPEINFO "plugins.qmltypes"
@@ -92,6 +92,8 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelTimePicker.qml
         imports/DelegateUI/Controls/DelDrawer.qml
         imports/DelegateUI/Controls/DelCollapse.qml
+        imports/DelegateUI/Controls/DelAvatar.qml
+        imports/DelegateUI/Controls/DelCard.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
@@ -135,6 +137,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelTimePicker.json
         theme/DelDrawer.json
         theme/DelCollapse.json
+        theme/DelCard.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"

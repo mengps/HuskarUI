@@ -1,13 +1,28 @@
 [
     {
         "isNew": true,
-        "name": "DelCollapse",
-        "desc": "可以折叠/展开的内容区域。"
+        "name": "DelCard",
+        "desc": "最基础的卡片容器，可承载文字、列表、图片、段落。"
     },
     {
         "isNew": true,
+        "name": "DelAvatar",
+        "desc": "用来代表用户或事物，支持图片、图标或字符展示。"
+    },
+    {
+        "isNew": false,
+        "name": "DelButton",
+        "desc": "新增 Link 类型按钮。"
+    },
+    {
+        "isNew": false,
         "name": "DelDrawer",
-        "desc": "屏幕边缘滑出的浮层面板。"
+        "desc": "新增 drawerSize(抽屉宽度) 属性。"
+    },
+    {
+        "isNew": true,
+        "name": "DelCollapse",
+        "desc": "可以折叠/展开的内容区域。"
     },
     {
         "isNew": true,
