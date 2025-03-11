@@ -25,6 +25,7 @@ Flickable {
 属性名 | 类型 | 描述
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
+drawerSize | int | 抽屉宽度
 edge | enum | 抽屉打开的位置(来自 Qt.*Edge)
 title | string | 标题文本
 titleFont | font | 标题字体
@@ -67,7 +68,7 @@ colorOverlay | color | 覆盖层颜色
                             title: qsTr("Basic Drawer")
                             contentDelegate: DelCopyableText {
                                 leftPadding: 15
-                                text: "Some contents...\nSome contents...\nSome contents..."
+                                text: "Some contents...\\nSome contents...\\nSome contents..."
                             }
                         }
                     }
@@ -129,7 +130,7 @@ colorOverlay | color | 覆盖层颜色
                             title: qsTr("Basic Drawer")
                             contentDelegate: DelCopyableText {
                                 leftPadding: 15
-                                text: "Some contents...\nSome contents...\nSome contents..."
+                                text: "Some contents...\\nSome contents...\\nSome contents..."
                             }
                         }
                     }
