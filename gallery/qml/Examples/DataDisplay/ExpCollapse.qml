@@ -32,6 +32,7 @@ Flickable {
 属性名 | 类型 | 描述
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
+hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
 initModel | list | 初始面板模型
 count | int | 模型中的数据条目数
 spacing | int | 每个面板间的间隔

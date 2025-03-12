@@ -27,6 +27,7 @@ Item {
 
     property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
+    property int hoverCursorShape: Qt.PointingHandCursor
     property var model: []
     property int count: model.length
     property int initCheckedIndex: -1
@@ -65,6 +66,8 @@ Item {
         }
 
         animationEnabled: control.animationEnabled
+        effectEnabled: control.effectEnabled
+        hoverCursorShape: control.hoverCursorShape
         implicitWidth: control.size == DelRadioBlock.Size_Auto ? (implicitContentWidth + leftPadding + rightPadding) :
                                                                  control.radioWidth
         implicitHeight: control.size == DelRadioBlock.Size_Auto ? (implicitContentHeight + topPadding + bottomPadding) :

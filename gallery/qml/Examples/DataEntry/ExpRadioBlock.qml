@@ -28,6 +28,7 @@ Flickable {
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
 effectEnabled | bool | 是否开启点击效果(默认true)
+hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
 model | list | 单选块模型
 count | int | 单选数量
 initCheckedIndex | int | 初始选择的单选项索引

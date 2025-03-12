@@ -7,6 +7,7 @@ T.ComboBox {
     id: control
 
     property bool animationEnabled: DelTheme.animationEnabled
+    property int hoverCursorShape: Qt.PointingHandCursor
     property bool tooltipVisible: false
     property bool loading: false
     property int defaulPopupMaxHeight: 240
@@ -143,6 +144,10 @@ T.ComboBox {
                     control.popup.close();
                 }
 
+                HoverHandler {
+                    cursorShape: control.hoverCursorShape
+                }
+
                 Loader {
                     y: __popupDelegate.height
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -159,6 +164,10 @@ T.ComboBox {
 
             Behavior on height { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
         }
+    }
+
+    HoverHandler {
+        cursorShape: control.hoverCursorShape
     }
 
     Accessible.role: Accessible.ComboBox

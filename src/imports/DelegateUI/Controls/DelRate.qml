@@ -13,6 +13,7 @@ Item {
     }
 
     property bool animationEnabled: DelTheme.animationEnabled
+    property int hoverCursorShape: Qt.PointingHandCursor
     property int count: 5
     property real initValue: -1
     property real value: 0
@@ -167,6 +168,7 @@ Item {
                     width: control.iconSize
                     height: control.iconSize
                     hoverEnabled: true
+                    cursorShape: hovered ? control.hoverCursorShape : Qt.ArrowCursor
                     enabled: control.enabled
                     onEntered: hovered = true;
                     onExited: hovered = false;

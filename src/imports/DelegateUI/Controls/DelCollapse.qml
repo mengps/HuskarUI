@@ -19,6 +19,7 @@ Item {
     signal actived(key: string);
 
     property bool animationEnabled: DelTheme.animationEnabled
+    property int hoverCursorShape: Qt.PointingHandCursor
     property var initModel: []
     property alias count: __listModel.count
     property alias spacing: __listView.spacing
@@ -59,6 +60,10 @@ Item {
             elide: Text.ElideRight
             font: control.titleFont
             color: control.colorTitle
+        }
+
+        HoverHandler {
+            cursorShape: control.hoverCursorShape
         }
     }
     property Component contentDelegate: DelCopyableText {

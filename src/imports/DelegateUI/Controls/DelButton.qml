@@ -26,6 +26,7 @@ T.Button {
 
     property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
+    property int hoverCursorShape: Qt.PointingHandCursor
     property int type: DelButton.Type_Default
     property int shape: DelButton.Shape_Default
     property int radiusBg: DelTheme.DelButton.radiusBg
@@ -195,7 +196,7 @@ T.Button {
     }
 
     HoverHandler {
-        cursorShape: Qt.PointingHandCursor
+        cursorShape: control.hoverCursorShape
     }
 
     Accessible.role: Accessible.Button

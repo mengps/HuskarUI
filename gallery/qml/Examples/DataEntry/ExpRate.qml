@@ -36,6 +36,7 @@ Flickable {
 属性名 | 类型 | 描述
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
+hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
 count | int | 星星数量
 initValue | int | 初始值
 value | int | 当前值

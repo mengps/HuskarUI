@@ -9,6 +9,7 @@ DelIconButton {
     leftPadding: 12
     rightPadding: 12
     radiusBg: 0
+    hoverCursorShape: Qt.ArrowCursor
     type: DelButton.Type_Text
     iconSize: DelTheme.DelCaptionButton.fontSize
     font.pixelSize: DelTheme.DelCaptionButton.fontSize

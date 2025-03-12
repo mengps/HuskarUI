@@ -25,6 +25,7 @@ Flickable {
 属性名 | 类型 | 描述
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
+hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
 tooltipVisible | bool | 是否显示文字提示(默认false)
 loading | bool | 是否在加载中
 defaulPopupMaxHeight | int | 默认弹窗最大高度

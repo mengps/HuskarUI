@@ -7,6 +7,7 @@ T.Switch {
 
     property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
+    property int hoverCursorShape: Qt.PointingHandCursor
     property bool loading: false
     property string checkedText: ""
     property string uncheckedText: ""
@@ -178,6 +179,10 @@ T.Switch {
                 Behavior on x { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
             }
         }
+    }
+
+    HoverHandler {
+        cursorShape: control.hoverCursorShape
     }
 
     Accessible.role: Accessible.CheckBox

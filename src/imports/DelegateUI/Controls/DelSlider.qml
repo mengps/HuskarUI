@@ -18,6 +18,7 @@ Item {
     signal secondReleased();
 
     property bool animationEnabled: DelTheme.animationEnabled
+    property int hoverCursorShape: Qt.PointingHandCursor
     property real min: 0
     property real max: 100
     property real stepSize: 0.0
@@ -86,16 +87,16 @@ Item {
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
         Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
+        HoverHandler {
+            id: __hoverHandler
+            cursorShape: control.hoverCursorShape
+        }
+
         Loader {
             sourceComponent: handleToolTipDelegate
             onLoaded: item.parent = __handleItem;
             property alias handleHovered: __hoverHandler.hovered
             property alias handlePressed: __handleItem.down
-        }
-
-        HoverHandler {
-            id: __hoverHandler
-            acceptedDevices: PointerDevice.AllDevices
         }
     }
     property Component bgDelegate: Item {

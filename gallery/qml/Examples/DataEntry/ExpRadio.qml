@@ -26,6 +26,7 @@ Flickable {
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
 effectEnabled | bool | 是否开启点击效果(默认true)
+hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
 colorText | color | 文本颜色
 colorIndicator | color | 指示器颜色
 colorIndicatorBorder | color | 指示器边框颜色

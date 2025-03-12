@@ -7,6 +7,7 @@ T.CheckBox {
 
     property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
+    property int hoverCursorShape: Qt.PointingHandCursor
     property int indicatorSize: 20
     property color colorText: enabled ? DelTheme.DelCheckBox.colorText : DelTheme.DelCheckBox.colorTextDisabled
     property color colorIndicator: enabled ?
@@ -116,6 +117,10 @@ T.CheckBox {
         leftPadding: control.indicator.width + control.spacing
     }
     background: Item { }
+
+    HoverHandler {
+        cursorShape: control.hoverCursorShape
+    }
 
     Accessible.role: Accessible.CheckBox
     Accessible.name: control.text

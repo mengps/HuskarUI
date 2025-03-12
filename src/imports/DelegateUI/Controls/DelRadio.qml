@@ -7,6 +7,7 @@ T.RadioButton {
 
     property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
+    property int hoverCursorShape: Qt.PointingHandCursor
     property int radiusIndicator: 8
     property color colorText: enabled ? DelTheme.DelRadio.colorText : DelTheme.DelRadio.colorTextDisabled
     property color colorIndicator: enabled ?
@@ -104,6 +105,10 @@ T.RadioButton {
         leftPadding: control.indicator.width + control.spacing
     }
     background: Item { }
+
+    HoverHandler {
+        cursorShape: control.hoverCursorShape
+    }
 
     Accessible.role: Accessible.RadioButton
     Accessible.name: control.text
