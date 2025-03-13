@@ -15,7 +15,7 @@ T.ToolTip {
     }
 
     property bool animationEnabled: DelTheme.animationEnabled
-    property bool arrowVisible: true
+    property bool arrowVisible: false
     property int position: DelToolTip.Position_Top
     property color colorText: DelTheme.DelToolTip.colorText
     property color colorBg: DelTheme.isDark ? DelTheme.DelToolTip.colorBgDark : DelTheme.DelToolTip.colorBg
