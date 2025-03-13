@@ -22,7 +22,7 @@
     "colorFillBgHover": "@colorPrimaryBgHover",
     "colorFillBgActive": "@colorPrimaryBgActive",
     "colorTextBg": "$alpha(@colorBgBase, 0)",
-    "colorTextBgHover": "@colorPrimaryBgHover",
+    "colorTextBgHover": "@colorPrimaryBg",
     "colorTextBgActive": "@colorPrimaryBgActive",
     "colorBorder": "@colorPrimaryBorder",
     "colorBorderHover": "@colorPrimaryBorderHover",
