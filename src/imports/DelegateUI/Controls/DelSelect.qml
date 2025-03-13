@@ -38,10 +38,14 @@ T.ComboBox {
     Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
+    rightPadding: 8
+    topPadding: 5
+    bottomPadding: 5
+    width: implicitContentWidth + implicitIndicatorWidth + leftPadding + rightPadding
+    height: implicitContentHeight + topPadding + bottomPadding
     textRole: "label"
     valueRole: "value"
     objectName: "__DelSelect__"
-    rightPadding: 8
     font {
         family: DelTheme.DelSelect.fontFamily
         pixelSize: DelTheme.DelSelect.fontSize

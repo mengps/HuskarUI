@@ -14,6 +14,6 @@
     "colorItemTextDisabled": "@colorPrimaryTextDisabled",
     "colorItemBg": "transparent",
     "colorItemBgHover": "$alpha(@colorTextBase, 0.1)",
-    "colorItemBgActive": "$alpha(@colorPrimary, 0.15)",
+    "colorItemBgActive": "@colorPrimaryBase-1",
     "colorItemBgDisabled": "transparent"
 }
