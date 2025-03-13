@@ -195,6 +195,11 @@ DelWindow {
                             key: "DelScrollBar",
                             title: qsTr("DelScrollBar 滚动条"),
                             source: "./Examples/Navigation/ExpScrollBar.qml",
+                        },
+                        {
+                            key: "DelPagination",
+                            title: qsTr("DelPagination 分页"),
+                            source: "./Examples/Navigation/ExpPagination.qml",
                         }
                     ]
                 },

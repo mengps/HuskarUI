@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelPagination",
+        "desc": "分页器用于分隔长列表，每次只加载一个页面。"
+    },
+    {
+        "isNew": true,
         "name": "DelCard",
         "desc": "最基础的卡片容器，可承载文字、列表、图片、段落。"
     },
