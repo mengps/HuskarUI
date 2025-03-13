@@ -367,6 +367,7 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
             ADD_COMPONENT_CASE(DelDrawer)
             ADD_COMPONENT_CASE(DelCollapse)
             ADD_COMPONENT_CASE(DelCard)
+            ADD_COMPONENT_CASE(DelPagination)
         default:
             break;
         }

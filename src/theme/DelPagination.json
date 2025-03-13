@@ -1,0 +1,10 @@
+{
+    "colorButtonText": "@colorTextBase",
+    "colorButtonTextActive": "@colorPrimaryTextActive",
+    "colorButtonTextDisabled": "@colorPrimaryTextDisabled",
+    "colorButtonBg": "@colorBgBase",
+    "colorButtonBgHover": "@colorFillSecondary",
+    "colorButtonBgActive": "@colorFill",
+    "colorButtonBgDisabled": "@colorPrimaryContainerBgDisabled",
+    "colorBorderActive": "@colorPrimaryBorderActive"
+}

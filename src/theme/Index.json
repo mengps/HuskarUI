@@ -146,6 +146,7 @@
         "DelTimePicker": ":/DelegateUI/theme/DelTimePicker.json",
         "DelDrawer": ":/DelegateUI/theme/DelDrawer.json",
         "DelCollapse": ":/DelegateUI/theme/DelCollapse.json",
-        "DelCard": ":/DelegateUI/theme/DelCard.json"
+        "DelCard": ":/DelegateUI/theme/DelCard.json",
+        "DelPagination": ":/DelegateUI/theme/DelPagination.json"
     }
 }
