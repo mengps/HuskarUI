@@ -2,6 +2,13 @@
 
 #include <QWKQuick/qwkquickglobal.h>
 
+/*
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0) && defined(Q_OS_WIN)
+# include <private/qguiapplication_p.h>
+# include <qpa/qplatformintegration.h>
+#endif
+*/
+
 DelApp::~DelApp()
 {
 
@@ -25,6 +32,16 @@ DelApp *DelApp::instance()
 
 DelApp *DelApp::create(QQmlEngine *, QJSEngine *)
 {
+    /*! 移除Qt窗口的暗黑模式, 但会造成`QGuiApplication::styleHints()->colorScheme()`失效, 暂时不使用 */
+/*
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0) && defined(Q_OS_WIN)
+    using QWindowsApplication = QNativeInterface::Private::QWindowsApplication;
+    auto nativeWindowsApp = dynamic_cast<QWindowsApplication *>(QGuiApplicationPrivate::platformIntegration());
+    if (nativeWindowsApp)
+        nativeWindowsApp->setDarkModeHandling(QWindowsApplication::DarkModeStyle);
+#endif
+*/
+
     return instance();
 }
 
