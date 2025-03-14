@@ -30,7 +30,7 @@ defaultButtonWidth | int | 按钮宽度(默认32)
 defaultButtonHeight | int | 按钮高度(默认32)
 defaultButtonSpacing | int | 按钮间隔(默认8)
 showQuickJumper | bool | 是否显示快速跳转(默认false)
-currentPageIndex | int | 当前页索引
+currentPageIndex | int | 当前页索引(从0开始)
 total | int | 数据项总数
 pageTotal | int | 页总数
 pageButtonMaxCount | int | 最大页按钮数量
@@ -38,7 +38,13 @@ pageSize | int | 每页数量
 pageSizeModel | list | 每页数量模型
 prevButtonTooltip | string | 上一页按钮的提示文本(为空不显示)
 nextButtonTooltip | string | 下一页按钮的提示文本(为空不显示)
-                       `)
+\n支持的函数：\n
+- \`gotoPageIndex(index: int)\` 跳转到\`index\` 处的页 \n
+- \`gotoPrevPage()\` 跳转到前一页 \n
+- \`gotoPrev5Page()\` 跳转到前五页 \n
+- \`gotoNextPage()\` 跳转到后一页 \n
+- \`gotoNext5Page()\` 跳转到后五页 \n
+`)
         }
 
         Description {
@@ -57,7 +63,7 @@ nextButtonTooltip | string | 下一页按钮的提示文本(为空不显示)
             width: parent.width
             descTitle: qsTr("基础")
             desc: qsTr(`
-基础分页，通过 \`currentPageIndex\` 设置当前页面索引。\n
+基础分页，通过 \`currentPageIndex\` 设置当前页索引。\n
                        `)
             code: `
                 import QtQuick
