@@ -37,12 +37,9 @@ T.Drawer {
                 radiusBg: 4
                 anchors.verticalCenter: parent.verticalCenter
                 iconSource: DelIcon.CloseOutlined
+                hoverCursorShape: Qt.PointingHandCursor
                 onClicked: {
                     control.close();
-                }
-
-                HoverHandler {
-                    cursorShape: Qt.PointingHandCursor
                 }
             }
 

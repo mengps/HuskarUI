@@ -41,8 +41,8 @@ T.ComboBox {
     rightPadding: 8
     topPadding: 5
     bottomPadding: 5
-    width: implicitContentWidth + implicitIndicatorWidth + leftPadding + rightPadding
-    height: implicitContentHeight + topPadding + bottomPadding
+    implicitWidth: implicitContentWidth + implicitIndicatorWidth + leftPadding + rightPadding
+    implicitHeight: implicitContentHeight + topPadding + bottomPadding
     textRole: "label"
     valueRole: "value"
     objectName: "__DelSelect__"
