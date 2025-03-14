@@ -162,7 +162,7 @@ Item {
             bottomRightRadius: (isEnd || detached) ? control.radiusBg : 0
             color: control.colorBg
             border.color: control.colorBorder
-            border.width: detached
+            border.width: detached ? 1 : 0
             clip: true
 
             required property var model
@@ -226,7 +226,7 @@ Item {
                 }
 
                 DelRectangle {
-                    width: parent.width
+                    width: parent.width - __rootItem.border.width
                     height: active ? __contentLoader.height : 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     bottomLeftRadius: control.radiusBg
