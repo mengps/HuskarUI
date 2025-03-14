@@ -182,23 +182,22 @@ QList<QColor> DelColorGenerator::generate(const QColor &color, bool light, const
 
     //dark theme patterns
     if (!light) {
-        static const std::list<std::tuple<int, qreal>> g_darkColorMap = {
-            std::make_tuple(7, 0.15),
-            std::make_tuple(6, 0.25),
-            std::make_tuple(5, 0.30),
-            std::make_tuple(5, 0.45),
-            std::make_tuple(5, 0.65),
-            std::make_tuple(5, 0.85),
-            std::make_tuple(4, 0.90),
-            std::make_tuple(3, 0.95),
-            std::make_tuple(2, 0.97),
-            std::make_tuple(1, 0.98)
+        static const std::list<std::tuple<int, int>> g_darkColorMap = {
+            std::make_tuple(7, 15),
+            std::make_tuple(6, 25),
+            std::make_tuple(5, 30),
+            std::make_tuple(5, 45),
+            std::make_tuple(5, 65),
+            std::make_tuple(5, 85),
+            std::make_tuple(4, 90),
+            std::make_tuple(3, 95),
+            std::make_tuple(2, 97),
+            std::make_tuple(1, 98)
         };
         QList<QColor> darkColorString;
         std::for_each(g_darkColorMap.begin(), g_darkColorMap.end(), [&patterns, &darkColorString, background](const std::tuple<int, qreal> &value){
-            darkColorString.append(mix(background.isValid() ? background : QColor(0x141414),
-                                       patterns[std::get<0>(value)],
-                                       std::get<1>(value) * 100));
+            const auto [index, amount] = value;
+            darkColorString.append(mix(background.isValid() ? background : QColor(0x141414), patterns[index], amount));
         });
         return darkColorString;
     }
