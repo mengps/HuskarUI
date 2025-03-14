@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.2.1.0)
+set(DELEGATEUI_VERSION 0.2.2.0)
 
 project(Gallery VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 
@@ -119,10 +119,28 @@ endif()
 if(CMAKE_BUILD_TYPE MATCHES "Release")
     if(APPLE)
         find_program(QT_DEPLOY_QT NAMES macdeployqt)
+        set(QT_DEPLOY_ARGS
+            ${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.app
+            --qmldir=${CMAKE_CURRENT_LIST_DIR}/qml
+            --no-opengl-sw
+            --no-widgets
+            --no-virtualkeyboard
+            --no-quick3dutils
+            --no-quickcontrols2windowsstyleimpl
+            --no-quickcontrols2fusion
+            --no-quickcontrols2fusionstyleimpl
+            --no-quickcontrols2material
+            --no-quickcontrols2materialstyleimpl
+            --no-quickcontrols2universal
+            --no-quickcontrols2universalstyleimpl
+            --no-quickcontrols2imagine
+            --no-quickcontrols2imaginestyleimpl
+            --no-translations
+        )
         add_custom_target(Script-DeployRelease
                 COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/package
                 COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_SOURCE_DIR}/package
-                COMMAND ${QT_DEPLOY_QT} ${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.app -qmldir=${CMAKE_CURRENT_LIST_DIR}
+                COMMAND ${QT_DEPLOY_QT} ${QT_DEPLOY_ARGS}
                 COMMENT "MacOs Deploying Qt Dependencies After Build........."
                 SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -131,6 +149,26 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
     endif()
     if(WIN32)
         find_program(QT_DEPLOY_QT NAMES windeployqt)
+        set(QT_DEPLOY_ARGS
+            --qmldir=${CMAKE_CURRENT_LIST_DIR}/qml
+            --plugindir=${CMAKE_SOURCE_DIR}/package/plugins
+            --no-opengl-sw
+            --no-widgets
+            --no-virtualkeyboard
+            --no-quick3dutils
+            --no-quickcontrols2windowsstyleimpl
+            --no-quickcontrols2fusion
+            --no-quickcontrols2fusionstyleimpl
+            --no-quickcontrols2material
+            --no-quickcontrols2materialstyleimpl
+            --no-quickcontrols2universal
+            --no-quickcontrols2universalstyleimpl
+            --no-quickcontrols2imagine
+            --no-quickcontrols2imaginestyleimpl
+            --no-translations
+            --compiler-runtime
+            ${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.exe
+        )
         add_custom_target(Script-DeployRelease
                 COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/package
                 COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_SOURCE_DIR}/package
@@ -138,7 +176,7 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
                 COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}_qml_module_dir_map.qrc"
                 COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_SOURCE_DIR}/package/qmldir"
                 COMMAND ${CMAKE_COMMAND} -E copy ${Qt6_DIR}/../../../bin/DelegateUI.dll ${CMAKE_SOURCE_DIR}/package
-                COMMAND ${QT_DEPLOY_QT} --qmldir=${CMAKE_CURRENT_LIST_DIR} --plugindir=${CMAKE_SOURCE_DIR}/package/plugins --no-translations --compiler-runtime ${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.exe
+                COMMAND ${QT_DEPLOY_QT} ${QT_DEPLOY_ARGS}
                 COMMENT "Windows Deploying Qt Dependencies After Build........."
                 SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
