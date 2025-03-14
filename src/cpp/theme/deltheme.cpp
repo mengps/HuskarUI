@@ -8,6 +8,7 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
 
     static QHash<QString, Function> g_funcTable {
         { "genColor",          Function::GenColor },
+        { "genFontFamily",     Function::GenFontFamily },
         { "genFontSize",       Function::GenFontSize },
         { "genFontLineHeight", Function::GenFontLineHeight },
         { "darker",            Function::Darker },
@@ -45,6 +46,10 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                 } else {
                     qDebug() << QString("func genColor() invalid color:(%1)").arg(args);
                 }
+            } break;
+            case Function::GenFontFamily:
+            {
+                out["fontFamilyBase"] = DelThemeFunctions::genFontFamily(args.trimmed());
             } break;
             case Function::GenFontSize:
             {
@@ -197,7 +202,7 @@ qreal DelThemePrivate::numberFromIndexTable(const QString &varName)
     return number;
 }
 
-void DelThemePrivate::indexExprParse(const QString &varName, const QString &expr)
+void DelThemePrivate::parseIndexExpr(const QString &varName, const QString &expr)
 {
     if (expr.startsWith('@')) {
         auto refVarName = expr.mid(1);
@@ -220,6 +225,32 @@ void DelThemePrivate::indexExprParse(const QString &varName, const QString &expr
     } else {
         /*! 按字符串处理 */
         m_indexVariableTable[varName] = expr;
+    }
+}
+
+void DelThemePrivate::parseComponentExpr(QVariantMap *varMapPtr, const QString &varName, const QString &expr)
+{
+    if (expr.startsWith('@')) {
+        auto refVarName = expr.mid(1);
+        if (m_indexVariableTable.contains(refVarName)) {
+            varMapPtr->insert(varName, m_indexVariableTable[refVarName]);
+        } else {
+            qDebug() << QString("Component [%1]: Var(%2) not found!").arg(varName, refVarName);
+        }
+    } else if (expr.startsWith('$')) {
+        parse$(*varMapPtr, varName, expr);
+    } else if (expr.startsWith('#')) {
+        /*! 按颜色处理 */
+        auto color = QColor(expr);
+        /*! 从预置颜色中获取 */
+        if (expr.startsWith("Preset_"))
+            color = DelColorGenerator::presetToColor(expr.mid(1));
+        if (!color.isValid())
+            qDebug() << QString("Component [%1]: Unknown color:") << expr;
+        varMapPtr->insert(varName, color);
+    } else {
+        /*! 按字符串处理 */
+        varMapPtr->insert(varName, expr);
     }
 }
 
@@ -246,22 +277,22 @@ void DelThemePrivate::reloadIndexTheme()
     auto variableTable = m_indexObject["%VariableTable%"].toObject();
     for (auto it = variableTable.constBegin(); it != variableTable.constEnd(); it++) {
         auto expr = it.value().toString().simplified();
-        indexExprParse(it.key(), expr);
+        parseIndexExpr(it.key(), expr);
     }
     auto primaryColorStyle = m_indexObject["primaryColorStyle"].toObject();
     for (auto it = primaryColorStyle.constBegin(); it != primaryColorStyle.constEnd(); it++) {
         auto expr = it.value().toString().simplified();
-        indexExprParse(it.key(), expr);
+        parseIndexExpr(it.key(), expr);
     }
     auto primaryFontStyle = m_indexObject["primaryFontStyle"].toObject();
     for (auto it = primaryFontStyle.constBegin(); it != primaryFontStyle.constEnd(); it++) {
         auto expr = it.value().toString().simplified();
-        indexExprParse(it.key(), expr);
+        parseIndexExpr(it.key(), expr);
     }
     auto primaryAnimation = m_indexObject["primaryAnimation"].toObject();
     for (auto it = primaryAnimation.constBegin(); it != primaryAnimation.constEnd(); it++) {
         auto expr = it.value().toString().simplified();
-        indexExprParse(it.key(), expr);
+        parseIndexExpr(it.key(), expr);
     }
     /*! Index.json => Primary */
     for (auto it = m_indexVariableTable.constBegin(); it != m_indexVariableTable.constEnd(); it++) {
@@ -270,79 +301,70 @@ void DelThemePrivate::reloadIndexTheme()
     emit q->PrimaryChanged();
     auto componentStyle = m_indexObject["componentStyle"].toObject();
     for (auto it = componentStyle.constBegin(); it != componentStyle.constEnd(); it++) {
-        registerDefaultThemeComponent(it.key(), it.value().toString());
+        registerDefaultComponentTheme(it.key(), it.value().toString());
     }
 }
 
-void DelThemePrivate::reloadComponentTheme(QMap<QObject *, ThemeData> &dataMap)
+void DelThemePrivate::reloadComponentTheme(const QMap<QObject *, ThemeData> &dataMap)
 {
-    for (auto &ct: dataMap) {
-        for (auto it = ct.component.begin(); it != ct.component.end(); it++) {
-            auto component = it.value();
+    for (const auto &themeData: dataMap) {
+        for (auto it = themeData.componentMap.begin(); it != themeData.componentMap.end(); it++) {
             auto componentName = it.key();
-            auto map_ptr = component.varMap;
-            if (QFile theme(component.path); theme.open(QIODevice::ReadOnly)) {
-                QJsonParseError error;
-                QJsonDocument themeDoc = QJsonDocument::fromJson(theme.readAll(), &error);
-                if (error.error == QJsonParseError::NoError) {
-                    auto object = themeDoc.object();
-                    for (auto o_it = object.constBegin(); o_it != object.constEnd(); o_it++) {
-                        auto key = o_it.key();
-                        auto value = object[key].toString();
-                        if (value.startsWith('@')) {
-                            auto refVarName = value.mid(1);
-                            if (m_indexVariableTable.contains(refVarName)) {
-                                map_ptr->insert(key, m_indexVariableTable[refVarName]);
-                            } else {
-                                qDebug() << QString("Component [%1]: Var(%2) not found!").arg(key, refVarName);
-                            }
-                        } else if (value.startsWith('$')) {
-                            parse$(*map_ptr, key, value);
-                        } else if (value.startsWith('#')) {
-                            /*! 按颜色处理 */
-                            auto color = QColor(value);
-                            /*! 从预置颜色中获取 */
-                            if (value.startsWith("Preset_"))
-                                color = DelColorGenerator::presetToColor(value.mid(1));
-                            if (!color.isValid())
-                                qDebug() << QString("Component [%1]: Unknown color:") << value;
-                            map_ptr->insert(key, color);
-                        } else {
-                            /*! 按字符串处理 */
-                            map_ptr->insert(key, value);
-                        }
-                    }
-                    auto signalName = componentName + "Changed";
-                    QMetaObject::invokeMethod(ct.theme, signalName.toStdString().c_str());
-                } else {
-                    qDebug() << QString("Parse theme [%1] faild:").arg(component.path) << error.errorString();
-                }
-            } else {
-                qDebug() << "Open theme faild:" << theme.errorString() << component.path;
-            }
+            auto componentTheme = it.value();
+            reloadComponentThemeFile(themeData.themeObject, componentName, componentTheme);
         }
     }
 }
 
-void DelThemePrivate::reloadComponentDefaultTheme()
+void DelThemePrivate::reloadComponentThemeFile(QObject *themeObject, const QString &componentName,
+                                                   const ThemeData::Component &componentTheme)
+{
+    if (QFile theme(componentTheme.path); theme.open(QIODevice::ReadOnly)) {
+        QJsonParseError error;
+        QJsonDocument themeDoc = QJsonDocument::fromJson(theme.readAll(), &error);
+        if (error.error == QJsonParseError::NoError) {
+            auto varMapPtr = componentTheme.varMap;
+            auto installVarMap = componentTheme.installVarMap;
+            auto object = themeDoc.object();
+            /*! 读取 <Component>.json 文件中的变量 */
+            for (auto it = object.constBegin(); it != object.constEnd(); it++) {
+                parseComponentExpr(varMapPtr, it.key(), it.value().toString());
+            }
+            /*! 读取通过 @link installComponentThemeKV() 安装的变量, 存在则覆盖, 否则添加 */
+            for (auto it = installVarMap.constBegin(); it != installVarMap.constEnd(); it++) {
+                parseComponentExpr(varMapPtr, it.key(), it.value());
+            }
+            auto signalName = componentName + "Changed";
+            QMetaObject::invokeMethod(themeObject, signalName.toStdString().c_str());
+        } else {
+            qDebug() << QString("Parse theme [%1] faild:").arg(componentTheme.path) << error.errorString();
+        }
+    } else {
+        qDebug() << "Open theme faild:" << theme.errorString() << componentTheme.path;
+    }
+}
+
+void DelThemePrivate::reloadDefaultComponentTheme()
 {
     Q_Q(DelTheme);
 
     reloadComponentTheme(m_defaultTheme);
 }
 
-void DelThemePrivate::reloadComponentCustomTheme()
+void DelThemePrivate::reloadCustomComponentTheme()
 {
     Q_Q(DelTheme);
 
     reloadComponentTheme(m_customTheme);
 }
 
-void DelThemePrivate::registerDefaultThemeComponent(const QString &component, const QString &themePath)
+void DelThemePrivate::registerDefaultComponentTheme(const QString &component, const QString &themePath)
 {
     Q_Q(DelTheme);
 
-#define ADD_COMPONENT_CASE(ComponentName) case Component::ComponentName: registerThemeComponent(q, component, &q->m_##ComponentName, themePath, m_defaultTheme); break;
+#define ADD_COMPONENT_CASE(ComponentName) \
+    case Component::ComponentName: \
+    registerComponentTheme(q, component, &q->m_##ComponentName, themePath, m_defaultTheme); break;
 
     if (g_componentTable.contains(component)) {
         switch (auto key = g_componentTable[component]; key) {
@@ -374,18 +396,18 @@ void DelThemePrivate::registerDefaultThemeComponent(const QString &component, co
     }
 }
 
-void DelThemePrivate::registerThemeComponent(QObject *theme, const QString &component, QVariantMap *themeMap,
+void DelThemePrivate::registerComponentTheme(QObject *themeObject, const QString &component, QVariantMap *themeMap,
                                              const QString &themePath, QMap<QObject *, ThemeData> &dataMap)
 {
-    if (!theme || !themeMap) return;
+    if (!themeObject || !themeMap) return;
 
-    if (!dataMap.contains(theme))
-        dataMap[theme] = {};
+    if (!dataMap.contains(themeObject))
+        dataMap[themeObject] = {};
 
-    if (dataMap.contains(theme)) {
-        dataMap[theme].theme = theme;
-        dataMap[theme].component[component].path = themePath;
-        dataMap[theme].component[component].varMap = themeMap;
+    if (dataMap.contains(themeObject)) {
+        dataMap[themeObject].themeObject = themeObject;
+        dataMap[themeObject].componentMap[component].path = themePath;
+        dataMap[themeObject].componentMap[component].varMap = themeMap;
     }
 }
 
@@ -398,7 +420,7 @@ DelTheme *DelTheme::instance()
 
 DelTheme *DelTheme::create(QQmlEngine *, QJSEngine *)
 {
-    instance()->reloadDefaultTheme();
+    instance()->reloadTheme();
 
     return instance();
 }
@@ -407,21 +429,45 @@ bool DelTheme::isDark() const
 {
     Q_D(const DelTheme);
 
-    if (m_darkMode == int(DarkMode::System)) {
+    if (d->m_darkMode == DarkMode::System) {
         return d->m_helper->getColorScheme() == DelSystemThemeHelper::ColorScheme::Dark;
     } else {
-        return m_darkMode == int(DarkMode::Dark);
+        return d->m_darkMode == DarkMode::Dark;
     }
 }
 
-void DelTheme::registerComponentCustomTheme(QObject *theme, const QString &component, QVariantMap *themeMap, const QString &themePath)
+DelTheme::DarkMode DelTheme::darkMode() const
+{
+    Q_D(const DelTheme);
+
+    return d->m_darkMode;
+}
+
+void DelTheme::setDarkMode(DarkMode mode)
 {
     Q_D(DelTheme);
 
-    d->registerThemeComponent(theme, component, themeMap, themePath, d->m_customTheme);
+    if (d->m_darkMode != mode) {
+        auto oldIsDark = isDark();
+        d->m_darkMode = mode;
+        if (oldIsDark != isDark()) {
+            d->reloadIndexTheme();
+            d->reloadDefaultComponentTheme();
+            d->reloadCustomComponentTheme();
+            emit isDarkChanged();
+        }
+        emit darkModeChanged();
+    }
 }
 
-void DelTheme::reloadDefaultTheme()
+void DelTheme::registerCustomComponentTheme(QObject *themeObject, const QString &component, QVariantMap *themeMap, const QString &themePath)
+{
+    Q_D(DelTheme);
+
+    d->registerComponentTheme(themeObject, component, themeMap, themePath, d->m_customTheme);
+}
+
+void DelTheme::reloadTheme()
 {
     Q_D(DelTheme);
 
@@ -431,8 +477,8 @@ void DelTheme::reloadDefaultTheme()
         if (error.error == QJsonParseError::NoError) {
             d->m_indexObject = indexDoc.object();
             d->reloadIndexTheme();
-            d->reloadComponentDefaultTheme();
-            d->reloadComponentCustomTheme();
+            d->reloadDefaultComponentTheme();
+            d->reloadCustomComponentTheme();
         } else {
             qDebug() << "Index.json parse error:" << error.errorString();
         }
@@ -467,7 +513,8 @@ void DelTheme::installIndexTheme(const QString &themePath)
     Q_D(DelTheme);
 
     d->m_themeIndexPath = themePath;
-    d->reloadIndexTheme();
+
+    reloadTheme();
 }
 
 void DelTheme::installIndexThemeKV(const QString &key, const QString &value)
@@ -478,28 +525,37 @@ void DelTheme::installIndexThemeKV(const QString &key, const QString &value)
     variableTable[key] = value.simplified();
     d->m_indexObject["%VariableTable%"] = variableTable;
     d->reloadIndexTheme();
-    d->reloadComponentDefaultTheme();
-    d->reloadComponentCustomTheme();
+    d->reloadDefaultComponentTheme();
+    d->reloadCustomComponentTheme();
 }
 
-void DelTheme::installIndexThemeJSON(const QString &json)
+void DelTheme::installComponentTheme(const QString &component, const QString &themePath)
 {
+    Q_D(DelTheme);
 
+    auto componentStyle = d->m_indexObject["componentStyle"].toObject();
+    if (componentStyle.contains(component)) {
+        componentStyle[component] = themePath;
+        d->m_indexObject["componentStyle"] = componentStyle;
+        d->reloadDefaultComponentTheme();
+    } else {
+        qWarning() << QString("Component [%1] not found!").arg(component);
+    }
 }
 
-void DelTheme::installComponentTheme(const QString &componenet, const QString &themePath)
+void DelTheme::installComponentThemeKV(const QString &component, const QString &key, const QString &value)
 {
+    Q_D(DelTheme);
 
-}
-
-void DelTheme::installComponentThemeKV(const QString &componenet, const QString &key, const QString &value)
-{
-
-}
-
-void DelTheme::installComponentThemeJSON(const QString &componenet, const QString &json)
-{
-
+    if (d->m_defaultTheme.contains(this)) {
+        auto &componentMap = d->m_defaultTheme[this].componentMap;
+        if (componentMap.contains(component)) {
+            componentMap[component].installVarMap.insert(key, value);
+            d->reloadComponentThemeFile(d->m_defaultTheme[this].themeObject, component, componentMap[component]);
+        } else {
+            qWarning() << QString("Component [%1] not found!").arg(component);
+        }
+    }
 }
 
 DelTheme::DelTheme(QObject *parent)
@@ -510,17 +566,12 @@ DelTheme::DelTheme(QObject *parent)
 
     d->m_helper = new DelSystemThemeHelper(this);
 
-    setDarkMode(int(DarkMode::Light));
-
-    connect(this, &DelTheme::darkModeChanged, this, [this]{
-        Q_D(DelTheme);
-        d->reloadIndexTheme();
-        d->reloadComponentDefaultTheme();
-        d->reloadComponentCustomTheme();
-        emit isDarkChanged();
-    });
     connect(d->m_helper, &DelSystemThemeHelper::colorSchemeChanged, this, [this]{
-        if (m_darkMode == int(DarkMode::System)) {
+        Q_D(DelTheme);
+        if (d->m_darkMode == DarkMode::System) {
+            d->reloadIndexTheme();
+            d->reloadDefaultComponentTheme();
+            d->reloadCustomComponentTheme();
             emit isDarkChanged();
         }
     });

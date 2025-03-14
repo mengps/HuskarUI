@@ -15,8 +15,8 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
     QML_NAMED_ELEMENT(DelTheme)
 
     Q_PROPERTY(bool isDark READ isDark NOTIFY isDarkChanged)
+    Q_PROPERTY(DarkMode darkMode READ darkMode WRITE setDarkMode NOTIFY darkModeChanged FINAL)
 
-    DEL_PROPERTY(int, darkMode, setDarkMode);
     DEL_PROPERTY_INIT(bool, animationEnabled, setAnimationEnabled, true);
 
     DEL_PROPERTY_READONLY(QVariantMap, Primary); /*! 所有 {Index.json} 中的变量 */
@@ -46,9 +46,9 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
 
 public:
     enum class DarkMode {
-        System,
+        Light = 0,
         Dark,
-        Light
+        System
     };
     Q_ENUM(DarkMode);
 
@@ -59,24 +59,47 @@ public:
 
     bool isDark() const;
 
-    void registerComponentCustomTheme(QObject *theme, const QString &component, QVariantMap *themeMap, const QString &themePath);
+    DarkMode darkMode() const;
+    void setDarkMode(DarkMode mode);
 
-    Q_INVOKABLE void reloadDefaultTheme();
+    void registerCustomComponentTheme(QObject *themeObject, const QString &component, QVariantMap *themeMap, const QString &themePath);
+
+    Q_INVOKABLE void reloadTheme();
 
     Q_INVOKABLE void installThemePrimaryColor(const QColor &color);
     Q_INVOKABLE void installThemePrimaryFontSize(int fontSize);
     Q_INVOKABLE void installThemePrimaryFontFamily(const QString &family);
 
+    /**
+     * @brief 安装Index主题
+     * @param themePath 主题路径
+     */
     Q_INVOKABLE void installIndexTheme(const QString &themePath);
+    /**
+     * @brief 安装Index主题键值对
+     * @param key 变量键
+     * @param value 值
+     * @warning 支持变量生成(genColor/genFont/genFontSize)
+     */
     Q_INVOKABLE void installIndexThemeKV(const QString &key, const QString &value);
-    Q_INVOKABLE void installIndexThemeJSON(const QString &json);
 
-    Q_INVOKABLE void installComponentTheme(const QString &componenet, const QString &themePath);
-    Q_INVOKABLE void installComponentThemeKV(const QString &componenet, const QString &key, const QString &value);
-    Q_INVOKABLE void installComponentThemeJSON(const QString &componenet, const QString &json);
+    /**
+     * @brief 安装组件主题
+     * @param component 组件名称
+     * @param themePath 主题路径
+     */
+    Q_INVOKABLE void installComponentTheme(const QString &component, const QString &themePath);
+    /**
+     * @brief 安装组件主题键值对
+     * @param component 组件名称
+     * @param key 变量键
+     * @param value 值
+     */
+    Q_INVOKABLE void installComponentThemeKV(const QString &component, const QString &key, const QString &value);
 
 signals:
     void isDarkChanged();
+    void darkModeChanged();
 
 private:
     explicit DelTheme(QObject *parent = nullptr);

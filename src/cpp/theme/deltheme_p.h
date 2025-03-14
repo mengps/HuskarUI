@@ -13,6 +13,7 @@
 enum class Function : uint16_t
 {
     GenColor,
+    GenFontFamily,
     GenFontSize,
     GenFontLineHeight,
 
@@ -83,9 +84,10 @@ struct ThemeData
     {
         QString path;
         QVariantMap *varMap;
+        QMap<QString, QString> installVarMap;
     };
-    QObject *theme = nullptr;
-    QMap<QString, Component> component;
+    QObject *themeObject = nullptr;
+    QMap<QString, Component> componentMap;
 };
 
 class DelThemePrivate
@@ -95,6 +97,7 @@ public:
 
     Q_DECLARE_PUBLIC(DelTheme);
     DelTheme *q_ptr = nullptr;
+    DelTheme::DarkMode m_darkMode = DelTheme::DarkMode::Light;
     DelSystemThemeHelper *m_helper { nullptr };
     QString m_themeIndexPath = ":/DelegateUI/theme/Index.json";
     QJsonObject m_indexObject;
@@ -108,15 +111,17 @@ public:
 
     QColor colorFromIndexTable(const QString &varName);
     qreal numberFromIndexTable(const QString &varName);
-    void indexExprParse(const QString &varName, const QString &expr);
+    void parseIndexExpr(const QString &varName, const QString &expr);
+    void parseComponentExpr(QVariantMap *varMapPtr, const QString &varName, const QString &expr);
 
     void reloadIndexTheme();
-    void reloadComponentTheme(QMap<QObject *, ThemeData> &dataMap);
-    void reloadComponentDefaultTheme();
-    void reloadComponentCustomTheme();
+    void reloadComponentTheme(const QMap<QObject *, ThemeData> &dataMap);
+    void reloadComponentThemeFile(QObject *themeObject, const QString &componentName, const ThemeData::Component &componentTheme);
+    void reloadDefaultComponentTheme();
+    void reloadCustomComponentTheme();
 
-    void registerDefaultThemeComponent(const QString &component, const QString &themePath);
-    void registerThemeComponent(QObject *theme,
+    void registerDefaultComponentTheme(const QString &component, const QString &themePath);
+    void registerComponentTheme(QObject *theme,
                                 const QString &component,
                                 QVariantMap *themeMap,
                                 const QString &themePath,
