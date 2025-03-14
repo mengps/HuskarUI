@@ -12,8 +12,6 @@ QT_FORWARD_DECLARE_CLASS(QWidget);
 
 QT_FORWARD_DECLARE_CLASS(DelSystemThemeHelperPrivate);
 
-Q_DECLARE_OPAQUE_POINTER(QWindow *);
-
 class DELEGATEUI_EXPORT DelSystemThemeHelper : public QObject
 {
     Q_OBJECT

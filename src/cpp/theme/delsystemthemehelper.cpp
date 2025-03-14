@@ -3,20 +3,21 @@
 #include <QBasicTimer>
 #include <QWindow>
 #include <QSettings>
+#include <QLibrary>
 
 #ifdef QT_WIDGETS_LIB
-#include <QWidget>
+# include <QWidget>
 #endif //QT_WIDGETS_LIB
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-#include <QGuiApplication>
-#include <QStyleHints>
+# include <QGuiApplication>
+# include <QStyleHints>
 #endif
 
 #ifdef Q_OS_WIN
 #include <Windows.h>
 
-typedef HRESULT (WINAPI *DwmSetWindowAttributeFunc)(HWND hwnd, DWORD dwAttribute, LPCVOID pvAttribute, DWORD cbAttribute);
+using DwmSetWindowAttributeFunc = HRESULT(WINAPI *)(HWND hwnd, DWORD dwAttribute, LPCVOID pvAttribute, DWORD cbAttribute);
 
 static DwmSetWindowAttributeFunc pDwmSetWindowAttribute = nullptr;
 
@@ -32,7 +33,6 @@ static inline bool initializeFunctionPointers() {
                     return false;
                 }
             }
-
             initialized = true;
         }
     }
@@ -40,7 +40,7 @@ static inline bool initializeFunctionPointers() {
     return initialized;
 }
 #else //Q_OS_LINUX
-#include <QPalette>
+# include <QPalette>
 #endif //Q_OS_WIN
 
 class DelSystemThemeHelperPrivate
@@ -91,6 +91,12 @@ DelSystemThemeHelper::DelSystemThemeHelper(QObject *parent)
     d->m_colorScheme = getColorScheme();
 
     d->m_timer.start(200, this);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme){
+        emit colorSchemeChanged(scheme == Qt::ColorScheme::Dark ? ColorScheme::Dark : ColorScheme::Light);
+    });
+#endif
 
 #ifdef Q_OS_WIN
     initializeFunctionPointers();
@@ -175,5 +181,8 @@ void DelSystemThemeHelper::timerEvent(QTimerEvent *)
     Q_D(DelSystemThemeHelper);
 
     d->_updateThemeColor();
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 5, 0)
     d->_updateColorScheme();
+#endif
 }
