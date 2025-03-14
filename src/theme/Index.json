@@ -9,7 +9,8 @@
         "colorInfoBase": "$genColor(#1677ff)",
         "colorLinkBase": "$genColor(#1677ff)",
         "fontSizeBase": "$genFontSize(16)",
-        "fontLineHeightBase": "$genFontLineHeight(16)"
+        "fontLineHeightBase": "$genFontLineHeight(16)",
+        "fontFamilyBase": "$genFontFamily('Microsoft YaHei UI', BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif)"
     },
     "primaryColorStyle": {
         "colorTextPrimary": "$alpha(@colorTextBase, 0.88)",
@@ -106,7 +107,7 @@
         "colorLinkActive": "@colorLinkBase-7"
     },
     "primaryFontStyle": {
-        "fontPrimaryFamily": "微软雅黑",
+        "fontPrimaryFamily": "@fontFamilyBase",
         "fontPrimarySize": "@fontSizeBase-1",
         "fontPrimaryHeight": "$multiply(@fontSizeBase-1,@fontLineHeightBase-1)",
         "fontPrimarySizeHeading1": "@fontSizeBase-6",

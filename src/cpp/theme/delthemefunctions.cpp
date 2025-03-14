@@ -2,6 +2,8 @@
 #include "delcolorgenerator.h"
 #include "delsizegenerator.h"
 
+#include <QtGui/QFontDatabase>
+
 DelThemeFunctions::DelThemeFunctions(QObject *parent)
     : QObject{parent}
 {
@@ -32,6 +34,19 @@ QList<qreal> DelThemeFunctions::genFontSize(qreal fontSizeBase)
 QList<qreal> DelThemeFunctions::genFontLineHeight(qreal fontSizeBase)
 {
     return DelSizeGenerator::generateFontLineHeight(fontSizeBase);
+}
+
+QString DelThemeFunctions::genFontFamily(const QString &familyBase)
+{
+    const auto families = familyBase.split(',');
+    const auto database = QFontDatabase::families();
+    for(auto family: families) {
+        auto normalize = family.remove('\'').trimmed();
+        if (database.contains(normalize)) {
+            return normalize.trimmed();
+        }
+    }
+    return database.first();
 }
 
 QColor DelThemeFunctions::darker(const QColor &color, int factor)
