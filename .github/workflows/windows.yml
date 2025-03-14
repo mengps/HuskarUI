@@ -85,7 +85,24 @@ jobs:
           $excludeList = @("${{ env.fileName }}.qmltypes", "${{ env.fileName }}_qml_module_dir_map.qrc", "qmldir")
           Remove-Item -Path dist -Include $excludeList -Recurse -Force
           # 拷贝依赖
-          windeployqt --qmldir . --plugindir dist\plugins --no-translations --compiler-runtime dist\${env:targetName}
+          windeployqt --qmldir=.\ ^
+            --plugindir=dist\plugins ^
+            --no-opengl-sw ^
+            --no-widgets ^
+            --no-virtualkeyboard ^
+            --no-quick3dutils ^
+            --no-quickcontrols2windowsstyleimpl ^
+            --no-quickcontrols2fusion ^
+            --no-quickcontrols2fusionstyleimpl ^
+            --no-quickcontrols2material ^
+            --no-quickcontrols2materialstyleimpl ^
+            --no-quickcontrols2universal ^
+            --no-quickcontrols2universalstyleimpl ^
+            --no-quickcontrols2imagine ^
+            --no-quickcontrols2imaginestyleimpl ^
+            --no-translations ^
+            --compiler-runtime ^
+            dist\${env:targetName}
           # 删除不必要的文件
           $excludeList = @("*.qmlc", "*.ilk", "*.exp", "*.lib", "*.pdb")
           Remove-Item -Path dist -Include $excludeList -Recurse -Force
