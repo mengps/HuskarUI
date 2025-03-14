@@ -90,7 +90,7 @@ Window {
         function onIsDarkChanged() {
             if (window.specialEffect == DelWindow.None)
                 window.color = DelTheme.Primary.colorBgBase;
-            __windowAgent.setWindowAttribute("dark-mode", DelTheme.isDark);
+            window.setWindowMode(DelTheme.isDark);
         }
     }
 
