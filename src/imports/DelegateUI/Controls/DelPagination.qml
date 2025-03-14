@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Templates as T
 import DelegateUI
 
 Item {
@@ -54,7 +53,10 @@ Item {
             animationEnabled: control.animationEnabled
             enabled: control.enabled
             validator: IntValidator { top: 99999; bottom: 0 }
-            onEditingFinished: control.gotoPageIndex(parseInt(text) - 1);
+            onEditingFinished: {
+                control.gotoPageIndex(parseInt(text) - 1);
+                clear();
+            }
         }
 
         Text {
@@ -75,9 +77,13 @@ Item {
         }
     }
 
-    function gotoPageIndex(index) {
-        if (index >= 0 && index < pageTotal)
+    function gotoPageIndex(index: int) {
+        if (index <= 0)
+            control.currentPageIndex = 0;
+        else if (index < pageTotal)
             control.currentPageIndex = index;
+        else
+            control.currentPageIndex = (pageTotal - 1);
     }
 
     function gotoPrevPage() {
@@ -137,6 +143,12 @@ Item {
             control.currentPageIndex = pageIndex;
         }
         property int pageIndex: 0
+
+        DelToolTip {
+            arrowVisible: false
+            text: parent.text
+            visible: parent.hovered && parent.enabled
+        }
     }
 
     component PaginationMoreButton: DelIconButton {
