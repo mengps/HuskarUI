@@ -151,6 +151,7 @@ DelWindow {
                     galleryBackground.opacity = slider.currentValue;
                 }
                 slider.handleToolTipDelegate: DelToolTip {
+                    arrowVisible: true
                     delay: 100
                     text: bgOpacitySlider.slider.currentValue.toFixed(1)
                     visible: handlePressed || handleHovered
@@ -168,6 +169,45 @@ DelWindow {
                     DelTheme.installThemePrimaryFontSize(slider.currentValue);
                 }
                 scaleVisible: true
+            }
+
+            Row {
+                anchors.left: parent.left
+                anchors.leftMargin: 30
+                spacing: 20
+
+                Text {
+                    width: DelTheme.Primary.fontPrimarySize * 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("应用主题")
+                    font {
+                        family: DelTheme.Primary.fontPrimaryFamily
+                        pixelSize: DelTheme.Primary.fontPrimarySize
+                    }
+                    color: DelTheme.Primary.colorTextBase
+                }
+
+                DelSelect {
+                    id: darkModeSelect
+                    width: 110
+                    anchors.verticalCenter: parent.verticalCenter
+                    currentIndex: 0
+                    model: [
+                        { "label": qsTr("浅色"), "value": DelTheme.Light },
+                        { "label": qsTr("深色"), "value": DelTheme.Dark },
+                        { "label": qsTr("跟随系统"), "value": DelTheme.System }
+                    ]
+                    onActivated: {
+                        DelTheme.darkMode = currentValue;
+                    }
+
+                    Connections {
+                        target: DelTheme
+                        function onDarkModeChanged() {
+                            darkModeSelect.currentIndex = DelTheme.darkMode;
+                        }
+                    }
+                }
             }
         }
     }
