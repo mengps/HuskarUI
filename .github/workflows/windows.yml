@@ -89,8 +89,6 @@ jobs:
             --plugindir=dist\plugins `
             --no-opengl-sw `
             --no-widgets `
-            --no-virtualkeyboard `
-            --no-quick3dutils `
             --no-quickcontrols2windowsstyleimpl `
             --no-quickcontrols2fusion `
             --no-quickcontrols2fusionstyleimpl `
