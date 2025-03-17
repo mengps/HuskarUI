@@ -2,5 +2,5 @@
     "fontFamily": "@fontPrimaryFamily",
     "fontSize": "@fontPrimarySize",
     "colorText": "@colorTextBase",
-    "colorSplit": "$alpha(@colorTextBase, 0.2)"
+    "colorSplit": "$alpha(@colorTextBase, 0.1)"
 }
