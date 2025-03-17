@@ -71,7 +71,7 @@ T.ComboBox {
         border.width: control.visualFocus ? 2 : 1
         radius: control.radiusBg
     }
-    popup: T.Popup {
+    popup: DelPopup {
         y: control.height + 2
         implicitWidth: control.width
         implicitHeight: contentItem.height + topPadding + bottomPadding
@@ -81,22 +81,6 @@ T.ComboBox {
         bottomPadding: 6
         enter: Transition { NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
         exit: Transition { NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
-        background: Item {
-            MultiEffect {
-                anchors.fill: __popupRect
-                source: __popupRect
-                shadowColor: control.colorText
-                shadowEnabled: true
-                shadowBlur: DelTheme.isDark ? 0.8 : 0.5
-                shadowOpacity: DelTheme.isDark ? 0.8 : 0.5
-            }
-            Rectangle {
-                id: __popupRect
-                anchors.fill: parent
-                color: DelTheme.isDark ? DelTheme.DelSelect.colorPopupBgDark : DelTheme.DelSelect.colorPopupBg
-                radius: control.radiusPopupBg
-            }
-        }
         contentItem: ListView {
             id: __popupListView
             clip: true

@@ -310,7 +310,7 @@ T.TextField {
         }
     }
 
-    T.Popup {
+    DelPopup {
         id: __picker
         implicitWidth: implicitContentWidth + leftPadding + rightPadding
         implicitHeight: implicitContentHeight + topPadding + bottomPadding
@@ -322,7 +322,7 @@ T.TextField {
         enter: Transition { NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
         exit: Transition { NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
         onAboutToShow: {
-            const pos = control.mapToItem(null, 0, 0)
+            const pos = control.mapToItem(null, 0, 0);
             x = (control.width - width) * 0.5;
             if (__private.window.height > (pos.y + control.height + height + 6)){
                 y = control.height + 6;
@@ -335,22 +335,6 @@ T.TextField {
         }
         onAboutToHide: {
             control.editingFinished();
-        }
-        background: Item {
-            MultiEffect {
-                anchors.fill: __popupRect
-                source: __popupRect
-                shadowColor: control.colorText
-                shadowEnabled: true
-                shadowBlur: DelTheme.isDark ? 0.8 : 0.5
-                shadowOpacity: DelTheme.isDark ? 0.8 : 0.5
-            }
-            Rectangle {
-                id: __popupRect
-                anchors.fill: parent
-                color: DelTheme.isDark ? DelTheme.DelTimePicker.colorPopupBgDark : DelTheme.DelTimePicker.colorPopupBg
-                radius: control.radiusPopupBg
-            }
         }
         contentItem: Item {
             implicitWidth: __row.width
