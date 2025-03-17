@@ -39,7 +39,6 @@ Item {
             }
             color: DelTheme.Primary.colorTextBase
             textFormat: Text.MarkdownText
-            wrapMode: Text.WrapAnywhere
             onLinkActivated:
                 (link) => {
                     if (link.startsWith('internal://'))

@@ -10,7 +10,7 @@ Rectangle {
     height: column.height + 40
     radius: 5
     color: "transparent"
-    border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.2)
+    border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.1)
 
     property alias expTitle: expDivider.title
     property alias descTitle: descDivider.title
@@ -50,7 +50,7 @@ Rectangle {
             id: descText
             width: parent.width
             textFormat: Text.MarkdownText
-            wrapMode: Text.WrapAnywhere
+            wrapMode: Text.WordWrap
         }
 
         DelDivider {
@@ -98,7 +98,7 @@ Rectangle {
             clip: true
             width: parent.width
             height: expanded ? implicitHeight : 0
-            wrapMode: Text.WrapAnywhere
+            wrapMode: Text.WordWrap
             property bool expanded: false
 
             Behavior on height { NumberAnimation { duration: DelTheme.Primary.durationMid } }

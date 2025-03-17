@@ -36,6 +36,9 @@ DelWindow {
     Component.onCompleted: {
         setSpecialEffect(DelWindow.MicaAlt);
     }
+    onWidthChanged: {
+        galleryMenu.compactMode = width < 1100;
+    }
 
     Rectangle {
         id: galleryBackground
@@ -105,11 +108,13 @@ DelWindow {
 
         DelMenu {
             id: galleryMenu
-            width: 300
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: aboutButton.top
-            defaultIconSize: DelTheme.Primary.fontPrimarySizeHeading5
+            showEdge: true
+            defaultMenuWidth: 300
+            defaultMenuIconSize: 18
+            defaultSelectedKey: ["HomePage"]
             onClickMenu: function(deep, key, data) {
                 console.debug("onClickMenu", deep, key, JSON.stringify(data));
                 if (data && data.source) {
@@ -122,229 +127,240 @@ DelWindow {
                     themeLoader.visible = true;
                 }
             }
-            defaultSelectedKey: ["HomePage"]
             initModel: [
                 {
                     key: "HomePage",
-                    title: qsTr("首页"),
+                    label: qsTr("首页"),
                     iconSource: DelIcon.HomeOutlined,
                     source: "./HomePage.qml"
                 },
                 {
-                    title: qsTr("通用"),
+                    type: "divider"
+                },
+                {
+                    label: qsTr("通用"),
                     iconSource: DelIcon.ProductOutlined,
                     menuChildren: [
                         {
                             key: "DelWindow",
-                            title: qsTr("DelWindow 无边框窗口"),
+                            label: qsTr("DelWindow 无边框窗口"),
                             source: "./Examples/General/ExpWindow.qml"
                         },
                         {
                             key: "DelButton",
-                            title: qsTr("DelButton 按钮"),
+                            label: qsTr("DelButton 按钮"),
                             source: "./Examples/General/ExpButton.qml"
                         },
                         {
                             key: "DelIconButton",
-                            title: qsTr("DelIconButton 图标按钮"),
+                            label: qsTr("DelIconButton 图标按钮"),
                             source: "./Examples/General/ExpIconButton.qml"
                         },
                         {
                             key: "DelCaptionButton",
-                            title: qsTr("DelCaptionButton 标题按钮"),
+                            label: qsTr("DelCaptionButton 标题按钮"),
                             source: "./Examples/General/ExpCaptionButton.qml"
                         },
                         {
                             key: "DelIconText",
-                            title: qsTr("DelIconText 图标文本"),
+                            label: qsTr("DelIconText 图标文本"),
                             source: "./Examples/General/ExpIconText.qml"
                         },
                         {
                             key: "DelCopyableText",
-                            title: qsTr("DelCopyableText 可复制文本"),
+                            label: qsTr("DelCopyableText 可复制文本"),
                             source: "./Examples/General/ExpCopyableText.qml"
                         },
                         {
                             key: "DelRectangle",
-                            title: qsTr("DelRectangle 圆角矩形"),
+                            label: qsTr("DelRectangle 圆角矩形"),
                             source: "./Examples/General/ExpRectangle.qml"
+                        },
+                        {
+                            key: "DelPopup",
+                            label: qsTr("DelPopup 弹窗"),
+                            source: "./Examples/General/ExpPopup.qml"
                         }
                     ]
                 },
                 {
-                    title: qsTr("布局"),
+                    label: qsTr("布局"),
                     iconSource: DelIcon.BarsOutlined,
                     menuChildren: [
                         {
                             key: "DelDivider",
-                            title: qsTr("DelDivider 分割线"),
+                            label: qsTr("DelDivider 分割线"),
                             source: "./Examples/Layout/ExpDivider.qml"
                         }
                     ]
                 },
                 {
-                    title: qsTr("导航"),
+                    label: qsTr("导航"),
                     iconSource: DelIcon.SendOutlined,
                     menuChildren: [
                         {
                             key: "DelMenu",
-                            title: qsTr("DelMenu 菜单"),
+                            label: qsTr("DelMenu 菜单"),
                             source: "./Examples/Navigation/ExpMenu.qml",
                         },
                         {
                             key: "DelScrollBar",
-                            title: qsTr("DelScrollBar 滚动条"),
+                            label: qsTr("DelScrollBar 滚动条"),
                             source: "./Examples/Navigation/ExpScrollBar.qml",
                         },
                         {
                             key: "DelPagination",
-                            title: qsTr("DelPagination 分页"),
+                            label: qsTr("DelPagination 分页"),
                             source: "./Examples/Navigation/ExpPagination.qml",
                         }
                     ]
                 },
                 {
-                    title: qsTr("数据录入"),
+                    label: qsTr("数据录入"),
                     iconSource: DelIcon.InsertRowBelowOutlined,
                     menuChildren: [
                         {
                             key: "DelSwitch",
-                            title: qsTr("DelSwitch 开关"),
+                            label: qsTr("DelSwitch 开关"),
                             source: "./Examples/DataEntry/ExpSwitch.qml",
                         },
                         {
                             key: "DelSlider",
-                            title: qsTr("DelSlider 滑动输入条"),
+                            label: qsTr("DelSlider 滑动输入条"),
                             source: "./Examples/DataEntry/ExpSlider.qml",
                         },
                         {
                             key: "DelSelect",
-                            title: qsTr("DelSelect 选择器"),
+                            label: qsTr("DelSelect 选择器"),
                             source: "./Examples/DataEntry/ExpSelect.qml",
                         },
                         {
                             key: "DelInput",
-                            title: qsTr("DelInput 输入框"),
+                            label: qsTr("DelInput 输入框"),
                             source: "./Examples/DataEntry/ExpInput.qml",
                         },
                         {
                             key: "DelOTPInput",
-                            title: qsTr("DelOTPInput 一次性口令输入框"),
+                            label: qsTr("DelOTPInput 一次性口令输入框"),
                             source: "./Examples/DataEntry/ExpOTPInput.qml",
                         },
                         {
                             key: "DelRate",
-                            title: qsTr("DelRate 评分"),
+                            label: qsTr("DelRate 评分"),
                             source: "./Examples/DataEntry/ExpRate.qml",
                         },
                         {
                             key: "DelRadio",
-                            title: qsTr("DelRadio 单选框"),
+                            label: qsTr("DelRadio 单选框"),
                             source: "./Examples/DataEntry/ExpRadio.qml",
                         },
                         {
                             key: "DelRadioBlock",
-                            title: qsTr("DelRadioBlock 单选块"),
+                            label: qsTr("DelRadioBlock 单选块"),
                             source: "./Examples/DataEntry/ExpRadioBlock.qml",
                         },
                         {
                             key: "DelCheckBox",
-                            title: qsTr("DelCheckBox 多选框"),
+                            label: qsTr("DelCheckBox 多选框"),
                             source: "./Examples/DataEntry/ExpCheckBox.qml",
                         },
                         {
                             key: "DelTimePicker",
-                            title: qsTr("DelTimePicker 时间选择框"),
+                            label: qsTr("DelTimePicker 时间选择框"),
                             source: "./Examples/DataEntry/ExpTimePicker.qml",
                         }
                     ]
                 },
                 {
-                    title: qsTr("数据展示"),
+                    label: qsTr("数据展示"),
                     iconSource: DelIcon.FundProjectionScreenOutlined,
                     menuChildren: [
                         {
                             key: "DelToolTip",
-                            title: qsTr("DelToolTip 文字提示"),
+                            label: qsTr("DelToolTip 文字提示"),
                             source: "./Examples/DataDisplay/ExpToolTip.qml",
                         },
                         {
                             key: "DelTourFocus",
-                            title: qsTr("DelTourFocus 漫游焦点"),
+                            label: qsTr("DelTourFocus 漫游焦点"),
                             source: "./Examples/DataDisplay/ExpTourFocus.qml",
                         },
                         {
                             key: "DelTourStep",
-                            title: qsTr("DelTourStep 漫游式引导"),
+                            label: qsTr("DelTourStep 漫游式引导"),
                             source: "./Examples/DataDisplay/ExpTourStep.qml",
                         },
                         {
                             key: "DelTabView",
-                            title: qsTr("DelTabView 标签视图"),
+                            label: qsTr("DelTabView 标签视图"),
                             source: "./Examples/DataDisplay/ExpTabView.qml",
                         },
                         {
                             key: "DelCollapse",
-                            title: qsTr("DelCollapse 折叠面板"),
+                            label: qsTr("DelCollapse 折叠面板"),
                             source: "./Examples/DataDisplay/ExpCollapse.qml",
                         },
                         {
                             key: "DelAvatar",
-                            title: qsTr("DelAvatar 头像"),
+                            label: qsTr("DelAvatar 头像"),
                             source: "./Examples/DataDisplay/ExpAvatar.qml",
                         },
                         {
                             key: "DelCard",
-                            title: qsTr("DelCard 卡片"),
+                            label: qsTr("DelCard 卡片"),
                             source: "./Examples/DataDisplay/ExpCard.qml",
                         }
                     ]
                 },
                 {
-                    title: qsTr("效果"),
+                    label: qsTr("效果"),
                     iconSource: DelIcon.FireOutlined,
                     menuChildren: [
                         {
                             key: "DelAcrylic",
-                            title: qsTr("DelAcrylic 亚克力效果"),
+                            label: qsTr("DelAcrylic 亚克力效果"),
                             source: "./Examples/Effect/ExpAcrylic.qml",
                         }
                     ]
                 },
                 {
-                    title: qsTr("工具"),
+                    label: qsTr("工具"),
                     iconSource: DelIcon.ToolOutlined,
                     menuChildren: [
                         {
                             key: "DelAsyncHasher",
-                            title: qsTr("DelAsyncHasher 异步哈希器"),
+                            label: qsTr("DelAsyncHasher 异步哈希器"),
                             source: "./Examples/Utils/ExpAsyncHasher.qml",
                         }
                     ]
                 },
                 {
-                    title: qsTr("反馈"),
+                    label: qsTr("反馈"),
                     iconSource: DelIcon.MessageOutlined,
                     menuChildren: [
                         {
                             key: "DelWatermark",
-                            title: qsTr("DelWatermark 水印"),
+                            label: qsTr("DelWatermark 水印"),
                             source: "./Examples/Feedback/ExpWatermark.qml",
                         },
                         {
                             key: "DelDrawer",
-                            title: qsTr("DelDrawer 抽屉"),
+                            label: qsTr("DelDrawer 抽屉"),
                             source: "./Examples/Feedback/ExpDrawer.qml",
                         }
                     ]
                 },
                 {
-                    title: qsTr("主题"),
+                    type: "divider"
+                },
+                {
+                    label: qsTr("主题相关"),
                     iconSource: DelIcon.SkinOutlined,
+                    type: "group",
                     menuChildren: [
                         {
                             key: "DelTheme",
-                            title: qsTr("DelTheme 主题定制"),
+                            label: qsTr("DelTheme 主题定制"),
                             isTheme: true
                         }
                     ]
@@ -377,8 +393,9 @@ DelWindow {
             anchors.bottom: setttingsButton.top
             type: DelButton.Type_Text
             radiusBg: 0
-            text: qsTr("关于")
+            text: galleryMenu.compactMode ? "" : qsTr("关于")
             colorText: DelTheme.Primary.colorTextBase
+            iconSize: galleryMenu.defaultMenuIconSize
             iconSource: DelIcon.UserOutlined
             onClicked: {
                 if (aboutLoader.visible)
@@ -397,8 +414,9 @@ DelWindow {
             anchors.bottom: parent.bottom
             type: DelButton.Type_Text
             radiusBg: 0
-            text: qsTr("设置")
+            text: galleryMenu.compactMode ? "" : qsTr("设置")
             colorText: DelTheme.Primary.colorTextBase
+            iconSize: galleryMenu.defaultMenuIconSize
             iconSource: DelIcon.SettingOutlined
             onClicked: {
                 if (settingsLoader.visible)

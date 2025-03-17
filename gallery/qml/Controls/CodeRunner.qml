@@ -5,7 +5,7 @@ import DelegateUI
 DelWindow {
     id: root
 
-    width: 800
+    width: 1000
     height: 600
     title: qsTr("代码运行器")
     captionBar.closeCallback:
@@ -65,7 +65,7 @@ DelWindow {
 
         Item {
             id: codeBlock
-            width: parent.width * 0.5
+            width: parent.width * 0.4
             height: parent.height
 
             ScrollView {
