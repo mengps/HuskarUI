@@ -2,6 +2,9 @@
 #include "delcolorgenerator.h"
 #include "delthemefunctions.h"
 
+#include <QFont>
+#include <QFile>
+
 void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varName, const QString &expr)
 {
     Q_Q(DelTheme);
@@ -390,6 +393,7 @@ void DelThemePrivate::registerDefaultComponentTheme(const QString &component, co
             ADD_COMPONENT_CASE(DelCollapse)
             ADD_COMPONENT_CASE(DelCard)
             ADD_COMPONENT_CASE(DelPagination)
+            ADD_COMPONENT_CASE(DelPopup)
         default:
             break;
         }

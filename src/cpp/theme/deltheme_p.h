@@ -4,8 +4,6 @@
 #include "deltheme.h"
 #include "delsystemthemehelper.h"
 
-#include <QFont>
-#include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QHash>
@@ -48,6 +46,7 @@ enum class Component : uint16_t
     DelCollapse,
     DelCard,
     DelPagination,
+    DelPopup,
 
     Size
 };
@@ -76,6 +75,7 @@ static QHash<QString, Component> g_componentTable
     { "DelCollapse",      Component::DelCollapse      },
     { "DelCard",          Component::DelCard          },
     { "DelPagination",    Component::DelPagination    },
+    { "DelPopup",         Component::DelPopup         },
 };
 
 struct ThemeData
