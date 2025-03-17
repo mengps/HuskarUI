@@ -1,6 +1,16 @@
 [
     {
         "isNew": true,
+        "name": "DelPopup",
+        "desc": "代替内置 Popup 的弹出式窗口。"
+    },
+    {
+        "isNew": false,
+        "name": "DelMenu",
+        "desc": "重构实现。\n增加紧凑模式和弹出模式。"
+    },
+    {
+        "isNew": true,
         "name": "DelPagination",
         "desc": "分页器用于分隔长列表，每次只加载一个页面。"
     },
@@ -114,11 +124,6 @@
         "isNew": true,
         "name": "DelTabView",
         "desc": "DelTabView 是通过选项卡标签切换内容的组件。"
-    },
-    {
-        "isNew": false,
-        "name": "DelMenu",
-        "desc": "新增 gotoMenu() 函数。\n新增 get() 函数。\n新增 set() 函数。\n新增 setProperty() 函数。\n新增 move() 函数。\n新增 insert() 函数。\n新增 append() 函数。\n新增 removeAt() 函数。"
     },
     {
         "isNew": false,
