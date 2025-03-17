@@ -209,6 +209,43 @@ DelWindow {
                     }
                 }
             }
+
+            Row {
+                anchors.left: parent.left
+                anchors.leftMargin: 30
+                spacing: 20
+
+                Text {
+                    width: DelTheme.Primary.fontPrimarySize * 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("导航模式")
+                    font {
+                        family: DelTheme.Primary.fontPrimaryFamily
+                        pixelSize: DelTheme.Primary.fontPrimarySize
+                    }
+                    color: DelTheme.Primary.colorTextBase
+                }
+
+                DelRadioBlock {
+                    id: navMode
+                    initCheckedIndex: 0
+                    model: [
+                        { label: "默认", value: false },
+                        { label: "紧凑", value: true }
+                    ]
+                    onClicked:
+                        (radioData) => {
+                            galleryMenu.compactMode = radioData.value;
+                        }
+
+                    Connections {
+                        target: galleryMenu
+                        function onCompactModeChanged() {
+                            navMode.currentCheckedIndex = galleryMenu.compactMode ? 1 : 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }
