@@ -39,8 +39,6 @@ Item {
     property int radioHeight: 30
     property font font
     property int radiusBg: 6
-    property string contentDescription: ""
-
     property Component radioDelegate: DelButton {
         id: __rootItem
 
@@ -167,12 +165,21 @@ Item {
                 Behavior on border.color { enabled: __rootItem.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
             }
         }
+
+        Connections {
+            target: control
+            function onCurrentCheckedIndexChanged() {
+                if (__rootItem.index == control.currentCheckedIndex) {
+                    __rootItem.checked = true;
+                }
+            }
+        }
     }
+    property string contentDescription: ""
 
-    Component {
-        id: __row
-
-        Row {
+    Loader {
+        id: __loader
+        sourceComponent: Row {
             spacing: -1
 
             Repeater {
@@ -181,11 +188,6 @@ Item {
                 delegate: radioDelegate
             }
         }
-    }
-
-    Loader {
-        id: __loader
-        sourceComponent: __row
 
         T.ButtonGroup {
             id: __buttonGroup
