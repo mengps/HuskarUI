@@ -27,10 +27,17 @@ Flickable {
 ------ | --- | ---
 animationEnabled | bool | 是否开启动画(默认true)
 contentDescription | string | 内容描述(提高可用性)
-defaultIconSize | int | 默认图标大小
-defaultIconSpacing | int | 默认图标间隔
-defaultHieght | int | 默认高度
-defaultSpacing | int | 默认间隔
+showEdge | bool | 是否显示边线(默认false)
+compactMode | bool | 紧凑模式(默认false)
+compactWidth | int | 紧凑模式宽度
+popupMode | bool | 弹出模式(默认false)
+popupWidth | int | 弹窗宽度
+popupMaxHeight | int | 弹窗最大高度
+defaultMenuIconSize | int | 默认菜单图标大小
+defaultMenuIconSpacing | int | 默认菜单图标间隔
+defaultMenuWidth | int | 默认菜单宽度
+defaultMenuHieght | int | 默认菜单高度
+defaultMenuSpacing | int | 默认菜单间隔
 defaultSelectedKey | list | 初始选中的菜单项 key 数组
 initModel | list | 初始菜单模型
 \n支持的函数：\n
@@ -67,10 +74,11 @@ initModel | list | 初始菜单模型
 
         CodeBox {
             width: parent.width
+            descTitle: qsTr("基本用法")
             desc: qsTr(`
 通过 \`initModel\` 属性设置初始菜单模型{需为list}，菜单项支持的属性有：\n
 - { key: 菜单键(最好唯一) }\n
-- { title: 标题 }\n
+- { label: 标题 }\n
 - { height: 本菜单项高度 }\n
 - { enabled: 是否启用(false则禁用该菜单项) }\n
 - { iconSize: 图标大小 }\n
@@ -85,36 +93,35 @@ initModel | list | 初始菜单模型
 
                 Item {
                     width: parent.width
-                    height: 300
+                    height: 200
 
                     DelButton {
                         text: qsTr("添加")
                         anchors.right: parent.right
                         onClicked: menu.append({
-                                                   title: qsTr("Test"),
+                                                   label: qsTr("Test"),
                                                    iconSource: DelIcon.HomeOutlined
                                                });
                     }
 
                     DelMenu {
                         id: menu
-                        width: 300
-                        height: 300
+                        height: parent.height
                         initModel: [
                             {
-                                title: qsTr("首页1"),
+                                label: qsTr("首页1"),
                                 iconSource: DelIcon.HomeOutlined
                             },
                             {
-                                title: qsTr("首页2"),
+                                label: qsTr("首页2"),
                                 iconSource: DelIcon.HomeOutlined,
                                 menuChildren: [
                                     {
-                                        title: qsTr("首页2-1"),
+                                        label: qsTr("首页2-1"),
                                         iconSource: DelIcon.HomeOutlined,
                                         menuChildren: [
                                             {
-                                                title: qsTr("首页2-1-1"),
+                                                label: qsTr("首页2-1-1"),
                                                 iconSource: DelIcon.HomeOutlined
                                             }
                                         ]
@@ -122,7 +129,7 @@ initModel | list | 初始菜单模型
                                 ]
                             },
                             {
-                                title: qsTr("首页3"),
+                                label: qsTr("首页3"),
                                 iconSource: DelIcon.HomeOutlined,
                                 enabled: false
                             }
@@ -131,36 +138,35 @@ initModel | list | 初始菜单模型
                 }
             `
             exampleDelegate: Item {
-                height: 300
+                height: 200
 
                 DelButton {
                     text: qsTr("添加")
                     anchors.right: parent.right
                     onClicked: menu.append({
-                                               title: qsTr("Test"),
+                                               label: qsTr("Test"),
                                                iconSource: DelIcon.HomeOutlined
                                            });
                 }
 
                 DelMenu {
                     id: menu
-                    width: 300
-                    height: 300
+                    height: parent.height
                     initModel: [
                         {
-                            title: qsTr("首页1"),
+                            label: qsTr("首页1"),
                             iconSource: DelIcon.HomeOutlined
                         },
                         {
-                            title: qsTr("首页2"),
+                            label: qsTr("首页2"),
                             iconSource: DelIcon.HomeOutlined,
                             menuChildren: [
                                 {
-                                    title: qsTr("首页2-1"),
+                                    label: qsTr("首页2-1"),
                                     iconSource: DelIcon.HomeOutlined,
                                     menuChildren: [
                                         {
-                                            title: qsTr("首页2-1-1"),
+                                            label: qsTr("首页2-1-1"),
                                             iconSource: DelIcon.HomeOutlined
                                         }
                                     ]
@@ -168,9 +174,308 @@ initModel | list | 初始菜单模型
                             ]
                         },
                         {
-                            title: qsTr("首页3"),
+                            label: qsTr("首页3"),
                             iconSource: DelIcon.HomeOutlined,
                             enabled: false
+                        }
+                    ]
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            descTitle: qsTr("弹出形式")
+            desc: qsTr(`
+通过 \`popupMode\` 属性设置菜单为弹出模式 \n
+通过 \`popupWidth\` 属性设置弹窗的宽度 \n
+通过 \`popupMaxHeight\` 属性设置弹窗的最大高度(最小高度是自动计算的) \n
+                       `)
+            code: `
+                import QtQuick
+                import DelegateUI
+
+                Column {
+                    width: parent.width
+                    spacing: 10
+
+                    DelRadioBlock {
+                        id: popupModeRadio
+                        initCheckedIndex: 0
+                        model: [
+                            { label: qsTr("默认模式"), value: false },
+                            { label: qsTr("弹出模式"), value: true }
+                        ]
+                    }
+
+                    DelMenu {
+                        height: 250
+                        popupMode: popupModeRadio.currentCheckedValue
+                        popupWidth: 150
+                        initModel: [
+                            {
+                                label: qsTr("首页1"),
+                                iconSource: DelIcon.HomeOutlined
+                            },
+                            {
+                                label: qsTr("首页2"),
+                                iconSource: DelIcon.HomeOutlined,
+                                menuChildren: [
+                                    {
+                                        label: qsTr("首页2-1"),
+                                        iconSource: DelIcon.HomeOutlined,
+                                        menuChildren: [
+                                            {
+                                                label: qsTr("首页2-1-1"),
+                                                iconSource: DelIcon.HomeOutlined
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        label: qsTr("首页2-2"),
+                                        iconSource: DelIcon.HomeOutlined,
+                                        menuChildren: [
+                                            {
+                                                label: qsTr("首页2-2-1"),
+                                                iconSource: DelIcon.HomeOutlined
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                label: qsTr("首页3"),
+                                iconSource: DelIcon.HomeOutlined,
+                                menuChildren: [
+                                    {
+                                        label: qsTr("首页3-1"),
+                                        iconSource: DelIcon.HomeOutlined,
+                                        menuChildren: [
+                                            {
+                                                label: qsTr("首页3-1-1"),
+                                                iconSource: DelIcon.HomeOutlined
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                DelRadioBlock {
+                    id: popupModeRadio
+                    initCheckedIndex: 0
+                    model: [
+                        { label: qsTr("默认模式"), value: false },
+                        { label: qsTr("弹出模式"), value: true }
+                    ]
+                }
+
+                DelMenu {
+                    height: 250
+                    popupMode: popupModeRadio.currentCheckedValue
+                    popupWidth: 150
+                    initModel: [
+                        {
+                            label: qsTr("首页1"),
+                            iconSource: DelIcon.HomeOutlined
+                        },
+                        {
+                            label: qsTr("首页2"),
+                            iconSource: DelIcon.HomeOutlined,
+                            menuChildren: [
+                                {
+                                    label: qsTr("首页2-1"),
+                                    iconSource: DelIcon.HomeOutlined,
+                                    menuChildren: [
+                                        {
+                                            label: qsTr("首页2-1-1"),
+                                            iconSource: DelIcon.HomeOutlined
+                                        }
+                                    ]
+                                },
+                                {
+                                    label: qsTr("首页2-2"),
+                                    iconSource: DelIcon.HomeOutlined,
+                                    menuChildren: [
+                                        {
+                                            label: qsTr("首页2-2-1"),
+                                            iconSource: DelIcon.HomeOutlined
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            label: qsTr("首页3"),
+                            iconSource: DelIcon.HomeOutlined,
+                            menuChildren: [
+                                {
+                                    label: qsTr("首页3-1"),
+                                    iconSource: DelIcon.HomeOutlined,
+                                    menuChildren: [
+                                        {
+                                            label: qsTr("首页3-1-1"),
+                                            iconSource: DelIcon.HomeOutlined
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            descTitle: qsTr("紧凑模式")
+            desc: qsTr(`
+通过 \`compactMode\` 属性设置菜单是否为紧凑模式 \n
+通过 \`compactWidth\` 属性设置紧凑模式的宽度 \n
+通过 \`popupWidth\` 属性设置弹窗的宽度 \n
+通过 \`popupMaxHeight\` 属性设置弹窗的最大高度(最小高度是自动计算的) \n
+**注意** 设置为紧凑模式则不需要设置弹出模式 \n
+**注意** 使用 \`defaultMenuWidth\` 来设置宽度 \n
+                       `)
+            code: `
+                import QtQuick
+                import DelegateUI
+
+                Column {
+                    width: parent.width
+                    spacing: 10
+
+                    DelRadioBlock {
+                        id: compactModeRadio
+                        initCheckedIndex: 0
+                        model: [
+                            { label: qsTr("默认模式"), value: false },
+                            { label: qsTr("紧凑模式"), value: true }
+                        ]
+                    }
+
+                    DelMenu {
+                        height: 250
+                        compactMode: compactModeRadio.currentCheckedValue
+                        popupWidth: 150
+                        initModel: [
+                            {
+                                label: qsTr("首页1"),
+                                iconSource: DelIcon.HomeOutlined
+                            },
+                            {
+                                label: qsTr("首页2"),
+                                iconSource: DelIcon.HomeOutlined,
+                                menuChildren: [
+                                    {
+                                        label: qsTr("首页2-1"),
+                                        iconSource: DelIcon.HomeOutlined,
+                                        menuChildren: [
+                                            {
+                                                label: qsTr("首页2-1-1"),
+                                                iconSource: DelIcon.HomeOutlined
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        label: qsTr("首页2-2"),
+                                        iconSource: DelIcon.HomeOutlined,
+                                        menuChildren: [
+                                            {
+                                                label: qsTr("首页2-2-1"),
+                                                iconSource: DelIcon.HomeOutlined
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                label: qsTr("首页3"),
+                                iconSource: DelIcon.HomeOutlined,
+                                menuChildren: [
+                                    {
+                                        label: qsTr("首页3-1"),
+                                        iconSource: DelIcon.HomeOutlined,
+                                        menuChildren: [
+                                            {
+                                                label: qsTr("首页3-1-1"),
+                                                iconSource: DelIcon.HomeOutlined
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                DelRadioBlock {
+                    id: compactModeRadio
+                    initCheckedIndex: 0
+                    model: [
+                        { label: qsTr("默认模式"), value: false },
+                        { label: qsTr("紧凑模式"), value: true }
+                    ]
+                }
+
+                DelMenu {
+                    height: 250
+                    compactMode: compactModeRadio.currentCheckedValue
+                    popupWidth: 150
+                    initModel: [
+                        {
+                            label: qsTr("首页1"),
+                            iconSource: DelIcon.HomeOutlined
+                        },
+                        {
+                            label: qsTr("首页2"),
+                            iconSource: DelIcon.HomeOutlined,
+                            menuChildren: [
+                                {
+                                    label: qsTr("首页2-1"),
+                                    iconSource: DelIcon.HomeOutlined,
+                                    menuChildren: [
+                                        {
+                                            label: qsTr("首页2-1-1"),
+                                            iconSource: DelIcon.HomeOutlined
+                                        }
+                                    ]
+                                },
+                                {
+                                    label: qsTr("首页2-2"),
+                                    iconSource: DelIcon.HomeOutlined,
+                                    menuChildren: [
+                                        {
+                                            label: qsTr("首页2-2-1"),
+                                            iconSource: DelIcon.HomeOutlined
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            label: qsTr("首页3"),
+                            iconSource: DelIcon.HomeOutlined,
+                            menuChildren: [
+                                {
+                                    label: qsTr("首页3-1"),
+                                    iconSource: DelIcon.HomeOutlined,
+                                    menuChildren: [
+                                        {
+                                            label: qsTr("首页3-1-1"),
+                                            iconSource: DelIcon.HomeOutlined
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 }
