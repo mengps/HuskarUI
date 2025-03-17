@@ -4,9 +4,9 @@ MouseArea {
     id: root
 
     property var target: undefined
-    property real minimumX: 0
+    property real minimumX: Number.NaN
     property real maximumX: Number.NaN
-    property real minimumY: 0
+    property real minimumY: Number.NaN
     property real maximumY: Number.NaN
 
     QtObject {

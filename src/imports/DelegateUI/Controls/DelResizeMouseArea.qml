@@ -19,6 +19,7 @@ Item {
 
     property var target: undefined
     property real areaMarginSize: 8
+    property bool resizable: true
     property real minimumWidth: 0
     property real maximumWidth: Number.NaN
     property real minimumHeight: 0
@@ -42,6 +43,7 @@ Item {
         y: 0
         width: areaMarginSize
         height: areaMarginSize
+        enabled: resizable
         hoverEnabled: true
         onEntered: cursorShape = Qt.SizeFDiagCursor;
         onExited: cursorShape = Qt.ArrowCursor;
@@ -83,6 +85,7 @@ Item {
         y: 0
         width: target.width - areaMarginSize * 2
         height: areaMarginSize
+        enabled: resizable
         hoverEnabled: true
         onEntered: cursorShape = Qt.SizeVerCursor;
         onExited: cursorShape = Qt.ArrowCursor;
@@ -111,6 +114,7 @@ Item {
         y: 0
         width: areaMarginSize
         height: areaMarginSize
+        enabled: resizable
         hoverEnabled: true
         onEntered: cursorShape = Qt.SizeBDiagCursor;
         onExited: cursorShape = Qt.ArrowCursor;
@@ -155,6 +159,7 @@ Item {
         y: areaMarginSize
         width: areaMarginSize
         height: target.height - areaMarginSize * 2
+        enabled: resizable
         hoverEnabled: true
         onEntered: cursorShape = Qt.SizeHorCursor;
         onExited: cursorShape = Qt.ArrowCursor;
@@ -196,6 +201,7 @@ Item {
         y: areaMarginSize
         width: areaMarginSize
         height: target.height - areaMarginSize * 2
+        enabled: resizable
         hoverEnabled: true
         property real fixedX: 0
         onEntered: cursorShape = Qt.SizeHorCursor;
@@ -229,6 +235,7 @@ Item {
         y: target.height - areaMarginSize
         width: areaMarginSize
         height: target.height - areaMarginSize * 2
+        enabled: resizable
         hoverEnabled: true
         property real fixedX: 0
         onEntered: cursorShape = Qt.SizeBDiagCursor;
@@ -274,6 +281,7 @@ Item {
         y: target.height - areaMarginSize
         width: target.height - areaMarginSize * 2
         height: areaMarginSize
+        enabled: resizable
         hoverEnabled: true
         property real fixedX: 0
         onEntered: cursorShape = Qt.SizeVerCursor;
@@ -307,6 +315,7 @@ Item {
         y: target.height - areaMarginSize
         width: areaMarginSize
         height: areaMarginSize
+        enabled: resizable
         hoverEnabled: true
         onEntered: cursorShape = Qt.SizeFDiagCursor;
         onExited: cursorShape = Qt.ArrowCursor;
