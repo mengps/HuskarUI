@@ -326,7 +326,7 @@ T.TextField {
             x = (control.width - width) * 0.5;
             if (__private.window.height > (pos.y + control.height + height + 6)){
                 y = control.height + 6;
-            } else if (pos.y > height){
+            } else if (pos.y > height) {
                 y = -height - 6;
             } else {
                 y = __private.window.height - (pos.y + height + 6);
