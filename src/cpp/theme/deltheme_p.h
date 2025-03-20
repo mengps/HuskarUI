@@ -47,6 +47,7 @@ enum class Component : uint16_t
     DelCard,
     DelPagination,
     DelPopup,
+    DelTimeline,
 
     Size
 };
@@ -76,6 +77,7 @@ static QHash<QString, Component> g_componentTable
     { "DelCard",          Component::DelCard          },
     { "DelPagination",    Component::DelPagination    },
     { "DelPopup",         Component::DelPopup         },
+    { "DelTimeline",      Component::DelTimeline      },
 };
 
 struct ThemeData

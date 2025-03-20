@@ -149,6 +149,7 @@
         "DelCollapse": ":/DelegateUI/theme/DelCollapse.json",
         "DelCard": ":/DelegateUI/theme/DelCard.json",
         "DelPagination": ":/DelegateUI/theme/DelPagination.json",
-        "DelPopup": ":/DelegateUI/theme/DelPopup.json"
+        "DelPopup": ":/DelegateUI/theme/DelPopup.json",
+        "DelTimeline": ":/DelegateUI/theme/DelTimeline.json"
     }
 }
