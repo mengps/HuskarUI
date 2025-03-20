@@ -309,6 +309,11 @@ DelWindow {
                             key: "DelCard",
                             label: qsTr("DelCard 卡片"),
                             source: "./Examples/DataDisplay/ExpCard.qml",
+                        },
+                        {
+                            key: "DelTimeline",
+                            label: qsTr("DelTimeline 时间轴"),
+                            source: "./Examples/DataDisplay/ExpTimeline.qml",
                         }
                     ]
                 },
