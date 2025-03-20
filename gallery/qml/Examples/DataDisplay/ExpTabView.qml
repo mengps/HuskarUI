@@ -55,7 +55,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 - \`move(from: int, to: int, count: int = 1)\` 将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置 \n
 - \`insert(index: int, object: Object)\` 插入标签 \`object\` 到 \`index\` 处 \n
 - \`append(object: Object)\` 在末尾添加标签 \`object\` \n
-- \`removeAt(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
+- \`remove(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
 - \`clear()\`清空所有标签和内容 \n
                        `)
         }

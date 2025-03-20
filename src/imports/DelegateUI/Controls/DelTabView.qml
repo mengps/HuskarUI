@@ -183,7 +183,7 @@ Item {
         __tabModel.append(object);
     }
 
-    function removeAt(index, count = 1) {
+    function remove(index, count = 1) {
         __tabModel.remove(index, count);
     }
 
@@ -443,7 +443,7 @@ Item {
                     iconSource: DelIcon.CloseOutlined
                     colorIcon: hovered ? DelTheme.DelTabView.colorTabCloseHover : DelTheme.DelTabView.colorTabClose
                     onClicked: {
-                        control.removeAt(index);
+                        control.remove(index);
                     }
 
                     HoverHandler {

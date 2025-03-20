@@ -321,7 +321,7 @@ Item {
         __listView.modelChanged();
     }
 
-    function removeAt(index, count = 1) {
+    function remove(index, count = 1) {
         if (index >= 0 && index < __listView.model.length) {
             __listView.model.splice(index, count);
             __listView.modelChanged();

@@ -107,7 +107,7 @@ Item {
         __listModel.append(object);
     }
 
-    function removeAt(index, count = 1) {
+    function remove(index, count = 1) {
         __listModel.remove(index, count);
     }
 

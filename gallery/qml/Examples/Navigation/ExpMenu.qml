@@ -40,15 +40,27 @@ defaultMenuHieght | int | 默认菜单高度
 defaultMenuSpacing | int | 默认菜单间隔
 defaultSelectedKey | list | 初始选中的菜单项 key 数组
 initModel | list | 初始菜单模型
+\n模型支持的属性：\n
+属性名 | 类型 | 描述
+------ | --- | ---
+key | string | 菜单键(最好唯一)
+label | sting | 菜单标签
+type | sting | 菜单项类型
+height | int | 本菜单项高度
+enabled | bool | 是否启用(false则禁用该菜单项)
+iconSize | int | 图标大小
+iconSource | int | 图标源
+iconSpacing | int | 图标间隔
+menuChildren | list | 子菜单(支持无限嵌套)
 \n支持的函数：\n
 - \`gotoMenu(key: string)\` 跳转到菜单键为 \`key\` 处的菜单项 \n
 - \`Object get(index: int)\` 获取 \`index\` 处的模型数据 \n
 - \`set(index: int, object: Object)\` 设置 \`index\` 处的模型数据为 \`object\` \n
 - \`setProperty(index: int, propertyName: string, value: any)\` 设置 \`index\` 处的模型数据属性名 \`propertyName\` 值为 \`value\` \n
 - \`move(from: int, to: int, count: int = 1)\` 将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置 \n
-- \`insert(index: int, object: Object)\` 插入标签 \`object\` 到 \`index\` 处 \n
-- \`append(object: Object)\` 在末尾添加标签 \`object\` \n
-- \`removeAt(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
+- \`insert(index: int, object: Object)\` 插入菜单 \`object\` 到 \`index\` 处 \n
+- \`append(object: Object)\` 在末尾添加菜单 \`object\` \n
+- \`remove(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
 - \`clear()\` 清空所有模型数据 \n
 \n支持的信号：\n
 - \`clickMenu(deep: int, menuKey: string, menuData: Object)\` 点击任意菜单项时发出\n
@@ -79,12 +91,17 @@ initModel | list | 初始菜单模型
 通过 \`initModel\` 属性设置初始菜单模型{需为list}，菜单项支持的属性有：\n
 - { key: 菜单键(最好唯一) }\n
 - { label: 标题 }\n
+- { type: 类型 }\n
 - { height: 本菜单项高度 }\n
 - { enabled: 是否启用(false则禁用该菜单项) }\n
 - { iconSize: 图标大小 }\n
 - { iconSource: 图标源 }\n
 - { iconSpacing: 图标间隔 }\n
 - { menuChildren: 子菜单(支持无限嵌套) }\n
+菜单项 \`type\` 支持：\n
+- "item" { 普通菜单项(默认) }\n
+- "group" { 组菜单项 }\n
+- "divider" { 此菜单项为分隔器 }\n
 点击任意菜单项将发出 \`clickMenu(deep, menuKey, menuData)\` 信号。
                        `)
             code: `
