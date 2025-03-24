@@ -436,7 +436,7 @@ contentFormat | enum | 本时间节点内容的文本格式(来自 Text)
 
         CodeBox {
             width: parent.width
-            descTitle: qsTr("排序和模式")
+            descTitle: qsTr("内容文本格式")
             desc: qsTr(`
 通过模型数据的 \`contentFormat\` 属性设置内容的文本格式，参见 \`Text.textFormat\`\n
                        `)

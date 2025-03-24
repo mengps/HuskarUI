@@ -197,7 +197,6 @@ Item {
                 }
 
                 DelToolTip {
-                    arrowVisible: true
                     position: DelToolTip.Position_Right
                     text: __rootItem.menuLabel
                     visible: {

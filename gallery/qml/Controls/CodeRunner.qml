@@ -5,7 +5,7 @@ import DelegateUI
 DelWindow {
     id: root
 
-    width: 1000
+    width: 900
     height: 600
     title: qsTr("代码运行器")
     captionBar.closeCallback:

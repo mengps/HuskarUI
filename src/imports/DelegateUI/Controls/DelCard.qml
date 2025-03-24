@@ -29,6 +29,8 @@ Rectangle {
         pixelSize: DelTheme.DelCard.fontSizeBodyDescription
     }
 
+    property bool animationEnabled: DelTheme.animationEnabled
+
     property string title: ""
     property font titleFont
 
@@ -142,6 +144,8 @@ Rectangle {
         }
     }
     property Component actionDelegate: Item { }
+
+    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
 
     Column {
         id: __column

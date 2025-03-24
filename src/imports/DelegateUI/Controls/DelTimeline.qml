@@ -40,7 +40,7 @@ Item {
             height: __loading.active ? __loading.height : __icon.active ? __icon.height : defaultNodeSize
 
             Loader {
-                id: __rect
+                id: __dot
                 width: parent.height
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter

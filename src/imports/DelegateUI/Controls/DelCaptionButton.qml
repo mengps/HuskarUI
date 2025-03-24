@@ -12,7 +12,7 @@ DelIconButton {
     hoverCursorShape: Qt.ArrowCursor
     type: DelButton.Type_Text
     iconSize: DelTheme.DelCaptionButton.fontSize
-    font.pixelSize: DelTheme.DelCaptionButton.fontSize
+    font.pixelSize: iconSize
     effectEnabled: false
     colorIcon: {
         if (enabled) {

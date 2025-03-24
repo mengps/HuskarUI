@@ -104,6 +104,7 @@ colorBg | color | 背景颜色
                                 position: DelToolTip.Position_Top
                             }
                         }
+
                         DelButton {
                             Layout.alignment: Qt.AlignRight
                             text: qsTr("右方")
@@ -175,6 +176,7 @@ colorBg | color | 背景颜色
                             position: DelToolTip.Position_Top
                         }
                     }
+
                     DelButton {
                         Layout.alignment: Qt.AlignRight
                         text: qsTr("右方")

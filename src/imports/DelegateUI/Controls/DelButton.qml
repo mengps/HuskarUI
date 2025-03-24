@@ -37,7 +37,7 @@ T.Button {
             case DelButton.Type_Default:
                 return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
-                                                        DelTheme.DelButton.colorTextBase;
+                                                        DelTheme.DelButton.colorTextDefault;
             case DelButton.Type_Outlined:
                 return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
@@ -46,7 +46,7 @@ T.Button {
             case DelButton.Type_Filled:
             case DelButton.Type_Text:
             case DelButton.Type_Link:
-                return control.down ? DelTheme.DelButton.colorTextHover :
+                return control.down ? DelTheme.DelButton.colorTextActive :
                                       control.hovered ? DelTheme.DelButton.colorTextHover :
                                                         DelTheme.DelButton.colorText;
             default: return DelTheme.DelButton.colorText;
