@@ -22,7 +22,7 @@ static QColor mix(const QColor &rgb1, const QColor &rgb2, int amount)
         (rgb2.redF() - rgb1.redF()) * p + rgb1.redF(),
         (rgb2.greenF() - rgb1.greenF()) * p + rgb1.greenF(),
         (rgb2.blueF() - rgb1.blueF()) * p + rgb1.blueF()
-    );
+        );
     return rgb;
 }
 
