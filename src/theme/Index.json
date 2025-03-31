@@ -54,7 +54,7 @@
         "colorPrimaryContainerBg": "@colorPrimaryBase-6",
         "colorPrimaryContainerBgActive": "@colorPrimaryBase-7",
 
-        "colorPrimaryContainerBgDisabled": "$alpha(@colorTextBase, 0.2)",
+        "colorPrimaryContainerBgDisabled": "$alpha(@colorTextBase, 0.1)",
         "colorPrimaryTextDisabled": "$alpha(@colorTextBase, 0.45)",
 
         "colorSuccessBg": "@colorSuccessBase-1",
@@ -150,6 +150,8 @@
         "DelCard": ":/DelegateUI/theme/DelCard.json",
         "DelPagination": ":/DelegateUI/theme/DelPagination.json",
         "DelPopup": ":/DelegateUI/theme/DelPopup.json",
-        "DelTimeline": ":/DelegateUI/theme/DelTimeline.json"
+        "DelTimeline": ":/DelegateUI/theme/DelTimeline.json",
+        "DelTag": ":/DelegateUI/theme/DelTag.json",
+        "DelTableView": ":/DelegateUI/theme/DelTableView.json"
     }
 }

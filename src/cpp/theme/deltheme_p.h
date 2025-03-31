@@ -48,6 +48,8 @@ enum class Component : uint16_t
     DelPagination,
     DelPopup,
     DelTimeline,
+    DelTag,
+    DelTableView,
 
     Size
 };
@@ -78,6 +80,8 @@ static QHash<QString, Component> g_componentTable
     { "DelPagination",    Component::DelPagination    },
     { "DelPopup",         Component::DelPopup         },
     { "DelTimeline",      Component::DelTimeline      },
+    { "DelTableView",     Component::DelTableView     },
+    { "DelTag",           Component::DelTag           },
 };
 
 struct ThemeData
@@ -117,6 +121,7 @@ public:
     void parseComponentExpr(QVariantMap *varMapPtr, const QString &varName, const QString &expr);
 
     void reloadIndexTheme();
+    void extracted(std::map<QString, ThemeData::Component> &map);
     void reloadComponentTheme(const QMap<QObject *, ThemeData> &dataMap);
     void reloadComponentThemeFile(QObject *themeObject, const QString &componentName, const ThemeData::Component &componentTheme);
     void reloadDefaultComponentTheme();
