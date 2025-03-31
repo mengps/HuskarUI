@@ -1,0 +1,18 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorGridLine": "@colorFillTertiary",
+    "colorColumnTitle": "@colorTextBase",
+    "colorColumnHeaderBg": "@colorFillSecondary",
+    "colorIcon": "@colorTextBase",
+    "colorIconHover": "@colorPrimary",
+    "colorRowTitle": "@colorTextBase",
+    "colorRowHeaderBg": "@colorFillSecondary",
+    "colorResizeBlockBg": "@colorFillTertiary",
+    "colorCellBg": "transparent",
+    "colorCellBgHover": "@colorFillSecondary",
+    "colorCellBgHoverChecked": "@colorPrimaryBgHover",
+    "colorCellBgChecked": "@colorPrimaryBg",
+    "colorCellBgDarkHoverChecked": "@colorPrimaryBase-9",
+    "colorCellBgDarkChecked": "@colorPrimaryBase-10"
+}
