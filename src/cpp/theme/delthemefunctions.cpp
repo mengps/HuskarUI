@@ -21,6 +21,11 @@ DelThemeFunctions *DelThemeFunctions::create(QQmlEngine *, QJSEngine *)
     return instance();
 }
 
+QList<QColor> DelThemeFunctions::genColor(int preset, bool light, const QColor &background)
+{
+    return DelColorGenerator::generate(DelColorGenerator::Preset(preset), light, background);
+}
+
 QList<QColor> DelThemeFunctions::genColor(const QColor &color, bool light, const QColor &background)
 {
     return DelColorGenerator::generate(color, light, background);
