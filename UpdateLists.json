@@ -1,6 +1,16 @@
 [
     {
         "isNew": true,
+        "name": "DelTableView",
+        "desc": "表格，用于展示行列数据。"
+    },
+    {
+        "isNew": true,
+        "name": "DelTag",
+        "desc": "进行标记和分类的小标签。"
+    },
+    {
+        "isNew": true,
         "name": "DelTimeline",
         "desc": "垂直展示的时间流信息。"
     },
