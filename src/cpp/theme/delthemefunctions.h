@@ -19,6 +19,7 @@ public:
     static DelThemeFunctions *instance();
     static DelThemeFunctions *create(QQmlEngine *, QJSEngine *);
 
+    Q_INVOKABLE static QList<QColor> genColor(int preset, bool light = true, const QColor &background = QColor(QColor::Invalid));
     Q_INVOKABLE static QList<QColor> genColor(const QColor &color, bool light = true, const QColor &background = QColor(QColor::Invalid));
     Q_INVOKABLE static QList<qreal> genFontSize(qreal fontSizeBase);
     Q_INVOKABLE static QList<qreal> genFontLineHeight(qreal fontSizeBase);
