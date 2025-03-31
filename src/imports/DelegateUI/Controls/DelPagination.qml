@@ -70,6 +70,8 @@ Item {
         }
     }
 
+    Component.onCompleted: currentPageIndexChanged();
+
     onPageSizeChanged: {
         const __pageTotal = (pageSize > 0 ? Math.ceil(total / pageSize) : 0);
         if (currentPageIndex > __pageTotal) {
