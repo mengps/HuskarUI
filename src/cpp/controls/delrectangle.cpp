@@ -150,6 +150,7 @@ DelPen *DelRectangle::border()
         QQml_setParent_noEvent(d->m_pen, this);
         connect(d->m_pen, &DelPen::colorChanged, this, [this]{ update(); });
         connect(d->m_pen, &DelPen::widthChanged, this, [this]{ update(); });
+        connect(d->m_pen, &DelPen::styleChanged, this, [this]{ update(); });
         update();
     }
 
@@ -174,7 +175,7 @@ void DelRectangle::paint(QPainter *painter)
             auto dy = d->m_pen->width() * 0.5;
             rect.adjust(0, dy, 0, -dy);
         }
-        painter->setPen(QPen(d->m_pen->color(), d->m_pen->width(), Qt::SolidLine, Qt::SquareCap, Qt::SvgMiterJoin));
+        painter->setPen(QPen(d->m_pen->color(), d->m_pen->width(), Qt::PenStyle(d->m_pen->style()), Qt::SquareCap, Qt::SvgMiterJoin));
     } else {
         painter->setPen(QPen(Qt::transparent));
     }
