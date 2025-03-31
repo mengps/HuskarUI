@@ -53,6 +53,7 @@ Flickable {
                             { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Blue), colorName: "blue" },
                             { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Geekblue), colorName: "geekblue" },
                             { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Purple), colorName: "purple" },
+                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Magenta), colorName: "magenta" },
                             { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Grey), colorName: "grey" }
                         ]
                         delegate: Rectangle {

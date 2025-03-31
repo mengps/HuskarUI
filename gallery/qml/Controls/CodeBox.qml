@@ -20,6 +20,7 @@ Rectangle {
 
     Column {
         id: column
+        clip: true
         width: parent.width - 20
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
