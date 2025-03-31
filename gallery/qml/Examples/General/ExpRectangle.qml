@@ -32,6 +32,8 @@ bottomRightRadius | real | 右下圆角半径
 color | color | 填充颜色
 border.color | color | 边框线颜色
 border.width | int | 边框线宽度
+border.style | int | 边框线样式(来自 Qt.*)
+\n**注意** \`border.style\` 为 DelRectangle 特有。
                        `)
         }
 
@@ -139,6 +141,34 @@ border.width | int | 边框线宽度
             exampleDelegate: Column {
                 spacing: 15
 
+                DelRadioBlock {
+                    id: styleRadio
+                    initCheckedIndex: 0
+                    model: [
+                        { label: qsTr("实线"), value: Qt.SolidLine },
+                        { label: qsTr("虚线"), value: Qt.DashLine },
+                        { label: qsTr("虚点线"), value: Qt.DashDotLine },
+                        { label: qsTr("虚点点线"), value: Qt.DashDotDotLine }
+                    ]
+                }
+
+                DelSlider {
+                    id: bordrWidthSlider
+                    width: 150
+                    height: 30
+                    min: 0
+                    max: 20
+                    stepSize: 1
+                    value: 1
+
+                    DelCopyableText {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.right
+                        anchors.leftMargin: 10
+                        text: qsTr("边框线宽: ") + parent.currentValue.toFixed(0);
+                    }
+                }
+
                 DelSlider {
                     id: topLeftSlider
                     width: 150
@@ -207,8 +237,9 @@ border.width | int | 边框线宽度
                     width: 200
                     height: 200
                     color: "#60ff0000"
-                    border.width: 1
+                    border.width: bordrWidthSlider.currentValue
                     border.color: DelTheme.Primary.colorTextBase
+                    border.style: styleRadio.currentCheckedValue
                     topLeftRadius: topLeftSlider.currentValue
                     topRightRadius: topRightSlider.currentValue
                     bottomLeftRadius: bottomLeftSlider.currentValue
