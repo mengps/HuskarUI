@@ -292,7 +292,7 @@ DelWindow {
                         },
                         {
                             key: "DelTabView",
-                            label: qsTr("DelTabView 标签视图"),
+                            label: qsTr("DelTabView 标签页"),
                             source: "./Examples/DataDisplay/ExpTabView.qml",
                         },
                         {
@@ -314,6 +314,16 @@ DelWindow {
                             key: "DelTimeline",
                             label: qsTr("DelTimeline 时间轴"),
                             source: "./Examples/DataDisplay/ExpTimeline.qml",
+                        },
+                        {
+                            key: "DelTag",
+                            label: qsTr("DelTag 标签"),
+                            source: "./Examples/DataDisplay/ExpTag.qml",
+                        },
+                        {
+                            key: "DelTableView",
+                            label: qsTr("DelTableView 表格"),
+                            source: "./Examples/DataDisplay/ExpTableView.qml",
                         }
                     ]
                 },
