@@ -7,6 +7,5 @@
     "colorTimeText": "@colorTextBase",
     "colorContentText": "@colorTextBase",
     "colorContentBg": "transparent",
-    "colorContentBordor": "transparent",
-    "radiusBg": "6"
+    "colorContentBordor": "transparent"
 }
