@@ -19,11 +19,6 @@ T.Button {
         Shape_Circle = 1
     }
 
-    enum IconPosition {
-        Position_Start = 0,
-        Position_End = 1
-    }
-
     property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
     property int hoverCursorShape: Qt.PointingHandCursor
@@ -71,9 +66,9 @@ T.Button {
                                                         DelTheme.DelButton.colorPrimaryBg;
             case DelButton.Type_Filled:
                 if (DelTheme.isDark) {
-                    return control.down ? DelTheme.DelButton.colorFillDarkBgActive:
-                                          control.hovered ? DelTheme.DelButton.colorFillDarkBgHover :
-                                                            DelTheme.DelButton.colorFillDarkBg;
+                    return control.down ? DelTheme.DelButton.colorFillBgDarkActive:
+                                          control.hovered ? DelTheme.DelButton.colorFillBgDarkHover :
+                                                            DelTheme.DelButton.colorFillBgDark;
                 } else {
                     return control.down ? DelTheme.DelButton.colorFillBgActive:
                                           control.hovered ? DelTheme.DelButton.colorFillBgHover :
@@ -81,8 +76,8 @@ T.Button {
                 }
             case DelButton.Type_Text:
                 if (DelTheme.isDark) {
-                    return control.down ? DelTheme.DelButton.colorFillDarkBgActive:
-                                          control.hovered ? DelTheme.DelButton.colorFillDarkBgHover :
+                    return control.down ? DelTheme.DelButton.colorFillBgDarkActive:
+                                          control.hovered ? DelTheme.DelButton.colorFillBgDarkHover :
                                                             DelTheme.DelButton.colorTextBg;
                 } else {
                     return control.down ? DelTheme.DelButton.colorTextBgActive:
@@ -117,7 +112,7 @@ T.Button {
 
     implicitWidth: implicitContentWidth + leftPadding + rightPadding
     implicitHeight: implicitContentHeight + topPadding + bottomPadding
-    padding: 10
+    padding: 15
     topPadding: 5
     bottomPadding: 5
     font {
