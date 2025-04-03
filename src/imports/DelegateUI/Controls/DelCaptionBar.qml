@@ -31,9 +31,9 @@ Rectangle {
     property bool returnButtonVisible: false
     property bool themeButtonVisible: false
     property bool topButtonVisible: false
-    property bool minimizeButtonVisible: true
-    property bool maximizeButtonVisible: true
-    property bool closeButtonVisible: true
+    property bool minimizeButtonVisible: Qt.platform.os !== "osx"
+    property bool maximizeButtonVisible: Qt.platform.os !== "osx"
+    property bool closeButtonVisible: Qt.platform.os !== "osx"
 
     property var returnCallback: ()=>{ }
     property var themeCallback: ()=>{ DelTheme.darkMode = DelTheme.isDark ? DelTheme.Light : DelTheme.Dark; }
@@ -156,9 +156,10 @@ Rectangle {
 
             Row {
                 height: parent.height
-                anchors.left: parent.left
-                anchors.leftMargin: 8
+                anchors.left: Qt.platform.os === "osx" ? undefined : parent.left
+                anchors.leftMargin: Qt.platform.os === "osx" ? 0 : 8
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: Qt.platform.os === "osx" ? parent.horizontalCenter : undefined
                 spacing: 5
 
                 Loader {
