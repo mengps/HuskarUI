@@ -78,6 +78,20 @@ DelRectangle {
             }
         }
 
+        MouseArea {
+            enabled: __sorterLoader.active
+            hoverEnabled: true
+            height: parent.height
+            anchors.left: __checkBoxLoader.right
+            anchors.right: __sorterLoader.right
+            onEntered: cursorShape = Qt.PointingHandCursor;
+            onExited: cursorShape = Qt.ArrowCursor;
+            onClicked: {
+                control.sort(column);
+                __sorterLoader.updateIcon();
+            }
+        }
+
         Loader {
             id: __checkBoxLoader
             anchors.left: parent.left
@@ -123,9 +137,36 @@ DelRectangle {
             anchors.verticalCenter: parent.verticalCenter
             active: sorter !== undefined
             sourceComponent: columnHeaderSorterIconDelegate
+            onLoaded: {
+                if (sortDirections.length === 0) return;
+
+                let ref = control.columns[column];
+                if (!ref.hasOwnProperty('activeSorter')) {
+                    ref.activeSorter = false;
+                }
+                if (!ref.hasOwnProperty('sortIndex')) {
+                    ref.sortIndex = -1;
+                }
+                if (!ref.hasOwnProperty('sortMode')) {
+                    ref.sortMode = 'false';
+                }
+                updateIcon();
+            }
             property int column: model.column
             property alias sorter: __columnHeaderDelegate.sorter
             property alias sortDirections: __columnHeaderDelegate.sortDirections
+            property string sortMode: 'false'
+
+            function updateIcon() {
+                if (sortDirections.length === 0) return;
+
+                let ref = control.columns[column];
+                if (ref.activeSorter) {
+                    sortMode = ref.sortMode;
+                } else {
+                    sortMode = 'false';
+                }
+            }
         }
 
         Loader {
@@ -159,50 +200,29 @@ DelRectangle {
         }
     }
     property Component columnHeaderSorterIconDelegate: Item {
-        width: __headerSorterIcon.width
-        height: __headerSorterIcon.height + 12
+        id: __sorterIconDelegate
+        width: __sorterIconColumn.width
+        height: __sorterIconColumn.height + 12
 
-        HoverIcon {
-            id: __headerSorterIcon
-            anchors.centerIn: parent
-            iconSource: 0
-            colorIcon: hovered ? DelTheme.DelTableView.colorIconHover : DelTheme.DelTableView.colorIcon
-            Component.onCompleted: {
-                if (sortDirections.length === 0) return;
+        Column {
+            id: __sorterIconColumn
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: -2
 
-                let ref = control.columns[column];
-                if (!ref.hasOwnProperty('activeSorter')) {
-                    ref.activeSorter = false;
-                }
-                if (!ref.hasOwnProperty('sortIndex')) {
-                    ref.sortIndex = 0;
-                }
-                if (!ref.hasOwnProperty('sortMode')) {
-                    ref.sortMode = sortDirections[ref.sortIndex];
-                }
-                updateIcon();
-            }
-            onClicked: {
-                control.sort(column);
-                updateIcon();
+            DelIconText {
+                visible: sortDirections.indexOf('ascend') !== -1
+                colorIcon: sortMode === 'ascend' ? DelTheme.DelTableView.colorIconHover :
+                                                   DelTheme.DelTableView.colorIcon
+                iconSource: DelIcon.CaretUpOutlined
+                iconSize: DelTheme.DelTableView.fontSize - 2
             }
 
-            function updateIcon() {
-                if (sortDirections.length === 0) return;
-
-                let ref = control.columns[column];
-                if (ref.activeSorter) {
-                    switch (ref.sortMode) {
-                    case 'ascend':
-                        iconSource = DelIcon.CaretUpOutlined;
-                        break;
-                    case 'descend':
-                        iconSource = DelIcon.CaretDownOutlined;
-                        break;
-                    }
-                } else {
-                    iconSource = DelIcon.CaretUpOutlined;
-                }
+            DelIconText {
+                visible: sortDirections.indexOf('descend') !== -1
+                colorIcon: sortMode === 'descend' ? DelTheme.DelTableView.colorIconHover :
+                                                    DelTheme.DelTableView.colorIcon
+                iconSource: DelIcon.CaretDownOutlined
+                iconSize: DelTheme.DelTableView.fontSize - 2
             }
         }
     }
@@ -305,16 +325,8 @@ DelRectangle {
     }
 
     onInitModelChanged: {
-        columns.forEach(
-                    object => {
-                        if (object.sortDirections && object.sortDirections.length !== 0) {
-                            object.activeSorter = false;
-                            object.sortIndex = 0;
-                            object.sortMode = object.sortDirections[object.sortIndex];
-                        }
-                    })
-        __private.model = initModel;
-
+        clearSort();
+        //__private.model = [...initModel];
         filter();
     }
 
@@ -361,7 +373,7 @@ DelRectangle {
                                         object.sortIndex = (object.sortIndex + 1) % object.sortDirections.length;
                                         object.sortMode = object.sortDirections[object.sortIndex];
                                         if (object.sortMode === 'ascend') {
-                                            /*! 首项 sorter 作为上升处理 */
+                                            /*! sorter 作为上升处理 */
                                             __private.model.sort(object.sorter);
                                             __private.modelChanged();
                                         } else if (object.sortMode === 'descend') {
@@ -369,14 +381,17 @@ DelRectangle {
                                             __private.model.sort((a, b) => object.sorter(b, a));
                                             __private.modelChanged();
                                         } else {
-
+                                            /*! 还原 */
+                                            __private.model = [...initModel];
                                         }
                                     }
                                 } else {
                                     /*! 还原 */
-                                    object.activeSorter = false;
-                                    object.sortIndex = 0;
-                                    object.sortMode = object.sortDirections[object.sortIndex];
+                                    if (object.sortDirections && object.sortDirections.length !== 0) {
+                                        object.activeSorter = false;
+                                        object.sortIndex = -1;
+                                        object.sortMode = 'false';
+                                    }
                                 }
                             }
                         });
@@ -386,14 +401,17 @@ DelRectangle {
     function clearSort() {
         columns.forEach(
                     object => {
-                        if (object.hasOwnProperty('sorter') || object.hasOwnProperty('activeSorter'))
+                        if (object.sortDirections && object.sortDirections.length !== 0) {
                             object.activeSorter = false;
+                            object.sortIndex = -1;
+                            object.sortMode = 'false';
+                        }
                     });
-        __private.model = initModel;
+        __private.model = [...initModel];
     }
 
     function filter() {
-        let model = initModel;
+        let model = [...initModel];
         columns.forEach(
                     object => {
                         if (object.hasOwnProperty('onFilter') && object.hasOwnProperty('filterInput')) {
@@ -409,7 +427,7 @@ DelRectangle {
                         if (object.hasOwnProperty('onFilter') || object.hasOwnProperty('filterInput'))
                             object.filterInput = '';
                     });
-        __private.model = initModel;
+        __private.model = [...initModel];
     }
 
     component HoverIcon: DelIconText {
