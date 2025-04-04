@@ -270,9 +270,9 @@ void DelThemePrivate::reloadIndexTheme()
     auto colorBgBaseList = colorBgBase.split("|");
 
     Q_ASSERT_X(colorTextBaseList.size() == 2, "DelThemePrivate",
-               QString("colorTextBase(%1) Must be in color|color format").arg(colorTextBase).toStdString().c_str());
+               QString("colorTextBase(%1) Must be in light:color|dark:color format").arg(colorTextBase).toStdString().c_str());
     Q_ASSERT_X(colorBgBaseList.size() == 2, "DelThemePrivate",
-               QString("colorBgBase(%1) Must be in color|color format").arg(colorBgBase).toStdString().c_str());
+               QString("colorBgBase(%1) Must be in light:color|dark:color format").arg(colorBgBase).toStdString().c_str());
 
     m_indexVariableTable["colorTextBase"] = q->isDark() ? colorTextBaseList.at(1) : colorTextBaseList.at(0);
     m_indexVariableTable["colorBgBase"] = q->isDark() ? colorBgBaseList.at(1) : colorBgBaseList.at(0);
@@ -508,11 +508,11 @@ void DelTheme::installThemePrimaryFontSize(int fontSize)
     installIndexThemeKV("fontSizeBase", QString("$genFontSize(%1)").arg(fontSize));
 }
 
-void DelTheme::installThemePrimaryFontFamily(const QString &family)
+void DelTheme::installThemePrimaryFontFamilies(const QString &families)
 {
     Q_D(DelTheme);
 
-    installIndexThemeKV("fontPrimaryFamily", family);
+    installIndexThemeKV("fontFamilyBase", QString("$genFontFamily(%1)").arg(families));
 }
 
 void DelTheme::installIndexTheme(const QString &themePath)

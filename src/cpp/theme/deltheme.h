@@ -72,7 +72,7 @@ public:
 
     Q_INVOKABLE void installThemePrimaryColor(const QColor &color);
     Q_INVOKABLE void installThemePrimaryFontSize(int fontSize);
-    Q_INVOKABLE void installThemePrimaryFontFamily(const QString &family);
+    Q_INVOKABLE void installThemePrimaryFontFamilies(const QString &families);
 
     /**
      * @brief 安装Index主题

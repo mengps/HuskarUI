@@ -46,7 +46,7 @@ QString DelThemeFunctions::genFontFamily(const QString &familyBase)
     const auto families = familyBase.split(',');
     const auto database = QFontDatabase::families();
     for(auto family: families) {
-        auto normalize = family.remove('\'').trimmed();
+        auto normalize = family.remove('\'').remove('\"').trimmed();
         if (database.contains(normalize)) {
             return normalize.trimmed();
         }
