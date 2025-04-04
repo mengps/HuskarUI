@@ -107,6 +107,25 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
+通过 \`DelTheme.installThemePrimaryFontFamilies()\` 方法设置全局主题的主要字体族字符串，该字符串可以是多个字体名，用逗号分隔，主题引擎将自动选择该列表中在本平台支持的字体。
+                       `)
+            code: `
+                DelTheme.installThemePrimaryFontFamilies('"Microsoft YaHei UI", BlinkMacSystemFont, "Segoe UI", Roboto');
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                DelDivider {
+                    width: parent.width
+                    height: 30
+                    title: qsTr("更改主要字体族")
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            desc: qsTr(`
 通过 \`DelTheme.animationEnabled\` 属性开启/关闭全局动画，关闭动画资源占用更低。
                        `)
             code: `

@@ -164,10 +164,11 @@ delegate | var | 该列的单元格代理
 width | int | 该列初始宽度
 minimumWidth(可选) | int | 该列最小宽度
 maximumWidth(可选) | int | 该列最大宽度
+editable(可选) | bool | 列头标题是否可编辑
 align(可选) | string | 列头标题对齐方式, 支持 'center'丨'left'丨'right'
 selectionType(可选) | string | 该列选择类型, 支持 'checkbox'
 sorter(可选) | var | 该列排序器
-sortDirections(可选) | list | 该列排序方向
+sortDirections(可选) | list | 该列排序方向, 支持 'false' | 'ascend'丨'descend'
 onFilter(可选) | var | 该列过滤器
 filterInput(可选) | string | 该列过滤输入
 \n支持的函数：\n
@@ -349,8 +350,9 @@ filterInput(可选) | string | 该列过滤输入
             width: parent.width
             descTitle: qsTr("自定义选择项")
             desc: qsTr(`
-通过 \`columns\` 对应列中的 \`selectionType\`，目前支持 'checkbox' 多选框。\n
+通过 \`columns\` 对应列中的 \`selectionType\` 设置选择类型，目前支持 'checkbox' 多选框。\n
 **注意** 设置多列 \`selectionType\` 行为未定义。\n
+通过 \`columns\` 对应列中的 \`editable\` 设置该列头是否可编辑。\n
 通过 \`scrollToRow()\` 滚动到指定行。\n
 通过 \`alternatingRow\` 设置是否交替显示行背景。\n
                        `)
@@ -581,7 +583,7 @@ filterInput(可选) | string | 该列过滤输入
             descTitle: qsTr("排序和过滤")
             desc: qsTr(`
 通过 \`columns\` 对应列中的 \`sorter\` 设置排序器，其原型为 \`function(a, b){}\`，具体可参考 \`Array.sort()\` 参数。\n
-通过 \`columns\` 对应列中的 \`sortDirections\` 设置排序方向列表，在切换排序时按数组内容指示的方向依次切换，首项 \`sortDirections[0]\` 视作升序()。\n
+通过 \`columns\` 对应列中的 \`sortDirections\` 设置排序方向列表，在切换排序时按数组内容指示的方向依次切换，项 \`ascend\` 视作升序()。\n
 通过 \`columns\` 对应列中的 \`onFilter\` 设置过滤器，其原型为 \`function(value, record){}\`，\`value\` 为过滤输入，\`record\` 为当前数据记录。\n
 **一种在外部实现自定义过滤的方式** \n
 - 设置 \`columns\` 对应列中的 \`filterInput\`，接着调用 \`filter()\` 函数即可对该列实现过滤。\n
@@ -615,7 +617,7 @@ filterInput(可选) | string | 该列过滤输入
                                 delegate: textDelegate,
                                 width: 150,
                                 sorter: (a, b) => a.age - b.age,
-                                sortDirections: ['ascend', 'descend'],
+                                sortDirections: ['descend', 'false'],
                                 onFilter: (value, record) => String(record.age).includes(value)
                             },
                             {
@@ -624,7 +626,7 @@ filterInput(可选) | string | 该列过滤输入
                                 delegate: textDelegate,
                                 width: 300,
                                 sorter: (a, b) => a.address.length - b.address.length,
-                                sortDirections: ['ascend', 'descend'],
+                                sortDirections: ['ascend', 'descend, 'false''],
                                 onFilter: (value, record) => record.address.includes(value)
                             },
                             {
@@ -681,7 +683,7 @@ filterInput(可选) | string | 该列过滤输入
                             delegate: textDelegate,
                             width: 150,
                             sorter: (a, b) => a.age - b.age,
-                            sortDirections: ['ascend', 'descend'],
+                            sortDirections: ['descend', 'false'],
                             onFilter: (value, record) => String(record.age).includes(value)
                         },
                         {
@@ -690,7 +692,7 @@ filterInput(可选) | string | 该列过滤输入
                             delegate: textDelegate,
                             width: 300,
                             sorter: (a, b) => a.address.length - b.address.length,
-                            sortDirections: ['ascend', 'descend'],
+                            sortDirections: ['ascend', 'descend', 'false'],
                             onFilter: (value, record) => record.address.includes(value)
                         },
                         {
