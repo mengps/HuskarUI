@@ -168,7 +168,7 @@ editable(可选) | bool | 列头标题是否可编辑
 align(可选) | string | 列头标题对齐方式, 支持 'center'丨'left'丨'right'
 selectionType(可选) | string | 该列选择类型, 支持 'checkbox'
 sorter(可选) | var | 该列排序器
-sortDirections(可选) | list | 该列排序方向, 支持 'false' | 'ascend'丨'descend'
+sortDirections(可选) | list | 该列排序方向, 支持 'false'丨'ascend'丨'descend'
 onFilter(可选) | var | 该列过滤器
 filterInput(可选) | string | 该列过滤输入
 \n支持的函数：\n
@@ -626,7 +626,7 @@ filterInput(可选) | string | 该列过滤输入
                                 delegate: textDelegate,
                                 width: 300,
                                 sorter: (a, b) => a.address.length - b.address.length,
-                                sortDirections: ['ascend', 'descend, 'false''],
+                                sortDirections: ['ascend', 'descend', 'false'],
                                 onFilter: (value, record) => record.address.includes(value)
                             },
                             {
