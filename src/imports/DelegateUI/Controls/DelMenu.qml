@@ -161,7 +161,7 @@ Item {
                 iconSize: __rootItem.menuIconSize
                 iconSource: __rootItem.menuIconSource
                 iconSpacing: __rootItem.menuIconSpacing
-                iconStart: (control.compactMode && __rootItem.view.menuDeep === 0) ? (parent.width - width) * 0.5 : 0
+                iconStart: (control.compactMode && __rootItem.view.menuDeep === 0) ? (width - iconSize - leftPadding - rightPadding) * 0.5 : 0
                 expandedVisible: {
                     if (__rootItem.menuType == "group" ||
                             (control.compactMode && __rootItem.view.menuDeep === 0))
