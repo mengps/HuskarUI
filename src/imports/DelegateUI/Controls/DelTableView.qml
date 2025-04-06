@@ -363,6 +363,7 @@ DelRectangle {
     }
 
     function sort(column) {
+        filter();
         if (columns[column].hasOwnProperty('sorter')) {
             columns.forEach(
                         (object, index) => {
@@ -381,8 +382,15 @@ DelRectangle {
                                             __private.model.sort((a, b) => object.sorter(b, a));
                                             __private.modelChanged();
                                         } else {
-                                            /*! 还原 */
-                                            __private.model = [...initModel];
+                                            /*! 还原前需要先应用过滤 */
+                                            let model = [...initModel];
+                                            columns.forEach(
+                                                object => {
+                                                    if (object.hasOwnProperty('onFilter') && object.hasOwnProperty('filterInput')) {
+                                                        model = model.filter((record, index) => object.onFilter(object.filterInput, record));
+                                                    }
+                                                });
+                                            __private.model = model;
                                         }
                                     }
                                 } else {
