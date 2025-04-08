@@ -12,9 +12,6 @@ T.ScrollBar {
     property color colorBg: control.pressed ? DelTheme.DelScrollBar.colorBgActive :
                                               control.hovered ? DelTheme.DelScrollBar.colorBgHover :
                                                                 DelTheme.DelScrollBar.colorBg
-    property color colorIcon: control.pressed ? DelTheme.DelScrollBar.colorIconActive :
-                                                control.hovered ? DelTheme.DelScrollBar.colorIconHover :
-                                                                  DelTheme.DelScrollBar.colorIcon
     property string contentDescription: ""
 
     QtObject {
@@ -71,51 +68,69 @@ T.ScrollBar {
         color: control.colorBg
         opacity: __private.visible ? 1 : 0
 
-        Loader {
-            active: control.orientation == Qt.Vertical
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            sourceComponent: DelIconText {
-                iconSize: parent.width
-                iconSource: DelIcon.CaretUpOutlined
-                colorIcon: control.colorIcon
-            }
-        }
+        Behavior on opacity { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
+    }
 
-        Loader {
-            active: control.orientation == Qt.Vertical
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            sourceComponent: DelIconText {
-                iconSize: parent.width
-                iconSource: DelIcon.CaretDownOutlined
-                colorIcon: control.colorIcon
-            }
-        }
+    component HoverIcon: DelIconText {
+        signal clicked()
+        property bool hovered: false
 
-        Loader {
-            active: control.orientation == Qt.Horizontal
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            sourceComponent: DelIconText {
-                iconSize: parent.height
-                iconSource: DelIcon.CaretLeftOutlined
-                colorIcon: control.colorIcon
-            }
-        }
-
-        Loader {
-            active: control.orientation == Qt.Horizontal
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            sourceComponent: DelIconText {
-                iconSize: parent.height
-                iconSource: DelIcon.CaretRightOutlined
-                colorIcon: control.colorIcon
-            }
-        }
+        colorIcon: hovered ? DelTheme.DelScrollBar.colorIconHover : DelTheme.DelScrollBar.colorIcon
+        opacity: __private.visible ? 1 : 0
 
         Behavior on opacity { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: parent.hovered = true;
+            onExited: parent.hovered = false;
+            onClicked: parent.clicked();
+        }
+    }
+
+    Loader {
+        active: control.orientation == Qt.Vertical
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        sourceComponent: HoverIcon {
+            iconSize: parent.width
+            iconSource: DelIcon.CaretUpOutlined
+            onClicked: control.decrease();
+        }
+    }
+
+    Loader {
+        active: control.orientation == Qt.Vertical
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        sourceComponent: HoverIcon {
+            iconSize: parent.width
+            iconSource: DelIcon.CaretDownOutlined
+            onClicked: control.increase();
+        }
+    }
+
+    Loader {
+        active: control.orientation == Qt.Horizontal
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        sourceComponent: HoverIcon {
+            iconSize: parent.height
+            iconSource: DelIcon.CaretLeftOutlined
+            onClicked: control.decrease();
+        }
+    }
+
+    Loader {
+        active: control.orientation == Qt.Horizontal
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        sourceComponent: HoverIcon {
+            iconSize: parent.height
+            iconSource: DelIcon.CaretRightOutlined
+            onClicked: control.increase();
+        }
     }
 
     Accessible.role: Accessible.ScrollBar

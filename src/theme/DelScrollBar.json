@@ -1,11 +1,10 @@
 {
-    "colorBar": "@colorTextSecondary",
-    "colorBarHover": "@colorTextSecondary",
+    "colorBar": "@colorTextTertiary",
+    "colorBarHover": "@colorTextTertiary",
     "colorBarActive": "@colorTextSecondary",
     "colorBg": "$alpha(@colorBgBase, 0.6)",
-    "colorBgHover": "$alpha(@colorBgBase, 0.6)",
-    "colorBgActive": "$alpha(@colorBgBase, 0.6)",
-    "colorIcon": "@colorTextSecondary",
-    "colorIconHover": "@colorTextSecondary",
-    "colorIconActive": "@colorTextSecondary"
+    "colorBgHover": "$alpha(@colorBgBase, 0.4)",
+    "colorBgActive": "$alpha(@colorBgBase, 0.4)",
+    "colorIcon": "@colorTextTertiary",
+    "colorIconHover": "@colorTextPrimary"
 }
