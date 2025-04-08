@@ -227,7 +227,7 @@ radiusBg | int | 背景半径
                                     for (let i = 0; i < model.children.count; i++) {
                                         childrenCollapse.append(model.children.get(i));
                                     }
-                                    height= Qt.binding(()=>childrenCollapse.height + 20);
+                                    height= Qt.binding(() => childrenCollapse.height + 20);
                                 } else {
                                     defaultContent.visible = true;
                                     height = defaultContent.height;
@@ -295,7 +295,7 @@ radiusBg | int | 背景半径
                                 for (let i = 0; i < model.children.count; i++) {
                                     childrenCollapse.append(model.children.get(i));
                                 }
-                                height= Qt.binding(()=>childrenCollapse.height + 20);
+                                height= Qt.binding(() => childrenCollapse.height + 20);
                             } else {
                                 defaultContent.visible = true;
                                 height = defaultContent.height;

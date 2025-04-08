@@ -12,7 +12,7 @@ Rectangle {
         State_Warning  = 4
     }
 
-    signal close();
+    signal close()
 
     property bool animationEnabled: DelTheme.animationEnabled
     property int tagState: DelTag.State_Default

@@ -9,7 +9,7 @@ DelWindow {
     height: 600
     title: qsTr("代码运行器")
     captionBar.closeCallback:
-        ()=> {
+        () => {
             root.destroy();
         }
     captionBar.winIconDelegate: Item {

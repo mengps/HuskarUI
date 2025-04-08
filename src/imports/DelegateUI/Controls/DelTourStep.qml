@@ -71,7 +71,7 @@ T.Popup {
             function onCurrentTargetChanged() {
                 if (control.stepModel.length > control.currentStep) {
                     const stepData = control.stepModel[control.currentStep];
-                    __arrowDelegate.fillStyle = Qt.binding(()=>stepData.cardColor ? stepData.cardColor : control.colorStepCard);
+                    __arrowDelegate.fillStyle = Qt.binding(() => stepData.cardColor ? stepData.cardColor : control.colorStepCard);
                 }
                 __arrowDelegate.requestPaint();
             }

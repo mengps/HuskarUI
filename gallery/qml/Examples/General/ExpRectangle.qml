@@ -61,6 +61,34 @@ border.style | int | 边框线样式(来自 Qt.*)
                     width: parent.width
                     spacing: 15
 
+                    DelRadioBlock {
+                        id: styleRadio
+                        initCheckedIndex: 0
+                        model: [
+                            { label: qsTr("实线"), value: Qt.SolidLine },
+                            { label: qsTr("虚线"), value: Qt.DashLine },
+                            { label: qsTr("虚点线"), value: Qt.DashDotLine },
+                            { label: qsTr("虚点点线"), value: Qt.DashDotDotLine }
+                        ]
+                    }
+
+                    DelSlider {
+                        id: bordrWidthSlider
+                        width: 150
+                        height: 30
+                        min: 0
+                        max: 20
+                        stepSize: 1
+                        value: 1
+
+                        DelCopyableText {
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.right
+                            anchors.leftMargin: 10
+                            text: qsTr("边框线宽: ") + parent.currentValue.toFixed(0);
+                        }
+                    }
+
                     DelSlider {
                         id: topLeftSlider
                         width: 150
@@ -73,7 +101,7 @@ border.style | int | 边框线样式(来自 Qt.*)
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: "左上圆角: " + parent.currentValue.toFixed(0);
+                            text: qsTr("左上圆角: ") + parent.currentValue.toFixed(0);
                         }
                     }
 
@@ -89,7 +117,7 @@ border.style | int | 边框线样式(来自 Qt.*)
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: "右上圆角: " + parent.currentValue.toFixed(0);
+                            text: qsTr("右上圆角: ") + parent.currentValue.toFixed(0);
                         }
                     }
 
@@ -105,7 +133,7 @@ border.style | int | 边框线样式(来自 Qt.*)
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: "左下圆角: " + parent.currentValue.toFixed(0);
+                            text: qsTr("左下圆角: ") + parent.currentValue.toFixed(0);
                         }
                     }
 
@@ -121,7 +149,7 @@ border.style | int | 边框线样式(来自 Qt.*)
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: "右下圆角: " + parent.currentValue.toFixed(0);
+                            text: qsTr("右下圆角: ") + parent.currentValue.toFixed(0);
                         }
                     }
 
@@ -129,8 +157,9 @@ border.style | int | 边框线样式(来自 Qt.*)
                         width: 200
                         height: 200
                         color: "#60ff0000"
-                        border.width: 1
+                        border.width: bordrWidthSlider.currentValue
                         border.color: DelTheme.Primary.colorTextBase
+                        border.style: styleRadio.currentCheckedValue
                         topLeftRadius: topLeftSlider.currentValue
                         topRightRadius: topRightSlider.currentValue
                         bottomLeftRadius: bottomLeftSlider.currentValue

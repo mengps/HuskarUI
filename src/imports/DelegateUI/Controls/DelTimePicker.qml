@@ -22,6 +22,8 @@ T.TextField {
         pixelSize: DelTheme.DelTimePicker.fontSize
     }
 
+    signal acceptedTime(time: string)
+
     property bool animationEnabled: DelTheme.animationEnabled
     readonly property bool active: hovered || activeFocus
     property int format: DelTimePicker.Format_HHMMSS
@@ -37,8 +39,6 @@ T.TextField {
     property int radiusBg: 6
     property int radiusPopupBg: 6
     property string contentDescription: ""
-
-    signal acceptedTime(time: string);
 
     function clearTime() {
         if (__private.cleared) {
@@ -424,6 +424,8 @@ T.TextField {
                     id: __confirmButton
                     topPadding: 2
                     bottomPadding: 2
+                    leftPadding: 10
+                    rightPadding: 10
                     anchors.right: parent.right
                     anchors.rightMargin: 5
                     anchors.bottom: parent.bottom

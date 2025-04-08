@@ -70,8 +70,8 @@ DelWindow {
             }
             onFinished: {
                 themeCircle.visible = false;
-                themeCircle.width = Qt.binding(()=>themeCircle.r * 2);
-                themeCircle.height = Qt.binding(()=>themeCircle.r * 2);
+                themeCircle.width = Qt.binding(() => themeCircle.r * 2);
+                themeCircle.height = Qt.binding(() => themeCircle.r * 2);
                 if (galleryWindow.specialEffect === DelWindow.None)
                     galleryWindow.color = DelTheme.Primary.colorBgBase;
                 galleryBackground.color = DelTheme.Primary.colorBgBase;

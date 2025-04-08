@@ -35,20 +35,20 @@ Rectangle {
     property bool maximizeButtonVisible: Qt.platform.os !== "osx"
     property bool closeButtonVisible: Qt.platform.os !== "osx"
 
-    property var returnCallback: ()=>{ }
-    property var themeCallback: ()=>{ DelTheme.darkMode = DelTheme.isDark ? DelTheme.Light : DelTheme.Dark; }
-    property var topCallback: (checked)=>{ }
+    property var returnCallback: () => { }
+    property var themeCallback: () => { DelTheme.darkMode = DelTheme.isDark ? DelTheme.Light : DelTheme.Dark; }
+    property var topCallback: checked => { }
     property var minimizeCallback:
-        ()=>{
+        () => {
             if (targetWindow) targetWindow.showMinimized();
         }
-    property var maximizeCallback: ()=>{
+    property var maximizeCallback: () => {
             if (!targetWindow) return;
 
             if (targetWindow.visibility === Window.Maximized) targetWindow.showNormal();
             else targetWindow.showMaximized();
         }
-    property var closeCallback: ()=>{ if (targetWindow) targetWindow.close(); }
+    property var closeCallback: () => { if (targetWindow) targetWindow.close(); }
 
     property Component winIconDelegate: Image {
         source: control.winIcon

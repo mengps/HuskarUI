@@ -179,10 +179,10 @@ Item {
         width: __actionButton.width
         height: __actionButton.height
 
+        signal clicked()
         property bool disabled: false
         property alias iconSource: __actionButton.iconSource
         property alias tooltipText: __tooltip.text
-        signal clicked();
 
         DelIconButton {
             id: __actionButton

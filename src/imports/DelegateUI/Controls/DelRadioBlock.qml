@@ -192,7 +192,7 @@ Item {
         T.ButtonGroup {
             id: __buttonGroup
             onClicked:
-                (button)=>{
+                button => {
                     control.currentCheckedIndex = button.index;
                     control.currentCheckedValue = button.modelData.value;
                     control.clicked(button.modelData);

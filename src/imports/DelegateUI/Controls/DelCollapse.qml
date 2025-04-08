@@ -16,7 +16,7 @@ Item {
         pixelSize: DelTheme.DelCollapse.fontSizeContent
     }
 
-    signal actived(key: string);
+    signal actived(key: string)
 
     property bool animationEnabled: DelTheme.animationEnabled
     property int hoverCursorShape: Qt.PointingHandCursor

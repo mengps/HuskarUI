@@ -12,10 +12,10 @@ Item {
         SnapOnRelease = 2
     }
 
-    signal firstMoved();
-    signal firstReleased();
-    signal secondMoved();
-    signal secondReleased();
+    signal firstMoved()
+    signal firstReleased()
+    signal secondMoved()
+    signal secondReleased()
 
     property bool animationEnabled: DelTheme.animationEnabled
     property int hoverCursorShape: Qt.PointingHandCursor

@@ -65,7 +65,7 @@ contentDescription | string | 内容描述(提高可用性)
                 const filter = model.styleFilter.split(',');
                 for (const key in map) {
                     let has = false;
-                    filter.forEach((filterKey)=>{
+                    filter.forEach((filterKey) => {
                                        if (key.indexOf(filterKey) !== -1) {
                                            has = true;
                                        }
