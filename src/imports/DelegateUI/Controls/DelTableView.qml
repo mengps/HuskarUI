@@ -47,6 +47,7 @@ DelRectangle {
 
     property Component columnHeaderDelegate: Item {
         id: __columnHeaderDelegate
+        property bool editable: headerData.editable ?? false
         property string align: headerData.align ?? 'center'
         property string selectionType: headerData.selectionType ?? ''
         property var sorter: headerData.sorter
@@ -79,16 +80,16 @@ DelRectangle {
         }
 
         MouseArea {
+            height: parent.height
+            anchors.left: __columnHeaderDelegate.editable ? __sorterLoader.left : __checkBoxLoader.right
+            anchors.right: __filterLoader.active ? __filterLoader.left : parent.right
             enabled: __sorterLoader.active
             hoverEnabled: true
-            height: parent.height
-            anchors.left: __checkBoxLoader.right
-            anchors.right: __sorterLoader.right
             onEntered: cursorShape = Qt.PointingHandCursor;
             onExited: cursorShape = Qt.ArrowCursor;
             onClicked: {
                 control.sort(column);
-                __sorterLoader.updateIcon();
+                __sorterLoader.sortMode = columns[column].sortMode ?? 'false';
             }
         }
 
@@ -150,23 +151,12 @@ DelRectangle {
                 if (!ref.hasOwnProperty('sortMode')) {
                     ref.sortMode = 'false';
                 }
-                updateIcon();
+                sortMode = ref.sortMode;
             }
             property int column: model.column
             property alias sorter: __columnHeaderDelegate.sorter
             property alias sortDirections: __columnHeaderDelegate.sortDirections
             property string sortMode: 'false'
-
-            function updateIcon() {
-                if (sortDirections.length === 0) return;
-
-                let ref = control.columns[column];
-                if (ref.activeSorter) {
-                    sortMode = ref.sortMode;
-                } else {
-                    sortMode = 'false';
-                }
-            }
         }
 
         Loader {
@@ -274,6 +264,8 @@ DelRectangle {
                         iconSource: DelIcon.SearchOutlined
                         type: DelButton.Type_Primary
                         onClicked: {
+                            if (__searchInput.text.length == 0)
+                                __filterPopup.close();
                             control.columns[column].filterInput = __searchInput.text;
                             control.filter();
                         }
@@ -282,6 +274,9 @@ DelRectangle {
                     DelButton {
                         text: qsTr('Reset')
                         onClicked: {
+                            if (__searchInput.text.length == 0)
+                                __filterPopup.close();
+                            __searchInput.clear();
                             control.columns[column].filterInput = '';
                             control.filter();
                         }
@@ -326,7 +321,6 @@ DelRectangle {
 
     onInitModelChanged: {
         clearSort();
-        //__private.model = [...initModel];
         filter();
     }
 
@@ -363,47 +357,25 @@ DelRectangle {
     }
 
     function sort(column) {
-        filter();
+        /*! 仅需设置排序相关属性, 真正的排序在 filter() 中完成 */
         if (columns[column].hasOwnProperty('sorter')) {
             columns.forEach(
                         (object, index) => {
                             if (object.hasOwnProperty('sorter')) {
                                 if (column === index) {
-                                    if (object.sortDirections && object.sortDirections.length !== 0) {
-                                        object.activeSorter = true;
-                                        object.sortIndex = (object.sortIndex + 1) % object.sortDirections.length;
-                                        object.sortMode = object.sortDirections[object.sortIndex];
-                                        if (object.sortMode === 'ascend') {
-                                            /*! sorter 作为上升处理 */
-                                            __private.model.sort(object.sorter);
-                                            __private.modelChanged();
-                                        } else if (object.sortMode === 'descend') {
-                                            /*! 返回 ascend 相反结果即可 */
-                                            __private.model.sort((a, b) => object.sorter(b, a));
-                                            __private.modelChanged();
-                                        } else {
-                                            /*! 还原前需要先应用过滤 */
-                                            let model = [...initModel];
-                                            columns.forEach(
-                                                object => {
-                                                    if (object.hasOwnProperty('onFilter') && object.hasOwnProperty('filterInput')) {
-                                                        model = model.filter((record, index) => object.onFilter(object.filterInput, record));
-                                                    }
-                                                });
-                                            __private.model = model;
-                                        }
-                                    }
+                                    object.activeSorter = true;
+                                    object.sortIndex = (object.sortIndex + 1) % object.sortDirections.length;
+                                    object.sortMode = object.sortDirections[object.sortIndex];
                                 } else {
-                                    /*! 还原 */
-                                    if (object.sortDirections && object.sortDirections.length !== 0) {
-                                        object.activeSorter = false;
-                                        object.sortIndex = -1;
-                                        object.sortMode = 'false';
-                                    }
+                                    object.activeSorter = false;
+                                    object.sortIndex = -1;
+                                    object.sortMode = 'false';
                                 }
                             }
                         });
         }
+
+        filter();
     }
 
     function clearSort() {
@@ -419,6 +391,7 @@ DelRectangle {
     }
 
     function filter() {
+        /*! 先过滤 */
         let model = [...initModel];
         columns.forEach(
                     object => {
@@ -427,6 +400,25 @@ DelRectangle {
                         }
                     });
         __private.model = model;
+
+        /*! 根据 activeSorter 列排序 */
+        columns.forEach(
+                    object => {
+                        if (object.activeSorter === true) {
+                            if (object.sortMode === 'ascend') {
+                                /*! sorter 作为上升处理 */
+                                __private.model.sort(object.sorter);
+                                __private.modelChanged();
+                            } else if (object.sortMode === 'descend') {
+                                /*! 返回 ascend 相反结果即可 */
+                                __private.model.sort((a, b) => object.sorter(b, a));
+                                __private.modelChanged();
+                            } else {
+                                /*! 还原 */
+                                __private.model = model;
+                            }
+                        }
+                    });
     }
 
     function clearFilter() {
@@ -569,6 +561,7 @@ DelRectangle {
             anchors.fill: parent
             syncDirection: Qt.Horizontal
             syncView: __cellView
+            reuseItems: false /*! 重用有未知BUG */
             boundsBehavior: Flickable.StopAtBounds
             clip: true
             model: TableModel {
@@ -586,6 +579,7 @@ DelRectangle {
                 property int column: model.column
                 property string selectionType: display.selectionType ?? ''
                 property bool editable: display.editable ?? false
+                property var sorter: display.sorter
                 property real minimumWidth: display.minimumWidth ?? 40
                 property real maximumWidth: display.maximumWidth ?? Number.NaN
 
@@ -595,8 +589,11 @@ DelRectangle {
                 }
 
                 TableView.editDelegate: DelInput {
-                    width: parent.width - 20
-                    anchors.centerIn: parent
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    anchors.right: parent.right
+                    anchors.rightMargin: sorter !== undefined ? 50 : 20
+                    anchors.verticalCenter: parent.verticalCenter
                     text: display.title
                     visible: activeFocus && __columnHeaderItem.editable
                     TableView.onCommit: {
