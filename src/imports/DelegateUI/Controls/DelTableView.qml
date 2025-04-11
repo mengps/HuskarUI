@@ -6,6 +6,7 @@ import DelegateUI
 DelRectangle {
     id: control
 
+    clip: true
     color: DelTheme.Primary.colorBgBase
     topLeftRadius : 6
     topRightRadius: 6
