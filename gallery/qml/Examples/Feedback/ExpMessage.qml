@@ -39,7 +39,7 @@ messageSpacing | int | 消息和图标之间间隔
 属性名 | 类型 | 描述
 ------ | --- | ---
 key(可选) | string | 消息键
-loading(可选) | sting | 数据索引
+loading(可选) | sting | 是否加载中
 message | var | 该列的单元格代理
 type(可选) | int | 消息类型(来自 DelMessage)
 duration(可选) | int | 消息持续时间(默认3000ms)
