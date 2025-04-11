@@ -119,6 +119,7 @@ contentDescription | string | 内容描述(提高可用性)
                             id: mouseArea
                             anchors.fill: parent
                             hoverEnabled: true
+                            cursorShape: hovered ? Qt.PointingHandCursor : Qt.ArrowCursor
                             onEntered: hovered = true;
                             onExited: hovered = false;
                             onClicked: {
