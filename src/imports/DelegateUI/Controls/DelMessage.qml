@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Templates as T
 import QtQuick.Effects
 import DelegateUI
@@ -181,14 +182,14 @@ Item {
 
                 Item {
                     id: __content
-                    width: __row.width + control.bgLeftPadding + control.bgRightPadding
+                    width: __rowLayout.width + control.bgLeftPadding + control.bgRightPadding
                     height: 0
                     opacity: 0
                     clip: true
 
                     Component.onCompleted: {
                         opacity = 1;
-                        height = __row.height + control.bgTopPadding + control.bgBottomPadding;
+                        height = __rowLayout.height + control.bgTopPadding + control.bgBottomPadding;
                     }
 
                     Behavior on opacity { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
@@ -205,14 +206,14 @@ Item {
                         }
                     }
 
-                    Row {
-                        id: __row
+                    RowLayout {
+                        id: __rowLayout
                         width: Math.min(implicitWidth, control.width - control.bgLeftPadding - control.bgRightPadding)
                         anchors.centerIn: parent
                         spacing: control.messageSpacing
 
                         DelIconText {
-                            anchors.verticalCenter: parent.verticalCenter
+                            Layout.alignment: Qt.AlignVCenter
                             iconSize: 18
                             iconSource: {
                                 if (__rootItem.loading) return DelIcon.LoadingOutlined;
@@ -247,7 +248,8 @@ Item {
                         }
 
                         Text {
-                            anchors.verticalCenter: parent.verticalCenter
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignVCenter
                             font: control.messageFont
                             color: control.colorMessage
                             text: __rootItem.message
@@ -256,8 +258,8 @@ Item {
                         }
 
                         Loader {
+                            Layout.alignment: Qt.AlignVCenter
                             active: control.closeButtonVisible
-                            anchors.verticalCenter: parent.verticalCenter
                             sourceComponent: DelCaptionButton {
                                 topPadding: 0
                                 bottomPadding: 0
@@ -265,7 +267,7 @@ Item {
                                 rightPadding: 2
                                 hoverCursorShape: Qt.PointingHandCursor
                                 iconSource: DelIcon.CloseOutlined
-                                colorIcon: hovered ? DelTheme.DelTabView.colorTabCloseHover : DelTheme.DelTabView.colorTabClose
+                                colorIcon: hovered ? DelTheme.DelMessage.colorCloseHover : DelTheme.DelMessage.colorClose
                                 onClicked: {
                                     __timer.stop();
                                     __removeAniamtion.restart();
