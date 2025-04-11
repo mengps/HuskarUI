@@ -11,6 +11,7 @@ Rectangle {
     radius: 5
     color: "transparent"
     border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.1)
+    clip: true
 
     property alias expTitle: expDivider.title
     property alias descTitle: descDivider.title
@@ -20,7 +21,6 @@ Rectangle {
 
     Column {
         id: column
-        clip: true
         width: parent.width - 20
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
