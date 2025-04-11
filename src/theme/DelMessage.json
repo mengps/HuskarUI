@@ -5,5 +5,7 @@
     "colorBg": "@colorBgBase",
     "colorBgDark": "#222",
     "colorBgShadow": "@colorTextBase",
+    "colorClose": "@colorTextTertiary",
+    "colorCloseHover": "@colorTextBase",
     "radiusBg": "8"
 }

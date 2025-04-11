@@ -1,7 +1,7 @@
 {
     "fontFamily": "@fontPrimaryFamily",
     "fontSize": "@fontPrimarySize",
-    "colorTabClose": "$alpha(@colorTextBase, 0.4)",
+    "colorTabClose": "@colorTextTertiary",
     "colorTabCloseHover": "@colorTextBase",
     "colorTab": "@colorTextBase",
     "colorTabHover": "@colorPrimaryHover",
