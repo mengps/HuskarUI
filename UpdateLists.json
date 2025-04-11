@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelMessage",
+        "desc": "消息提示，用于页面内的消息提示。"
+    },
+    {
+        "isNew": true,
         "name": "DelTableView",
         "desc": "表格，用于展示行列数据。"
     },

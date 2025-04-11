@@ -362,6 +362,11 @@ DelWindow {
                             key: "DelDrawer",
                             label: qsTr("DelDrawer 抽屉"),
                             source: "./Examples/Feedback/ExpDrawer.qml",
+                        },
+                        {
+                            key: "DelMessage",
+                            label: qsTr("DelMessage 消息提示"),
+                            source: "./Examples/Feedback/ExpMessage.qml",
                         }
                     ]
                 },
