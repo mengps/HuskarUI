@@ -1,0 +1,9 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorMessage": "@colorTextPrimary",
+    "colorBg": "@colorBgBase",
+    "colorBgDark": "#222",
+    "colorBgShadow": "@colorTextBase",
+    "radiusBg": "8"
+}

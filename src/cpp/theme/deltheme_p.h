@@ -50,6 +50,7 @@ enum class Component : uint16_t
     DelTimeline,
     DelTag,
     DelTableView,
+    DelMessage,
 
     Size
 };
@@ -82,6 +83,7 @@ static QHash<QString, Component> g_componentTable
     { "DelTimeline",      Component::DelTimeline      },
     { "DelTableView",     Component::DelTableView     },
     { "DelTag",           Component::DelTag           },
+    { "DelMessage",       Component::DelMessage       },
 };
 
 struct ThemeData

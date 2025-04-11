@@ -397,6 +397,7 @@ void DelThemePrivate::registerDefaultComponentTheme(const QString &component, co
             ADD_COMPONENT_CASE(DelTimeline)
             ADD_COMPONENT_CASE(DelTag)
             ADD_COMPONENT_CASE(DelTableView)
+            ADD_COMPONENT_CASE(DelMessage)
         default:
             break;
         }
