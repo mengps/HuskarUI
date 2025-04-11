@@ -3,9 +3,19 @@ import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import DelegateUI
 
-import "../../Controls"
+import '../../Controls'
 
 Item {
+
+    DelMessage {
+        id: message
+        z: 999
+        parent: galleryWindow.captionBar
+        width: parent.width
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.bottom
+        closeButtonVisible: true
+    }
 
     Description {
         id: description
@@ -37,24 +47,24 @@ contentDescription | string | 内容描述(提高可用性)
         defaultTabWidth: 120
         initModel: [
             {
-                key: "1",
-                title: qsTr("线框风格图标"),
-                styleFilter: "Outlined"
+                key: '1',
+                title: qsTr('线框风格图标'),
+                styleFilter: 'Outlined'
             },
             {
-                key: "2",
-                title: qsTr("填充风格图标"),
-                styleFilter: "Filled"
+                key: '2',
+                title: qsTr('填充风格图标'),
+                styleFilter: 'Filled'
             },
             {
-                key: "3",
-                title: qsTr("双色风格图标"),
-                styleFilter: "Path1,Path2,Path3,Path4"
+                key: '3',
+                title: qsTr('双色风格图标'),
+                styleFilter: 'Path1,Path2,Path3,Path4'
             },
             {
-                key: "4",
-                title: qsTr("IcoMoon图标"),
-                styleFilter: "IcoMoon"
+                key: '4',
+                title: qsTr('IcoMoon图标'),
+                styleFilter: 'IcoMoon'
             }
         ]
         contentDelegate: Item {
@@ -113,6 +123,7 @@ contentDescription | string | 内容描述(提高可用性)
                             onExited: hovered = false;
                             onClicked: {
                                 DelApi.setClipbordText(`DelIcon.${rootItem.iconName}`);
+                                message.success(`DelIcon.${rootItem.iconName} copied 🎉`);
                             }
                             property bool hovered: false
                         }
