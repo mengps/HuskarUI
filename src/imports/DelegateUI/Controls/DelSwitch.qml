@@ -170,12 +170,13 @@ T.Switch {
 
             Loader {
                 id: __handle
-                x: control.checked ? (parent.width - width - 2) : 2
-                width: height
+                x: control.checked ? (parent.width - (control.pressed ? height + 6 : height) - 2) : 2
+                width: control.pressed ? height + 6 : height
                 height: parent.height - 4
                 anchors.verticalCenter: parent.verticalCenter
                 sourceComponent: handleDelegate
 
+                Behavior on width { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
                 Behavior on x { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
             }
         }
