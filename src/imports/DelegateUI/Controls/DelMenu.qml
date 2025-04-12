@@ -244,7 +244,7 @@ Item {
                 /* 子 ListView 从父 ListView 的深度累加可实现自动计算 */
                 property int menuDeep: __rootItem.view.menuDeep + 1
                 property var parentMenu: __rootItem
-                property int realHeight: (contentHeight + ((count === 0 || control.compactMode) ? 0 : control.defaultMenuSpacing))
+                property int realHeight: (contentHeight + ((count === 0 || control.compactMode || control.popupMode) ? 0 : control.defaultMenuSpacing))
 
                 Behavior on height {
                     enabled: control.animationEnabled
@@ -478,6 +478,7 @@ Item {
             height: current ? Math.min(control.popupMaxHeight, current.realHeight + topPadding + bottomPadding) : 0
             padding: 5
             onAboutToShow: {
+                print(height)
                 let toX = control.width + 4;
                 if (parentPopup) {
                     toX += parentPopup.width + 4;
