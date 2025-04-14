@@ -89,3 +89,7 @@ Makefile
 
 # clang
 /.cache/
+
+# CLion
+/.idea/
+/cmake-build*/
