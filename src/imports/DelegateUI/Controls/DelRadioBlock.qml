@@ -55,6 +55,11 @@ Item {
                 return 0;
         }
 
+        property double shapeTopLeftRadius: shape == 1 ? control.radiusBg : 0
+        property double shapeBottomLeftRadius: shape == 1 ? control.radiusBg : 0
+        property double shapeTopRightRadius: shape == 2 ? control.radiusBg : 0
+        property double shapeBottomRightRadius: shape == 2 ? control.radiusBg : 0
+
         T.ButtonGroup.group: __buttonGroup
         Component.onCompleted: {
             if (control.initCheckedIndex == index) {
@@ -111,6 +116,10 @@ Item {
                 id: __effect
                 width: __bg.width
                 height: __bg.height
+                topLeftRadius: shapeTopLeftRadius
+                bottomLeftRadius: shapeBottomLeftRadius
+                topRightRadius: shapeTopRightRadius
+                bottomRightRadius: shapeBottomRightRadius
                 anchors.centerIn: parent
                 visible: __rootItem.effectEnabled
                 color: "transparent"
@@ -154,10 +163,10 @@ Item {
                 height: parent.height
                 anchors.centerIn: parent
                 color: __rootItem.colorBg
-                topLeftRadius: shape == 1 ? control.radiusBg : 0
-                bottomLeftRadius: shape == 1 ? control.radiusBg : 0
-                topRightRadius: shape == 2 ? control.radiusBg : 0
-                bottomRightRadius: shape == 2 ? control.radiusBg : 0
+                topLeftRadius: shapeTopLeftRadius
+                bottomLeftRadius: shapeBottomLeftRadius
+                topRightRadius: shapeTopRightRadius
+                bottomRightRadius: shapeBottomRightRadius
                 border.width: 1
                 border.color: __rootItem.colorBorder
 
