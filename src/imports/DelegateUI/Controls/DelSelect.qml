@@ -11,7 +11,9 @@ T.ComboBox {
     property bool tooltipVisible: false
     property bool loading: false
     property int defaulPopupMaxHeight: 240
-    property color colorText: enabled ? DelTheme.DelSelect.colorText : DelTheme.DelSelect.colorTextDisabled
+    property color colorText: enabled ?
+                                  popup.visible ? DelTheme.DelSelect.colorTextActive :
+                                                  DelTheme.DelSelect.colorText : DelTheme.DelSelect.colorTextDisabled
     property color colorBorder: enabled ?
                                     hovered ? DelTheme.DelSelect.colorBorderHover :
                                               DelTheme.DelSelect.colorBorder : DelTheme.DelSelect.colorBorderDisabled
@@ -19,7 +21,7 @@ T.ComboBox {
 
     property int radiusBg: 6
     property int radiusPopupBg: 6
-    property string contentDescription: ""
+    property string contentDescription: ''
 
     property Component indicatorDelegate: DelIconText {
         iconSize: 12
@@ -43,9 +45,9 @@ T.ComboBox {
     bottomPadding: 5
     implicitWidth: implicitContentWidth + implicitIndicatorWidth + leftPadding + rightPadding
     implicitHeight: implicitContentHeight + topPadding + bottomPadding
-    textRole: "label"
-    valueRole: "value"
-    objectName: "__DelSelect__"
+    textRole: 'label'
+    valueRole: 'value'
+    objectName: '__DelSelect__'
     font {
         family: DelTheme.DelSelect.fontFamily
         pixelSize: DelTheme.DelSelect.fontSize
@@ -72,19 +74,48 @@ T.ComboBox {
         radius: control.radiusBg
     }
     popup: DelPopup {
+        id: __popup
         y: control.height + 2
         implicitWidth: control.width
-        implicitHeight: contentItem.height + topPadding + bottomPadding
+        implicitHeight: Math.min(control.defaulPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
         leftPadding: 4
         rightPadding: 4
         topPadding: 6
         bottomPadding: 6
-        enter: Transition { NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
-        exit: Transition { NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
+        enter: Transition {
+            NumberAnimation {
+                property: 'opacity'
+                from: 0.0
+                to: 1.0
+                easing.type: Easing.InOutQuad
+                duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
+            }
+            NumberAnimation {
+                property: 'height'
+                from: 0
+                to: __popup.implicitHeight
+                easing.type: Easing.InOutQuad
+                duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
+            }
+        }
+        exit: Transition {
+            NumberAnimation {
+                property: 'opacity'
+                from: 1.0
+                to: 0.0
+                easing.type: Easing.InOutQuad
+                duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
+            }
+            NumberAnimation {
+                property: 'height'
+                to: 0
+                easing.type: Easing.InOutQuad
+                duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
+            }
+        }
         contentItem: ListView {
             id: __popupListView
             clip: true
-            height: Math.min(control.defaulPopupMaxHeight, contentHeight)
             model: control.popup.visible ? control.model : null
             currentIndex: control.highlightedIndex
             boundsBehavior: Flickable.StopAtBounds
@@ -149,8 +180,6 @@ T.ComboBox {
                 }
             }
             T.ScrollBar.vertical: DelScrollBar { }
-
-            Behavior on height { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
         }
     }
 
