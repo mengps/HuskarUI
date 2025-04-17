@@ -152,7 +152,7 @@ Item {
         spacing: -1
         model: ListModel { id: __listModel }
         onContentHeightChanged: cacheBuffer = contentHeight;
-        delegate: Rectangle {
+        delegate: DelRectangle {
             id: __rootItem
             width: __listView.width
             height: __column.height + ((detached && active) ? 1 : 0)
