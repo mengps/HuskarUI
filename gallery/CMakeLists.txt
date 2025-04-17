@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.2.6.0)
+set(DELEGATEUI_VERSION 0.2.7.0)
 
 project(Gallery VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 
@@ -45,6 +45,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/General/ExpCopyableText.qml
         qml/Examples/General/ExpRectangle.qml
         qml/Examples/General/ExpPopup.qml
+        qml/Examples/General/ExpText.qml
         qml/Examples/DataEntry/ExpSwitch.qml
         qml/Examples/DataEntry/ExpSlider.qml
         qml/Examples/DataEntry/ExpSelect.qml
@@ -55,6 +56,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpRadioBlock.qml
         qml/Examples/DataEntry/ExpCheckBox.qml
         qml/Examples/DataEntry/ExpTimePicker.qml
+        qml/Examples/DataEntry/ExpAutoComplete.qml
         qml/Examples/DataDisplay/ExpToolTip.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml

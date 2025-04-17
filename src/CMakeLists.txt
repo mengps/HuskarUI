@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.2.6.0)
+set(DELEGATEUI_VERSION 0.2.7.0)
 
 message(STATUS "Configuring DelegateUI Version: ${DELEGATEUI_VERSION}")
 
@@ -59,7 +59,7 @@ qt_add_qml_module(${PROJECT_NAME}
     VERSION 1.0
     DESIGNER_SUPPORTED
     PLUGIN_TARGET ${PLUGIN_NAME}
-    NO_GENERATE_PLUGIN_SOURCE
+    #NO_GENERATE_PLUGIN_SOURCE
     RESOURCE_PREFIX "/"
     TYPEINFO "plugins.qmltypes"
     OUTPUT_DIRECTORY ${DELEGATEUI_PLUGIN_OUTPUT_DIRECTORY}
@@ -100,11 +100,13 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelTag.qml
         imports/DelegateUI/Controls/DelTableView.qml
         imports/DelegateUI/Controls/DelMessage.qml
+        imports/DelegateUI/Controls/DelAutoComplete.qml
+        imports/DelegateUI/Controls/DelText.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
         cpp/deldefinitions.h
-        cpp/delegateuiplugin.cpp
+        #cpp/delegateuiplugin.cpp
         cpp/delapp.h cpp/delapp.cpp
         cpp/theme/deltheme.h cpp/theme/deltheme.cpp cpp/theme/deltheme_p.h
         cpp/theme/delthemefunctions.h cpp/theme/delthemefunctions.cpp
@@ -150,6 +152,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelTag.json
         theme/DelTableView.json
         theme/DelMessage.json
+        theme/DelAutoComplete.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
