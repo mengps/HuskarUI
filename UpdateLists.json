@@ -1,6 +1,16 @@
 [
     {
         "isNew": true,
+        "name": "DelAutoComplete",
+        "desc": "输入框自动完成功能。"
+    },
+    {
+        "isNew": true,
+        "name": "DelText",
+        "desc": "代替 Text 的来统一字体和文本。"
+    },
+    {
+        "isNew": true,
         "name": "DelMessage",
         "desc": "消息提示，用于页面内的消息提示。"
     },

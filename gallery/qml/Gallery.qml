@@ -180,6 +180,11 @@ DelWindow {
                             key: "DelPopup",
                             label: qsTr("DelPopup 弹窗"),
                             source: "./Examples/General/ExpPopup.qml"
+                        },
+                        {
+                            key: "DelText",
+                            label: qsTr("DelText 文本"),
+                            source: "./Examples/General/ExpText.qml"
                         }
                     ]
                 },
@@ -268,6 +273,11 @@ DelWindow {
                             key: "DelTimePicker",
                             label: qsTr("DelTimePicker 时间选择框"),
                             source: "./Examples/DataEntry/ExpTimePicker.qml",
+                        },
+                        {
+                            key: "DelAutoComplete",
+                            label: qsTr("DelAutoComplete 自动完成"),
+                            source: "./Examples/DataEntry/ExpAutoComplete.qml",
                         }
                     ]
                 },
