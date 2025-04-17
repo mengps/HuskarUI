@@ -53,15 +53,15 @@ T.TextField {
         color: control.colorBg
         border.color: control.colorBorder
         radius: control.radiusBg
+    }
 
-        Loader {
-            anchors.left: iconPosition == DelInput.Position_Left ? parent.left : undefined
-            anchors.right: iconPosition == DelInput.Position_Right ? parent.right : undefined
-            anchors.margins: 5
-            anchors.verticalCenter: parent.verticalCenter
-            active: control.iconSize != 0
-            sourceComponent: iconDelegate
-        }
+    Loader {
+        anchors.left: iconPosition == DelInput.Position_Left ? parent.left : undefined
+        anchors.right: iconPosition == DelInput.Position_Right ? parent.right : undefined
+        anchors.margins: 5
+        anchors.verticalCenter: parent.verticalCenter
+        active: control.iconSize != 0
+        sourceComponent: iconDelegate
     }
 
     Accessible.role: Accessible.EditableText
