@@ -2,6 +2,7 @@
     "fontFamily": "@fontPrimaryFamily",
     "fontSize": "@fontPrimarySize",
     "colorText": "@colorTextBase",
+    "colorTextActive": "@colorTextTertiary",
     "colorTextDisabled": "@colorPrimaryTextDisabled",
     "colorBorder": "@colorTextQuaternary",
     "colorBorderHover": "@colorPrimary",

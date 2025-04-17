@@ -478,7 +478,6 @@ Item {
             height: current ? Math.min(control.popupMaxHeight, current.realHeight + topPadding + bottomPadding) : 0
             padding: 5
             onAboutToShow: {
-                print(height)
                 let toX = control.width + 4;
                 if (parentPopup) {
                     toX += parentPopup.width + 4;

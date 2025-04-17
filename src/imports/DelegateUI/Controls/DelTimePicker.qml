@@ -38,11 +38,11 @@ T.TextField {
     property font popupFont
     property int radiusBg: 6
     property int radiusPopupBg: 6
-    property string contentDescription: ""
+    property string contentDescription: ''
 
     function clearTime() {
         if (__private.cleared) {
-            control.text = "";
+            control.text = '';
         } else {
             control.text = __private.getTime();
         }
@@ -53,7 +53,7 @@ T.TextField {
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
     Behavior on placeholderTextColor { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
-    objectName: "__DelTimePicker__"
+    objectName: '__DelTimePicker__'
     focus: __picker.opened
     padding: 5
     leftPadding: 10 + (iconPosition == DelTimePicker.Position_Left ? iconSize : 0)
@@ -61,7 +61,7 @@ T.TextField {
     width: 130
     implicitWidth: contentWidth + leftPadding + rightPadding
     implicitHeight: contentHeight + topPadding + bottomPadding
-    placeholderText: qsTr("请选择时间")
+    placeholderText: qsTr('请选择时间')
     color: colorText
     placeholderTextColor: enabled ? DelTheme.DelTimePicker.colorPlaceholderText : DelTheme.DelTimePicker.colorPlaceholderTextDisabled
     selectedTextColor: DelTheme.DelTimePicker.colorSelectedText
@@ -95,13 +95,13 @@ T.TextField {
     component TimeListView: MouseArea {
         id: __rootItem
 
-        property string value: "00"
-        property string checkValue: "00"
-        property string tempValue: "00"
+        property string value: '00'
+        property string checkValue: '00'
+        property string tempValue: '00'
         property alias model: __listView.model
 
         function clearCheck() {
-            value = checkValue = tempValue = "00";
+            value = checkValue = tempValue = '00';
             if (__buttonGroup.checkedButton != null)
                 __buttonGroup.checkedButton.checked = false;
             const item = __listView.itemAtIndex(0);
@@ -159,7 +159,7 @@ T.TextField {
                 background: Rectangle {
                     radius: 4
                     color: hovered ? DelTheme.DelTimePicker.colorButtonBgHover :
-                                     checked ? DelTheme.DelTimePicker.colorButtonBgActive : "transparent"
+                                     checked ? DelTheme.DelTimePicker.colorButtonBgActive : 'transparent'
                 }
                 T.ButtonGroup.group: __buttonGroup
                 onClicked: {
@@ -233,9 +233,9 @@ T.TextField {
         }
 
         function commit() {
-            let hour = "";
-            let minute = "";
-            let second = "";
+            let hour = '';
+            let minute = '';
+            let second = '';
 
             if (testValid()) {
                 switch (control.format) {
@@ -305,7 +305,7 @@ T.TextField {
                 __minuteListView.clearCheck();
                 __secondListView.clearCheck();
                 __private.cleared = true;
-                control.text = "";
+                control.text = '';
             }
         }
     }
@@ -319,8 +319,24 @@ T.TextField {
         topPadding: 6
         bottomPadding: 6
         closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent
-        enter: Transition { NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
-        exit: Transition { NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0 } }
+        enter: Transition {
+            NumberAnimation {
+                property: 'opacity'
+                from: 0.0
+                to: 1.0
+                easing.type: Easing.InOutQuad
+                duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
+            }
+        }
+        exit: Transition {
+            NumberAnimation {
+                property: 'opacity'
+                from: 1.0
+                to: 0.0
+                easing.type: Easing.InOutQuad
+                duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
+            }
+        }
         onAboutToShow: {
             const pos = control.mapToItem(null, 0, 0);
             x = (control.width - width) * 0.5;
@@ -401,8 +417,8 @@ T.TextField {
                     anchors.leftMargin: 5
                     anchors.bottom: parent.bottom
                     type: DelButton.Type_Text
-                    text: qsTr("此刻")
-                    colorBg: "transparent"
+                    text: qsTr('此刻')
+                    colorBg: 'transparent'
                     onClicked: {
                         const now = new Date();
                         __hourListView.initValue(String(now.getHours()).padStart(2, '0'));
@@ -430,7 +446,7 @@ T.TextField {
                     anchors.rightMargin: 5
                     anchors.bottom: parent.bottom
                     type: DelButton.Type_Primary
-                    text: qsTr("确定")
+                    text: qsTr('确定')
                     onClicked: {
                         __hourListView.initValue(__hourListView.tempValue);
                         __minuteListView.initValue(__minuteListView.tempValue);
