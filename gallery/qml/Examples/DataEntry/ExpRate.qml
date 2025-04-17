@@ -126,10 +126,12 @@ halfIcon | enum | 半星图标(来自 DelIcon)
         }
 
         CodeBox {
+            clip: false
             width: parent.width
             desc: qsTr(`
 通过 \`toolTipVisible\` 设置是否显示文字提示。\n
 通过 \`toolTipTexts\` 设置文字提示文本列表。\n
+**注意** 文字提示并非弹出，需要注意clip。\n
                        `)
             code: `
                 import QtQuick

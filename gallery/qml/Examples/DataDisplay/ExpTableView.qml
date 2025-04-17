@@ -706,8 +706,8 @@ filterInput(可选) | string | 该列过滤输入
 
                 DelPagination {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    total: 10000
-                    pageSize: 1000
+                    total: 1000
+                    pageSize: 100
                     showQuickJumper: true
                     onCurrentPageIndexChanged: {
                         /*! 生成一些数据 */

@@ -64,9 +64,9 @@ radiusBg | int | 输入项背景半径
             width: parent.width
             desc: qsTr(`
 默认验证器为数字验证器。\n
-通过 \`length\` 属性设置输入元素数量\n
-通过 \`enabled\` 属性设置是否启用\n
-通过 \`itemValidator\` 属性设置验证器\n
+通过 \`length\` 属性设置输入元素数量。\n
+通过 \`enabled\` 属性设置是否启用。\n
+通过 \`itemValidator\` 属性设置验证器。\n
                        `)
             code: `
                 import QtQuick
@@ -113,8 +113,8 @@ radiusBg | int | 输入项背景半径
             width: parent.width
             desc: qsTr(`
 将输入格式化为大写。\n
-通过 \`formatter\` 属性设置输入项的格式化器\n
-格式化器是形如：\`function(text: string): string { }\` 的函数\n
+通过 \`formatter\` 属性设置输入项的格式化器。\n
+格式化器是形如：\`function(text: string): string { }\` 的函数。\n
                        `)
             code: `
                 import QtQuick
@@ -144,9 +144,9 @@ radiusBg | int | 输入项背景半径
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`itemPassword\` 属性设置输入项是否为密码\n
-通过 \`itemPasswordCharacter\` 属性设置密码字符\n
-通过 \`currentInput\` 属性获取当前所有项输入文本和\n
+通过 \`itemPassword\` 属性设置输入项是否为密码。\n
+通过 \`itemPasswordCharacter\` 属性设置密码字符。\n
+通过 \`currentInput\` 属性获取当前所有项输入文本和。\n
                        `)
             code: `
                 import QtQuick
@@ -190,8 +190,8 @@ radiusBg | int | 输入项背景半径
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`characterLength\` 属性设置输入项的字符长度，通常用于激活码\n
-通过 \`dividerDelegate\` 属性设置分隔器代理(用于分隔输入项)\n
+通过 \`characterLength\` 属性设置输入项的字符长度，通常用于激活码。\n
+通过 \`dividerDelegate\` 属性设置分隔器代理(用于分隔输入项)。\n
                        `)
             code: `
                 import QtQuick
