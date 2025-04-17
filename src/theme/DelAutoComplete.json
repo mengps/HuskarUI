@@ -1,0 +1,13 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorItemText": "@colorTextBase",
+    "colorItemTextDisabled": "@colorPrimaryTextDisabled",
+    "colorItemBg": "transparent",
+    "colorItemBgHover": "$alpha(@colorTextBase, 0.1)",
+    "colorItemBgActive": "@colorPrimaryBase-1",
+    "colorItemBgDisabled": "transparent",
+    "colorIcon": "@colorTextTertiary",
+    "colorIconHover": "@colorTextSecondary",
+    "colorIconDisabled": "@colorTextQuaternary"
+}

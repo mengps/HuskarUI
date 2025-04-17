@@ -153,6 +153,7 @@
         "DelTimeline": ":/DelegateUI/theme/DelTimeline.json",
         "DelTag": ":/DelegateUI/theme/DelTag.json",
         "DelTableView": ":/DelegateUI/theme/DelTableView.json",
-        "DelMessage": ":/DelegateUI/theme/DelMessage.json"
+        "DelMessage": ":/DelegateUI/theme/DelMessage.json",
+        "DelAutoComplete": ":/DelegateUI/theme/DelAutoComplete.json"
     }
 }
