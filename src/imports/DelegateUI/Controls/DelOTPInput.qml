@@ -13,14 +13,14 @@ Item {
     property int length: 6
     property int characterLength: 1
     property int currentIndex: 0
-    property string currentInput: ""
+    property string currentInput: ''
     property int itemWidth: 45
     property int itemHeight: 32
     property alias itemSpacing: __row.spacing
     property var itemValidator: IntValidator { top: 9; bottom: 0 }
     property int itemInputMethodHints: Qt.ImhHiddenText
     property bool itemPassword: false
-    property string itemPasswordCharacter: ""
+    property string itemPasswordCharacter: ''
     property var formatter: (text) => text
 
     property color colorItemText: enabled ? DelTheme.DelInput.colorText : DelTheme.DelInput.colorTextDisabled
@@ -38,7 +38,7 @@ Item {
     }
 
     function getInput() {
-        let input = "";
+        let input = '';
         for (let i = 0; i < __repeater.count; i++) {
             const item = __repeater.itemAt(i);
             if (item && item.index % 2 == 0) {
@@ -46,6 +46,14 @@ Item {
             }
         }
         return input;
+    }
+
+    function inputAtIndex(index) {
+        const item = __repeater.itemAt(index * 2);
+        if (item) {
+            return item.item.text;
+        }
+        return '';
     }
 
     Component {
@@ -101,6 +109,11 @@ Item {
                     isBackspace = true;
                     if (control.currentIndex != 0)
                         control.currentIndex--;
+                } else if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
+                    if (control.currentIndex < (control.length - 1))
+                        control.currentIndex++;
+                    else
+                        control.finished(control.getInput());
                 }
             }
 

@@ -32,7 +32,7 @@ T.TextField {
     property color colorText: enabled ? DelTheme.DelTimePicker.colorText : DelTheme.DelTimePicker.colorTextDisabled
     property color colorBorder: enabled ?
                                     active ? DelTheme.DelTimePicker.colorBorderHover :
-                                              DelTheme.DelTimePicker.colorBorder : DelTheme.DelTimePicker.colorBorderDisabled
+                                             DelTheme.DelTimePicker.colorBorder : DelTheme.DelTimePicker.colorBorderDisabled
     property color colorBg: enabled ? DelTheme.DelTimePicker.colorBg : DelTheme.DelTimePicker.colorBgDisabled
     property color colorPopupText: DelTheme.DelTimePicker.colorPopupText
     property font popupFont
@@ -284,7 +284,7 @@ T.TextField {
         anchors.right: control.iconPosition == DelTimePicker.Position_Right ? parent.right : undefined
         anchors.margins: 5
         anchors.verticalCenter: parent.verticalCenter
-        iconSource: (control.hovered && control.text.length !== 0) ? DelIcon.CloseCircleFilled : DelIcon.ClockCircleOutlined
+        iconSource: (control.hovered && control.length !== 0) ? DelIcon.CloseCircleFilled : DelIcon.ClockCircleOutlined
         iconSize: control.iconSize
         colorIcon: control.enabled ?
                        __iconMouse.hovered ? DelTheme.DelTimePicker.colorIconHover :
@@ -299,7 +299,6 @@ T.TextField {
             cursorShape: parent.iconSource == DelIcon.CloseCircleFilled ? Qt.PointingHandCursor : Qt.ArrowCursor
             onEntered: hovered = true;
             onExited: hovered = false;
-            property bool hovered: false
             onClicked: {
                 __hourListView.clearCheck();
                 __minuteListView.clearCheck();
@@ -307,6 +306,7 @@ T.TextField {
                 __private.cleared = true;
                 control.text = '';
             }
+            property bool hovered: false
         }
     }
 
