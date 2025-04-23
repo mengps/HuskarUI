@@ -8,6 +8,32 @@ Flickable {
     contentHeight: column.height
     ScrollBar.vertical: DelScrollBar { }
 
+    Component {
+        id: myContentDelegate
+
+        Item {
+            Text {
+                id: __text
+                anchors.left: parent.left
+                anchors.right: __tag.left
+                anchors.rightMargin: 5
+                anchors.verticalCenter: parent.verticalCenter
+                text: menuButton.text
+                font: menuButton.font
+                color: menuButton.colorText
+                elide: Text.ElideRight
+            }
+
+            DelTag {
+                id: __tag
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                text: 'Success'
+                tagState: DelTag.State_Success
+            }
+        }
+    }
+
     Column {
         id: column
         width: parent.width - 15
@@ -19,9 +45,7 @@ Flickable {
 为页面和功能提供导航的菜单列表。\n
 * **继承自 { Item }**\n
 支持的代理：\n
-- **menuDelegate: Component** 菜单项代理，代理可访问属性：\n
-  - \`index: int\` 菜单项索引\n
-  - \`model: var\` 菜单项数据\n
+- 无
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
@@ -52,6 +76,16 @@ iconSize | int | 图标大小
 iconSource | int | 图标源
 iconSpacing | int | 图标间隔
 menuChildren | list | 子菜单(支持无限嵌套)
+contentDelegate | var | 该菜单项内容代理
+\n \`contentDelegate\` 可访问属性：\n
+- **menuButton: DelButton** 自身菜单按钮，\`menuButton\` 可访问的属性：\n
+  - iconSource: int 图标源\n
+  - iconSize: int 图标大小\n
+  - iconSpacing: int 图标间隔\n
+  - iconStart: int 图标起始坐标\n
+  - expanded: int 是否展开\n
+  - isCurrent: int 是否为当前选择菜单\n
+  - isGroup: int 是否为组菜单\n
 \n支持的函数：\n
 - \`gotoMenu(key: string)\` 跳转到菜单键为 \`key\` 处的菜单项 \n
 - \`Object get(index: int)\` 获取 \`index\` 处的模型数据 \n
@@ -98,6 +132,7 @@ menuChildren | list | 子菜单(支持无限嵌套)
 - { iconSource: 图标源 }\n
 - { iconSpacing: 图标间隔 }\n
 - { menuChildren: 子菜单(支持无限嵌套) }\n
+- { contentDelegate: 该菜单项内容代理 }\n
 菜单项 \`type\` 支持：\n
 - "item" { 普通菜单项(默认) }\n
 - "group" { 组菜单项 }\n
@@ -116,8 +151,9 @@ menuChildren | list | 子菜单(支持无限嵌套)
                         text: qsTr("添加")
                         anchors.right: parent.right
                         onClicked: menu.append({
-                                                   label: qsTr("Test"),
-                                                   iconSource: DelIcon.HomeOutlined
+                                                    label: qsTr("Test"),
+                                                    iconSource: DelIcon.HomeOutlined,
+                                                    contentDelegate: myContentDelegate
                                                });
                     }
 
@@ -139,7 +175,8 @@ menuChildren | list | 子菜单(支持无限嵌套)
                                         menuChildren: [
                                             {
                                                 label: qsTr("首页2-1-1"),
-                                                iconSource: DelIcon.HomeOutlined
+                                                iconSource: DelIcon.HomeOutlined,
+                                                contentDelegate: myContentDelegate
                                             }
                                         ]
                                     }
@@ -161,8 +198,9 @@ menuChildren | list | 子菜单(支持无限嵌套)
                     text: qsTr("添加")
                     anchors.right: parent.right
                     onClicked: menu.append({
-                                               label: qsTr("Test"),
-                                               iconSource: DelIcon.HomeOutlined
+                                                label: qsTr("Test"),
+                                                conSource: DelIcon.HomeOutlined,
+                                                contentDelegate: myContentDelegate
                                            });
                 }
 
@@ -184,7 +222,8 @@ menuChildren | list | 子菜单(支持无限嵌套)
                                     menuChildren: [
                                         {
                                             label: qsTr("首页2-1-1"),
-                                            iconSource: DelIcon.HomeOutlined
+                                            iconSource: DelIcon.HomeOutlined,
+                                            contentDelegate: myContentDelegate
                                         }
                                     ]
                                 }
@@ -311,7 +350,8 @@ menuChildren | list | 子菜单(支持无限嵌套)
                                     menuChildren: [
                                         {
                                             label: qsTr("首页2-1-1"),
-                                            iconSource: DelIcon.HomeOutlined
+                                            iconSource: DelIcon.HomeOutlined,
+                                            contentDelegate: myContentDelegate
                                         }
                                     ]
                                 },

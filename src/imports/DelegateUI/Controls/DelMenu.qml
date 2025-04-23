@@ -25,250 +25,6 @@ Item {
     property int defaultMenuSpacing: 4
     property var defaultSelectedKey: []
     property var initModel: []
-    property Component menuDelegate: Item {
-        id: __rootItem
-        width: ListView.view.width
-        height: {
-            switch (menuType) {
-            case "item":
-            case "group":
-                return __layout.height;
-            case "divider":
-                return __dividerLoader.height;
-            default:
-                return __layout.height;
-            }
-        }
-        clip: true
-        Component.onCompleted: {
-            if (menuType == "item" || menuType == "group") {
-                layerPopup = __private.createPopupList(view.menuDeep);
-                for (let i = 0; i < menuChildren.length; i++) {
-                    __childrenListView.model.push(menuChildren[i]);
-                }
-                if (control.defaultSelectedKey.length != 0) {
-                    if (control.defaultSelectedKey.indexOf(menuKey) != -1) {
-                        __rootItem.expandParent();
-                        __menuButton.clicked();
-                    }
-                }
-            }
-        }
-
-        required property var modelData
-        property alias model: __rootItem.modelData
-        property var view: ListView.view
-        property string menuKey: model.key || ""
-        property string menuType: model.type || "item"
-        property bool menuEnabled: model.enabled === undefined ? true : model.enabled
-        property string menuLabel: model.label || ""
-        property int menuHeight: model.height || defaultMenuHeight
-        property int menuIconSize: model.iconSize || defaultMenuIconSize
-        property int menuIconSource: model.iconSource || 0
-        property int menuIconSpacing: model.iconSpacing || defaultMenuIconSpacing
-        property var menuChildren: model.menuChildren || []
-        property int menuChildrenLength: menuChildren ? menuChildren.length : 0
-
-        property var parentMenu: view.menuDeep === 0 ? null : view.parentMenu
-        property bool isCurrent: __private.selectedItem === __rootItem || isCurrentParent
-        property bool isCurrentParent: false
-        property var layerPopup: null
-
-        function expandMenu() {
-            if (__menuButton.expandedVisible)
-                __menuButton.expanded = true;
-        }
-
-        /*! 查找当前菜单的根菜单 */
-        function findRootMenu() {
-            let parent = parentMenu;
-            while (parent !== null) {
-                if (parent.parentMenu === null)
-                    return parent;
-                parent = parent.parentMenu;
-            }
-            /*! 根菜单返回自身 */
-            return __rootItem;
-        }
-        /*! 展开当前菜单的所有父菜单 */
-        function expandParent() {
-            let parent = parentMenu;
-            while (parent !== null) {
-                if (parent.parentMenu === null) {
-                    parent.expandMenu();
-                    return;
-                }
-                parent.expandMenu();
-                parent = parent.parentMenu;
-            }
-        }
-        /*! 清除当前菜单的所有子菜单 */
-        function clearIsCurrentParent() {
-            isCurrentParent = false;
-            for (let i = 0; i < __childrenListView.count; i++) {
-                let item = __childrenListView.itemAtIndex(i);
-                if (item)
-                    item.clearIsCurrentParent();
-            }
-        }
-        /*! 选中当前菜单的所有父菜单 */
-        function selectedCurrentParentMenu() {
-            for (let i = 0; i < __listView.count; i++) {
-                let item = __listView.itemAtIndex(i);
-                if (item)
-                    item.clearIsCurrentParent();
-            }
-            let parent = parentMenu;
-            while (parent !== null) {
-                parent.isCurrentParent = true;
-                if (parent.parentMenu === null)
-                    return;
-                parent = parent.parentMenu;
-            }
-        }
-
-        Connections {
-            target: __private
-            function onGotoMenu(key) {
-                if (__rootItem.menuKey !== "" && __rootItem.menuKey === key) {
-                    __rootItem.expandParent();
-                    __menuButton.clicked();
-                }
-            }
-        }
-
-        Loader {
-            id: __dividerLoader
-            height: 5
-            width: parent.width
-            active: __rootItem.menuType == "divider"
-            sourceComponent: DelDivider { }
-        }
-
-        Item {
-            id: __layout
-            width: parent.width
-            height: __menuButton.height + ((control.compactMode || control.popupMode) ? 0 : __childrenListView.height)
-            visible: menuType == "item" || menuType == "group"
-
-            MenuButton {
-                id: __menuButton
-                width: parent.width
-                height: __rootItem.menuHeight
-                enabled: __rootItem.menuEnabled
-                text: (control.compactMode && __rootItem.view.menuDeep === 0) ? "" : __rootItem.menuLabel
-                checkable: true
-                iconSize: __rootItem.menuIconSize
-                iconSource: __rootItem.menuIconSource
-                iconSpacing: __rootItem.menuIconSpacing
-                iconStart: (control.compactMode && __rootItem.view.menuDeep === 0) ? (width - iconSize - leftPadding - rightPadding) * 0.5 : 0
-                expandedVisible: {
-                    if (__rootItem.menuType == "group" ||
-                            (control.compactMode && __rootItem.view.menuDeep === 0))
-                        return false;
-                    else
-                        return __rootItem.menuChildrenLength > 0
-                }
-                isCurrent: __rootItem.isCurrent
-                isGroup: __rootItem.menuType == "group"
-                onClicked: {
-                    if (__rootItem.menuChildrenLength == 0) {
-                        control.clickMenu(__rootItem.view.menuDeep, __rootItem.menuKey, model);
-                        __private.selectedItem = __rootItem;
-                        __rootItem.selectedCurrentParentMenu();
-                        if (control.compactMode || control.popupMode)
-                            __rootItem.layerPopup.closeWithParent();
-                    } else {
-                        if (control.compactMode || control.popupMode) {
-                            const h = __rootItem.layerPopup.topPadding +
-                                    __rootItem.layerPopup.bottomPadding +
-                                    __childrenListView.realHeight + 6;
-                            const pos = mapToItem(null, 0, 0);
-                            const pos2 = mapToItem(control, 0, 0);
-                            if ((pos.y + h) > __private.window.height) {
-                                __rootItem.layerPopup.y = Math.max(0, pos2.y - ((pos.y + h) - __private.window.height));
-                            } else {
-                                __rootItem.layerPopup.y = pos2.y;
-                            }
-                            __rootItem.layerPopup.current = __childrenListView;
-                            __rootItem.layerPopup.open();
-                        }
-                    }
-                }
-
-                DelToolTip {
-                    position: DelToolTip.Position_Right
-                    text: __rootItem.menuLabel
-                    visible: {
-                        if (control.compactMode || control.popupMode)
-                            return (__rootItem.layerPopup && !__rootItem.layerPopup.opened) ? parent.hovered : false;
-                        else
-                            return false;
-                    }
-                }
-            }
-
-            ListView {
-                id: __childrenListView
-                visible: __rootItem.menuEnabled
-                parent: {
-                    if (__rootItem.layerPopup && __rootItem.layerPopup.current === __childrenListView)
-                        return __rootItem.layerPopup.contentItem;
-                    else
-                        return __layout;
-                }
-                height: {
-                    if (__rootItem.menuType == "group" || __menuButton.expanded)
-                        return realHeight;
-                    else if (parent != __layout)
-                        return parent.height;
-                    else
-                        return 0;
-                }
-                anchors.top: parent ? (parent == __layout ? __menuButton.bottom : parent.top) : undefined
-                anchors.topMargin: parent == __layout ? control.defaultMenuSpacing : 0
-                anchors.left: parent ? parent.left : undefined
-                anchors.leftMargin: (control.compactMode || control.popupMode) ? 0 : __menuButton.iconSize * menuDeep
-                anchors.right: parent ? parent.right : undefined
-                spacing: control.defaultMenuSpacing
-                boundsBehavior: Flickable.StopAtBounds
-                interactive: __childrenListView.visible
-                model: []
-                delegate: menuDelegate
-                onContentHeightChanged: cacheBuffer = contentHeight;
-                T.ScrollBar.vertical: DelScrollBar {
-                    id: childrenScrollBar
-                    visible: (control.compactMode || control.popupMode) && childrenScrollBar.size !== 1
-                }
-                clip: true
-                /* 子 ListView 从父 ListView 的深度累加可实现自动计算 */
-                property int menuDeep: __rootItem.view.menuDeep + 1
-                property var parentMenu: __rootItem
-                property int realHeight: (contentHeight + ((count === 0 || control.compactMode || control.popupMode) ? 0 : control.defaultMenuSpacing))
-
-                Behavior on height {
-                    enabled: control.animationEnabled
-                    NumberAnimation { duration: DelTheme.Primary.durationFast }
-                }
-
-                Connections {
-                    target: control
-                    function onCompactModeChanged() {
-                        if (__rootItem.layerPopup) {
-                            __rootItem.layerPopup.current = null;
-                            __rootItem.layerPopup.close();
-                        }
-                    }
-                    function onPopupModeChanged() {
-                        if (__rootItem.layerPopup) {
-                            __rootItem.layerPopup.current = null;
-                            __rootItem.layerPopup.close();
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     onInitModelChanged: {
         clear();
@@ -278,6 +34,7 @@ Item {
     }
 
     function gotoMenu(key) {
+        __private.gotoMenuKey = key;
         __private.gotoMenu(key);
     }
 
@@ -328,11 +85,13 @@ Item {
     }
 
     function clear() {
+        __private.gotoMenuKey = '';
         __listView.model = [];
     }
 
     component MenuButton: DelButton {
         id: __menuButtonImpl
+
         property int iconSource: 0
         property int iconSize: DelTheme.DelMenu.fontSize
         property int iconSpacing: 5
@@ -341,6 +100,8 @@ Item {
         property bool expandedVisible: false
         property bool isCurrent: false
         property bool isGroup: false
+        property var contentDelegate: null
+
         onClicked: {
             if (expandedVisible)
                 expanded = !expanded;
@@ -374,14 +135,31 @@ Item {
                 return DelTheme.DelMenu.colorBgDisabled;
             }
         }
-        contentItem: Item {
+        contentItem: Loader {
+            sourceComponent: __menuButtonImpl.contentDelegate
+            property alias menuButton: __menuButtonImpl
+        }
+    }
+
+    Behavior on width {
+        enabled: control.animationEnabled
+        NumberAnimation {
+            easing.type: Easing.OutCubic
+            duration: DelTheme.Primary.durationMid
+        }
+    }
+
+    Component {
+        id: __menuContentDelegate
+
+        Item {
             DelIconText {
                 id: __icon
-                x: __menuButtonImpl.iconStart
+                x: menuButton.iconStart
                 anchors.verticalCenter: parent.verticalCenter
-                color: __menuButtonImpl.colorText
-                iconSize: __menuButtonImpl.iconSize
-                iconSource: __menuButtonImpl.iconSource
+                color: menuButton.colorText
+                iconSize: menuButton.iconSize
+                iconSource: menuButton.iconSource
                 verticalAlignment: Text.AlignVCenter
 
                 Behavior on x {
@@ -394,13 +172,13 @@ Item {
             Text {
                 id: __text
                 anchors.left: __icon.right
-                anchors.leftMargin: __menuButtonImpl.iconSpacing
-                anchors.right: __menuButtonImpl.expandedVisible ? __expandedIcon.left : parent.right
-                anchors.rightMargin: __menuButtonImpl.iconSpacing
+                anchors.leftMargin: menuButton.iconSpacing
+                anchors.right: menuButton.expandedVisible ? __expandedIcon.left : parent.right
+                anchors.rightMargin: menuButton.iconSpacing
                 anchors.verticalCenter: parent.verticalCenter
-                text: __menuButtonImpl.text
-                font: __menuButtonImpl.font
-                color: __menuButtonImpl.colorText
+                text: menuButton.text
+                font: menuButton.font
+                color: menuButton.colorText
                 elide: Text.ElideRight
 
                 Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
@@ -410,9 +188,9 @@ Item {
                 id: __expandedIcon
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                visible: __menuButtonImpl.expandedVisible
+                visible: menuButton.expandedVisible
                 iconSource: (control.compactMode || control.popupMode) ? DelIcon.RightOutlined : DelIcon.DownOutlined
-                colorIcon: __menuButtonImpl.colorText
+                colorIcon: menuButton.colorText
                 transform: Rotation {
                     origin {
                         x: __expandedIcon.width * 0.5
@@ -423,7 +201,7 @@ Item {
                         y: 0
                         z: 0
                     }
-                    angle: (control.compactMode || control.popupMode) ? 0 : (__menuButtonImpl.expanded ? 180 : 0)
+                    angle: (control.compactMode || control.popupMode) ? 0 : (menuButton.expanded ? 180 : 0)
                     Behavior on angle { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
                 }
                 Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
@@ -431,17 +209,265 @@ Item {
         }
     }
 
-    Behavior on width {
-        enabled: control.animationEnabled
-        NumberAnimation {
-            easing.type: Easing.OutCubic
-            duration: DelTheme.Primary.durationMid
+    Component {
+        id: __menuDelegate
+
+        Item {
+            id: __rootItem
+            width: ListView.view.width
+            height: {
+                switch (menuType) {
+                case "item":
+                case "group":
+                    return __layout.height;
+                case "divider":
+                    return __dividerLoader.height;
+                default:
+                    return __layout.height;
+                }
+            }
+            clip: true
+            Component.onCompleted: {
+                if (menuType == "item" || menuType == "group") {
+                    layerPopup = __private.createPopupList(view.menuDeep);
+                    for (let i = 0; i < menuChildren.length; i++) {
+                        __childrenListView.model.push(menuChildren[i]);
+                    }
+                    if (control.defaultSelectedKey.length != 0) {
+                        if (control.defaultSelectedKey.indexOf(menuKey) != -1) {
+                            __rootItem.expandParent();
+                            __menuButton.clicked();
+                        }
+                    }
+                }
+                if (__rootItem.menuKey !== "" && __rootItem.menuKey === __private.gotoMenuKey) {
+                    __rootItem.expandParent();
+                    __menuButton.clicked();
+                }
+            }
+
+            required property var modelData
+            property alias model: __rootItem.modelData
+            property var view: ListView.view
+            property string menuKey: model.key || ""
+            property string menuType: model.type || "item"
+            property bool menuEnabled: model.enabled === undefined ? true : model.enabled
+            property string menuLabel: model.label || ""
+            property int menuHeight: model.height || defaultMenuHeight
+            property int menuIconSize: model.iconSize || defaultMenuIconSize
+            property int menuIconSource: model.iconSource || 0
+            property int menuIconSpacing: model.iconSpacing || defaultMenuIconSpacing
+            property var menuChildren: model.menuChildren || []
+            property int menuChildrenLength: menuChildren ? menuChildren.length : 0
+            property var menuContentDelegate: model.contentDelegate ?? __menuContentDelegate
+
+            property var parentMenu: view.menuDeep === 0 ? null : view.parentMenu
+            property bool isCurrent: __private.selectedItem === __rootItem || isCurrentParent
+            property bool isCurrentParent: false
+            property var layerPopup: null
+
+            function expandMenu() {
+                if (__menuButton.expandedVisible)
+                    __menuButton.expanded = true;
+            }
+
+            /*! 查找当前菜单的根菜单 */
+            function findRootMenu() {
+                let parent = parentMenu;
+                while (parent !== null) {
+                    if (parent.parentMenu === null)
+                        return parent;
+                    parent = parent.parentMenu;
+                }
+                /*! 根菜单返回自身 */
+                return __rootItem;
+            }
+            /*! 展开当前菜单的所有父菜单 */
+            function expandParent() {
+                let parent = parentMenu;
+                while (parent !== null) {
+                    if (parent.parentMenu === null) {
+                        parent.expandMenu();
+                        return;
+                    }
+                    parent.expandMenu();
+                    parent = parent.parentMenu;
+                }
+            }
+            /*! 清除当前菜单的所有子菜单 */
+            function clearIsCurrentParent() {
+                isCurrentParent = false;
+                for (let i = 0; i < __childrenListView.count; i++) {
+                    let item = __childrenListView.itemAtIndex(i);
+                    if (item)
+                        item.clearIsCurrentParent();
+                }
+            }
+            /*! 选中当前菜单的所有父菜单 */
+            function selectedCurrentParentMenu() {
+                for (let i = 0; i < __listView.count; i++) {
+                    let item = __listView.itemAtIndex(i);
+                    if (item)
+                        item.clearIsCurrentParent();
+                }
+                let parent = parentMenu;
+                while (parent !== null) {
+                    parent.isCurrentParent = true;
+                    if (parent.parentMenu === null)
+                        return;
+                    parent = parent.parentMenu;
+                }
+            }
+
+            Connections {
+                target: __private
+                function onGotoMenu(key) {
+                    if (__rootItem.menuKey !== "" && __rootItem.menuKey === key) {
+                        __rootItem.expandParent();
+                        __menuButton.clicked();
+                    }
+                }
+            }
+
+            Loader {
+                id: __dividerLoader
+                height: 5
+                width: parent.width
+                active: __rootItem.menuType == "divider"
+                sourceComponent: DelDivider { }
+            }
+
+            Item {
+                id: __layout
+                width: parent.width
+                height: __menuButton.height + ((control.compactMode || control.popupMode) ? 0 : __childrenListView.height)
+                visible: menuType == "item" || menuType == "group"
+
+                MenuButton {
+                    id: __menuButton
+                    width: parent.width
+                    height: __rootItem.menuHeight
+                    enabled: __rootItem.menuEnabled
+                    text: (control.compactMode && __rootItem.view.menuDeep === 0) ? "" : __rootItem.menuLabel
+                    checkable: true
+                    iconSize: __rootItem.menuIconSize
+                    iconSource: __rootItem.menuIconSource
+                    iconSpacing: __rootItem.menuIconSpacing
+                    iconStart: (control.compactMode && __rootItem.view.menuDeep === 0) ? (width - iconSize - leftPadding - rightPadding) * 0.5 : 0
+                    expandedVisible: {
+                        if (__rootItem.menuType == "group" ||
+                                (control.compactMode && __rootItem.view.menuDeep === 0))
+                            return false;
+                        else
+                            return __rootItem.menuChildrenLength > 0
+                    }
+                    isCurrent: __rootItem.isCurrent
+                    isGroup: __rootItem.menuType == "group"
+                    contentDelegate: __rootItem.menuContentDelegate
+                    onClicked: {
+                        if (__rootItem.menuChildrenLength == 0) {
+                            control.clickMenu(__rootItem.view.menuDeep, __rootItem.menuKey, model);
+                            __private.selectedItem = __rootItem;
+                            __rootItem.selectedCurrentParentMenu();
+                            if (control.compactMode || control.popupMode)
+                                __rootItem.layerPopup.closeWithParent();
+                        } else {
+                            if (control.compactMode || control.popupMode) {
+                                const h = __rootItem.layerPopup.topPadding +
+                                        __rootItem.layerPopup.bottomPadding +
+                                        __childrenListView.realHeight + 6;
+                                const pos = mapToItem(null, 0, 0);
+                                const pos2 = mapToItem(control, 0, 0);
+                                if ((pos.y + h) > __private.window.height) {
+                                    __rootItem.layerPopup.y = Math.max(0, pos2.y - ((pos.y + h) - __private.window.height));
+                                } else {
+                                    __rootItem.layerPopup.y = pos2.y;
+                                }
+                                __rootItem.layerPopup.current = __childrenListView;
+                                __rootItem.layerPopup.open();
+                            }
+                        }
+                    }
+
+                    DelToolTip {
+                        position: DelToolTip.Position_Right
+                        text: __rootItem.menuLabel
+                        visible: {
+                            if (control.compactMode || control.popupMode)
+                                return (__rootItem.layerPopup && !__rootItem.layerPopup.opened) ? parent.hovered : false;
+                            else
+                                return false;
+                        }
+                    }
+                }
+
+                ListView {
+                    id: __childrenListView
+                    visible: __rootItem.menuEnabled
+                    parent: {
+                        if (__rootItem.layerPopup && __rootItem.layerPopup.current === __childrenListView)
+                            return __rootItem.layerPopup.contentItem;
+                        else
+                            return __layout;
+                    }
+                    height: {
+                        if (__rootItem.menuType == "group" || __menuButton.expanded)
+                            return realHeight;
+                        else if (parent != __layout)
+                            return parent.height;
+                        else
+                            return 0;
+                    }
+                    anchors.top: parent ? (parent == __layout ? __menuButton.bottom : parent.top) : undefined
+                    anchors.topMargin: parent == __layout ? control.defaultMenuSpacing : 0
+                    anchors.left: parent ? parent.left : undefined
+                    anchors.leftMargin: (control.compactMode || control.popupMode) ? 0 : __menuButton.iconSize * menuDeep
+                    anchors.right: parent ? parent.right : undefined
+                    spacing: control.defaultMenuSpacing
+                    boundsBehavior: Flickable.StopAtBounds
+                    interactive: __childrenListView.visible
+                    model: []
+                    delegate: __menuDelegate
+                    onContentHeightChanged: cacheBuffer = contentHeight;
+                    T.ScrollBar.vertical: DelScrollBar {
+                        id: childrenScrollBar
+                        visible: (control.compactMode || control.popupMode) && childrenScrollBar.size !== 1
+                    }
+                    clip: true
+                    /* 子 ListView 从父 ListView 的深度累加可实现自动计算 */
+                    property int menuDeep: __rootItem.view.menuDeep + 1
+                    property var parentMenu: __rootItem
+                    property int realHeight: (contentHeight + ((count === 0 || control.compactMode || control.popupMode) ? 0 : control.defaultMenuSpacing))
+
+                    Behavior on height {
+                        enabled: control.animationEnabled
+                        NumberAnimation { duration: DelTheme.Primary.durationFast }
+                    }
+
+                    Connections {
+                        target: control
+                        function onCompactModeChanged() {
+                            if (__rootItem.layerPopup) {
+                                __rootItem.layerPopup.current = null;
+                                __rootItem.layerPopup.close();
+                            }
+                        }
+                        function onPopupModeChanged() {
+                            if (__rootItem.layerPopup) {
+                                __rootItem.layerPopup.current = null;
+                                __rootItem.layerPopup.close();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     Item {
         id: __private
         signal gotoMenu(key: string)
+        property string gotoMenuKey: ''
         property var window: Window.window
         property var selectedItem: null
         property var popupList: []
@@ -508,7 +534,7 @@ Item {
         boundsBehavior: Flickable.StopAtBounds
         spacing: control.defaultMenuSpacing
         model: []
-        delegate: menuDelegate
+        delegate: __menuDelegate
         onContentHeightChanged: cacheBuffer = contentHeight;
         T.ScrollBar.vertical: DelScrollBar {
             anchors.rightMargin: -8
