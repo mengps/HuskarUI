@@ -13,6 +13,7 @@ Window {
         MicaAlt = 4
     }
 
+    property real contentHeight: height - captionBar.height
     property alias captionBar: __captionBar
     property alias windowAgent: __windowAgent
     property bool followThemeSwitch: true
