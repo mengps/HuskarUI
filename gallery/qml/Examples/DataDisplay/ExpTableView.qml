@@ -179,8 +179,17 @@ filterInput(可选) | string | 该列过滤输入
 - \`scrollToRow(row: int)\` 滚动到 \`row\` 指定的行。\n
 - \`sort(column: int)\` 排序 \`column\` 指定的列(该列的描述对象需要具有 \`sorter\` 和 \`sortDirections\`)。\n
 - \`clearSort()\` 清除所有排序(即还原为初始状态)。\n
-- \`filter()\` 使用提供的(如果有，可以多列) \`onFilter\` 过滤整个模型。\n
+- \`filter()\` 使用提供的(如果有，可以多列) \`onFilter\` 过滤整个模型，**注意** 此函数还会确定应用了排序的列并自动进行重排。\n
 - \`clearFilter()\` 清除所有过滤(即还原为初始状态)。\n
+- \`clear()\` 清空所有模型数据、排序和过滤。\n
+**注意** 以下函数仅作用于当前(排序&过滤后)的数据，不会更改 \`initModel\`，并且，为了最佳的性能，\n
+需要用户自行判断是否应该重新排序&过滤(调用 \`filter()\` 即可)\n。
+- \`appendRow(object: var)\` 在当前模型末尾添加 \`object\` 行, 不会更改 \`initModel\`。\n
+- \`object getRow(rowIndex: int)\` 获取当前模型 \`row\` 处的行数据。\n
+- \`insertRow(rowIndex: int, object: var)\` 在当前模型插入行数据 \`object\` 到 \`rowIndex\` 处, 不会更改 \`initModel\`。\n
+- \`moveRow(fromRowIndex: int, toRowIndex: int, count: int = 1)\`将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置, 不会更改 \`initModel\`。\n
+- \`removeRow(rowIndex: int, count: int = 1)\` 删除当前模型 \`rowIndex\` 处的 \`count\` 条行数据, 不会更改 \`initModel\`。\n
+- \`setRow(rowIndex: int, object: var)\` 设置当前模型 \`rowIndex\` 处行数据为 \`object\`, 不会更改 \`initModel\`。\n
                        `)
         }
 

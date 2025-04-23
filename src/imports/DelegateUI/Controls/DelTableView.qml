@@ -352,7 +352,7 @@ DelRectangle {
         __private.parentCheckStateChanged();
     }
 
-    function scrollToRow(row: int) {
+    function scrollToRow(row) {
         __cellView.positionViewAtRow(row, TableView.AlignVCenter);
         __private.updateParentCheckBox();
     }
@@ -393,14 +393,17 @@ DelRectangle {
 
     function filter() {
         /*! 先过滤 */
+        let changed = false;
         let model = [...initModel];
         columns.forEach(
                     object => {
                         if (object.hasOwnProperty('onFilter') && object.hasOwnProperty('filterInput')) {
                             model = model.filter((record, index) => object.onFilter(object.filterInput, record));
+                            changed = true;
                         }
                     });
-        __private.model = model;
+        if (changed)
+            __private.model = model;
 
         /*! 根据 activeSorter 列排序 */
         columns.forEach(
@@ -425,10 +428,67 @@ DelRectangle {
     function clearFilter() {
         columns.forEach(
                     object => {
-                        if (object.hasOwnProperty('onFilter') || object.hasOwnProperty('filterInput'))
+                        if (object.hasOwnProperty('onFilter') || object.hasOwnProperty('filterInput')) {
                             object.filterInput = '';
+                        }
                     });
         __private.model = [...initModel];
+    }
+
+    function clear() {
+        __private.model = initModel = [];
+        __cellModel.clear();
+        columns.forEach(
+                    object => {
+                        if (object.sortDirections && object.sortDirections.length !== 0) {
+                            object.activeSorter = false;
+                            object.sortIndex = -1;
+                            object.sortMode = 'false';
+                        }
+                        if (object.hasOwnProperty('onFilter') || object.hasOwnProperty('filterInput')) {
+                            object.filterInput = '';
+                        }
+                    });
+    }
+
+    function appendRow(object: var) {
+        __private.model.push(object);
+        __cellModel.appendRow(__private.toCellObject(object));
+    }
+
+    function getRow(rowIndex) {
+        if (rowIndex >= 0 && rowIndex < __private.model.length) {
+            return __private.model[rowIndex];
+        }
+        return undefined;
+    }
+
+    function insertRow(rowIndex, object: var) {
+        __private.model.splice(rowIndex, 0, object);
+        __cellModel.insertRow(rowIndex, __private.toCellObject(object));
+    }
+
+    function moveRow(fromRowIndex, toRowIndex, count = 1) {
+        if (fromRowIndex >= 0 && fromRowIndex < __private.model.length &&
+                toRowIndex >= 0 && toRowIndex < __private.model.length) {
+            const objects = __private.model.splice(from, count);
+            __private.model.splice(to, 0, ...objects);
+            __cellModel.moveRow(fromRowIndex, toRowIndex, count);
+        }
+    }
+
+    function removeRow(rowIndex, count = 1) {
+        if (rowIndex >= 0 && rowIndex < __private.model.length) {
+            __private.model.splice(rowIndex, count);
+            __cellModel.removeRow(rowIndex, count);
+        }
+    }
+
+    function setRow(rowIndex, object: var) {
+        if (rowIndex >= 0 && rowIndex < __private.model.length) {
+            __private.model[rowIndex] = object;
+            __cellModel.setRow(rowIndex, __private.toCellObject(object));
+        }
     }
 
     component HoverIcon: DelIconText {
@@ -517,6 +577,19 @@ DelRectangle {
 
         function updateCheckedKeys() {
             control.checkedKeys = [...checkedKeysMap.keys()];
+        }
+
+        function toCellObject(object) {
+            let dataObject = new Object;
+            for (let i = 0; i < control.columns.length; i++) {
+                const dataIndex = control.columns[i].dataIndex ?? '';
+                if (object.hasOwnProperty(dataIndex)) {
+                    dataObject[`__data${i}`] = object[dataIndex];
+                } else {
+                    dataObject[`__data${i}`] = null;
+                }
+            }
+            return dataObject;
         }
 
         onModelChanged: {
@@ -728,9 +801,7 @@ DelRectangle {
             T.ScrollBar.vertical: __vScrollBar
             clip: true
             reuseItems: false /*! 重用有未知BUG */
-            model: TableModel {
-                id: __cellModel
-            }
+            model: TableModel { id: __cellModel }
             delegate: Rectangle {
                 id: __rootItem
                 implicitWidth: control.columns[column].width
