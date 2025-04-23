@@ -399,6 +399,7 @@ void DelThemePrivate::registerDefaultComponentTheme(const QString &component, co
             ADD_COMPONENT_CASE(DelTableView)
             ADD_COMPONENT_CASE(DelMessage)
             ADD_COMPONENT_CASE(DelAutoComplete)
+            ADD_COMPONENT_CASE(DelDatePicker)
         default:
             break;
         }
