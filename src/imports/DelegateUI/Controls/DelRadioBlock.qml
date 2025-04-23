@@ -44,16 +44,6 @@ Item {
 
         required property var modelData
         required property int index
-        property int shape: {
-            if (count === 1)
-                return 0;
-            else if (index == 0)
-                return 1;
-            else if (index === (count - 1))
-                return 2;
-            else
-                return 0;
-        }
 
         T.ButtonGroup.group: __buttonGroup
         Component.onCompleted: {
@@ -154,10 +144,10 @@ Item {
                 height: parent.height
                 anchors.centerIn: parent
                 color: __rootItem.colorBg
-                topLeftRadius: shape == 1 ? control.radiusBg : 0
-                bottomLeftRadius: shape == 1 ? control.radiusBg : 0
-                topRightRadius: shape == 2 ? control.radiusBg : 0
-                bottomRightRadius: shape == 2 ? control.radiusBg : 0
+                topLeftRadius: index == 0 ? control.radiusBg : 0
+                bottomLeftRadius: index == 0 ? control.radiusBg : 0
+                topRightRadius: index === (count - 1) ? control.radiusBg : 0
+                bottomRightRadius: index === (count - 1) ? control.radiusBg : 0
                 border.width: 1
                 border.color: __rootItem.colorBorder
 
