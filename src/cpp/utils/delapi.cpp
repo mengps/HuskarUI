@@ -65,6 +65,11 @@ QString DelApi::readFileToString(const QString &fileName)
     return result;
 }
 
+int DelApi::getWeekNumber(const QDate &date)
+{
+    return date.weekNumber();
+}
+
 DelApi::DelApi(QObject *parent)
     : QObject{parent}
 {

@@ -24,6 +24,7 @@ public:
     Q_INVOKABLE void setClipbordText(const QString &text);
 
     Q_INVOKABLE QString readFileToString(const QString &fileName);
+    Q_INVOKABLE int getWeekNumber(const QDate &date);
 
 private:
     explicit DelApi(QObject *parent = nullptr);
