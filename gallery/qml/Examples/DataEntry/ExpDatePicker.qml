@@ -76,7 +76,6 @@ dateFormat | string | 日期格式
                     spacing: 10
 
                     DelDatePicker {
-                        x: 700
                         placeholderText: qsTr('请选择日期')
                         pickerMode: DelDatePicker.Mode_Day
                         dateFormat: qsTr('yyyy-MM-dd')
