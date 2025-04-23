@@ -31,6 +31,16 @@ QList<QColor> DelThemeFunctions::genColor(const QColor &color, bool light, const
     return DelColorGenerator::generate(color, light, background);
 }
 
+QList<QString> DelThemeFunctions::genColorString(const QColor &color, bool light, const QColor &background)
+{
+    QList<QString> result;
+    const auto listColor = DelColorGenerator::generate(color, light, background);
+    for (const auto &color: listColor)
+        result.append(color.name());
+
+    return result;
+}
+
 QList<qreal> DelThemeFunctions::genFontSize(qreal fontSizeBase)
 {
     return DelSizeGenerator::generateFontSize(fontSizeBase);
@@ -44,7 +54,11 @@ QList<qreal> DelThemeFunctions::genFontLineHeight(qreal fontSizeBase)
 QString DelThemeFunctions::genFontFamily(const QString &familyBase)
 {
     const auto families = familyBase.split(',');
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     const auto database = QFontDatabase::families();
+#else
+    const auto database = QFontDatabase().families();
+#endif
     for(auto family: families) {
         auto normalize = family.remove('\'').remove('\"').trimmed();
         if (database.contains(normalize)) {

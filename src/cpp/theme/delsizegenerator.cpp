@@ -1,6 +1,6 @@
 #include "delsizegenerator.h"
 
-#include <cmath>
+#include <QtCore/qmath.h>
 
 DelSizeGenerator::DelSizeGenerator(QObject *parent)
     : QObject{parent}
@@ -15,6 +15,7 @@ DelSizeGenerator::~DelSizeGenerator()
 
 QList<qreal> DelSizeGenerator::generateFontSize(qreal fontSizeBase)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QList<qreal> fontSizes(10);
     for (int index = 0; index < 10; index++) {
         const auto i = index - 1;
@@ -26,6 +27,20 @@ QList<qreal> DelSizeGenerator::generateFontSize(qreal fontSizeBase)
     fontSizes[1] = fontSizeBase;
 
     return fontSizes;
+#else
+    QVector<qreal> fontSizes(10);
+
+    for (int index = 0; index < 10; index++) {
+        const auto i = index - 1;
+        const auto baseSize = fontSizeBase * std::pow(M_E, i / 5.0);
+        const auto intSize = (i + 1) > 1 ? std::floor(baseSize) : std::ceil(baseSize);
+        // Convert to even
+        fontSizes[index] = std::floor(intSize / 2) * 2;
+    }
+    fontSizes[1] = fontSizeBase;
+
+    return fontSizes.toList();
+#endif
 }
 
 QList<qreal> DelSizeGenerator::generateFontLineHeight(qreal fontSizeBase)

@@ -3,7 +3,7 @@
 
 #include <QColor>
 #include <QObject>
-#include <qqmlintegration.h>
+#include <QtQml/qqml.h>
 
 #include "delglobal.h"
 
