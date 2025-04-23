@@ -1,6 +1,21 @@
 [
     {
         "isNew": true,
+        "name": "DelDatePicker",
+        "desc": "日期选择框，输入或选择日期的控件。"
+    },
+    {
+        "isNew": false,
+        "name": "DelTableView",
+        "desc": "添加 clear() 函数。\n添加 appendRow() 函数。\n添加 getRow() 函数。\n添加 insertRow() 函数。\n添加 moveRow() 函数。\n添加 removeRow() 函数。\n添加 setRow() 函数。\n"
+    },
+    {
+        "isNew": false,
+        "name": "DelOTPInput",
+        "desc": "新增 inputAtIndex() 函数。"
+    },
+    {
+        "isNew": true,
         "name": "DelAutoComplete",
         "desc": "输入框自动完成功能。"
     },
@@ -13,11 +28,6 @@
         "isNew": true,
         "name": "DelMessage",
         "desc": "消息提示，用于页面内的消息提示。"
-    },
-    {
-        "isNew": true,
-        "name": "DelTableView",
-        "desc": "表格，用于展示行列数据。"
     },
     {
         "isNew": true,
@@ -94,11 +104,6 @@
         "isNew": false,
         "name": "DelRate",
         "desc": "新增 toolTipDelegate 星星上方的文字提示代理。"
-    },
-    {
-        "isNew": true,
-        "name": "DelOTPInput",
-        "desc": "用于接收和验证一次性口令的输入框组合，通常用于验证码或密码。"
     },
     {
         "isNew": true,

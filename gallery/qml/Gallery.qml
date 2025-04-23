@@ -278,6 +278,11 @@ DelWindow {
                             key: "DelAutoComplete",
                             label: qsTr("DelAutoComplete 自动完成"),
                             source: "./Examples/DataEntry/ExpAutoComplete.qml",
+                        },
+                        {
+                            key: "DelDatePicker",
+                            label: qsTr("DelDatePicker 日期选择框"),
+                            source: "./Examples/DataEntry/ExpDatePicker.qml",
                         }
                     ]
                 },
