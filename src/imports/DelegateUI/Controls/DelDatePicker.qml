@@ -212,6 +212,9 @@ Item {
     }
 
     component PickerButton: DelButton {
+        padding: 20
+        topPadding: 4
+        bottomPadding: 4
         effectEnabled: false
         colorBorder: 'transparent'
         colorBg: checked ? DelTheme.DelDatePicker.colorDayBgCurrent :
@@ -279,9 +282,10 @@ Item {
                 onEntered: hovered = true;
                 onExited: hovered = false;
                 onClicked: {
-                    if (initDate)
+                    if (initDate) {
                         __private.selectDate(initDate);
-                    else {
+                        __input.clear();
+                    } else {
                         __private.selectDate(new Date());
                         __input.clear();
                     }
@@ -395,12 +399,11 @@ Item {
         onOpened: adjustPosition();
         onHeightChanged: adjustPosition();
         contentItem: Item {
-            implicitWidth: 320
+            implicitWidth: __pickerColumn.implicitWidth
             implicitHeight: __pickerColumn.implicitHeight
 
             Column {
                 id: __pickerColumn
-                width: parent.width
                 spacing: 5
 
                 PickerHeader {
@@ -416,23 +419,28 @@ Item {
 
                 T.DayOfWeekRow {
                     id: __dayOfWeekRow
-                    width: parent.width
                     visible: (control.pickerMode == DelDatePicker.Mode_Day || control.pickerMode == DelDatePicker.Mode_Week) &&
                              !__pickerHeader.isPickYear && !__pickerHeader.isPickMonth
                     locale: __monthGrid.locale
                     spacing: 10
-                    delegate: DelText {
+                    delegate: Text {
+                        width: __dayOfWeekRow.itemWidth
                         text: shortName
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
+                        font {
+                            family: DelTheme.DelDatePicker.fontFamily
+                            pixelSize: DelTheme.DelDatePicker.fontSize
+                        }
+                        color: DelTheme.DelDatePicker.colorWeekText
 
                         required property string shortName
                     }
+                    property real itemWidth: (__monthGrid.implicitWidth - 6 * spacing) / 7
                 }
 
                 T.MonthGrid {
                     id: __monthGrid
-                    width: parent.width
                     visible: __dayOfWeekRow.visible
                     padding: 0
                     spacing: 0
@@ -519,9 +527,6 @@ Item {
                     columnSpacing: 10
                     visible: __pickerHeader.isPickYear
 
-                    property int itemWidth: (320 - columns * columnSpacing) / columns
-                    property int itemHeight: (200 - rows * rowSpacing) / rows
-
                     NumberAnimation on scale {
                         running: control.animationEnabled && __yearPicker.visible
                         from: 0
@@ -533,10 +538,11 @@ Item {
                     Repeater {
                         model: 12
                         delegate: Item {
-                            width: __yearPicker.itemWidth
-                            height: __yearPicker.itemHeight
+                            width: 80
+                            height: 40
 
                             PickerButton {
+                                id: __yearPickerButton
                                 anchors.centerIn: parent
                                 text: year
                                 checked: year == control.visualYear
@@ -569,9 +575,6 @@ Item {
                     columnSpacing: 10
                     visible: __pickerHeader.isPickMonth
 
-                    property int itemWidth: (320 - columns * columnSpacing) / columns
-                    property int itemHeight: (200 - rows * rowSpacing) / rows
-
                     NumberAnimation on scale {
                         running: control.animationEnabled && __monthPicker.visible
                         from: 0
@@ -583,10 +586,11 @@ Item {
                     Repeater {
                         model: 12
                         delegate: Item {
-                            width: __monthPicker.itemWidth
-                            height: __monthPicker.itemHeight
+                            width: 80
+                            height: 40
 
                             PickerButton {
+                                id: __monthPickerButton
                                 anchors.centerIn: parent
                                 text: (month + 1) + qsTr('月')
                                 checked: month == control.visualMonth
@@ -622,7 +626,7 @@ Item {
                     Repeater {
                         model: 4
                         delegate: Item {
-                            width: 80
+                            width: 60
                             height: 40
 
                             PickerButton {

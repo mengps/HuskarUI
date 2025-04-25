@@ -1,6 +1,7 @@
 {
     "fontFamily": "@fontPrimaryFamily",
     "fontSize": "@fontPrimarySize",
+    "colorWeekText": "@colorTextBase",
     "colorInputIcon": "@colorTextTertiary",
     "colorInputIconHover": "@colorTextSecondary",
     "colorInputIconDisabled": "@colorTextQuaternary",
