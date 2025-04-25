@@ -1,6 +1,7 @@
 #ifndef DELAPI_H
 #define DELAPI_H
 
+#include <QtCore/QDate>
 #include <QtQml/qqml.h>
 #include <QtGui/QWindow>
 
