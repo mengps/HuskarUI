@@ -21,7 +21,11 @@ Flickable {
 支持的代理：\n
 - **dayDelegate: Component** 天项代理\n
   - \`model: var\` 天模型(参见 MonthGrid)\n
-  - \`hovered: bool\` 是否悬浮在当前星星上\n
+  - \`isCurrentWeek: bool\` 是否为当前周\n
+  - \`isHoveredWeek: bool\` 是否为悬浮周\n
+  - \`isCurrentMonth: bool\` 是否为当前月\n
+  - \`isCurrentVisualMonth: bool\` 是否为(==visualMonth)\n
+  - \`isCurrentDay: bool\` 是否为当前天\n
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
@@ -137,6 +141,111 @@ dateFormat | string | 日期格式
                     placeholderText: qsTr('请选择年份')
                     pickerMode: DelDatePicker.Mode_Year
                     dateFormat: qsTr('yyyy')
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            descTitle: qsTr('自定义日历')
+            desc: qsTr(`
+简单创建一个五月带有农历和节日的日历。\n
+通过 \`initDate\` 属性设置初始日期。\n
+通过 \`dayDelegate\` 属性设置日代理。\n
+                       `)
+            code: `
+                import QtQuick
+                import DelegateUI
+
+                Column {
+                    spacing: 10
+
+                    DelDatePicker {
+                        id: customDatePicker
+                        initDate: new Date(2025, 4, 1)
+                        placeholderText: qsTr('请选择日期')
+                        pickerMode: DelDatePicker.Mode_Day
+                        dateFormat: qsTr('yyyy-MM-dd')
+                        dayDelegate: DelButton {
+                            padding: 0
+                            implicitWidth: 50
+                            implicitHeight: 50
+                            type: isCurrentDay || hovered ? DelButton.Type_Primary : DelButton.Type_Link
+                            text: \`<span>\${model.day}</span>\${getHoliday()}\`
+                            effectEnabled: false
+                            colorText: isCurrentDay ? 'white' : DelTheme.Primary.colorTextBase
+                            Component.onCompleted: contentItem.textFormat = Text.RichText;
+
+                            function getHoliday() {
+                                if (model.month === 4 && model.day === 1) {
+                                    return '<br/><span style="color:red">劳动节</span>';
+                                } else if (model.month === 4 && model.day === 21) {
+                                    return '<br/><span style="color:red">小满</span>';
+                                } else if (model.month === 4 && model.day === 31) {
+                                    return '<br/><span style="color:red">端午节</span>';
+                                }  else {
+                                    const lunarDaysMay2025 = [
+                                      '初四', '初五', '初六', '初七', '初八',
+                                      '初九', '初十', '十一', '十二', '十三',
+                                      '十四', '十五', '十六', '十七', '十八',
+                                      '十九', '二十', '廿一', '廿二', '廿三',
+                                      '廿四', '廿五', '廿六', '廿七', '廿八',
+                                      '廿九', '三十', '初一', '初二', '初三',
+                                      '初四'
+                                    ];
+                                    if (model.month === 4)
+                                        return \`<br/><span style="color:\${colorText}">\${lunarDaysMay2025[model.day - 1]}</span>\`;
+                                    else
+                                        return '';
+                                }
+                            }
+                        }
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                DelDatePicker {
+                    id: customDatePicker
+                    initDate: new Date(2025, 4, 1)
+                    placeholderText: qsTr('请选择日期')
+                    pickerMode: DelDatePicker.Mode_Day
+                    dateFormat: qsTr('yyyy-MM-dd')
+                    dayDelegate: DelButton {
+                        padding: 0
+                        implicitWidth: 50
+                        implicitHeight: 50
+                        type: isCurrentDay || hovered ? DelButton.Type_Primary : DelButton.Type_Link
+                        text: `<span>${model.day}</span>${getHoliday()}`
+                        effectEnabled: false
+                        colorText: isCurrentDay ? 'white' : DelTheme.Primary.colorTextBase
+                        Component.onCompleted: contentItem.textFormat = Text.RichText;
+
+                        function getHoliday() {
+                            if (model.month === 4 && model.day === 1) {
+                                return '<br/><span style="color:red">劳动节</span>';
+                            } else if (model.month === 4 && model.day === 21) {
+                                return '<br/><span style="color:red">小满</span>';
+                            } else if (model.month === 4 && model.day === 31) {
+                                return '<br/><span style="color:red">端午节</span>';
+                            }  else {
+                                const lunarDaysMay2025 = [
+                                  '初四', '初五', '初六', '初七', '初八',
+                                  '初九', '初十', '十一', '十二', '十三',
+                                  '十四', '十五', '十六', '十七', '十八',
+                                  '十九', '二十', '廿一', '廿二', '廿三',
+                                  '廿四', '廿五', '廿六', '廿七', '廿八',
+                                  '廿九', '三十', '初一', '初二', '初三',
+                                  '初四'
+                                ];
+                                if (model.month === 4)
+                                    return `<br/><span style="color:${colorText}">${lunarDaysMay2025[model.day - 1]}</span>`;
+                                else
+                                    return '';
+                            }
+                        }
+                    }
                 }
             }
         }
