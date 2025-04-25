@@ -1,6 +1,7 @@
 #include "delcolorgenerator.h"
 
 #include <QHash>
+#include <QtCore/qmath.h>
 
 static const auto g_hueStep = 2; // 色相阶梯
 static const auto g_saturationStep = 0.16; // 饱和度阶梯，浅色部分
