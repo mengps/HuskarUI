@@ -21,17 +21,17 @@ Flickable {
 * **继承自 { DelInput }**\n
 支持的代理：\n
 - **labelDelegate: Component** 弹出框标签项代理，代理可访问属性：\n
-  - \`textData: var\` {textRole}对应的文本数据\n
-  - \`valueData: var\` {valueRole}对应的值数据\n
-  - \`modelData: var\` 选项模型数据\n
-  - \`hovered: bool\` 是否悬浮\n
-  - \`highlighted: bool\` 是否高亮\n
+  - \`parent.textData: var\` {textRole}对应的文本数据\n
+  - \`parent.valueData: var\` {valueRole}对应的值数据\n
+  - \`parent.modelData: var\` 选项模型数据\n
+  - \`parent.hovered: bool\` 是否悬浮\n
+  - \`parent.highlighted: bool\` 是否高亮\n
 - **labelBgDelegate: Component** 弹出框标签项背景代理，代理可访问属性：\n
-  - \`textData: var\` {textRole}对应的文本数据\n
-  - \`valueData: var\` {valueRole}对应的值数据\n
-  - \`modelData: var\` 选项模型数据\n
-  - \`hovered: bool\` 是否悬浮\n
-  - \`highlighted: bool\` 是否高亮\n
+  - \`parent.textData: var\` {textRole}对应的文本数据\n
+  - \`parent.valueData: var\` {valueRole}对应的值数据\n
+  - \`parent.modelData: var\` 选项模型数据\n
+  - \`parent.hovered: bool\` 是否悬浮\n
+  - \`parent.highlighted: bool\` 是否高亮\n
 - **clearIconDelegate: Component** 清除图标代理，等同于{DelInput.iconDelegate}\n
 支持的属性：\n
 属性名 | 类型 | 描述
@@ -43,7 +43,9 @@ valueRole | string | 弹出框值的模型角色。
 tooltipVisible | bool | 是否显示文字提示
 clearIconSource | enum | 清除图标源(来自 DelIcon)
 clearIconPosition | enum | 清除图标位置(来自 DelInput)
-defaulPopupMaxHeight | color | 默认弹出框最大高度
+clearIconSize | int | 清除图标大小
+defaultPopupMaxHeight | int | 默认弹出框最大高度
+defaultOptionSpacing | int | 默认选项间隔
 \n支持的函数：\n
 - \`clearInput()\` 清空输入 \n
 - \`openPopup()\` 打开弹出框 \n

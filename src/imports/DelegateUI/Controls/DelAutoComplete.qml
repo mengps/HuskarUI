@@ -14,8 +14,10 @@ DelInput {
     property string valueRole: 'value'
     property bool tooltipVisible: false
     property alias clearIconSource: control.iconSource
+    property alias clearIconSize: control.iconSize
     property alias clearIconPosition: control.iconPosition
-    property int defaulPopupMaxHeight: 240
+    property int defaultPopupMaxHeight: 240
+    property int defaultOptionSpacing: 0
 
     property Component labelDelegate: Text {
         text: textData
@@ -50,14 +52,17 @@ DelInput {
             cursorShape: parent.iconSource == control.clearIconSource ? Qt.PointingHandCursor : Qt.ArrowCursor
             onEntered: hovered = true;
             onExited: hovered = false;
-            property bool hovered: false
             onClicked: control.clearInput();
+            property bool hovered: false
         }
     }
 
     clearIconPosition: DelInput.Position_Right
     iconDelegate: clearIconDelegate
-    onOptionsChanged: __private.model = options;
+    onOptionsChanged: {
+        __popupListView.currentIndex = -1;
+        __private.model = options;
+    }
     onTextEdited: {
         control.search(text);
         __private.filter();
@@ -69,9 +74,8 @@ DelInput {
 
     function clearInput() {
         control.clear();
-        control.search('');
+        control.textEdited();
         __popupListView.currentIndex = -1;
-        closePopup();
     }
 
     function openPopup() {
@@ -102,7 +106,7 @@ DelInput {
     DelPopup {
         id: __popup
         implicitWidth: control.width
-        implicitHeight: Math.min(control.defaulPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
+        implicitHeight: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
         leftPadding: 4
         rightPadding: 4
         topPadding: 6
@@ -143,6 +147,7 @@ DelInput {
             currentIndex: -1
             model: __private.model
             boundsBehavior: Flickable.StopAtBounds
+            spacing: control.defaultOptionSpacing
             delegate: T.ItemDelegate {
                 id: __popupDelegate
 
@@ -158,6 +163,7 @@ DelInput {
                 rightPadding: 8
                 topPadding: 4
                 bottomPadding: 4
+                highlighted: __popupListView.currentIndex === index
                 contentItem: Loader {
                     sourceComponent: control.labelDelegate
                     property alias textData: __popupDelegate.textData
@@ -174,7 +180,6 @@ DelInput {
                     property alias hovered: __popupDelegate.hovered
                     property alias highlighted: __popupDelegate.highlighted
                 }
-                highlighted: __popupListView.currentIndex === index
                 onClicked: {
                     control.select(__popupDelegate.modelData);
                     control.text = __popupDelegate.valueData;
