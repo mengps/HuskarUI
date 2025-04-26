@@ -166,7 +166,7 @@ DelWindow {
                 slider.value: DelTheme.Primary.fontPrimarySizeHeading5
                 slider.snapMode: DelSlider.SnapAlways
                 slider.onFirstReleased: {
-                    DelTheme.installThemePrimaryFontSize(slider.currentValue);
+                    DelTheme.installThemePrimaryFontSizeBase(slider.currentValue);
                 }
                 scaleVisible: true
             }

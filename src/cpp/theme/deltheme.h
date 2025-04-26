@@ -73,9 +73,32 @@ public:
 
     Q_INVOKABLE void reloadTheme();
 
-    Q_INVOKABLE void installThemePrimaryColor(const QColor &color);
-    Q_INVOKABLE void installThemePrimaryFontSize(int fontSize);
-    Q_INVOKABLE void installThemePrimaryFontFamilies(const QString &families);
+    /**
+     * @brief 安装文本基础色{DelTheme.Primary.colorTextBase}
+     * @param lightAndDark 明亮和暗黑模式颜色字符串,类似于{#000|#fff}
+     */
+    Q_INVOKABLE void installThemeColorTextBase(const QString &lightAndDark);
+    /**
+     * @brief 安装背景基础色{DelTheme.Primary.colorBgBase}
+     * @param lightAndDark 明亮和暗黑模式颜色字符串,类似于{#fff|#000}
+     */
+    Q_INVOKABLE void installThemeColorBgBase(const QString &lightAndDark);
+    /**
+     * @brief 安装主基础色{DelTheme.Primary.colorPrimaryBase}
+     * @param color 颜色
+     */
+    Q_INVOKABLE void installThemePrimaryColorBase(const QColor &color);
+    /**
+     * @brief 安装字体基础大小{DelTheme.Primary.fontSizeBase}
+     * @param fontSize 字体像素大小
+     */
+    Q_INVOKABLE void installThemePrimaryFontSizeBase(int fontSize);
+    /**
+     * @brief 安装字体基础大小{DelTheme.Primary.fontFamilyBase}
+     * @param fontSize 字体像素大小
+     */
+    Q_INVOKABLE void installThemePrimaryFontFamiliesBase(const QString &families);
+
 
     /**
      * @brief 安装Index主题

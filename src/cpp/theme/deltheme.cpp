@@ -496,22 +496,41 @@ void DelTheme::reloadTheme()
         qDebug() << "Index.json open faild:" << index.errorString();
     }
 }
+void DelTheme::installThemeColorTextBase(const QString &lightAndDark)
+{
+    Q_D(DelTheme);
 
-void DelTheme::installThemePrimaryColor(const QColor &color)
+    d->m_indexObject["colorTextBase"] = lightAndDark.simplified();
+    d->reloadIndexTheme();
+    d->reloadDefaultComponentTheme();
+    d->reloadCustomComponentTheme();
+}
+
+void DelTheme::installThemeColorBgBase(const QString &lightAndDark)
+{
+    Q_D(DelTheme);
+
+    d->m_indexObject["colorBgBase"] = lightAndDark.simplified();
+    d->reloadIndexTheme();
+    d->reloadDefaultComponentTheme();
+    d->reloadCustomComponentTheme();
+}
+
+void DelTheme::installThemePrimaryColorBase(const QColor &color)
 {
     Q_D(DelTheme);
 
     installIndexThemeKV("colorPrimaryBase", QString("$genColor(%1)").arg(color.name()));
 }
 
-void DelTheme::installThemePrimaryFontSize(int fontSize)
+void DelTheme::installThemePrimaryFontSizeBase(int fontSize)
 {
     Q_D(DelTheme);
 
     installIndexThemeKV("fontSizeBase", QString("$genFontSize(%1)").arg(fontSize));
 }
 
-void DelTheme::installThemePrimaryFontFamilies(const QString &families)
+void DelTheme::installThemePrimaryFontFamiliesBase(const QString &families)
 {
     Q_D(DelTheme);
 

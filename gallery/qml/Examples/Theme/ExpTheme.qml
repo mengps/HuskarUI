@@ -21,10 +21,10 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`DelTheme.installThemePrimaryColor()\` 方法设置全局主题的主要颜色，主要颜色影响所有颜色的生成。
+通过 \`DelTheme.installThemePrimaryColorBase()\` 方法设置全局主题的主基础颜色，主基础颜色影响所有颜色的生成。
                        `)
             code: `
-                DelTheme.installThemePrimaryColor("#ff0000");
+                DelTheme.installThemePrimaryColorBase("#ff0000");
             `
             exampleDelegate: Column {
                 spacing: 10
@@ -32,7 +32,7 @@ Flickable {
                 DelDivider {
                     width: parent.width
                     height: 30
-                    title: qsTr("更改主要颜色")
+                    title: qsTr("更改主基础颜色")
                 }
 
                 Row {
@@ -75,7 +75,7 @@ Flickable {
                                 anchors.fill: parent
                                 onClicked: {
                                     repeater.currentIndex = index;
-                                    DelTheme.installThemePrimaryColor(rootItem.color);
+                                    DelTheme.installThemePrimaryColorBase(rootItem.color);
                                 }
                             }
                         }
@@ -88,10 +88,10 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`DelTheme.installThemePrimaryFontSize()\` 方法设置全局主题的主要字体大小，主要字体大小影响所有字体大小的生成。
+通过 \`DelTheme.installThemePrimaryFontSizeBase()\` 方法设置全局主题的主基础字体大小，主基础字体大小影响所有字体大小的生成。
                        `)
             code: `
-                DelTheme.installThemePrimaryFontSize(32);
+                DelTheme.installThemePrimaryFontSizeBase(32);
             `
             exampleDelegate: Column {
                 spacing: 10
@@ -99,7 +99,7 @@ Flickable {
                 DelDivider {
                     width: parent.width
                     height: 30
-                    title: qsTr("更改主要字体大小")
+                    title: qsTr("更改主基础字体大小")
                 }
             }
         }
@@ -107,10 +107,10 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`DelTheme.installThemePrimaryFontFamilies()\` 方法设置全局主题的主要字体族字符串，该字符串可以是多个字体名，用逗号分隔，主题引擎将自动选择该列表中在本平台支持的字体。
+通过 \`DelTheme.installThemePrimaryFontFamiliesBase()\` 方法设置全局主题的主基础字体族字符串，该字符串可以是多个字体名，用逗号分隔，主题引擎将自动选择该列表中在本平台支持的字体。
                        `)
             code: `
-                DelTheme.installThemePrimaryFontFamilies('"Microsoft YaHei UI", BlinkMacSystemFont, "Segoe UI", Roboto');
+                DelTheme.installThemePrimaryFontFamiliesBase('"Microsoft YaHei UI", BlinkMacSystemFont, "Segoe UI", Roboto');
             `
             exampleDelegate: Column {
                 spacing: 10
@@ -118,7 +118,7 @@ Flickable {
                 DelDivider {
                     width: parent.width
                     height: 30
-                    title: qsTr("更改主要字体族")
+                    title: qsTr("更改主基础字体族")
                 }
             }
         }
