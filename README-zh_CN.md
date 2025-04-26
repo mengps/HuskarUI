@@ -122,3 +122,7 @@ cmake --intall --prefix <install_dir>
 ## 🌇 环境
 
 Windows 11 / Ubuntu 24.04.2, Qt Version >= 6.5
+
+## 🎉 Star 历史
+
+[![Star History Chart](https://api.star-history.com/svg?repos=mengps/DelegateUI&type=Date)](https://star-history.com/#mengps/DelegateUI&Date)
