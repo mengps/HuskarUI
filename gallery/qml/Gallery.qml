@@ -106,10 +106,119 @@ DelWindow {
         anchors.left: parent.left
         anchors.right: parent.right
 
+        DelAutoComplete {
+            id: searchComponent
+            property bool expanded: false
+            z: 10
+            clip: true
+            width: (!galleryMenu.compactMode || expanded) ? (galleryMenu.defaultMenuWidth - 20) : 0
+            anchors.top: parent.top
+            anchors.left: !galleryMenu.compactMode ? galleryMenu.left : galleryMenu.right
+            anchors.margins: 10
+            topPadding: 6
+            bottomPadding: 6
+            rightPadding: 50
+            placeholderText: qsTr('搜索组件')
+            colorBg: galleryMenu.compactMode ? DelTheme.DelInput.colorBg : 'transparent'
+            Component.onCompleted: {
+                let model = [];
+                for (let i = 0; i < galleryMenu.initModel.length; i++) {
+                    let item = galleryMenu.initModel[i];
+                    if (item && item.menuChildren) {
+                        for (let j = 0; j < item.menuChildren.length; j++) {
+                            let childItem = item.menuChildren[j];
+                            if (childItem && childItem.label) {
+                                model.push({
+                                               'key': childItem.key,
+                                               'value': childItem.key,
+                                               'label': childItem.label,
+                                           });
+                            }
+                        }
+                    }
+                }
+                model.sort((a, b) => a.key.localeCompare(b.key));
+                options = model;
+            }
+            filterOption: function(input, option){
+                return option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1;
+            }
+            onSelect: function(option) {
+                galleryMenu.gotoMenu(option.key);
+            }
+            labelDelegate: Text {
+                height: implicitHeight + 4
+                text: parent.textData
+                color: DelTheme.DelAutoComplete.colorItemText
+                font {
+                    family: DelTheme.DelAutoComplete.fontFamily
+                    pixelSize: DelTheme.DelAutoComplete.fontSize
+                    weight: parent.highlighted ? Font.DemiBold : Font.Normal
+                }
+                elide: Text.ElideRight
+                verticalAlignment: Text.AlignVCenter
+            }
+            clearIconDelegate: Row {
+                spacing: 5
+
+                DelIconText {
+                    visible: searchComponent.length > 0
+                    iconSource: DelIcon.CloseSquareFilled
+                    iconSize: searchComponent.iconSize
+                    colorIcon: searchComponent.enabled ?
+                                   __iconMouse.hovered ? DelTheme.DelAutoComplete.colorIconHover :
+                                                         DelTheme.DelAutoComplete.colorIcon : DelTheme.DelAutoComplete.colorIconDisabled
+
+                    Behavior on colorIcon { enabled: searchComponent.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+
+                    MouseArea {
+                        id: __iconMouse
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: parent.iconSource == searchComponent.clearIconSource ? Qt.PointingHandCursor : Qt.ArrowCursor
+                        onEntered: hovered = true;
+                        onExited: hovered = false;
+                        onClicked: searchComponent.clearInput();
+                        property bool hovered: false
+                    }
+                }
+
+                DelIconText {
+                    iconSource: DelIcon.SearchOutlined
+                    iconSize: searchComponent.iconSize
+                }
+            }
+
+            Behavior on width {
+                enabled: galleryMenu.compactMode && galleryMenu.width == galleryMenu.compactWidth
+                NumberAnimation { duration: DelTheme.Primary.durationFast }
+            }
+        }
+
+        DelIconButton {
+            id: searchCollapse
+            visible: galleryMenu.compactMode
+            anchors.top: parent.top
+            anchors.left: galleryMenu.left
+            anchors.right: galleryMenu.right
+            anchors.margins: 10
+            type: DelButton.Type_Text
+            colorText: DelTheme.Primary.colorTextBase
+            iconSource: DelIcon.SearchOutlined
+            iconSize: searchComponent.iconSize
+            onClicked: searchComponent.expanded = !searchComponent.expanded;
+            onVisibleChanged: {
+                if (visible) {
+                    searchComponent.closePopup();
+                    searchComponent.expanded = false;
+                }
+            }
+        }
+
         DelMenu {
             id: galleryMenu
             anchors.left: parent.left
-            anchors.top: parent.top
+            anchors.top: searchComponent.bottom
             anchors.bottom: aboutButton.top
             showEdge: true
             defaultMenuWidth: 300
