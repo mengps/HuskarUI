@@ -2,6 +2,8 @@
 
 #include <QWKQuick/qwkquickglobal.h>
 
+#include <QtGui/QFontDatabase>
+
 /*
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0) && defined(Q_OS_WIN)
 # include <private/qguiapplication_p.h>
@@ -17,6 +19,8 @@ DelApp::~DelApp()
 void DelApp::initialize(QQmlEngine *engine)
 {
     QWK::registerTypes(engine);
+
+    QFontDatabase::addApplicationFont(":/DelegateUI/resources/font/DelegateUI-Icons.ttf");
 }
 
 QString DelApp::libVersion()
