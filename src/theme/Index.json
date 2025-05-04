@@ -155,6 +155,7 @@
         "DelTableView": ":/DelegateUI/theme/DelTableView.json",
         "DelMessage": ":/DelegateUI/theme/DelMessage.json",
         "DelAutoComplete": ":/DelegateUI/theme/DelAutoComplete.json",
-        "DelDatePicker": ":/DelegateUI/theme/DelDatePicker.json"
+        "DelDatePicker": ":/DelegateUI/theme/DelDatePicker.json",
+        "DelProgress": ":/DelegateUI/theme/DelProgress.json"
     }
 }

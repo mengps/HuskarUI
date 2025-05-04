@@ -53,6 +53,7 @@ enum class Component : uint16_t
     DelMessage,
     DelAutoComplete,
     DelDatePicker,
+    DelProgress,
 
     Size
 };
@@ -88,6 +89,7 @@ static QHash<QString, Component> g_componentTable
     { "DelMessage",       Component::DelMessage       },
     { "DelAutoComplete",  Component::DelAutoComplete  },
     { "DelDatePicker",    Component::DelDatePicker    },
+    { "DelProgress",      Component::DelProgress      },
 };
 
 struct ThemeData
@@ -110,6 +112,7 @@ public:
     Q_DECLARE_PUBLIC(DelTheme);
     DelTheme *q_ptr = nullptr;
     DelTheme::DarkMode m_darkMode = DelTheme::DarkMode::Light;
+    DelTheme::TextRenderType m_textRenderType = DelTheme::TextRenderType::QtRendering;
     DelSystemThemeHelper *m_helper { nullptr };
     QString m_themeIndexPath = ":/DelegateUI/theme/Index.json";
     QJsonObject m_indexObject;

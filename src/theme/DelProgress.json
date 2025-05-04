@@ -1,0 +1,12 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorTrack": "@colorFillSecondary",
+    "colorBarSuccess": "@colorSuccess",
+    "colorBarException": "@colorError",
+    "colorBarNormal": "@colorPrimary",
+    "colorBarActive": "@colorPrimary",
+    "colorInfoSuccess": "@colorSuccess",
+    "colorInfoException": "@colorError",
+    "colorInfoNormal": "@colorTextBase"
+}

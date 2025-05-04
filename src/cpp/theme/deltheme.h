@@ -16,6 +16,7 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
 
     Q_PROPERTY(bool isDark READ isDark NOTIFY isDarkChanged)
     Q_PROPERTY(DarkMode darkMode READ darkMode WRITE setDarkMode NOTIFY darkModeChanged FINAL)
+    Q_PROPERTY(TextRenderType textRenderType READ textRenderType WRITE setTextRenderType NOTIFY textRenderTypeChanged FINAL)
 
     DEL_PROPERTY_INIT(bool, animationEnabled, setAnimationEnabled, true);
 
@@ -50,6 +51,7 @@ class DELEGATEUI_EXPORT DelTheme : public QObject
     DEL_PROPERTY_READONLY(QVariantMap, DelMessage);
     DEL_PROPERTY_READONLY(QVariantMap, DelAutoComplete);
     DEL_PROPERTY_READONLY(QVariantMap, DelDatePicker);
+    DEL_PROPERTY_READONLY(QVariantMap, DelProgress);
 
 public:
     enum class DarkMode {
@@ -58,6 +60,13 @@ public:
         System
     };
     Q_ENUM(DarkMode);
+
+    enum class TextRenderType {
+        QtRendering = 0,
+        NativeRendering = 1,
+        CurveRendering = 2
+    };
+    Q_ENUM(TextRenderType);
 
     ~DelTheme();
 
@@ -68,6 +77,9 @@ public:
 
     DarkMode darkMode() const;
     void setDarkMode(DarkMode mode);
+
+    TextRenderType textRenderType() const;
+    void setTextRenderType(TextRenderType renderType);
 
     void registerCustomComponentTheme(QObject *themeObject, const QString &component, QVariantMap *themeMap, const QString &themePath);
 
@@ -130,6 +142,7 @@ public:
 signals:
     void isDarkChanged();
     void darkModeChanged();
+    void textRenderTypeChanged();
 
 private:
     explicit DelTheme(QObject *parent = nullptr);

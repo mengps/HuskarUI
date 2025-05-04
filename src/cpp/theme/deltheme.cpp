@@ -400,6 +400,7 @@ void DelThemePrivate::registerDefaultComponentTheme(const QString &component, co
             ADD_COMPONENT_CASE(DelMessage)
             ADD_COMPONENT_CASE(DelAutoComplete)
             ADD_COMPONENT_CASE(DelDatePicker)
+            ADD_COMPONENT_CASE(DelProgress)
         default:
             break;
         }
@@ -467,6 +468,23 @@ void DelTheme::setDarkMode(DarkMode mode)
             emit isDarkChanged();
         }
         emit darkModeChanged();
+    }
+}
+
+DelTheme::TextRenderType DelTheme::textRenderType() const
+{
+    Q_D(const DelTheme);
+
+    return d->m_textRenderType;
+}
+
+void DelTheme::setTextRenderType(TextRenderType renderType)
+{
+    Q_D(DelTheme);
+
+    if (d->m_textRenderType != renderType) {
+        d->m_textRenderType = renderType;
+        emit textRenderTypeChanged();
     }
 }
 
