@@ -37,6 +37,20 @@ Item {
             item.item.selectThis();
     }
 
+    function setInput(inputs) {
+        for (let i = 0; i < inputs.length; i++) {
+            setInputAtIndex(i, input);
+        }
+    }
+
+    function setInputAtIndex(index, input) {
+        const item = __repeater.itemAt(index << 1);
+        if (item) {
+            currentIndex = index;
+            item.item.text = formatter(input);
+        }
+    }
+
     function getInput() {
         let input = '';
         for (let i = 0; i < __repeater.count; i++) {
@@ -48,8 +62,8 @@ Item {
         return input;
     }
 
-    function inputAtIndex(index) {
-        const item = __repeater.itemAt(index * 2);
+    function getInputAtIndex(index) {
+        const item = __repeater.itemAt(index << 1);
         if (item) {
             return item.item.text;
         }

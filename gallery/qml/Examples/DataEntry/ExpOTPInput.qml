@@ -41,8 +41,10 @@ colorItemBorderActive | color | 输入项边框激活时颜色
 colorItemBg | color | 输入项背景颜色
 radiusBg | int | 输入项背景半径
 \n支持的函数：\n
-- \`getInput()\` 获取所有项输入文本和\n
-- \`inputAtIndex(index: int)\` 获取指定索引 \`index\` 处的文本\n
+- \`setInput(inputs: list)\` 通过 \`inputs\` 设置每项的输入文本\n
+- \`setInputAtIndex(index: int, input: string)\` 获取指定索引 \`index\` 处的文本为 \`input\`\n
+- \`getInput(): string\` 获取所有项输入文本和\n
+- \`getInputAtIndex(index: int): string\` 获取指定索引 \`index\` 处的文本\n
 支持的信号：\n
 - \`finished(input: string)\` 最后一个项输入完成时发出\n
   - \`input\` 所有项输入文本和\n
