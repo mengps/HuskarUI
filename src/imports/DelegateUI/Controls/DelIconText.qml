@@ -1,7 +1,7 @@
 import QtQuick
 import DelegateUI
 
-Text {
+DelText {
     id: control
 
     property int iconSource: 0
@@ -10,14 +10,9 @@ Text {
     property string contentDescription: text
 
     text: String.fromCharCode(iconSource)
-    font.family: __loader.name
+    font.family: 'DelegateUI-Icons'
     font.pixelSize: DelTheme.DelIconText.fontSize
     color: DelTheme.DelIconText.colorText
-
-    FontLoader {
-        id: __loader
-        source: "qrc:/DelegateUI/resources/font/DelegateUI-Icons.ttf"
-    }
 
     Accessible.role: Accessible.StaticText
     Accessible.name: control.text
