@@ -24,14 +24,16 @@ Flickable {
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
+contentHeight | int | 窗口内容高度(即减去标题栏高度)
 captionBar | DelCaptionBar | 窗口标题栏
 windowAgent | DelWindowAgent | 窗口代理
 followThemeSwitch | bool | 是否跟随系统明/暗模式自动切换
 initialized | bool | 指示窗口是否已经初始化完毕
-specialEffect | enum | 特殊效果(仅windows有效，来自 DelWindow)
+specialEffect | enum | 特殊效果(来自 DelWindow)
 \n支持的函数：\n
-- \`setWindowMode(isDark: bool)\` 设置窗口明/暗模式 \n
-- \`setSpecialEffect(specialEffect: int)\` 设置窗口的特殊效果(仅windows有效) \n
+- \`setMacSystemButtonsVisble(visible: bool): bool\` 设置是否显示系统按钮(MacOSX有效) \n
+- \`setWindowMode(isDark: bool): bool\` 设置窗口明/暗模式 \n
+- \`setSpecialEffect(specialEffect: int): bool\` 设置窗口的特殊效果 \n
                        `)
         }
 
