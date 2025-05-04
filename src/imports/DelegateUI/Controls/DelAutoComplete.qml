@@ -198,7 +198,7 @@ DelInput {
                     active: control.tooltipVisible
                     sourceComponent: DelToolTip {
                         arrowVisible: false
-                        visible: __popupDelegate.hovered
+                        visible: __popupDelegate.hovered && !__popupDelegate.pressed
                         text: __popupDelegate.textData
                         position: DelToolTip.Position_Bottom
                     }
