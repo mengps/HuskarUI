@@ -617,6 +617,7 @@ colorInfo | color | 进度条信息文本颜色
 
                         DelProgress {
                             width: 600
+                            height: Math.min(40, Math.max(barThickness, 16))
                             barThickness: barThicknessSlider.currentValue
                             percent: 75
                             gap: gapCountSlider.currentValue
@@ -626,6 +627,7 @@ colorInfo | color | 进度条信息文本颜色
 
                         DelProgress {
                             width: 600
+                            height: Math.min(40, Math.max(barThickness, 16))
                             status: DelProgress.Status_Exception
                             barThickness: barThicknessSlider.currentValue
                             percent: 75
@@ -743,6 +745,7 @@ colorInfo | color | 进度条信息文本颜色
 
                     DelProgress {
                         width: 600
+                        height: Math.min(40, Math.max(barThickness, 16))
                         barThickness: barThicknessSlider.currentValue
                         percent: 75
                         gap: gapCountSlider.currentValue
@@ -752,6 +755,7 @@ colorInfo | color | 进度条信息文本颜色
 
                     DelProgress {
                         width: 600
+                        height: Math.min(40, Math.max(barThickness, 16))
                         status: DelProgress.Status_Exception
                         barThickness: barThicknessSlider.currentValue
                         percent: 75

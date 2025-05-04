@@ -25,7 +25,7 @@ Item {
     property int status: DelProgress.Status_Normal
     property real percent: 0
     property real barThickness: 8
-    property string strokeLineCap: 'round'          // 线条端点样式：'round'/'butt'
+    property string strokeLineCap: 'round'
     property int steps: 0
     property int currentStep: 0
     property real gap: 4
@@ -158,19 +158,19 @@ Item {
             const color = getCurrentColor(ctx);
             if (control.steps > 0) {
                 const stepWidth = (width - ((control.steps - 1) * control.gap)) / control.steps;
-                const stepHeight = height;
+                const stepHeight = control.barThickness;
+                const stepY = (__canvas.height - stepHeight) * 0.5;
+
                 for (let i = 0; i < control.steps; i++) {
-                    const x = i * control.gap + i * stepWidth;
-                    const y = 0;
+                    const stepX = i * control.gap + i * stepWidth;
                     ctx.fillStyle = control.colorTrack;
-                    ctx.fillRect(x, y, stepWidth, stepHeight);
+                    ctx.fillRect(stepX, stepY, stepWidth, stepHeight);
                 }
 
                 for (let ii = 0; ii < control.currentStep; ii++) {
-                    const x = ii * control.gap + ii * stepWidth;
-                    const y = 0;
+                    const stepX = ii * control.gap + ii * stepWidth;
                     ctx.fillStyle = color;
-                    ctx.fillRect(x, y, stepWidth, stepHeight);
+                    ctx.fillRect(stepX, stepY, stepWidth, stepHeight);
                 }
             } else {
                 const x = 0;
@@ -194,8 +194,6 @@ Item {
             /*! 确保绘制不会超出边界 */
             radius = Math.min(radius, Math.min(width, height) * 0.5 - control.barThickness);
             const color = getCurrentColor(ctx);
-
-
             if (control.steps > 0) {
                 /*! 计算每个步骤的弧长，考虑圆角影响 */
                 const gap = control.gap;
@@ -300,8 +298,6 @@ Item {
             default: break;
             }
         }
-
-
     }
 
     Loader {
