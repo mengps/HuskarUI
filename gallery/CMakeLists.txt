@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.2.8.0)
+set(DELEGATEUI_VERSION 0.2.9.0)
 
 project(Gallery VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 
@@ -76,6 +76,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Feedback/ExpWatermark.qml
         qml/Examples/Feedback/ExpDrawer.qml
         qml/Examples/Feedback/ExpMessage.qml
+        qml/Examples/Feedback/ExpProgress.qml
         qml/Examples/Utils/ExpAsyncHasher.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Controls/CodeBox.qml
