@@ -1,6 +1,26 @@
 [
     {
         "isNew": true,
+        "name": "DelProgress",
+        "desc": "进度条，展示操作的当前进度"
+    },
+    {
+        "isNew": false,
+        "name": "DelWindow",
+        "desc": "添加 setMacSystemButtonsVisble() 函数。\n更新 [SpecialEffect] 枚举值。"
+    },
+    {
+        "isNew": false,
+        "name": "DelOTPInput",
+        "desc": "新增 setInput() 函数。\n新增 setInputAtIndex() 函数。"
+    },
+    {
+        "isNew": false,
+        "name": "DelMenu",
+        "desc": "增加工具提示。"
+    },
+    {
+        "isNew": true,
         "name": "DelDatePicker",
         "desc": "日期选择框，输入或选择日期的控件。"
     },
@@ -8,11 +28,6 @@
         "isNew": false,
         "name": "DelTableView",
         "desc": "添加 clear() 函数。\n添加 appendRow() 函数。\n添加 getRow() 函数。\n添加 insertRow() 函数。\n添加 moveRow() 函数。\n添加 removeRow() 函数。\n添加 setRow() 函数。\n"
-    },
-    {
-        "isNew": false,
-        "name": "DelOTPInput",
-        "desc": "新增 inputAtIndex() 函数。"
     },
     {
         "isNew": true,
@@ -43,11 +58,6 @@
         "isNew": true,
         "name": "DelPopup",
         "desc": "代替内置 Popup 的弹出式窗口。"
-    },
-    {
-        "isNew": false,
-        "name": "DelMenu",
-        "desc": "重构实现。\n增加紧凑模式和弹出模式。"
     },
     {
         "isNew": true,
@@ -134,11 +144,6 @@
         "isNew": true,
         "name": "DelToolTip",
         "desc": "简单的文字提示气泡框，用来代替 ToolTip。"
-    },
-    {
-        "isNew": true,
-        "name": "DelWindow",
-        "desc": "使用 DelWindow 可以轻松创建跨平台无边框窗口。"
     },
     {
         "isNew": true,
