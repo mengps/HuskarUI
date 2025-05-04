@@ -5,12 +5,12 @@ import Qt5Compat.GraphicalEffects
 import DelegateUI
 
 Rectangle {
-    color: "#80000000"
+    color: '#80000000'
 
     ShaderEffect {
         anchors.fill: parent
-        vertexShader: "qrc:/Gallery/shaders/effect1.vert.qsb"
-        fragmentShader: "qrc:/Gallery/shaders/effect1.frag.qsb"
+        vertexShader: 'qrc:/Gallery/shaders/effect1.vert.qsb'
+        fragmentShader: 'qrc:/Gallery/shaders/effect1.frag.qsb'
         opacity: 0.5
 
         property vector3d iResolution: Qt.vector3d(width, height, 0)
@@ -47,8 +47,9 @@ Rectangle {
             property alias title: __title
             property alias desc: __desc
             property alias linkIcon: __linkIcon
-            property string link: ""
-            property alias isNew: __new.visible
+            property string link: ''
+            property bool isNew: false
+            property alias newVisible: __new.visible
 
             Behavior on scale { NumberAnimation { duration: DelTheme.Primary.durationFast } }
 
@@ -146,8 +147,7 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: 5
                 radius: 2
-                color: "#F5222D"
-                visible: false
+                color: __cardComp.isNew ? DelTheme.Primary.colorError : DelTheme.Primary.colorSuccess
 
                 Row {
                     id: __row
@@ -157,17 +157,17 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         iconSize: DelTheme.Primary.fontPrimarySize
                         iconSource: DelIcon.FireFilled
-                        color: "white"
+                        color: 'white'
                     }
 
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: "NEW"
+                        text: __cardComp.isNew ? 'NEW' : 'UPDATE'
                         font {
                             family: DelTheme.Primary.fontPrimaryFamily
                             pixelSize: DelTheme.Primary.fontPrimarySize
                         }
-                        color: "white"
+                        color: 'white'
                     }
                 }
             }
@@ -210,14 +210,14 @@ Rectangle {
                     DelIconText {
                         id: delegateuiIcon1
                         iconSize: parent.width
-                        colorIcon: "#C44545"
+                        colorIcon: '#C44545'
                         font.bold: true
                         iconSource: DelIcon.DelegateUIPath1
                     }
 
                     DelIconText {
                         iconSize: parent.width
-                        colorIcon: "#C44545"
+                        colorIcon: '#C44545'
                         font.bold: true
                         iconSource: DelIcon.DelegateUIPath2
                     }
@@ -243,7 +243,7 @@ Rectangle {
 
                     MyText {
                         id: delegateuiTitle
-                        text: qsTr("DelegateUI")
+                        text: qsTr('DelegateUI')
                         font.pixelSize: DelTheme.Primary.fontPrimarySize + 42
                     }
 
@@ -263,7 +263,7 @@ Rectangle {
             }
 
             MyText {
-                text: qsTr("助力开发者「更灵活」地搭建出「更美」的产品，让用户「快乐工作」～")
+                text: qsTr('助力开发者「更灵活」地搭建出「更美」的产品，让用户「快乐工作」～')
             }
 
             Row {
@@ -272,38 +272,40 @@ Rectangle {
 
                 Card {
                     icon.iconSource: DelIcon.GithubOutlined
-                    title.text: qsTr("DelegateUI Github")
-                    desc.text: qsTr("DelegateUI 是遵循「Ant Design」设计体系的一个 Qml UI 库，用于构建由「Qt Quick」驱动的用户界面。")
-                    link: "https://github.com/mengps/DelegateUI"
+                    title.text: qsTr('DelegateUI Github')
+                    desc.text: qsTr('DelegateUI 是遵循「Ant Design」设计体系的一个 Qml UI 库，用于构建由「Qt Quick」驱动的用户界面。')
+                    link: 'https://github.com/mengps/DelegateUI'
+                    newVisible: false
                 }
             }
 
             MyText {
-                text: qsTr("定制主题，随心所欲")
+                text: qsTr('定制主题，随心所欲')
                 font.pixelSize: DelTheme.Primary.fontPrimarySize + 16
                 font.bold: true
             }
 
             MyText {
-                text: qsTr("DelegateUI 支持全局/组件的样式定制，内置多种接口让你定制主题更简单")
+                text: qsTr('DelegateUI 支持全局/组件的样式定制，内置多种接口让你定制主题更简单')
             }
 
             Card {
                 anchors.horizontalCenter: parent.horizontalCenter
                 icon.iconSource: DelIcon.SkinOutlined
-                title.text: qsTr("DelegateUI-ThemeDesigner")
-                desc.text: qsTr("DelegateUI-ThemeDesigner 是专为「DelegateUI」打造的主题设计工具。")
-                link: "https://github.com/mengps/DelegateUI-ThemeDesigner"
+                title.text: qsTr('DelegateUI-ThemeDesigner')
+                desc.text: qsTr('DelegateUI-ThemeDesigner 是专为「DelegateUI」打造的主题设计工具。')
+                link: 'https://github.com/mengps/DelegateUI-ThemeDesigner'
+                newVisible: false
             }
 
             MyText {
-                text: qsTr("组件丰富，选用自如")
+                text: qsTr('组件丰富，选用自如')
                 font.pixelSize: DelTheme.Primary.fontPrimarySize + 16
                 font.bold: true
             }
 
             MyText {
-                text: qsTr("DelegateUI 提供大量实用组件满足你的需求，基于代理的方式实现灵活定制与拓展")
+                text: qsTr('DelegateUI 提供大量实用组件满足你的需求，基于代理的方式实现灵活定制与拓展')
             }
 
             ListView {
@@ -313,7 +315,7 @@ Rectangle {
                 orientation: Qt.Horizontal
                 spacing: -80
                 Component.onCompleted: {
-                    const updates = DelApi.readFileToString(":/Gallery/UpdateLists.json");
+                    const updates = DelApi.readFileToString(':/Gallery/UpdateLists.json');
                     newView.model = JSON.parse(updates);
                 }
                 delegate: Item {
