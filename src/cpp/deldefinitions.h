@@ -1,8 +1,6 @@
 #ifndef DELDEFINITIONS_H
 #define DELDEFINITIONS_H
 
-#include <QtQml/qqml.h>
-
 #define DEL_PROPERTY(type, get, set) \
 private:\
     Q_PROPERTY(type get READ get WRITE set NOTIFY get##Changed) \
