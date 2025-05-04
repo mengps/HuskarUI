@@ -27,7 +27,7 @@ DelWindow {
         }
     }
     Component.onCompleted: {
-        setSpecialEffect(DelWindow.DwmBlur);
+        setSpecialEffect(DelWindow.Win_DwmBlur);
         DelApi.setWindowStaysOnTopHint(root, true);
     }
 
