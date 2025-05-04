@@ -57,7 +57,7 @@ By default, the `plugin` will be builded in the `[QtDir]/[QtVersion]/[Kit]/qml/D
 
 - Install
 ```cmake
-cmake --intall --prefix <install_dir>
+cmake --install --prefix <install_dir>
 ```
 The installation directory structure
 ```auto

@@ -56,7 +56,7 @@ cmake --build build --config Release --target all --parallel
 默认情况下，`plugin` 将构建在 `[QtDir]/[QtVersion]/[Kit]/qml/DeleagetUI` 目录中。
 - 安装
 ```cmake
-cmake --intall --prefix <install_dir>
+cmake --install --prefix <install_dir>
 ```
 安装目录结构
 ```auto
