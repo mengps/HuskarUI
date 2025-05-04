@@ -349,9 +349,10 @@ colorInfo | color | 进度条信息文本颜色
 
         CodeBox {
             width: parent.width
-            descTitle: qsTr('自定义信息文字格式')
+            descTitle: qsTr('自定义进度条渐变色')
             desc: qsTr(`
-通过 \`formatter\` 属性指定格式，格式化器是形如：\`function(): string { }\` 的函数。\n。
+通过 \`useGradient\` 属性启用渐变，此时 \`colorBar\` 将不会生效。\n
+通过 \`gradientStops\` 属性设置渐变色，它是形如 \`{ '0%': '#108ee9', '100%': '#87d068' }\` 的对象。\n
                        `)
             code: `
                 import QtQuick
