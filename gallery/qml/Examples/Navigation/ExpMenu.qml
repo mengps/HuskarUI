@@ -52,6 +52,7 @@ Flickable {
 animationEnabled | bool | 是否开启动画(默认true)
 contentDescription | string | 内容描述(提高可用性)
 showEdge | bool | 是否显示边线(默认false)
+tooltipVisible | bool | 是否显示工具提示(默认false)
 compactMode | bool | 紧凑模式(默认false)
 compactWidth | int | 紧凑模式宽度
 popupMode | bool | 弹出模式(默认false)
@@ -78,7 +79,8 @@ iconSpacing | int | 图标间隔
 menuChildren | list | 子菜单(支持无限嵌套)
 contentDelegate | var | 该菜单项内容代理
 \n \`contentDelegate\` 可访问属性：\n
-- **menuButton: DelButton** 自身菜单按钮，\`menuButton\` 可访问的属性：\n
+- **model: var** 模型数据(访问错误则使用 \`parent.model\`)\n
+- **menuButton: DelButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，\`menuButton\` 可访问的属性：\n
   - iconSource: int 图标源\n
   - iconSize: int 图标大小\n
   - iconSpacing: int 图标间隔\n
@@ -199,7 +201,7 @@ contentDelegate | var | 该菜单项内容代理
                     anchors.right: parent.right
                     onClicked: menu.append({
                                                 label: qsTr("Test"),
-                                                conSource: DelIcon.HomeOutlined,
+                                                iconSource: DelIcon.HomeOutlined,
                                                 contentDelegate: myContentDelegate
                                            });
                 }

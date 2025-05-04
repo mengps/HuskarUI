@@ -13,6 +13,7 @@ Item {
     property bool animationEnabled: DelTheme.animationEnabled
     property string contentDescription: ""
     property bool showEdge: false
+    property bool tooltipVisible: false
     property bool compactMode: false
     property int compactWidth: 50
     property bool popupMode: false
@@ -100,6 +101,7 @@ Item {
         property bool expandedVisible: false
         property bool isCurrent: false
         property bool isGroup: false
+        property var model: undefined
         property var contentDelegate: null
 
         onClicked: {
@@ -137,6 +139,7 @@ Item {
         }
         contentItem: Loader {
             sourceComponent: __menuButtonImpl.contentDelegate
+            property alias model: __menuButtonImpl.model
             property alias menuButton: __menuButtonImpl
         }
     }
@@ -363,6 +366,7 @@ Item {
                     }
                     isCurrent: __rootItem.isCurrent
                     isGroup: __rootItem.menuType == "group"
+                    model: __rootItem.model
                     contentDelegate: __rootItem.menuContentDelegate
                     onClicked: {
                         if (__rootItem.menuChildrenLength == 0) {
@@ -390,13 +394,14 @@ Item {
                     }
 
                     DelToolTip {
-                        position: DelToolTip.Position_Right
+                        position: control.compactMode || control.popupMode ? DelToolTip.Position_Right : DelToolTip.Position_Bottom
                         text: __rootItem.menuLabel
                         visible: {
                             if (control.compactMode || control.popupMode)
                                 return (__rootItem.layerPopup && !__rootItem.layerPopup.opened) ? parent.hovered : false;
-                            else
-                                return false;
+                            else {
+                                return control.tooltipVisible ? parent.hovered : false;
+                            }
                         }
                     }
                 }
