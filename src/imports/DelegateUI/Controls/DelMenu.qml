@@ -28,10 +28,7 @@ Item {
     property var initModel: []
 
     onInitModelChanged: {
-        clear();
-        for (const object of initModel) {
-            append(object);
-        }
+        __listView.model = initModel;
     }
 
     function gotoMenu(key) {
