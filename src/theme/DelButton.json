@@ -27,6 +27,7 @@
     "colorBorder": "@colorPrimaryBorder",
     "colorBorderHover": "@colorPrimaryBorderHover",
     "colorBorderActive": "@colorPrimaryBorderActive",
+    "colorBorderDisabled": "$alpha(@colorTextBase, 0.15)",
     "colorDefaultBorder": "#80808080",
     "radiusBg": "6"
 }

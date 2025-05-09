@@ -105,7 +105,7 @@ T.Button {
                                                         DelTheme.DelButton.colorBorder;
             }
         } else {
-            return DelTheme.DelButton.colorBorder;
+            return DelTheme.DelButton.colorBorderDisabled;
         }
     }
     property string contentDescription: text
