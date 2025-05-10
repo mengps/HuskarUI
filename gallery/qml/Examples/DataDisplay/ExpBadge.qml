@@ -532,23 +532,26 @@ colorText | color | - | 文本颜色
                 import QtQuick
                 import DelegateUI
 
-                Row {
+                Column {
                     spacing: 10
+                    width: parent.width
 
-                    DelSwitch {
-                        id: showSwitch
-                        checked: false
-                    }
+                    Repeater {
+                        model: ['red', 'volcano', 'orange', 'gold', 'yellow', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple', 'magenta']
+                        delegate: Row {
+                            spacing: 10
 
-                    DelBadge { count: showSwitch.checked ? 11 : 0; showZero: true; colorBg: '#faad14' }
-                    DelBadge { count: showSwitch.checked ? 25 : 0 }
-                    DelBadge {
-                        iconSource: showSwitch.checked ? DelIcon.ClockCircleOutlined : 0
-                        colorBorder: 'transparent'
-                        colorBg: 'transparent'
-                        colorText: '#f5222d'
+                            DelBadge {
+                                anchors.verticalCenter: parent.verticalCenter
+                                dot: true
+                                presetColor: modelData
+                            }
+
+                            DelText {
+                                text: modelData
+                            }
+                        }
                     }
-                    DelBadge { count: showSwitch.checked ? 109 : 0; colorBg: '#52c41a' }
                 }
             `
             exampleDelegate: Column {
