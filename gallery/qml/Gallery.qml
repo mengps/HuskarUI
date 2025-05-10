@@ -131,8 +131,8 @@ DelWindow {
             colorBg: galleryMenu.compactMode ? DelTheme.DelInput.colorBg : 'transparent'
             Component.onCompleted: {
                 let model = [];
-                for (let i = 0; i < galleryMenu.initModel.length; i++) {
-                    let item = galleryMenu.initModel[i];
+                for (let i = 0; i < galleryMenu.defaultModel.length; i++) {
+                    let item = galleryMenu.defaultModel[i];
                     if (item && item.menuChildren) {
                         for (let j = 0; j < item.menuChildren.length; j++) {
                             let childItem = item.menuChildren[j];
@@ -288,7 +288,18 @@ DelWindow {
                     themeLoader.visible = true;
                 }
             }
-            initModel: [
+            Component.onCompleted: {
+                let list = [];
+                for (let i = 0; i < defaultModel.length; i++) {
+                    let item = defaultModel[i];
+                    if (item && item.menuChildren) {
+                        item.menuChildren.sort((a, b) => a.key.localeCompare(b.key));
+                    }
+                    list.push(item);
+                }
+                initModel = list;
+            }
+            property var defaultModel: [
                 {
                     key: 'HomePage',
                     label: qsTr('首页'),
@@ -348,6 +359,13 @@ DelWindow {
                             key: 'DelText',
                             label: qsTr('DelText 文本'),
                             source: './Examples/General/ExpText.qml'
+                        },
+                        {
+                            key: 'DelButtonBlock',
+                            label: qsTr('DelButtonBlock 按钮块'),
+                            source: './Examples/General/ExpButtonBlock.qml',
+                            state: 'New',
+                            contentDelegate: menuContentDelegate
                         }
                     ]
                 },
@@ -506,6 +524,13 @@ DelWindow {
                             key: 'DelTableView',
                             label: qsTr('DelTableView 表格'),
                             source: './Examples/DataDisplay/ExpTableView.qml',
+                        },
+                        {
+                            key: 'DelBadge',
+                            label: qsTr('DelBadge 徽标数'),
+                            source: './Examples/DataDisplay/ExpBadge.qml',
+                            state: 'New',
+                            contentDelegate: menuContentDelegate
                         }
                     ]
                 },
