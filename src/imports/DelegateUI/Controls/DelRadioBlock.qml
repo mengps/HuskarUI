@@ -23,7 +23,7 @@ Item {
         Size_Fixed = 1
     }
 
-    signal clicked(radioData: var)
+    signal clicked(index: int, radioData: var)
 
     property bool animationEnabled: DelTheme.animationEnabled
     property bool effectEnabled: true
@@ -39,7 +39,7 @@ Item {
     property int radioHeight: 30
     property font font
     property int radiusBg: 6
-    property Component radioDelegate: DelButton {
+    property Component radioDelegate: DelIconButton {
         id: __rootItem
 
         required property var modelData
@@ -64,6 +64,7 @@ Item {
         enabled: control.enabled && (modelData.enabled === undefined ? true : modelData.enabled)
         font: control.font
         type: DelButton.Type_Default
+        iconSource: modelData.icon ?? 0
         text: modelData.label
         colorBorder: (enabled && checked) ? DelTheme.DelRadio.colorBlockBorderChecked :
                                             DelTheme.DelRadio.colorBlockBorder;
@@ -103,26 +104,26 @@ Item {
                 height: __bg.height
                 anchors.centerIn: parent
                 visible: __rootItem.effectEnabled
-                color: "transparent"
+                color: 'transparent'
                 border.width: 0
-                border.color: __rootItem.enabled ? DelTheme.DelRadio.colorBlockEffectBg : "transparent"
+                border.color: __rootItem.enabled ? DelTheme.DelRadio.colorBlockEffectBg : 'transparent'
                 opacity: 0.2
 
                 ParallelAnimation {
                     id: __animation
                     onFinished: __effect.border.width = 0;
                     NumberAnimation {
-                        target: __effect; property: "width"; from: __bg.width + 3; to: __bg.width + 8;
+                        target: __effect; property: 'width'; from: __bg.width + 3; to: __bg.width + 8;
                         duration: DelTheme.Primary.durationFast
                         easing.type: Easing.OutQuart
                     }
                     NumberAnimation {
-                        target: __effect; property: "height"; from: __bg.height + 3; to: __bg.height + 8;
+                        target: __effect; property: 'height'; from: __bg.height + 3; to: __bg.height + 8;
                         duration: DelTheme.Primary.durationFast
                         easing.type: Easing.OutQuart
                     }
                     NumberAnimation {
-                        target: __effect; property: "opacity"; from: 0.2; to: 0;
+                        target: __effect; property: 'opacity'; from: 0.2; to: 0;
                         duration: DelTheme.Primary.durationSlow
                     }
                 }
@@ -165,7 +166,7 @@ Item {
             }
         }
     }
-    property string contentDescription: ""
+    property string contentDescription: ''
 
     Loader {
         id: __loader
@@ -185,7 +186,7 @@ Item {
                 button => {
                     control.currentCheckedIndex = button.index;
                     control.currentCheckedValue = button.modelData.value;
-                    control.clicked(button.modelData);
+                    control.clicked(button.index, button.modelData);
                 }
         }
     }

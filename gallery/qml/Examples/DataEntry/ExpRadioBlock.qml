@@ -41,8 +41,16 @@ radioHeight | int | 单选项高度(size == DelRadioBlock.Size_Fixed 生效)
 font | font | 单选项字体
 radiusBg | int | 单选项背景半径
 contentDescription | string | 内容描述(提高可用性)
+\n模型支持的属性：\n
+属性名 | 类型 | 描述
+------ | --- | ---
+label(可选) | string | 本单选项的标签
+value(可选) | sting | 本单选项的值
+enabled(可选) | var | 本单选项是否启用
+icon(可选) | int | 本单选项图标
 \n支持的信号：\n
-- \`clicked(radioData: var)\` 点击单选项时发出\n
+- \`clicked(index: int, radioData: var)\` 点击单选项时发出\n
+  - \`index\` 单选项索引\n
   - \`radioData\` 单选项数据\n
                        `)
         }
@@ -67,6 +75,7 @@ contentDescription | string | 内容描述(提高可用性)
 - { label: 本单选项的标签 }\n
 - { value: 本单选项的值 }\n
 - { enabled: 本单选项是否启用 }\n
+- { icon: 本单选项图标 }\n
 通过 \`type\` 属性设置单选块的类型，支持的类型：\n
 - 填充样式的按钮(默认) { DelRadioBlock.Type_Filled }\n
 - 线框样式的按钮(无填充) { DelRadioBlock.Type_Outlined }\n
@@ -84,6 +93,7 @@ contentDescription | string | 内容描述(提高可用性)
                             { label: 'Apple', value: 'Apple' },
                             { label: 'Pear', value: 'Pear' },
                             { label: 'Orange', value: 'Orange' },
+                            { icon: DelIcon.QuestionOutlined, value: 'Orange' },
                         ]
                     }
 
@@ -94,6 +104,7 @@ contentDescription | string | 内容描述(提高可用性)
                             { label: 'Apple', value: 'Apple' },
                             { label: 'Pear', value: 'Pear' },
                             { label: 'Orange', value: 'Orange' },
+                            { icon: DelIcon.QuestionOutlined, value: 'Orange' },
                         ]
                     }
 
@@ -126,6 +137,7 @@ contentDescription | string | 内容描述(提高可用性)
                         { label: 'Apple', value: 'Apple' },
                         { label: 'Pear', value: 'Pear' },
                         { label: 'Orange', value: 'Orange' },
+                        { icon: DelIcon.QuestionOutlined, value: 'Orange' },
                     ]
                 }
 
@@ -136,6 +148,7 @@ contentDescription | string | 内容描述(提高可用性)
                         { label: 'Apple', value: 'Apple' },
                         { label: 'Pear', value: 'Pear' },
                         { label: 'Orange', value: 'Orange' },
+                        { icon: DelIcon.QuestionOutlined, value: 'Orange' },
                     ]
                 }
 
