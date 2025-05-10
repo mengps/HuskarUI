@@ -1,6 +1,21 @@
 [
     {
         "isNew": true,
+        "name": "DelBadge",
+        "desc": "徽标数，图标右上角的圆形徽标数字。"
+    },
+    {
+        "isNew": true,
+        "name": "DelButtonBlock",
+        "desc": "DelIconButton 的变体，用于将多个按钮组织成块，类似 DelRadioBlock。"
+    },
+    {
+        "isNew": false,
+        "name": "DelRadioBlock",
+        "desc": "新增支持图标。"
+    },
+    {
+        "isNew": true,
         "name": "DelProgress",
         "desc": "进度条，展示操作的当前进度"
     },
@@ -98,12 +113,6 @@
         "isNew": true,
         "name": "DelCheckBox",
         "desc": "收集用户的多项选择。"
-    },
-
-    {
-        "isNew": true,
-        "name": "DelRadioBlock",
-        "desc": "DelRadio 的变体，用于在多个备选项中选中单个状态。"
     },
     {
         "isNew": true,
