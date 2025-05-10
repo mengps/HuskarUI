@@ -234,7 +234,7 @@ DelWindow {
                         { label: "紧凑", value: true }
                     ]
                     onClicked:
-                        (radioData) => {
+                        (index, radioData) => {
                             galleryMenu.compactMode = radioData.value;
                         }
 
