@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls.Basic
 import DelegateUI
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
@@ -61,7 +61,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 提供平级的区域将大块内容进行收纳和展现，保持界面整洁。\n
 **DelegateUI** 依次提供了三级选项卡，分别用于不同的场景。\n
@@ -72,7 +72,7 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
         }
 
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -109,29 +109,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         id: positionRadio1
                         initCheckedIndex: 0
                         model: [
-                            { label: qsTr("上"), value: DelTabView.Position_Top },
-                            { label: qsTr("下"), value: DelTabView.Position_Bottom },
-                            { label: qsTr("左"), value: DelTabView.Position_Left },
-                            { label: qsTr("右"), value: DelTabView.Position_Right }
+                            { label: qsTr('上'), value: DelTabView.Position_Top },
+                            { label: qsTr('下'), value: DelTabView.Position_Bottom },
+                            { label: qsTr('左'), value: DelTabView.Position_Left },
+                            { label: qsTr('右'), value: DelTabView.Position_Right }
                         ]
                     }
 
                     Row {
                         spacing: 10
 
-                        Text {
-                            text: qsTr("是否居中")
-                            font {
-                                family: DelTheme.Primary.fontPrimaryFamily
-                                pixelSize: DelTheme.Primary.fontPrimarySize
-                            }
-                            color: DelTheme.Primary.colorTextBase
-                        }
+                        DelText { text: qsTr('是否居中') }
 
                         DelSwitch {
                             id: isCenterSwitch
-                            checkedText: qsTr("是")
-                            uncheckedText: qsTr("否")
+                            checkedText: qsTr('是')
+                            uncheckedText: qsTr('否')
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -139,19 +132,12 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     Row {
                         spacing: 10
 
-                        Text {
-                            text: qsTr("标签大小")
-                            font {
-                                family: DelTheme.Primary.fontPrimaryFamily
-                                pixelSize: DelTheme.Primary.fontPrimarySize
-                            }
-                            color: DelTheme.Primary.colorTextBase
-                        }
+                        DelText { text: qsTr('标签大小') }
 
                         DelSwitch {
                             id: sizeSwitch
-                            checkedText: qsTr("固定")
-                            uncheckedText: qsTr("自动")
+                            checkedText: qsTr('固定')
+                            uncheckedText: qsTr('自动')
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -167,8 +153,8 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         addTabCallback:
                             () => {
                                 append({
-                                           title: "New Tab " + (count + 1),
-                                           content: "Content of Tab Content ",
+                                           title: 'New Tab ' + (count + 1),
+                                           content: 'Content of Tab Content ',
                                            contentColor: Qt.rgba(Math.random(), Math.random(), Math.random(), 0.24).toString()
                                        });
                                 currentIndex = count - 1;
@@ -177,36 +163,31 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         contentDelegate: Rectangle {
                             color: model.contentColor
 
-                            Text {
+                            DelText {
                                 anchors.centerIn: parent
                                 text: model.content + (index + 1)
-                                font {
-                                    family: DelTheme.Primary.fontPrimaryFamily
-                                    pixelSize: DelTheme.Primary.fontPrimarySize
-                                }
-                                color: DelTheme.Primary.colorTextBase
                             }
                         }
                         initModel: [
                             {
-                                key: "1",
+                                key: '1',
                                 icon: DelIcon.CreditCardOutlined,
-                                title: "Tab 1",
-                                content: "Content of Tab Content ",
-                                contentColor: "#60ff0000"
+                                title: 'Tab 1',
+                                content: 'Content of Tab Content ',
+                                contentColor: '#60ff0000'
                             },
                             {
-                                key: "2",
+                                key: '2',
                                 icon: DelIcon.CreditCardOutlined,
-                                title: "Tab 2",
-                                content: "Content of Tab Content ",
-                                contentColor: "#6000ff00"
+                                title: 'Tab 2',
+                                content: 'Content of Tab Content ',
+                                contentColor: '#6000ff00'
                             },
                             {
-                                key: "3",
-                                title: "Tab 3",
-                                content: "Content of Tab Content ",
-                                contentColor: "#600000ff"
+                                key: '3',
+                                title: 'Tab 3',
+                                content: 'Content of Tab Content ',
+                                contentColor: '#600000ff'
                             }
                         ]
                     }
@@ -219,29 +200,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     id: positionRadio1
                     initCheckedIndex: 0
                     model: [
-                        { label: qsTr("上"), value: DelTabView.Position_Top },
-                        { label: qsTr("下"), value: DelTabView.Position_Bottom },
-                        { label: qsTr("左"), value: DelTabView.Position_Left },
-                        { label: qsTr("右"), value: DelTabView.Position_Right }
+                        { label: qsTr('上'), value: DelTabView.Position_Top },
+                        { label: qsTr('下'), value: DelTabView.Position_Bottom },
+                        { label: qsTr('左'), value: DelTabView.Position_Left },
+                        { label: qsTr('右'), value: DelTabView.Position_Right }
                     ]
                 }
 
                 Row {
                     spacing: 10
 
-                    Text {
-                        text: qsTr("是否居中")
-                        font {
-                            family: DelTheme.Primary.fontPrimaryFamily
-                            pixelSize: DelTheme.Primary.fontPrimarySize
-                        }
-                        color: DelTheme.Primary.colorTextBase
-                    }
+                    DelText { text: qsTr('是否居中')  }
 
                     DelSwitch {
                         id: isCenterSwitch
-                        checkedText: qsTr("是")
-                        uncheckedText: qsTr("否")
+                        checkedText: qsTr('是')
+                        uncheckedText: qsTr('否')
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -249,19 +223,12 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                 Row {
                     spacing: 10
 
-                    Text {
-                        text: qsTr("标签大小")
-                        font {
-                            family: DelTheme.Primary.fontPrimaryFamily
-                            pixelSize: DelTheme.Primary.fontPrimarySize
-                        }
-                        color: DelTheme.Primary.colorTextBase
-                    }
+                    DelText { text: qsTr('标签大小') }
 
                     DelSwitch {
                         id: sizeSwitch
-                        checkedText: qsTr("固定")
-                        uncheckedText: qsTr("自动")
+                        checkedText: qsTr('固定')
+                        uncheckedText: qsTr('自动')
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -277,8 +244,8 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     addTabCallback:
                         () => {
                             append({
-                                       title: "New Tab " + (count + 1),
-                                       content: "Content of Tab Content ",
+                                       title: 'New Tab ' + (count + 1),
+                                       content: 'Content of Tab Content ',
                                        contentColor: Qt.rgba(Math.random(), Math.random(), Math.random(), 0.24).toString()
                                    });
                             currentIndex = count - 1;
@@ -287,36 +254,31 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     contentDelegate: Rectangle {
                         color: model.contentColor
 
-                        Text {
+                        DelText {
                             anchors.centerIn: parent
                             text: model.content + (index + 1)
-                            font {
-                                family: DelTheme.Primary.fontPrimaryFamily
-                                pixelSize: DelTheme.Primary.fontPrimarySize
-                            }
-                            color: DelTheme.Primary.colorTextBase
                         }
                     }
                     initModel: [
                         {
-                            key: "1",
+                            key: '1',
                             icon: DelIcon.CreditCardOutlined,
-                            title: "Tab 1",
-                            content: "Content of Tab Content ",
-                            contentColor: "#60ff0000"
+                            title: 'Tab 1',
+                            content: 'Content of Tab Content ',
+                            contentColor: '#60ff0000'
                         },
                         {
-                            key: "2",
+                            key: '2',
                             icon: DelIcon.CreditCardOutlined,
-                            title: "Tab 2",
-                            content: "Content of Tab Content ",
-                            contentColor: "#6000ff00"
+                            title: 'Tab 2',
+                            content: 'Content of Tab Content ',
+                            contentColor: '#6000ff00'
                         },
                         {
-                            key: "3",
-                            title: "Tab 3",
-                            content: "Content of Tab Content ",
-                            contentColor: "#600000ff"
+                            key: '3',
+                            title: 'Tab 3',
+                            content: 'Content of Tab Content ',
+                            contentColor: '#600000ff'
                         }
                     ]
                 }
@@ -343,29 +305,22 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         id: positionRadio2
                         initCheckedIndex: 0
                         model: [
-                            { label: qsTr("上"), value: DelTabView.Position_Top },
-                            { label: qsTr("下"), value: DelTabView.Position_Bottom },
-                            { label: qsTr("左"), value: DelTabView.Position_Left },
-                            { label: qsTr("右"), value: DelTabView.Position_Right }
+                            { label: qsTr('上'), value: DelTabView.Position_Top },
+                            { label: qsTr('下'), value: DelTabView.Position_Bottom },
+                            { label: qsTr('左'), value: DelTabView.Position_Left },
+                            { label: qsTr('右'), value: DelTabView.Position_Right }
                         ]
                     }
 
                     Row {
                         spacing: 10
 
-                        Text {
-                            text: qsTr("是否居中")
-                            font {
-                                family: DelTheme.Primary.fontPrimaryFamily
-                                pixelSize: DelTheme.Primary.fontPrimarySize
-                            }
-                            color: DelTheme.Primary.colorTextBase
-                        }
+                        DelText { text: qsTr('是否居中') }
 
                         DelSwitch {
                             id: isCenterSwitch2
-                            checkedText: qsTr("是")
-                            uncheckedText: qsTr("否")
+                            checkedText: qsTr('是')
+                            uncheckedText: qsTr('否')
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -373,19 +328,12 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     Row {
                         spacing: 10
 
-                        Text {
-                            text: qsTr("标签大小")
-                            font {
-                                family: DelTheme.Primary.fontPrimaryFamily
-                                pixelSize: DelTheme.Primary.fontPrimarySize
-                            }
-                            color: DelTheme.Primary.colorTextBase
-                        }
+                        DelText { text: qsTr('标签大小') }
 
                         DelSwitch {
                             id: sizeSwitch2
-                            checkedText: qsTr("固定")
-                            uncheckedText: qsTr("自动")
+                            checkedText: qsTr('固定')
+                            uncheckedText: qsTr('自动')
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -393,19 +341,12 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     Row {
                         spacing: 10
 
-                        Text {
-                            text: qsTr("是否可编辑")
-                            font {
-                                family: DelTheme.Primary.fontPrimaryFamily
-                                pixelSize: DelTheme.Primary.fontPrimarySize
-                            }
-                            color: DelTheme.Primary.colorTextBase
-                        }
+                        DelText { text: qsTr('是否可编辑') }
 
                         DelSwitch {
                             id: typeSwitch
-                            checkedText: qsTr("是")
-                            uncheckedText: qsTr("否")
+                            checkedText: qsTr('是')
+                            uncheckedText: qsTr('否')
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -422,8 +363,8 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         addTabCallback:
                             () => {
                                 append({
-                                           title: "New Tab " + (count + 1),
-                                           content: "Content of Tab Content ",
+                                           title: 'New Tab ' + (count + 1),
+                                           content: 'Content of Tab Content ',
                                            contentColor: Qt.rgba(Math.random(), Math.random(), Math.random(), 0.24).toString()
                                        });
                                 currentIndex = count - 1;
@@ -432,37 +373,32 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                         contentDelegate: Rectangle {
                             color: model.contentColor
 
-                            Text {
+                            DelText {
                                 anchors.centerIn: parent
                                 text: model.content + (index + 1)
-                                font {
-                                    family: DelTheme.Primary.fontPrimaryFamily
-                                    pixelSize: DelTheme.Primary.fontPrimarySize
-                                }
-                                color: DelTheme.Primary.colorTextBase
                             }
                         }
                         initModel: [
                             {
-                                key: "1",
+                                key: '1',
                                 icon: DelIcon.CreditCardOutlined,
-                                title: "Tab 1",
-                                content: "Content of Card Tab Content ",
-                                contentColor: "#60ff0000"
+                                title: 'Tab 1',
+                                content: 'Content of Card Tab Content ',
+                                contentColor: '#60ff0000'
                             },
                             {
-                                key: "2",
+                                key: '2',
                                 editable: false,
                                 icon: DelIcon.CreditCardOutlined,
-                                title: "Tab 2",
-                                content: "Content of Card Tab Content ",
-                                contentColor: "#6000ff00"
+                                title: 'Tab 2',
+                                content: 'Content of Card Tab Content ',
+                                contentColor: '#6000ff00'
                             },
                             {
-                                key: "3",
-                                title: "Tab 3",
-                                content: "Content of Card Tab Content ",
-                                contentColor: "#600000ff"
+                                key: '3',
+                                title: 'Tab 3',
+                                content: 'Content of Card Tab Content ',
+                                contentColor: '#600000ff'
                             }
                         ]
                     }
@@ -475,18 +411,18 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     id: positionRadio2
                     initCheckedIndex: 0
                     model: [
-                        { label: qsTr("上"), value: DelTabView.Position_Top },
-                        { label: qsTr("下"), value: DelTabView.Position_Bottom },
-                        { label: qsTr("左"), value: DelTabView.Position_Left },
-                        { label: qsTr("右"), value: DelTabView.Position_Right }
+                        { label: qsTr('上'), value: DelTabView.Position_Top },
+                        { label: qsTr('下'), value: DelTabView.Position_Bottom },
+                        { label: qsTr('左'), value: DelTabView.Position_Left },
+                        { label: qsTr('右'), value: DelTabView.Position_Right }
                     ]
                 }
 
                 Row {
                     spacing: 10
 
-                    Text {
-                        text: qsTr("是否居中")
+                    DelText {
+                        text: qsTr('是否居中')
                         font {
                             family: DelTheme.Primary.fontPrimaryFamily
                             pixelSize: DelTheme.Primary.fontPrimarySize
@@ -496,8 +432,8 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
 
                     DelSwitch {
                         id: isCenterSwitch2
-                        checkedText: qsTr("是")
-                        uncheckedText: qsTr("否")
+                        checkedText: qsTr('是')
+                        uncheckedText: qsTr('否')
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -505,19 +441,12 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                 Row {
                     spacing: 10
 
-                    Text {
-                        text: qsTr("标签大小")
-                        font {
-                            family: DelTheme.Primary.fontPrimaryFamily
-                            pixelSize: DelTheme.Primary.fontPrimarySize
-                        }
-                        color: DelTheme.Primary.colorTextBase
-                    }
+                    DelText { text: qsTr('标签大小') }
 
                     DelSwitch {
                         id: sizeSwitch2
-                        checkedText: qsTr("固定")
-                        uncheckedText: qsTr("自动")
+                        checkedText: qsTr('固定')
+                        uncheckedText: qsTr('自动')
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -525,19 +454,12 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                 Row {
                     spacing: 10
 
-                    Text {
-                        text: qsTr("是否可编辑")
-                        font {
-                            family: DelTheme.Primary.fontPrimaryFamily
-                            pixelSize: DelTheme.Primary.fontPrimarySize
-                        }
-                        color: DelTheme.Primary.colorTextBase
-                    }
+                    DelText { text: qsTr('是否可编辑') }
 
                     DelSwitch {
                         id: typeSwitch
-                        checkedText: qsTr("是")
-                        uncheckedText: qsTr("否")
+                        checkedText: qsTr('是')
+                        uncheckedText: qsTr('否')
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -554,8 +476,8 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     addTabCallback:
                         () => {
                             append({
-                                       title: "New Tab " + (count + 1),
-                                       content: "Content of Tab Content ",
+                                       title: 'New Tab ' + (count + 1),
+                                       content: 'Content of Tab Content ',
                                        contentColor: Qt.rgba(Math.random(), Math.random(), Math.random(), 0.24).toString()
                                    });
                             currentIndex = count - 1;
@@ -564,37 +486,32 @@ addTabCallback | Function | 添加标签回调(点击+按钮时调用)
                     contentDelegate: Rectangle {
                         color: model.contentColor
 
-                        Text {
+                        DelText {
                             anchors.centerIn: parent
                             text: model.content + (index + 1)
-                            font {
-                                family: DelTheme.Primary.fontPrimaryFamily
-                                pixelSize: DelTheme.Primary.fontPrimarySize
-                            }
-                            color: DelTheme.Primary.colorTextBase
                         }
                     }
                     initModel: [
                         {
-                            key: "1",
+                            key: '1',
                             icon: DelIcon.CreditCardOutlined,
-                            title: "Tab 1",
-                            content: "Content of Card Tab Content ",
-                            contentColor: "#60ff0000"
+                            title: 'Tab 1',
+                            content: 'Content of Card Tab Content ',
+                            contentColor: '#60ff0000'
                         },
                         {
-                            key: "2",
+                            key: '2',
                             editable: false,
                             icon: DelIcon.CreditCardOutlined,
-                            title: "Tab 2",
-                            content: "Content of Card Tab Content ",
-                            contentColor: "#6000ff00"
+                            title: 'Tab 2',
+                            content: 'Content of Card Tab Content ',
+                            contentColor: '#6000ff00'
                         },
                         {
-                            key: "3",
-                            title: "Tab 3",
-                            content: "Content of Card Tab Content ",
-                            contentColor: "#600000ff"
+                            key: '3',
+                            title: 'Tab 3',
+                            content: 'Content of Card Tab Content ',
+                            contentColor: '#600000ff'
                         }
                     ]
                 }

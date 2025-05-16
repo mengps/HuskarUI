@@ -198,7 +198,7 @@ Item {
                 anchors.fill: parent
                 interactive: false
                 clip: true
-                delegate: Text {
+                delegate: DelText {
                     width: __numberList.width
                     height: __numberList.height
                     text: modelData
