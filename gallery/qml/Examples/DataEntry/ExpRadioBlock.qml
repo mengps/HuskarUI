@@ -61,6 +61,7 @@ icon(可选) | int | 本单选项图标
 - 用于在多个备选项中选中单个状态。\n
 - 和 [DelSelect](internal://DelSelect) 的区别是，DelRadioBlock 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。\n
 - 和 [DelRadio](internal://DelRadio) 的区别是，DelRadioBlock 是成组的，通过 \`model\` 统一设置。\n
+- 和 [DelButtonBlock](internal://DelButtonBlock) 的区别是，DelButtonBlock 每一项都是单独的按钮，并无单选状态。\n
                        `)
         }
 
