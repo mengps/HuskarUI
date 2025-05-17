@@ -184,7 +184,7 @@ Item {
         interactive: control.draggable
         orientation: __private.isHorizontal ? Qt.Horizontal : Qt.Vertical
         snapMode: ListView.SnapOneItem
-        highlightMoveDuration: control.animationEnabled ? control.speed : 0
+        highlightMoveDuration: control.speed
         highlightRangeMode: ListView.StrictlyEnforceRange
         boundsBehavior: ListView.StopAtBounds
         model: ListModel { id: __listModel }
