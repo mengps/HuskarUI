@@ -401,6 +401,7 @@ void DelThemePrivate::registerDefaultComponentTheme(const QString &component, co
             ADD_COMPONENT_CASE(DelAutoComplete)
             ADD_COMPONENT_CASE(DelDatePicker)
             ADD_COMPONENT_CASE(DelProgress)
+            ADD_COMPONENT_CASE(DelCarousel)
         default:
             break;
         }

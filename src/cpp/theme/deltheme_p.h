@@ -54,6 +54,7 @@ enum class Component : uint16_t
     DelAutoComplete,
     DelDatePicker,
     DelProgress,
+    DelCarousel,
 
     Size
 };
@@ -90,6 +91,7 @@ static QHash<QString, Component> g_componentTable
     { "DelAutoComplete",  Component::DelAutoComplete  },
     { "DelDatePicker",    Component::DelDatePicker    },
     { "DelProgress",      Component::DelProgress      },
+    { "DelCarousel",      Component::DelCarousel      },
 };
 
 struct ThemeData
