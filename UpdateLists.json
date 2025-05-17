@@ -1,5 +1,10 @@
 [
     {
+        "isNew": false,
+        "name": "DelMenu",
+        "desc": "增加 menuIconDelegate。\n增加 menuLabelDelegate。\n增加 menuBackgroundDelegate。\n增加 menuContentDelegate。\n"
+    },
+    {
         "isNew": true,
         "name": "DelCarousel",
         "desc": "走马灯，一组轮播的区域。"
@@ -33,11 +38,6 @@
         "isNew": false,
         "name": "DelOTPInput",
         "desc": "新增 setInput() 函数。\n新增 setInputAtIndex() 函数。"
-    },
-    {
-        "isNew": false,
-        "name": "DelMenu",
-        "desc": "增加工具提示。"
     },
     {
         "isNew": true,

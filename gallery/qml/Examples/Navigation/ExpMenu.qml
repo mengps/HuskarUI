@@ -45,26 +45,37 @@ Flickable {
 为页面和功能提供导航的菜单列表。\n
 * **继承自 { Item }**\n
 支持的代理：\n
-- 无
+- **menuIconDelegate: Component** 菜单图标代理，代理可访问属性：\n
+  - \`model: var\` 本菜单数据(访问错误则使用 \`parent.model\`)\n
+  - \`menuButton: var\` 菜单按钮(访问错误则使用 \`parent.menuButton\`)\n
+- **menuLabelDelegate: Component** 菜单标签代理，代理可访问属性：\n
+  - \`model: var\` 本菜单数据(访问错误则使用 \`parent.model\`)\n
+  - \`menuButton: var\` 菜单按钮(访问错误则使用 \`parent.menuButton\`)\n
+- **menuBackgroundDelegate: Component** 菜单背景代理，代理可访问属性：\n
+  - \`model: var\` 本菜单数据(访问错误则使用 \`parent.model\`)\n
+  - \`menuButton: var\` 菜单按钮(访问错误则使用 \`parent.menuButton\`)\n
+- **menuContentDelegate: Component** 菜单内容代理，代理可访问属性：\n
+  - \`model: var\` 本菜单数据(访问错误则使用 \`parent.model\`)\n
+  - \`menuButton: var\` 菜单按钮(访问错误则使用 \`parent.menuButton\`)\n
 支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-contentDescription | string | 内容描述(提高可用性)
-showEdge | bool | 是否显示边线(默认false)
-tooltipVisible | bool | 是否显示工具提示(默认false)
-compactMode | bool | 紧凑模式(默认false)
-compactWidth | int | 紧凑模式宽度
-popupMode | bool | 弹出模式(默认false)
-popupWidth | int | 弹窗宽度
-popupMaxHeight | int | 弹窗最大高度
-defaultMenuIconSize | int | 默认菜单图标大小
-defaultMenuIconSpacing | int | 默认菜单图标间隔
-defaultMenuWidth | int | 默认菜单宽度
-defaultMenuHieght | int | 默认菜单高度
-defaultMenuSpacing | int | 默认菜单间隔
-defaultSelectedKey | list | 初始选中的菜单项 key 数组
-initModel | list | 初始菜单模型
+属性名 | 类型 | 默认值 | 描述 |
+------ | --- | :---: | ---
+animationEnabled | bool | true | 是否开启动画
+contentDescription | string | '' | 内容描述(提高可用性)
+showEdge | bool | false | 是否显示边线
+tooltipVisible | bool | false | 是否显示工具提示
+compactMode | bool | false | 紧凑模式
+compactWidth | int | 50 | 紧凑模式宽度
+popupMode | bool | false | 弹出模式
+popupWidth | int | 200 | 弹窗宽度
+popupMaxHeight | int | - | 弹窗最大高度
+defaultMenuIconSize | int | - | 默认菜单图标大小
+defaultMenuIconSpacing | int | 8 | 默认菜单图标间隔
+defaultMenuWidth | int | 300 | 默认菜单宽度
+defaultMenuHieght | int | 40 | 默认菜单高度
+defaultMenuSpacing | int | 4 | 默认菜单间隔
+defaultSelectedKey | list | [] | 初始选中的菜单项 key 数组
+initModel | list | [] | 初始菜单模型
 \n模型支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
@@ -77,10 +88,11 @@ iconSize | int | 图标大小
 iconSource | int | 图标源
 iconSpacing | int | 图标间隔
 menuChildren | list | 子菜单(支持无限嵌套)
-contentDelegate | var | 该菜单项内容代理
+contentDelegate | var | 该菜单项内容代理(将覆盖menuContentDelegate)
 \n \`contentDelegate\` 可访问属性：\n
 - **model: var** 模型数据(访问错误则使用 \`parent.model\`)\n
-- **menuButton: DelButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，\`menuButton\` 可访问的属性：\n
+- **menuButton: DelButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，可访问的属性：\n
+  - model: var 本菜单模型\n
   - iconSource: int 图标源\n
   - iconSize: int 图标大小\n
   - iconSpacing: int 图标间隔\n
