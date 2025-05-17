@@ -48,8 +48,9 @@ showArrow | bool | false | 是否显示箭头
   - \`animated\` 是否使用切换动效
 - \`swithToPrev()\` 切换到前一页 \n
 - \`swithToNext()\` 切换到后一页 \n
-- \`int getSuitableIndicatorWidth(contentWidth: int)\` 获取合适的指示器宽度 \n
+- \`int getSuitableIndicatorWidth(contentWidth: int, indicatorMaxWidth: int = 18)\` 获取合适的指示器宽度 \n
   - \`contentWidth\` 轮播内容的宽度
+  - \`indicatorMaxWidth\` 指示器最大宽度
                        `)
         }
 

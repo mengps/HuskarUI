@@ -100,13 +100,12 @@ Item {
         }
     }
 
-    function getSuitableIndicatorWidth(contentWidth) {
-        const max = 18;
+    function getSuitableIndicatorWidth(contentWidth, indicatorMaxWidth = 18) {
         let indicatorWidth = 0;
         let totalWidth = 0;
         do {
-            if (indicatorWidth >= max) break;
-            totalWidth = (++indicatorWidth) * __listModel.count + indicatorSpacing * (__listModel.count - 1) + max;
+            if (indicatorWidth >= indicatorMaxWidth) break;
+            totalWidth = (++indicatorWidth) * __listModel.count + indicatorSpacing * (__listModel.count - 1) + indicatorMaxWidth;
         } while (totalWidth < contentWidth);
 
         return indicatorWidth;
