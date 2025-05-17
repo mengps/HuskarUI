@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.3.0.0)
+set(DELEGATEUI_VERSION 0.3.1.0)
 
 project(Gallery VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 
@@ -70,6 +70,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataDisplay/ExpTag.qml
         qml/Examples/DataDisplay/ExpTableView.qml
         qml/Examples/DataDisplay/ExpBadge.qml
+        qml/Examples/DataDisplay/ExpCarousel.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Navigation/ExpScrollBar.qml
         qml/Examples/Navigation/ExpPagination.qml
@@ -85,9 +86,9 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Controls/Description.qml
         qml/Controls/CodeRunner.qml
         qml/Gallery.qml
-        qml/HomePage.qml
-        qml/AboutPage.qml
-        qml/SettingsPage.qml
+        qml/Home/HomePage.qml
+        qml/Home/AboutPage.qml
+        qml/Home/SettingsPage.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${GALLERY_RC_FILE}>
         cpp/customtheme.h cpp/customtheme.cpp

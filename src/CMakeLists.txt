@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.3.0.0)
+set(DELEGATEUI_VERSION 0.3.1.0)
 
 message(STATUS "Configuring DelegateUI Version: ${DELEGATEUI_VERSION}")
 
@@ -106,6 +106,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelProgress.qml
         imports/DelegateUI/Controls/DelBadge.qml
         imports/DelegateUI/Controls/DelButtonBlock.qml
+        imports/DelegateUI/Controls/DelCarousel.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
@@ -159,6 +160,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/DelAutoComplete.json
         theme/DelDatePicker.json
         theme/DelProgress.json
+        theme/DelCarousel.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
