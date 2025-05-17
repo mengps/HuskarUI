@@ -32,6 +32,7 @@ English | [中文](./README-zh_CN.md)
 
 <img width=800 height=500 src="preview/light.png">
 <img width=800 height=500 src="preview/dark.png">
+<img width=800 height=500 src="preview/doc.png">
 
 </div>
 

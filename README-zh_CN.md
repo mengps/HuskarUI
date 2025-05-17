@@ -32,6 +32,7 @@ Qt Qml 的 Ant 设计组件库
 
 <img width=800 height=500 src="preview/light.png">
 <img width=800 height=500 src="preview/dark.png">
+<img width=800 height=500 src="preview/doc.png">
 
 </div>
 
