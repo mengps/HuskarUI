@@ -212,15 +212,21 @@ DelWindow {
             }
         }
 
-        Component {
-            id: menuContentDelegate
-
-            Item {
+        DelMenu {
+            id: galleryMenu
+            anchors.left: parent.left
+            anchors.top: searchComponent.bottom
+            anchors.bottom: aboutButton.top
+            showEdge: true
+            defaultMenuWidth: 300
+            defaultMenuIconSize: 18
+            defaultSelectedKey: ['HomePage']
+            menuLabelDelegate: Item {
                 property var model: parent.model
                 property var menuButton: parent.menuButton
+                property string tagState: model.state ?? ''
 
                 Text {
-                    id: __text
                     anchors.left: parent.left
                     anchors.leftMargin: menuButton.iconSpacing
                     anchors.right: __tag.left
@@ -236,21 +242,34 @@ DelWindow {
                     id: __tag
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    text: model.state
-                    presetColor: model.state === 'New' ? 'red' : 'green'
+                    text: parent.tagState
+                    presetColor: parent.tagState === 'New' ? 'red' : 'green'
+                    visible: parent.tagState !== ''
                 }
             }
-        }
+            menuBackgroundDelegate: Rectangle {
+                radius: menuButton.radiusBg
+                color: menuButton.colorBg
+                border.color: menuButton.colorBorder
+                border.width: 1
 
-        DelMenu {
-            id: galleryMenu
-            anchors.left: parent.left
-            anchors.top: searchComponent.bottom
-            anchors.bottom: aboutButton.top
-            showEdge: true
-            defaultMenuWidth: 300
-            defaultMenuIconSize: 18
-            defaultSelectedKey: ['HomePage']
+                property var model: parent.model
+                property var menuButton: parent.menuButton
+                property string badgeState: model.badgeState ?? ''
+
+                Behavior on color { enabled: galleryMenu.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
+                Behavior on border.color { enabled: galleryMenu.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
+
+                DelBadge {
+                    anchors.left: undefined
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: undefined
+                    dot: true
+                    presetColor: parent.badgeState == 'New' ? 'red' : 'green'
+                    visible: parent.badgeState !== ''
+                }
+            }
             onClickMenu: function(deep, key, data) {
                 console.debug('onClickMenu', deep, key, JSON.stringify(data));
                 if (data && data.source) {
@@ -268,7 +287,19 @@ DelWindow {
                 for (let i = 0; i < defaultModel.length; i++) {
                     let item = defaultModel[i];
                     if (item && item.menuChildren) {
+                        let hasNew = false;
+                        let hasUpdate = false;
                         item.menuChildren.sort((a, b) => a.key.localeCompare(b.key));
+                        item.menuChildren.forEach(object => {
+                                                      if (object.state) {
+                                                          if (object.state === 'New') hasNew = true;
+                                                          if (object.state === 'Update') hasUpdate = true;
+                                                      }
+                                                  });
+                        if (hasNew)
+                            item.badgeState = 'New';
+                        else
+                            item.badgeState = hasUpdate ? 'Update' : '';
                     }
                     list.push(item);
                 }
@@ -293,7 +324,6 @@ DelWindow {
                             label: qsTr('DelWindow 无边框窗口'),
                             source: './Examples/General/ExpWindow.qml',
                             state: 'Update',
-                            contentDelegate: menuContentDelegate
                         },
                         {
                             key: 'DelButton',
@@ -340,7 +370,6 @@ DelWindow {
                             label: qsTr('DelButtonBlock 按钮块'),
                             source: './Examples/General/ExpButtonBlock.qml',
                             state: 'New',
-                            contentDelegate: menuContentDelegate
                         }
                     ]
                 },
@@ -364,7 +393,6 @@ DelWindow {
                             label: qsTr('DelMenu 菜单'),
                             source: './Examples/Navigation/ExpMenu.qml',
                             state: 'Update',
-                            contentDelegate: menuContentDelegate
                         },
                         {
                             key: 'DelScrollBar',
@@ -407,7 +435,6 @@ DelWindow {
                             label: qsTr('DelOTPInput 一次性口令输入框'),
                             source: './Examples/DataEntry/ExpOTPInput.qml',
                             state: 'Update',
-                            contentDelegate: menuContentDelegate
                         },
                         {
                             key: 'DelRate',
@@ -505,14 +532,12 @@ DelWindow {
                             label: qsTr('DelBadge 徽标数'),
                             source: './Examples/DataDisplay/ExpBadge.qml',
                             state: 'New',
-                            contentDelegate: menuContentDelegate
                         },
                         {
                             key: 'DelCarousel',
                             label: qsTr('DelCarousel 走马灯'),
                             source: './Examples/DataDisplay/ExpCarousel.qml',
                             state: 'New',
-                            contentDelegate: menuContentDelegate
                         }
                     ]
                 },
@@ -562,7 +587,6 @@ DelWindow {
                             label: qsTr('DelProgress 进度条'),
                             source: './Examples/Feedback/ExpProgress.qml',
                             state: 'New',
-                            contentDelegate: menuContentDelegate
                         }
                     ]
                 },
