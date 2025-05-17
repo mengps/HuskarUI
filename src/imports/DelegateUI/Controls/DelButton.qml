@@ -113,8 +113,8 @@ T.Button {
     implicitWidth: implicitContentWidth + leftPadding + rightPadding
     implicitHeight: implicitContentHeight + topPadding + bottomPadding
     padding: 15
-    topPadding: 5
-    bottomPadding: 5
+    topPadding: 6
+    bottomPadding: 6
     font {
         family: DelTheme.DelButton.fontFamily
         pixelSize: DelTheme.DelButton.fontSize
