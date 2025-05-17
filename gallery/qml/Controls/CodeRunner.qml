@@ -27,7 +27,12 @@ DelWindow {
         }
     }
     Component.onCompleted: {
-        setSpecialEffect(DelWindow.Win_DwmBlur);
+        if (Qt.platform.os === 'windows') {
+            if (setSpecialEffect(DelWindow.Win_AcrylicMaterial)) return;
+            if (setSpecialEffect(DelWindow.Win_DwmBlur)) return;
+        } else if (Qt.platform.os === 'osx') {
+            if (setSpecialEffect(DelWindow.Mac_BlurEffect)) return;
+        }
         DelApi.setWindowStaysOnTopHint(root, true);
     }
 
