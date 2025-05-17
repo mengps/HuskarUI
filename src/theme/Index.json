@@ -1,6 +1,6 @@
 {
     "colorTextBase": "#000000|#f3f3f3",
-    "colorBgBase": "#ffffff|#141414",
+    "colorBgBase": "#f4f4f4|#181818",
     "%VariableTable%": {
         "colorPrimaryBase": "$genColor(#1677ff)",
         "colorSuccessBase": "$genColor(#52c41a)",
@@ -156,6 +156,7 @@
         "DelMessage": ":/DelegateUI/theme/DelMessage.json",
         "DelAutoComplete": ":/DelegateUI/theme/DelAutoComplete.json",
         "DelDatePicker": ":/DelegateUI/theme/DelDatePicker.json",
-        "DelProgress": ":/DelegateUI/theme/DelProgress.json"
+        "DelProgress": ":/DelegateUI/theme/DelProgress.json",
+        "DelCarousel": ":/DelegateUI/theme/DelCarousel.json"
     }
 }
