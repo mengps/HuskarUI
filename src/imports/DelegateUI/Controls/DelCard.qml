@@ -156,7 +156,8 @@ Rectangle {
             sourceComponent: titleDelegate
         }
         Loader {
-            width: parent.width
+            width: parent.width - control.border.width * 2
+            anchors.horizontalCenter: parent.horizontalCenter
             sourceComponent: coverDelegate
         }
         Loader {
