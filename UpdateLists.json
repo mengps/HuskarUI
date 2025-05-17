@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelCarousel",
+        "desc": "走马灯，一组轮播的区域。"
+    },
+    {
+        "isNew": true,
         "name": "DelBadge",
         "desc": "徽标数，图标右上角的圆形徽标数字。"
     },

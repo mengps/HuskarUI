@@ -3,6 +3,8 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import DelegateUI
 
+import './Home'
+
 DelWindow {
     id: galleryWindow
     width: 1200
@@ -71,7 +73,8 @@ DelWindow {
             target: themeCircle
             from: 0
             to: themeCircle.r * 2
-            duration: DelTheme.Primary.durationMid
+            duration: DelTheme.Primary.durationSlow
+            easing.type: Easing.OutCubic
             onStarted: {
                 galleryWindow.setWindowMode(true);
                 themeCircle.visible = true;
@@ -92,7 +95,8 @@ DelWindow {
             target: themeCircle
             from: themeCircle.r * 2
             to: 0
-            duration: DelTheme.Primary.durationMid
+            duration: DelTheme.Primary.durationSlow
+            easing.type: Easing.OutCubic
             onStarted: {
                 galleryWindow.setWindowMode(false);
                 themeCircle.visible = true;
@@ -180,36 +184,7 @@ DelWindow {
                     visible: parent.tagState !== ''
                 }
             }
-            clearIconDelegate: Row {
-                spacing: 5
-
-                DelIconText {
-                    visible: searchComponent.length > 0
-                    iconSource: DelIcon.CloseSquareFilled
-                    iconSize: searchComponent.iconSize
-                    colorIcon: searchComponent.enabled ?
-                                   __iconMouse.hovered ? DelTheme.DelAutoComplete.colorIconHover :
-                                                         DelTheme.DelAutoComplete.colorIcon : DelTheme.DelAutoComplete.colorIconDisabled
-
-                    Behavior on colorIcon { enabled: searchComponent.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
-
-                    MouseArea {
-                        id: __iconMouse
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: parent.iconSource == searchComponent.clearIconSource ? Qt.PointingHandCursor : Qt.ArrowCursor
-                        onEntered: hovered = true;
-                        onExited: hovered = false;
-                        onClicked: searchComponent.clearInput();
-                        property bool hovered: false
-                    }
-                }
-
-                DelIconText {
-                    iconSource: DelIcon.SearchOutlined
-                    iconSize: searchComponent.iconSize
-                }
-            }
+            clearIconSource: searchComponent.length > 0 ? DelIcon.CloseCircleFilled : DelIcon.SearchOutlined
 
             Behavior on width {
                 enabled: galleryMenu.compactMode && galleryMenu.width === galleryMenu.compactWidth
@@ -304,7 +279,7 @@ DelWindow {
                     key: 'HomePage',
                     label: qsTr('首页'),
                     iconSource: DelIcon.HomeOutlined,
-                    source: './HomePage.qml'
+                    source: './Home/HomePage.qml'
                 },
                 {
                     type: 'divider'
@@ -529,6 +504,13 @@ DelWindow {
                             key: 'DelBadge',
                             label: qsTr('DelBadge 徽标数'),
                             source: './Examples/DataDisplay/ExpBadge.qml',
+                            state: 'New',
+                            contentDelegate: menuContentDelegate
+                        },
+                        {
+                            key: 'DelCarousel',
+                            label: qsTr('DelCarousel 走马灯'),
+                            source: './Examples/DataDisplay/ExpCarousel.qml',
                             state: 'New',
                             contentDelegate: menuContentDelegate
                         }
