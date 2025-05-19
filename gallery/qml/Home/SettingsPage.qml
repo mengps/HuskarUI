@@ -4,35 +4,12 @@ import QtQuick.Effects
 import QtQuick.Controls.Basic
 import DelegateUI
 
-DelWindow {
+Item {
     id: root
-    width: 400
-    height: 500
-    minimumWidth: 400
-    minimumHeight: 500
-    captionBar.minimizeButtonVisible: false
-    captionBar.maximizeButtonVisible: false
-    captionBar.winTitle: qsTr("设置")
-    captionBar.winIconDelegate: Item {
-        DelIconText {
-            iconSize: 22
-            colorIcon: "#C44545"
-            font.bold: true
-            iconSource: DelIcon.DelegateUIPath1
-        }
-        DelIconText {
-            iconSize: 22
-            colorIcon: "#C44545"
-            font.bold: true
-            iconSource: DelIcon.DelegateUIPath2
-        }
-    }
-    captionBar.closeCallback: () => settingsLoader.visible = false;
 
     component MySlider: RowLayout {
+        width: 350
         height: 30
-        anchors.left: parent.left
-        anchors.right: parent.right
         anchors.margins: 30
         spacing: 20
 
@@ -40,16 +17,11 @@ DelWindow {
         property alias slider: __slider
         property bool scaleVisible: false
 
-        Text {
+        DelText {
             id: __label
-            Layout.preferredWidth: DelTheme.Primary.fontPrimarySize * 5
+            Layout.preferredWidth: DelTheme.Primary.fontPrimarySize * 6
             Layout.fillHeight: true
             verticalAlignment: Text.AlignVCenter
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySize
-            }
-            color: DelTheme.Primary.colorTextBase
         }
 
         Item {
@@ -72,16 +44,11 @@ DelWindow {
                         radius: 2
                         color: __slider.colorBg
 
-                        Text {
+                        DelText {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.top: parent.bottom
                             anchors.topMargin: 8
                             text: (__slider.stepSize) * index + __slider.min
-                            font {
-                                family: DelTheme.Primary.fontPrimaryFamily
-                                pixelSize: DelTheme.Primary.fontPrimarySize
-                            }
-                            color: DelTheme.Primary.colorTextBase
                         }
                     }
                 }
@@ -97,146 +64,250 @@ DelWindow {
         }
     }
 
-    Item {
-        anchors.fill: parent
+    component SettingsItem: Item {
+        id: settingsItem
+        width: parent.width
+        height: column.height
 
-        MultiEffect {
-            anchors.fill: backRect
-            source: backRect
-            shadowColor: DelTheme.Primary.colorTextBase
-            shadowEnabled: true
-        }
-
-        Rectangle {
-            id: backRect
-            anchors.fill: parent
-            radius: 6
-            color: DelTheme.Primary.colorBgBase
-            border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.2)
-        }
-
-        Item {
-            anchors.fill: parent
-
-            ShaderEffect {
-                anchors.fill: parent
-                vertexShader: "qrc:/Gallery/shaders/effect2.vert.qsb"
-                fragmentShader: "qrc:/Gallery/shaders/effect2.frag.qsb"
-                opacity: 0.5
-
-                property vector3d iResolution: Qt.vector3d(width, height, 0)
-                property real iTime: 0
-
-                Timer {
-                    running: true
-                    repeat: true
-                    interval: 10
-                    onTriggered: parent.iTime += 0.03;
-                }
-            }
-        }
+        property string title: value
+        property Component itemDelegate: Item { }
 
         Column {
+            id: column
             width: parent.width
-            anchors.top: parent.top
-            anchors.topMargin: captionBar.height + 20
+            spacing: 10
+
+            DelText {
+                text: settingsItem.title
+            }
+
+            Rectangle {
+                width: parent.width
+                height: itemLoader.height + 40
+                radius: 6
+                color: DelThemeFunctions.alpha(DelTheme.Primary.colorBgBase, 0.6)
+                border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.1)
+
+                Loader {
+                    id: itemLoader
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    anchors.verticalCenter: parent.verticalCenter
+                    sourceComponent: settingsItem.itemDelegate
+                }
+            }
+        }
+    }
+
+    Flickable {
+        anchors.fill: parent
+        topMargin: 20
+        bottomMargin: 20
+        clip: true
+        contentHeight: contentColumn.height
+        ScrollBar.vertical: DelScrollBar { }
+
+        Column {
+            id: contentColumn
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.right: parent.right
+            anchors.rightMargin: 20
             spacing: 20
 
-            MySlider {
-                id: bgOpacitySlider
-                label.text: qsTr("背景透明度")
-                slider.value: galleryBackground.opacity
-                slider.snapMode: DelSlider.SnapOnRelease
-                slider.onFirstMoved: {
-                    galleryBackground.opacity = slider.currentValue;
-                }
-                slider.handleToolTipDelegate: DelToolTip {
-                    arrowVisible: true
-                    delay: 100
-                    text: bgOpacitySlider.slider.currentValue.toFixed(1)
-                    visible: handlePressed || handleHovered
+            SettingsItem {
+                title: qsTr('常规设置')
+                itemDelegate: Column {
+                    spacing: 10
+
+                    MySlider {
+                        id: effectSpeed
+                        label.text: qsTr('菜单切换速度')
+                        slider.min: 0
+                        slider.max: 2000
+                        slider.stepSize: 1
+                        slider.value: gallerySwitchEffect.duration
+                        slider.onFirstReleased: {
+                            gallerySwitchEffect.duration = slider.currentValue;
+                        }
+                        slider.handleToolTipDelegate: DelToolTip {
+                            arrowVisible: true
+                            delay: 100
+                            text: effectSpeed.slider.currentValue
+                            visible: handlePressed || handleHovered
+                        }
+                    }
+
+                    MySlider {
+                        id: bgOpacitySlider
+                        label.text: qsTr('背景透明度')
+                        slider.value: galleryBackground.opacity
+                        slider.snapMode: DelSlider.SnapOnRelease
+                        slider.onFirstMoved: {
+                            galleryBackground.opacity = slider.currentValue;
+                        }
+                        slider.handleToolTipDelegate: DelToolTip {
+                            arrowVisible: true
+                            delay: 100
+                            text: bgOpacitySlider.slider.currentValue.toFixed(1)
+                            visible: handlePressed || handleHovered
+                        }
+                    }
+
+                    MySlider {
+                        label.text: qsTr('字体大小')
+                        slider.min: 12
+                        slider.max: 24
+                        slider.stepSize: 4
+                        slider.value: DelTheme.Primary.fontPrimarySizeHeading5
+                        slider.snapMode: DelSlider.SnapAlways
+                        slider.onFirstReleased: {
+                            DelTheme.installThemePrimaryFontSizeBase(slider.currentValue);
+                        }
+                        scaleVisible: true
+                    }
                 }
             }
 
-            MySlider {
-                label.text: qsTr("字体大小")
-                slider.min: 12
-                slider.max: 24
-                slider.stepSize: 4
-                slider.value: DelTheme.Primary.fontPrimarySizeHeading5
-                slider.snapMode: DelSlider.SnapAlways
-                slider.onFirstReleased: {
-                    DelTheme.installThemePrimaryFontSizeBase(slider.currentValue);
-                }
-                scaleVisible: true
-            }
+            SettingsItem {
+                title: qsTr('菜单切换特效')
+                itemDelegate: Column {
+                    spacing: 10
 
-            Row {
-                anchors.left: parent.left
-                anchors.leftMargin: 30
-                spacing: 20
+                    ButtonGroup { id: effectTypeGroup }
 
-                Text {
-                    width: DelTheme.Primary.fontPrimarySize * 5
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("应用主题")
-                    font {
-                        family: DelTheme.Primary.fontPrimaryFamily
-                        pixelSize: DelTheme.Primary.fontPrimarySize
-                    }
-                    color: DelTheme.Primary.colorTextBase
-                }
-
-                DelSelect {
-                    id: darkModeSelect
-                    width: 110
-                    anchors.verticalCenter: parent.verticalCenter
-                    currentIndex: 0
-                    model: [
-                        { "label": qsTr("浅色"), "value": DelTheme.Light },
-                        { "label": qsTr("深色"), "value": DelTheme.Dark },
-                        { "label": qsTr("跟随系统"), "value": DelTheme.System }
-                    ]
-                    onActivated: {
-                        DelTheme.darkMode = currentValue;
-                    }
-
-                    Connections {
-                        target: DelTheme
-                        function onDarkModeChanged() {
-                            darkModeSelect.currentIndex = DelTheme.darkMode;
+                    Repeater {
+                        model: [
+                            { 'label': qsTr('无'), 'value': DelSwitchEffect.Type_None, 'duration': 0 },
+                            { 'label': qsTr('透明度特效'), 'value': DelSwitchEffect.Type_Opacity, 'duration': 200 },
+                            { 'label': qsTr('模糊特效'), 'value': DelSwitchEffect.Type_Blurry, 'duration': 350 },
+                            {
+                                'label': qsTr('遮罩特效'),
+                                'value': DelSwitchEffect.Type_Mask,
+                                'duration': 800,
+                                'maskScaleEnabled': true,
+                                'maskRotationEnabled': true,
+                                'maskSource': 'qrc:/DelegateUI/images/star.png'
+                            },
+                            {
+                                'label': qsTr('百叶窗特效'),
+                                'value': DelSwitchEffect.Type_Blinds,
+                                'duration': 800,
+                                'maskSource': 'qrc:/DelegateUI/images/hblinds.png'
+                            },
+                            {
+                                'label': qsTr('3D翻转特效'),
+                                'value': DelSwitchEffect.Type_3DFlip,
+                                'duration': 800,
+                                'maskSource': 'qrc:/DelegateUI/images/smoke.png'
+                            },                            {
+                                'label': qsTr('雷电特效'),
+                                'value': DelSwitchEffect.Type_Thunder,
+                                'duration': 800,
+                                'maskSource': 'qrc:/DelegateUI/images/stripes.png'
+                            },
+                        ]
+                        delegate: DelRadio {
+                            text: modelData.label
+                            ButtonGroup.group: effectTypeGroup
+                            onClicked: {
+                                gallerySwitchEffect.type = modelData.value;
+                                gallerySwitchEffect.duration = modelData.duration;
+                                gallerySwitchEffect.maskScaleEnabled = modelData.maskScaleEnabled ?? false;
+                                gallerySwitchEffect.maskRotationEnabled = modelData.maskRotationEnabled ?? false;
+                                gallerySwitchEffect.maskSource = modelData.maskSource ?? '';
+                            }
+                            Component.onCompleted: {
+                                checked = gallerySwitchEffect.type === modelData.value;
+                            }
                         }
                     }
                 }
             }
 
-            Row {
-                anchors.left: parent.left
-                anchors.leftMargin: 30
-                spacing: 20
+            SettingsItem {
+                title: qsTr('窗口效果')
+                itemDelegate: Column {
+                    spacing: 10
 
-                Text {
-                    width: DelTheme.Primary.fontPrimarySize * 5
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("导航模式")
-                    font {
-                        family: DelTheme.Primary.fontPrimaryFamily
-                        pixelSize: DelTheme.Primary.fontPrimarySize
+                    ButtonGroup { id: specialEffectGroup }
+
+                    Repeater {
+                        delegate: DelRadio {
+                            text: modelData.label
+                            ButtonGroup.group: specialEffectGroup
+                            onClicked: {
+                                let oldEffect = galleryWindow.specialEffect;
+                                if (!galleryWindow.setSpecialEffect(modelData.value)) {
+                                    galleryWindow.setSpecialEffect(oldEffect);
+                                }
+                            }
+                            Component.onCompleted: {
+                                checked = galleryWindow.specialEffect === modelData.value;
+                            }
+                        }
+                        Component.onCompleted: {
+                            if (Qt.platform.os === 'windows'){
+                                model = [
+                                            { 'label': qsTr('无'), 'value': DelWindow.None },
+                                            { 'label': qsTr('模糊'), 'value': DelWindow.Win_DwmBlur },
+                                            { 'label': qsTr('亚克力'), 'value': DelWindow.Win_AcrylicMaterial },
+                                            { 'label': qsTr('云母'), 'value': DelWindow.Win_Mica },
+                                            { 'label': qsTr('云母变体'), 'value': DelWindow.Win_MicaAlt }
+                                        ];
+                            } else if (Qt.platform.os === 'osx') {
+                                model = [
+                                            { 'label': qsTr('无'), 'value': DelWindow.None },
+                                            { 'label': qsTr('模糊'), 'value': DelWindow.Mac_BlurEffect },
+                                        ];
+                            }
+                        }
                     }
-                    color: DelTheme.Primary.colorTextBase
                 }
+            }
 
-                DelRadioBlock {
+            SettingsItem {
+                title: qsTr('应用主题')
+                itemDelegate: Column {
+                    spacing: 10
+
+                    ButtonGroup { id: themeGroup }
+
+                    Repeater {
+                        model: [
+                            { 'label': qsTr('浅色'), 'value': DelTheme.Light },
+                            { 'label': qsTr('深色'), 'value': DelTheme.Dark },
+                            { 'label': qsTr('跟随系统'), 'value': DelTheme.System }
+                        ]
+                        delegate: DelRadio {
+                            text: modelData.label
+                            ButtonGroup.group: themeGroup
+                            onClicked: {
+                                DelTheme.darkMode = modelData.value;
+                            }
+                            Component.onCompleted: {
+                                checked = DelTheme.darkMode === modelData.value;
+                            }
+                        }
+                    }
+                }
+            }
+
+            SettingsItem {
+                title: qsTr('导航模式')
+                itemDelegate: DelRadioBlock {
                     id: navMode
-                    initCheckedIndex: 0
                     model: [
-                        { label: "默认", value: false },
-                        { label: "紧凑", value: true }
+                        { label: qsTr('默认'), value: false },
+                        { label: qsTr('紧凑'), value: true }
                     ]
                     onClicked:
                         (index, radioData) => {
                             galleryMenu.compactMode = radioData.value;
                         }
+                    Component.onCompleted: {
+                        currentCheckedIndex = galleryMenu.compactMode ? 1 : 0;
+                    }
 
                     Connections {
                         target: galleryMenu
