@@ -280,6 +280,7 @@ Item {
                             { 'label': qsTr('跟随系统'), 'value': DelTheme.System }
                         ]
                         delegate: DelRadio {
+                            id: darkModeRadio
                             text: modelData.label
                             ButtonGroup.group: themeGroup
                             onClicked: {
@@ -287,6 +288,13 @@ Item {
                             }
                             Component.onCompleted: {
                                 checked = DelTheme.darkMode === modelData.value;
+                            }
+
+                            Connections {
+                                target: DelTheme
+                                function onDarkModeChanged() {
+                                    darkModeRadio.checked = DelTheme.darkMode === modelData.value;
+                                }
                             }
                         }
                     }
