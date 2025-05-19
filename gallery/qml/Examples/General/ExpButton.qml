@@ -62,8 +62,8 @@ contentDescription | string | 内容描述(提高可用性)
 - 线框按钮{ DelButton.Type_Outlined }\n
 - 主要按钮{ DelButton.Type_Primary }\n
 - 填充按钮{ DelButton.Type_Filled }\n
-- 文本按钮{ DelButton.Type_Text }
-- 链接按钮{ DelButton.Type_Link }
+- 文本按钮{ DelButton.Type_Text }\n
+- 链接按钮{ DelButton.Type_Link }\n
                        `)
             code: `
                 import QtQuick
