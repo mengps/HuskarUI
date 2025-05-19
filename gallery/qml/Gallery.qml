@@ -689,10 +689,12 @@ DelWindow {
                 }
 
                 function switchToSource(source) {
-                    container.source = source;
-                    nextLoader.source = source;
-                    containerLoader.visible = false;
-                    gallerySwitchEffect.startSwitch(containerLoader, nextLoader);
+                    if (container.source !== source) {
+                        container.source = source;
+                        nextLoader.source = source;
+                        containerLoader.visible = false;
+                        gallerySwitchEffect.startSwitch(containerLoader, nextLoader);
+                    }
                 }
             }
 
@@ -706,7 +708,6 @@ DelWindow {
                 id: containerLoader
                 anchors.fill: parent
                 visible: false
-                enabled: visible
             }
         }
     }
