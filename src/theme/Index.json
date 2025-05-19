@@ -1,6 +1,6 @@
 {
     "colorTextBase": "#000000|#f3f3f3",
-    "colorBgBase": "#f4f4f4|#181818",
+    "colorBgBase": "#f5f5f5|#181818",
     "%VariableTable%": {
         "colorPrimaryBase": "$genColor(#1677ff)",
         "colorSuccessBase": "$genColor(#52c41a)",
