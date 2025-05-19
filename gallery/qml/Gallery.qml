@@ -9,6 +9,7 @@ DelWindow {
     id: galleryWindow
     width: 1200
     height: 800
+    opacity: 0
     minimumWidth: 800
     minimumHeight: 600
     title: qsTr('DelegateUI Gallery')
@@ -50,6 +51,16 @@ DelWindow {
         galleryMenu.compactMode = width < 1100;
     }
 
+    Behavior on opacity { NumberAnimation { } }
+
+    Timer {
+        running: true
+        interval: 200
+        onTriggered: {
+            galleryWindow.opacity = 1;
+        }
+    }
+
     Rectangle {
         id: galleryBackground
         anchors.fill: content
@@ -73,7 +84,7 @@ DelWindow {
             target: themeCircle
             from: 0
             to: themeCircle.r * 2
-            duration: DelTheme.Primary.durationSlow
+            duration: DelTheme.Primary.durationMid
             easing.type: Easing.OutCubic
             onStarted: {
                 galleryWindow.setWindowMode(true);
@@ -95,7 +106,7 @@ DelWindow {
             target: themeCircle
             from: themeCircle.r * 2
             to: 0
-            duration: DelTheme.Primary.durationSlow
+            duration: DelTheme.Primary.durationMid
             easing.type: Easing.OutCubic
             onStarted: {
                 galleryWindow.setWindowMode(false);
@@ -265,6 +276,7 @@ DelWindow {
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.bottom: undefined
+                    anchors.margins: 1
                     dot: true
                     presetColor: parent.badgeState == 'New' ? 'red' : 'green'
                     visible: parent.badgeState !== ''
@@ -272,14 +284,8 @@ DelWindow {
             }
             onClickMenu: function(deep, key, data) {
                 console.debug('onClickMenu', deep, key, JSON.stringify(data));
-                if (data && data.source) {
-                    containerLoader.visible = true;
-                    themeLoader.visible = false;
-                    containerLoader.source = '';
-                    containerLoader.source = data.source;
-                } else if (data && data.isTheme) {
-                    containerLoader.visible = false;
-                    themeLoader.visible = true;
+                if (data) {
+                    gallerySwitchEffect.switchToSource(data.source);
                 }
             }
             Component.onCompleted: {
@@ -290,12 +296,13 @@ DelWindow {
                         let hasNew = false;
                         let hasUpdate = false;
                         item.menuChildren.sort((a, b) => a.key.localeCompare(b.key));
-                        item.menuChildren.forEach(object => {
-                                                      if (object.state) {
-                                                          if (object.state === 'New') hasNew = true;
-                                                          if (object.state === 'Update') hasUpdate = true;
-                                                      }
-                                                  });
+                        item.menuChildren.forEach(
+                            object => {
+                                if (object.state) {
+                                    if (object.state === 'New') hasNew = true;
+                                    if (object.state === 'Update') hasUpdate = true;
+                                }
+                            });
                         if (hasNew)
                             item.badgeState = 'New';
                         else
@@ -549,6 +556,12 @@ DelWindow {
                             key: 'DelAcrylic',
                             label: qsTr('DelAcrylic 亚克力效果'),
                             source: './Examples/Effect/ExpAcrylic.qml',
+                        },
+                        {
+                            key: 'DelSwitchEffect',
+                            label: qsTr('DelSwitchEffect 切换特效'),
+                            source: './Examples/Effect/ExpSwitchEffect.qml',
+                            state: 'New',
                         }
                     ]
                 },
@@ -601,7 +614,7 @@ DelWindow {
                         {
                             key: 'DelTheme',
                             label: qsTr('DelTheme 主题定制'),
-                            isTheme: true
+                            source: './Examples/Theme/ExpTheme.qml',
                         }
                     ]
                 }
@@ -620,12 +633,6 @@ DelWindow {
             sourceComponent: AboutPage { visible: aboutLoader.visible }
         }
 
-        Loader {
-            id: settingsLoader
-            visible: false
-            sourceComponent: SettingsPage { visible: settingsLoader.visible }
-        }
-
         DelIconButton {
             id: aboutButton
             width: galleryMenu.width
@@ -638,12 +645,7 @@ DelWindow {
             iconSize: galleryMenu.defaultMenuIconSize
             iconSource: DelIcon.UserOutlined
             onClicked: {
-                if (aboutLoader.visible)
-                    aboutLoader.visible = false;
-                else {
-                    aboutLoader.visible = true;
-                    settingsLoader.visible = false;
-                }
+                aboutLoader.visible = !aboutLoader.visible;
             }
         }
 
@@ -659,12 +661,7 @@ DelWindow {
             iconSize: galleryMenu.defaultMenuIconSize
             iconSource: DelIcon.SettingOutlined
             onClicked: {
-                if (settingsLoader.visible)
-                    settingsLoader.visible = false;
-                else {
-                    settingsLoader.visible = true;
-                    aboutLoader.visible = false;
-                }
+                gallerySwitchEffect.switchToSource('./Home/SettingsPage.qml');
             }
         }
 
@@ -677,23 +674,39 @@ DelWindow {
             anchors.margins: 5
             clip: true
 
-            Loader {
-                id: containerLoader
-                anchors.fill: parent
+            property string source: ''
 
-                NumberAnimation on opacity {
-                    running: containerLoader.status == Loader.Ready
-                    from: 0
-                    to: 1
-                    duration: DelTheme.Primary.durationSlow
+            DelSwitchEffect {
+                id: gallerySwitchEffect
+                anchors.fill: parent
+                duration: 350
+                type: DelSwitchEffect.Type_Blurry
+                maskScale: animationTime * 3
+                maskRotation: (1.0 - animationTime) * 360
+                onFinished: {
+                    containerLoader.source = container.source;
+                    containerLoader.visible = true;
+                }
+
+                function switchToSource(source) {
+                    container.source = source;
+                    nextLoader.source = source;
+                    containerLoader.visible = false;
+                    gallerySwitchEffect.startSwitch(containerLoader, nextLoader);
                 }
             }
 
             Loader {
-                id: themeLoader
+                id: nextLoader
                 anchors.fill: parent
-                source: './Examples/Theme/ExpTheme.qml'
                 visible: false
+            }
+
+            Loader {
+                id: containerLoader
+                anchors.fill: parent
+                visible: false
+                enabled: visible
             }
         }
     }
