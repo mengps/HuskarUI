@@ -360,16 +360,20 @@ Item {
                 sourceComponent: DelDivider { }
             }
 
-            Item {
+            Rectangle {
                 id: __layout
                 width: parent.width
+                anchors.top: parent.top
                 height: __menuButton.height + ((control.compactMode || control.popupMode) ? 0 : __childrenListView.height)
+                color: view.menuDeep === 0 ? 'transparent' : DelTheme.DelMenu.colorChildBg
                 visible: menuType == "item" || menuType == "group"
 
                 MenuButton {
                     id: __menuButton
                     width: parent.width
-                    height: __rootItem.menuHeight
+                    height: __rootItem.menuHeight + control.defaultMenuSpacing
+                    leftPadding: 15 + (control.compactMode || control.popupMode ? 0 : iconSize * __rootItem.view.menuDeep)
+                    bottomInset: control.defaultMenuSpacing
                     enabled: __rootItem.menuEnabled
                     text: (control.compactMode && __rootItem.view.menuDeep === 0) ? "" : __rootItem.menuLabel
                     checkable: true
@@ -444,11 +448,8 @@ Item {
                             return 0;
                     }
                     anchors.top: parent ? (parent == __layout ? __menuButton.bottom : parent.top) : undefined
-                    anchors.topMargin: parent == __layout ? control.defaultMenuSpacing : 0
                     anchors.left: parent ? parent.left : undefined
-                    anchors.leftMargin: (control.compactMode || control.popupMode) ? 0 : __menuButton.iconSize * menuDeep
                     anchors.right: parent ? parent.right : undefined
-                    spacing: control.defaultMenuSpacing
                     boundsBehavior: Flickable.StopAtBounds
                     interactive: __childrenListView.visible
                     model: []
@@ -462,7 +463,7 @@ Item {
                     /* 子 ListView 从父 ListView 的深度累加可实现自动计算 */
                     property int menuDeep: __rootItem.view.menuDeep + 1
                     property var parentMenu: __rootItem
-                    property int realHeight: (contentHeight + ((count === 0 || control.compactMode || control.popupMode) ? 0 : control.defaultMenuSpacing))
+                    property int realHeight: contentHeight
 
                     Behavior on height {
                         enabled: control.animationEnabled
@@ -557,7 +558,6 @@ Item {
         anchors.bottom: parent.bottom
         anchors.margins: 5
         boundsBehavior: Flickable.StopAtBounds
-        spacing: control.defaultMenuSpacing
         model: []
         delegate: __menuDelegate
         onContentHeightChanged: cacheBuffer = contentHeight;
