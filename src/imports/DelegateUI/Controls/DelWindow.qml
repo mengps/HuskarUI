@@ -100,7 +100,8 @@ Window {
                 windowAgent.setWindowAttribute('mica', false);
                 windowAgent.setWindowAttribute('mica-alt', false);
                 window.specialEffect = DelWindow.None;
-                break;
+                window.color = DelTheme.Primary.colorBgBase;
+                return true;
             }
         } else if (Qt.platform.os === 'osx') {
             switch (specialEffect)
