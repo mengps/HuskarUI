@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.3.1.0)
+set(DELEGATEUI_VERSION 0.3.2.0)
 
 project(Gallery VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 
@@ -76,6 +76,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Navigation/ExpPagination.qml
         qml/Examples/Layout/ExpDivider.qml
         qml/Examples/Effect/ExpAcrylic.qml
+        qml/Examples/Effect/ExpSwitchEffect.qml
         qml/Examples/Feedback/ExpWatermark.qml
         qml/Examples/Feedback/ExpDrawer.qml
         qml/Examples/Feedback/ExpMessage.qml
@@ -95,6 +96,13 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/main.cpp
     RESOURCES
         ../UpdateLists.json
+)
+
+qt_add_resources(${PROJECT_NAME} "images"
+    PREFIX "/Gallery"
+    FILES
+        images/swithc_effect1.jpg
+        images/swithc_effect2.jpg
 )
 
 qt_add_shaders(${PROJECT_NAME} "shaders"

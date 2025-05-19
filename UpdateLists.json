@@ -1,8 +1,13 @@
 [
     {
+        "isNew": true,
+        "name": "DelSwitchEffect",
+        "desc": "为两个组件之间增加切换/过渡特效。\n"
+    },
+    {
         "isNew": false,
         "name": "DelMenu",
-        "desc": "增加 menuIconDelegate。\n增加 menuLabelDelegate。\n增加 menuBackgroundDelegate。\n增加 menuContentDelegate。\n"
+        "desc": "优化菜单背景颜色以及显示逻辑。\n"
     },
     {
         "isNew": true,

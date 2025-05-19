@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.3.1.0)
+set(DELEGATEUI_VERSION 0.3.2.0)
 
 message(STATUS "Configuring DelegateUI Version: ${DELEGATEUI_VERSION}")
 
@@ -107,6 +107,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelBadge.qml
         imports/DelegateUI/Controls/DelButtonBlock.qml
         imports/DelegateUI/Controls/DelCarousel.qml
+        imports/DelegateUI/Controls/DelSwitchEffect.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h
@@ -124,6 +125,16 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/controls/deliconfont.h cpp/controls/deliconfont.cpp
         cpp/controls/delrectangle.h cpp/controls/delrectangle.cpp
         cpp/controls/delwatermark.h cpp/controls/delwatermark.cpp
+)
+
+qt_add_resources(${PROJECT_NAME} "images"
+    PREFIX "/DelegateUI"
+    FILES
+        images/hblinds.png
+        images/heart.png
+        images/smoke.png
+        images/star.png
+        images/stripes.png
 )
 
 qt_add_resources(${PROJECT_NAME} "theme"
