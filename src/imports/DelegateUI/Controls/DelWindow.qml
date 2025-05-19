@@ -118,7 +118,8 @@ Window {
             default:
                 windowAgent.setWindowAttribute('blur-effect', 'none');
                 window.specialEffect = DelWindow.None;
-                break;
+                window.color = DelTheme.Primary.colorBgBase;
+                return true;
             }
         }
 
