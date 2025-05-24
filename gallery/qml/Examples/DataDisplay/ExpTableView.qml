@@ -1,9 +1,9 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import Qt.labs.qmlmodels
 import DelegateUI
+import Gallery
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
@@ -50,7 +50,7 @@ Flickable {
             }
 
             Rectangle {
-                color: "red"
+                color: 'red'
                 opacity: 0.1
                 x: startWidth.advanceWidth + (displayText.width - displayWidth.advanceWidth) * 0.5
                 width: filterWidth.advanceWidth
@@ -74,7 +74,7 @@ Flickable {
                     model: cellData
                     delegate: DelTag {
                         text: modelData
-                        presetColor: [ "red", "green", "orange", "magenta", "cyan"][index]
+                        presetColor: [ 'red', 'green', 'orange', 'magenta', 'cyan'][index]
                         required property int index
                         required property string modelData
                     }
@@ -132,29 +132,30 @@ Flickable {
   - \`onFilter: var\` 该列的过滤器\n
   - \`column: int\` 列索引\n
 支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-alternatingRow | bool | 是否交替显示行背景(默认false)
-defaultColumnHeaderHeight | int | 默认列头高度
-defaultRowHeaderWidth | int | 默认行头宽度
-columnGridVisible | bool | 是否显示列网格线(默认false)
-rowGridVisible | bool | 是否显示行网格线(默认false)
-minimumRowHeight | int | 最小行高
-maximumRowHeight | int | 最大行高
-initModel | list | 表格初始数据模型
-columns | list | 列描述对象数组
-checkedKeys | list | 选中行的键列表
-colorGridLine | color | 网格线颜色
-columnHeaderVisible | bool | 是否显示列头
-columnHeaderTitleFont | font | 列头标题字体
-colorColumnHeaderTitle | color | 列头标题颜色
-colorColumnHeaderBg | color |  列头背景颜色
-rowHeaderVisible | bool | 是否显示行头
-rowHeaderTitleFont | font | 行头标题字体
-colorRowHeaderTitle | color | 行头标题颜色
-colorRowHeaderBg | color | 行头背景颜色
-colorResizeBlockBg | color | 调整头大小块(左上角方块)背景色
+属性名 | 类型 | 默认值 | 描述 |
+------ | --- | :---: | ---
+animationEnabled | bool | true | 是否开启动画(默认true)
+alternatingRow | bool | false | 是否交替显示行背景(默认false)
+defaultColumnHeaderHeight | int | 40 | 默认列头高度
+defaultRowHeaderWidth | int | 40 | 默认行头宽度
+columnGridVisible | bool | false | 是否显示列网格线(默认false)
+rowGridVisible | bool | false | 是否显示行网格线(默认false)
+minimumRowHeight | int | 40 | 最小行高
+maximumRowHeight | int | Number.NaN | 最大行高
+initModel | list | [] | 表格初始数据模型
+rowCount | int | 0 | 当前模型行数
+columns | list | [] | 列描述对象数组
+checkedKeys | list | [] | 选中行的键列表
+colorGridLine | color | - | 网格线颜色
+columnHeaderVisible | bool | true | 是否显示列头
+columnHeaderTitleFont | font | - | 列头标题字体
+colorColumnHeaderTitle | color | - | 列头标题颜色
+colorColumnHeaderBg | color | - |  列头背景颜色
+rowHeaderVisible | bool | true | 是否显示行头
+rowHeaderTitleFont | font | - | 行头标题字体
+colorRowHeaderTitle | color | - | 行头标题颜色
+colorRowHeaderBg | color | - | 行头背景颜色
+colorResizeBlockBg | color | - | 调整头大小块(左上角方块)背景色
 \n{columns}支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
@@ -186,15 +187,16 @@ filterInput(可选) | string | 该列过滤输入
 需要用户自行判断是否应该重新排序&过滤(调用 \`filter()\` 即可)\n。
 - \`appendRow(object: var)\` 在当前模型末尾添加 \`object\` 行, 不会更改 \`initModel\`。\n
 - \`object getRow(rowIndex: int)\` 获取当前模型 \`row\` 处的行数据。\n
+- \`setRow(rowIndex: int, object: var)\` 设置当前模型 \`rowIndex\` 处行数据为 \`object\`, 不会更改 \`initModel\`。\n
 - \`insertRow(rowIndex: int, object: var)\` 在当前模型插入行数据 \`object\` 到 \`rowIndex\` 处, 不会更改 \`initModel\`。\n
 - \`moveRow(fromRowIndex: int, toRowIndex: int, count: int = 1)\`将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置, 不会更改 \`initModel\`。\n
 - \`removeRow(rowIndex: int, count: int = 1)\` 删除当前模型 \`rowIndex\` 处的 \`count\` 条行数据, 不会更改 \`initModel\`。\n
-- \`setRow(rowIndex: int, object: var)\` 设置当前模型 \`rowIndex\` 处行数据为 \`object\`, 不会更改 \`initModel\`。\n
+- \`getTableModel()\` 获取当前表格模型(排序&过滤后的数据)。\n
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 - 当有大量结构化的数据需要展现时。\n
 - 当需要对数据进行排序、搜索、分页、自定义操作等复杂行为时。\n
@@ -202,12 +204,12 @@ filterInput(可选) | string | 该列过滤输入
         }
 
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
             width: parent.width
-            descTitle: qsTr("基本用法")
+            descTitle: qsTr('基本用法')
             desc: qsTr(`
 简单的表格，最后一列是各种操作。\n
                        `)
@@ -357,7 +359,7 @@ filterInput(可选) | string | 该列过滤输入
 
         CodeBox {
             width: parent.width
-            descTitle: qsTr("自定义选择项")
+            descTitle: qsTr('自定义选择项')
             desc: qsTr(`
 通过 \`columns\` 对应列中的 \`selectionType\` 设置选择类型，目前支持 'checkbox' 多选框。\n
 **注意** 设置多列 \`selectionType\` 行为未定义。\n
@@ -377,7 +379,7 @@ filterInput(可选) | string | 该列过滤输入
                         spacing: 10
 
                         DelIconButton {
-                            text: qsTr("Reload")
+                            text: qsTr('Reload')
                             type: DelButton.Type_Primary
                             enabled: tableView.checkedKeys.length > 0
                             onClicked: {
@@ -396,20 +398,20 @@ filterInput(可选) | string | 该列过滤输入
                         }
 
                         DelButton {
-                            text: qsTr("ScrollToRow 0")
+                            text: qsTr('ScrollToRow 0')
                             type: DelButton.Type_Primary
                             onClicked: tableView.scrollToRow(0);
                         }
 
                         DelButton {
-                            text: qsTr("ScrollToRow 99")
+                            text: qsTr('ScrollToRow 99')
                             type: DelButton.Type_Primary
                             onClicked: tableView.scrollToRow(99);
                         }
 
                         DelCheckBox {
                             anchors.verticalCenter: parent.verticalCenter
-                            text: qsTr("Switch alternatingRow")
+                            text: qsTr('Switch alternatingRow')
                             onClicked: tableView.alternatingRow = checked;
                         }
                     }
@@ -485,7 +487,7 @@ filterInput(可选) | string | 该列过滤输入
                     spacing: 10
 
                     DelIconButton {
-                        text: qsTr("Reload")
+                        text: qsTr('Reload')
                         type: DelButton.Type_Primary
                         enabled: tableView.checkedKeys.length > 0
                         onClicked: {
@@ -504,20 +506,20 @@ filterInput(可选) | string | 该列过滤输入
                     }
 
                     DelButton {
-                        text: qsTr("ScrollToRow 0")
+                        text: qsTr('ScrollToRow 0')
                         type: DelButton.Type_Primary
                         onClicked: tableView.scrollToRow(0);
                     }
 
                     DelButton {
-                        text: qsTr("ScrollToRow 99")
+                        text: qsTr('ScrollToRow 99')
                         type: DelButton.Type_Primary
                         onClicked: tableView.scrollToRow(99);
                     }
 
                     DelCheckBox {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: qsTr("Switch alternatingRow")
+                        text: qsTr('Switch alternatingRow')
                         onClicked: tableView.alternatingRow = checked;
                     }
                 }
@@ -589,7 +591,7 @@ filterInput(可选) | string | 该列过滤输入
 
         CodeBox {
             width: parent.width
-            descTitle: qsTr("排序和过滤")
+            descTitle: qsTr('排序和过滤')
             desc: qsTr(`
 通过 \`columns\` 对应列中的 \`sorter\` 设置排序器，其原型为 \`function(a, b){}\`，具体可参考 \`Array.sort()\` 参数。\n
 通过 \`columns\` 对应列中的 \`sortDirections\` 设置排序方向列表，在切换排序时按数组内容指示的方向依次切换，项 \`ascend\` 视作升序()。\n
@@ -730,6 +732,176 @@ filterInput(可选) | string | 该列过滤输入
                                             tags: ['nice', 'cool', 'loser', 'teacher', 'developer'].splice(0, i % 5 + 1),
                                         }
                                     });
+                    }
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            descTitle: qsTr('从C++中导入数据')
+            desc: qsTr(`
+通常来说，大多数人从 C++ 创建和处理数据。\n
+有一种相当简单的方式将数据从 C++ 导入到 Qml 环境：\n
+1. 使用 QVariant 包装你的数据结构。\n
+\`\`\`c++
+    struct MyData {
+        QString name;
+        int age;
+        QVariantMap toVariant() {
+            QVariantMap var;
+            var["name"] = myData.name;
+            var["age"] = myData.age;
+        }
+    };
+\`\`\`\n
+2. 提供访问你的数据集接口，类型可以是 QVariant/QVariantList/QVariantMap。\n
+\`\`\`c++
+    Q_INVOKABLE QVariantList getMyDataList() {
+        MyData myData;
+        QVariantList list;
+        list.append(data.toVariant());
+        return list;
+    }
+\`\`\`\n
+3. 在 Qml 中直接访问该数据集并赋值给 DelTableView.initModel。\n
+\`\`\`auto
+    DelTableView {
+        Component.onCompleted: {
+            initModel = getMyDataList();
+        }
+    }
+\`\`\`\n
+4. **注意** 使用 DelTableView 提供的接口操作数据(增删查改)。\n
+**更详细的说明请参考官方文档：**\n
+- [QML 和 C++ 之间的数据类型转换](https://doc.qt.io/qt-6/zh/qtqml-cppintegration-data.html)\n
+                       `)
+            code: `
+                import QtQuick
+                import DelegateUI
+                import Gallery
+
+                Column {
+                    spacing: 10
+                    width: parent.width
+
+                    DelButton {
+                        text: qsTr('Import 10 pieces data from C++')
+                        type: DelButton.Type_Primary
+                        onClicked: {
+                            const list = DataGenerator.genTableData(10);
+                            for (const object of list) {
+                                cppTableView.appendRow(object);
+                            }
+                        }
+                    }
+
+                    DelTableView {
+                        id: cppTableView
+                        width: parent.width
+                        height: 400
+                        columns: [
+                            {
+                                title: 'Name',
+                                dataIndex: 'name',
+                                key: 'name',
+                                delegate: textDelegate,
+                                width: 200
+                            },
+                            {
+                                title: 'Age',
+                                dataIndex: 'age',
+                                key: 'age',
+                                delegate: textDelegate,
+                                width: 100
+                            },
+                            {
+                                title: 'Address',
+                                dataIndex: 'address',
+                                key: 'address',
+                                delegate: textDelegate,
+                                width: 300
+                            },
+                            {
+                                title: 'Tags',
+                                key: 'tags',
+                                dataIndex: 'tags',
+                                delegate: tagsDelegate,
+                                width: 200
+                            },
+                            {
+                                title: 'Action',
+                                key: 'action',
+                                dataIndex: 'action',
+                                delegate: actionDelegate,
+                                width: 300
+                            }
+                        ]
+
+                        Component.onCompleted: {
+                            initModel = DataGenerator.genTableData(10);
+                        }
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                DelButton {
+                    text: qsTr('Import 10 pieces data from C++')
+                    type: DelButton.Type_Primary
+                    onClicked: {
+                        const list = DataGenerator.genTableData(10);
+                        for (const object of list) {
+                            cppTableView.appendRow(object);
+                        }
+                    }
+                }
+
+                DelTableView {
+                    id: cppTableView
+                    width: parent.width
+                    height: 400
+                    columns: [
+                        {
+                            title: 'Name',
+                            dataIndex: 'name',
+                            key: 'name',
+                            delegate: textDelegate,
+                            width: 200
+                        },
+                        {
+                            title: 'Age',
+                            dataIndex: 'age',
+                            key: 'age',
+                            delegate: textDelegate,
+                            width: 100
+                        },
+                        {
+                            title: 'Address',
+                            dataIndex: 'address',
+                            key: 'address',
+                            delegate: textDelegate,
+                            width: 300
+                        },
+                        {
+                            title: 'Tags',
+                            key: 'tags',
+                            dataIndex: 'tags',
+                            delegate: tagsDelegate,
+                            width: 200
+                        },
+                        {
+                            title: 'Action',
+                            key: 'action',
+                            dataIndex: 'action',
+                            delegate: actionDelegate,
+                            width: 300
+                        }
+                    ]
+
+                    Component.onCompleted: {
+                        initModel = DataGenerator.genTableData(10);
                     }
                 }
             }
