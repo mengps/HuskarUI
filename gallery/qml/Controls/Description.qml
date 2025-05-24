@@ -16,28 +16,21 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 15
 
-        Text {
+        DelText {
             id: titleText
             width: parent.width
             visible: text.length !== 0
             font {
-                family: DelTheme.Primary.fontPrimaryFamily
                 pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
                 weight: Font.DemiBold
             }
-            color: DelTheme.Primary.colorTextBase
         }
 
-        Text {
+        DelText {
             id: descText
             width: parent.width
             lineHeight: 1.1
             visible: text.length !== 0
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySize
-            }
-            color: DelTheme.Primary.colorTextBase
             textFormat: Text.MarkdownText
             onLinkActivated:
                 (link) => {
