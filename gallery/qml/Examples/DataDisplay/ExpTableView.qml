@@ -752,6 +752,7 @@ filterInput(可选) | string | 该列过滤输入
             QVariantMap var;
             var["name"] = myData.name;
             var["age"] = myData.age;
+            return var;
         }
     };
 \`\`\`\n
