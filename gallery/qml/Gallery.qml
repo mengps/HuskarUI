@@ -533,6 +533,7 @@ DelWindow {
                             key: 'DelTableView',
                             label: qsTr('DelTableView 表格'),
                             source: './Examples/DataDisplay/ExpTableView.qml',
+                            state: 'Update',
                         },
                         {
                             key: 'DelBadge',
