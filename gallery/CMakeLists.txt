@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.3.2.0)
+set(DELEGATEUI_VERSION 0.3.2.1)
 
 project(Gallery VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 
@@ -93,6 +93,7 @@ qt_add_qml_module(${PROJECT_NAME}
     SOURCES
         $<$<BOOL:${WIN32}>:${GALLERY_RC_FILE}>
         cpp/customtheme.h cpp/customtheme.cpp
+        cpp/datagenerator.h cpp/datagenerator.cpp
         cpp/main.cpp
     RESOURCES
         ../UpdateLists.json
