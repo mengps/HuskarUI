@@ -29,6 +29,7 @@ DelRectangle {
     property real minimumRowHeight: 40
     property real maximumRowHeight: Number.NaN
     property var initModel: []
+    readonly property int rowCount: __cellModel.rowCount
     property var columns: []
     property var checkedKeys: []
 
@@ -266,7 +267,7 @@ DelRectangle {
                         iconSource: DelIcon.SearchOutlined
                         type: DelButton.Type_Primary
                         onClicked: {
-                            if (__searchInput.text.length == 0)
+                            if (__searchInput.text.length === 0)
                                 __filterPopup.close();
                             control.columns[column].filterInput = __searchInput.text;
                             control.filter();
@@ -276,7 +277,7 @@ DelRectangle {
                     DelButton {
                         text: qsTr('Reset')
                         onClicked: {
-                            if (__searchInput.text.length == 0)
+                            if (__searchInput.text.length === 0)
                                 __filterPopup.close();
                             __searchInput.clear();
                             control.columns[column].filterInput = '';
@@ -452,9 +453,14 @@ DelRectangle {
                     });
     }
 
+    function getTableModel() {
+        return [...__private.model];
+    }
+
     function appendRow(object: var) {
-        __private.model.push(object);
         __cellModel.appendRow(__private.toCellObject(object));
+        __private.model.push(object);
+        __private.updateRowHeader();
     }
 
     function getRow(rowIndex) {
@@ -465,30 +471,34 @@ DelRectangle {
     }
 
     function insertRow(rowIndex, object: var) {
-        __private.model.splice(rowIndex, 0, object);
         __cellModel.insertRow(rowIndex, __private.toCellObject(object));
+        __private.model.splice(rowIndex, 0, object);
+        __private.updateRowHeader();
     }
 
     function moveRow(fromRowIndex, toRowIndex, count = 1) {
         if (fromRowIndex >= 0 && fromRowIndex < __private.model.length &&
                 toRowIndex >= 0 && toRowIndex < __private.model.length) {
             const objects = __private.model.splice(from, count);
-            __private.model.splice(to, 0, ...objects);
             __cellModel.moveRow(fromRowIndex, toRowIndex, count);
+            __private.model.splice(to, 0, ...objects);
+            __private.updateRowHeader();
         }
     }
 
     function removeRow(rowIndex, count = 1) {
         if (rowIndex >= 0 && rowIndex < __private.model.length) {
-            __private.model.splice(rowIndex, count);
             __cellModel.removeRow(rowIndex, count);
+            __private.model.splice(rowIndex, count);
+            __private.updateRowHeader();
         }
     }
 
     function setRow(rowIndex, object: var) {
         if (rowIndex >= 0 && rowIndex < __private.model.length) {
-            __private.model[rowIndex] = object;
             __cellModel.setRow(rowIndex, __private.toCellObject(object));
+            __private.model[rowIndex] = object;
+            __private.updateRowHeader();
         }
     }
 
@@ -578,6 +588,10 @@ DelRectangle {
 
         function updateCheckedKeys() {
             control.checkedKeys = [...checkedKeysMap.keys()];
+        }
+
+        function updateRowHeader() {
+            __rowHeaderModel.rows = model;
         }
 
         function toCellObject(object) {
