@@ -3,8 +3,8 @@
 
 CustomTheme *CustomTheme::instance()
 {
-    static CustomTheme theme;
-    return &theme;
+    static CustomTheme *ins = new CustomTheme;
+    return ins;
 }
 
 CustomTheme *CustomTheme::create(QQmlEngine *, QJSEngine *)
