@@ -200,7 +200,7 @@ icon(可选) | int | 本单选项图标
 
                     DelRadioBlock {
                         initCheckedIndex: 0
-                        size: DelRadioBlock.Size_Fixed
+                        size: DelRadioBlock.Size_Auto
                         type: DelRadioBlock.Type_Outlined
                         model: [
                             { label: 'Apple', value: 'Apple' },
@@ -225,7 +225,7 @@ icon(可选) | int | 本单选项图标
 
                 DelRadioBlock {
                     initCheckedIndex: 0
-                    size: DelRadioBlock.Size_Fixed
+                    size: DelRadioBlock.Size_Auto
                     type: DelRadioBlock.Type_Outlined
                     model: [
                         { label: 'Apple', value: 'Apple' },
