@@ -1,5 +1,5 @@
 import QtQuick
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 import DelegateUI
 
 Item {
@@ -21,11 +21,14 @@ Item {
         sourceRect: Qt.rect(control.x, control.y, control.width, control.height)
     }
 
-    FastBlur {
+    MultiEffect {
         id: __fastBlur
         anchors.fill: parent
         source: __source
-        radius: 32
+        blurEnabled: true
+        blur: 1.0
+        blurMax: 32
+        property alias radius: __fastBlur.blurMax
     }
 
     Rectangle {

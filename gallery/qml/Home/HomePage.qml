@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 import DelegateUI
 
 Rectangle {
@@ -29,6 +29,17 @@ Rectangle {
         contentHeight: column.height + 20
         ScrollBar.vertical: DelScrollBar { }
 
+        component DropShadow: MultiEffect {
+            anchors.fill: __rect
+            source: __rect
+            shadowEnabled: true
+            shadowBlur: 0.8
+            shadowColor: color
+            shadowScale: 1.02
+            autoPaddingEnabled: true
+            property color color
+        }
+
         component Card: MouseArea {
             id: __cardComp
             width: 300
@@ -55,10 +66,9 @@ Rectangle {
 
             DropShadow {
                 anchors.fill: __rect
-                radius: 8
                 color: DelTheme.Primary.colorTextBase
                 source: __rect
-                opacity: parent.hovered ? 0.5 : 0.2
+                opacity: parent.hovered ? 0.8 : 0.4
 
                 Behavior on color { ColorAnimation { duration: DelTheme.Primary.durationMid } }
                 Behavior on opacity { NumberAnimation { duration: DelTheme.Primary.durationMid } }
@@ -129,12 +139,11 @@ Rectangle {
 
             DropShadow {
                 anchors.fill: __new
-                radius: 4
-                horizontalOffset: 4
-                verticalOffset: 4
+                shadowHorizontalOffset: 4
+                shadowVerticalOffset: 4
                 color: __new.color
                 source: __new
-                opacity: 0.3
+                opacity: 0.6
                 visible: __new.visible
             }
 
@@ -224,12 +233,11 @@ Rectangle {
 
                     DropShadow {
                         anchors.fill: delegateuiIcon1
-                        radius: 4
-                        horizontalOffset: 4
-                        verticalOffset: 4
+                        shadowHorizontalOffset: 4
+                        shadowVerticalOffset: 4
                         color: delegateuiIcon1.colorIcon
                         source: delegateuiIcon1
-                        opacity: 0.3
+                        opacity: 0.6
 
                         Behavior on color { ColorAnimation { duration: DelTheme.Primary.durationMid } }
                         Behavior on opacity { NumberAnimation { duration: DelTheme.Primary.durationMid } }
@@ -249,12 +257,11 @@ Rectangle {
 
                     DropShadow {
                         anchors.fill: delegateuiTitle
-                        radius: 4
-                        horizontalOffset: 4
-                        verticalOffset: 4
+                        shadowHorizontalOffset: 4
+                        shadowVerticalOffset: 4
                         color: delegateuiTitle.color
                         source: delegateuiTitle
-                        opacity: 0.3
+                        opacity: 0.6
 
                         Behavior on color { ColorAnimation { duration: DelTheme.Primary.durationMid } }
                         Behavior on opacity { NumberAnimation { duration: DelTheme.Primary.durationMid } }
