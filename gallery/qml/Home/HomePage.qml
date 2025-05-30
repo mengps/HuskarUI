@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import QtQuick.Effects
+import Qt5Compat.GraphicalEffects
 import DelegateUI
 
 Rectangle {
@@ -29,25 +29,33 @@ Rectangle {
         contentHeight: column.height + 20
         ScrollBar.vertical: DelScrollBar { }
 
-        component DropShadow: MultiEffect {
-            anchors.fill: __rect
-            source: __rect
-            shadowEnabled: true
-            shadowBlur: 0.8
-            shadowColor: color
-            shadowScale: 1.02
-            autoPaddingEnabled: true
-            property color color
-        }
-
         component Card: MouseArea {
             id: __cardComp
             width: 300
             height: 200
             scale: hovered ? 1.01 : 1
             hoverEnabled: true
-            onEntered: hovered = true;
-            onExited: hovered = false;
+            
+            property bool expandLocked: false
+            
+            Timer {
+                id: hoverLockTimer
+                interval: DelTheme.Primary.durationMid
+                onTriggered: expandLocked = false
+            }
+            
+            onEntered: {
+                if (!expandLocked) {
+                    hovered = true
+                    expandLocked = true
+                    hoverLockTimer.restart()
+                }
+            }
+            
+            onExited: {
+                hovered = false
+            }
+            
             onClicked: {
                 if (__cardComp.link.length != 0)
                     Qt.openUrlExternally(link);
@@ -66,9 +74,10 @@ Rectangle {
 
             DropShadow {
                 anchors.fill: __rect
+                radius: 8
                 color: DelTheme.Primary.colorTextBase
                 source: __rect
-                opacity: parent.hovered ? 0.8 : 0.4
+                opacity: parent.hovered ? 0.5 : 0.2
 
                 Behavior on color { ColorAnimation { duration: DelTheme.Primary.durationMid } }
                 Behavior on opacity { NumberAnimation { duration: DelTheme.Primary.durationMid } }
@@ -139,11 +148,12 @@ Rectangle {
 
             DropShadow {
                 anchors.fill: __new
-                shadowHorizontalOffset: 4
-                shadowVerticalOffset: 4
+                radius: 4
+                horizontalOffset: 4
+                verticalOffset: 4
                 color: __new.color
                 source: __new
-                opacity: 0.6
+                opacity: 0.3
                 visible: __new.visible
             }
 
@@ -233,11 +243,12 @@ Rectangle {
 
                     DropShadow {
                         anchors.fill: delegateuiIcon1
-                        shadowHorizontalOffset: 4
-                        shadowVerticalOffset: 4
+                        radius: 4
+                        horizontalOffset: 4
+                        verticalOffset: 4
                         color: delegateuiIcon1.colorIcon
                         source: delegateuiIcon1
-                        opacity: 0.6
+                        opacity: 0.3
 
                         Behavior on color { ColorAnimation { duration: DelTheme.Primary.durationMid } }
                         Behavior on opacity { NumberAnimation { duration: DelTheme.Primary.durationMid } }
@@ -257,11 +268,12 @@ Rectangle {
 
                     DropShadow {
                         anchors.fill: delegateuiTitle
-                        shadowHorizontalOffset: 4
-                        shadowVerticalOffset: 4
+                        radius: 4
+                        horizontalOffset: 4
+                        verticalOffset: 4
                         color: delegateuiTitle.color
                         source: delegateuiTitle
-                        opacity: 0.6
+                        opacity: 0.3
 
                         Behavior on color { ColorAnimation { duration: DelTheme.Primary.durationMid } }
                         Behavior on opacity { NumberAnimation { duration: DelTheme.Primary.durationMid } }
@@ -346,6 +358,7 @@ Rectangle {
                         desc.text: __rootItem.desc
                         isNew: __rootItem.isNew
                         transform: Rotation {
+                            id: cardRotation
                             origin.x: __rootItem.width * 0.5
                             origin.y: __rootItem.height * 0.5
                             axis {
@@ -355,7 +368,17 @@ Rectangle {
                             }
                             angle: __card.hovered ? 0 : 45
 
-                            Behavior on angle { NumberAnimation { duration: DelTheme.Primary.durationMid } }
+                            Behavior on angle { 
+                                NumberAnimation { 
+                                    duration: DelTheme.Primary.durationMid 
+                                    onRunningChanged: {
+                                        if (!running) {
+                                            // 当动画完成时，确保解锁动画锁定状态
+                                            __card.expandLocked = false
+                                        }
+                                    }
+                                }
+                            }
                         }
                         onClicked: {
                             galleryMenu.gotoMenu(__rootItem.name);
