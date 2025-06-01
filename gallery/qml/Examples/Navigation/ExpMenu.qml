@@ -64,10 +64,11 @@ animationEnabled | bool | true | 是否开启动画
 contentDescription | string | '' | 内容描述(提高可用性)
 showEdge | bool | false | 是否显示边线
 tooltipVisible | bool | false | 是否显示工具提示
-compactMode | bool | false | 紧凑模式
+compactMode | bool | false | 是否为紧凑模式
 compactWidth | int | 50 | 紧凑模式宽度
-popupMode | bool | false | 弹出模式
+popupMode | bool | false | 是否为弹出模式
 popupWidth | int | 200 | 弹窗宽度
+popupOffset | int | 4 | 弹窗之间的偏移
 popupMaxHeight | int | - | 弹窗最大高度
 defaultMenuIconSize | int | - | 默认菜单图标大小
 defaultMenuIconSpacing | int | 8 | 默认菜单图标间隔

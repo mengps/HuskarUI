@@ -11,13 +11,14 @@ Item {
     signal clickMenu(deep: int, menuKey: string, menuData: var)
 
     property bool animationEnabled: DelTheme.animationEnabled
-    property string contentDescription: ""
+    property string contentDescription: ''
     property bool showEdge: false
     property bool tooltipVisible: false
     property bool compactMode: false
     property int compactWidth: 50
     property bool popupMode: false
     property int popupWidth: 200
+    property int popupOffset: 4
     property int popupMaxHeight: control.height
     property int defaultMenuIconSize: DelTheme.DelMenu.fontSize
     property int defaultMenuIconSpacing: 8
@@ -39,7 +40,7 @@ Item {
         }
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
     }
-    property Component menuLabelDelegate: Text {
+    property Component menuLabelDelegate: DelText {
         text: menuButton.text
         font: menuButton.font
         color: menuButton.colorText
@@ -185,7 +186,7 @@ Item {
         }
         hoverCursorShape: (isGroup && !control.compactMode) ? Qt.ArrowCursor : Qt.PointingHandCursor
         effectEnabled: false
-        colorBorder: "transparent"
+        colorBorder: 'transparent'
         colorText: {
             if (enabled) {
                 if (isGroup) {
@@ -240,10 +241,10 @@ Item {
             width: ListView.view.width
             height: {
                 switch (menuType) {
-                case "item":
-                case "group":
+                case 'item':
+                case 'group':
                     return __layout.height;
-                case "divider":
+                case 'divider':
                     return __dividerLoader.height;
                 default:
                     return __layout.height;
@@ -251,7 +252,7 @@ Item {
             }
             clip: true
             Component.onCompleted: {
-                if (menuType == "item" || menuType == "group") {
+                if (menuType == 'item' || menuType == 'group') {
                     layerPopup = __private.createPopupList(view.menuDeep);
                     for (let i = 0; i < menuChildren.length; i++) {
                         __childrenListView.model.push(menuChildren[i]);
@@ -263,7 +264,7 @@ Item {
                         }
                     }
                 }
-                if (__rootItem.menuKey !== "" && __rootItem.menuKey === __private.gotoMenuKey) {
+                if (__rootItem.menuKey !== '' && __rootItem.menuKey === __private.gotoMenuKey) {
                     __rootItem.expandParent();
                     __menuButton.clicked();
                 }
@@ -272,10 +273,10 @@ Item {
             required property var modelData
             property alias model: __rootItem.modelData
             property var view: ListView.view
-            property string menuKey: model.key || ""
-            property string menuType: model.type || "item"
+            property string menuKey: model.key || ''
+            property string menuType: model.type || 'item'
             property bool menuEnabled: model.enabled === undefined ? true : model.enabled
-            property string menuLabel: model.label || ""
+            property string menuLabel: model.label || ''
             property int menuHeight: model.height || defaultMenuHeight
             property int menuIconSize: model.iconSize || defaultMenuIconSize
             property int menuIconSource: model.iconSource || 0
@@ -345,7 +346,7 @@ Item {
             Connections {
                 target: __private
                 function onGotoMenu(key) {
-                    if (__rootItem.menuKey !== "" && __rootItem.menuKey === key) {
+                    if (__rootItem.menuKey !== '' && __rootItem.menuKey === key) {
                         __rootItem.expandParent();
                         __menuButton.clicked();
                     }
@@ -356,7 +357,7 @@ Item {
                 id: __dividerLoader
                 height: 5
                 width: parent.width
-                active: __rootItem.menuType == "divider"
+                active: __rootItem.menuType == 'divider'
                 sourceComponent: DelDivider { }
             }
 
@@ -365,31 +366,32 @@ Item {
                 width: parent.width
                 anchors.top: parent.top
                 height: __menuButton.height + ((control.compactMode || control.popupMode) ? 0 : __childrenListView.height)
-                color: view.menuDeep === 0 ? 'transparent' : DelTheme.DelMenu.colorChildBg
-                visible: menuType == "item" || menuType == "group"
+                color: (view.menuDeep === 0 || control.compactMode || control.popupMode) ? 'transparent' : DelTheme.DelMenu.colorChildBg
+                visible: menuType == 'item' || menuType == 'group'
 
                 MenuButton {
                     id: __menuButton
                     width: parent.width
                     height: __rootItem.menuHeight + control.defaultMenuSpacing
+                    topInset: control.defaultMenuSpacing * 0.5
                     leftPadding: 15 + (control.compactMode || control.popupMode ? 0 : iconSize * __rootItem.view.menuDeep)
-                    bottomInset: control.defaultMenuSpacing
+                    bottomInset: control.defaultMenuSpacing * 0.5
                     enabled: __rootItem.menuEnabled
-                    text: (control.compactMode && __rootItem.view.menuDeep === 0) ? "" : __rootItem.menuLabel
+                    text: (control.compactMode && __rootItem.view.menuDeep === 0) ? '' : __rootItem.menuLabel
                     checkable: true
                     iconSize: __rootItem.menuIconSize
                     iconSource: __rootItem.menuIconSource
                     iconSpacing: __rootItem.menuIconSpacing
                     iconStart: (control.compactMode && __rootItem.view.menuDeep === 0) ? (width - iconSize - leftPadding - rightPadding) * 0.5 : 0
                     expandedVisible: {
-                        if (__rootItem.menuType == "group" ||
+                        if (__rootItem.menuType == 'group' ||
                                 (control.compactMode && __rootItem.view.menuDeep === 0))
                             return false;
                         else
                             return __rootItem.menuChildrenLength > 0
                     }
                     isCurrent: __rootItem.isCurrent
-                    isGroup: __rootItem.menuType == "group"
+                    isGroup: __rootItem.menuType == 'group'
                     model: __rootItem.model
                     contentDelegate: __rootItem.menuContentDelegate
                     onClicked: {
@@ -420,13 +422,7 @@ Item {
                     DelToolTip {
                         position: control.compactMode || control.popupMode ? DelToolTip.Position_Right : DelToolTip.Position_Bottom
                         text: __rootItem.menuLabel
-                        visible: {
-                            if (control.compactMode || control.popupMode)
-                                return (__rootItem.layerPopup && !__rootItem.layerPopup.opened) ? parent.hovered : false;
-                            else {
-                                return control.tooltipVisible ? parent.hovered : false;
-                            }
-                        }
+                        visible: control.tooltipVisible ? parent.hovered : false
                     }
                 }
 
@@ -440,7 +436,7 @@ Item {
                             return __layout;
                     }
                     height: {
-                        if (__rootItem.menuType == "group" || __menuButton.expanded)
+                        if (__rootItem.menuType == 'group' || __menuButton.expanded)
                             return realHeight;
                         else if (parent != __layout)
                             return parent.height;
@@ -530,11 +526,20 @@ Item {
             height: current ? Math.min(control.popupMaxHeight, current.realHeight + topPadding + bottomPadding) : 0
             padding: 5
             onAboutToShow: {
-                let toX = control.width + 4;
+                let toX = control.width + control.popupOffset;
                 if (parentPopup) {
-                    toX += parentPopup.width + 4;
+                    toX += parentPopup.width + control.popupOffset;
                 }
-                x = toX;
+                const pos = mapToItem(null, toX, 0);
+                if (pos.x + width > __private.window.width) {
+                    if (parentPopup) {
+                        x = parentPopup.x - parentPopup.width - control.popupOffset;
+                    } else {
+                        x = -width - control.popupOffset;
+                    }
+                } else {
+                    x = toX;
+                }
             }
             property var current: null
             property var parentPopup: null
@@ -563,7 +568,6 @@ Item {
         onContentHeightChanged: cacheBuffer = contentHeight;
         T.ScrollBar.vertical: DelScrollBar {
             anchors.rightMargin: -8
-            policy: control.compactMode ? DelScrollBar.AsNeeded : DelScrollBar.AlwaysOn
         }
         property int menuDeep: 0
     }
