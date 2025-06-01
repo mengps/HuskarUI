@@ -156,10 +156,31 @@ T.TextField {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-                background: Rectangle {
-                    radius: 4
-                    color: hovered ? DelTheme.DelTimePicker.colorButtonBgHover :
-                                     checked ? DelTheme.DelTimePicker.colorButtonBgActive : 'transparent'
+                background: Item {
+                    Rectangle {
+                        id: selectionRect
+                        anchors.fill: parent
+                        radius: 4
+                        color: DelTheme.DelTimePicker.colorButtonBgActive
+                        opacity: checked ? 1.0 : 0.0
+                        
+                        Behavior on opacity {
+                            enabled: control.animationEnabled && !checked
+                            NumberAnimation { duration: DelTheme.Primary.durationFast }
+                        }
+                    }
+                    
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: 4
+                        color: hovered && !checked ? DelTheme.DelTimePicker.colorButtonBgHover : "transparent"
+                        z: -1
+                        
+                        Behavior on color { 
+                            enabled: control.animationEnabled
+                            ColorAnimation { duration: DelTheme.Primary.durationFast }
+                        }
+                    }
                 }
                 T.ButtonGroup.group: __buttonGroup
                 onClicked: {
@@ -279,24 +300,54 @@ T.TextField {
         }
     }
 
+    // 时钟图标
     DelIconText {
+        id: clockIcon
         anchors.left: control.iconPosition == DelTimePicker.Position_Left ? parent.left : undefined
         anchors.right: control.iconPosition == DelTimePicker.Position_Right ? parent.right : undefined
         anchors.margins: 5
         anchors.verticalCenter: parent.verticalCenter
-        iconSource: (control.hovered && control.length !== 0) ? DelIcon.CloseCircleFilled : DelIcon.ClockCircleOutlined
+        iconSource: DelIcon.ClockCircleOutlined
         iconSize: control.iconSize
         colorIcon: control.enabled ?
-                       __iconMouse.hovered ? DelTheme.DelTimePicker.colorIconHover :
-                                             DelTheme.DelTimePicker.colorIcon : DelTheme.DelTimePicker.colorIconDisabled
-
+                   __iconMouse.hovered ? DelTheme.DelTimePicker.colorIconHover :
+                                        DelTheme.DelTimePicker.colorIcon : DelTheme.DelTimePicker.colorIconDisabled
+        opacity: (control.hovered && control.length !== 0) ? 0.0 : 1.0
+        
+        Behavior on opacity { 
+            enabled: control.animationEnabled
+            NumberAnimation { duration: DelTheme.Primary.durationFast }
+        }
+        
         Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
-
+    }
+    
+    // 清除按钮图标
+    DelIconText {
+        id: clearIcon
+        anchors.left: control.iconPosition == DelTimePicker.Position_Left ? parent.left : undefined
+        anchors.right: control.iconPosition == DelTimePicker.Position_Right ? parent.right : undefined
+        anchors.margins: 5
+        anchors.verticalCenter: parent.verticalCenter
+        iconSource: DelIcon.CloseCircleFilled
+        iconSize: control.iconSize
+        colorIcon: control.enabled ?
+                   __iconMouse.hovered ? DelTheme.DelTimePicker.colorIconHover :
+                                        DelTheme.DelTimePicker.colorIcon : DelTheme.DelTimePicker.colorIconDisabled
+        opacity: (control.hovered && control.length !== 0) ? 1.0 : 0.0
+        
+        Behavior on opacity { 
+            enabled: control.animationEnabled
+            NumberAnimation { duration: DelTheme.Primary.durationFast }
+        }
+        
+        Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+        
         MouseArea {
             id: __iconMouse
             anchors.fill: parent
             hoverEnabled: true
-            cursorShape: parent.iconSource == DelIcon.CloseCircleFilled ? Qt.PointingHandCursor : Qt.ArrowCursor
+            cursorShape: (control.hovered && control.length !== 0) ? Qt.PointingHandCursor : Qt.ArrowCursor
             onEntered: hovered = true;
             onExited: hovered = false;
             onClicked: {
