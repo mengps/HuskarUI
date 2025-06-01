@@ -6,6 +6,7 @@ T.ScrollBar {
     id: control
 
     property bool animationEnabled: DelTheme.animationEnabled
+    property int minimumHandleSize: 24
     property color colorBar: control.pressed ? DelTheme.DelScrollBar.colorBarActive :
                                                control.hovered ? DelTheme.DelScrollBar.colorBarHover :
                                                                  DelTheme.DelScrollBar.colorBar
@@ -13,11 +14,6 @@ T.ScrollBar {
                                               control.hovered ? DelTheme.DelScrollBar.colorBgHover :
                                                                 DelTheme.DelScrollBar.colorBg
     property string contentDescription: ""
-
-    QtObject {
-        id: __private
-        property bool visible: control.hovered || control.pressed
-    }
 
     width: control.orientation == Qt.Vertical ? 10 : parent.width
     height: control.orientation == Qt.Horizontal ? 10 : parent.height
@@ -28,6 +24,12 @@ T.ScrollBar {
     topPadding: control.orientation == Qt.Vertical ? (topInset + 10) : topInset
     bottomPadding: control.orientation == Qt.Vertical ? (bottomInset + 10) : bottomInset
     policy: T.ScrollBar.AlwaysOn
+    minimumSize: {
+        if (control.orientation == Qt.Vertical)
+            return size * height < minimumHandleSize ? minimumHandleSize / height : 0;
+        else
+            return size * width < minimumHandleSize ? minimumHandleSize / width : 0;
+    }
     visible: (control.policy != T.ScrollBar.AlwaysOff) && control.size !== 1
     contentItem: Item {
         Rectangle {
@@ -87,6 +89,11 @@ T.ScrollBar {
             onExited: parent.hovered = false;
             onClicked: parent.clicked();
         }
+    }
+
+    QtObject {
+        id: __private
+        property bool visible: control.hovered || control.pressed
     }
 
     Loader {
