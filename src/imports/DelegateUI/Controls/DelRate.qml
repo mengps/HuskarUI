@@ -34,20 +34,37 @@ Item {
     property int fillIcon: DelIcon.StarFilled
     property int emptyIcon: DelIcon.StarFilled
     property int halfIcon: DelIcon.StarFilled
+    /* 是否支持半星动画 */
+    property bool supportsHalfAnimation: allowHalf && ((fillIcon === DelIcon.StarFilled && emptyIcon === DelIcon.StarFilled) || halfIcon !== emptyIcon)
     property Component fillDelegate: DelIconText {
         colorIcon: control.colorFill
         iconSource: control.fillIcon
         iconSize: control.iconSize
+        
+        Behavior on opacity {
+            enabled: control.animationEnabled
+            NumberAnimation { duration: DelTheme.Primary.durationFast }
+        }
     }
     property Component emptyDelegate: DelIconText {
         colorIcon: control.colorEmpty
         iconSource: control.emptyIcon
         iconSize: control.iconSize
+        
+        Behavior on opacity {
+            enabled: control.animationEnabled
+            NumberAnimation { duration: DelTheme.Primary.durationFast }
+        }
     }
     property Component halfDelegate: DelIconText {
         colorIcon: control.colorEmpty
         iconSource: control.emptyIcon
         iconSize: control.iconSize
+        
+        Behavior on opacity {
+            enabled: control.animationEnabled
+            NumberAnimation { duration: DelTheme.Primary.durationFast }
+        }
 
         DelIconText {
             id: __source
@@ -56,6 +73,16 @@ Item {
             iconSize: control.iconSize
             layer.enabled: true
             layer.effect: halfRateHelper
+            
+            Behavior on opacity {
+                enabled: control.animationEnabled
+                NumberAnimation { duration: DelTheme.Primary.durationFast }
+            }
+            
+            Behavior on width {
+                enabled: control.animationEnabled
+                NumberAnimation { duration: DelTheme.Primary.durationFast }
+            }
         }
     }
     property Component toolTipDelegate: Item {
@@ -63,7 +90,7 @@ Item {
         height: 6
         opacity: hovered ? 1 : 0
 
-        Behavior on opacity { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
+        Behavior on opacity { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationFast } }
 
         MultiEffect {
             anchors.fill: __item
@@ -160,7 +187,17 @@ Item {
 
                 property int fillCount: Math.floor(control.value)
                 property int emptyStartIndex: Math.round(control.value)
-                property bool hasHalf: control.value - fillCount > 0
+                property bool hasHalf: control.allowHalf && control.value - fillCount > 0 && control.supportsHalfAnimation
+                
+                Behavior on fillCount {
+                    enabled: control.animationEnabled
+                    NumberAnimation { duration: DelTheme.Primary.durationFast }
+                }
+                
+                Behavior on emptyStartIndex {
+                    enabled: control.animationEnabled
+                    NumberAnimation { duration: DelTheme.Primary.durationFast }
+                }
 
                 model: control.count
                 delegate: MouseArea {
@@ -170,7 +207,12 @@ Item {
                     hoverEnabled: true
                     cursorShape: hovered ? control.hoverCursorShape : Qt.ArrowCursor
                     enabled: control.enabled
-                    onEntered: hovered = true;
+                    onEntered: {
+                        hovered = true;
+                        if (control.animationEnabled) {
+                            __scaleAnim.start();
+                        }
+                    }
                     onExited: hovered = false;
                     onClicked: {
                         control.isDone = !control.isDone;
@@ -180,39 +222,97 @@ Item {
                         }
                     }
                     onPositionChanged: function(mouse) {
+                        let newValue;
                         if (control.allowHalf) {
                             if (mouse.x > (width * 0.5)) {
-                                control.value = index + 1;
+                                newValue = index + 1;
                             } else {
-                                control.value = index + 0.5;
+                                newValue = index + 0.5;
                             }
-
                         } else {
-                            control.value = index + 1;
+                            newValue = index + 1;
+                        }
+                        
+                        // 只有当评分值变化时才触发动画
+                        if (newValue !== control.value) {
+                            control.value = newValue;
+                            if (control.animationEnabled && !__scaleAnim.running) {
+                                __scaleAnim.start();
+                            }
                         }
                     }
                     required property int index
                     property bool hovered: false
 
-                    Loader {
-                        active: index < __repeater.fillCount
-                        sourceComponent: control.fillDelegate
-                        property int index: __rootItem.index
-                        property bool hovered: __rootItem.hovered
+                    SequentialAnimation {
+                        id: __scaleAnim
+                        NumberAnimation {
+                            target: __rootItemContainer
+                            property: "scale"
+                            from: 1.0
+                            to: 1.15
+                            duration: 100
+                            easing.type: Easing.OutQuad
+                        }
+                        NumberAnimation {
+                            target: __rootItemContainer
+                            property: "scale"
+                            from: 1.15
+                            to: 1.0
+                            duration: 100
+                            easing.type: Easing.OutBounce
+                        }
                     }
 
-                    Loader {
-                        active: __repeater.hasHalf && index === (__repeater.emptyStartIndex - 1)
-                        sourceComponent: control.halfDelegate
-                        property int index: __rootItem.index
-                        property bool hovered: __rootItem.hovered
-                    }
+                    Item {
+                        id: __rootItemContainer
+                        width: parent.width
+                        height: parent.height
+                        
+                        Loader {
+                            id: fillLoader
+                            anchors.fill: parent
+                            active: true
+                            opacity: index < __repeater.fillCount ? 1.0 : 0.0
+                            sourceComponent: control.fillDelegate
+                            property int index: __rootItem.index
+                            property bool hovered: __rootItem.hovered
+                            
+                            Behavior on opacity {
+                                enabled: control.animationEnabled
+                                NumberAnimation { duration: DelTheme.Primary.durationFast }
+                            }
+                        }
 
-                    Loader {
-                        active: index >= __repeater.emptyStartIndex
-                        sourceComponent: control.emptyDelegate
-                        property int index: __rootItem.index
-                        property bool hovered: __rootItem.hovered
+                        Loader {
+                            id: halfLoader
+                            anchors.fill: parent
+                            active: control.allowHalf && control.supportsHalfAnimation
+                            opacity: __repeater.hasHalf && index === (__repeater.emptyStartIndex - 1) ? 1.0 : 0.0
+                            sourceComponent: control.halfDelegate
+                            property int index: __rootItem.index
+                            property bool hovered: __rootItem.hovered
+                            
+                            Behavior on opacity {
+                                enabled: control.animationEnabled && control.supportsHalfAnimation
+                                NumberAnimation { duration: DelTheme.Primary.durationFast }
+                            }
+                        }
+
+                        Loader {
+                            id: emptyLoader
+                            anchors.fill: parent
+                            active: true
+                            opacity: index >= __repeater.emptyStartIndex ? 1.0 : 0.0
+                            sourceComponent: control.emptyDelegate
+                            property int index: __rootItem.index
+                            property bool hovered: __rootItem.hovered
+                            
+                            Behavior on opacity {
+                                enabled: control.animationEnabled
+                                NumberAnimation { duration: DelTheme.Primary.durationFast }
+                            }
+                        }
                     }
 
                     Loader {
