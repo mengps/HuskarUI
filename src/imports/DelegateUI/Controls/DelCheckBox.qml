@@ -83,28 +83,130 @@ T.CheckBox {
 
             Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
-            /*! √ 的背景色 */
-            DelIconText {
+            /*! 勾选背景 */
+            Rectangle {
+                id: __checkedBg
+                anchors.fill: parent
+                anchors.margins: 2
+                radius: 2
+                color: control.colorIndicator
+                visible: control.checkState == Qt.Checked
+                opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
+                
+                Behavior on opacity { 
+                    enabled: control.animationEnabled && control.checkState == Qt.Checked
+                    NumberAnimation { duration: DelTheme.Primary.durationFast }
+                }
+            }
+
+            /*! 勾选标记 */
+            Item {
+                id: __checkMarkContainer
                 anchors.centerIn: parent
-                iconSource: DelIcon.XFilledPath1
-                iconSize: parent.iconSize * 0.5
-                colorIcon: "#fff"
+                width: parent.iconSize * 0.6
+                height: parent.iconSize * 0.6
                 visible: control.checkState == Qt.Checked
+                scale: 1.1
+                opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
+                
+                Behavior on opacity { 
+                    enabled: control.animationEnabled && control.checkState == Qt.Checked
+                    NumberAnimation { duration: DelTheme.Primary.durationFast }
+                }
+                
+                Canvas {
+                    id: __checkMark
+                    anchors.fill: parent
+                    contextType: "2d"
+                    visible: control.checkState == Qt.Checked
+                    
+                    property real animationProgress: control.animationEnabled ? 0 : 1
+                    property real lineWidth: 2
+                    property color checkColor: "#fff"
+                    
+                    onPaint: {
+                        var ctx = getContext("2d");
+                        ctx.clearRect(0, 0, width, height);
+                        
+                        ctx.lineWidth = lineWidth;
+                        ctx.strokeStyle = checkColor;
+                        ctx.fillStyle = "transparent";
+                        ctx.lineCap = "round";
+                        ctx.lineJoin = "round";
+                        
+                        var startX = width * 0.2;
+                        var midPointX = width * 0.4;
+                        var endX = width * 0.8;
+                        var midPointY = height * 0.7;
+                        var startY = height * 0.5;
+                        var endY = height * 0.2;
+                        
+                        ctx.beginPath();
+                        
+                        if (animationProgress > 0) {
+                            ctx.moveTo(startX, startY);
+                            if (animationProgress < 0.5) {
+                                var currentX = startX + (midPointX - startX) * (animationProgress * 2);
+                                var currentY = startY + (midPointY - startY) * (animationProgress * 2);
+                                ctx.lineTo(currentX, currentY);
+                            } else {
+                                ctx.lineTo(midPointX, midPointY);
+                                
+                                var t = (animationProgress - 0.5) * 2;
+                                var currentX = midPointX + (endX - midPointX) * t;
+                                var currentY = midPointY + (endY - midPointY) * t;
+                                ctx.lineTo(currentX, currentY);
+                            }
+                        }
+                        
+                        ctx.stroke();
+                    }
+                    
+                    SequentialAnimation {
+                        id: __checkMarkAnimation
+                        running: control.checkState == Qt.Checked && control.animationEnabled
+                        
+                        NumberAnimation {
+                            target: __checkMark
+                            property: "animationProgress"
+                            from: 0
+                            to: 1
+                            duration: DelTheme.Primary.durationMid
+                            easing.type: Easing.OutCubic
+                        }
+                        
+                        onStarted: {
+                            __checkMark.visible = true;
+                            __checkMark.requestPaint();
+                        }
+                        
+                        onRunningChanged: {
+                            if (!running && control.checkState != Qt.Checked) {
+                                __checkMark.animationProgress = 0;
+                                __checkMark.visible = false;
+                            }
+                            __checkMark.requestPaint();
+                        }
+                    }
+                    
+                    onAnimationProgressChanged: requestPaint()
+                }
             }
 
+            /*! 部分选择状态 */
             DelIconText {
-                iconSource: DelIcon.CheckSquareFilled
-                iconSize: parent.iconSize
-                colorIcon: control.colorIndicator
-                visible: control.checkState == Qt.Checked
-            }
-
-            DelIconText {
+                id: __partialCheckMark
                 anchors.centerIn: parent
                 iconSource: DelIcon.XFilledPath1
                 iconSize: parent.iconSize * 0.5
                 colorIcon: control.colorIndicator
                 visible: control.checkState == Qt.PartiallyChecked
+                opacity: control.checkState == Qt.PartiallyChecked ? 1.0 : 0.0
+                
+                Behavior on opacity { 
+                    enabled: control.animationEnabled && control.checkState == Qt.PartiallyChecked
+                    NumberAnimation { duration: DelTheme.Primary.durationFast }
+                }
             }
         }
     }
@@ -115,6 +217,11 @@ T.CheckBox {
         color: control.colorText
         verticalAlignment: Text.AlignVCenter
         leftPadding: control.indicator.width + control.spacing
+        
+        Behavior on opacity { 
+            enabled: control.animationEnabled
+            NumberAnimation { duration: DelTheme.Primary.durationFast }
+        }
     }
     background: Item { }
 
@@ -126,4 +233,17 @@ T.CheckBox {
     Accessible.name: control.text
     Accessible.description: control.contentDescription
     Accessible.onPressAction: control.clicked();
+    
+    onCheckStateChanged: {
+        if (control.checkState == Qt.Unchecked) {
+            __checkMark.animationProgress = 0;
+            __checkMark.visible = false;
+            __checkMark.requestPaint();
+        } else if (control.checkState == Qt.Checked && !control.animationEnabled) {
+            // 不开启动画时立即显示完整勾选标记
+            __checkMark.animationProgress = 1;
+            __checkMark.visible = true;
+            __checkMark.requestPaint();
+        }
+    }
 }
