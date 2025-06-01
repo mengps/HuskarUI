@@ -84,6 +84,7 @@ T.Popup {
         color: stepData.cardColor ? stepData.cardColor : control.colorStepCard
         radius: stepData.cardRadius ? stepData.cardRadius : control.radiusStepCard
         clip: true
+        opacity: control.opacity
 
         property var stepData: new Object
 
@@ -160,7 +161,6 @@ T.Popup {
                     type: DelButton.Type_Primary
                     onClicked: {
                         if ((control.currentStep + 1 == control.stepModel.length)) {
-                            control.resetStep();
                             control.close();
                         } else if (control.currentStep + 1 < control.stepModel.length) {
                             control.currentStep += 1;
@@ -180,7 +180,6 @@ T.Popup {
             anchors.topMargin: 2
             iconSource: DelIcon.CloseOutlined
             onClicked: {
-                control.resetStep();
                 control.close();
             }
         }
@@ -205,7 +204,52 @@ T.Popup {
 
     onStepModelChanged: __private.recalcPosition();
     onCurrentTargetChanged: __private.recalcPosition();
-    onAboutToShow: __private.recalcPosition();
+    onAboutToShow: {
+        __private.recalcPosition();
+        opacity = 1.0;
+    }
+    
+    onAboutToHide: {
+        if (control.animationEnabled && !__private.isClosing && opacity > 0) {
+            visible = true;
+            __private.startClosing();
+        }
+    }
+
+    function close() {
+        if (!visible || __private.isClosing) return;
+        if (control.animationEnabled) {
+            __private.startClosing();
+        } else {
+            control.visible = false;
+        }
+    }
+
+    NumberAnimation {
+        id: __closeAnimation
+        target: control
+        property: "opacity"
+        from: 1.0
+        to: 0.0
+        duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
+        easing.type: Easing.InOutQuad
+        onFinished: {
+            __private.isClosing = false;
+            control.resetStep();
+            control.visible = false;
+        }
+    }
+
+    enter: Transition {
+        NumberAnimation {
+            property: "opacity";
+            from: 0.0
+            to: 1.0
+            duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
+        }
+    }
+
+    exit: null
 
     Behavior on x { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
     Behavior on y { enabled: control.animationEnabled; NumberAnimation { duration: DelTheme.Primary.durationMid } }
@@ -215,9 +259,17 @@ T.Popup {
         property bool first: true
         property real focusX: 0
         property real focusY: 0
+        property bool isClosing: false
+        
         function recalcPosition() {
             /*! 需要延时计算 */
             __privateTimer.restart();
+        }
+        
+        function startClosing() {
+            if (isClosing) return;
+            isClosing = true;
+            __closeAnimation.restart();
         }
     }
 
@@ -241,6 +293,7 @@ T.Popup {
             id: source
             color: colorOverlay
             anchors.fill: parent
+            opacity: control.opacity
             layer.enabled: true
             layer.effect: ShaderEffect {
                 property real xMin: __private.focusX / __overlayItem.width
@@ -271,6 +324,7 @@ T.Popup {
             height: control.arrowHeight
             anchors.horizontalCenter: parent.horizontalCenter
             sourceComponent: control.arrowDelegate
+            opacity: control.opacity
         }
 
         Loader {
@@ -279,6 +333,7 @@ T.Popup {
             anchors.topMargin: -1
             anchors.horizontalCenter: parent.horizontalCenter
             sourceComponent: control.stepCardDelegate
+            opacity: control.opacity
         }
     }
 }
