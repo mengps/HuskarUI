@@ -23,6 +23,7 @@ Flickable {
 支持的属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
+animationEnabled | bool | 是否开启动画(默认true)
 target | Item | 焦点目标
 overlayColor | color | 覆盖层颜色
 focusMargin | int | 焦点边距
