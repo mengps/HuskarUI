@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls.Basic
 import DelegateUI
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
@@ -21,23 +21,23 @@ Flickable {
 支持的代理：\n
 - 无\n
 支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-effectEnabled | bool | 是否开启点击效果(默认true)
-hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
-type | enum | 按钮类型(来自 DelButton)
-shape | enum | 按钮形状(来自 DelButton)
-radiusBg | int | 背景半径
-colorText | color | 文本颜色
-colorBg | color | 背景颜色
-colorBorder | color | 边框颜色
-contentDescription | string | 内容描述(提高可用性)
+属性名 | 类型 | 默认值 | 描述 |
+------ | --- | :---: | ---
+animationEnabled | bool | true | 是否开启动画
+effectEnabled | bool | true | 是否开启点击效果
+hoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
+type | enum | DelButton.Type_Default | 按钮类型(来自 DelButton)
+shape | enum | DelButton.Shape_Default | 按钮形状(来自 DelButton)
+radiusBg | int | - | 背景圆角半径
+colorText | color | - | 文本颜色
+colorBg | color | - | 背景颜色
+colorBorder | color | - | 边框颜色
+contentDescription | string | '' | 内容描述(提高可用性)
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。\n
 在 DelegateUI 中我们提供了五种按钮。\n
@@ -51,7 +51,7 @@ contentDescription | string | 内容描述(提高可用性)
         }
 
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -73,31 +73,31 @@ contentDescription | string | 内容描述(提高可用性)
                     spacing: 15
 
                     DelButton {
-                        text: qsTr("默认")
+                        text: qsTr('默认')
                     }
 
                     DelButton {
-                        text: qsTr("线框")
+                        text: qsTr('线框')
                         type: DelButton.Type_Outlined
                     }
 
                     DelButton {
-                        text: qsTr("主要")
+                        text: qsTr('主要')
                         type: DelButton.Type_Primary
                     }
 
                     DelButton {
-                        text: qsTr("填充")
+                        text: qsTr('填充')
                         type: DelButton.Type_Filled
                     }
 
                     DelButton {
-                        text: qsTr("文本")
+                        text: qsTr('文本')
                         type: DelButton.Type_Text
                     }
 
                     DelButton {
-                        text: qsTr("链接")
+                        text: qsTr('链接')
                         type: DelButton.Type_Link
                     }
                 }
@@ -106,31 +106,31 @@ contentDescription | string | 内容描述(提高可用性)
                 spacing: 15
 
                 DelButton {
-                    text: qsTr("默认")
+                    text: qsTr('默认')
                 }
 
                 DelButton {
-                    text: qsTr("线框")
+                    text: qsTr('线框')
                     type: DelButton.Type_Outlined
                 }
 
                 DelButton {
-                    text: qsTr("主要")
+                    text: qsTr('主要')
                     type: DelButton.Type_Primary
                 }
 
                 DelButton {
-                    text: qsTr("填充")
+                    text: qsTr('填充')
                     type: DelButton.Type_Filled
                 }
 
                 DelButton {
-                    text: qsTr("文本")
+                    text: qsTr('文本')
                     type: DelButton.Type_Text
                 }
 
                 DelButton {
-                    text: qsTr("链接")
+                    text: qsTr('链接')
                     type: DelButton.Type_Link
                 }
             }
@@ -149,36 +149,36 @@ contentDescription | string | 内容描述(提高可用性)
                     spacing: 15
 
                     DelButton {
-                        text: qsTr("默认")
+                        text: qsTr('默认')
                         enabled: false
                     }
 
                     DelButton {
-                        text: qsTr("线框")
+                        text: qsTr('线框')
                         type: DelButton.Type_Outlined
                         enabled: false
                     }
 
                     DelButton {
-                        text: qsTr("主要")
+                        text: qsTr('主要')
                         type: DelButton.Type_Primary
                         enabled: false
                     }
 
                     DelButton {
-                        text: qsTr("填充")
+                        text: qsTr('填充')
                         type: DelButton.Type_Filled
                         enabled: false
                     }
 
                     DelButton {
-                        text: qsTr("文本")
+                        text: qsTr('文本')
                         type: DelButton.Type_Text
                         enabled: false
                     }
 
                     DelButton {
-                        text: qsTr("链接")
+                        text: qsTr('链接')
                         type: DelButton.Type_Link
                         enabled: false
                     }
@@ -188,36 +188,36 @@ contentDescription | string | 内容描述(提高可用性)
                 spacing: 15
 
                 DelButton {
-                    text: qsTr("默认")
+                    text: qsTr('默认')
                     enabled: false
                 }
 
                 DelButton {
-                    text: qsTr("线框")
+                    text: qsTr('线框')
                     type: DelButton.Type_Outlined
                     enabled: false
                 }
 
                 DelButton {
-                    text: qsTr("主要")
+                    text: qsTr('主要')
                     type: DelButton.Type_Primary
                     enabled: false
                 }
 
                 DelButton {
-                    text: qsTr("填充")
+                    text: qsTr('填充')
                     type: DelButton.Type_Filled
                     enabled: false
                 }
 
                 DelButton {
-                    text: qsTr("文本")
+                    text: qsTr('文本')
                     type: DelButton.Type_Text
                     enabled: false
                 }
 
                 DelButton {
-                    text: qsTr("链接")
+                    text: qsTr('链接')
                     type: DelButton.Type_Link
                     enabled: false
                 }
@@ -239,30 +239,30 @@ contentDescription | string | 内容描述(提高可用性)
                     spacing: 15
 
                     DelButton {
-                        text: qsTr("A")
+                        text: qsTr('A')
                         shape: DelButton.Shape_Circle
                     }
 
                     DelButton {
-                        text: qsTr("A")
+                        text: qsTr('A')
                         type: DelButton.Type_Outlined
                         shape: DelButton.Shape_Circle
                     }
 
                     DelButton {
-                        text: qsTr("A")
+                        text: qsTr('A')
                         type: DelButton.Type_Primary
                         shape: DelButton.Shape_Circle
                     }
 
                     DelButton {
-                        text: qsTr("A")
+                        text: qsTr('A')
                         type: DelButton.Type_Filled
                         shape: DelButton.Shape_Circle
                     }
 
                     DelButton {
-                        text: qsTr("A")
+                        text: qsTr('A')
                         type: DelButton.Type_Text
                         shape: DelButton.Shape_Circle
                     }
@@ -272,30 +272,30 @@ contentDescription | string | 内容描述(提高可用性)
                 spacing: 15
 
                 DelButton {
-                    text: qsTr("A")
+                    text: qsTr('A')
                     shape: DelButton.Shape_Circle
                 }
 
                 DelButton {
-                    text: qsTr("A")
+                    text: qsTr('A')
                     type: DelButton.Type_Outlined
                     shape: DelButton.Shape_Circle
                 }
 
                 DelButton {
-                    text: qsTr("A")
+                    text: qsTr('A')
                     type: DelButton.Type_Primary
                     shape: DelButton.Shape_Circle
                 }
 
                 DelButton {
-                    text: qsTr("A")
+                    text: qsTr('A')
                     type: DelButton.Type_Filled
                     shape: DelButton.Shape_Circle
                 }
 
                 DelButton {
-                    text: qsTr("A")
+                    text: qsTr('A')
                     type: DelButton.Type_Text
                     shape: DelButton.Shape_Circle
                 }
