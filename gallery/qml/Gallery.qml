@@ -229,8 +229,8 @@ DelWindow {
             anchors.top: searchComponent.bottom
             anchors.bottom: aboutButton.top
             showEdge: true
+            tooltipVisible: true
             defaultMenuWidth: 300
-            defaultMenuIconSize: 18
             defaultSelectedKey: ['HomePage']
             menuLabelDelegate: Item {
                 property var model: parent.model
@@ -410,6 +410,12 @@ DelWindow {
                             key: 'DelPagination',
                             label: qsTr('DelPagination 分页'),
                             source: './Examples/Navigation/ExpPagination.qml',
+                        },
+                        {
+                            key: 'DelContextMenu',
+                            label: qsTr('DelContextMenu 上下文菜单'),
+                            source: './Examples/Navigation/ExpContextMenu.qml',
+                            state: 'New',
                         }
                     ]
                 },
