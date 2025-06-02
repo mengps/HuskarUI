@@ -87,39 +87,46 @@ public:
     Q_INVOKABLE void reloadTheme();
 
     /**
-     * @brief 安装文本基础色{DelTheme.Primary.colorTextBase}
+     * @brief 设置文本基础色{DelTheme.Primary.colorTextBase}
      * @param lightAndDark 明亮和暗黑模式颜色字符串,类似于{#000|#fff}
      */
     Q_INVOKABLE void installThemeColorTextBase(const QString &lightAndDark);
     /**
-     * @brief 安装背景基础色{DelTheme.Primary.colorBgBase}
+     * @brief 设置背景基础色{DelTheme.Primary.colorBgBase}
      * @param lightAndDark 明亮和暗黑模式颜色字符串,类似于{#fff|#000}
      */
     Q_INVOKABLE void installThemeColorBgBase(const QString &lightAndDark);
     /**
-     * @brief 安装主基础色{DelTheme.Primary.colorPrimaryBase}
+     * @brief 设置主基础色{DelTheme.Primary.colorPrimaryBase}
      * @param color 颜色
      */
     Q_INVOKABLE void installThemePrimaryColorBase(const QColor &color);
     /**
-     * @brief 安装字体基础大小{DelTheme.Primary.fontSizeBase}
+     * @brief 设置字体基础大小{DelTheme.Primary.fontSizeBase}
      * @param fontSize 字体像素大小
      */
     Q_INVOKABLE void installThemePrimaryFontSizeBase(int fontSize);
     /**
-     * @brief 安装字体基础大小{DelTheme.Primary.fontFamilyBase}
+     * @brief 设置字体基础大小{DelTheme.Primary.fontFamilyBase}
      * @param fontSize 字体像素大小
      */
     Q_INVOKABLE void installThemePrimaryFontFamiliesBase(const QString &families);
+    /**
+     * @brief 设置动画基础速度
+     * @param durationFast [Fast 动画持续时间(ms)]
+     * @param durationMid  [Mid  动画持续时间(ms)]
+     * @param duratoinSlow [Slow 动画持续时间(ms)]
+     */
+    Q_INVOKABLE void installThemePrimaryAnimationBase(int durationFast, int durationMid, int durationSlow);
 
 
     /**
-     * @brief 安装Index主题
+     * @brief 设置Index主题
      * @param themePath 主题路径
      */
     Q_INVOKABLE void installIndexTheme(const QString &themePath);
     /**
-     * @brief 安装Index主题键值对
+     * @brief 设置Index主题键值对
      * @param key 变量键
      * @param value 值
      * @warning 支持变量生成(genColor/genFont/genFontSize)
@@ -127,13 +134,13 @@ public:
     Q_INVOKABLE void installIndexThemeKV(const QString &key, const QString &value);
 
     /**
-     * @brief 安装组件主题
+     * @brief 设置组件主题
      * @param component 组件名称
      * @param themePath 主题路径
      */
     Q_INVOKABLE void installComponentTheme(const QString &component, const QString &themePath);
     /**
-     * @brief 安装组件主题键值对
+     * @brief 设置组件主题键值对
      * @param component 组件名称
      * @param key 变量键
      * @param value 值

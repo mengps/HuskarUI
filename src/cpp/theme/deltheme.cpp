@@ -17,6 +17,7 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
         { "darker",            Function::Darker },
         { "lighter",           Function::Lighter },
         { "alpha",             Function::Alpha },
+        { "onBackground",      Function::OnBackground },
         { "multiply",          Function::Multiply }
     };
 
@@ -125,6 +126,17 @@ void DelThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &varNam
                     out[varName] = DelThemeFunctions::alpha(arg1, arg2);
                 } else {
                     qDebug() << QString("func alpha() only accepts 1/2 parameters:(%1)").arg(args);
+                }
+            } break;
+            case Function::OnBackground:
+            {
+                auto argList = args.split(',');
+                if (argList.length() == 2) {
+                    auto arg1 = colorFromIndexTable(argList.at(0).trimmed());
+                    auto arg2 = colorFromIndexTable(argList.at(1).trimmed());
+                    out[varName] = DelThemeFunctions::onBackground(arg1, arg2);
+                } else {
+                    qDebug() << QString("func onBackground() only accepts 2 parameters:(%1)").arg(args);
                 }
             } break;
             case Function::Multiply:
@@ -554,6 +566,20 @@ void DelTheme::installThemePrimaryFontFamiliesBase(const QString &families)
     Q_D(DelTheme);
 
     installIndexThemeKV("fontFamilyBase", QString("$genFontFamily(%1)").arg(families));
+}
+
+void DelTheme::installThemePrimaryAnimationBase(int durationFast, int durationMid, int durationSlow)
+{
+    Q_D(DelTheme);
+
+    auto primaryAnimation = d->m_indexObject["primaryAnimation"].toObject();
+    primaryAnimation["durationFast"] = QString::number(durationFast);
+    primaryAnimation["durationMid"] = QString::number(durationMid);
+    primaryAnimation["durationSlow"] = QString::number(durationSlow);
+    d->m_indexObject["primaryAnimation"] = primaryAnimation;
+    d->reloadIndexTheme();
+    d->reloadDefaultComponentTheme();
+    d->reloadCustomComponentTheme();
 }
 
 void DelTheme::installIndexTheme(const QString &themePath)

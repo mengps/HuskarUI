@@ -83,6 +83,20 @@ QColor DelThemeFunctions::alpha(const QColor &color, qreal alpha)
     return QColor(color.red(), color.green(), color.blue(), alpha * 255);
 }
 
+QColor DelThemeFunctions::onBackground(const QColor &color, const QColor &background)
+{
+    const auto fg = color.toRgb();
+    const auto bg = background.toRgb();
+    const auto alpha = fg.alphaF() + bg.alphaF() * (1 - fg.alphaF());
+
+    return QColor::fromRgbF(
+            fg.redF() * fg.alphaF() + bg.redF() * bg.alphaF() * (1 - fg.alphaF()) / alpha,
+            fg.greenF() * fg.alphaF() + bg.greenF() * bg.alphaF() * (1 - fg.alphaF()) / alpha,
+            fg.blueF() * fg.alphaF() + bg.blueF() * bg.alphaF() * (1 - fg.alphaF()) / alpha,
+            alpha
+        );
+}
+
 qreal DelThemeFunctions::multiply(qreal num1, qreal num2)
 {
     return num1 * num2;

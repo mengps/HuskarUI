@@ -18,6 +18,7 @@ enum class Function : uint16_t
     Darker,
     Lighter,
     Alpha,
+    OnBackground,
 
     Multiply
 };
