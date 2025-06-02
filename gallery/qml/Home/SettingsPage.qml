@@ -8,7 +8,7 @@ Item {
     id: root
 
     component MySlider: RowLayout {
-        width: 350
+        width: 400
         height: 30
         anchors.margins: 30
         spacing: 20
@@ -19,7 +19,7 @@ Item {
 
         DelText {
             id: __label
-            Layout.preferredWidth: DelTheme.Primary.fontPrimarySize * 6
+            Layout.preferredWidth: DelTheme.Primary.fontPrimarySize * 8
             Layout.fillHeight: true
             verticalAlignment: Text.AlignVCenter
         }
