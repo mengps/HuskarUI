@@ -836,6 +836,8 @@ DelRectangle {
                                                                        DelTheme.DelTableView.colorCellBgHover : DelTheme.DelTableView.colorCellBg;
                     }
                 }
+                
+                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
                 TableView.onReused: {
                     checked = __private.checkedKeysMap.has(key);
