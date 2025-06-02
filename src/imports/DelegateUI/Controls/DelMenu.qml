@@ -237,6 +237,14 @@ Item {
         }
     }
 
+    Behavior on implicitWidth {
+        enabled: control.animationEnabled
+        NumberAnimation {
+            easing.type: Easing.OutCubic
+            duration: DelTheme.Primary.durationMid
+        }
+    }
+
     Component {
         id: __menuDelegate
 
