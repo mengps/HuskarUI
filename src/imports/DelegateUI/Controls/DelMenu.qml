@@ -5,7 +5,8 @@ import DelegateUI
 Item {
     id: control
 
-    width: compactMode ? compactWidth : defaultMenuWidth
+    implicitWidth: compactMode ? compactWidth : defaultMenuWidth
+    implicitHeight: __listView.contentHeight + __listView.anchors.topMargin + __listView.anchors.bottomMargin
     clip: true
 
     signal clickMenu(deep: int, menuKey: string, menuData: var)
@@ -65,7 +66,7 @@ Item {
             id: __iconLoader
             x: menuButton.iconStart
             anchors.verticalCenter: parent.verticalCenter
-            sourceComponent: control.menuIconDelegate
+            sourceComponent: menuButton.iconDelegate
             property var model: __menuButton.model
             property alias menuButton: __menuContentItem.__menuButton
         }
@@ -77,7 +78,7 @@ Item {
             anchors.right: menuButton.expandedVisible ? __expandedIcon.left : parent.right
             anchors.rightMargin: menuButton.iconSpacing
             anchors.verticalCenter: parent.verticalCenter
-            sourceComponent: control.menuLabelDelegate
+            sourceComponent: menuButton.labelDelegate
             property var model: __menuButton.model
             property alias menuButton: __menuContentItem.__menuButton
         }
@@ -178,7 +179,10 @@ Item {
         property bool isCurrent: false
         property bool isGroup: false
         property var model: undefined
+        property var iconDelegate: null
+        property var labelDelegate: null
         property var contentDelegate: null
+        property var backgroundDelegate: null
 
         onClicked: {
             if (expandedVisible)
@@ -219,7 +223,7 @@ Item {
             property alias menuButton: __menuButtonImpl
         }
         background: Loader {
-            sourceComponent: control.menuBackgroundDelegate
+            sourceComponent: __menuButtonImpl.backgroundDelegate
             property alias model: __menuButtonImpl.model
             property alias menuButton: __menuButtonImpl
         }
@@ -283,7 +287,10 @@ Item {
             property int menuIconSpacing: model.iconSpacing || defaultMenuIconSpacing
             property var menuChildren: model.menuChildren || []
             property int menuChildrenLength: menuChildren ? menuChildren.length : 0
+            property var menuIconDelegate: model.iconDelegate ?? control.menuIconDelegate
+            property var menuLabelDelegate: model.labelDelegate ?? control.menuLabelDelegate
             property var menuContentDelegate: model.contentDelegate ?? control.menuContentDelegate
+            property var menuBackgroundDelegate: model.backgroundDelegate ?? control.menuBackgroundDelegate
 
             property var parentMenu: view.menuDeep === 0 ? null : view.parentMenu
             property bool isCurrent: __private.selectedItem === __rootItem || isCurrentParent
@@ -393,7 +400,10 @@ Item {
                     isCurrent: __rootItem.isCurrent
                     isGroup: __rootItem.menuType == 'group'
                     model: __rootItem.model
+                    iconDelegate: __rootItem.menuIconDelegate
+                    labelDelegate: __rootItem.menuLabelDelegate
                     contentDelegate: __rootItem.menuContentDelegate
+                    backgroundDelegate: __rootItem.menuBackgroundDelegate
                     onClicked: {
                         if (__rootItem.menuChildrenLength == 0) {
                             control.clickMenu(__rootItem.view.menuDeep, __rootItem.menuKey, model);

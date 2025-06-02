@@ -84,12 +84,15 @@ key | string | 菜单键(最好唯一)
 label | sting | 菜单标签
 type | sting | 菜单项类型
 height | int | 本菜单项高度
-enabled | bool | 是否启用(false则禁用该菜单项)
+enabled | bool | 是否启用(false则禁用本菜单项)
 iconSize | int | 图标大小
 iconSource | int | 图标源
 iconSpacing | int | 图标间隔
 menuChildren | list | 子菜单(支持无限嵌套)
-contentDelegate | var | 该菜单项内容代理(将覆盖menuContentDelegate)
+iconDelegate | var | 本菜单项图标代理(menuIconDelegate)
+labelDelegate | var | 本菜单项标签代理(menuLabelDelegate)
+contentDelegate | var | 本菜单项内容代理(将覆盖menuContentDelegate)
+backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
 \n \`contentDelegate\` 可访问属性：\n
 - **model: var** 模型数据(访问错误则使用 \`parent.model\`)\n
 - **menuButton: DelButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，可访问的属性：\n

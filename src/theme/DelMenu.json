@@ -1,6 +1,6 @@
 {
     "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
+    "fontSize": "@fontPrimarySizeHeading5",
     "colorTextDisabled": "@colorPrimaryTextDisabled",
     "colorText": "@colorTextBase",
     "colorTextActive": "@colorPrimaryTextHover",
