@@ -42,6 +42,12 @@ English | [中文](./README-zh_CN.md)
 - 🎨 Powerful theme customization system.
 - 💻 Based on Qml, completely cross platform.
 
+## 🗺️ Roadmap
+
+The development plan can be found here: [Component Roadmap](https://github.com/mengps/DelegateUI/discussions/5).
+
+Anyone can discuss through issues, QQ groups, or WeChat groups, and ultimately meaningful components/functions will be added to the development plan.
+
 ## 🔨 How to Build
 
 - Clone

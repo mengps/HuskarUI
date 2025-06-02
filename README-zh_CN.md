@@ -42,6 +42,12 @@ Qt Qml 的 Ant 设计组件库
 - 🎨 强大的主题定制系统.
 - 💻 基于Qml，完全跨平台.
 
+## 🗺️ 路线图
+
+开发计划可以在这里看到: [组件路线图](https://github.com/mengps/DelegateUI/discussions/5).
+
+任何人都可以通过 issue/qq群/wx群 进行讨论, 最终有意义的组件/功能将添加到开发计划.
+
 ## 🔨 如何构建
 
 - 克隆
