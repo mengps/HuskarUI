@@ -134,12 +134,12 @@ Flickable {
 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述 |
 ------ | --- | :---: | ---
-animationEnabled | bool | true | 是否开启动画(默认true)
-alternatingRow | bool | false | 是否交替显示行背景(默认false)
+animationEnabled | bool | true | 是否开启动画
+alternatingRow | bool | false | 是否交替显示行背景
 defaultColumnHeaderHeight | int | 40 | 默认列头高度
 defaultRowHeaderWidth | int | 40 | 默认行头宽度
-columnGridVisible | bool | false | 是否显示列网格线(默认false)
-rowGridVisible | bool | false | 是否显示行网格线(默认false)
+columnGridVisible | bool | false | 是否显示列网格线
+rowGridVisible | bool | false | 是否显示行网格线
 minimumRowHeight | int | 40 | 最小行高
 maximumRowHeight | int | Number.NaN | 最大行高
 initModel | list | [] | 表格初始数据模型
