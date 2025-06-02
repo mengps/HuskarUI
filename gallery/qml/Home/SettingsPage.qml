@@ -121,6 +121,27 @@ Item {
                     spacing: 10
 
                     MySlider {
+                        id: themeSpeed
+                        label.text: qsTr('控件动画基础速度')
+                        slider.min: 20
+                        slider.max: 200
+                        slider.stepSize: 1
+                        slider.onFirstReleased: {
+                            const base = slider.currentValue;
+                            DelTheme.installThemePrimaryAnimationBase(base, base * 2, base * 3);
+                        }
+                        slider.handleToolTipDelegate: DelToolTip {
+                            arrowVisible: true
+                            delay: 100
+                            text: themeSpeed.slider.currentValue
+                            visible: handlePressed || handleHovered
+                        }
+                        Component.onCompleted: {
+                            slider.value = DelTheme.Primary.durationFast;
+                        }
+                    }
+
+                    MySlider {
                         id: effectSpeed
                         label.text: qsTr('菜单切换速度')
                         slider.min: 0
