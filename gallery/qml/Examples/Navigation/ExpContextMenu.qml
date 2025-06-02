@@ -31,7 +31,7 @@ defaultMenuIconSpacing | int | 8 | 默认菜单图标间隔
 defaultMenuWidth | int | 140 | 默认菜单宽度
 defaultMenuHieght | int | 40 | 默认菜单高度
 defaultMenuSpacing | int | 4 | 默认菜单间隔
-subMenuOffset | int | 4 | 子菜单偏移
+subMenuOffset | int | -4 | 子菜单偏移
 radiusBg | int | 6 | 背景圆角半径
                        `)
         }
