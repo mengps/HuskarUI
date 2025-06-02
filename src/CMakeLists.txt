@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.3.2.1)
+set(DELEGATEUI_VERSION 0.3.3.0)
 
 message(STATUS "Configuring DelegateUI Version: ${DELEGATEUI_VERSION}")
 
@@ -108,6 +108,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/DelegateUI/Controls/DelButtonBlock.qml
         imports/DelegateUI/Controls/DelCarousel.qml
         imports/DelegateUI/Controls/DelSwitchEffect.qml
+        imports/DelegateUI/Controls/DelContextMenu.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${DELEGATEUI_RC_FILE}>
         cpp/delglobal.h

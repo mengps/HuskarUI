@@ -1,5 +1,10 @@
 [
     {
+        "isNew": true,
+        "name": "DelContextMenu",
+        "desc": "上下文菜单，通常作为右键单击后显示的菜单。\n"
+    },
+    {
         "isNew": false,
         "name": "DelTableView",
         "desc": "添加从C++中导入数据示例。\n"
