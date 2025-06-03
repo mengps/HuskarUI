@@ -13,6 +13,6 @@
     "colorCellBgHover": "$onBackground(@colorFillSecondary, @colorBgBase)",
     "colorCellBgHoverChecked": "@colorPrimaryBgHover",
     "colorCellBgChecked": "@colorPrimaryBg",
-    "colorCellBgDarkHoverChecked": "colorPrimaryBase-9",
+    "colorCellBgDarkHoverChecked": "@colorPrimaryBase-9",
     "colorCellBgDarkChecked": "@colorPrimaryBase-10"
 }
