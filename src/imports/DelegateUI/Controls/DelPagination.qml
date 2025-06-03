@@ -197,8 +197,9 @@ Item {
             enabled: control.enabled && !__actionRoot.disabled
             effectEnabled: false
             colorBorder: "transparent"
-            colorBg: enabled ? (down ? DelTheme.DelPagination.colorButtonBgActive :
-                                       hovered ? DelTheme.DelPagination.colorButtonBgHover : "transparent") : "transparent"
+            colorBg: enabled ? (down ? DelTheme.DelPagination.colorActionBgActive :
+                                       hovered ? DelTheme.DelPagination.colorActionBgHover :
+                                                 DelTheme.DelPagination.colorActionBg) : DelTheme.DelPagination.colorActionBg
             onClicked: __actionRoot.clicked();
 
             DelToolTip {
