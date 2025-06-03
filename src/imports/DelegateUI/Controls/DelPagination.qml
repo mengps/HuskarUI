@@ -146,6 +146,10 @@ Item {
         }
         property int pageIndex: 0
 
+        Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
+        Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
+        Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
+
         DelToolTip {
             arrowVisible: false
             text: parent.text

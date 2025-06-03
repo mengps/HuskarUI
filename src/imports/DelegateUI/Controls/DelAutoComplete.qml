@@ -35,6 +35,8 @@ DelInput {
         color: highlighted ? DelTheme.DelAutoComplete.colorItemBgActive :
                              hovered ? DelTheme.DelAutoComplete.colorItemBgHover :
                                        DelTheme.DelAutoComplete.colorItemBg;
+
+        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
     }
     property Component clearIconDelegate: DelIconText {
         iconSource: control.clearIconSource
@@ -43,7 +45,7 @@ DelInput {
                        __iconMouse.hovered ? DelTheme.DelAutoComplete.colorIconHover :
                                              DelTheme.DelAutoComplete.colorIcon : DelTheme.DelAutoComplete.colorIconDisabled
 
-        Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+        Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
 
         MouseArea {
             id: __iconMouse

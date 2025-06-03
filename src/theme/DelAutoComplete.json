@@ -3,11 +3,11 @@
     "fontSize": "@fontPrimarySize",
     "colorItemText": "@colorTextBase",
     "colorItemTextDisabled": "@colorPrimaryTextDisabled",
-    "colorItemBg": "transparent",
-    "colorItemBgHover": "$alpha(@colorTextBase, 0.1)",
+    "colorItemBg": "@colorBgBase",
+    "colorItemBgHover": "$onBackground(@colorFill, @colorBgBase)",
     "colorItemBgActive": "@colorPrimaryBase-1",
-    "colorItemBgDisabled": "transparent",
-    "colorIcon": "@colorTextTertiary",
-    "colorIconHover": "@colorTextSecondary",
-    "colorIconDisabled": "@colorTextQuaternary"
+    "colorItemBgDisabled": "@colorBgBase",
+    "colorIcon": "$onBackground(@colorTextTertiary, @colorBgBase)",
+    "colorIconHover": "$onBackground(@colorTextSecondary, @colorBgBase)",
+    "colorIconDisabled": "$onBackground(@colorTextQuaternary, @colorBgBase)"
 }
