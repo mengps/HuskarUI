@@ -45,8 +45,9 @@ T.Popup {
             source: __popupRect
             shadowColor: control.colorShadow
             shadowEnabled: true
-            shadowBlur: DelTheme.isDark ? 0.8 : 0.5
-            shadowOpacity: DelTheme.isDark ? 0.8 : 0.5
+            shadowBlur: 1.0
+            shadowOpacity: DelTheme.isDark ? 0.5 : 0.2
+            shadowScale: 1.02
         }
         Rectangle {
             id: __popupRect

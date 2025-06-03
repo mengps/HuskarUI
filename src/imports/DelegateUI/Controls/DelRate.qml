@@ -97,8 +97,9 @@ Item {
             source: __item
             shadowEnabled: true
             shadowColor: control.colorToolTipBg
-            shadowBlur: DelTheme.isDark ? 0.8 : 0.4
-            shadowOpacity: DelTheme.isDark ? 0.8 : 0.4
+            shadowBlur: 1.0
+            shadowOpacity: DelTheme.isDark ? 0.5 : 0.2
+            shadowScale: 1.02
         }
 
         Item {
