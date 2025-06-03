@@ -24,7 +24,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述 |
 ------ | --- | :---: | ---
 fromItem | Item | - | 从项目
-toItem | rect | - | 到项目
+toItem | Item | - | 到项目
 startCallback | function | - | 开始回调(started信号之前调用)
 endCallback | function | - | 结束回调(finished信号之前调用)
 type | enum | - | 特效类型(来自 DelSwitchEffect)
