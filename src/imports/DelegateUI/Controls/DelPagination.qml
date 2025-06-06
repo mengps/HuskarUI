@@ -161,15 +161,54 @@ Item {
         padding: 0
         width: control.defaultButtonWidth
         height: control.defaultButtonHeight
-        animationEnabled: false
+        animationEnabled: control.animationEnabled
         effectEnabled: false
         enabled: control.enabled
         colorBg: "transparent"
         colorBorder: "transparent"
-        text: (enabled && (down || hovered)) ? "" : "•••"
-        iconSource: (enabled && (down || hovered)) ? (isPrev ? DelIcon.DoubleLeftOutlined : DelIcon.DoubleRightOutlined) : 0
+        
+        property real textOpacity: (enabled && (down || hovered)) ? 0.0 : 1.0
+        property real iconOpacity: (enabled && (down || hovered)) ? 1.0 : 0.0
+        
+        text: "•••"
+        iconSource: (isPrev ? DelIcon.DoubleLeftOutlined : DelIcon.DoubleRightOutlined)
         property bool isPrev: false
         property alias tooltipText: __moreTooltip.text
+
+        Behavior on textOpacity { 
+            enabled: control.animationEnabled
+            NumberAnimation { 
+                duration: DelTheme.Primary.durationMid
+                easing.type: Easing.OutCubic
+            } 
+        }
+        Behavior on iconOpacity { 
+            enabled: control.animationEnabled
+            NumberAnimation { 
+                duration: DelTheme.Primary.durationMid
+                easing.type: Easing.OutCubic
+            } 
+        }
+
+        contentItem: Item {
+            Text {
+                anchors.centerIn: parent
+                text: parent.parent.text
+                font: parent.parent.font
+                color: parent.parent.enabled ? DelTheme.DelPagination.colorButtonText : DelTheme.DelPagination.colorButtonTextDisabled
+                opacity: parent.parent.textOpacity
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            DelIconText {
+                anchors.centerIn: parent
+                iconSource: parent.parent.iconSource
+                iconSize: 12
+                colorIcon: parent.parent.enabled ? DelTheme.DelPagination.colorButtonText : DelTheme.DelPagination.colorButtonTextDisabled
+                opacity: parent.parent.iconOpacity
+            }
+        }
 
         DelToolTip {
             id: __moreTooltip
