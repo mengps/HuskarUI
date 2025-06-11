@@ -18,8 +18,8 @@ Item {
     property int pageButtonMaxCount: 7
     property int pageSize: 10
     property var pageSizeModel: []
-    property string prevButtonTooltip: qsTr("上一页")
-    property string nextButtonTooltip: qsTr("下一页")
+    property string prevButtonTooltip: qsTr('上一页')
+    property string nextButtonTooltip: qsTr('下一页')
     property Component prevButtonDelegate: ActionButton {
         iconSource: DelIcon.LeftOutlined
         tooltipText: control.prevButtonTooltip
@@ -38,7 +38,7 @@ Item {
 
         Text {
             anchors.verticalCenter: parent.verticalCenter
-            text: qsTr("跳至")
+            text: qsTr('跳至')
             font {
                 family: DelTheme.DelCopyableText.fontFamily
                 pixelSize: DelTheme.DelCopyableText.fontSize
@@ -61,7 +61,7 @@ Item {
 
         Text {
             anchors.verticalCenter: parent.verticalCenter
-            text: qsTr("页")
+            text: qsTr('页')
             font {
                 family: DelTheme.Primary.fontPrimaryFamily
                 pixelSize: DelTheme.Primary.fontPrimarySize
@@ -137,10 +137,10 @@ Item {
                                   hovered ? DelTheme.DelPagination.colorButtonBgHover :
                                             DelTheme.DelPagination.colorButtonBg;
             } else {
-                return checked ? DelTheme.DelPagination.colorButtonBgDisabled : "transparent";
+                return checked ? DelTheme.DelPagination.colorButtonBgDisabled : 'transparent';
             }
         }
-        colorBorder: checked ? DelTheme.DelPagination.colorBorderActive : "transparent"
+        colorBorder: checked ? DelTheme.DelPagination.colorBorderActive : 'transparent'
         onClicked: {
             control.currentPageIndex = pageIndex;
         }
@@ -158,23 +158,50 @@ Item {
     }
 
     component PaginationMoreButton: DelIconButton {
+        id: __moreRoot
         padding: 0
         width: control.defaultButtonWidth
         height: control.defaultButtonHeight
         animationEnabled: false
         effectEnabled: false
         enabled: control.enabled
-        colorBg: "transparent"
-        colorBorder: "transparent"
-        text: (enabled && (down || hovered)) ? "" : "•••"
-        iconSource: (enabled && (down || hovered)) ? (isPrev ? DelIcon.DoubleLeftOutlined : DelIcon.DoubleRightOutlined) : 0
+        colorBg: 'transparent'
+        colorBorder: 'transparent'
+        text: '•••'
+
+        property bool showIcon: (enabled && (down || hovered))
         property bool isPrev: false
         property alias tooltipText: __moreTooltip.text
+
+        onShowIconChanged: __seqAnimation.restart();
+
+        SequentialAnimation {
+            id: __seqAnimation
+            alwaysRunToEnd: true
+            ScriptAction {
+                script: {
+                    if (__moreRoot.showIcon) {
+                        __moreRoot.text = '';
+                        __moreRoot.iconSource = __moreRoot.isPrev ? DelIcon.DoubleLeftOutlined : DelIcon.DoubleRightOutlined;
+                    } else {
+                        __moreRoot.text = '•••'
+                        __moreRoot.iconSource = 0;
+                    }
+                }
+            }
+            NumberAnimation {
+                target: __moreRoot
+                property: 'opacity'
+                from: 0.0
+                to: 1.0
+                duration: control.animationEnabled ? DelTheme.Primary.durationSlow : 0
+            }
+        }
 
         DelToolTip {
             id: __moreTooltip
             arrowVisible: false
-            visible: parent.enabled && parent.hovered && text !== ""
+            visible: parent.enabled && parent.hovered && text !== ''
         }
     }
 
@@ -196,7 +223,7 @@ Item {
             animationEnabled: control.animationEnabled
             enabled: control.enabled && !__actionRoot.disabled
             effectEnabled: false
-            colorBorder: "transparent"
+            colorBorder: 'transparent'
             colorBg: enabled ? (down ? DelTheme.DelPagination.colorActionBgActive :
                                        hovered ? DelTheme.DelPagination.colorActionBgHover :
                                                  DelTheme.DelPagination.colorActionBg) : DelTheme.DelPagination.colorActionBg
@@ -205,7 +232,7 @@ Item {
             DelToolTip {
                 id: __tooltip
                 arrowVisible: false
-                visible: parent.hovered && parent.enabled && text !== ""
+                visible: parent.hovered && parent.enabled && text !== ''
             }
         }
 
@@ -236,7 +263,7 @@ Item {
 
         PaginationMoreButton {
             isPrev: true
-            tooltipText: qsTr("向前5页")
+            tooltipText: qsTr('向前5页')
             visible: control.pageTotal > control.pageButtonMaxCount && (control.currentPageIndex + 1) > __private.pageButtonHalfCount
             onClicked: control.gotoPrev5Page();
         }
@@ -263,7 +290,7 @@ Item {
 
         PaginationMoreButton {
             isPrev: false
-            tooltipText: qsTr("向后5页")
+            tooltipText: qsTr('向后5页')
             visible: control.pageTotal > control.pageButtonMaxCount &&
                      (control.pageTotal - (control.currentPageIndex + 1) > (control.pageButtonMaxCount - __private.pageButtonHalfCount))
             onClicked: control.gotoNext5Page();
