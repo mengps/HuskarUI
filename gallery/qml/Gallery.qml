@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import DelegateUI
+import Gallery
 
 import './Home'
 
@@ -33,9 +34,12 @@ DelWindow {
             iconSource: DelIcon.DelegateUIPath2
         }
     }
+    captionBar.themeCallback: () => {
+        themeSwitchLoader.active = true;
+    }
     captionBar.topCallback: (checked) => {
-                                DelApi.setWindowStaysOnTopHint(galleryWindow, checked);
-                            }
+        DelApi.setWindowStaysOnTopHint(galleryWindow, checked);
+    }
 
     Component.onCompleted: {
         if (Qt.platform.os === 'windows') {
@@ -67,58 +71,42 @@ DelWindow {
         opacity: 0.2
     }
 
-    Rectangle {
-        id: themeCircle
-        x: r - width
-        y: -height * 0.5
-        width: 0
-        height: 0
-        radius: width * 0.5
-        color: '#141414'
-
-        property real r: Math.sqrt(parent.width * parent.width + parent.height * parent.height)
-
-        NumberAnimation {
-            running: DelTheme.isDark
-            properties: 'width,height'
-            target: themeCircle
-            from: 0
-            to: themeCircle.r * 2
-            duration: DelTheme.Primary.durationMid
-            easing.type: Easing.OutCubic
-            onStarted: {
-                galleryWindow.setWindowMode(true);
-                themeCircle.visible = true;
+    Loader {
+        id: themeSwitchLoader
+        z: 65536
+        active: false
+        anchors.fill: galleryWindow.contentItem
+        sourceComponent: ThemeSwitchItem {
+            opacity: galleryWindow.specialEffect == DelWindow.None ? 1.0 : galleryBackground.opacity
+            target: galleryWindow.contentItem
+            isDark: DelTheme.isDark
+            onSwitchStarted: {
+                galleryWindow.setWindowMode(!DelTheme.isDark);
+                galleryBackground.color = DelTheme.isDark ? 'white' : 'black';
+                themeSwitchLoader.changeDark();
             }
-            onFinished: {
-                themeCircle.visible = false;
-                themeCircle.width = Qt.binding(() => themeCircle.r * 2);
-                themeCircle.height = Qt.binding(() => themeCircle.r * 2);
+            onAnimationFinished: {
                 if (galleryWindow.specialEffect === DelWindow.None)
                     galleryWindow.color = DelTheme.Primary.colorBgBase;
-                galleryBackground.color = DelTheme.Primary.colorBgBase;
+                themeSwitchLoader.active = false;
+            }
+            Component.onCompleted: {
+                colorBg = DelTheme.isDark ? 'white' : 'black';
+                const distance = function(x1, y1, x2, y2) {
+                    return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+                }
+                const startX = content.width - 170;
+                const startY = 0;
+                const radius = Math.max(distance(startX, startY, 0, 0),
+                                      distance(startX, startY, content.width, 0),
+                                      distance(startX, startY, 0, content.height),
+                                      distance(startX, startY, content.width, content.height));
+                start(width, height, Qt.point(startX, startY), radius);
             }
         }
 
-        NumberAnimation {
-            running: !DelTheme.isDark
-            properties: 'width,height'
-            target: themeCircle
-            from: themeCircle.r * 2
-            to: 0
-            duration: DelTheme.Primary.durationMid
-            easing.type: Easing.OutCubic
-            onStarted: {
-                galleryWindow.setWindowMode(false);
-                themeCircle.visible = true;
-                if (galleryWindow.specialEffect === DelWindow.None)
-                    galleryWindow.color = DelTheme.Primary.colorBgBase;
-                galleryBackground.color = DelTheme.Primary.colorBgBase;
-            }
-            onFinished: {
-                themeCircle.width = 0;
-                themeCircle.height = 0;
-            }
+        function changeDark() {
+            DelTheme.darkMode = DelTheme.isDark ? DelTheme.Light : DelTheme.Dark;
         }
     }
 
@@ -290,8 +278,7 @@ DelWindow {
             }
             Component.onCompleted: {
                 let list = [];
-                for (let i = 0; i < defaultModel.length; i++) {
-                    let item = defaultModel[i];
+                for (const item of defaultModel) {
                     if (item && item.menuChildren) {
                         let hasNew = false;
                         let hasUpdate = false;
@@ -415,6 +402,12 @@ DelWindow {
                             key: 'DelContextMenu',
                             label: qsTr('DelContextMenu 上下文菜单'),
                             source: './Examples/Navigation/ExpContextMenu.qml',
+                            state: 'New',
+                        },
+                        {
+                            key: 'DelBreadcrumb',
+                            label: qsTr('DelBreadcrumb 上下文菜单'),
+                            source: './Examples/Navigation/ExpBreadcrumb.qml',
                             state: 'New',
                         }
                     ]
