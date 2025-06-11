@@ -8,7 +8,7 @@ Item {
     id: root
 
     component MySlider: RowLayout {
-        width: 400
+        width: 450
         height: 30
         anchors.margins: 30
         spacing: 20
@@ -19,7 +19,7 @@ Item {
 
         DelText {
             id: __label
-            Layout.preferredWidth: DelTheme.Primary.fontPrimarySize * 8
+            Layout.preferredWidth: DelTheme.Primary.fontPrimarySize * 6
             Layout.fillHeight: true
             verticalAlignment: Text.AlignVCenter
         }
@@ -122,7 +122,7 @@ Item {
 
                     MySlider {
                         id: themeSpeed
-                        label.text: qsTr('控件动画基础速度')
+                        label.text: qsTr('动画基础速度')
                         slider.min: 20
                         slider.max: 200
                         slider.stepSize: 1
