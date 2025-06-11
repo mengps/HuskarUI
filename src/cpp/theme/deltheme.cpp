@@ -414,6 +414,7 @@ void DelThemePrivate::registerDefaultComponentTheme(const QString &component, co
             ADD_COMPONENT_CASE(DelDatePicker)
             ADD_COMPONENT_CASE(DelProgress)
             ADD_COMPONENT_CASE(DelCarousel)
+            ADD_COMPONENT_CASE(DelBreadcrumb)
         default:
             break;
         }
@@ -495,6 +496,12 @@ void DelTheme::setTextRenderType(TextRenderType renderType)
 {
     Q_D(DelTheme);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    if (renderType == TextRenderType::CurveRendering) {
+        renderType = TextRenderType::QtRendering;
+        qWarning() << "Qt5 is not supported TextRenderType::CurveRendering!";
+    }
+#endif
     if (d->m_textRenderType != renderType) {
         d->m_textRenderType = renderType;
         emit textRenderTypeChanged();

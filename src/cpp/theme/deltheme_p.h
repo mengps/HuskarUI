@@ -56,6 +56,7 @@ enum class Component : uint16_t
     DelDatePicker,
     DelProgress,
     DelCarousel,
+    DelBreadcrumb,
 
     Size
 };
@@ -93,6 +94,7 @@ static QHash<QString, Component> g_componentTable
     { "DelDatePicker",    Component::DelDatePicker    },
     { "DelProgress",      Component::DelProgress      },
     { "DelCarousel",      Component::DelCarousel      },
+    { "DelBreadcrumb",    Component::DelBreadcrumb    },
 };
 
 struct ThemeData
@@ -124,6 +126,8 @@ public:
 
     QMap<QObject *, ThemeData> m_defaultTheme;
     QMap<QObject *, ThemeData> m_customTheme;
+
+    static DelThemePrivate *get(DelTheme *theme) { return theme->d_func(); }
 
     void parse$(QMap<QString, QVariant> &out, const QString &varName, const QString &expr);
 

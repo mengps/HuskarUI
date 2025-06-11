@@ -171,6 +171,7 @@
         "DelAutoComplete": ":/DelegateUI/theme/DelAutoComplete.json",
         "DelDatePicker": ":/DelegateUI/theme/DelDatePicker.json",
         "DelProgress": ":/DelegateUI/theme/DelProgress.json",
-        "DelCarousel": ":/DelegateUI/theme/DelCarousel.json"
+        "DelCarousel": ":/DelegateUI/theme/DelCarousel.json",
+        "DelBreadcrumb": ":/DelegateUI/theme/DelBreadcrumb.json"
     }
 }
