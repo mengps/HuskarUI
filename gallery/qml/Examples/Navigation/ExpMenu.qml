@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls.Basic
 import DelegateUI
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
@@ -89,11 +89,11 @@ iconSize | int | 图标大小
 iconSource | int | 图标源
 iconSpacing | int | 图标间隔
 menuChildren | list | 子菜单(支持无限嵌套)
-iconDelegate | var | 本菜单项图标代理(menuIconDelegate)
-labelDelegate | var | 本菜单项标签代理(menuLabelDelegate)
+iconDelegate | var | 本菜单项图标代理(将覆盖menuIconDelegate)
+labelDelegate | var | 本菜单项标签代理(将覆盖menuLabelDelegate)
 contentDelegate | var | 本菜单项内容代理(将覆盖menuContentDelegate)
-backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
-\n \`contentDelegate\` 可访问属性：\n
+backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDelegate)
+\n \`iconDelegate\` | \`labelDelegate\` | \`contentDelegate\` | \`backgroundDelegate\` 可访问属性：\n
 - **model: var** 模型数据(访问错误则使用 \`parent.model\`)\n
 - **menuButton: DelButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，可访问的属性：\n
   - model: var 本菜单模型\n
@@ -115,7 +115,7 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
 - \`remove(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
 - \`clear()\` 清空所有模型数据 \n
 \n支持的信号：\n
-- \`clickMenu(deep: int, menuKey: string, menuData: Object)\` 点击任意菜单项时发出\n
+- \`clickMenu(deep: int, menuKey: string, menuData: var)\` 点击任意菜单项时发出\n
   - \`deep\` 菜单项深度\n
   - \`menuKey\` 菜单项的键\n
   - \`menuData\` 菜单项数据\n
@@ -123,7 +123,7 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 菜单是一个应用的灵魂，用户依赖导航在各个页面中进行跳转。\n
 一般分为顶部导航和侧边导航。\n
@@ -133,12 +133,12 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
         }
 
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
             width: parent.width
-            descTitle: qsTr("基本用法")
+            descTitle: qsTr('基本用法')
             desc: qsTr(`
 通过 \`initModel\` 属性设置初始菜单模型{需为list}，菜单项支持的属性有：\n
 - { key: 菜单键(最好唯一) }\n
@@ -152,9 +152,9 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
 - { menuChildren: 子菜单(支持无限嵌套) }\n
 - { contentDelegate: 该菜单项内容代理 }\n
 菜单项 \`type\` 支持：\n
-- "item" { 普通菜单项(默认) }\n
-- "group" { 组菜单项 }\n
-- "divider" { 此菜单项为分隔器 }\n
+- 'item' { 普通菜单项(默认) }\n
+- 'group' { 组菜单项 }\n
+- 'divider' { 此菜单项为分隔器 }\n
 点击任意菜单项将发出 \`clickMenu(deep, menuKey, menuData)\` 信号。
                        `)
             code: `
@@ -166,10 +166,10 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                     height: 200
 
                     DelButton {
-                        text: qsTr("添加")
+                        text: qsTr('添加')
                         anchors.right: parent.right
                         onClicked: menu.append({
-                                                    label: qsTr("Test"),
+                                                    label: qsTr('Test'),
                                                     iconSource: DelIcon.HomeOutlined,
                                                     contentDelegate: myContentDelegate
                                                });
@@ -180,19 +180,19 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                         height: parent.height
                         initModel: [
                             {
-                                label: qsTr("首页1"),
+                                label: qsTr('首页1'),
                                 iconSource: DelIcon.HomeOutlined
                             },
                             {
-                                label: qsTr("首页2"),
+                                label: qsTr('首页2'),
                                 iconSource: DelIcon.HomeOutlined,
                                 menuChildren: [
                                     {
-                                        label: qsTr("首页2-1"),
+                                        label: qsTr('首页2-1'),
                                         iconSource: DelIcon.HomeOutlined,
                                         menuChildren: [
                                             {
-                                                label: qsTr("首页2-1-1"),
+                                                label: qsTr('首页2-1-1'),
                                                 iconSource: DelIcon.HomeOutlined,
                                                 contentDelegate: myContentDelegate
                                             }
@@ -201,7 +201,7 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                                 ]
                             },
                             {
-                                label: qsTr("首页3"),
+                                label: qsTr('首页3'),
                                 iconSource: DelIcon.HomeOutlined,
                                 enabled: false
                             }
@@ -213,10 +213,10 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                 height: 200
 
                 DelButton {
-                    text: qsTr("添加")
+                    text: qsTr('添加')
                     anchors.right: parent.right
                     onClicked: menu.append({
-                                                label: qsTr("Test"),
+                                                label: qsTr('Test'),
                                                 iconSource: DelIcon.HomeOutlined,
                                                 contentDelegate: myContentDelegate
                                            });
@@ -227,19 +227,19 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                     height: parent.height
                     initModel: [
                         {
-                            label: qsTr("首页1"),
+                            label: qsTr('首页1'),
                             iconSource: DelIcon.HomeOutlined
                         },
                         {
-                            label: qsTr("首页2"),
+                            label: qsTr('首页2'),
                             iconSource: DelIcon.HomeOutlined,
                             menuChildren: [
                                 {
-                                    label: qsTr("首页2-1"),
+                                    label: qsTr('首页2-1'),
                                     iconSource: DelIcon.HomeOutlined,
                                     menuChildren: [
                                         {
-                                            label: qsTr("首页2-1-1"),
+                                            label: qsTr('首页2-1-1'),
                                             iconSource: DelIcon.HomeOutlined,
                                             contentDelegate: myContentDelegate
                                         }
@@ -248,7 +248,7 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                             ]
                         },
                         {
-                            label: qsTr("首页3"),
+                            label: qsTr('首页3'),
                             iconSource: DelIcon.HomeOutlined,
                             enabled: false
                         }
@@ -259,11 +259,11 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
 
         CodeBox {
             width: parent.width
-            descTitle: qsTr("弹出形式")
+            descTitle: qsTr('弹出形式')
             desc: qsTr(`
-通过 \`popupMode\` 属性设置菜单为弹出模式 \n
-通过 \`popupWidth\` 属性设置弹窗的宽度 \n
-通过 \`popupMaxHeight\` 属性设置弹窗的最大高度(最小高度是自动计算的) \n
+通过 \`popupMode\` 属性设置菜单为弹出模式。\n
+通过 \`popupWidth\` 属性设置弹窗的宽度。\n
+通过 \`popupMaxHeight\` 属性设置弹窗的最大高度(最小高度是自动计算的)。\n
                        `)
             code: `
                 import QtQuick
@@ -277,8 +277,8 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                         id: popupModeRadio
                         initCheckedIndex: 0
                         model: [
-                            { label: qsTr("默认模式"), value: false },
-                            { label: qsTr("弹出模式"), value: true }
+                            { label: qsTr('默认模式'), value: false },
+                            { label: qsTr('弹出模式'), value: true }
                         ]
                     }
 
@@ -288,29 +288,29 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                         popupWidth: 150
                         initModel: [
                             {
-                                label: qsTr("首页1"),
+                                label: qsTr('首页1'),
                                 iconSource: DelIcon.HomeOutlined
                             },
                             {
-                                label: qsTr("首页2"),
+                                label: qsTr('首页2'),
                                 iconSource: DelIcon.HomeOutlined,
                                 menuChildren: [
                                     {
-                                        label: qsTr("首页2-1"),
+                                        label: qsTr('首页2-1'),
                                         iconSource: DelIcon.HomeOutlined,
                                         menuChildren: [
                                             {
-                                                label: qsTr("首页2-1-1"),
+                                                label: qsTr('首页2-1-1'),
                                                 iconSource: DelIcon.HomeOutlined
                                             }
                                         ]
                                     },
                                     {
-                                        label: qsTr("首页2-2"),
+                                        label: qsTr('首页2-2'),
                                         iconSource: DelIcon.HomeOutlined,
                                         menuChildren: [
                                             {
-                                                label: qsTr("首页2-2-1"),
+                                                label: qsTr('首页2-2-1'),
                                                 iconSource: DelIcon.HomeOutlined
                                             }
                                         ]
@@ -318,15 +318,15 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                                 ]
                             },
                             {
-                                label: qsTr("首页3"),
+                                label: qsTr('首页3'),
                                 iconSource: DelIcon.HomeOutlined,
                                 menuChildren: [
                                     {
-                                        label: qsTr("首页3-1"),
+                                        label: qsTr('首页3-1'),
                                         iconSource: DelIcon.HomeOutlined,
                                         menuChildren: [
                                             {
-                                                label: qsTr("首页3-1-1"),
+                                                label: qsTr('首页3-1-1'),
                                                 iconSource: DelIcon.HomeOutlined
                                             }
                                         ]
@@ -344,8 +344,8 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                     id: popupModeRadio
                     initCheckedIndex: 0
                     model: [
-                        { label: qsTr("默认模式"), value: false },
-                        { label: qsTr("弹出模式"), value: true }
+                        { label: qsTr('默认模式'), value: false },
+                        { label: qsTr('弹出模式'), value: true }
                     ]
                 }
 
@@ -355,30 +355,30 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                     popupWidth: 150
                     initModel: [
                         {
-                            label: qsTr("首页1"),
+                            label: qsTr('首页1'),
                             iconSource: DelIcon.HomeOutlined
                         },
                         {
-                            label: qsTr("首页2"),
+                            label: qsTr('首页2'),
                             iconSource: DelIcon.HomeOutlined,
                             menuChildren: [
                                 {
-                                    label: qsTr("首页2-1"),
+                                    label: qsTr('首页2-1'),
                                     iconSource: DelIcon.HomeOutlined,
                                     menuChildren: [
                                         {
-                                            label: qsTr("首页2-1-1"),
+                                            label: qsTr('首页2-1-1'),
                                             iconSource: DelIcon.HomeOutlined,
                                             contentDelegate: myContentDelegate
                                         }
                                     ]
                                 },
                                 {
-                                    label: qsTr("首页2-2"),
+                                    label: qsTr('首页2-2'),
                                     iconSource: DelIcon.HomeOutlined,
                                     menuChildren: [
                                         {
-                                            label: qsTr("首页2-2-1"),
+                                            label: qsTr('首页2-2-1'),
                                             iconSource: DelIcon.HomeOutlined
                                         }
                                     ]
@@ -386,15 +386,15 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                             ]
                         },
                         {
-                            label: qsTr("首页3"),
+                            label: qsTr('首页3'),
                             iconSource: DelIcon.HomeOutlined,
                             menuChildren: [
                                 {
-                                    label: qsTr("首页3-1"),
+                                    label: qsTr('首页3-1'),
                                     iconSource: DelIcon.HomeOutlined,
                                     menuChildren: [
                                         {
-                                            label: qsTr("首页3-1-1"),
+                                            label: qsTr('首页3-1-1'),
                                             iconSource: DelIcon.HomeOutlined
                                         }
                                     ]
@@ -408,14 +408,14 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
 
         CodeBox {
             width: parent.width
-            descTitle: qsTr("紧凑模式")
+            descTitle: qsTr('紧凑模式')
             desc: qsTr(`
-通过 \`compactMode\` 属性设置菜单是否为紧凑模式 \n
-通过 \`compactWidth\` 属性设置紧凑模式的宽度 \n
-通过 \`popupWidth\` 属性设置弹窗的宽度 \n
-通过 \`popupMaxHeight\` 属性设置弹窗的最大高度(最小高度是自动计算的) \n
-**注意** 设置为紧凑模式则不需要设置弹出模式 \n
-**注意** 使用 \`defaultMenuWidth\` 来设置宽度 \n
+通过 \`compactMode\` 属性设置菜单是否为紧凑模式。\n
+通过 \`compactWidth\` 属性设置紧凑模式的宽度。\n
+通过 \`popupWidth\` 属性设置弹窗的宽度。\n
+通过 \`popupMaxHeight\` 属性设置弹窗的最大高度(最小高度是自动计算的)。\n
+**注意** 设置为紧凑模式则不需要设置弹出模式。\n
+**注意** 使用 \`defaultMenuWidth\` 来设置宽度。\n
                        `)
             code: `
                 import QtQuick
@@ -429,8 +429,8 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                         id: compactModeRadio
                         initCheckedIndex: 0
                         model: [
-                            { label: qsTr("默认模式"), value: false },
-                            { label: qsTr("紧凑模式"), value: true }
+                            { label: qsTr('默认模式'), value: false },
+                            { label: qsTr('紧凑模式'), value: true }
                         ]
                     }
 
@@ -440,29 +440,29 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                         popupWidth: 150
                         initModel: [
                             {
-                                label: qsTr("首页1"),
+                                label: qsTr('首页1'),
                                 iconSource: DelIcon.HomeOutlined
                             },
                             {
-                                label: qsTr("首页2"),
+                                label: qsTr('首页2'),
                                 iconSource: DelIcon.HomeOutlined,
                                 menuChildren: [
                                     {
-                                        label: qsTr("首页2-1"),
+                                        label: qsTr('首页2-1'),
                                         iconSource: DelIcon.HomeOutlined,
                                         menuChildren: [
                                             {
-                                                label: qsTr("首页2-1-1"),
+                                                label: qsTr('首页2-1-1'),
                                                 iconSource: DelIcon.HomeOutlined
                                             }
                                         ]
                                     },
                                     {
-                                        label: qsTr("首页2-2"),
+                                        label: qsTr('首页2-2'),
                                         iconSource: DelIcon.HomeOutlined,
                                         menuChildren: [
                                             {
-                                                label: qsTr("首页2-2-1"),
+                                                label: qsTr('首页2-2-1'),
                                                 iconSource: DelIcon.HomeOutlined
                                             }
                                         ]
@@ -470,15 +470,15 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                                 ]
                             },
                             {
-                                label: qsTr("首页3"),
+                                label: qsTr('首页3'),
                                 iconSource: DelIcon.HomeOutlined,
                                 menuChildren: [
                                     {
-                                        label: qsTr("首页3-1"),
+                                        label: qsTr('首页3-1'),
                                         iconSource: DelIcon.HomeOutlined,
                                         menuChildren: [
                                             {
-                                                label: qsTr("首页3-1-1"),
+                                                label: qsTr('首页3-1-1'),
                                                 iconSource: DelIcon.HomeOutlined
                                             }
                                         ]
@@ -496,8 +496,8 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                     id: compactModeRadio
                     initCheckedIndex: 0
                     model: [
-                        { label: qsTr("默认模式"), value: false },
-                        { label: qsTr("紧凑模式"), value: true }
+                        { label: qsTr('默认模式'), value: false },
+                        { label: qsTr('紧凑模式'), value: true }
                     ]
                 }
 
@@ -507,29 +507,29 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                     popupWidth: 150
                     initModel: [
                         {
-                            label: qsTr("首页1"),
+                            label: qsTr('首页1'),
                             iconSource: DelIcon.HomeOutlined
                         },
                         {
-                            label: qsTr("首页2"),
+                            label: qsTr('首页2'),
                             iconSource: DelIcon.HomeOutlined,
                             menuChildren: [
                                 {
-                                    label: qsTr("首页2-1"),
+                                    label: qsTr('首页2-1'),
                                     iconSource: DelIcon.HomeOutlined,
                                     menuChildren: [
                                         {
-                                            label: qsTr("首页2-1-1"),
+                                            label: qsTr('首页2-1-1'),
                                             iconSource: DelIcon.HomeOutlined
                                         }
                                     ]
                                 },
                                 {
-                                    label: qsTr("首页2-2"),
+                                    label: qsTr('首页2-2'),
                                     iconSource: DelIcon.HomeOutlined,
                                     menuChildren: [
                                         {
-                                            label: qsTr("首页2-2-1"),
+                                            label: qsTr('首页2-2-1'),
                                             iconSource: DelIcon.HomeOutlined
                                         }
                                     ]
@@ -537,15 +537,15 @@ backgroundDelegate | var | 本菜单项背景代理(menuBackgroundDelegate)
                             ]
                         },
                         {
-                            label: qsTr("首页3"),
+                            label: qsTr('首页3'),
                             iconSource: DelIcon.HomeOutlined,
                             menuChildren: [
                                 {
-                                    label: qsTr("首页3-1"),
+                                    label: qsTr('首页3-1'),
                                     iconSource: DelIcon.HomeOutlined,
                                     menuChildren: [
                                         {
-                                            label: qsTr("首页3-1-1"),
+                                            label: qsTr('首页3-1-1'),
                                             iconSource: DelIcon.HomeOutlined
                                         }
                                     ]

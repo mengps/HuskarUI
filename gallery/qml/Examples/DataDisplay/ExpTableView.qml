@@ -157,21 +157,30 @@ colorRowHeaderTitle | color | - | 行头标题颜色
 colorRowHeaderBg | color | - | 行头背景颜色
 colorResizeBlockBg | color | - | 调整头大小块(左上角方块)背景色
 \n{columns}支持的属性：\n
+属性名 | 类型 | 可选/必选 | 描述 |
+------ | --- | :---: | ---
+title | string | 必选 | 标题
+dataIndex | sting | 必选 | 数据索引
+delegate | var | 必选 | 该列的单元格代理
+width | int | 必选 | 该列初始宽度
+minimumWidth | int | 可选 | 该列最小宽度
+maximumWidth | int | 可选 | 该列最大宽度
+editable | bool | 可选 | 列头标题是否可编辑
+align | string | 可选 | 列头标题对齐方式, 支持 'center'丨'left'丨'right'
+selectionType | string | 可选 | 该列选择类型, 支持 'checkbox'
+sorter | var | 可选 | 该列排序器
+sortDirections | list | 可选 | 该列排序方向, 支持 'false'丨'ascend'丨'descend'
+onFilter | var | 可选 | 该列过滤器
+filterInput | string | 可选 | 该列过滤输入
+\n{columns.delegate}可访问属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
-title | string | 标题
+row | int | 行索引
+column | int | 列索引
+cellData | var | 单元格数据
+cellIndex | int | 单元格索引
 dataIndex | sting | 数据索引
-delegate | var | 该列的单元格代理
-width | int | 该列初始宽度
-minimumWidth(可选) | int | 该列最小宽度
-maximumWidth(可选) | int | 该列最大宽度
-editable(可选) | bool | 列头标题是否可编辑
-align(可选) | string | 列头标题对齐方式, 支持 'center'丨'left'丨'right'
-selectionType(可选) | string | 该列选择类型, 支持 'checkbox'
-sorter(可选) | var | 该列排序器
-sortDirections(可选) | list | 该列排序方向, 支持 'false'丨'ascend'丨'descend'
-onFilter(可选) | var | 该列过滤器
-filterInput(可选) | string | 该列过滤输入
+filterInput | string | 单元格的过滤输入
 \n支持的函数：\n
 - \`checkForRows(rows: Array)\` 选中 \`rows\` 提供的行列表。\n
 - \`checkForKeys(keys: Array)\` 选中 \`keys\` 提供的键列表。\n

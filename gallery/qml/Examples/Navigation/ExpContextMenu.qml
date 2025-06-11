@@ -33,6 +33,11 @@ defaultMenuHieght | int | 40 | 默认菜单高度
 defaultMenuSpacing | int | 4 | 默认菜单间隔
 subMenuOffset | int | -4 | 子菜单偏移
 radiusBg | int | 6 | 背景圆角半径
+\n支持的信号：\n
+- \`clickMenu(deep: int, menuKey: string, menuData: var)\` 点击任意菜单项时发出\n
+  - \`deep\` 菜单项深度\n
+  - \`menuKey\` 菜单项的键\n
+  - \`menuData\` 菜单项数据\n
                        `)
         }
 
