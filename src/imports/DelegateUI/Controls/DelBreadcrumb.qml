@@ -92,7 +92,7 @@ Item {
 
         HoverHandler {
             id: __hoverHandler
-            cursorShape: isCurrent ? Qt.PointingHandCursor : Qt.ArrowCursor
+            cursorShape: !isCurrent ? Qt.PointingHandCursor : Qt.ArrowCursor
             onHoveredChanged: {
                 if (hovered) __private.hover(index);
             }
