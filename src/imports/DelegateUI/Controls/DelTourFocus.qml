@@ -29,14 +29,14 @@ T.Popup {
         property real focusWidth: control.target ? (control.target.width + control.focusMargin * 2) : 0
         property real focusHeight: control.target ? (control.target.height + control.focusMargin * 2) : 0
         property bool isClosing: false
-        
+
         function recalcPosition() {
             if (!control.target) return;
             const pos = control.target.mapToItem(null, 0, 0);
             focusX = pos.x - control.focusMargin;
             focusY = pos.y - control.focusMargin;
         }
-        
+
         function startClosing() {
             if (isClosing) return;
             isClosing = true;
@@ -45,7 +45,7 @@ T.Popup {
     }
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside
-    
+
     function close() {
         if (!visible || __private.isClosing) return;
         if (control.animationEnabled) {
@@ -58,7 +58,7 @@ T.Popup {
     NumberAnimation {
         id: __closeAnimation
         target: control
-        property: "opacity"
+        property: 'opacity'
         from: 1.0
         to: 0.0
         duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
@@ -71,7 +71,7 @@ T.Popup {
 
     enter: Transition {
         NumberAnimation {
-            property: "opacity";
+            property: 'opacity';
             from: 0.0
             to: 1.0
             duration: control.animationEnabled ? DelTheme.Primary.durationMid : 0
@@ -96,7 +96,7 @@ T.Popup {
                 property real xMax: (__private.focusX + __private.focusWidth) / source.width
                 property real yMin: __private.focusY / source.height
                 property real yMax: (__private.focusY + __private.focusHeight) / source.height
-                fragmentShader: "qrc:/DelegateUI/shaders/deltour.frag.qsb"
+                fragmentShader: 'qrc:/DelegateUI/shaders/deltour.frag.qsb'
             }
         }
     }

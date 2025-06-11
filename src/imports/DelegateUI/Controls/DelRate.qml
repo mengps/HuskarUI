@@ -136,7 +136,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onColorBgChanged: requestPaint();
                 onPaint: {
-                    const ctx = getContext("2d");
+                    const ctx = getContext('2d');
                     ctx.beginPath();
                     ctx.moveTo(0, 0);
                     ctx.lineTo(width, 0);
@@ -151,7 +151,7 @@ Item {
     }
 
     property Component halfRateHelper: ShaderEffect {
-        fragmentShader: "qrc:/DelegateUI/shaders/delrate.frag.qsb"
+        fragmentShader: 'qrc:/DelegateUI/shaders/delrate.frag.qsb'
     }
 
     onInitValueChanged: {
@@ -249,7 +249,7 @@ Item {
                         id: __scaleAnim
                         NumberAnimation {
                             target: __rootItemContainer
-                            property: "scale"
+                            property: 'scale'
                             from: 1.0
                             to: 1.15
                             duration: 100
@@ -257,7 +257,7 @@ Item {
                         }
                         NumberAnimation {
                             target: __rootItemContainer
-                            property: "scale"
+                            property: 'scale'
                             from: 1.15
                             to: 1.0
                             duration: 100

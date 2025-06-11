@@ -92,8 +92,8 @@ T.CheckBox {
                 color: control.colorIndicator
                 visible: control.checkState == Qt.Checked
                 opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
-                
-                Behavior on opacity { 
+
+                Behavior on opacity {
                     enabled: control.animationEnabled && control.checkState == Qt.Checked
                     NumberAnimation { duration: DelTheme.Primary.durationFast }
                 }
@@ -108,17 +108,17 @@ T.CheckBox {
                 visible: control.checkState == Qt.Checked
                 scale: 1.1
                 opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
-                
-                Behavior on opacity { 
+
+                Behavior on opacity {
                     enabled: control.animationEnabled && control.checkState == Qt.Checked
                     NumberAnimation { duration: DelTheme.Primary.durationFast }
                 }
-                
+
                 Canvas {
                     id: __checkMark
                     anchors.fill: parent
                     visible: control.checkState == Qt.Checked
-                    
+
                     property real animationProgress: control.animationEnabled ? 0 : 1
                     property real lineWidth: 2
                     property color checkColor: '#fff'
@@ -128,22 +128,22 @@ T.CheckBox {
                     onPaint: {
                         let ctx = getContext('2d');
                         ctx.clearRect(0, 0, width, height);
-                        
+
                         ctx.lineWidth = lineWidth;
                         ctx.strokeStyle = checkColor;
                         ctx.fillStyle = 'transparent';
                         ctx.lineCap = 'round';
                         ctx.lineJoin = 'round';
-                        
+
                         const startX = width * 0.2;
                         const midPointX = width * 0.4;
                         const endX = width * 0.8;
                         const midPointY = height * 0.7;
                         const startY = height * 0.5;
                         const endY = height * 0.2;
-                        
+
                         ctx.beginPath();
-                        
+
                         if (animationProgress > 0) {
                             ctx.moveTo(startX, startY);
                             if (animationProgress < 0.5) {
@@ -158,14 +158,14 @@ T.CheckBox {
                                 ctx.lineTo(currentX, currentY);
                             }
                         }
-                        
+
                         ctx.stroke();
                     }
-                    
+
                     SequentialAnimation {
                         id: __checkMarkAnimation
                         running: control.checkState == Qt.Checked && control.animationEnabled
-                        
+
                         NumberAnimation {
                             target: __checkMark
                             property: 'animationProgress'
@@ -174,12 +174,12 @@ T.CheckBox {
                             duration: DelTheme.Primary.durationMid
                             easing.type: Easing.OutCubic
                         }
-                        
+
                         onStarted: {
                             __checkMark.visible = true;
                             __checkMark.requestPaint();
                         }
-                        
+
                         onRunningChanged: {
                             if (!running && control.checkState != Qt.Checked) {
                                 __checkMark.animationProgress = 0;
@@ -200,8 +200,8 @@ T.CheckBox {
                 colorIcon: control.colorIndicator
                 visible: control.checkState == Qt.PartiallyChecked
                 opacity: control.checkState == Qt.PartiallyChecked ? 1.0 : 0.0
-                
-                Behavior on opacity { 
+
+                Behavior on opacity {
                     enabled: control.animationEnabled && control.checkState == Qt.PartiallyChecked
                     NumberAnimation { duration: DelTheme.Primary.durationFast }
                 }
@@ -215,8 +215,8 @@ T.CheckBox {
         color: control.colorText
         verticalAlignment: Text.AlignVCenter
         leftPadding: control.indicator.width + control.spacing
-        
-        Behavior on opacity { 
+
+        Behavior on opacity {
             enabled: control.animationEnabled
             NumberAnimation { duration: DelTheme.Primary.durationFast }
         }

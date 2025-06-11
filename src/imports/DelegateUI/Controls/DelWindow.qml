@@ -4,8 +4,7 @@ import DelegateUI
 Window {
     id: window
 
-    enum SpecialEffect
-    {
+    enum SpecialEffect {
         None = 0,
 
         Win_DwmBlur = 1,
