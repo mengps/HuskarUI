@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelBreadcrumb",
+        "desc": "面包屑，显示当前页面在系统层级结构中的位置，并能向上返回。\n"
+    },
+    {
+        "isNew": true,
         "name": "DelContextMenu",
         "desc": "上下文菜单，通常作为右键单击后显示的菜单。\n"
     },

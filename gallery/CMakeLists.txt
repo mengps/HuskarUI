@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.3.3.0)
+set(DELEGATEUI_VERSION 0.3.4.0)
 
 project(Gallery VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
 
@@ -75,6 +75,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Navigation/ExpContextMenu.qml
         qml/Examples/Navigation/ExpScrollBar.qml
         qml/Examples/Navigation/ExpPagination.qml
+        qml/Examples/Navigation/ExpBreadcrumb.qml
         qml/Examples/Layout/ExpDivider.qml
         qml/Examples/Effect/ExpAcrylic.qml
         qml/Examples/Effect/ExpSwitchEffect.qml
@@ -94,6 +95,7 @@ qt_add_qml_module(${PROJECT_NAME}
     SOURCES
         $<$<BOOL:${WIN32}>:${GALLERY_RC_FILE}>
         cpp/customtheme.h cpp/customtheme.cpp
+        cpp/themeswitchitem.h cpp/themeswitchitem.cpp
         cpp/datagenerator.h cpp/datagenerator.cpp
         cpp/main.cpp
     RESOURCES
