@@ -12,17 +12,17 @@ DelWindow {
     minimumHeight: 500
     captionBar.minimizeButtonVisible: false
     captionBar.maximizeButtonVisible: false
-    captionBar.winTitle: qsTr("关于")
+    captionBar.winTitle: qsTr('关于')
     captionBar.winIconDelegate: Item {
         DelIconText {
             iconSize: 22
-            colorIcon: "#C44545"
+            colorIcon: '#C44545'
             font.bold: true
             iconSource: DelIcon.DelegateUIPath1
         }
         DelIconText {
             iconSize: 22
-            colorIcon: "#C44545"
+            colorIcon: '#C44545'
             font.bold: true
             iconSource: DelIcon.DelegateUIPath2
         }
@@ -52,8 +52,8 @@ DelWindow {
 
             ShaderEffect {
                 anchors.fill: parent
-                vertexShader: "qrc:/Gallery/shaders/effect2.vert.qsb"
-                fragmentShader: "qrc:/Gallery/shaders/effect2.frag.qsb"
+                vertexShader: 'qrc:/Gallery/shaders/effect2.vert.qsb'
+                fragmentShader: 'qrc:/Gallery/shaders/effect2.frag.qsb'
                 opacity: 0.5
 
                 property vector3d iResolution: Qt.vector3d(width, height, 0)
@@ -81,14 +81,14 @@ DelWindow {
 
                 DelIconText {
                     iconSize: parent.width
-                    colorIcon: "#C44545"
+                    colorIcon: '#C44545'
                     font.bold: true
                     iconSource: DelIcon.DelegateUIPath1
                 }
 
                 DelIconText {
                     iconSize: parent.width
-                    colorIcon: "#C44545"
+                    colorIcon: '#C44545'
                     font.bold: true
                     iconSource: DelIcon.DelegateUIPath2
                 }
@@ -102,22 +102,22 @@ DelWindow {
                     bold: true
                 }
                 color: DelTheme.Primary.colorTextBase
-                text: "DelegateUI Gallery"
+                text: 'DelegateUI Gallery'
             }
 
             DelCopyableText {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("库版本: ") + DelApp.libVersion()
+                text: qsTr('库版本: ') + DelApp.libVersion()
             }
 
             DelCopyableText {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("作者: MenPenS")
+                text: qsTr('作者: MenPenS')
             }
 
             DelCopyableText {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("微信号: MenPenS0612")
+                text: qsTr('微信号: MenPenS0612')
             }
 
             DelCopyableText {
@@ -125,7 +125,7 @@ DelWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: DelCopyableText.WordWrap
                 horizontalAlignment: DelCopyableText.AlignHCenter
-                text: qsTr("QQ交流群号: <a href=\"https://qm.qq.com/q/cMNHn2tWeY\" style=\"color:#722ED1\">490328047</a>")
+                text: qsTr('QQ交流群号: <a href=\'https://qm.qq.com/q/cMNHn2tWeY\' style=\'color:#722ED1\'>490328047</a>')
                 textFormat: DelCopyableText.RichText
                 onLinkActivated: (link) => Qt.openUrlExternally(link);
             }
@@ -135,7 +135,7 @@ DelWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: DelCopyableText.WordWrap
                 horizontalAlignment: DelCopyableText.AlignHCenter
-                text: "Github: <a href=\"https://github.com/mengps/DelegateUI\" style=\"color:#722ED1\">https://github.com/mengps/DelegateUI</a>"
+                text: 'Github: <a href=\'https://github.com/mengps/DelegateUI\' style=\'color:#722ED1\'>https://github.com/mengps/DelegateUI</a>'
                 textFormat: DelCopyableText.RichText
                 onLinkActivated: (link) => Qt.openUrlExternally(link);
             }
@@ -145,7 +145,7 @@ DelWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: DelCopyableText.WordWrap
                 horizontalAlignment: DelCopyableText.AlignHCenter
-                text: qsTr("如果该项目/源码对你有用，就请点击上方链接给一个免费的Star，谢谢！")
+                text: qsTr('如果该项目/源码对你有用，就请点击上方链接给一个免费的Star，谢谢！')
             }
 
             DelCopyableText {
@@ -153,7 +153,7 @@ DelWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: DelCopyableText.WordWrap
                 horizontalAlignment: DelCopyableText.AlignHCenter
-                text: qsTr("有任何问题可以提Issues或进群！")
+                text: qsTr('有任何问题可以提Issues或进群！')
             }
         }
     }
