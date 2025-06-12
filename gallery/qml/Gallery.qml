@@ -406,7 +406,7 @@ DelWindow {
                         },
                         {
                             key: 'DelBreadcrumb',
-                            label: qsTr('DelBreadcrumb 上下文菜单'),
+                            label: qsTr('DelBreadcrumb 面包屑'),
                             source: './Examples/Navigation/ExpBreadcrumb.qml',
                             state: 'New',
                         }
