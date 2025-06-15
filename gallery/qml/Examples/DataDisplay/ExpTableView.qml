@@ -118,11 +118,11 @@ Flickable {
 * **继承自 { DelRectangle }**\n
 支持的代理：\n
 - **columnHeaderDelegate: Component** 列头代理，代理可访问属性：\n
-  - \`model: var\` 列模型索引数据\n
-  - \`headerData: var\` 列模型数据(即columns[column])\n
+  - \`model: var\` 列模型数据\n
+  - \`headerData: var\` 列描述数据(即columns[column])\n
   - \`column: int\` 列索引\n
 - **rowHeaderDelegate: Component** 行头代理，代理可访问属性：\n
-  - \`model: var\` 行模型索引数据\n
+  - \`model: var\` 行模型数据\n
   - \`row: int\` 行索引\n
 - **columnHeaderSorterIconDelegate: Component** 列头搜索器图标代理，代理可访问属性：\n
   - \`sorter: var\` 该列的搜索器\n

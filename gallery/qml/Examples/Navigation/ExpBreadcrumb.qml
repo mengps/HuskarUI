@@ -119,7 +119,7 @@ items | list | 可选 | 菜单模型
                             { title: 'Application List' },
                             { title: 'An Application', },
                         ]
-                        onClick: (index, data) => remove(index);
+                        onClick: (index, data) => remove(index + 1, count - index - 1);
                     }
                 }
             `
