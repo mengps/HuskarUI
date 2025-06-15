@@ -207,9 +207,9 @@ radiusBg | int | 6 | 背景圆角半径
                             onClickMenu:
                                 (deep, menuKey, menuData) => {
                                     if (menuKey === 'Dark') {
-                                        DelTheme.darkMode = DelTheme.Dark;
+                                        galleryWindow.captionBar.themeCallback();
                                     } else if (menuKey === 'Light') {
-                                        DelTheme.darkMode = DelTheme.Light;
+                                        galleryWindow.captionBar.themeCallback();
                                     }
                                 }
                         }
@@ -253,9 +253,9 @@ radiusBg | int | 6 | 背景圆角半径
                         onClickMenu:
                             (deep, menuKey, menuData) => {
                                 if (menuKey === 'Dark') {
-                                    DelTheme.darkMode = DelTheme.Dark;
+                                    galleryWindow.captionBar.themeCallback();
                                 } else if (menuKey === 'Light') {
-                                    DelTheme.darkMode = DelTheme.Light;
+                                    galleryWindow.captionBar.themeCallback();
                                 }
                             }
                     }
