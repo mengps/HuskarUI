@@ -62,8 +62,8 @@ DelInput {
     clearIconPosition: DelInput.Position_Right
     iconDelegate: clearIconDelegate
     onOptionsChanged: {
-        __popupListView.currentIndex = -1;
         __private.model = options;
+        __popupListView.currentIndex = -1;
     }
     onTextEdited: {
         control.search(text);
