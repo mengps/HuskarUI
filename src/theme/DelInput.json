@@ -8,9 +8,11 @@
     "colorPlaceholderTextDisabled": "@colorPrimaryTextDisabled",
     "colorSelectedText": "@colorTextBase",
     "colorSelection": "$alpha(@colorPrimary, 0.6)",
-    "colorBorder": "@colorTextQuaternary",
+    "colorBorder": "$onBackground(@colorTextQuaternary, @colorBgBase)",
     "colorBorderHover": "@colorPrimary",
-    "colorBorderDisabled": "transparent",
+    "colorBorderDisabled": "$onBackground(@colorFill, @colorBgBase)",
     "colorBg": "@colorBgBase",
-    "colorBgDisabled": "$alpha(@colorTextBase, 0.1)"
+    "colorBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)",
+    "colorLabelBg": "$onBackground(@colorFillQuaternary, @colorBgBase)",
+    "colorLabelBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)"
 }

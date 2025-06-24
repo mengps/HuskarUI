@@ -19,6 +19,7 @@
         "colorTextQuaternary": "$alpha(@colorTextBase, 0.25)",
 
         "colorFill": "$alpha(@colorTextBase, 0.15)",
+        "colorFillPrimary": "$alpha(@colorTextBase, 0.1)",
         "colorFillSecondary": "$alpha(@colorTextBase, 0.06)",
         "colorFillTertiary": "$alpha(@colorTextBase, 0.04)",
         "colorFillQuaternary": "$alpha(@colorTextBase, 0.02)",
