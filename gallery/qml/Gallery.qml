@@ -68,6 +68,7 @@ DelWindow {
     Rectangle {
         id: galleryBackground
         anchors.fill: content
+        color: '#f5f5f5'
         opacity: 0.2
     }
 
@@ -82,7 +83,7 @@ DelWindow {
             isDark: DelTheme.isDark
             onSwitchStarted: {
                 galleryWindow.setWindowMode(!DelTheme.isDark);
-                galleryBackground.color = DelTheme.isDark ? 'white' : 'black';
+                galleryBackground.color = DelTheme.isDark ? '#f5f5f5' : '#181818';
                 themeSwitchLoader.changeDark();
             }
             onAnimationFinished: {
@@ -91,7 +92,7 @@ DelWindow {
                 themeSwitchLoader.active = false;
             }
             Component.onCompleted: {
-                colorBg = DelTheme.isDark ? 'white' : 'black';
+                colorBg = DelTheme.isDark ? '#f5f5f5' : '#181818';
                 const distance = function(x1, y1, x2, y2) {
                     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
                 }
@@ -476,6 +477,12 @@ DelWindow {
                             key: 'DelDatePicker',
                             label: qsTr('DelDatePicker 日期选择框'),
                             source: './Examples/DataEntry/ExpDatePicker.qml',
+                        },
+                        {
+                            key: 'DelInputNumber',
+                            label: qsTr('DelInputNumber 数字输入框'),
+                            source: './Examples/DataEntry/ExpInputNumber.qml',
+                            state: 'New',
                         }
                     ]
                 },
