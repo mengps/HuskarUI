@@ -441,6 +441,7 @@ Item {
                         position: control.compactMode || control.popupMode ? DelToolTip.Position_Right : DelToolTip.Position_Bottom
                         text: __rootItem.menuLabel
                         visible: control.tooltipVisible ? parent.hovered : false
+                        delay: 500
                     }
                 }
 
