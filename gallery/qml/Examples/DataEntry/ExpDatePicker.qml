@@ -27,23 +27,26 @@ Flickable {
   - \`isCurrentVisualMonth: bool\` 是否为(==visualMonth)\n
   - \`isCurrentDay: bool\` 是否为当前天\n
 支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-placeholderText | string | 输入框占位文本
-iconPosition | int | 图标位置(来自 DelDatePicker)
-pickerMode | int | 日期选择模式(来自 DelDatePicker)
-initDate | date | 初始日期
-currentDate | date | 当前日期
-currentYear | int | 当前年份
-currentMonth | int | 当前月份
-currentDay | int |当前天数
-currentWeekNumber | int | 当前周数
-currentQuarter | int | 当前季度
-visualYear | int | 弹窗显示的年份(通常不需要使用)
-visualMonth | int | 弹窗显示的月份(通常不需要使用)
-visualQuarter | int | 弹窗显示的季度(通常不需要使用)
-dateFormat | string | 日期格式
+属性名 | 类型 | 默认值 | 描述 |
+------ | --- | :---: | ---
+animationEnabled | bool | true | 是否开启动画
+placeholderText | string | '' | 输入框占位文本
+iconPosition | int | DelDatePicker.Position_Right | 图标位置(来自 DelDatePicker)
+pickerMode | int | DelDatePicker.Mode_Day | 日期选择模式(来自 DelDatePicker)
+initDate | date | undefined | 初始日期
+currentDate | date | - | 当前日期
+currentYear | int | - | 当前年份
+currentMonth | int | - | 当前月份
+currentDay | int | - |当前天数
+currentWeekNumber | int | - | 当前周数
+currentQuarter | int | - | 当前季度
+visualYear | int | - | 弹窗显示的年份(通常不需要使用)
+visualMonth | int | - | 弹窗显示的月份(通常不需要使用)
+visualQuarter | int | - | 弹窗显示的季度(通常不需要使用)
+dateFormat | string | 'yyyy-MM-dd' | 日期格式
+\n支持的信号：\n
+- \`clicked(date: var)\` 点击日期时发出\n
+  -  \`date\` 点击的日期(jsDate)\n
                        `)
         }
 
