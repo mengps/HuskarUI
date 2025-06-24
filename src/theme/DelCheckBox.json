@@ -5,8 +5,9 @@
     "colorTextDisabled": "@colorPrimaryTextDisabled",
     "colorIndicator": "@colorBgBase",
     "colorIndicatorChecked": "@colorPrimary",
+    "colorIndicatorCheckedHover": "@colorPrimaryHover",
     "colorIndicatorDisabled": "$alpha(@colorTextBase, 0.1)",
-    "colorIndicatorBorder": "@colorTextQuaternary",
+    "colorIndicatorBorder": "$onBackground(@colorTextQuaternary, @colorBgBase)",
     "colorIndicatorBorderChecked": "@colorPrimaryBorderActive",
     "colorEffectBg": "@colorTextTertiary"
 }
