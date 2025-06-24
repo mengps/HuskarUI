@@ -22,7 +22,7 @@ T.TextField {
                                               DelTheme.DelInput.colorBorder : DelTheme.DelInput.colorBorderDisabled
     property color colorBg: enabled ? DelTheme.DelInput.colorBg : DelTheme.DelInput.colorBgDisabled
     property int radiusBg: 6
-    property string contentDescription: ""
+    property string contentDescription: ''
 
     property Component iconDelegate: DelIconText {
         iconSource: control.iconSource
@@ -30,13 +30,9 @@ T.TextField {
         colorIcon: control.colorIcon
     }
 
-    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
-    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
-
-    objectName: "__DelInput__"
+    objectName: '__DelInput__'
     focus: true
-    padding: 5
+    padding: 6
     leftPadding: 10 + ((iconSource != 0 && iconPosition == DelInput.Position_Left) ? iconSize : 0)
     rightPadding: 10 + ((iconSource != 0 && iconPosition == DelInput.Position_Right) ? iconSize : 0)
     implicitWidth: contentWidth + leftPadding + rightPadding
@@ -54,6 +50,10 @@ T.TextField {
         border.color: control.colorBorder
         radius: control.radiusBg
     }
+
+    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
+    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
     Loader {
         anchors.left: iconPosition == DelInput.Position_Left ? parent.left : undefined
