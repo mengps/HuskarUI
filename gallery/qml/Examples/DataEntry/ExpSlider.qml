@@ -37,8 +37,8 @@ hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
 min | real | 最小值
 max | real | 最大值
 stepSize | real | 步长
-value | number / [number, number] | 设置滑块值, range为true时为数组[min, max]
-currentValue(readonly) | number / [number, number] | 获取当前滑块值, range为true时为数组[min, max]
+value | number丨[number, number] | 设置滑块值, range为true时为数组[min, max]
+currentValue(readonly) | number丨[number, number] | 获取当前滑块值, range为true时为数组[min, max]
 contentDescription | string | 内容描述(提高可用性)
 range | bool | 双滑块模式
 hovered | bool | 是否悬浮在滑动条上
