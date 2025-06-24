@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "DelInputNumber",
+        "desc": "数字输入框，通过鼠标或键盘，输入范围内的数值。\n"
+    },
+    {
+        "isNew": true,
         "name": "DelBreadcrumb",
         "desc": "面包屑，显示当前页面在系统层级结构中的位置，并能向上返回。\n"
     },
