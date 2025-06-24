@@ -10,13 +10,22 @@ T.CheckBox {
     property int hoverCursorShape: Qt.PointingHandCursor
     property int indicatorSize: 20
     property color colorText: enabled ? DelTheme.DelCheckBox.colorText : DelTheme.DelCheckBox.colorTextDisabled
-    property color colorIndicator: enabled ?
-                                       (checkState != Qt.Unchecked) ? DelTheme.DelCheckBox.colorIndicatorChecked :
-                                                                      DelTheme.DelCheckBox.colorIndicator : DelTheme.DelCheckBox.colorIndicatorDisabled
+    property color colorIndicator: {
+        if (enabled) {
+            return (checkState != Qt.Unchecked) ? hovered ? DelTheme.DelCheckBox.colorIndicatorCheckedHover :
+                                                            DelTheme.DelCheckBox.colorIndicatorChecked : DelTheme.DelCheckBox.colorIndicator
+        } else {
+            return DelTheme.DelCheckBox.colorIndicatorDisabled;
+        }
+    }
     property color colorIndicatorBorder: enabled ?
                                              (hovered || checked) ? DelTheme.DelCheckBox.colorIndicatorBorderChecked :
                                                                     DelTheme.DelCheckBox.colorIndicatorBorder : DelTheme.DelCheckBox.colorIndicatorDisabled
     property string contentDescription: ''
+
+    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
+    Behavior on colorIndicator { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
+    Behavior on colorIndicatorBorder { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
 
     font {
         family: DelTheme.DelCheckBox.fontFamily
@@ -81,8 +90,6 @@ T.CheckBox {
             anchors.centerIn: parent
             colorIcon: control.colorIndicatorBorder
 
-            Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationFast } }
-
             /*! 勾选背景 */
             Rectangle {
                 id: __checkedBg
@@ -90,11 +97,11 @@ T.CheckBox {
                 anchors.margins: 2
                 radius: 2
                 color: control.colorIndicator
-                visible: control.checkState == Qt.Checked
+                visible: opacity != 0
                 opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
 
                 Behavior on opacity {
-                    enabled: control.animationEnabled && control.checkState == Qt.Checked
+                    enabled: control.animationEnabled
                     NumberAnimation { duration: DelTheme.Primary.durationFast }
                 }
             }
@@ -105,12 +112,17 @@ T.CheckBox {
                 anchors.centerIn: parent
                 width: parent.iconSize * 0.6
                 height: parent.iconSize * 0.6
-                visible: control.checkState == Qt.Checked
-                scale: 1.1
+                visible: opacity != 0
+                scale: control.checkState == Qt.Checked ? 1.1 : 0.2
                 opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
 
+                Behavior on scale {
+                    enabled: control.animationEnabled
+                    NumberAnimation { easing.overshoot: 2.5; easing.type: Easing.OutBack; duration: DelTheme.Primary.durationSlow }
+                }
+
                 Behavior on opacity {
-                    enabled: control.animationEnabled && control.checkState == Qt.Checked
+                    enabled: control.animationEnabled
                     NumberAnimation { duration: DelTheme.Primary.durationFast }
                 }
 
@@ -121,7 +133,7 @@ T.CheckBox {
 
                     property real animationProgress: control.animationEnabled ? 0 : 1
                     property real lineWidth: 2
-                    property color checkColor: '#fff'
+                    property color checkColor: control.enabled ? '#fff' : DelTheme.DelCheckBox.colorIndicatorDisabled
 
                     onAnimationProgressChanged: requestPaint();
 
@@ -171,7 +183,7 @@ T.CheckBox {
                             property: 'animationProgress'
                             from: 0
                             to: 1
-                            duration: DelTheme.Primary.durationMid
+                            duration: DelTheme.Primary.durationSlow
                             easing.type: Easing.OutCubic
                         }
 
@@ -198,11 +210,11 @@ T.CheckBox {
                 iconSource: DelIcon.XFilledPath1
                 iconSize: parent.iconSize * 0.5
                 colorIcon: control.colorIndicator
-                visible: control.checkState == Qt.PartiallyChecked
+                visible: opacity != 0
                 opacity: control.checkState == Qt.PartiallyChecked ? 1.0 : 0.0
 
                 Behavior on opacity {
-                    enabled: control.animationEnabled && control.checkState == Qt.PartiallyChecked
+                    enabled: control.animationEnabled
                     NumberAnimation { duration: DelTheme.Primary.durationFast }
                 }
             }
@@ -218,7 +230,7 @@ T.CheckBox {
 
         Behavior on opacity {
             enabled: control.animationEnabled
-            NumberAnimation { duration: DelTheme.Primary.durationFast }
+            NumberAnimation { duration: DelTheme.Primary.durationMid }
         }
     }
     background: Item { }
