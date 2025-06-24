@@ -129,7 +129,7 @@ Use `MIT LICENSE`
 
 ## 🌇 Environment
 
-Windows 11 / Ubuntu 24.04.2, Qt Version >= 6.5
+Windows 11 / Ubuntu 24.04.2, Qt Version >= 6.7
 
 ## 🎉 Star History
 
