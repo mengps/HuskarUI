@@ -67,7 +67,7 @@ items | list | 可选 | 菜单模型
 - \`clear()\` 清空所有模型数据 \n
 - \`string getPath()\` 获取当前路由路径 \n
 \n支持的信号：\n
-- \`clickMenu(index: int, data: var)\` 点击路由项时发出\n
+- \`click(index: int, data: var)\` 点击路由项时发出\n
   - \`index\` 路由项索引\n
   - \`data\` 路由项数据\n
 - \`clickMenu(deep: int, menuKey: string, menuData: var)\` 点击路由-菜单项时发出\n

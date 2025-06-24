@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 ## DelCheckBox 多选框 \n
 收集用户的多项选择。\n
-* **继承自 { CheckButton }**\n
+* **继承自 { CheckBox }**\n
 支持的代理：\n
 - 无\n
 支持的属性：\n
