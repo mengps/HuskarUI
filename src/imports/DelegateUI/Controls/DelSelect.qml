@@ -24,7 +24,8 @@ T.ComboBox {
     property string contentDescription: ''
 
     property Component indicatorDelegate: DelIconText {
-        iconSize: 12
+        colorIcon: DelTheme.DelSelect.colorTextActive
+        iconSize: DelTheme.DelSelect.fontSize - 2
         iconSource: control.loading ? DelIcon.LoadingOutlined : DelIcon.DownOutlined
 
         NumberAnimation on rotation {
