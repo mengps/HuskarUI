@@ -18,6 +18,7 @@ Item {
 
     property bool animationEnabled: DelTheme.animationEnabled
     property bool showHandler: true
+    property bool alwaysShowHandler: false
     property bool useWheel: false
     property bool useKeyboard: true
     property real value: 0
@@ -77,14 +78,15 @@ Item {
         id: __handlerRoot
         clip: true
         enabled: control.enabled
-        width: enabled && __input.hovered ? control.defaultHandlerWidth : 0
+        width: enabled && (__input.hovered || control.alwaysShowHandler) ? control.defaultHandlerWidth : 0
 
         property real halfHeight: height * 0.5
         property real hoveredHeight: height * 0.6
         property real noHoverHeight: height * 0.4
         property color colorBorder: enabled ? DelTheme.DelInput.colorBorder : DelTheme.DelInput.colorBorderDisabled
 
-        Behavior on width { enabled: control.animationEnabled;
+        Behavior on width {
+            enabled: control.animationEnabled;
             NumberAnimation {
                 easing.type: Easing.OutCubic
                 duration: DelTheme.Primary.durationMid

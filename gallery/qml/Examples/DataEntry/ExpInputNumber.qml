@@ -15,7 +15,7 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelInputNumber 输入框 \n
+## DelInputNumber 数字输入框 \n
 通过鼠标或键盘，输入范围内的数值。\n
 * **继承自 { Item }**\n
 支持的代理：\n
@@ -27,6 +27,7 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
 showHandler | bool | true | 是否显示增减按钮
+alwaysShowHandler | bool | false | 是否始终显示增减按钮
 useWheel | bool | false | 是否使用鼠标滚轮控制
 useKeyboard | bool | true | 是否使用键盘控制
 value | real | 0 | 当前值
