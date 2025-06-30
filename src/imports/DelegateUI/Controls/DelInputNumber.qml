@@ -81,7 +81,7 @@ Item {
         width: enabled && (__input.hovered || control.alwaysShowHandler) ? control.defaultHandlerWidth : 0
 
         property real halfHeight: height * 0.5
-        property real hoveredHeight: height * 0.6
+        property real hoverHeight: height * 0.6
         property real noHoverHeight: height * 0.4
         property color colorBorder: enabled ? DelTheme.DelInput.colorBorder : DelTheme.DelInput.colorBorderDisabled
 
@@ -97,7 +97,7 @@ Item {
             id: __upButton
             enabled: control.enabled
             width: parent.width
-            height: hovered ? parent.hoveredHeight :
+            height: hovered ? parent.hoverHeight :
                               __downButton.hovered ? parent.noHoverHeight : parent.halfHeight
             padding: 0
             autoRepeat: true
@@ -123,7 +123,7 @@ Item {
             id: __downButton
             enabled: control.enabled
             width: parent.width
-            height: (hovered ? parent.hoveredHeight :
+            height: (hovered ? parent.hoverHeight :
                                __upButton.hovered ? parent.noHoverHeight : parent.halfHeight) + 1
             anchors.top: __upButton.bottom
             anchors.topMargin: -1

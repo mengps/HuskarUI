@@ -41,11 +41,11 @@ private: \
 #define DEL_PROPERTY_P_INIT(type, get, set, init_value) \
 private:\
     Q_PROPERTY(type get READ get WRITE set NOTIFY get##Changed) \
-    public: \
+public: \
     type get() const { return m_##get; } \
     void set(const type &t) { if (t != m_##get) { m_##get = t; emit get##Changed(); } } \
     Q_SIGNAL void get##Changed(); \
-    private: \
+private: \
     type m_##get{init_value};
 
 
