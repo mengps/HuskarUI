@@ -6,7 +6,6 @@
 #include "delglobal.h"
 #include "deldefinitions.h"
 
-QT_FORWARD_DECLARE_CLASS(QQuickPen)
 QT_FORWARD_DECLARE_CLASS(DelRectanglePrivate)
 
 class DELEGATEUI_EXPORT DelPen: public QObject

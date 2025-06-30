@@ -47,6 +47,10 @@ void DelRectangle::setRadius(qreal radius)
         d->m_bottomLeftRadius = radius;
         d->m_bottomRightRadius = radius;
         emit radiusChanged();
+        emit topLeftRadiusChanged();
+        emit topRightRadiusChanged();
+        emit bottomLeftRadiusChanged();
+        emit bottomRightRadiusChanged();
         update();
     }
 }
