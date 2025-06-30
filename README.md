@@ -86,7 +86,7 @@ The installation directory structure
 
 ## 📦 Get started 
 
- - Create QtQuick application `QtVersion >= 6.5`
+ - Create QtQuick application `QtVersion >= 6.7`
  - Add the following cmake command to your project `CMakeLists.txt`
  ```cmake
   target_include_directories(<your_target> PRIVATE DelegateUI/include)
