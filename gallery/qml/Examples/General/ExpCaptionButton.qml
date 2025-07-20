@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,27 +15,33 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelCaptionButton 标题按钮\n
+# HusCaptionButton 标题按钮\n
 一般用于窗口标题栏的按钮。\n
-* **继承自 { DelIconButton }**\n
-支持的代理：\n
+* **继承自 { HusIconButton }**\n
+\n<br/>
+\n### 支持的代理：\n
 - 无\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-isError | bool | 是否为警示按钮
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+isError | bool | false | 是否为警示按钮
                        `)
         }
 
+        ThemeToken {
+            source: 'HusCaptionButton'
+        }
+
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 一般配合无边框窗口使用，用于窗口标题栏的自定义按钮。
                        `)
         }
 
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -45,43 +51,43 @@ isError | bool | 是否为警示按钮
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 15
 
-                    DelCaptionButton {
-                        iconSource: DelIcon.CloseOutlined
+                    HusCaptionButton {
+                        iconSource: HusIcon.CloseOutlined
                     }
 
-                    DelCaptionButton {
+                    HusCaptionButton {
                         isError: true
-                        iconSource: DelIcon.CloseOutlined
+                        iconSource: HusIcon.CloseOutlined
                     }
 
-                    DelCaptionButton {
-                        text: qsTr("关闭")
+                    HusCaptionButton {
+                        text: qsTr('关闭')
                         colorText: colorIcon
-                        iconSource: DelIcon.CloseOutlined
+                        iconSource: HusIcon.CloseOutlined
                     }
                 }
             `
             exampleDelegate: Row {
                 spacing: 15
 
-                DelCaptionButton {
-                    iconSource: DelIcon.CloseOutlined
+                HusCaptionButton {
+                    iconSource: HusIcon.CloseOutlined
                 }
 
-                DelCaptionButton {
+                HusCaptionButton {
                     isError: true
-                    iconSource: DelIcon.CloseOutlined
+                    iconSource: HusIcon.CloseOutlined
                 }
 
-                DelCaptionButton {
-                    text: qsTr("关闭")
+                HusCaptionButton {
+                    text: qsTr('关闭')
                     colorText: colorIcon
-                    iconSource: DelIcon.CloseOutlined
+                    iconSource: HusIcon.CloseOutlined
                 }
             }
         }

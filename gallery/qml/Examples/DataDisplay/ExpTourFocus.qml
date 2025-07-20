@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,31 +15,37 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelTourFocus 漫游焦点\n
+# HusTourFocus 漫游焦点\n
 聚焦于某个功能的焦点。\n
 * **继承自 { Popup }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - 无\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-target | Item | 焦点目标
-overlayColor | color | 覆盖层颜色
-focusMargin | int | 焦点边距
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+target | Item | - | 焦点目标
+overlayColor | color | - | 覆盖层颜色
+focusMargin | int | -| 焦点边距
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 用户需要聚焦于某个功能的焦点时使用。\n
 本组件将通过高亮 \`target\` 项的方式来吸引注意力。\n
                        `)
         }
 
+        ThemeToken {
+            source: 'HusTour'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -51,19 +57,19 @@ focusMargin | int | 焦点边距
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelButton {
-                        text: qsTr("漫游焦点")
-                        type: DelButton.Type_Primary
+                    HusButton {
+                        text: qsTr('漫游焦点')
+                        type: HusButton.Type_Primary
                         onClicked: {
                             tourFocus.open();
                         }
 
-                        DelTourFocus {
+                        HusTourFocus {
                             id: tourFocus
                             target: tourFocus1
                         }
@@ -72,10 +78,10 @@ focusMargin | int | 焦点边距
                     Row {
                         spacing: 10
 
-                        DelButton {
+                        HusButton {
                             id: tourFocus1
-                            text: qsTr("漫游焦点1")
-                            type: DelButton.Type_Outlined
+                            text: qsTr('漫游焦点1')
+                            type: HusButton.Type_Outlined
                         }
                     }
                 }
@@ -83,14 +89,14 @@ focusMargin | int | 焦点边距
             exampleDelegate: Column {
                 spacing: 10
 
-                DelButton {
-                    text: qsTr("漫游焦点")
-                    type: DelButton.Type_Primary
+                HusButton {
+                    text: qsTr('漫游焦点')
+                    type: HusButton.Type_Primary
                     onClicked: {
                         tourFocus.open();
                     }
 
-                    DelTourFocus {
+                    HusTourFocus {
                         id: tourFocus
                         target: tourFocus1
                     }
@@ -99,10 +105,10 @@ focusMargin | int | 焦点边距
                 Row {
                     spacing: 10
 
-                    DelButton {
+                    HusButton {
                         id: tourFocus1
-                        text: qsTr("漫游焦点1")
-                        type: DelButton.Type_Outlined
+                        text: qsTr('漫游焦点1')
+                        type: HusButton.Type_Outlined
                     }
                 }
             }

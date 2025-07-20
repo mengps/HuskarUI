@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(DELEGATEUI_VERSION 0.3.5.0)
+set(HUSKARUI_VERSION 0.4.0.0)
 
-project(Gallery VERSION ${DELEGATEUI_VERSION} LANGUAGES CXX)
+project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
@@ -12,20 +12,20 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
 
-#Add DeleagteUIHelper
-include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/DelegateUIHelper.cmake)
+#Add HuskarUIHelper
+include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/HuskarUIHelper.cmake)
 
 set(GALLERY_RC_FILE "")
 if (WIN32)
     set(GALLERY_RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_Resource.rc)
-    del_add_win_rc(${PROJECT_NAME}
-        COMMENTS "DelegateUI Gallery"
+    hus_add_win_rc(${PROJECT_NAME}
+        COMMENTS "HuskarUI Gallery"
         NAME "${PROJECT_NAME}.exe"
-        COMPANY "DelegateUI"
+        COMPANY "HuskarUI"
         DESCRIPTION ""
         VERSION "${PROJECT_VERSION}"
         COPYRIGHT "Copyright (C) 2025 mengps. All rights reserved."
-        ICONS ../resources/delegateui_icon.ico
+        ICONS ../resources/huskarui_icon.ico
         OUTPUT_FILE "${GALLERY_RC_FILE}"
     )
 endif()
@@ -47,6 +47,9 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/General/ExpPopup.qml
         qml/Examples/General/ExpText.qml
         qml/Examples/General/ExpButtonBlock.qml
+        qml/Examples/General/ExpCaptionBar.qml
+        qml/Examples/General/ExpMoveMouseArea.qml
+        qml/Examples/General/ExpResizeMouseArea.qml
         qml/Examples/DataEntry/ExpSwitch.qml
         qml/Examples/DataEntry/ExpSlider.qml
         qml/Examples/DataEntry/ExpSelect.qml
@@ -89,15 +92,18 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Controls/CodeBox.qml
         qml/Controls/Description.qml
         qml/Controls/CodeRunner.qml
-        qml/Gallery.qml
+        qml/Controls/ThemeToken.qml
         qml/Home/HomePage.qml
         qml/Home/AboutPage.qml
         qml/Home/SettingsPage.qml
+        qml/Home/CreatorPage.qml
+        qml/Gallery.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${GALLERY_RC_FILE}>
         cpp/customtheme.h cpp/customtheme.cpp
         cpp/themeswitchitem.h cpp/themeswitchitem.cpp
         cpp/datagenerator.h cpp/datagenerator.cpp
+        cpp/creator.h cpp/creator_p.h cpp/creator.cpp
         cpp/main.cpp
     RESOURCES
         ../UpdateLists.json
@@ -106,6 +112,7 @@ qt_add_qml_module(${PROJECT_NAME}
 qt_add_resources(${PROJECT_NAME} "images"
     PREFIX "/Gallery"
     FILES
+        images/huskarui_icon.svg
         images/swithc_effect1.jpg
         images/swithc_effect2.jpg
 )
@@ -120,7 +127,7 @@ qt_add_shaders(${PROJECT_NAME} "shaders"
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER delegateui.com
+    MACOSX_BUNDLE_GUI_IDENTIFIER huskarui.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
@@ -133,11 +140,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} PRIVATE 
     Qt6::Quick
-    DelegateUI
+    HuskarUI.Basic
 )
 
-if (BUILD_DELEGATEUI_STATIC_LIBRARY)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE BUILD_DELEGATEUI_STATIC_LIBRARY)
+if (BUILD_HUSKARUI_STATIC_LIBRARY)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE BUILD_HUSKARUI_STATIC_LIBRARY)
 endif()
 
 # Deploy Script
@@ -146,7 +153,7 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
         find_program(QT_DEPLOY_QT NAMES macdeployqt)
         set(QT_DEPLOY_ARGS
             ${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.app
-            --qmldir=${CMAKE_CURRENT_LIST_DIR}/qml
+            --qmldir=${CMAKE_CURRENT_LIST_DIR}
             --no-opengl-sw
             --no-widgets
             --no-virtualkeyboard
@@ -175,7 +182,7 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
     if(WIN32)
         find_program(QT_DEPLOY_QT NAMES windeployqt)
         set(QT_DEPLOY_ARGS
-            --qmldir=${CMAKE_CURRENT_LIST_DIR}/qml
+            --qmldir=${CMAKE_CURRENT_LIST_DIR}
             --plugindir=${CMAKE_SOURCE_DIR}/package/plugins
             --no-opengl-sw
             --no-widgets
@@ -200,7 +207,7 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
                 COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.qmltypes"
                 COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}_qml_module_dir_map.qrc"
                 COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_SOURCE_DIR}/package/qmldir"
-                COMMAND ${CMAKE_COMMAND} -E copy ${Qt6_DIR}/../../../bin/DelegateUI.dll ${CMAKE_SOURCE_DIR}/package
+                COMMAND ${CMAKE_COMMAND} -E copy ${Qt6_DIR}/../../../bin/HuskarUI.Basic.dll ${CMAKE_SOURCE_DIR}/package
                 COMMAND ${QT_DEPLOY_QT} ${QT_DEPLOY_ARGS}
                 COMMENT "Windows Deploying Qt Dependencies After Build........."
                 SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt

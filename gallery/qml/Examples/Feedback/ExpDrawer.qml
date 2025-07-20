@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,28 +15,30 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelDrawer 抽屉 \n
+# HusDrawer 抽屉 \n
 屏幕边缘滑出的浮层面板。\n
 * **继承自 { Drawer }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **titleDelegate: Component** 标题的代理\n
 - **contentDelegate: Component** 内容的代理\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-drawerSize | int | 抽屉宽度
-edge | enum | 抽屉打开的位置(来自 Qt.*Edge)
-title | string | 标题文本
-titleFont | font | 标题字体
-colorTitle | color | 标题颜色
-colorBg | color | 抽屉背景颜色
-colorOverlay | color | 覆盖层颜色
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+drawerSize | int | 378 | 抽屉宽度
+edge | enum | bool | 抽屉打开的位置(来自 Qt.*Edge)
+title | string | '' | 标题文本
+titleFont | font | - | 标题字体
+colorTitle | color | - | 标题颜色
+colorBg | color | - | 抽屉背景颜色
+colorOverlay | color | - | 覆盖层颜色
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 抽屉从父窗体边缘滑入，覆盖住部分父窗体内容。用户在抽屉内操作时不必离开当前任务，操作完成后，可以平滑地回到原任务。
 - 当需要一个附加的面板来控制父窗体内容，这个面板在需要时呼出。比如，控制界面展示样式，往界面中添加内容。\n
@@ -44,8 +46,12 @@ colorOverlay | color | 覆盖层颜色
                        `)
         }
 
+        ThemeToken {
+            source: 'HusDrawer'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -55,37 +61,37 @@ colorOverlay | color | 覆盖层颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
-                    DelButton {
-                        type: DelButton.Type_Primary
-                        text: qsTr("打开")
+                    HusButton {
+                        type: HusButton.Type_Primary
+                        text: qsTr('打开')
                         onClicked: drawer.open();
 
-                        DelDrawer {
+                        HusDrawer {
                             id: drawer
-                            title: qsTr("Basic Drawer")
-                            contentDelegate: DelCopyableText {
+                            title: qsTr('Basic Drawer')
+                            contentDelegate: HusCopyableText {
                                 leftPadding: 15
-                                text: "Some contents...\\nSome contents...\\nSome contents..."
+                                text: 'Some contents...\\nSome contents...\\nSome contents...'
                             }
                         }
                     }
                 }
             `
             exampleDelegate: Row {
-                DelButton {
-                    type: DelButton.Type_Primary
-                    text: qsTr("打开")
+                HusButton {
+                    type: HusButton.Type_Primary
+                    text: qsTr('打开')
                     onClicked: drawer.open();
 
-                    DelDrawer {
+                    HusDrawer {
                         id: drawer
-                        title: qsTr("Basic Drawer")
-                        contentDelegate: DelCopyableText {
+                        title: qsTr('Basic Drawer')
+                        contentDelegate: HusCopyableText {
                             leftPadding: 15
-                            text: "Some contents...\nSome contents...\nSome contents..."
+                            text: 'Some contents...\nSome contents...\nSome contents...'
                         }
                     }
                 }
@@ -103,34 +109,34 @@ colorOverlay | color | 覆盖层颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelRadioBlock {
+                    HusRadioBlock {
                         id: edgeRadio
                         initCheckedIndex: 0
                         model: [
-                            { label: qsTr("上"), value: Qt.TopEdge },
-                            { label: qsTr("下"), value: Qt.BottomEdge },
-                            { label: qsTr("左"), value: Qt.LeftEdge },
-                            { label: qsTr("右"), value: Qt.RightEdge }
+                            { label: qsTr('上'), value: Qt.TopEdge },
+                            { label: qsTr('下'), value: Qt.BottomEdge },
+                            { label: qsTr('左'), value: Qt.LeftEdge },
+                            { label: qsTr('右'), value: Qt.RightEdge }
                         ]
                     }
 
-                    DelButton {
-                        type: DelButton.Type_Primary
-                        text: qsTr("打开")
+                    HusButton {
+                        type: HusButton.Type_Primary
+                        text: qsTr('打开')
                         onClicked: drawer2.open();
 
-                        DelDrawer {
+                        HusDrawer {
                             id: drawer2
                             edge: edgeRadio.currentCheckedValue
-                            title: qsTr("Basic Drawer")
-                            contentDelegate: DelCopyableText {
+                            title: qsTr('Basic Drawer')
+                            contentDelegate: HusCopyableText {
                                 leftPadding: 15
-                                text: "Some contents...\\nSome contents...\\nSome contents..."
+                                text: 'Some contents...\\nSome contents...\\nSome contents...'
                             }
                         }
                     }
@@ -139,29 +145,29 @@ colorOverlay | color | 覆盖层颜色
             exampleDelegate: Row {
                 spacing: 10
 
-                DelRadioBlock {
+                HusRadioBlock {
                     id: edgeRadio
                     initCheckedIndex: 0
                     model: [
-                        { label: qsTr("上"), value: Qt.TopEdge },
-                        { label: qsTr("下"), value: Qt.BottomEdge },
-                        { label: qsTr("左"), value: Qt.LeftEdge },
-                        { label: qsTr("右"), value: Qt.RightEdge }
+                        { label: qsTr('上'), value: Qt.TopEdge },
+                        { label: qsTr('下'), value: Qt.BottomEdge },
+                        { label: qsTr('左'), value: Qt.LeftEdge },
+                        { label: qsTr('右'), value: Qt.RightEdge }
                     ]
                 }
 
-                DelButton {
-                    type: DelButton.Type_Primary
-                    text: qsTr("打开")
+                HusButton {
+                    type: HusButton.Type_Primary
+                    text: qsTr('打开')
                     onClicked: drawer2.open();
 
-                    DelDrawer {
+                    HusDrawer {
                         id: drawer2
                         edge: edgeRadio.currentCheckedValue
-                        title: qsTr("Basic Drawer")
-                        contentDelegate: DelCopyableText {
+                        title: qsTr('Basic Drawer')
+                        contentDelegate: HusCopyableText {
                             leftPadding: 15
-                            text: "Some contents...\nSome contents...\nSome contents..."
+                            text: 'Some contents...\nSome contents...\nSome contents...'
                         }
                     }
                 }

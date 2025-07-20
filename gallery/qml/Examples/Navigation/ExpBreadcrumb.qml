@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
 import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,10 +15,11 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelBreadcrumb 面包屑\n
+# HusBreadcrumb 面包屑\n
 显示当前页面在系统层级结构中的位置，并能向上返回。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **itemDelegate: Component** 路由项代理，代理可访问属性：\n
   - \`index: int\` 当前项索引\n
   - \`model: var\` 当前项数据\n
@@ -27,23 +28,25 @@ Flickable {
   - \`index: int\` 当前项索引\n
   - \`model: var\` 当前项数据\n
   - \`isCurrent: bool\` 是否为当前路由\n
-支持的属性：\n
-属性名 | 类型 | 默认值 | 描述 |
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-animationEnabled | bool | true | 是否开启动画
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 initModel | list | [] | 初始模型
 separator | string | '/' | 默认分隔符
 spacing | int | 4 | 路由项间隔
 titleFont | font | - | 路由项标题字体
 defaultIconSize | int | - | 默认图标大小
 defaultMenuWidth | int | 120 | 默认菜单宽度
-radiusBgItem | int | 4 | 路由项的背景半径
-\n模型支持的属性：\n
-属性名 | 类型 | 可选/必选 | 描述 |
+radiusItemBg | int | - | 路由项的背景圆角半径
+\n<br/>
+\n### 模型支持的属性：\n
+属性名 | 类型 | 可选/必选 | 描述
 ------ | --- | :---: | ---
 title | string | 必选 | 标题
 key | string | 可选 | 路由键(最好唯一)
-iconSource | int | 可选 | 本路由项图标源(来自DelIcon)
+iconSource | int | 可选 | 本路由项图标源(来自HusIcon)
 iconUrl | url | 可选 | 本路由项链接
 iconSize | int | 可选 | 本路由项图标大小
 loading | bool | 可选 | 本路由项是否加载中
@@ -51,13 +54,15 @@ separator | string | 可选 | 本路由项分隔符
 itemDelegate | var | 可选 | 本路由项图标代理(将覆盖默认itemDelegate)
 separatorDelegate | var | 可选 | 本路由项分隔符代理(将覆盖默separatorDelegate)
 menu | object | 可选 | 本路由项菜单
-\n路由项菜单支持的属性：\n
-属性名 | 类型 | 可选/必选 | 描述 |
+\n<br/>
+\n### 路由项菜单支持的属性：\n
+属性名 | 类型 | 可选/必选 | 描述
 ------ | --- | :---: | ---
 width | string | 可选 | 菜单宽度
 items | list | 可选 | 菜单模型
-\n支持的函数：\n
-- \`Object get(index: int)\` 获取 \`index\` 处的模型数据 \n
+\n<br/>
+\n### 支持的函数：\n
+- \`get(index: int): Object\` 获取 \`index\` 处的模型数据 \n
 - \`set(index: int, object: Object)\` 设置 \`index\` 处的模型数据为 \`object\` \n
 - \`setProperty(index: int, propertyName: string, value: any)\` 设置 \`index\` 处的模型数据属性名 \`propertyName\` 值为 \`value\` \n
 - \`move(from: int, to: int, count: int = 1)\` 将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置 \n
@@ -66,7 +71,8 @@ items | list | 可选 | 菜单模型
 - \`remove(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
 - \`clear()\` 清空所有模型数据 \n
 - \`string getPath()\` 获取当前路由路径 \n
-\n支持的信号：\n
+\n<br/>
+\n### 支持的信号：\n
 - \`click(index: int, data: var)\` 点击路由项时发出\n
   - \`index\` 路由项索引\n
   - \`data\` 路由项数据\n
@@ -86,6 +92,10 @@ items | list | 可选 | 菜单模型
                        `)
         }
 
+        ThemeToken {
+            source: 'HusBreadcrumb'
+        }
+
         Description {
             title: qsTr('代码演示')
         }
@@ -98,19 +108,19 @@ items | list | 可选 | 菜单模型
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
-                    DelButton {
+                    HusButton {
                         text: 'Reset'
-                        type: DelButton.Type_Primary
+                        type: HusButton.Type_Primary
                         onClicked: breadcrumb.reset();
                     }
 
-                    DelBreadcrumb {
+                    HusBreadcrumb {
                         id: breadcrumb
                         width: parent.width
                         initModel: [
@@ -126,13 +136,13 @@ items | list | 可选 | 菜单模型
             exampleDelegate: Column {
                 spacing: 10
 
-                DelButton {
+                HusButton {
                     text: 'Reset'
-                    type: DelButton.Type_Primary
+                    type: HusButton.Type_Primary
                     onClicked: breadcrumb.reset();
                 }
 
-                DelBreadcrumb {
+                HusBreadcrumb {
                     id: breadcrumb
                     width: parent.width
                     initModel: [
@@ -154,21 +164,21 @@ items | list | 可选 | 菜单模型
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
-                DelBreadcrumb {
+                HusBreadcrumb {
                     width: parent.width
                     initModel: [
-                        { iconSource: DelIcon.HomeOutlined },
-                        { iconSource: DelIcon.UserOutlined, title: 'Application List' },
+                        { iconSource: HusIcon.HomeOutlined },
+                        { iconSource: HusIcon.UserOutlined, title: 'Application List' },
                         { loading: true, title: 'Application', },
                     ]
                 }
             `
-            exampleDelegate: DelBreadcrumb {
+            exampleDelegate: HusBreadcrumb {
                 initModel: [
-                    { iconSource: DelIcon.HomeOutlined },
-                    { iconSource: DelIcon.UserOutlined, title: 'Application List' },
+                    { iconSource: HusIcon.HomeOutlined },
+                    { iconSource: HusIcon.UserOutlined, title: 'Application List' },
                     { loading: true, title: 'Application', },
                 ]
             }
@@ -182,9 +192,9 @@ items | list | 可选 | 菜单模型
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
-                DelBreadcrumb {
+                HusBreadcrumb {
                     width: parent.width
                     separator: '>'
                     initModel: [
@@ -195,7 +205,7 @@ items | list | 可选 | 菜单模型
                     ]
                 }
             `
-            exampleDelegate: DelBreadcrumb {
+            exampleDelegate: HusBreadcrumb {
                 separator: '>'
                 initModel: [
                     { title: 'Home' },
@@ -214,9 +224,9 @@ items | list | 可选 | 菜单模型
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
-                DelBreadcrumb {
+                HusBreadcrumb {
                     width: parent.width
                     initModel: [
                         { title: 'Location', separator: ':' },
@@ -226,7 +236,7 @@ items | list | 可选 | 菜单模型
                     ]
                 }
             `
-            exampleDelegate: DelBreadcrumb {
+            exampleDelegate: HusBreadcrumb {
                 initModel: [
                     { title: 'Location', separator: ':' },
                     { title: 'Application Center' },
@@ -241,18 +251,18 @@ items | list | 可选 | 菜单模型
             descTitle: qsTr('带下拉菜单的面包屑')
             desc: qsTr(`
 面包屑支持下拉菜单。\n
-通过 \`model.menu\` 属性设置为菜单即 [DelContextMenu](internal://DelContextMenu)。\n
-通过 \`model.menu.items\` 属性设置菜单列表{即 \`DelContextMenu\` 的 \`initModel\` }。\n
+通过 \`model.menu\` 属性设置为菜单即 [HusContextMenu](internal://HusContextMenu)。\n
+通过 \`model.menu.items\` 属性设置菜单列表{即 \`HusContextMenu\` 的 \`initModel\` }。\n
 通过 \`model.menu.width\` 属性设置菜单的宽度：\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
-                DelBreadcrumb {
+                HusBreadcrumb {
                     width: parent.width
                     initModel: [
-                        { title: 'DelegateUI'  },
+                        { title: 'HuskarUI'  },
                         { title: 'Component' },
                         {
                             title: 'General',
@@ -268,9 +278,9 @@ items | list | 可选 | 菜单模型
                     ]
                 }
             `
-            exampleDelegate: DelBreadcrumb {
+            exampleDelegate: HusBreadcrumb {
                 initModel: [
-                    { title: 'DelegateUI'  },
+                    { title: 'HuskarUI'  },
                     { title: 'Component' },
                     {
                         title: 'General',

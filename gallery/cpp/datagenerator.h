@@ -16,7 +16,7 @@ public:
     Q_INVOKABLE QVariantList genTableData(int rows);
 
 private:
-    DataGenerator(QObject *parent = nullptr);
+    DataGenerator(QObject *parent = nullptr) : QObject{parent} { }
 };
 
 #endif // DATAGENERATOR_H

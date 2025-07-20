@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -16,39 +16,46 @@ Flickable {
         Description {
             id: description
             desc: qsTr(`
-## DelPopup 弹窗\n
+# HusPopup 弹窗\n
 自带跟随主题切换的背景和阴影, 用来替代内置 Popup。\n
 * **继承自 { Popup }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - 无\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-movable | bool | 是否可移动(默认false)
-resizable | bool | 是否可改变大小(默认false)
-minimumX | real | 可移动的最小X坐标(movable为true生效)
-maximumX | real | 可移动的最大X坐标(movable为true生效)
-minimumY | real | 可移动的最小Y坐标(movable为true生效)
-maximumY | real | 可移动的最大Y坐标(movable为true生效)
-minimumWidth | real | 可改变的最小宽度(resizable为true生效)
-maximumWidth | real | 可改变的最小宽度(resizable为true生效)
-minimumHeight | real | 可改变的最小高度(resizable为true生效)
-maximumHeight | real | 可改变的最小高度(resizable为true生效)
-colorShadow | color | 阴影颜色
-colorBg | color | 背景颜色
-radiusBg | real | 背景圆角半径
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+movable | bool | false | 是否可移动
+resizable | bool | false | 是否可改变大小
+minimumX | int | Number.NaN | 可移动的最小X坐标(movable为true生效)
+maximumX | int | Number.NaN | 可移动的最大X坐标(movable为true生效)
+minimumY | int | Number.NaN | 可移动的最小Y坐标(movable为true生效)
+maximumY | int | Number.NaN | 可移动的最大Y坐标(movable为true生效)
+minimumWidth | int | 0 | 可改变的最小宽度(resizable为true生效)
+maximumWidth | int | Number.NaN | 可改变的最小宽度(resizable为true生效)
+minimumHeight | int | 0 | 可改变的最小高度(resizable为true生效)
+maximumHeight | int | Number.NaN | 可改变的最小高度(resizable为true生效)
+colorShadow | color | - | 阴影颜色
+colorBg | color | - | 背景颜色
+radiusBg | int | - | 背景圆角半径
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 需要一个弹出式窗口时使用。
                        `)
         }
 
+        ThemeToken {
+            source: 'HusPopup'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -61,14 +68,14 @@ radiusBg | real | 背景圆角半径
             code: `
                 import QtQuick
                 import QtQuick.Controls.Basic
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Item {
                     height: 50
 
-                    DelButton {
-                        text: (popup.opened ? qsTr("隐藏") : qsTr("显示"))
-                        type: DelButton.Type_Primary
+                    HusButton {
+                        text: (popup.opened ? qsTr('隐藏') : qsTr('显示'))
+                        type: HusButton.Type_Primary
                         onClicked: {
                             if (popup.opened)
                                 popup.close();
@@ -77,14 +84,14 @@ radiusBg | real | 背景圆角半径
                         }
                     }
 
-                    DelPopup {
+                    HusPopup {
                         id: popup
                         x: (parent.width - width) * 0.5
                         y: (parent.height - height) * 0.5
                         width: 400
                         height: 300
                         parent: Overlay.overlay
-                        closePolicy: DelPopup.NoAutoClose
+                        closePolicy: HusPopup.NoAutoClose
                         movable: true
                         resizable: true
                         minimumX: 0
@@ -94,11 +101,11 @@ radiusBg | real | 背景圆角半径
                         minimumWidth: 400
                         minimumHeight: 300
                         contentItem: Item {
-                            DelCaptionButton {
+                            HusCaptionButton {
                                 anchors.right: parent.right
                                 radiusBg: popup.radiusBg * 0.5
                                 colorText: colorIcon
-                                iconSource: DelIcon.CloseOutlined
+                                iconSource: HusIcon.CloseOutlined
                                 onClicked: popup.close();
                             }
                         }
@@ -108,9 +115,9 @@ radiusBg | real | 背景圆角半径
             exampleDelegate: Item {
                 height: 50
 
-                DelButton {
-                    text: (popup.opened ? qsTr("隐藏") : qsTr("显示"))
-                    type: DelButton.Type_Primary
+                HusButton {
+                    text: (popup.opened ? qsTr('隐藏') : qsTr('显示'))
+                    type: HusButton.Type_Primary
                     onClicked: {
                         if (popup.opened)
                             popup.close();
@@ -119,14 +126,14 @@ radiusBg | real | 背景圆角半径
                     }
                 }
 
-                DelPopup {
+                HusPopup {
                     id: popup
                     x: (parent.width - width) * 0.5
                     y: (parent.height - height) * 0.5
                     width: 400
                     height: 300
                     parent: Overlay.overlay
-                    closePolicy: DelPopup.NoAutoClose
+                    closePolicy: HusPopup.NoAutoClose
                     movable: true
                     resizable: true
                     minimumX: 0
@@ -136,11 +143,11 @@ radiusBg | real | 背景圆角半径
                     minimumWidth: 400
                     minimumHeight: 300
                     contentItem: Item {
-                        DelCaptionButton {
+                        HusCaptionButton {
                             anchors.right: parent.right
                             radiusBg: popup.radiusBg * 0.5
                             colorText: colorIcon
-                            iconSource: DelIcon.CloseOutlined
+                            iconSource: HusIcon.CloseOutlined
                             onClicked: popup.close();
                         }
                     }

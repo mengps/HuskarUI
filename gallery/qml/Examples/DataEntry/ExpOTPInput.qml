@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -14,33 +14,36 @@ Flickable {
         spacing: 30
         Description {
             desc: qsTr(`
-## DelOTPInput 一次性口令输入框 \n
+# HusOTPInput 一次性口令输入框 \n
 用于接收和验证一次性口令的输入框组合，通常用于验证码或密码。\n
 * **继承自 { Item }**\n
-支持的代理：\n
- - **dividerDelegate: Component** 分隔器代理\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-length | int | 口令长度(即输入项数)
-characterLength | int | 输入项的字符长度
-currentIndex | int | 当前输入项索引
-currentInput | int | 当前所有项输入文本和
-itemWidth | int | 输入项宽度
-itemHeight | int | 输入项高度
-itemSpacing | int | 输入项间隔
-itemValidator | Validator | 输入项的验证器
-itemInputMethodHints | enum | 输入项的输入法提示(例如: Qt.ImhHiddenText)
-itemPassword | bool | 输入项是否为密码(显示为: itemPasswordCharacter)
-itemPasswordCharacter | string | 输入项的密码字符(itemPassword为true时启用)
-formatter | Function | 格式化器(将为每一项调用)
-colorItemText | color | 输入项文本颜色
-colorItemBorder | color | 输入项边框颜色
-colorItemBorderActive | color | 输入项边框激活时颜色
-colorItemBg | color | 输入项背景颜色
-radiusBg | int | 输入项背景半径
-\n支持的函数：\n
+\n<br/>
+\n### 支持的代理：\n
+- **dividerDelegate: Component** 分隔器代理\n
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+length | int | 6 | 口令长度(即输入项数)
+characterLength | int | 1 | 输入项的字符长度
+currentIndex | int | 0 | 当前输入项索引
+currentInput | string | '' | 当前所有项输入文本和
+itemWidth | int | 45 | 输入项宽度
+itemHeight | int | 32 | 输入项高度
+itemSpacing | int | 8 | 输入项间隔
+itemValidator | Validator | 6 | 输入项的验证器
+itemInputMethodHints | enum | Qt.ImhHiddenText | 输入项的输入法提示(例如: Qt.ImhHiddenText)
+itemPassword | bool | false | 输入项是否为密码(显示为: itemPasswordCharacter)
+itemPasswordCharacter | string | '' | 输入项的密码字符(itemPassword为true时启用)
+formatter | function | - | 格式化器(将为每一项调用)
+colorItemText | color | - | 输入项文本颜色
+colorItemBorder | color | - | 输入项边框颜色
+colorItemBorderActive | color | - | 输入项边框激活时颜色
+colorItemBg | color | - | 输入项背景颜色
+radiusBg | int | - | 输入项背景圆角
+\n<br/>
+\n### 支持的函数：\n
 - \`setInput(inputs: list)\` 通过 \`inputs\` 设置每项的输入文本\n
 - \`setInputAtIndex(index: int, input: string)\` 获取指定索引 \`index\` 处的文本为 \`input\`\n
 - \`getInput(): string\` 获取所有项输入文本和\n
@@ -52,14 +55,18 @@ radiusBg | int | 输入项背景半径
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 需要用户输入[密码/验证码/激活码]等一次性口令时。\n
                        `)
         }
 
+        ThemeToken {
+            source: 'HusInput'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -72,21 +79,21 @@ radiusBg | int | 输入项背景半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelOTPInput {
+                    HusOTPInput {
                         length: 6
                     }
 
-                    DelOTPInput {
+                    HusOTPInput {
                         length: 6
                         enabled: false
                     }
 
-                    DelOTPInput {
+                    HusOTPInput {
                         length: 6
                         itemValidator: RegularExpressionValidator { regularExpression: /[a-zA-Z]?/ }
                     }
@@ -95,16 +102,16 @@ radiusBg | int | 输入项背景半径
             exampleDelegate: Column {
                 spacing: 10
 
-                DelOTPInput {
+                HusOTPInput {
                     length: 6
                 }
 
-                DelOTPInput {
+                HusOTPInput {
                     length: 6
                     enabled: false
                 }
 
-                DelOTPInput {
+                HusOTPInput {
                     length: 6
                     itemValidator: RegularExpressionValidator { regularExpression: /[a-zA-Z]?/ }
                 }
@@ -120,12 +127,12 @@ radiusBg | int | 输入项背景半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelOTPInput {
+                    HusOTPInput {
                         length: 6
                         itemValidator: RegularExpressionValidator { regularExpression: /[a-zA-Z]?/ }
                         formatter: (text) => text.toUpperCase();
@@ -135,7 +142,7 @@ radiusBg | int | 输入项背景半径
             exampleDelegate: Column {
                 spacing: 10
 
-                DelOTPInput {
+                HusOTPInput {
                     length: 6
                     itemValidator: RegularExpressionValidator { regularExpression: /[a-zA-Z]?/ }
                     formatter: (text) => text.toUpperCase();
@@ -152,39 +159,39 @@ radiusBg | int | 输入项背景半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelOTPInput {
+                    HusOTPInput {
                         id: password
                         length: 6
                         itemPassword: true
-                        itemPasswordCharacter: "●"
+                        itemPasswordCharacter: '●'
                         itemValidator: RegularExpressionValidator { regularExpression: /[0-9a-zA-Z]?/ }
                     }
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: qsTr("当前输入: ") + password.currentInput
+                        text: qsTr('当前输入: ') + password.currentInput
                     }
                 }
             `
             exampleDelegate: Row {
                 spacing: 10
 
-                DelOTPInput {
+                HusOTPInput {
                     id: password
                     length: 6
                     itemPassword: true
-                    itemPasswordCharacter: "●"
+                    itemPasswordCharacter: '●'
                     itemValidator: RegularExpressionValidator { regularExpression: /[0-9a-zA-Z]?/ }
                 }
 
-                DelCopyableText {
+                HusCopyableText {
                     anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("当前输入: ") + password.currentInput
+                    text: qsTr('当前输入: ') + password.currentInput
                 }
             }
         }
@@ -197,12 +204,12 @@ radiusBg | int | 输入项背景半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelOTPInput {
+                    HusOTPInput {
                         id: activationCodeInput
                         length: 4
                         characterLength: 4
@@ -217,22 +224,22 @@ radiusBg | int | 输入项背景半径
                             Rectangle {
                                 width: 12
                                 height: 1
-                                color: DelTheme.Primary.colorTextBase
+                                color: HusTheme.Primary.colorTextBase
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                         }
                     }
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: qsTr("当前输入: ") + activationCodeInput.currentInput
+                        text: qsTr('当前输入: ') + activationCodeInput.currentInput
                     }
                 }
             `
             exampleDelegate: Row {
                 spacing: 10
 
-                DelOTPInput {
+                HusOTPInput {
                     id: activationCodeInput
                     length: 4
                     characterLength: 4
@@ -247,15 +254,15 @@ radiusBg | int | 输入项背景半径
                         Rectangle {
                             width: 12
                             height: 1
-                            color: DelTheme.Primary.colorTextBase
+                            color: HusTheme.Primary.colorTextBase
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
                 }
 
-                DelCopyableText {
+                HusCopyableText {
                     anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("当前输入: ") + activationCodeInput.currentInput
+                    text: qsTr('当前输入: ') + activationCodeInput.currentInput
                 }
             }
         }

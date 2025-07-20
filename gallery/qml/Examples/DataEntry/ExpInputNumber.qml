@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
 import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,15 +15,17 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelInputNumber 数字输入框 \n
+# HusInputNumber 数字输入框 \n
 通过鼠标或键盘，输入范围内的数值。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **beforeDelegate: Component** 前置标签代理\n
 - **afterDelegate: Component** 后置标签代理\n
 - **handlerDelegate: Component** 增减按钮代理\n
-支持的属性：\n
-属性名 | 类型 | 默认值 | 描述 |
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
 showHandler | bool | true | 是否显示增减按钮
@@ -37,8 +39,9 @@ step | real | 1 | 增减步长
 precision | int | 0 | 精度(保留小数位)
 prefix | string | '' | 前缀文本(图标)
 suffix | string | '' | 后缀文本(图标)
-upIcon | int丨string | DelIcon.UpOutlined | 增按钮图标
-downIcon | int丨string  | DelIcon.DownOutlined | 减按钮图标
+upIcon | int丨string | HusIcon.UpOutlined | 增按钮图标
+downIcon | int丨string  | HusIcon.DownOutlined | 减按钮图标
+labelFont | font | 'HuskarUI-Icons' | 前置后置标签字体
 beforeLabel | sting丨list | '' | 前置标签(列表)
 afterLabel | sting丨list | '' | 后置标签(列表)
 currentBeforeLabel | sting | '' | 当前前置标签
@@ -47,15 +50,17 @@ formatter | function | - | 格式化器(格式化数值为字符串)
 parser | function | - | 解析器(解析字符串为数值)
 defaultHandlerWidth | int | 24 | 默认增减按钮宽度
 colorText | color | - | 文本颜色
-radiusBg | int | 6 | 背景圆角半径
-\n支持的信号：\n
+radiusBg | int | - | 背景圆角
+\n<br/>
+\n### 支持的信号：\n
 - \`activedBefore(index: int, var data)\` 当前置为列表时，点击选择项发出\n
   - \`index\` 选择项索引\n
   - \`data\` 选择项数据\n
 - \`activedAfter(index: int, var data)\` 当后置为列表时，点击选择项发出\n
   - \`index\` 选择项索引\n
   - \`data\` 选择项数据\n
-\n支持的函数：\n
+\n<br/>
+\n### 支持的函数：\n
 - \`increase()\` 增加数值(步长由属性 \`step\` 给出) \n
 - \`decrease()\` 减少数值(步长由属性 \`step\` 给出) \n
 - \`getFullText(): string\` 获取完整输入文本 \n
@@ -69,7 +74,6 @@ radiusBg | int | 6 | 背景圆角半径
 - \`paste()\` \n
 - \`redo()\` \n
 - \`undo()\` \n
-
                        `)
         }
 
@@ -78,6 +82,10 @@ radiusBg | int | 6 | 背景圆角半径
             desc: qsTr(`
 - 当需要获取标准数值时。\n
                        `)
+        }
+
+        ThemeToken {
+            source: 'HusInput'
         }
 
         Description {
@@ -92,13 +100,13 @@ radiusBg | int | 6 | 背景圆角半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     width: parent.width
                     spacing: 10
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 120
                         min: 0
                         max: 10
@@ -108,7 +116,7 @@ radiusBg | int | 6 | 背景圆角半径
             exampleDelegate: Row {
                 spacing: 10
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 120
                     min: 0
                     max: 10
@@ -121,24 +129,24 @@ radiusBg | int | 6 | 背景圆角半径
             descTitle: qsTr('前置/后置标签')
             desc: qsTr(`
 用于配置一些固定组合。\n
-通过 \`beforeLabel\` / \`afterLabel\` 属性设置前置/后置标签，支持 \`string | list\`，为数组时则创建为 [DelSelect](internal://DelSelect)。\n
+通过 \`beforeLabel\` / \`afterLabel\` 属性设置前置/后置标签，支持 \`string | list\`，为数组时则创建为 [HusSelect](internal://HusSelect)。\n
 通过 \`currentBeforeLabel\` / \`currentAfterLabel\` 属性获取当前前置/后置标签。\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 240
                         value: 100
                         beforeLabel: '+'
                         afterLabel: '$'
                     }
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 240
                         value: 100
                         beforeLabel: [
@@ -154,13 +162,13 @@ radiusBg | int | 6 | 背景圆角半径
                         prefix: currentAfterLabel
                     }
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 240
                         value: 100
-                        afterLabel: String.fromCharCode(DelIcon.SettingOutlined)
+                        afterLabel: String.fromCharCode(HusIcon.SettingOutlined)
                     }
 
-                    DelInputNumber {
+                    HusInputNumber {
                         enabled: false
                         width: 240
                         value: 100
@@ -170,7 +178,7 @@ radiusBg | int | 6 | 背景圆角半径
                         ]
                     }
 
-                    DelInputNumber {
+                    HusInputNumber {
                         enabled: false
                         width: 240
                         value: 100
@@ -178,7 +186,7 @@ radiusBg | int | 6 | 背景圆角半径
                             { label: '+', value: 'add' },
                             { label: '-', value: 'minus' },
                         ]
-                        afterLabel: String.fromCharCode(DelIcon.SettingOutlined)
+                        afterLabel: String.fromCharCode(HusIcon.SettingOutlined)
                         prefix: '¥'
                         suffix: 'RMB'
                     }
@@ -187,14 +195,14 @@ radiusBg | int | 6 | 背景圆角半径
             exampleDelegate: Column {
                 spacing: 10
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 240
                     value: 100
                     beforeLabel: '+'
                     afterLabel: '$'
                 }
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 240
                     value: 100
                     beforeLabel: [
@@ -210,13 +218,13 @@ radiusBg | int | 6 | 背景圆角半径
                     prefix: currentAfterLabel
                 }
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 240
                     value: 100
-                    afterLabel: String.fromCharCode(DelIcon.SettingOutlined)
+                    afterLabel: String.fromCharCode(HusIcon.SettingOutlined)
                 }
 
-                DelInputNumber {
+                HusInputNumber {
                     enabled: false
                     width: 240
                     value: 100
@@ -226,7 +234,7 @@ radiusBg | int | 6 | 背景圆角半径
                     ]
                 }
 
-                DelInputNumber {
+                HusInputNumber {
                     enabled: false
                     width: 240
                     value: 100
@@ -234,7 +242,7 @@ radiusBg | int | 6 | 背景圆角半径
                         { label: '+', value: 'add' },
                         { label: '-', value: 'minus' },
                     ]
-                    afterLabel: String.fromCharCode(DelIcon.SettingOutlined)
+                    afterLabel: String.fromCharCode(HusIcon.SettingOutlined)
                     prefix: '¥'
                     suffix: 'RMB'
                 }
@@ -250,13 +258,13 @@ radiusBg | int | 6 | 背景圆角半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     width: parent.width
                     spacing: 10
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 200
                         value: 1
                         min: 0
@@ -269,7 +277,7 @@ radiusBg | int | 6 | 背景圆角半径
             exampleDelegate: Row {
                 spacing: 10
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 200
                     value: 1
                     min: 0
@@ -289,20 +297,20 @@ radiusBg | int | 6 | 背景圆角半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 200
                         value: 1000
                         formatter: (value) => '$ ' + String(value).replace(/(\\d)(?=(\\d{3})+(?!\\d))/g, '\$1,')
                         parser: (text) => text.replace(/\\$\\s?|(,*)/g, '')
                     }
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 200
                         value: 50
                         min: 0
@@ -315,14 +323,14 @@ radiusBg | int | 6 | 背景圆角半径
             exampleDelegate: Column {
                 spacing: 10
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 200
                     value: 1000
                     formatter: (value) => '$ ' + String(value).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
                     parser: (text) => text.replace(/\$\s?|(,*)/g, '')
                 }
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 200
                     value: 50
                     min: 0
@@ -341,34 +349,34 @@ radiusBg | int | 6 | 背景圆角半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 200
                         prefix: '￥'
                     }
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 200
-                        beforeLabel: String.fromCharCode(DelIcon.UserOutlined)
+                        beforeLabel: String.fromCharCode(HusIcon.UserOutlined)
                         prefix: '￥'
                     }
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 200
-                        beforeLabel: String.fromCharCode(DelIcon.UserOutlined)
+                        beforeLabel: String.fromCharCode(HusIcon.UserOutlined)
                         prefix: '￥'
                         suffix: 'RMB'
                     }
 
-                    DelInputNumber {
+                    HusInputNumber {
                         enabled: false
                         width: 200
-                        beforeLabel: String.fromCharCode(DelIcon.UserOutlined)
+                        beforeLabel: String.fromCharCode(HusIcon.UserOutlined)
                         prefix: '￥'
                     }
                 }
@@ -376,28 +384,28 @@ radiusBg | int | 6 | 背景圆角半径
             exampleDelegate: Column {
                 spacing: 10
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 200
                     prefix: '￥'
                 }
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 200
-                    beforeLabel: String.fromCharCode(DelIcon.UserOutlined)
+                    beforeLabel: String.fromCharCode(HusIcon.UserOutlined)
                     prefix: '￥'
                 }
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 200
-                    beforeLabel: String.fromCharCode(DelIcon.UserOutlined)
+                    beforeLabel: String.fromCharCode(HusIcon.UserOutlined)
                     prefix: '￥'
                     suffix: 'RMB'
                 }
 
-                DelInputNumber {
+                HusInputNumber {
                     enabled: false
                     width: 200
-                    beforeLabel: String.fromCharCode(DelIcon.UserOutlined)
+                    beforeLabel: String.fromCharCode(HusIcon.UserOutlined)
                     prefix: '￥'
                 }
             }
@@ -411,20 +419,20 @@ radiusBg | int | 6 | 背景圆角半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     width: parent.width
                     spacing: 10
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 140
                         min: 0
                         max: 10
                         useWheel: wheelCheckBox.checked
                     }
 
-                    DelCheckBox {
+                    HusCheckBox {
                         id: wheelCheckBox
                         anchors.verticalCenter: parent.verticalCenter
                         text: 'Toggle mouse wheel'
@@ -435,14 +443,14 @@ radiusBg | int | 6 | 背景圆角半径
             exampleDelegate: Row {
                 spacing: 10
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 140
                     min: 0
                     max: 10
                     useWheel: wheelCheckBox.checked
                 }
 
-                DelCheckBox {
+                HusCheckBox {
                     id: wheelCheckBox
                     anchors.verticalCenter: parent.verticalCenter
                     text: 'Toggle mouse wheel'
@@ -459,20 +467,20 @@ radiusBg | int | 6 | 背景圆角半径
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     width: parent.width
                     spacing: 10
 
-                    DelInputNumber {
+                    HusInputNumber {
                         width: 140
                         min: 0
                         max: 10
                         useKeyboard: keyboardCheckBox.checked
                     }
 
-                    DelCheckBox {
+                    HusCheckBox {
                         id: keyboardCheckBox
                         anchors.verticalCenter: parent.verticalCenter
                         text: 'Toggle keyboard'
@@ -483,14 +491,14 @@ radiusBg | int | 6 | 背景圆角半径
             exampleDelegate: Row {
                 spacing: 10
 
-                DelInputNumber {
+                HusInputNumber {
                     width: 140
                     min: 0
                     max: 10
                     useKeyboard: keyboardCheckBox.checked
                 }
 
-                DelCheckBox {
+                HusCheckBox {
                     id: keyboardCheckBox
                     anchors.verticalCenter: parent.verticalCenter
                     text: 'Toggle keyboard'

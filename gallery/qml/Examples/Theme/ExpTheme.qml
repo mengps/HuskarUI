@@ -1,16 +1,16 @@
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
-    DelColorGenerator {
-        id: delColorGenerator
+    HusColorGenerator {
+        id: husColorGenerator
     }
 
     Column {
@@ -21,18 +21,18 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`DelTheme.installThemePrimaryColorBase()\` 方法设置全局主题的主基础颜色，主基础颜色影响所有颜色的生成。
+通过 \`HusTheme.installThemePrimaryColorBase()\` 方法设置全局主题的主基础颜色，主基础颜色影响所有颜色的生成。
                        `)
             code: `
-                DelTheme.installThemePrimaryColorBase("#ff0000");
+                HusTheme.installThemePrimaryColorBase('#ff0000');
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                DelDivider {
+                HusDivider {
                     width: parent.width
                     height: 30
-                    title: qsTr("更改主基础颜色")
+                    title: qsTr('更改主基础颜色')
                 }
 
                 Row {
@@ -42,40 +42,56 @@ Flickable {
                     Repeater {
                         id: repeater
                         model: [
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Red), colorName: "red" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Volcano), colorName: "volcano" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Orange), colorName: "orange" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Gold), colorName: "gold" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Yellow), colorName: "yellow" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Lime), colorName: "lime" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Green), colorName: "green" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Cyan), colorName: "cyan" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Blue), colorName: "blue" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Geekblue), colorName: "geekblue" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Purple), colorName: "purple" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Magenta), colorName: "magenta" },
-                            { color: delColorGenerator.presetToColor(DelColorGenerator.Preset_Grey), colorName: "grey" }
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Red), colorName: 'red' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Volcano), colorName: 'volcano' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Orange), colorName: 'orange' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Gold), colorName: 'gold' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Yellow), colorName: 'yellow' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Lime), colorName: 'lime' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Green), colorName: 'green' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Cyan), colorName: 'cyan' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Blue), colorName: 'blue' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Geekblue), colorName: 'geekblue' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Purple), colorName: 'purple' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Magenta), colorName: 'magenta' },
+                            { color: husColorGenerator.presetToColor(HusColorGenerator.Preset_Grey), colorName: 'grey' }
                         ]
                         delegate: Rectangle {
                             id: rootItem
                             width: 50
                             height: 50
-                            color: modelData.color
-                            radius: 5
+                            color: hovered ? HusThemeFunctions.lighter(modelData.color, 110) : modelData.color
+                            border.color: isCurrent || hovered ? HusTheme.Primary.colorPrimaryBorderHover :
+                                                                 HusTheme.Primary.colorPrimaryBorder
+                            radius: HusTheme.Primary.radiusPrimary
+                            Component.onCompleted: {
+                                if ( HusTheme.Primary.colorPrimary === modelData.color) {
+                                    repeater.currentIndex = index;
+                                }
+                            }
 
-                            DelIconText {
+                            property bool hovered: false
+                            property bool isCurrent: index == repeater.currentIndex
+
+                            Behavior on color { ColorAnimation { } }
+                            Behavior on border.color { ColorAnimation { } }
+
+                            HusIconText {
                                 anchors.centerIn: parent
-                                iconSource: DelIcon.CheckOutlined
+                                iconSource: HusIcon.CheckOutlined
                                 iconSize: 18
-                                color: "white"
-                                visible: index == repeater.currentIndex
+                                color: 'white'
+                                visible: rootItem.isCurrent
                             }
 
                             MouseArea {
                                 anchors.fill: parent
+                                hoverEnabled: true
+                                onEntered: rootItem.hovered = true;
+                                onExited: rootItem.hovered = false;
                                 onClicked: {
                                     repeater.currentIndex = index;
-                                    DelTheme.installThemePrimaryColorBase(rootItem.color);
+                                    HusTheme.installThemePrimaryColorBase(rootItem.color);
                                 }
                             }
                         }
@@ -88,18 +104,18 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`DelTheme.installThemePrimaryFontSizeBase()\` 方法设置全局主题的主基础字体大小，主基础字体大小影响所有字体大小的生成。
+通过 \`HusTheme.installThemePrimaryFontSizeBase()\` 方法设置全局主题的主基础字体大小，主基础字体大小影响所有字体大小的生成。
                        `)
             code: `
-                DelTheme.installThemePrimaryFontSizeBase(32);
+                HusTheme.installThemePrimaryFontSizeBase(32);
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                DelDivider {
+                HusDivider {
                     width: parent.width
                     height: 30
-                    title: qsTr("更改主基础字体大小")
+                    title: qsTr('更改主基础字体大小')
                 }
             }
         }
@@ -107,18 +123,18 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`DelTheme.installThemePrimaryFontFamiliesBase()\` 方法设置全局主题的主基础字体族字符串，该字符串可以是多个字体名，用逗号分隔，主题引擎将自动选择该列表中在本平台支持的字体。
+通过 \`HusTheme.installThemePrimaryFontFamiliesBase()\` 方法设置全局主题的主基础字体族字符串，该字符串可以是多个字体名，用逗号分隔，主题引擎将自动选择该列表中在本平台支持的字体。
                        `)
             code: `
-                DelTheme.installThemePrimaryFontFamiliesBase('"Microsoft YaHei UI", BlinkMacSystemFont, "Segoe UI", Roboto');
+                HusTheme.installThemePrimaryFontFamiliesBase(''Microsoft YaHei UI', BlinkMacSystemFont, 'Segoe UI', Roboto');
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                DelDivider {
+                HusDivider {
                     width: parent.width
                     height: 30
-                    title: qsTr("更改主基础字体族")
+                    title: qsTr('更改主基础字体族')
                 }
             }
         }
@@ -126,26 +142,65 @@ Flickable {
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`DelTheme.animationEnabled\` 属性开启/关闭全局动画，关闭动画资源占用更低。
+通过 \`HusTheme.installThemePrimaryRadiusBase()\` 方法设置圆角半径基础大小。
                        `)
             code: `
-                DelTheme.animationEnabled = true;
+                HusTheme.installThemePrimaryRadiusBase(6);
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                DelDivider {
+                HusDivider {
                     width: parent.width
                     height: 30
-                    title: qsTr("更改全局动画")
+                    title: qsTr('更改圆角半径基础大小')
+                }
+            }
+        }
+
+
+        CodeBox {
+            width: parent.width
+            desc: qsTr(`
+通过 \`HusTheme.installThemePrimaryAnimationBase()\` 方法设置动画基础速度。
+                       `)
+            code: `
+                HusTheme.installThemePrimaryAnimationBase(100, 200, 300);
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                HusDivider {
+                    width: parent.width
+                    height: 30
+                    title: qsTr('更改动画基础速度')
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            desc: qsTr(`
+通过 \`HusTheme.animationEnabled\` 属性开启/关闭全局动画，关闭动画资源占用更低。
+                       `)
+            code: `
+                HusTheme.animationEnabled = true;
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                HusDivider {
+                    width: parent.width
+                    height: 30
+                    title: qsTr('更改全局动画')
                 }
 
-                DelSwitch {
-                    checked: DelTheme.animationEnabled
-                    checkedText: qsTr("开启")
-                    uncheckedText: qsTr("关闭")
+                HusSwitch {
+                    checked: HusTheme.animationEnabled
+                    checkedText: qsTr('开启')
+                    uncheckedText: qsTr('关闭')
                     onToggled: {
-                        DelTheme.animationEnabled = checked;
+                        HusTheme.animationEnabled = checked;
                     }
                 }
             }

@@ -4,7 +4,7 @@
 #include <QImage>
 #include <QQuickPaintedItem>
 
-#include "deldefinitions.h"
+#include "husdefinitions.h"
 
 QT_FORWARD_DECLARE_CLASS(QPropertyAnimation)
 
@@ -13,11 +13,11 @@ class ThemeSwitchItem : public QQuickPaintedItem
     Q_OBJECT
     QML_NAMED_ELEMENT(ThemeSwitchItem)
 
-    DEL_PROPERTY(int, radius, setRadius)
-    DEL_PROPERTY(int, duration, setDuration)
-    DEL_PROPERTY(QColor, colorBg, setColorBg)
-    DEL_PROPERTY(bool, isDark, setIsDark)
-    DEL_PROPERTY_P(QQuickItem*, target, setTarget)
+    HUS_PROPERTY(int, radius, setRadius)
+    HUS_PROPERTY(int, duration, setDuration)
+    HUS_PROPERTY(QColor, colorBg, setColorBg)
+    HUS_PROPERTY(bool, isDark, setIsDark)
+    HUS_PROPERTY_P(QQuickItem*, target, setTarget)
 
 public:
     explicit ThemeSwitchItem(QQuickItem *parent = nullptr);

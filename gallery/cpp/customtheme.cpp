@@ -1,5 +1,5 @@
 #include "customtheme.h"
-#include "deltheme.h"
+#include "hustheme.h"
 
 CustomTheme *CustomTheme::instance()
 {
@@ -14,8 +14,8 @@ CustomTheme *CustomTheme::create(QQmlEngine *, QJSEngine *)
 
 void CustomTheme::registerAll()
 {
-    /*DelTheme::instance()->registerCustomComponentTheme(this, "MyControl", &m_MyControl, ":/Gallery/theme/MyControl.json");
-    DelTheme::instance()->reloadTheme();*/
+    /*HusTheme::instance()->registerCustomComponentTheme(this, "MyControl", &m_MyControl, ":/Gallery/theme/MyControl.json");
+    HusTheme::instance()->reloadTheme();*/
 }
 
 CustomTheme::CustomTheme(QObject *parent)

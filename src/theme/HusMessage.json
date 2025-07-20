@@ -1,0 +1,11 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorMessage": "@colorTextPrimary",
+    "colorBg": "@colorBgBase",
+    "colorBgDark": "#222",
+    "colorBgShadow": "@colorTextBase",
+    "colorClose": "@colorTextTertiary",
+    "colorCloseHover": "@colorTextBase",
+    "radiusBg": "@radiusPrimaryLG"
+}

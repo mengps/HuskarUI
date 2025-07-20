@@ -1,5 +1,5 @@
 import QtQuick
-import DelegateUI
+import HuskarUI.Basic
 
 Item {
     id: root
@@ -16,20 +16,20 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 15
 
-        DelText {
+        HusText {
             id: titleText
             width: parent.width
             visible: text.length !== 0
             font {
-                pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
+                pixelSize: HusTheme.Primary.fontPrimarySizeHeading3
                 weight: Font.DemiBold
             }
         }
 
-        DelText {
+        HusText {
             id: descText
             width: parent.width
-            lineHeight: 1.1
+            lineHeight: 1.2
             visible: text.length !== 0
             textFormat: Text.MarkdownText
             onLinkActivated:

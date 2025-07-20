@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import DelegateUI
+import HuskarUI.Basic
 
 Rectangle {
     id: root
@@ -10,7 +10,7 @@ Rectangle {
     height: column.height + 40
     radius: 5
     color: 'transparent'
-    border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.1)
+    border.color: HusThemeFunctions.alpha(HusTheme.Primary.colorTextBase, 0.1)
     clip: true
 
     property alias expTitle: expDivider.title
@@ -27,7 +27,7 @@ Rectangle {
         anchors.topMargin: 20
         spacing: 10
 
-        DelDivider {
+        HusDivider {
             id: expDivider
             width: parent.width
             height: 25
@@ -40,7 +40,7 @@ Rectangle {
             sourceComponent: exampleDelegate
         }
 
-        DelDivider {
+        HusDivider {
             id: descDivider
             width: parent.width
             height: 25
@@ -53,7 +53,7 @@ Rectangle {
             height: descText.height
             hoverEnabled: true
 
-            DelCopyableText {
+            HusCopyableText {
                 id: descText
                 width: parent.width
                 textFormat: Text.MarkdownText
@@ -77,35 +77,35 @@ Rectangle {
                 }
             }
 
-            DelToolTip {
+            HusToolTip {
                 id: linkTooltip
             }
         }
 
-        DelDivider {
+        HusDivider {
             width: parent.width
             height: 30
             title: qsTr('代码')
-            titleAlign: DelDivider.Align_Center
+            titleAlign: HusDivider.Align_Center
             titleDelegate: Row {
                 spacing: 10
-                DelIconButton {
+                HusIconButton {
                     padding: 5
-                    iconSize: DelTheme.Primary.fontPrimarySizeHeading4
-                    iconSource: DelIcon.ColumnHeightOutlined
+                    iconSize: HusTheme.Primary.fontPrimarySizeHeading4
+                    iconSource: HusIcon.ColumnHeightOutlined
                     onClicked: {
                         codeText.expanded = !codeText.expanded;
                     }
-                    DelToolTip {
+                    HusToolTip {
                         arrowVisible: false
                         visible: parent.hovered
                         text: codeText.expanded ? qsTr('收起代码') : qsTr('展开代码')
                     }
                 }
-                DelIconButton {
+                HusIconButton {
                     padding: 5
-                    iconSize: DelTheme.Primary.fontPrimarySizeHeading4
-                    iconSource: DelIcon.CodeOutlined
+                    iconSize: HusTheme.Primary.fontPrimarySizeHeading4
+                    iconSource: HusIcon.CodeOutlined
                     onClicked: {
                         const component = Qt.createComponent('CodeRunner.qml');
                         if (component.status === Component.Ready) {
@@ -113,7 +113,7 @@ Rectangle {
                             win.createQmlObject(code);
                         }
                     }
-                    DelToolTip {
+                    HusToolTip {
                         arrowVisible: false
                         visible: parent.hovered
                         text: qsTr('运行代码')
@@ -122,7 +122,7 @@ Rectangle {
             }
         }
 
-        DelCopyableText {
+        HusCopyableText {
             id: codeText
             clip: true
             width: parent.width
@@ -130,7 +130,7 @@ Rectangle {
             wrapMode: Text.WordWrap
             property bool expanded: false
 
-            Behavior on height { NumberAnimation { duration: DelTheme.Primary.durationMid } }
+            Behavior on height { NumberAnimation { duration: HusTheme.Primary.durationMid } }
         }
     }
 }

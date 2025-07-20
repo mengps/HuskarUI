@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,39 +15,45 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelSwitch 开关\n
+# HusSwitch 开关\n
 使用开关切换两种状态之间。\n
 * **继承自 { Switch }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **handleDelgate: Component** 开关把手代理\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-effectEnabled | bool | 是否开启点击效果(默认true)
-hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
-loading | bool | 是否在加载中
-checkedText | string | 选中文本
-uncheckedText | string | 未选中文本
-checkedIconSource | enum | 选中图标(来自 DelIcon)
-uncheckedIconSource | enum | 未选中图标(来自 DelIcon)
-contentDescription | string | 内容描述(提高可用性)
-radiusBg | int | 背景半径
-colorHandle | color | 把手颜色
-colorBg | color | 背景颜色
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+effectEnabled | bool | true | 是否开启点击效果
+hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
+loading | bool | false | 是否在加载中
+checkedText | string | '' | 选中文本
+uncheckedText | string | '' | 未选中文本
+checkedIconSource | enum | 0 | 选中图标(来自 HusIcon)
+uncheckedIconSource | enum | 0 | 未选中图标(来自 HusIcon)
+radiusBg | int | - | 背景半径
+colorHandle | color | - | 把手颜色
+colorBg | color | - | 背景颜色
+contentDescription | string | '' | 内容描述(提高可用性)
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 - 需要表示开关状态/两种状态之间的切换时。\n
-- 和 [DelCheckBox](internal://DelCheckBox) 的区别是，切换 DelSwitch 会直接触发状态改变，而 [DelCheckBox](internal://DelCheckBox) 一般用于状态标记，需要和提交操作配合。\n
+- 和 [HusCheckBox](internal://HusCheckBox) 的区别是，切换 HusSwitch 会直接触发状态改变，而 [HusCheckBox](internal://HusCheckBox) 一般用于状态标记，需要和提交操作配合。\n
                        `)
         }
 
+        ThemeToken {
+            source: 'HusSwitch'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -57,14 +63,14 @@ colorBg | color | 背景颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
-                    DelSwitch { }
+                    HusSwitch { }
                 }
             `
             exampleDelegate: Row {
-                DelSwitch { }
+                HusSwitch { }
             }
         }
 
@@ -75,19 +81,19 @@ Switch 失效状态，由 \`enabled\` 属性控制。
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 15
 
-                    DelSwitch {
+                    HusSwitch {
                         id: switch1
                         enabled: false
                     }
 
-                    DelButton {
-                        text: qsTr("切换 enabled")
-                        type: DelButton.Type_Primary
+                    HusButton {
+                        text: qsTr('切换 enabled')
+                        type: HusButton.Type_Primary
                         onClicked: switch1.enabled = !switch1.enabled;
                     }
                 }
@@ -95,14 +101,14 @@ Switch 失效状态，由 \`enabled\` 属性控制。
             exampleDelegate: Column {
                 spacing: 15
 
-                DelSwitch {
+                HusSwitch {
                     id: switch1
                     enabled: false
                 }
 
-                DelButton {
-                    text: qsTr("切换 enabled")
-                    type: DelButton.Type_Primary
+                HusButton {
+                    text: qsTr('切换 enabled')
+                    type: HusButton.Type_Primary
                     onClicked: switch1.enabled = !switch1.enabled;
                 }
             }
@@ -121,33 +127,33 @@ Switch 支持两种文本：\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 15
 
-                    DelSwitch {
-                        checkedText: qsTr("开启")
-                        uncheckedText: qsTr("关闭")
+                    HusSwitch {
+                        checkedText: qsTr('开启')
+                        uncheckedText: qsTr('关闭')
                     }
 
-                    DelSwitch {
-                        checkedIconSource: DelIcon.CheckOutlined
-                        uncheckedIconSource: DelIcon.CloseOutlined
+                    HusSwitch {
+                        checkedIconSource: HusIcon.CheckOutlined
+                        uncheckedIconSource: HusIcon.CloseOutlined
                     }
                 }
             `
             exampleDelegate: Column {
                 spacing: 15
 
-                DelSwitch {
-                    checkedText: qsTr("开启")
-                    uncheckedText: qsTr("关闭")
+                HusSwitch {
+                    checkedText: qsTr('开启')
+                    uncheckedText: qsTr('关闭')
                 }
 
-                DelSwitch {
-                    checkedIconSource: DelIcon.CheckOutlined
-                    uncheckedIconSource: DelIcon.CloseOutlined
+                HusSwitch {
+                    checkedIconSource: HusIcon.CheckOutlined
+                    uncheckedIconSource: HusIcon.CloseOutlined
                 }
             }
         }
@@ -160,23 +166,23 @@ Switch 支持两种文本：\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 15
 
-                    DelSwitch {
+                    HusSwitch {
                         loading: true
                         checked: true
                     }
 
-                    DelSwitch {
+                    HusSwitch {
                         loading: true
                         checked: true
                         enabled: !loading
                     }
 
-                    DelSwitch {
+                    HusSwitch {
                         loading: true
                     }
                 }
@@ -184,18 +190,18 @@ Switch 支持两种文本：\n
             exampleDelegate: Column {
                 spacing: 15
 
-                DelSwitch {
+                HusSwitch {
                     loading: true
                     checked: true
                 }
 
-                DelSwitch {
+                HusSwitch {
                     loading: true
                     checked: true
                     enabled: !loading
                 }
 
-                DelSwitch {
+                HusSwitch {
                     loading: true
                 }
             }
@@ -208,12 +214,12 @@ Switch 支持两种文本：\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 15
 
-                    DelSwitch {
+                    HusSwitch {
                         id: switch2
                         radiusBg: 2
                         handleDelegate: Rectangle {
@@ -226,7 +232,7 @@ Switch 支持两种文本：\n
             exampleDelegate: Column {
                 spacing: 15
 
-                DelSwitch {
+                HusSwitch {
                     id: switch2
                     radiusBg: 2
                     handleDelegate: Rectangle {

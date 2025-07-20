@@ -1,13 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -16,41 +16,45 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelButtonBlock 按钮块(DelIconButton变种) \n
-用于将多个按钮组织成块，类似 DelRadioBlock。\n
+# HusButtonBlock 按钮块(HusIconButton变种) \n
+用于将多个按钮组织成块，类似 HusRadioBlock。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **buttonDelegate: Component** 按钮项代理，代理可访问属性：\n
   - \`index: int\` 按钮项索引\n
   - \`modelData: var\` 按钮项数据\n
-支持的属性：\n
-属性名 | 类型 | 默认值 | 描述 |
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-animationEnabled | bool | true | 是否开启动画(默认true)
-effectEnabled | bool | true | 是否开启点击效果(默认true)
+animationEnabled | bool | true | 是否开启动画
+effectEnabled | bool | true | 是否开启点击效果
 hoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
 model | list | [] | 按钮块模型
 count | int | - | 按钮数量
-size | enum | DelButtonBlock.Size_Auto | 按钮项大小(来自 DelButtonBlock)
-buttonWidth | int | 120 | 按钮项宽度(size == DelButtonBlock.Size_Fixed 生效)
-buttonHeight | int | 30 | 按钮项高度(size == DelButtonBlock.Size_Fixed 生效)
+size | enum | HusButtonBlock.Size_Auto | 按钮项大小(来自 HusButtonBlock)
+buttonWidth | int | 120 | 按钮项宽度(size == HusButtonBlock.Size_Fixed 生效)
+buttonHeight | int | 30 | 按钮项高度(size == HusButtonBlock.Size_Fixed 生效)
 buttonLeftPadding | int | 10 | 按钮项左填充
 buttonRightPadding | int | 10 | 按钮项右填充
 buttonTopPadding | int | 8 | 按钮项上填充
 buttonBottomPadding | int | 8 | 按钮项下填充
 font | font | - | 按钮项字体
-radiusBg | int | 6 | 按钮项背景半径
+radiusBg | int | - | 按钮项背景半径
 contentDescription | string | '' | 内容描述(提高可用性)
-\n模型支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-label(可选) | string | 本按钮的标签
-value(可选) | sting | 本按钮的值
-enabled(可选) | var | 本按钮是否启用
-icon(可选) | int | 本按钮图标
-type(可选) | int | 本按钮类型(参见 DelButton.type)
-autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
-\n支持的信号：\n
+\n<br/>
+\n### 模型支持的属性：\n
+属性名 | 类型 | 可选/必选 | 描述
+------ | --- | :---: | ---
+label | string | 必选 | 本按钮的标签
+value | sting | 可选 | 本按钮的值
+enabled | bool | 可选 | 本按钮是否启用
+icon | enum | 可选 | 本按钮图标(参见 HusIcon)
+type | enum | 可选 | 本按钮类型(参见 HusButton.type)
+autoRepeat | bool | 可选 | 本按钮是否自动重复(参见 Button.autoRepeat)
+\n<br/>
+\n### 支持的信号：\n
 - \`pressed(index: int, buttonData: var)\` 按下按钮时发出\n
   - \`index\` 按钮索引\n
   - \`buttonData\` 按钮项数据\n
@@ -64,15 +68,19 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 - 用于将多个按钮组织成块。\n
-- 和 [DelRadioBlock](internal://DelRadioBlock) 的区别是，DelButtonBlock 没有单选和互斥状态。\n
+- 和 [HusRadioBlock](internal://HusRadioBlock) 的区别是，HusButtonBlock 没有单选和互斥状态。\n
                        `)
         }
 
+        ThemeToken {
+            source: 'HusButton'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -83,17 +91,17 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
 - { value: 本按钮的值 }\n
 - { enabled: 本按钮是否启用 }\n
 - { icon: 本按钮图标 }\n
-- { type: 本按钮类型(参见 DelButton.type) }\n
+- { type: 本按钮类型(参见 HusButton.type) }\n
 - { autoRepeat: 本按钮是否自动重复(参见Button.autoRepeat) }\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelButtonBlock {
+                    HusButtonBlock {
                         model: [
                             { label: 'Apple', value: 'Apple' },
                             { label: 'Pear', value: 'Pear' },
@@ -101,17 +109,17 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
                         ]
                     }
 
-                    DelButtonBlock {
+                    HusButtonBlock {
                         model: [
-                            { label: 'Default', type: DelButton.Type_Default },
-                            { label: 'Outlined', type: DelButton.Type_Outlined },
-                            { label: 'Primary', type: DelButton.Type_Primary },
-                            { label: 'Filled', type: DelButton.Type_Filled },
-                            { label: 'Text', type: DelButton.Type_Text },
+                            { label: 'Default', type: HusButton.Type_Default },
+                            { label: 'Outlined', type: HusButton.Type_Outlined },
+                            { label: 'Primary', type: HusButton.Type_Primary },
+                            { label: 'Filled', type: HusButton.Type_Filled },
+                            { label: 'Text', type: HusButton.Type_Text },
                         ]
                     }
 
-                    DelButtonBlock {
+                    HusButtonBlock {
                         model: [
                             { label: 'Apple', value: 'Apple' },
                             { label: 'Pear', value: 'Pear', enabled: false },
@@ -119,7 +127,7 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
                         ]
                     }
 
-                    DelButtonBlock {
+                    HusButtonBlock {
                         enabled: false
                         model: [
                             { label: 'Apple', value: 'Apple' },
@@ -128,11 +136,11 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
                         ]
                     }
 
-                    DelButtonBlock {
+                    HusButtonBlock {
                         model: [
-                            { icon: DelIcon.PlusOutlined },
-                            { icon: DelIcon.MinusOutlined },
-                            { icon: DelIcon.CloseOutlined },
+                            { icon: HusIcon.PlusOutlined },
+                            { icon: HusIcon.MinusOutlined },
+                            { icon: HusIcon.CloseOutlined },
                             { label: ' / ' },
                         ]
                     }
@@ -141,7 +149,7 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
             exampleDelegate: Column {
                 spacing: 10
 
-                DelButtonBlock {
+                HusButtonBlock {
                     model: [
                         { label: 'Apple', value: 'Apple' },
                         { label: 'Pear', value: 'Pear' },
@@ -149,17 +157,17 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
                     ]
                 }
 
-                DelButtonBlock {
+                HusButtonBlock {
                     model: [
-                        { label: 'Default', type: DelButton.Type_Default },
-                        { label: 'Outlined', type: DelButton.Type_Outlined },
-                        { label: 'Primary', type: DelButton.Type_Primary },
-                        { label: 'Filled', type: DelButton.Type_Filled },
-                        { label: 'Text', type: DelButton.Type_Text },
+                        { label: 'Default', type: HusButton.Type_Default },
+                        { label: 'Outlined', type: HusButton.Type_Outlined },
+                        { label: 'Primary', type: HusButton.Type_Primary },
+                        { label: 'Filled', type: HusButton.Type_Filled },
+                        { label: 'Text', type: HusButton.Type_Text },
                     ]
                 }
 
-                DelButtonBlock {
+                HusButtonBlock {
                     model: [
                         { label: 'Apple', value: 'Apple' },
                         { label: 'Pear', value: 'Pear', enabled: false },
@@ -167,7 +175,7 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
                     ]
                 }
 
-                DelButtonBlock {
+                HusButtonBlock {
                     enabled: false
                     model: [
                         { label: 'Apple', value: 'Apple' },
@@ -176,11 +184,11 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
                     ]
                 }
 
-                DelButtonBlock {
+                HusButtonBlock {
                     model: [
-                        { icon: DelIcon.PlusOutlined },
-                        { icon: DelIcon.MinusOutlined },
-                        { icon: DelIcon.CloseOutlined },
+                        { icon: HusIcon.PlusOutlined },
+                        { icon: HusIcon.MinusOutlined },
+                        { icon: HusIcon.CloseOutlined },
                         { label: ' / ' },
                     ]
                 }
@@ -191,18 +199,18 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
             width: parent.width
             desc: qsTr(`
 通过 \`size\` 属性设置按钮块调整大小的模式，支持的大小：\n
-- 自动计算大小(默认) { DelButtonBlock.Size_Auto }\n
-- 固定大小(将使用buttonWidth/buttonHeight) { DelButtonBlock.Size_Fixed }\n
+- 自动计算大小(默认) { HusButtonBlock.Size_Auto }\n
+- 固定大小(将使用buttonWidth/buttonHeight) { HusButtonBlock.Size_Fixed }\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelButtonBlock {
-                        size: DelButtonBlock.Size_Auto
+                    HusButtonBlock {
+                        size: HusButtonBlock.Size_Auto
                         model: [
                             { label: 'Apple', value: 'Apple' },
                             { label: 'Pear', value: 'Pear' },
@@ -210,8 +218,8 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
                         ]
                     }
 
-                    DelButtonBlock {
-                        size: DelButtonBlock.Size_Fixed
+                    HusButtonBlock {
+                        size: HusButtonBlock.Size_Fixed
                         model: [
                             { label: 'Apple', value: 'Apple' },
                             { label: 'Pear', value: 'Pear' },
@@ -223,8 +231,8 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
             exampleDelegate: Column {
                 spacing: 10
 
-                DelButtonBlock {
-                    size: DelButtonBlock.Size_Auto
+                HusButtonBlock {
+                    size: HusButtonBlock.Size_Auto
                     model: [
                         { label: 'Apple', value: 'Apple' },
                         { label: 'Pear', value: 'Pear' },
@@ -232,8 +240,8 @@ autoRepeat(可选) | int | 本按钮是否自动重复(参见 Button.autoRepeat)
                     ]
                 }
 
-                DelButtonBlock {
-                    size: DelButtonBlock.Size_Fixed
+                HusButtonBlock {
+                    size: HusButtonBlock.Size_Fixed
                     model: [
                         { label: 'Apple', value: 'Apple' },
                         { label: 'Pear', value: 'Pear' },

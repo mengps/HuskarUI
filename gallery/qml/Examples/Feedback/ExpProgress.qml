@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,37 +15,39 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelProgress 进度条 \n
+# HusProgress 进度条 \n
 展示操作的当前进度。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **infoDelegate: Component** 进度信息的代理\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-type | enum | 进度条类型(来自 DelProgress)
-status | enum | 进度条状态(来自 DelProgress)
-percent | real | 进度百分比(0.0~100.0)
-barThickness | real | 进度条宽度
-strokeLineCap | string | 进度条线帽样式, 支持 'butt'丨'round'
-steps | int | 进度条步骤总数(大于0显示为步骤形式)
-currentStep | int | 当前步骤数
-gap | real | 步骤间隔(步骤形式时有效)
-gapDegree | real | 间隔角度(仪表盘进度条时有效)
-useGradient | bool | 是否使用渐变色
-gradientStops | object | 渐变色样式对象
-showInfo | bool | 是否显示进度数值或状态图标
-precision | int | 进度文本显示的小数点精度(默认0)
-formatter | function | 信息文本格式化器
-colorBar | color | 进度条颜色
-colorTrack | color | 进度条轨道颜色
-colorInfo | color | 进度条信息文本颜色
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+type | enum | HusProgress.Type_Line | 进度条类型(来自 HusProgress)
+status | enum | HusProgress.Status_Normal | 进度条状态(来自 HusProgress)
+percent | real | 0 | 进度百分比(0.0~100.0)
+barThickness | real | 8 | 进度条宽度
+strokeLineCap | string | 'round' | 进度条线帽样式, 支持 'butt'丨'round'
+steps | int | 0 | 进度条步骤总数(大于0显示为步骤形式)
+currentStep | int | 0 | 当前步骤数
+gap | real | 4 | 步骤间隔(步骤形式时有效)
+gapDegree | real | 60 | 间隔角度(仪表盘进度条时有效)
+useGradient | bool | false | 是否使用渐变色
+gradientStops | object | - | 渐变色样式对象
+showInfo | bool | true | 是否显示进度数值或状态图标
+precision | int | 0 | 进度文本显示的小数点精度
+formatter | function | - | 信息文本格式化器
+colorBar | color | - | 进度条颜色
+colorTrack | color | - | 进度条轨道颜色
+colorInfo | color | - | 进度条信息文本颜色
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。\n
 - 当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过 2 秒时。\n
@@ -53,8 +55,12 @@ colorInfo | color | 进度条信息文本颜色
                        `)
         }
 
+        ThemeToken {
+            source: 'HusProgress'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -63,38 +69,38 @@ colorInfo | color | 进度条信息文本颜色
             desc: qsTr(`
 默认的条形进度条。\n
 通过 \`type\` 设置进度条类型，支持的类型：\n
-- 条形进度条(默认){ DelProgress.Type_Line }\n
-- 圆形进度条{ DelProgress.Type_Circle }\n
-- 仪表盘进度条{ DelProgress.Type_Dashboard }
+- 条形进度条(默认){ HusProgress.Type_Line }\n
+- 圆形进度条{ HusProgress.Type_Circle }\n
+- 仪表盘进度条{ HusProgress.Type_Dashboard }
 通过 \`status\` 设置进度条状态，支持的状态：\n
-- 一般状态(默认){ DelProgress.Status_Normal }\n
-- 成功状态{ DelProgress.Status_Success }\n
-- 异常状态{ DelProgress.Status_Exception }\n
-- 激活状态(仅条形进度条有效){ DelProgress.Status_Active }\n
+- 一般状态(默认){ HusProgress.Status_Normal }\n
+- 成功状态{ HusProgress.Status_Success }\n
+- 异常状态{ HusProgress.Status_Exception }\n
+- 激活状态(仅条形进度条有效){ HusProgress.Status_Active }\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
-                    DelProgress { percent: 30 }
-                    DelProgress { percent: 50; status: DelProgress.Status_Active }
-                    DelProgress { percent: 70; status: DelProgress.Status_Exception }
-                    DelProgress { percent: 100; status: DelProgress.Status_Success }
-                    DelProgress { percent: 50; showInfo: false }
+                    HusProgress { percent: 30 }
+                    HusProgress { percent: 50; status: HusProgress.Status_Active }
+                    HusProgress { percent: 70; status: HusProgress.Status_Exception }
+                    HusProgress { percent: 100; status: HusProgress.Status_Success }
+                    HusProgress { percent: 50; showInfo: false }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                DelProgress { percent: 30 }
-                DelProgress { percent: 50; status: DelProgress.Status_Active }
-                DelProgress { percent: 70; status: DelProgress.Status_Exception }
-                DelProgress { percent: 100; status: DelProgress.Status_Success }
-                DelProgress { percent: 50; showInfo: false }
+                HusProgress { percent: 30 }
+                HusProgress { percent: 50; status: HusProgress.Status_Active }
+                HusProgress { percent: 70; status: HusProgress.Status_Exception }
+                HusProgress { percent: 100; status: HusProgress.Status_Success }
+                HusProgress { percent: 50; showInfo: false }
             }
         }
 
@@ -106,23 +112,23 @@ colorInfo | color | 进度条信息文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     width: parent.width
                     spacing: 10
 
-                    DelProgress { width: 120; height: width; type: DelProgress.Type_Circle; percent: 75 }
-                    DelProgress { width: 120; height: width; type: DelProgress.Type_Circle; percent: 75; status: DelProgress.Status_Exception }
-                    DelProgress { width: 120; height: width; type: DelProgress.Type_Circle; percent: 100; status: DelProgress.Status_Success }
+                    HusProgress { width: 120; height: width; type: HusProgress.Type_Circle; percent: 75 }
+                    HusProgress { width: 120; height: width; type: HusProgress.Type_Circle; percent: 75; status: HusProgress.Status_Exception }
+                    HusProgress { width: 120; height: width; type: HusProgress.Type_Circle; percent: 100; status: HusProgress.Status_Success }
                 }
             `
             exampleDelegate: Row {
                 spacing: 10
 
-                DelProgress { width: 120; height: width; type: DelProgress.Type_Circle; percent: 75 }
-                DelProgress { width: 120; height: width; type: DelProgress.Type_Circle; percent: 75; status: DelProgress.Status_Exception }
-                DelProgress { width: 120; height: width; type: DelProgress.Type_Circle; percent: 100; status: DelProgress.Status_Success }
+                HusProgress { width: 120; height: width; type: HusProgress.Type_Circle; percent: 75 }
+                HusProgress { width: 120; height: width; type: HusProgress.Type_Circle; percent: 75; status: HusProgress.Status_Exception }
+                HusProgress { width: 120; height: width; type: HusProgress.Type_Circle; percent: 100; status: HusProgress.Status_Success }
             }
         }
 
@@ -130,28 +136,28 @@ colorInfo | color | 进度条信息文本颜色
             width: parent.width
             descTitle: qsTr('仪表盘进度条')
             desc: qsTr(`
-通过设置 \`type\` 为 \`DelProgress.Type_Dashboard\`，可以很方便地实现仪表盘样式的进度条。\n
+通过设置 \`type\` 为 \`HusProgress.Type_Dashboard\`，可以很方便地实现仪表盘样式的进度条。\n
 若想要修改缺口的角度，可以设置 \`gapDegree\` 为你想要的值。\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     width: parent.width
                     spacing: 10
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Dashboard
+                        type: HusProgress.Type_Dashboard
                         percent: 75
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Dashboard
+                        type: HusProgress.Type_Dashboard
                         percent: 75
                         gapDegree: 30
                     }
@@ -160,17 +166,17 @@ colorInfo | color | 进度条信息文本颜色
             exampleDelegate: Row {
                 spacing: 10
 
-                DelProgress {
+                HusProgress {
                     width: 120
                     height: width
-                    type: DelProgress.Type_Dashboard
+                    type: HusProgress.Type_Dashboard
                     percent: 75
                 }
 
-                DelProgress {
+                HusProgress {
                     width: 120
                     height: width
-                    type: DelProgress.Type_Dashboard
+                    type: HusProgress.Type_Dashboard
                     percent: 75
                     gapDegree: 30
                 }
@@ -185,53 +191,53 @@ colorInfo | color | 进度条信息文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
                     property real newPercent: 0
 
-                    DelProgress {
+                    HusProgress {
                         width: parent.width
-                        type: DelProgress.Type_Line
+                        type: HusProgress.Type_Line
                         percent: newPercent
-                        status: percent >= 100 ? DelProgress.Status_Success : DelProgress.Status_Normal
+                        status: percent >= 100 ? HusProgress.Status_Success : HusProgress.Status_Normal
                     }
 
                     Row {
-                        DelProgress {
+                        HusProgress {
                             width: 120
                             height: width
-                            type: DelProgress.Type_Circle
+                            type: HusProgress.Type_Circle
                             percent: newPercent
                             gapDegree: 30
-                            status: percent >= 100 ? DelProgress.Status_Success : DelProgress.Status_Normal
+                            status: percent >= 100 ? HusProgress.Status_Success : HusProgress.Status_Normal
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 120
                             height: width
-                            type: DelProgress.Type_Dashboard
+                            type: HusProgress.Type_Dashboard
                             percent: newPercent
-                            status: percent >= 100 ? DelProgress.Status_Success : DelProgress.Status_Normal
+                            status: percent >= 100 ? HusProgress.Status_Success : HusProgress.Status_Normal
                         }
                     }
 
                     Row {
-                        DelIconButton {
+                        HusIconButton {
                             padding: 10
                             radiusBg: 0
-                            iconSource: DelIcon.MinusOutlined
+                            iconSource: HusIcon.MinusOutlined
                             onClicked: {
                                 if (newPercent - 10 >= 0)
                                     newPercent -= 10;
                             }
                         }
-                        DelIconButton {
+                        HusIconButton {
                             padding: 10
                             radiusBg: 0
-                            iconSource: DelIcon.PlusOutlined
+                            iconSource: HusIcon.PlusOutlined
                             onClicked: {
                                 if (newPercent + 10 <= 100)
                                     newPercent += 10;
@@ -244,46 +250,46 @@ colorInfo | color | 进度条信息文本颜色
                 spacing: 10
                 property real newPercent: 0
 
-                DelProgress {
+                HusProgress {
                     width: parent.width
-                    type: DelProgress.Type_Line
+                    type: HusProgress.Type_Line
                     percent: newPercent
-                    status: percent >= 100 ? DelProgress.Status_Success : DelProgress.Status_Normal
+                    status: percent >= 100 ? HusProgress.Status_Success : HusProgress.Status_Normal
                 }
 
                 Row {
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Circle
+                        type: HusProgress.Type_Circle
                         percent: newPercent
                         gapDegree: 30
-                        status: percent >= 100 ? DelProgress.Status_Success : DelProgress.Status_Normal
+                        status: percent >= 100 ? HusProgress.Status_Success : HusProgress.Status_Normal
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Dashboard
+                        type: HusProgress.Type_Dashboard
                         percent: newPercent
-                        status: percent >= 100 ? DelProgress.Status_Success : DelProgress.Status_Normal
+                        status: percent >= 100 ? HusProgress.Status_Success : HusProgress.Status_Normal
                     }
                 }
 
                 Row {
-                    DelIconButton {
+                    HusIconButton {
                         padding: 10
                         radiusBg: 0
-                        iconSource: DelIcon.MinusOutlined
+                        iconSource: HusIcon.MinusOutlined
                         onClicked: {
                             if (newPercent - 10 >= 0)
                                 newPercent -= 10;
                         }
                     }
-                    DelIconButton {
+                    HusIconButton {
                         padding: 10
                         radiusBg: 0
-                        iconSource: DelIcon.PlusOutlined
+                        iconSource: HusIcon.PlusOutlined
                         onClicked: {
                             if (newPercent + 10 <= 100)
                                 newPercent += 10;
@@ -301,26 +307,26 @@ colorInfo | color | 进度条信息文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     width: parent.width
                     spacing: 10
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Circle
+                        type: HusProgress.Type_Circle
                         percent: 75
                         formatter: () => \`\${percent} Days\`
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Circle
+                        type: HusProgress.Type_Circle
                         percent: 100
-                        status: DelProgress.Status_Success
+                        status: HusProgress.Status_Success
                         formatter: () => 'Done'
                     }
                 }
@@ -328,20 +334,20 @@ colorInfo | color | 进度条信息文本颜色
             exampleDelegate: Row {
                 spacing: 10
 
-                DelProgress {
+                HusProgress {
                     width: 120
                     height: width
-                    type: DelProgress.Type_Circle
+                    type: HusProgress.Type_Circle
                     percent: 75
                     formatter: () => `${percent} Days`
                 }
 
-                DelProgress {
+                HusProgress {
                     width: 120
                     height: width
-                    type: DelProgress.Type_Circle
+                    type: HusProgress.Type_Circle
                     percent: 100
-                    status: DelProgress.Status_Success
+                    status: HusProgress.Status_Success
                     formatter: () => 'Done'
                 }
             }
@@ -356,7 +362,7 @@ colorInfo | color | 进度条信息文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
@@ -375,14 +381,14 @@ colorInfo | color | 进度条信息文本颜色
                     Column {
                         spacing: 10
 
-                        DelProgress {
+                        HusProgress {
                             width: 600
                             percent: 99.9
                             useGradient: true
                             gradientStops: twoColors
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 600
                             percent: 50
                             useGradient: true
@@ -393,29 +399,29 @@ colorInfo | color | 进度条信息文本颜色
                     Row {
                         spacing: 10
 
-                        DelProgress {
+                        HusProgress {
                             width: 120
                             height: width
-                            type: DelProgress.Type_Circle
+                            type: HusProgress.Type_Circle
                             percent: 75
                             useGradient: true
                             gradientStops: twoColors
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 120
                             height: width
-                            type: DelProgress.Type_Circle
-                            status: DelProgress.Status_Success
+                            type: HusProgress.Type_Circle
+                            status: HusProgress.Status_Success
                             percent: 100
                             useGradient: true
                             gradientStops: twoColors
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 120
                             height: width
-                            type: DelProgress.Type_Circle
+                            type: HusProgress.Type_Circle
                             percent: 93
                             useGradient: true
                             gradientStops: conicColors
@@ -425,29 +431,29 @@ colorInfo | color | 进度条信息文本颜色
                     Row {
                         spacing: 10
 
-                        DelProgress {
+                        HusProgress {
                             width: 120
                             height: width
-                            type: DelProgress.Type_Dashboard
+                            type: HusProgress.Type_Dashboard
                             percent: 75
                             useGradient: true
                             gradientStops: twoColors
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 120
                             height: width
-                            type: DelProgress.Type_Dashboard
-                            status: DelProgress.Status_Success
+                            type: HusProgress.Type_Dashboard
+                            status: HusProgress.Status_Success
                             percent: 100
                             useGradient: true
                             gradientStops: twoColors
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 120
                             height: width
-                            type: DelProgress.Type_Dashboard
+                            type: HusProgress.Type_Dashboard
                             percent: 93
                             useGradient: true
                             gradientStops: conicColors
@@ -471,14 +477,14 @@ colorInfo | color | 进度条信息文本颜色
                 Column {
                     spacing: 10
 
-                    DelProgress {
+                    HusProgress {
                         width: 600
                         percent: 99.9
                         useGradient: true
                         gradientStops: twoColors
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 600
                         percent: 50
                         useGradient: true
@@ -489,29 +495,29 @@ colorInfo | color | 进度条信息文本颜色
                 Row {
                     spacing: 10
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Circle
+                        type: HusProgress.Type_Circle
                         percent: 75
                         useGradient: true
                         gradientStops: twoColors
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Circle
-                        status: DelProgress.Status_Success
+                        type: HusProgress.Type_Circle
+                        status: HusProgress.Status_Success
                         percent: 100
                         useGradient: true
                         gradientStops: twoColors
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Circle
+                        type: HusProgress.Type_Circle
                         percent: 93
                         useGradient: true
                         gradientStops: conicColors
@@ -521,29 +527,29 @@ colorInfo | color | 进度条信息文本颜色
                 Row {
                     spacing: 10
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Dashboard
+                        type: HusProgress.Type_Dashboard
                         percent: 75
                         useGradient: true
                         gradientStops: twoColors
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Dashboard
-                        status: DelProgress.Status_Success
+                        type: HusProgress.Type_Dashboard
+                        status: HusProgress.Status_Success
                         percent: 100
                         useGradient: true
                         gradientStops: twoColors
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 120
                         height: width
-                        type: DelProgress.Type_Dashboard
+                        type: HusProgress.Type_Dashboard
                         percent: 93
                         useGradient: true
                         gradientStops: conicColors
@@ -561,18 +567,18 @@ colorInfo | color | 进度条信息文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
                     Column {
-                        DelCopyableText {
+                        HusCopyableText {
                             text: \`Custom step count: \${stepCoutSlider.currentValue}\`
                         }
 
-                        DelSlider {
+                        HusSlider {
                             id: stepCoutSlider
                             width: 200
                             height: 30
@@ -582,11 +588,11 @@ colorInfo | color | 进度条信息文本颜色
                             stepSize: 1
                         }
 
-                        DelCopyableText {
+                        HusCopyableText {
                             text: \`Custom gap: \${gapCountSlider.currentValue}\`
                         }
 
-                        DelSlider {
+                        HusSlider {
                             id: gapCountSlider
                             width: 200
                             height: 30
@@ -594,14 +600,14 @@ colorInfo | color | 进度条信息文本颜色
                             max: 40
                             value: 4
                             stepSize: 4
-                            snapMode: DelSlider.SnapAlways
+                            snapMode: HusSlider.SnapAlways
                         }
 
-                        DelCopyableText {
+                        HusCopyableText {
                             text: \`Custom bar thickness: \${barThicknessSlider.currentValue}\`
                         }
 
-                        DelSlider {
+                        HusSlider {
                             id: barThicknessSlider
                             width: 200
                             height: 30
@@ -615,7 +621,7 @@ colorInfo | color | 进度条信息文本颜色
                     Column {
                         spacing: 10
 
-                        DelProgress {
+                        HusProgress {
                             width: 600
                             height: Math.min(40, Math.max(barThickness, 16))
                             barThickness: barThicknessSlider.currentValue
@@ -625,10 +631,10 @@ colorInfo | color | 进度条信息文本颜色
                             currentStep: Math.floor(percent / 100 * steps)
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 600
                             height: Math.min(40, Math.max(barThickness, 16))
-                            status: DelProgress.Status_Exception
+                            status: HusProgress.Status_Exception
                             barThickness: barThicknessSlider.currentValue
                             percent: 75
                             gap: gapCountSlider.currentValue
@@ -640,10 +646,10 @@ colorInfo | color | 进度条信息文本颜色
                     Row {
                         spacing: 10
 
-                        DelProgress {
+                        HusProgress {
                             width: 200
                             height: width
-                            type: DelProgress.Type_Circle
+                            type: HusProgress.Type_Circle
                             barThickness: barThicknessSlider.currentValue
                             percent: 75
                             gap: gapCountSlider.currentValue
@@ -651,11 +657,11 @@ colorInfo | color | 进度条信息文本颜色
                             currentStep: Math.floor(percent / 100 * steps)
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 200
                             height: width
-                            type: DelProgress.Type_Circle
-                            status: DelProgress.Status_Exception
+                            type: HusProgress.Type_Circle
+                            status: HusProgress.Status_Exception
                             barThickness: barThicknessSlider.currentValue
                             percent: 75
                             gap: gapCountSlider.currentValue
@@ -667,10 +673,10 @@ colorInfo | color | 进度条信息文本颜色
                     Row {
                         spacing: 10
 
-                        DelProgress {
+                        HusProgress {
                             width: 200
                             height: width
-                            type: DelProgress.Type_Dashboard
+                            type: HusProgress.Type_Dashboard
                             barThickness: barThicknessSlider.currentValue
                             percent: 75
                             gap: gapCountSlider.currentValue
@@ -678,11 +684,11 @@ colorInfo | color | 进度条信息文本颜色
                             currentStep: Math.floor(percent / 100 * steps)
                         }
 
-                        DelProgress {
+                        HusProgress {
                             width: 200
                             height: width
-                            type: DelProgress.Type_Dashboard
-                            status: DelProgress.Status_Exception
+                            type: HusProgress.Type_Dashboard
+                            status: HusProgress.Status_Exception
                             barThickness: barThicknessSlider.currentValue
                             percent: 75
                             gap: gapCountSlider.currentValue
@@ -696,11 +702,11 @@ colorInfo | color | 进度条信息文本颜色
                 spacing: 10
 
                 Column {
-                    DelCopyableText {
+                    HusCopyableText {
                         text: `Custom step count: ${stepCoutSlider.currentValue}`
                     }
 
-                    DelSlider {
+                    HusSlider {
                         id: stepCoutSlider
                         width: 200
                         height: 30
@@ -710,11 +716,11 @@ colorInfo | color | 进度条信息文本颜色
                         stepSize: 1
                     }
 
-                    DelCopyableText {
+                    HusCopyableText {
                         text: `Custom gap: ${gapCountSlider.currentValue}`
                     }
 
-                    DelSlider {
+                    HusSlider {
                         id: gapCountSlider
                         width: 200
                         height: 30
@@ -722,14 +728,14 @@ colorInfo | color | 进度条信息文本颜色
                         max: 40
                         value: 4
                         stepSize: 4
-                        snapMode: DelSlider.SnapAlways
+                        snapMode: HusSlider.SnapAlways
                     }
 
-                    DelCopyableText {
+                    HusCopyableText {
                         text: `Custom bar thickness: ${barThicknessSlider.currentValue}`
                     }
 
-                    DelSlider {
+                    HusSlider {
                         id: barThicknessSlider
                         width: 200
                         height: 30
@@ -743,7 +749,7 @@ colorInfo | color | 进度条信息文本颜色
                 Column {
                     spacing: 10
 
-                    DelProgress {
+                    HusProgress {
                         width: 600
                         height: Math.min(40, Math.max(barThickness, 16))
                         barThickness: barThicknessSlider.currentValue
@@ -753,10 +759,10 @@ colorInfo | color | 进度条信息文本颜色
                         currentStep: Math.floor(percent / 100 * steps)
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 600
                         height: Math.min(40, Math.max(barThickness, 16))
-                        status: DelProgress.Status_Exception
+                        status: HusProgress.Status_Exception
                         barThickness: barThicknessSlider.currentValue
                         percent: 75
                         gap: gapCountSlider.currentValue
@@ -768,10 +774,10 @@ colorInfo | color | 进度条信息文本颜色
                 Row {
                     spacing: 10
 
-                    DelProgress {
+                    HusProgress {
                         width: 200
                         height: width
-                        type: DelProgress.Type_Circle
+                        type: HusProgress.Type_Circle
                         barThickness: barThicknessSlider.currentValue
                         percent: 75
                         gap: gapCountSlider.currentValue
@@ -779,11 +785,11 @@ colorInfo | color | 进度条信息文本颜色
                         currentStep: Math.floor(percent / 100 * steps)
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 200
                         height: width
-                        type: DelProgress.Type_Circle
-                        status: DelProgress.Status_Exception
+                        type: HusProgress.Type_Circle
+                        status: HusProgress.Status_Exception
                         barThickness: barThicknessSlider.currentValue
                         percent: 75
                         gap: gapCountSlider.currentValue
@@ -795,10 +801,10 @@ colorInfo | color | 进度条信息文本颜色
                 Row {
                     spacing: 10
 
-                    DelProgress {
+                    HusProgress {
                         width: 200
                         height: width
-                        type: DelProgress.Type_Dashboard
+                        type: HusProgress.Type_Dashboard
                         barThickness: barThicknessSlider.currentValue
                         percent: 75
                         gap: gapCountSlider.currentValue
@@ -806,11 +812,11 @@ colorInfo | color | 进度条信息文本颜色
                         currentStep: Math.floor(percent / 100 * steps)
                     }
 
-                    DelProgress {
+                    HusProgress {
                         width: 200
                         height: width
-                        type: DelProgress.Type_Dashboard
-                        status: DelProgress.Status_Exception
+                        type: HusProgress.Type_Dashboard
+                        status: HusProgress.Status_Exception
                         barThickness: barThicknessSlider.currentValue
                         percent: 75
                         gap: gapCountSlider.currentValue

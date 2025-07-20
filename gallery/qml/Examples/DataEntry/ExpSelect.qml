@@ -1,13 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -16,39 +16,46 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelSelect 选择器 \n
+# HusSelect 选择器 \n
 下拉选择器。\n
 * **继承自 { ComboBox }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **indicatorDelegate: Component** 右侧指示器代理\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
-tooltipVisible | bool | 是否显示文字提示(默认false)
-loading | bool | 是否在加载中
-defaulPopupMaxHeight | int | 默认弹窗最大高度
-colorText | color | 文本颜色
-colorBorder | color | 边框颜色
-colorBg | color | 背景颜色
-radiusBg | int | 背景半径
-radiusPopupBg | int | 弹窗背景半径
-contentDescription | string | 内容描述(提高可用性)
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
+tooltipVisible | bool | false | 是否显示文字提示
+loading | bool | false | 是否在加载中
+defaulPopupMaxHeight | int | 240 | 默认弹窗最大高度
+colorText | color | - | 文本颜色
+colorBorder | color | - | 边框颜色
+colorBg | color | - | 背景颜色
+radiusBg | int | - | 背景圆角
+radiusItemBg | int | - | 选项背景圆角
+radiusPopupBg | int | - | 弹窗背景圆角
+contentDescription | string | '' | 内容描述(提高可用性)
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 - 弹出一个下拉菜单给用户选择操作，用于代替原生的组合框(ComboBox)，或者需要一个更优雅的多选器时。\n
-- 当选项少时（少于 5 项），建议直接将选项平铺，使用 [DelRadio](internal://DelRadio) 是更好的选择。\n
-- 如果你在寻找一个可输可选的输入框，那你可能需要 [DelAutoComplete](internal://DelAutoComplete)。\n
+- 当选项少时（少于 5 项），建议直接将选项平铺，使用 [HusRadio](internal://HusRadio) 是更好的选择。\n
+- 如果你在寻找一个可输可选的输入框，那你可能需要 [HusAutoComplete](internal://HusAutoComplete)。\n
                        `)
         }
 
+        ThemeToken {
+            source: 'HusSelect'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -60,19 +67,19 @@ contentDescription | string | 内容描述(提高可用性)
 - { enabled: 本选择项是否启用 }\n
 通过 \`loading\` 属性设置是否在加载中。\n
 可以让 \`enabled\` 绑定 \`loading\` 实现加载完成才启用。\n
-通过 \`tooltipVisible\` 属性设置是否显示文字提示框(主要用于长文本，默认false)。\n
+通过 \`tooltipVisible\` 属性设置是否显示文字提示框(主要用于长文本)。\n
 通过 \`defaulPopupMaxHeight\` 属性设置默认弹出窗口的高度。\n
                        `)
             code: `
                 import QtQuick
                 import QtQuick.Layouts
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     width: parent.width
                     spacing: 10
 
-                    DelSelect {
+                    HusSelect {
                         width: 120
                         height: 30
                         tooltipVisible: true
@@ -84,7 +91,7 @@ contentDescription | string | 内容描述(提高可用性)
                         ]
                     }
 
-                    DelSelect {
+                    HusSelect {
                         width: 120
                         height: 30
                         enabled: false
@@ -96,7 +103,7 @@ contentDescription | string | 内容描述(提高可用性)
                         ]
                     }
 
-                    DelSelect {
+                    HusSelect {
                         width: 120
                         height: 30
                         loading: true
@@ -112,7 +119,7 @@ contentDescription | string | 内容描述(提高可用性)
             exampleDelegate: Row {
                 spacing: 10
 
-                DelSelect {
+                HusSelect {
                     width: 120
                     height: 30
                     tooltipVisible: true
@@ -124,7 +131,7 @@ contentDescription | string | 内容描述(提高可用性)
                     ]
                 }
 
-                DelSelect {
+                HusSelect {
                     width: 120
                     height: 30
                     enabled: false
@@ -136,7 +143,7 @@ contentDescription | string | 内容描述(提高可用性)
                     ]
                 }
 
-                DelSelect {
+                HusSelect {
                     width: 120
                     height: 30
                     loading: true

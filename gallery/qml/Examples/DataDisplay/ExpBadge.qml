@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
 import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,21 +15,23 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelBadge 徽标数\n
+# HusBadge 徽标数\n
 图标右上角的圆形徽标数字。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - 无\n
-支持的属性：\n
-属性名 | 类型 | 默认值 | 描述 |
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-animationEnabled | bool | true | 是否开启动画
-badgeState | enum | DelBadge.State_Error | 徽标状态(来自 DelBadge)
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+badgeState | enum | HusBadge.State_Error | 徽标状态(来自 HusBadge)
 presetColor | color | '' | 预设颜色
 count | int | 0 | 徽标展示的数字
-iconSource | enum | 0 | 徽标展示的图标(来自 DelIcon)
+iconSource | enum | 0 | 徽标展示的图标(来自 HusIcon)
 dot | bool | false | 不展示数字,只有一个小红点(默认 false)
-showZero | bool | false | 当数值为 0 时, 是否展示 DelBadge
+showZero | bool | false | 当数值为 0 时, 是否展示 HusBadge
 overflowCount | int | 99 | 展示封顶的数字值
 font | font | - | 文本字体
 colorBg | color | - | 背景颜色
@@ -58,31 +60,31 @@ colorText | color | - | 文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 20
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge { count: 5 }
+                        HusBadge { count: 5 }
                     }
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge { count: 0; showZero: true }
+                        HusBadge { count: 0; showZero: true }
                     }
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge {
-                            iconSource: DelIcon.ClockCircleOutlined
+                        HusBadge {
+                            iconSource: HusIcon.ClockCircleOutlined
                             colorBorder: 'transparent'
                             colorBg: 'transparent'
                             colorText: '#f5222d'
@@ -93,26 +95,26 @@ colorText | color | - | 文本颜色
             exampleDelegate: Row {
                 spacing: 20
 
-                DelAvatar {
+                HusAvatar {
                     size: 40
                     radiusBg: 6
 
-                    DelBadge { count: 5 }
+                    HusBadge { count: 5 }
                 }
 
-                DelAvatar {
+                HusAvatar {
                     size: 40
                     radiusBg: 6
 
-                    DelBadge { count: 0; showZero: true }
+                    HusBadge { count: 0; showZero: true }
                 }
 
-                DelAvatar {
+                HusAvatar {
                     size: 40
                     radiusBg: 6
 
-                    DelBadge {
-                        iconSource: DelIcon.ClockCircleOutlined
+                    HusBadge {
+                        iconSource: HusIcon.ClockCircleOutlined
                         colorBorder: 'transparent'
                         colorBg: 'transparent'
                         colorText: '#f5222d'
@@ -129,44 +131,44 @@ colorText | color | - | 文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelSwitch {
+                    HusSwitch {
                         id: showSwitch
                         checked: false
                     }
 
-                    DelBadge { count: showSwitch.checked ? 11 : 0; showZero: true; colorBg: '#faad14' }
-                    DelBadge { count: showSwitch.checked ? 25 : 0 }
-                    DelBadge {
-                        iconSource: showSwitch.checked ? DelIcon.ClockCircleOutlined : 0
+                    HusBadge { count: showSwitch.checked ? 11 : 0; showZero: true; colorBg: '#faad14' }
+                    HusBadge { count: showSwitch.checked ? 25 : 0 }
+                    HusBadge {
+                        iconSource: showSwitch.checked ? HusIcon.ClockCircleOutlined : 0
                         colorBorder: 'transparent'
                         colorBg: 'transparent'
                         colorText: '#f5222d'
                     }
-                    DelBadge { count: showSwitch.checked ? 109 : 0; colorBg: '#52c41a' }
+                    HusBadge { count: showSwitch.checked ? 109 : 0; colorBg: '#52c41a' }
                 }
             `
             exampleDelegate: Row {
                 spacing: 10
 
-                DelSwitch {
+                HusSwitch {
                     id: showSwitch
                     checked: false
                 }
 
-                DelBadge { count: showSwitch.checked ? 11 : 0; showZero: true; colorBg: '#faad14' }
-                DelBadge { count: showSwitch.checked ? 25 : 0 }
-                DelBadge {
-                    iconSource: showSwitch.checked ? DelIcon.ClockCircleOutlined : 0
+                HusBadge { count: showSwitch.checked ? 11 : 0; showZero: true; colorBg: '#faad14' }
+                HusBadge { count: showSwitch.checked ? 25 : 0 }
+                HusBadge {
+                    iconSource: showSwitch.checked ? HusIcon.ClockCircleOutlined : 0
                     colorBorder: 'transparent'
                     colorBg: 'transparent'
                     colorText: '#f5222d'
                 }
-                DelBadge { count: showSwitch.checked ? 109 : 0; colorBg: '#52c41a' }
+                HusBadge { count: showSwitch.checked ? 109 : 0; colorBg: '#52c41a' }
             }
         }
 
@@ -179,69 +181,69 @@ colorText | color | - | 文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 20
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge { count: 99 }
+                        HusBadge { count: 99 }
                     }
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge { count: 100 }
+                        HusBadge { count: 100 }
                     }
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge { count: 99; overflowCount: 10 }
+                        HusBadge { count: 99; overflowCount: 10 }
                     }
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge { count: 1000; overflowCount: 999 }
+                        HusBadge { count: 1000; overflowCount: 999 }
                     }
                 }
             `
             exampleDelegate: Row {
                 spacing: 20
 
-                DelAvatar {
+                HusAvatar {
                     size: 40
                     radiusBg: 6
 
-                    DelBadge { count: 99 }
+                    HusBadge { count: 99 }
                 }
 
-                DelAvatar {
+                HusAvatar {
                     size: 40
                     radiusBg: 6
 
-                    DelBadge { count: 100 }
+                    HusBadge { count: 100 }
                 }
 
-                DelAvatar {
+                HusAvatar {
                     size: 40
                     radiusBg: 6
 
-                    DelBadge { count: 99; overflowCount: 10 }
+                    HusBadge { count: 99; overflowCount: 10 }
                 }
 
-                DelAvatar {
+                HusAvatar {
                     size: 40
                     radiusBg: 6
 
-                    DelBadge { count: 1000; overflowCount: 999 }
+                    HusBadge { count: 1000; overflowCount: 999 }
                 }
             }
         }
@@ -254,47 +256,47 @@ colorText | color | - | 文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 20
 
-                    DelIconText {
+                    HusIconText {
                         iconSize: 18
-                        iconSource: DelIcon.NotificationOutlined
+                        iconSource: HusIcon.NotificationOutlined
 
-                        DelBadge { dot: true }
+                        HusBadge { dot: true }
                     }
 
-                    DelButton {
+                    HusButton {
                         padding: 0
                         topPadding: 0
                         bottomPadding: 0
-                        type: DelButton.Type_Link
+                        type: HusButton.Type_Link
                         text: 'Link something'
 
-                        DelBadge { dot: true }
+                        HusBadge { dot: true }
                     }
                 }
             `
             exampleDelegate: Row {
                 spacing: 20
 
-                DelIconText {
+                HusIconText {
                     iconSize: 18
-                    iconSource: DelIcon.NotificationOutlined
+                    iconSource: HusIcon.NotificationOutlined
 
-                    DelBadge { dot: true }
+                    HusBadge { dot: true }
                 }
 
-                DelButton {
+                HusButton {
                     padding: 0
                     topPadding: 0
                     bottomPadding: 0
-                    type: DelButton.Type_Link
+                    type: HusButton.Type_Link
                     text: 'Link something'
 
-                    DelBadge { dot: true }
+                    HusBadge { dot: true }
                 }
             }
         }
@@ -307,7 +309,7 @@ colorText | color | - | 文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 20
@@ -316,18 +318,18 @@ colorText | color | - | 文本颜色
                     Row {
                         spacing: 20
 
-                        DelAvatar {
+                        HusAvatar {
                             size: 40
                             radiusBg: 6
 
-                            DelBadge { id: badge; count: 5 }
+                            HusBadge { id: badge; count: 5 }
                         }
 
-                        DelButtonBlock {
+                        HusButtonBlock {
                             model: [
-                                { icon: DelIcon.MinusOutlined, autoRepeat: true },
-                                { icon: DelIcon.PlusOutlined, autoRepeat: true },
-                                { icon: DelIcon.QuestionOutlined, autoRepeat: true },
+                                { icon: HusIcon.MinusOutlined, autoRepeat: true },
+                                { icon: HusIcon.PlusOutlined, autoRepeat: true },
+                                { icon: HusIcon.QuestionOutlined, autoRepeat: true },
                             ]
                             onClicked:
                                 (index) => {
@@ -343,14 +345,14 @@ colorText | color | - | 文本颜色
                     Row {
                         spacing: 20
 
-                        DelAvatar {
+                        HusAvatar {
                             size: 40
                             radiusBg: 6
 
-                            DelBadge { id: badge2; count: 0; dot: true }
+                            HusBadge { id: badge2; count: 0; dot: true }
                         }
 
-                        DelSwitch {
+                        HusSwitch {
                             checked: true
                             onCheckedChanged: badge2.dot = checked;
                         }
@@ -364,18 +366,18 @@ colorText | color | - | 文本颜色
                 Row {
                     spacing: 20
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge { id: badge; count: 5 }
+                        HusBadge { id: badge; count: 5 }
                     }
 
-                    DelButtonBlock {
+                    HusButtonBlock {
                         model: [
-                            { icon: DelIcon.MinusOutlined, autoRepeat: true },
-                            { icon: DelIcon.PlusOutlined, autoRepeat: true },
-                            { icon: DelIcon.QuestionOutlined, autoRepeat: true },
+                            { icon: HusIcon.MinusOutlined, autoRepeat: true },
+                            { icon: HusIcon.PlusOutlined, autoRepeat: true },
+                            { icon: HusIcon.QuestionOutlined, autoRepeat: true },
                         ]
                         onClicked:
                             (index) => {
@@ -391,14 +393,14 @@ colorText | color | - | 文本颜色
                 Row {
                     spacing: 20
 
-                    DelAvatar {
+                    HusAvatar {
                         size: 40
                         radiusBg: 6
 
-                        DelBadge { id: badge2; count: 0; dot: true }
+                        HusBadge { id: badge2; count: 0; dot: true }
                     }
 
-                    DelSwitch {
+                    HusSwitch {
                         checked: true
                         onCheckedChanged: badge2.dot = checked;
                     }
@@ -411,15 +413,15 @@ colorText | color | - | 文本颜色
             descTitle: qsTr('状态点')
             desc: qsTr(`
 通过 \`badgeState\` 来设置不同的状态，支持的状态有：\n
-- 默认状态{ DelBadge.State_Default }\n
-- 成功状态{ DelBadge.State_Success }\n
-- 处理中状态(该状态有动效){ DelBadge.State_Processing }\n
-- 错误状态(默认){ DelBadge.State_Error }\n
-- 警告状态{ DelBadge.State_Warning }\n
+- 默认状态{ HusBadge.State_Default }\n
+- 成功状态{ HusBadge.State_Success }\n
+- 处理中状态(该状态有动效){ HusBadge.State_Processing }\n
+- 错误状态(默认){ HusBadge.State_Error }\n
+- 警告状态{ HusBadge.State_Warning }\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
@@ -428,11 +430,11 @@ colorText | color | - | 文本颜色
                     Row {
                         spacing: 10
 
-                        DelBadge { dot: true; badgeState: DelBadge.State_Success }
-                        DelBadge { dot: true; badgeState: DelBadge.State_Processing }
-                        DelBadge { dot: true; badgeState: DelBadge.State_Error }
-                        DelBadge { dot: true; badgeState: DelBadge.State_Warning }
-                        DelBadge { dot: true; badgeState: DelBadge.State_Default }
+                        HusBadge { dot: true; badgeState: HusBadge.State_Success }
+                        HusBadge { dot: true; badgeState: HusBadge.State_Processing }
+                        HusBadge { dot: true; badgeState: HusBadge.State_Error }
+                        HusBadge { dot: true; badgeState: HusBadge.State_Warning }
+                        HusBadge { dot: true; badgeState: HusBadge.State_Default }
                     }
 
                     Column {
@@ -440,32 +442,32 @@ colorText | color | - | 文本颜色
 
                         Row {
                             spacing: 10
-                            DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Success }
-                            DelText { text: 'Success' }
+                            HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Success }
+                            HusText { text: 'Success' }
                         }
 
                         Row {
                             spacing: 10
-                            DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Processing }
-                            DelText { text: 'Processing' }
+                            HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Processing }
+                            HusText { text: 'Processing' }
                         }
 
                         Row {
                             spacing: 10
-                            DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Error }
-                            DelText { text: 'Error' }
+                            HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Error }
+                            HusText { text: 'Error' }
                         }
 
                         Row {
                             spacing: 10
-                            DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Warning }
-                            DelText { text: 'Warning' }
+                            HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Warning }
+                            HusText { text: 'Warning' }
                         }
 
                         Row {
                             spacing: 10
-                            DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Default }
-                            DelText { text: 'Default' }
+                            HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Default }
+                            HusText { text: 'Default' }
                         }
                     }
                 }
@@ -476,11 +478,11 @@ colorText | color | - | 文本颜色
                 Row {
                     spacing: 10
 
-                    DelBadge { dot: true; badgeState: DelBadge.State_Success }
-                    DelBadge { dot: true; badgeState: DelBadge.State_Processing }
-                    DelBadge { dot: true; badgeState: DelBadge.State_Error }
-                    DelBadge { dot: true; badgeState: DelBadge.State_Warning }
-                    DelBadge { dot: true; badgeState: DelBadge.State_Default }
+                    HusBadge { dot: true; badgeState: HusBadge.State_Success }
+                    HusBadge { dot: true; badgeState: HusBadge.State_Processing }
+                    HusBadge { dot: true; badgeState: HusBadge.State_Error }
+                    HusBadge { dot: true; badgeState: HusBadge.State_Warning }
+                    HusBadge { dot: true; badgeState: HusBadge.State_Default }
                 }
 
                 Column {
@@ -488,32 +490,32 @@ colorText | color | - | 文本颜色
 
                     Row {
                         spacing: 10
-                        DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Success }
-                        DelText { text: 'Success' }
+                        HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Success }
+                        HusText { text: 'Success' }
                     }
 
                     Row {
                         spacing: 10
-                        DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Processing }
-                        DelText { text: 'Processing' }
+                        HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Processing }
+                        HusText { text: 'Processing' }
                     }
 
                     Row {
                         spacing: 10
-                        DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Error }
-                        DelText { text: 'Error' }
+                        HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Error }
+                        HusText { text: 'Error' }
                     }
 
                     Row {
                         spacing: 10
-                        DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Warning }
-                        DelText { text: 'Warning' }
+                        HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Warning }
+                        HusText { text: 'Warning' }
                     }
 
                     Row {
                         spacing: 10
-                        DelBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: DelBadge.State_Default }
-                        DelText { text: 'Default' }
+                        HusBadge { anchors.verticalCenter: parent.verticalCenter; dot: true; badgeState: HusBadge.State_Default }
+                        HusText { text: 'Default' }
                     }
                 }
             }
@@ -530,7 +532,7 @@ colorText | color | - | 文本颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
@@ -541,13 +543,13 @@ colorText | color | - | 文本颜色
                         delegate: Row {
                             spacing: 10
 
-                            DelBadge {
+                            HusBadge {
                                 anchors.verticalCenter: parent.verticalCenter
                                 dot: true
                                 presetColor: modelData
                             }
 
-                            DelText {
+                            HusText {
                                 text: modelData
                             }
                         }
@@ -562,13 +564,13 @@ colorText | color | - | 文本颜色
                     delegate: Row {
                         spacing: 10
 
-                        DelBadge {
+                        HusBadge {
                             anchors.verticalCenter: parent.verticalCenter
                             dot: true
                             presetColor: modelData
                         }
 
-                        DelText {
+                        HusText {
                             text: modelData
                         }
                     }

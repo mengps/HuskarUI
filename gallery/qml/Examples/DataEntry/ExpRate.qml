@@ -1,13 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -16,10 +16,11 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelRate 评分 \n
+# HusRate 评分 \n
 用于对事物进行评分操作。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **fillDelegate: Component** 满星代理，代理可访问属性：\n
   - \`index: int\` 当前星星索引\n
   - \`hovered: bool\` 是否悬浮在当前星星上\n
@@ -32,45 +33,51 @@ Flickable {
 - **toolTipDelegate: Component** 文字提示代理，代理可访问属性：\n
   - \`index: int\` 当前星星索引\n
   - \`hovered: bool\` 是否悬浮在当前星星上\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
-count | int | 星星数量
-initValue | int | 初始值
-value | int | 当前值
-spacing | int | 星星间隔
-iconSize | int | 图标大小
-toolTipFont | font | 文字提示字体
-toolTipVisible | bool | 是否显示文字提示(默认false)
-toolTipTexts | list | 文字提示文本列表(长度需等于count)
-colorFill | color | 满星颜色
-colorEmpty | color | 空星颜色
-colorHalf | color | 半星颜色
-colorToolTipText | color | 文字提示文本颜色
-colorToolTipBg | color | 文字提示背景颜色
-allowHalf | bool | 是否允许半星(默认false)
-isDone | bool | 是否已经完成评分
-fillIcon | enum | 满星图标(来自 DelIcon)
-emptyIcon | enum | 空星图标(来自 DelIcon)
-halfIcon | enum | 半星图标(来自 DelIcon)
-\n支持的信号：\n
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
+count | int | 5 | 星星数量
+initValue | int | 0 | 初始值
+value | int | 0 | 当前值
+spacing | int | 4 | 星星间隔
+iconSize | int | 24 | 图标大小
+toolTipFont | font | - | 文字提示字体
+toolTipVisible | bool | false | 是否显示文字提示
+toolTipTexts | list | [] | 文字提示文本列表(长度需等于count)
+colorFill | color | - | 满星颜色
+colorEmpty | color | - | 空星颜色
+colorHalf | color | - | 半星颜色
+colorToolTipText | color | - | 文字提示文本颜色
+colorToolTipBg | color | - | 文字提示背景颜色
+allowHalf | bool | false | 是否允许半星
+isDone | bool | false | 是否已经完成评分
+fillIcon | enum | HusIcon.StarFilled | 满星图标(来自 HusIcon)
+emptyIcon | enum | HusIcon.StarFilled | 空星图标(来自 HusIcon)
+halfIcon | enum | HusIcon.StarFilled | 半星图标(来自 HusIcon)
+\n<br/>
+\n### 支持的信号：\n
 - \`done(value: int)\` 完成评分时发出\n
 **提供一个半星助手**：\`halfRateHelper\` 可将任意项变为半星\n
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 - 需要对评价进行展示。
 - 需要对事物进行快速的评级操作。
                        `)
         }
 
+        ThemeToken {
+            source: 'HusRate'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -84,21 +91,21 @@ halfIcon | enum | 半星图标(来自 DelIcon)
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelRate {
+                    HusRate {
                         initValue: 3
                     }
 
-                    DelRate {
+                    HusRate {
                         allowHalf: true
                         initValue: 3.5
                     }
 
-                    DelRate {
+                    HusRate {
                         allowHalf: true
                         initValue: 2.5
                         enabled: false
@@ -108,16 +115,16 @@ halfIcon | enum | 半星图标(来自 DelIcon)
             exampleDelegate: Column {
                 spacing: 10
 
-                DelRate {
+                HusRate {
                     initValue: 3
                 }
 
-                DelRate {
+                HusRate {
                     allowHalf: true
                     initValue: 3.5
                 }
 
-                DelRate {
+                HusRate {
                     allowHalf: true
                     initValue: 2.5
                     enabled: false
@@ -135,12 +142,12 @@ halfIcon | enum | 半星图标(来自 DelIcon)
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelRate {
+                    HusRate {
                         initValue: 3
                         toolTipVisible: true
                         toolTipTexts: ['terrible', 'bad', 'normal', 'good', 'wonderful']
@@ -150,7 +157,7 @@ halfIcon | enum | 半星图标(来自 DelIcon)
             exampleDelegate: Column {
                 spacing: 10
 
-                DelRate {
+                HusRate {
                     initValue: 3
                     toolTipVisible: true
                     toolTipTexts: ['terrible', 'bad', 'normal', 'good', 'wonderful']
@@ -170,57 +177,57 @@ halfIcon | enum | 半星图标(来自 DelIcon)
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelRate {
+                    HusRate {
                         allowHalf: true
                         initValue: 3
-                        colorFill: "red"
-                        colorEmpty: "red"
-                        colorHalf: "red"
-                        fillIcon: DelIcon.HeartFilled
-                        emptyIcon: DelIcon.HeartOutlined
-                        halfIcon: DelIcon.HeartFilled
+                        colorFill: 'red'
+                        colorEmpty: 'red'
+                        colorHalf: 'red'
+                        fillIcon: HusIcon.HeartFilled
+                        emptyIcon: HusIcon.HeartOutlined
+                        halfIcon: HusIcon.HeartFilled
                     }
 
-                    DelRate {
+                    HusRate {
                         allowHalf: true
                         initValue: 3
-                        colorFill: "green"
-                        colorEmpty: "green"
-                        colorHalf: "green"
-                        fillIcon: DelIcon.LikeFilled
-                        emptyIcon: DelIcon.LikeOutlined
-                        halfIcon: DelIcon.LikeFilled
+                        colorFill: 'green'
+                        colorEmpty: 'green'
+                        colorHalf: 'green'
+                        fillIcon: HusIcon.LikeFilled
+                        emptyIcon: HusIcon.LikeOutlined
+                        halfIcon: HusIcon.LikeFilled
                     }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                DelRate {
+                HusRate {
                     allowHalf: true
                     initValue: 3
-                    colorFill: "red"
-                    colorEmpty: "red"
-                    colorHalf: "red"
-                    fillIcon: DelIcon.HeartFilled
-                    emptyIcon: DelIcon.HeartOutlined
-                    halfIcon: DelIcon.HeartFilled
+                    colorFill: 'red'
+                    colorEmpty: 'red'
+                    colorHalf: 'red'
+                    fillIcon: HusIcon.HeartFilled
+                    emptyIcon: HusIcon.HeartOutlined
+                    halfIcon: HusIcon.HeartFilled
                 }
 
-                DelRate {
+                HusRate {
                     allowHalf: true
                     initValue: 3
-                    colorFill: "green"
-                    colorEmpty: "green"
-                    colorHalf: "green"
-                    fillIcon: DelIcon.LikeFilled
-                    emptyIcon: DelIcon.LikeOutlined
-                    halfIcon: DelIcon.LikeFilled
+                    colorFill: 'green'
+                    colorEmpty: 'green'
+                    colorHalf: 'green'
+                    fillIcon: HusIcon.LikeFilled
+                    emptyIcon: HusIcon.LikeOutlined
+                    halfIcon: HusIcon.LikeFilled
                 }
             }
         }
@@ -234,21 +241,21 @@ halfIcon | enum | 半星图标(来自 DelIcon)
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelRate {
+                    HusRate {
                         id: custom1
                         initValue: 3
-                        colorFill: "red"
+                        colorFill: 'red'
                         fillDelegate: Text {
                             width: custom1.iconSize
                             height: custom1.iconSize
                             color: custom1.colorFill
                             font {
-                                family: DelTheme.Primary.fontPrimaryFamily
+                                family: HusTheme.Primary.fontPrimaryFamily
                                 pixelSize: custom1.iconSize
                             }
                             text: index + 1
@@ -258,32 +265,32 @@ halfIcon | enum | 半星图标(来自 DelIcon)
                             height: custom1.iconSize
                             color: custom1.colorEmpty
                             font {
-                                family: DelTheme.Primary.fontPrimaryFamily
+                                family: HusTheme.Primary.fontPrimaryFamily
                                 pixelSize: custom1.iconSize
                             }
                             text: index + 1
                         }
                     }
 
-                    DelRate {
+                    HusRate {
                         id: custom2
                         initValue: 3
-                        colorFill: "red"
-                        fillDelegate: DelIconText {
+                        colorFill: 'red'
+                        fillDelegate: HusIconText {
                             iconSource: {
-                                if (index <= 2) return DelIcon.FrownOutlined;
-                                else if (index == 3) return DelIcon.MehOutlined;
-                                else return DelIcon.SmileOutlined;
+                                if (index <= 2) return HusIcon.FrownOutlined;
+                                else if (index == 3) return HusIcon.MehOutlined;
+                                else return HusIcon.SmileOutlined;
                             }
                             iconSize: custom2.iconSize
                             color: custom2.colorFill
                             scale: hovered ? 1.1 : 1.0
                         }
-                        emptyDelegate: DelIconText {
+                        emptyDelegate: HusIconText {
                             iconSource: {
-                                if (index <= 2) return DelIcon.FrownOutlined;
-                                else if (index == 3) return DelIcon.MehOutlined;
-                                else return DelIcon.SmileOutlined;
+                                if (index <= 2) return HusIcon.FrownOutlined;
+                                else if (index == 3) return HusIcon.MehOutlined;
+                                else return HusIcon.SmileOutlined;
                             }
                             iconSize: custom2.iconSize
                             color: custom2.colorEmpty
@@ -294,16 +301,16 @@ halfIcon | enum | 半星图标(来自 DelIcon)
             exampleDelegate: Column {
                 spacing: 10
 
-                DelRate {
+                HusRate {
                     id: custom1
                     initValue: 3
-                    colorFill: "red"
+                    colorFill: 'red'
                     fillDelegate: Text {
                         width: custom1.iconSize
                         height: custom1.iconSize
                         color: custom1.colorFill
                         font {
-                            family: DelTheme.Primary.fontPrimaryFamily
+                            family: HusTheme.Primary.fontPrimaryFamily
                             pixelSize: custom1.iconSize
                         }
                         text: index + 1
@@ -313,32 +320,32 @@ halfIcon | enum | 半星图标(来自 DelIcon)
                         height: custom1.iconSize
                         color: custom1.colorEmpty
                         font {
-                            family: DelTheme.Primary.fontPrimaryFamily
+                            family: HusTheme.Primary.fontPrimaryFamily
                             pixelSize: custom1.iconSize
                         }
                         text: index + 1
                     }
                 }
 
-                DelRate {
+                HusRate {
                     id: custom2
                     initValue: 3
-                    colorFill: "red"
-                    fillDelegate: DelIconText {
+                    colorFill: 'red'
+                    fillDelegate: HusIconText {
                         iconSource: {
-                            if (index <= 2) return DelIcon.FrownOutlined;
-                            else if (index == 3) return DelIcon.MehOutlined;
-                            else return DelIcon.SmileOutlined;
+                            if (index <= 2) return HusIcon.FrownOutlined;
+                            else if (index == 3) return HusIcon.MehOutlined;
+                            else return HusIcon.SmileOutlined;
                         }
                         iconSize: custom2.iconSize
                         color: custom2.colorFill
                         scale: hovered ? 1.1 : 1.0
                     }
-                    emptyDelegate: DelIconText {
+                    emptyDelegate: HusIconText {
                         iconSource: {
-                            if (index <= 2) return DelIcon.FrownOutlined;
-                            else if (index == 3) return DelIcon.MehOutlined;
-                            else return DelIcon.SmileOutlined;
+                            if (index <= 2) return HusIcon.FrownOutlined;
+                            else if (index == 3) return HusIcon.MehOutlined;
+                            else return HusIcon.SmileOutlined;
                         }
                         iconSize: custom2.iconSize
                         color: custom2.colorEmpty
@@ -354,18 +361,18 @@ halfIcon | enum | 半星图标(来自 DelIcon)
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelRate {
+                    HusRate {
                         id: custom3
                         allowHalf: true
                         initValue: 3.5
-                        colorFill: "green"
-                        colorEmpty: "green"
-                        colorHalf: "green"
+                        colorFill: 'green'
+                        colorEmpty: 'green'
+                        colorHalf: 'green'
                         fillDelegate: Canvas {
                             width: custom3.iconSize
                             height: custom3.iconSize
@@ -430,13 +437,13 @@ halfIcon | enum | 半星图标(来自 DelIcon)
             exampleDelegate: Column {
                 spacing: 10
 
-                DelRate {
+                HusRate {
                     id: custom3
                     allowHalf: true
                     initValue: 3.5
-                    colorFill: "green"
-                    colorEmpty: "green"
-                    colorHalf: "green"
+                    colorFill: 'green'
+                    colorEmpty: 'green'
+                    colorHalf: 'green'
                     fillDelegate: Canvas {
                         width: custom3.iconSize
                         height: custom3.iconSize

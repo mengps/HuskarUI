@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
 import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Component {
         id: myContentDelegate
@@ -24,12 +24,12 @@ Flickable {
                 elide: Text.ElideRight
             }
 
-            DelTag {
+            HusTag {
                 id: __tag
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 text: 'Success'
-                tagState: DelTag.State_Success
+                tagState: HusTag.State_Success
             }
         }
     }
@@ -41,10 +41,11 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelMenu 菜单\n
+# HusMenu 菜单\n
 为页面和功能提供导航的菜单列表。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **menuIconDelegate: Component** 菜单图标代理，代理可访问属性：\n
   - \`model: var\` 本菜单数据(访问错误则使用 \`parent.model\`)\n
   - \`menuButton: var\` 菜单按钮(访问错误则使用 \`parent.menuButton\`)\n
@@ -57,10 +58,11 @@ Flickable {
 - **menuContentDelegate: Component** 菜单内容代理，代理可访问属性：\n
   - \`model: var\` 本菜单数据(访问错误则使用 \`parent.model\`)\n
   - \`menuButton: var\` 菜单按钮(访问错误则使用 \`parent.menuButton\`)\n
-支持的属性：\n
-属性名 | 类型 | 默认值 | 描述 |
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-animationEnabled | bool | true | 是否开启动画
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 contentDescription | string | '' | 内容描述(提高可用性)
 showEdge | bool | false | 是否显示边线
 tooltipVisible | bool | false | 是否显示工具提示
@@ -77,25 +79,28 @@ defaultMenuHieght | int | 40 | 默认菜单高度
 defaultMenuSpacing | int | 4 | 默认菜单间隔
 defaultSelectedKey | list | [] | 初始选中的菜单项 key 数组
 initModel | list | [] | 初始菜单模型
-\n模型支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-key | string | 菜单键(最好唯一)
-label | sting | 菜单标签
-type | sting | 菜单项类型
-height | int | 本菜单项高度
-enabled | bool | 是否启用(false则禁用本菜单项)
-iconSize | int | 图标大小
-iconSource | int | 图标源
-iconSpacing | int | 图标间隔
-menuChildren | list | 子菜单(支持无限嵌套)
-iconDelegate | var | 本菜单项图标代理(将覆盖menuIconDelegate)
-labelDelegate | var | 本菜单项标签代理(将覆盖menuLabelDelegate)
-contentDelegate | var | 本菜单项内容代理(将覆盖menuContentDelegate)
-backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDelegate)
+scrollBar | HusScrollBar | - | 菜单滚动条
+radiusBg | int | - | 背景圆角
+\n<br/>
+\n### 模型支持的属性：\n
+属性名 | 类型 | 可选/必选 | 描述
+------ | --- | :---: | ---
+key | string | 可选 | 菜单键(最好唯一)
+label | sting | 必选 | 菜单标签
+type | sting | 可选 | 菜单项类型
+height | int | 可选 | 本菜单项高度
+enabled | bool | 可选 | 是否启用(false则禁用本菜单项)
+iconSize | int | 可选 | 图标大小
+iconSource | int | 可选 | 图标源
+iconSpacing | int | 可选 | 图标间隔
+menuChildren | list | 可选 | 子菜单(支持无限嵌套)
+iconDelegate | var | 可选 | 本菜单项图标代理(将覆盖menuIconDelegate)
+labelDelegate | var | 可选 | 本菜单项标签代理(将覆盖menuLabelDelegate)
+contentDelegate | var | 可选 | 本菜单项内容代理(将覆盖menuContentDelegate)
+backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgroundDelegate)
 \n \`iconDelegate\` | \`labelDelegate\` | \`contentDelegate\` | \`backgroundDelegate\` 可访问属性：\n
 - **model: var** 模型数据(访问错误则使用 \`parent.model\`)\n
-- **menuButton: DelButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，可访问的属性：\n
+- **menuButton: HusButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，可访问的属性：\n
   - model: var 本菜单模型\n
   - iconSource: int 图标源\n
   - iconSize: int 图标大小\n
@@ -104,9 +109,10 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
   - expanded: int 是否展开\n
   - isCurrent: int 是否为当前选择菜单\n
   - isGroup: int 是否为组菜单\n
-\n支持的函数：\n
+\n<br/>
+\n### 支持的函数：\n
 - \`gotoMenu(key: string)\` 跳转到菜单键为 \`key\` 处的菜单项 \n
-- \`Object get(index: int)\` 获取 \`index\` 处的模型数据 \n
+- \`get(index: int): Object\` 获取 \`index\` 处的模型数据 \n
 - \`set(index: int, object: Object)\` 设置 \`index\` 处的模型数据为 \`object\` \n
 - \`setProperty(index: int, propertyName: string, value: any)\` 设置 \`index\` 处的模型数据属性名 \`propertyName\` 值为 \`value\` \n
 - \`move(from: int, to: int, count: int = 1)\` 将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置 \n
@@ -114,7 +120,8 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
 - \`append(object: Object)\` 在末尾添加菜单 \`object\` \n
 - \`remove(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
 - \`clear()\` 清空所有模型数据 \n
-\n支持的信号：\n
+\n<br/>
+\n### 支持的信号：\n
 - \`clickMenu(deep: int, menuKey: string, menuData: var)\` 点击任意菜单项时发出\n
   - \`deep\` 菜单项深度\n
   - \`menuKey\` 菜单项的键\n
@@ -130,6 +137,10 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
 - 顶部导航提供全局性的类目和功能。\n
 - 侧边导航提供多级结构来收纳和排列网站架构。\n
                        `)
+        }
+
+        ThemeToken {
+            source: 'HusMenu'
         }
 
         Description {
@@ -159,41 +170,41 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Item {
                     width: parent.width
                     height: 200
 
-                    DelButton {
+                    HusButton {
                         text: qsTr('添加')
                         anchors.right: parent.right
                         onClicked: menu.append({
                                                     label: qsTr('Test'),
-                                                    iconSource: DelIcon.HomeOutlined,
+                                                    iconSource: HusIcon.HomeOutlined,
                                                     contentDelegate: myContentDelegate
                                                });
                     }
 
-                    DelMenu {
+                    HusMenu {
                         id: menu
                         height: parent.height
                         initModel: [
                             {
                                 label: qsTr('首页1'),
-                                iconSource: DelIcon.HomeOutlined
+                                iconSource: HusIcon.HomeOutlined
                             },
                             {
                                 label: qsTr('首页2'),
-                                iconSource: DelIcon.HomeOutlined,
+                                iconSource: HusIcon.HomeOutlined,
                                 menuChildren: [
                                     {
                                         label: qsTr('首页2-1'),
-                                        iconSource: DelIcon.HomeOutlined,
+                                        iconSource: HusIcon.HomeOutlined,
                                         menuChildren: [
                                             {
                                                 label: qsTr('首页2-1-1'),
-                                                iconSource: DelIcon.HomeOutlined,
+                                                iconSource: HusIcon.HomeOutlined,
                                                 contentDelegate: myContentDelegate
                                             }
                                         ]
@@ -202,7 +213,7 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                             },
                             {
                                 label: qsTr('首页3'),
-                                iconSource: DelIcon.HomeOutlined,
+                                iconSource: HusIcon.HomeOutlined,
                                 enabled: false
                             }
                         ]
@@ -212,35 +223,35 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
             exampleDelegate: Item {
                 height: 200
 
-                DelButton {
+                HusButton {
                     text: qsTr('添加')
                     anchors.right: parent.right
                     onClicked: menu.append({
                                                 label: qsTr('Test'),
-                                                iconSource: DelIcon.HomeOutlined,
+                                                iconSource: HusIcon.HomeOutlined,
                                                 contentDelegate: myContentDelegate
                                            });
                 }
 
-                DelMenu {
+                HusMenu {
                     id: menu
                     height: parent.height
                     initModel: [
                         {
                             label: qsTr('首页1'),
-                            iconSource: DelIcon.HomeOutlined
+                            iconSource: HusIcon.HomeOutlined
                         },
                         {
                             label: qsTr('首页2'),
-                            iconSource: DelIcon.HomeOutlined,
+                            iconSource: HusIcon.HomeOutlined,
                             menuChildren: [
                                 {
                                     label: qsTr('首页2-1'),
-                                    iconSource: DelIcon.HomeOutlined,
+                                    iconSource: HusIcon.HomeOutlined,
                                     menuChildren: [
                                         {
                                             label: qsTr('首页2-1-1'),
-                                            iconSource: DelIcon.HomeOutlined,
+                                            iconSource: HusIcon.HomeOutlined,
                                             contentDelegate: myContentDelegate
                                         }
                                     ]
@@ -249,7 +260,7 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                         },
                         {
                             label: qsTr('首页3'),
-                            iconSource: DelIcon.HomeOutlined,
+                            iconSource: HusIcon.HomeOutlined,
                             enabled: false
                         }
                     ]
@@ -267,13 +278,13 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
-                    DelRadioBlock {
+                    HusRadioBlock {
                         id: popupModeRadio
                         initCheckedIndex: 0
                         model: [
@@ -282,36 +293,36 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                         ]
                     }
 
-                    DelMenu {
+                    HusMenu {
                         height: 250
                         popupMode: popupModeRadio.currentCheckedValue
                         popupWidth: 150
                         initModel: [
                             {
                                 label: qsTr('首页1'),
-                                iconSource: DelIcon.HomeOutlined
+                                iconSource: HusIcon.HomeOutlined
                             },
                             {
                                 label: qsTr('首页2'),
-                                iconSource: DelIcon.HomeOutlined,
+                                iconSource: HusIcon.HomeOutlined,
                                 menuChildren: [
                                     {
                                         label: qsTr('首页2-1'),
-                                        iconSource: DelIcon.HomeOutlined,
+                                        iconSource: HusIcon.HomeOutlined,
                                         menuChildren: [
                                             {
                                                 label: qsTr('首页2-1-1'),
-                                                iconSource: DelIcon.HomeOutlined
+                                                iconSource: HusIcon.HomeOutlined
                                             }
                                         ]
                                     },
                                     {
                                         label: qsTr('首页2-2'),
-                                        iconSource: DelIcon.HomeOutlined,
+                                        iconSource: HusIcon.HomeOutlined,
                                         menuChildren: [
                                             {
                                                 label: qsTr('首页2-2-1'),
-                                                iconSource: DelIcon.HomeOutlined
+                                                iconSource: HusIcon.HomeOutlined
                                             }
                                         ]
                                     }
@@ -319,15 +330,15 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                             },
                             {
                                 label: qsTr('首页3'),
-                                iconSource: DelIcon.HomeOutlined,
+                                iconSource: HusIcon.HomeOutlined,
                                 menuChildren: [
                                     {
                                         label: qsTr('首页3-1'),
-                                        iconSource: DelIcon.HomeOutlined,
+                                        iconSource: HusIcon.HomeOutlined,
                                         menuChildren: [
                                             {
                                                 label: qsTr('首页3-1-1'),
-                                                iconSource: DelIcon.HomeOutlined
+                                                iconSource: HusIcon.HomeOutlined
                                             }
                                         ]
                                     }
@@ -340,7 +351,7 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
             exampleDelegate: Column {
                 spacing: 10
 
-                DelRadioBlock {
+                HusRadioBlock {
                     id: popupModeRadio
                     initCheckedIndex: 0
                     model: [
@@ -349,37 +360,37 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                     ]
                 }
 
-                DelMenu {
+                HusMenu {
                     height: 250
                     popupMode: popupModeRadio.currentCheckedValue
                     popupWidth: 150
                     initModel: [
                         {
                             label: qsTr('首页1'),
-                            iconSource: DelIcon.HomeOutlined
+                            iconSource: HusIcon.HomeOutlined
                         },
                         {
                             label: qsTr('首页2'),
-                            iconSource: DelIcon.HomeOutlined,
+                            iconSource: HusIcon.HomeOutlined,
                             menuChildren: [
                                 {
                                     label: qsTr('首页2-1'),
-                                    iconSource: DelIcon.HomeOutlined,
+                                    iconSource: HusIcon.HomeOutlined,
                                     menuChildren: [
                                         {
                                             label: qsTr('首页2-1-1'),
-                                            iconSource: DelIcon.HomeOutlined,
+                                            iconSource: HusIcon.HomeOutlined,
                                             contentDelegate: myContentDelegate
                                         }
                                     ]
                                 },
                                 {
                                     label: qsTr('首页2-2'),
-                                    iconSource: DelIcon.HomeOutlined,
+                                    iconSource: HusIcon.HomeOutlined,
                                     menuChildren: [
                                         {
                                             label: qsTr('首页2-2-1'),
-                                            iconSource: DelIcon.HomeOutlined
+                                            iconSource: HusIcon.HomeOutlined
                                         }
                                     ]
                                 }
@@ -387,15 +398,15 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                         },
                         {
                             label: qsTr('首页3'),
-                            iconSource: DelIcon.HomeOutlined,
+                            iconSource: HusIcon.HomeOutlined,
                             menuChildren: [
                                 {
                                     label: qsTr('首页3-1'),
-                                    iconSource: DelIcon.HomeOutlined,
+                                    iconSource: HusIcon.HomeOutlined,
                                     menuChildren: [
                                         {
                                             label: qsTr('首页3-1-1'),
-                                            iconSource: DelIcon.HomeOutlined
+                                            iconSource: HusIcon.HomeOutlined
                                         }
                                     ]
                                 }
@@ -419,13 +430,13 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
-                    DelRadioBlock {
+                    HusRadioBlock {
                         id: compactModeRadio
                         initCheckedIndex: 0
                         model: [
@@ -434,36 +445,36 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                         ]
                     }
 
-                    DelMenu {
+                    HusMenu {
                         height: 250
                         compactMode: compactModeRadio.currentCheckedValue
                         popupWidth: 150
                         initModel: [
                             {
                                 label: qsTr('首页1'),
-                                iconSource: DelIcon.HomeOutlined
+                                iconSource: HusIcon.HomeOutlined
                             },
                             {
                                 label: qsTr('首页2'),
-                                iconSource: DelIcon.HomeOutlined,
+                                iconSource: HusIcon.HomeOutlined,
                                 menuChildren: [
                                     {
                                         label: qsTr('首页2-1'),
-                                        iconSource: DelIcon.HomeOutlined,
+                                        iconSource: HusIcon.HomeOutlined,
                                         menuChildren: [
                                             {
                                                 label: qsTr('首页2-1-1'),
-                                                iconSource: DelIcon.HomeOutlined
+                                                iconSource: HusIcon.HomeOutlined
                                             }
                                         ]
                                     },
                                     {
                                         label: qsTr('首页2-2'),
-                                        iconSource: DelIcon.HomeOutlined,
+                                        iconSource: HusIcon.HomeOutlined,
                                         menuChildren: [
                                             {
                                                 label: qsTr('首页2-2-1'),
-                                                iconSource: DelIcon.HomeOutlined
+                                                iconSource: HusIcon.HomeOutlined
                                             }
                                         ]
                                     }
@@ -471,15 +482,15 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                             },
                             {
                                 label: qsTr('首页3'),
-                                iconSource: DelIcon.HomeOutlined,
+                                iconSource: HusIcon.HomeOutlined,
                                 menuChildren: [
                                     {
                                         label: qsTr('首页3-1'),
-                                        iconSource: DelIcon.HomeOutlined,
+                                        iconSource: HusIcon.HomeOutlined,
                                         menuChildren: [
                                             {
                                                 label: qsTr('首页3-1-1'),
-                                                iconSource: DelIcon.HomeOutlined
+                                                iconSource: HusIcon.HomeOutlined
                                             }
                                         ]
                                     }
@@ -492,7 +503,7 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
             exampleDelegate: Column {
                 spacing: 10
 
-                DelRadioBlock {
+                HusRadioBlock {
                     id: compactModeRadio
                     initCheckedIndex: 0
                     model: [
@@ -501,36 +512,36 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                     ]
                 }
 
-                DelMenu {
+                HusMenu {
                     height: 250
                     compactMode: compactModeRadio.currentCheckedValue
                     popupWidth: 150
                     initModel: [
                         {
                             label: qsTr('首页1'),
-                            iconSource: DelIcon.HomeOutlined
+                            iconSource: HusIcon.HomeOutlined
                         },
                         {
                             label: qsTr('首页2'),
-                            iconSource: DelIcon.HomeOutlined,
+                            iconSource: HusIcon.HomeOutlined,
                             menuChildren: [
                                 {
                                     label: qsTr('首页2-1'),
-                                    iconSource: DelIcon.HomeOutlined,
+                                    iconSource: HusIcon.HomeOutlined,
                                     menuChildren: [
                                         {
                                             label: qsTr('首页2-1-1'),
-                                            iconSource: DelIcon.HomeOutlined
+                                            iconSource: HusIcon.HomeOutlined
                                         }
                                     ]
                                 },
                                 {
                                     label: qsTr('首页2-2'),
-                                    iconSource: DelIcon.HomeOutlined,
+                                    iconSource: HusIcon.HomeOutlined,
                                     menuChildren: [
                                         {
                                             label: qsTr('首页2-2-1'),
-                                            iconSource: DelIcon.HomeOutlined
+                                            iconSource: HusIcon.HomeOutlined
                                         }
                                     ]
                                 }
@@ -538,15 +549,15 @@ backgroundDelegate | var | 本菜单项背景代理(将覆盖menuBackgroundDeleg
                         },
                         {
                             label: qsTr('首页3'),
-                            iconSource: DelIcon.HomeOutlined,
+                            iconSource: HusIcon.HomeOutlined,
                             menuChildren: [
                                 {
                                     label: qsTr('首页3-1'),
-                                    iconSource: DelIcon.HomeOutlined,
+                                    iconSource: HusIcon.HomeOutlined,
                                     menuChildren: [
                                         {
                                             label: qsTr('首页3-1-1'),
-                                            iconSource: DelIcon.HomeOutlined
+                                            iconSource: HusIcon.HomeOutlined
                                         }
                                     ]
                                 }

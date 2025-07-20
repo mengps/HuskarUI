@@ -1,0 +1,151 @@
+name: CMake on Windows MSVC2019 - Qt6.7.3
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    permissions: write-all
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+        build_types: [Release]
+        c_compiler: [cl]
+        cxx_compiler: [cl]
+        include:
+          - qt_ver: 6.7.3        
+            qt_arch: win64_msvc2019_64
+            qt_arch_install: msvc2019_64  
+            msvc_arch: x64
+
+    env:
+      targetName: 'Gallery.exe'
+      fileName: 'Gallery'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+        with:
+          version: 1.10.2
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.qt_ver }}
+          arch: ${{ matrix.qt_arch }}
+          modules: 'qt5compat qtshadertools'
+
+      - name: Set reusable strings
+        # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+        id: strings
+        shell: bash
+        run: |
+          echo "build-output-dir=${{ github.workspace }}\build" >> "$GITHUB_OUTPUT"
+          
+      - name: Build
+        id: build
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.msvc_arch }}
+          ninja --version
+          cmake -B ${{ steps.strings.outputs.build-output-dir }} -S ${{ github.workspace }} ^
+            -DCMAKE_MESSAGE_LOG_LEVEL=STATUS ^
+            -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} ^
+            -DCMAKE_CXX_COMPILER=${{ matrix.cxx_compiler }} ^
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_types }} ^
+            -GNinja
+          cd ${{ steps.strings.outputs.build-output-dir }}
+          cmake --build . --config ${{ matrix.build_types }} --parallel --target all --
+          cmake --install .
+          
+          echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
+          echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
+          echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
+          echo vcToolsRedistDir=%VCToolsRedistDir% >> %GITHUB_ENV%
+          
+      - name: Package
+        id: package      
+        env:
+          archiveName: ${{ env.fileName }}_${{ matrix.qt_arch_install }}_Qt${{ matrix.qt_ver }}
+          buildlibName: $HuskarUI_${{ matrix.qt_arch_install }}_Qt${{ matrix.qt_ver }}
+          msvcArch: ${{ matrix.msvc_arch }}          
+        shell: pwsh
+        run: |
+          # 创建文件夹
+          New-Item -ItemType Directory dist
+          # 拷贝生成文件
+          Copy-Item bin\Release\* dist -Force -Recurse | Out-Null
+          # 删除Qt生成的多余文件
+          $excludeList = @("${{ env.fileName }}.qmltypes", "${{ env.fileName }}_qml_module_dir_map.qrc", "qmldir")
+          Remove-Item -Path dist -Include $excludeList -Recurse -Force
+          # 拷贝依赖
+          windeployqt --qmldir=. `
+            --plugindir=dist\plugins `
+            --no-opengl-sw `
+            --no-widgets `
+            --no-quickcontrols2windowsstyleimpl `
+            --no-quickcontrols2fusion `
+            --no-quickcontrols2fusionstyleimpl `
+            --no-quickcontrols2material `
+            --no-quickcontrols2materialstyleimpl `
+            --no-quickcontrols2universal `
+            --no-quickcontrols2universalstyleimpl `
+            --no-quickcontrols2imagine `
+            --no-quickcontrols2imaginestyleimpl `
+            --no-translations `
+            --compiler-runtime `
+            dist\${env:targetName}
+          # 删除不必要的文件
+          $excludeList = @("*.qmlc", "*.ilk", "*.exp", "*.lib", "*.pdb")
+          Remove-Item -Path dist -Include $excludeList -Recurse -Force
+          # 拷贝 HuskarUI.Basic.dll
+          Copy-Item ${{ env.Qt6_DIR }}\bin\HuskarUI.Basic.dll dist\
+          # 拷贝vcRedist dll
+          $redistDll="{0}{1}\*.CRT\*.dll" -f $env:vcToolsRedistDir.Trim(),$env:msvcArch
+          Copy-Item $redistDll dist\
+          # 拷贝WinSDK dll
+          $sdkDll="{0}Redist\{1}ucrt\DLLs\{2}\*.dll" -f $env:winSdkDir.Trim(),$env:winSdkVer.Trim(),$env:msvcArch
+          Copy-Item $sdkDll dist\
+          # 打包zip
+          Compress-Archive -Path dist\* -DestinationPath "${env:archiveName}.zip"
+          # 打包lib
+          Compress-Archive -Path HuskarUI -DestinationPath "${env:buildlibName}.zip"
+          # 记录 packageName libraryName 给后续 step
+          $archiveName = ${env:archiveName}
+          $buildName = ${env:buildlibName}
+          echo "packageName=$archiveName" >> $env:GITHUB_OUTPUT
+          echo "libraryName=$buildName" >> $env:GITHUB_OUTPUT
+      
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.packageName }}
+          path: dist
+
+      - name: Upload Release
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.fileName }}_${{ github.ref_name }}_${{ matrix.qt_arch_install }}_Qt${{ matrix.qt_ver }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true 
+
+      - name: Upload Library
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.libraryName }}.zip
+          asset_name: $HuskarUI_${{ github.ref_name }}_${{ matrix.qt_arch_install }}_Qt${{ matrix.qt_ver }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true 

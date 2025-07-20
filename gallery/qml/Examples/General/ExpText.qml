@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,23 +15,24 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelCopyableText 可复制文本\n
+# HusCopyableText 可复制文本\n
 提供统一字体和颜色的文本(替代Text)。\n
 * **继承自 { Text }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - 无\n
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 需要统一字体和颜色的文本时建议使用。
                        `)
         }
 
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -41,21 +42,21 @@ Flickable {
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 15
 
-                    DelText {
-                        text: qsTr("DelText文本")
+                    HusText {
+                        text: qsTr('HusText文本')
                     }
                 }
             `
             exampleDelegate: Row {
                 spacing: 15
 
-                DelText {
-                    text: qsTr("DelText文本")
+                HusText {
+                    text: qsTr('HusText文本')
                 }
             }
         }

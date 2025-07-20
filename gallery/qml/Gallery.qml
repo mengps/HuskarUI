@@ -1,54 +1,47 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import DelegateUI
+import HuskarUI.Basic
 import Gallery
 
 import './Home'
 
-DelWindow {
+HusWindow {
     id: galleryWindow
-    width: 1200
-    height: 800
+    width: 1300
+    height: 850
     opacity: 0
     minimumWidth: 800
     minimumHeight: 600
-    title: qsTr('DelegateUI Gallery')
+    title: qsTr('HuskarUI Gallery')
     followThemeSwitch: false
-    captionBar.color: DelTheme.Primary.colorFillTertiary
+    captionBar.color: HusTheme.Primary.colorFillTertiary
     captionBar.themeButtonVisible: true
     captionBar.topButtonVisible: true
     captionBar.winIconWidth: 22
     captionBar.winIconHeight: 22
     captionBar.winIconDelegate: Item {
-        DelIconText {
-            iconSize: 22
-            colorIcon: '#C44545'
-            font.bold: true
-            iconSource: DelIcon.DelegateUIPath1
-        }
-        DelIconText {
-            iconSize: 22
-            colorIcon: '#C44545'
-            font.bold: true
-            iconSource: DelIcon.DelegateUIPath2
+        Image {
+            width: 16
+            height: 16
+            anchors.centerIn: parent
+            source: 'qrc:/Gallery/images/huskarui_icon.svg'
         }
     }
     captionBar.themeCallback: () => {
         themeSwitchLoader.active = true;
     }
     captionBar.topCallback: (checked) => {
-        DelApi.setWindowStaysOnTopHint(galleryWindow, checked);
+        HusApi.setWindowStaysOnTopHint(galleryWindow, checked);
     }
-
     Component.onCompleted: {
         if (Qt.platform.os === 'windows') {
-            if (setSpecialEffect(DelWindow.Win_MicaAlt)) return;
-            if (setSpecialEffect(DelWindow.Win_Mica)) return;
-            if (setSpecialEffect(DelWindow.Win_AcrylicMaterial)) return;
-            if (setSpecialEffect(DelWindow.Win_DwmBlur)) return;
+            if (setSpecialEffect(HusWindow.Win_MicaAlt)) return;
+            if (setSpecialEffect(HusWindow.Win_Mica)) return;
+            if (setSpecialEffect(HusWindow.Win_AcrylicMaterial)) return;
+            if (setSpecialEffect(HusWindow.Win_DwmBlur)) return;
         } else if (Qt.platform.os === 'osx') {
-            if (setSpecialEffect(DelWindow.Mac_BlurEffect)) return;
+            if (setSpecialEffect(HusWindow.Mac_BlurEffect)) return;
         }
     }
     onWidthChanged: {
@@ -78,21 +71,21 @@ DelWindow {
         active: false
         anchors.fill: galleryWindow.contentItem
         sourceComponent: ThemeSwitchItem {
-            opacity: galleryWindow.specialEffect == DelWindow.None ? 1.0 : galleryBackground.opacity
+            opacity: galleryWindow.specialEffect == HusWindow.None ? 1.0 : galleryBackground.opacity
             target: galleryWindow.contentItem
-            isDark: DelTheme.isDark
+            isDark: HusTheme.isDark
             onSwitchStarted: {
-                galleryWindow.setWindowMode(!DelTheme.isDark);
-                galleryBackground.color = DelTheme.isDark ? '#f5f5f5' : '#181818';
+                galleryWindow.setWindowMode(!HusTheme.isDark);
+                galleryBackground.color = HusTheme.isDark ? '#f5f5f5' : '#181818';
                 themeSwitchLoader.changeDark();
             }
             onAnimationFinished: {
-                if (galleryWindow.specialEffect === DelWindow.None)
-                    galleryWindow.color = DelTheme.Primary.colorBgBase;
+                if (galleryWindow.specialEffect === HusWindow.None)
+                    galleryWindow.color = HusTheme.Primary.colorBgBase;
                 themeSwitchLoader.active = false;
             }
             Component.onCompleted: {
-                colorBg = DelTheme.isDark ? '#f5f5f5' : '#181818';
+                colorBg = HusTheme.isDark ? '#f5f5f5' : '#181818';
                 const distance = function(x1, y1, x2, y2) {
                     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
                 }
@@ -107,7 +100,17 @@ DelWindow {
         }
 
         function changeDark() {
-            DelTheme.darkMode = DelTheme.isDark ? DelTheme.Light : DelTheme.Dark;
+            HusTheme.darkMode = HusTheme.isDark ? HusTheme.Light : HusTheme.Dark;
+        }
+
+        Connections {
+            target: HusTheme
+            function onIsDarkChanged() {
+                if (HusTheme.darkMode == HusTheme.System) {
+                    galleryWindow.setWindowMode(HusTheme.isDark);
+                    galleryBackground.color = HusTheme.isDark ? '#181818' : '#f5f5f5';
+                }
+            }
         }
     }
 
@@ -118,13 +121,82 @@ DelWindow {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        DelAutoComplete {
+        Rectangle {
+            id: authorCard
+            width: visible ? galleryMenu.defaultMenuWidth : 0
+            height: visible ? 80 : 0
+            anchors.top: parent.top
+            anchors.topMargin: 5
+            radius: HusTheme.Primary.radiusPrimary
+            color: hovered ? HusTheme.isDark ? '#10ffffff' : '#10000000' : 'transparent'
+            visible: !galleryMenu.compactMode
+            property bool hovered: authorCardHover.hovered
+
+            Behavior on height { NumberAnimation { duration: HusTheme.Primary.durationFast } }
+            Behavior on color { ColorAnimation { duration: HusTheme.Primary.durationFast } }
+
+            Item {
+                height: parent.height
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+
+                HusAvatar {
+                    id: avatarIcon
+                    size: 60
+                    anchors.verticalCenter: parent.verticalCenter
+                    imageSource: 'https://avatars.githubusercontent.com/u/33405710?v=4'
+                }
+
+                Column {
+                    anchors.left: avatarIcon.right
+                    anchors.leftMargin: 10
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 4
+
+                    HusText {
+                        text: 'MenPenS'
+                        font.weight: Font.DemiBold
+                        font.italic: true
+                        font.pixelSize: HusTheme.Primary.fontPrimarySize + 1
+                    }
+
+                    HusText {
+                        text: '843261040@qq.com'
+                        font.pixelSize: HusTheme.Primary.fontPrimarySize - 1
+                        color: HusTheme.Primary.colorTextSecondary
+                    }
+
+                    HusText {
+                        width: parent.width
+                        text: 'https://github.com/mengps'
+                        font.pixelSize: HusTheme.Primary.fontPrimarySize - 1
+                        color: HusTheme.Primary.colorTextSecondary
+                        wrapMode: HusText.WrapAnywhere
+                    }
+                }
+            }
+
+            HoverHandler {
+                id: authorCardHover
+            }
+
+            TapHandler {
+                onTapped: {
+                    Qt.openUrlExternally('https://github.com/mengps');
+                }
+            }
+        }
+
+        HusAutoComplete {
             id: searchComponent
             property bool expanded: false
             z: 10
             clip: true
             width: (!galleryMenu.compactMode || expanded) ? (galleryMenu.defaultMenuWidth - 20) : 0
-            anchors.top: parent.top
+            anchors.top: authorCard.bottom
             anchors.left: !galleryMenu.compactMode ? galleryMenu.left : galleryMenu.right
             anchors.margins: 10
             topPadding: 6
@@ -132,7 +204,7 @@ DelWindow {
             rightPadding: 50
             tooltipVisible: true
             placeholderText: qsTr('搜索组件')
-            colorBg: galleryMenu.compactMode ? DelTheme.DelInput.colorBg : 'transparent'
+            colorBg: galleryMenu.compactMode ? HusTheme.HusInput.colorBg : 'transparent'
             Component.onCompleted: {
                 let model = [];
                 for (let i = 0; i < galleryMenu.defaultModel.length; i++) {
@@ -163,10 +235,10 @@ DelWindow {
             labelDelegate: Text {
                 height: implicitHeight + 4
                 text: parent.textData
-                color: DelTheme.DelAutoComplete.colorItemText
+                color: HusTheme.HusAutoComplete.colorItemText
                 font {
-                    family: DelTheme.DelAutoComplete.fontFamily
-                    pixelSize: DelTheme.DelAutoComplete.fontSize
+                    family: HusTheme.HusAutoComplete.fontFamily
+                    pixelSize: HusTheme.HusAutoComplete.fontSize
                     weight: parent.highlighted ? Font.DemiBold : Font.Normal
                 }
                 elide: Text.ElideRight
@@ -175,7 +247,7 @@ DelWindow {
                 property var model: parent.modelData
                 property string tagState: model.state ?? ''
 
-                DelTag {
+                HusTag {
                     id: __tag
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -184,24 +256,24 @@ DelWindow {
                     visible: parent.tagState !== ''
                 }
             }
-            clearIconSource: searchComponent.length > 0 ? DelIcon.CloseCircleFilled : DelIcon.SearchOutlined
+            clearIconSource: searchComponent.length > 0 ? HusIcon.CloseCircleFilled : HusIcon.SearchOutlined
 
             Behavior on width {
                 enabled: galleryMenu.compactMode && galleryMenu.width === galleryMenu.compactWidth
-                NumberAnimation { duration: DelTheme.Primary.durationFast }
+                NumberAnimation { duration: HusTheme.Primary.durationFast }
             }
         }
 
-        DelIconButton {
+        HusIconButton {
             id: searchCollapse
             visible: galleryMenu.compactMode
             anchors.top: parent.top
             anchors.left: galleryMenu.left
             anchors.right: galleryMenu.right
             anchors.margins: 10
-            type: DelButton.Type_Text
-            colorText: DelTheme.Primary.colorTextBase
-            iconSource: DelIcon.SearchOutlined
+            type: HusButton.Type_Text
+            colorText: HusTheme.Primary.colorTextBase
+            iconSource: HusIcon.SearchOutlined
             iconSize: searchComponent.iconSize
             onClicked: searchComponent.expanded = !searchComponent.expanded;
             onVisibleChanged: {
@@ -212,11 +284,11 @@ DelWindow {
             }
         }
 
-        DelMenu {
+        HusMenu {
             id: galleryMenu
             anchors.left: parent.left
             anchors.top: searchComponent.bottom
-            anchors.bottom: aboutButton.top
+            anchors.bottom: creatorButton.top
             showEdge: true
             tooltipVisible: true
             defaultMenuWidth: 300
@@ -238,7 +310,7 @@ DelWindow {
                     elide: Text.ElideRight
                 }
 
-                DelTag {
+                HusTag {
                     id: __tag
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -257,10 +329,10 @@ DelWindow {
                 property var menuButton: parent.menuButton
                 property string badgeState: model.badgeState ?? ''
 
-                Behavior on color { enabled: galleryMenu.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
-                Behavior on border.color { enabled: galleryMenu.animationEnabled; ColorAnimation { duration: DelTheme.Primary.durationMid } }
+                Behavior on color { enabled: galleryMenu.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+                Behavior on border.color { enabled: galleryMenu.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
-                DelBadge {
+                HusBadge {
                     anchors.left: undefined
                     anchors.right: parent.right
                     anchors.top: parent.top
@@ -304,7 +376,7 @@ DelWindow {
                 {
                     key: 'HomePage',
                     label: qsTr('首页'),
-                    iconSource: DelIcon.HomeOutlined,
+                    iconSource: HusIcon.HomeOutlined,
                     source: './Home/HomePage.qml'
                 },
                 {
@@ -312,102 +384,120 @@ DelWindow {
                 },
                 {
                     label: qsTr('通用'),
-                    iconSource: DelIcon.ProductOutlined,
+                    iconSource: HusIcon.ProductOutlined,
                     menuChildren: [
                         {
-                            key: 'DelWindow',
-                            label: qsTr('DelWindow 无边框窗口'),
+                            key: 'HusWindow',
+                            label: qsTr('HusWindow 无边框窗口'),
                             source: './Examples/General/ExpWindow.qml',
                             state: 'Update',
                         },
                         {
-                            key: 'DelButton',
-                            label: qsTr('DelButton 按钮'),
+                            key: 'HusButton',
+                            label: qsTr('HusButton 按钮'),
                             source: './Examples/General/ExpButton.qml'
                         },
                         {
-                            key: 'DelIconButton',
-                            label: qsTr('DelIconButton 图标按钮'),
+                            key: 'HusIconButton',
+                            label: qsTr('HusIconButton 图标按钮'),
                             source: './Examples/General/ExpIconButton.qml'
                         },
                         {
-                            key: 'DelCaptionButton',
-                            label: qsTr('DelCaptionButton 标题按钮'),
+                            key: 'HusCaptionButton',
+                            label: qsTr('HusCaptionButton 标题按钮'),
                             source: './Examples/General/ExpCaptionButton.qml'
                         },
                         {
-                            key: 'DelIconText',
-                            label: qsTr('DelIconText 图标文本'),
+                            key: 'HusIconText',
+                            label: qsTr('HusIconText 图标文本'),
                             source: './Examples/General/ExpIconText.qml'
                         },
                         {
-                            key: 'DelCopyableText',
-                            label: qsTr('DelCopyableText 可复制文本'),
+                            key: 'HusCopyableText',
+                            label: qsTr('HusCopyableText 可复制文本'),
                             source: './Examples/General/ExpCopyableText.qml'
                         },
                         {
-                            key: 'DelRectangle',
-                            label: qsTr('DelRectangle 圆角矩形'),
+                            key: 'HusRectangle',
+                            label: qsTr('HusRectangle 圆角矩形'),
                             source: './Examples/General/ExpRectangle.qml'
                         },
                         {
-                            key: 'DelPopup',
-                            label: qsTr('DelPopup 弹窗'),
+                            key: 'HusPopup',
+                            label: qsTr('HusPopup 弹窗'),
                             source: './Examples/General/ExpPopup.qml'
                         },
                         {
-                            key: 'DelText',
-                            label: qsTr('DelText 文本'),
+                            key: 'HusText',
+                            label: qsTr('HusText 文本'),
                             source: './Examples/General/ExpText.qml'
                         },
                         {
-                            key: 'DelButtonBlock',
-                            label: qsTr('DelButtonBlock 按钮块'),
+                            key: 'HusButtonBlock',
+                            label: qsTr('HusButtonBlock 按钮块'),
                             source: './Examples/General/ExpButtonBlock.qml',
+                            state: 'New',
+                        },
+                        {
+                            key: 'HusMoveMouseArea',
+                            label: qsTr('HusMoveMouseArea 鼠标移动区域'),
+                            source: './Examples/General/ExpMoveMouseArea.qml',
+                            state: 'New',
+                        },
+                        {
+                            key: 'HusResizeMouseArea',
+                            label: qsTr('HusResizeMouseArea 鼠标改变大小区域'),
+                            source: './Examples/General/ExpResizeMouseArea.qml',
+                            state: 'New',
+                        },
+                        {
+                            key: 'HusCaptionBar',
+                            label: qsTr('HusCaptionBar 标题栏'),
+                            source: './Examples/General/ExpCaptionBar.qml',
                             state: 'New',
                         }
                     ]
                 },
                 {
                     label: qsTr('布局'),
-                    iconSource: DelIcon.BarsOutlined,
+                    iconSource: HusIcon.BarsOutlined,
                     menuChildren: [
                         {
-                            key: 'DelDivider',
-                            label: qsTr('DelDivider 分割线'),
+                            key: 'HusDivider',
+                            label: qsTr('HusDivider 分割线'),
                             source: './Examples/Layout/ExpDivider.qml'
                         }
                     ]
                 },
                 {
                     label: qsTr('导航'),
-                    iconSource: DelIcon.SendOutlined,
+                    iconSource: HusIcon.SendOutlined,
                     menuChildren: [
                         {
-                            key: 'DelMenu',
-                            label: qsTr('DelMenu 菜单'),
+                            key: 'HusMenu',
+                            label: qsTr('HusMenu 菜单'),
                             source: './Examples/Navigation/ExpMenu.qml',
                             state: 'Update',
                         },
                         {
-                            key: 'DelScrollBar',
-                            label: qsTr('DelScrollBar 滚动条'),
+                            key: 'HusScrollBar',
+                            label: qsTr('HusScrollBar 滚动条'),
                             source: './Examples/Navigation/ExpScrollBar.qml',
                         },
                         {
-                            key: 'DelPagination',
-                            label: qsTr('DelPagination 分页'),
+                            key: 'HusPagination',
+                            label: qsTr('HusPagination 分页'),
                             source: './Examples/Navigation/ExpPagination.qml',
                         },
                         {
-                            key: 'DelContextMenu',
-                            label: qsTr('DelContextMenu 上下文菜单'),
+                            key: 'HusContextMenu',
+                            label: qsTr('HusContextMenu 上下文菜单'),
                             source: './Examples/Navigation/ExpContextMenu.qml',
                             state: 'New',
                         },
                         {
-                            key: 'DelBreadcrumb',
-                            label: qsTr('DelBreadcrumb 面包屑'),
+                            key: 'HusBreadcrumb',
+                            label: qsTr('HusBreadcrumb 面包屑'),
                             source: './Examples/Navigation/ExpBreadcrumb.qml',
                             state: 'New',
                         }
@@ -415,72 +505,72 @@ DelWindow {
                 },
                 {
                     label: qsTr('数据录入'),
-                    iconSource: DelIcon.InsertRowBelowOutlined,
+                    iconSource: HusIcon.InsertRowBelowOutlined,
                     menuChildren: [
                         {
-                            key: 'DelSwitch',
-                            label: qsTr('DelSwitch 开关'),
+                            key: 'HusSwitch',
+                            label: qsTr('HusSwitch 开关'),
                             source: './Examples/DataEntry/ExpSwitch.qml',
                         },
                         {
-                            key: 'DelSlider',
-                            label: qsTr('DelSlider 滑动输入条'),
+                            key: 'HusSlider',
+                            label: qsTr('HusSlider 滑动输入条'),
                             source: './Examples/DataEntry/ExpSlider.qml',
                         },
                         {
-                            key: 'DelSelect',
-                            label: qsTr('DelSelect 选择器'),
+                            key: 'HusSelect',
+                            label: qsTr('HusSelect 选择器'),
                             source: './Examples/DataEntry/ExpSelect.qml',
                         },
                         {
-                            key: 'DelInput',
-                            label: qsTr('DelInput 输入框'),
+                            key: 'HusInput',
+                            label: qsTr('HusInput 输入框'),
                             source: './Examples/DataEntry/ExpInput.qml',
                         },
                         {
-                            key: 'DelOTPInput',
-                            label: qsTr('DelOTPInput 一次性口令输入框'),
+                            key: 'HusOTPInput',
+                            label: qsTr('HusOTPInput 一次性口令输入框'),
                             source: './Examples/DataEntry/ExpOTPInput.qml',
                             state: 'Update',
                         },
                         {
-                            key: 'DelRate',
-                            label: qsTr('DelRate 评分'),
+                            key: 'HusRate',
+                            label: qsTr('HusRate 评分'),
                             source: './Examples/DataEntry/ExpRate.qml',
                         },
                         {
-                            key: 'DelRadio',
-                            label: qsTr('DelRadio 单选框'),
+                            key: 'HusRadio',
+                            label: qsTr('HusRadio 单选框'),
                             source: './Examples/DataEntry/ExpRadio.qml',
                         },
                         {
-                            key: 'DelRadioBlock',
-                            label: qsTr('DelRadioBlock 单选块'),
+                            key: 'HusRadioBlock',
+                            label: qsTr('HusRadioBlock 单选块'),
                             source: './Examples/DataEntry/ExpRadioBlock.qml',
                         },
                         {
-                            key: 'DelCheckBox',
-                            label: qsTr('DelCheckBox 多选框'),
+                            key: 'HusCheckBox',
+                            label: qsTr('HusCheckBox 多选框'),
                             source: './Examples/DataEntry/ExpCheckBox.qml',
                         },
                         {
-                            key: 'DelTimePicker',
-                            label: qsTr('DelTimePicker 时间选择框'),
+                            key: 'HusTimePicker',
+                            label: qsTr('HusTimePicker 时间选择框'),
                             source: './Examples/DataEntry/ExpTimePicker.qml',
                         },
                         {
-                            key: 'DelAutoComplete',
-                            label: qsTr('DelAutoComplete 自动完成'),
+                            key: 'HusAutoComplete',
+                            label: qsTr('HusAutoComplete 自动完成'),
                             source: './Examples/DataEntry/ExpAutoComplete.qml',
                         },
                         {
-                            key: 'DelDatePicker',
-                            label: qsTr('DelDatePicker 日期选择框'),
+                            key: 'HusDatePicker',
+                            label: qsTr('HusDatePicker 日期选择框'),
                             source: './Examples/DataEntry/ExpDatePicker.qml',
                         },
                         {
-                            key: 'DelInputNumber',
-                            label: qsTr('DelInputNumber 数字输入框'),
+                            key: 'HusInputNumber',
+                            label: qsTr('HusInputNumber 数字输入框'),
                             source: './Examples/DataEntry/ExpInputNumber.qml',
                             state: 'New',
                         }
@@ -488,68 +578,68 @@ DelWindow {
                 },
                 {
                     label: qsTr('数据展示'),
-                    iconSource: DelIcon.FundProjectionScreenOutlined,
+                    iconSource: HusIcon.FundProjectionScreenOutlined,
                     menuChildren: [
                         {
-                            key: 'DelToolTip',
-                            label: qsTr('DelToolTip 文字提示'),
+                            key: 'HusToolTip',
+                            label: qsTr('HusToolTip 文字提示'),
                             source: './Examples/DataDisplay/ExpToolTip.qml',
                         },
                         {
-                            key: 'DelTourFocus',
-                            label: qsTr('DelTourFocus 漫游焦点'),
+                            key: 'HusTourFocus',
+                            label: qsTr('HusTourFocus 漫游焦点'),
                             source: './Examples/DataDisplay/ExpTourFocus.qml',
                         },
                         {
-                            key: 'DelTourStep',
-                            label: qsTr('DelTourStep 漫游式引导'),
+                            key: 'HusTourStep',
+                            label: qsTr('HusTourStep 漫游式引导'),
                             source: './Examples/DataDisplay/ExpTourStep.qml',
                         },
                         {
-                            key: 'DelTabView',
-                            label: qsTr('DelTabView 标签页'),
+                            key: 'HusTabView',
+                            label: qsTr('HusTabView 标签页'),
                             source: './Examples/DataDisplay/ExpTabView.qml',
                         },
                         {
-                            key: 'DelCollapse',
-                            label: qsTr('DelCollapse 折叠面板'),
+                            key: 'HusCollapse',
+                            label: qsTr('HusCollapse 折叠面板'),
                             source: './Examples/DataDisplay/ExpCollapse.qml',
                         },
                         {
-                            key: 'DelAvatar',
-                            label: qsTr('DelAvatar 头像'),
+                            key: 'HusAvatar',
+                            label: qsTr('HusAvatar 头像'),
                             source: './Examples/DataDisplay/ExpAvatar.qml',
                         },
                         {
-                            key: 'DelCard',
-                            label: qsTr('DelCard 卡片'),
+                            key: 'HusCard',
+                            label: qsTr('HusCard 卡片'),
                             source: './Examples/DataDisplay/ExpCard.qml',
                         },
                         {
-                            key: 'DelTimeline',
-                            label: qsTr('DelTimeline 时间轴'),
+                            key: 'HusTimeline',
+                            label: qsTr('HusTimeline 时间轴'),
                             source: './Examples/DataDisplay/ExpTimeline.qml',
                         },
                         {
-                            key: 'DelTag',
-                            label: qsTr('DelTag 标签'),
+                            key: 'HusTag',
+                            label: qsTr('HusTag 标签'),
                             source: './Examples/DataDisplay/ExpTag.qml',
                         },
                         {
-                            key: 'DelTableView',
-                            label: qsTr('DelTableView 表格'),
+                            key: 'HusTableView',
+                            label: qsTr('HusTableView 表格'),
                             source: './Examples/DataDisplay/ExpTableView.qml',
                             state: 'Update',
                         },
                         {
-                            key: 'DelBadge',
-                            label: qsTr('DelBadge 徽标数'),
+                            key: 'HusBadge',
+                            label: qsTr('HusBadge 徽标数'),
                             source: './Examples/DataDisplay/ExpBadge.qml',
                             state: 'New',
                         },
                         {
-                            key: 'DelCarousel',
-                            label: qsTr('DelCarousel 走马灯'),
+                            key: 'HusCarousel',
+                            label: qsTr('HusCarousel 走马灯'),
                             source: './Examples/DataDisplay/ExpCarousel.qml',
                             state: 'New',
                         }
@@ -557,16 +647,16 @@ DelWindow {
                 },
                 {
                     label: qsTr('效果'),
-                    iconSource: DelIcon.FireOutlined,
+                    iconSource: HusIcon.FireOutlined,
                     menuChildren: [
                         {
-                            key: 'DelAcrylic',
-                            label: qsTr('DelAcrylic 亚克力效果'),
+                            key: 'HusAcrylic',
+                            label: qsTr('HusAcrylic 亚克力效果'),
                             source: './Examples/Effect/ExpAcrylic.qml',
                         },
                         {
-                            key: 'DelSwitchEffect',
-                            label: qsTr('DelSwitchEffect 切换特效'),
+                            key: 'HusSwitchEffect',
+                            label: qsTr('HusSwitchEffect 切换特效'),
                             source: './Examples/Effect/ExpSwitchEffect.qml',
                             state: 'New',
                         }
@@ -574,37 +664,37 @@ DelWindow {
                 },
                 {
                     label: qsTr('工具'),
-                    iconSource: DelIcon.ToolOutlined,
+                    iconSource: HusIcon.ToolOutlined,
                     menuChildren: [
                         {
-                            key: 'DelAsyncHasher',
-                            label: qsTr('DelAsyncHasher 异步哈希器'),
+                            key: 'HusAsyncHasher',
+                            label: qsTr('HusAsyncHasher 异步哈希器'),
                             source: './Examples/Utils/ExpAsyncHasher.qml',
                         }
                     ]
                 },
                 {
                     label: qsTr('反馈'),
-                    iconSource: DelIcon.MessageOutlined,
+                    iconSource: HusIcon.MessageOutlined,
                     menuChildren: [
                         {
-                            key: 'DelWatermark',
-                            label: qsTr('DelWatermark 水印'),
+                            key: 'HusWatermark',
+                            label: qsTr('HusWatermark 水印'),
                             source: './Examples/Feedback/ExpWatermark.qml',
                         },
                         {
-                            key: 'DelDrawer',
-                            label: qsTr('DelDrawer 抽屉'),
+                            key: 'HusDrawer',
+                            label: qsTr('HusDrawer 抽屉'),
                             source: './Examples/Feedback/ExpDrawer.qml',
                         },
                         {
-                            key: 'DelMessage',
-                            label: qsTr('DelMessage 消息提示'),
+                            key: 'HusMessage',
+                            label: qsTr('HusMessage 消息提示'),
                             source: './Examples/Feedback/ExpMessage.qml',
                         },
                         {
-                            key: 'DelProgress',
-                            label: qsTr('DelProgress 进度条'),
+                            key: 'HusProgress',
+                            label: qsTr('HusProgress 进度条'),
                             source: './Examples/Feedback/ExpProgress.qml',
                             state: 'New',
                         }
@@ -615,12 +705,12 @@ DelWindow {
                 },
                 {
                     label: qsTr('主题相关'),
-                    iconSource: DelIcon.SkinOutlined,
+                    iconSource: HusIcon.SkinOutlined,
                     type: 'group',
                     menuChildren: [
                         {
-                            key: 'DelTheme',
-                            label: qsTr('DelTheme 主题定制'),
+                            key: 'HusTheme',
+                            label: qsTr('HusTheme 主题定制'),
                             source: './Examples/Theme/ExpTheme.qml',
                         }
                     ]
@@ -628,47 +718,84 @@ DelWindow {
             ]
         }
 
-        DelDivider {
+        HusDivider {
             width: galleryMenu.width
             height: 1
-            anchors.bottom: aboutButton.top
+            anchors.bottom: creatorButton.top
+        }
+
+        Loader {
+            id: creatorLoader
+            active: false
+            visible: false
+            sourceComponent: CreatorPage { visible: creatorLoader.visible }
         }
 
         Loader {
             id: aboutLoader
+            active: false
             visible: false
             sourceComponent: AboutPage { visible: aboutLoader.visible }
         }
 
-        DelIconButton {
+        Loader {
+            id: settingsLoader
+            active: false
+            visible: false
+            sourceComponent: SettingsPage { visible: settingsLoader.visible }
+        }
+
+        HusIconButton {
+            id: creatorButton
+            width: galleryMenu.width
+            height: 40
+            anchors.bottom: aboutButton.top
+            type: HusButton.Type_Text
+            radiusBg: 0
+            text: galleryMenu.compactMode ? '' : qsTr('创建')
+            colorText: HusTheme.Primary.colorTextBase
+            iconSize: galleryMenu.defaultMenuIconSize
+            iconSource: HusIcon.PlusCircleOutlined
+            onClicked: {
+                if (!creatorLoader.active)
+                    creatorLoader.active = true;
+                creatorLoader.visible = !creatorLoader.visible;
+            }
+        }
+
+        HusIconButton {
             id: aboutButton
             width: galleryMenu.width
             height: 40
             anchors.bottom: setttingsButton.top
-            type: DelButton.Type_Text
+            type: HusButton.Type_Text
             radiusBg: 0
             text: galleryMenu.compactMode ? '' : qsTr('关于')
-            colorText: DelTheme.Primary.colorTextBase
+            colorText: HusTheme.Primary.colorTextBase
             iconSize: galleryMenu.defaultMenuIconSize
-            iconSource: DelIcon.UserOutlined
+            iconSource: HusIcon.UserOutlined
             onClicked: {
+                if (!aboutLoader.active)
+                    aboutLoader.active = true;
                 aboutLoader.visible = !aboutLoader.visible;
             }
         }
 
-        DelIconButton {
+        HusIconButton {
             id: setttingsButton
             width: galleryMenu.width
             height: 40
             anchors.bottom: parent.bottom
-            type: DelButton.Type_Text
+            type: HusButton.Type_Text
             radiusBg: 0
             text: galleryMenu.compactMode ? '' : qsTr('设置')
-            colorText: DelTheme.Primary.colorTextBase
+            colorText: HusTheme.Primary.colorTextBase
             iconSize: galleryMenu.defaultMenuIconSize
-            iconSource: DelIcon.SettingOutlined
+            iconSource: HusIcon.SettingOutlined
             onClicked: {
-                gallerySwitchEffect.switchToSource('./Home/SettingsPage.qml');
+                if (!settingsLoader.active)
+                    settingsLoader.active = true;
+                settingsLoader.visible = !settingsLoader.visible;
             }
         }
 
@@ -683,11 +810,11 @@ DelWindow {
 
             property string source: ''
 
-            DelSwitchEffect {
+            HusSwitchEffect {
                 id: gallerySwitchEffect
                 anchors.fill: parent
-                duration: 350
-                type: DelSwitchEffect.Type_Blurry
+                duration: 0
+                type: HusSwitchEffect.Type_None
                 maskScale: animationTime * 3
                 maskRotation: (1.0 - animationTime) * 360
                 onFinished: {

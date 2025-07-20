@@ -1,38 +1,32 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-DelWindow {
+HusWindow {
     id: root
 
     width: 900
     height: 600
-    title: qsTr("代码运行器")
+    title: qsTr('代码运行器')
     captionBar.closeCallback:
         () => {
             root.destroy();
         }
     captionBar.winIconDelegate: Item {
-        DelIconText {
-            iconSize: 22
-            colorIcon: "#C44545"
-            font.bold: true
-            iconSource: DelIcon.DelegateUIPath1
-        }
-        DelIconText {
-            iconSize: 22
-            colorIcon: "#C44545"
-            font.bold: true
-            iconSource: DelIcon.DelegateUIPath2
+        Image {
+            width: 16
+            height: 16
+            anchors.centerIn: parent
+            source: 'qrc:/Gallery/images/huskarui_icon.svg'
         }
     }
     Component.onCompleted: {
         if (Qt.platform.os === 'windows') {
-            if (setSpecialEffect(DelWindow.Win_DwmBlur)) return;
+            if (setSpecialEffect(HusWindow.Win_DwmBlur)) return;
         } else if (Qt.platform.os === 'osx') {
-            if (setSpecialEffect(DelWindow.Mac_BlurEffect)) return;
+            if (setSpecialEffect(HusWindow.Mac_BlurEffect)) return;
         }
-        DelApi.setWindowStaysOnTopHint(root, true);
+        HusApi.setWindowStaysOnTopHint(root, true);
     }
 
     property var created: undefined
@@ -54,7 +48,7 @@ DelWindow {
         }
     }
 
-    DelDivider {
+    HusDivider {
         id: divider
         width: parent.width
         height: 1
@@ -76,22 +70,22 @@ DelWindow {
                 width: parent.width
                 anchors.top: parent.top
                 anchors.bottom: divider1.top
-                ScrollBar.vertical: DelScrollBar { }
-                ScrollBar.horizontal: DelScrollBar { }
+                ScrollBar.vertical: HusScrollBar { }
+                ScrollBar.horizontal: HusScrollBar { }
 
-                DelCopyableText {
+                HusCopyableText {
                     id: codeEdit
                     readOnly: false
                     wrapMode: Text.WrapAnywhere
                 }
             }
 
-            DelDivider {
+            HusDivider {
                 id: divider1
                 width: parent.width
                 height: 10
                 anchors.bottom: errorView.top
-                title: qsTr("错误")
+                title: qsTr('错误')
             }
 
             ScrollView {
@@ -106,32 +100,32 @@ DelWindow {
                     selectByKeyboard: true
                     selectByMouse: true
                     font {
-                        family: DelTheme.Primary.fontPrimaryFamily
-                        pixelSize: DelTheme.Primary.fontPrimarySize
+                        family: HusTheme.Primary.fontPrimaryFamily
+                        pixelSize: HusTheme.Primary.fontPrimarySize
                     }
-                    color: DelTheme.Primary.colorError
+                    color: HusTheme.Primary.colorError
                     wrapMode: Text.WordWrap
                 }
             }
         }
 
-        DelDivider {
+        HusDivider {
             id: divider2
             width: 10
             height: parent.height
             anchors.left: codeBlock.right
             orientation: Qt.Vertical
-            titleAlign: DelDivider.Align_Center
-            titleDelegate: DelIconButton {
+            titleAlign: HusDivider.Align_Center
+            titleDelegate: HusIconButton {
                 padding: 5
-                iconSize: DelTheme.Primary.fontPrimarySizeHeading4
-                iconSource: DelIcon.PlayCircleOutlined
+                iconSize: HusTheme.Primary.fontPrimarySizeHeading4
+                iconSource: HusIcon.PlayCircleOutlined
                 onClicked: {
                     root.updateCode();
                 }
-                DelToolTip {
+                HusToolTip {
                     visible: parent.hovered
-                    text: qsTr("运行")
+                    text: qsTr('运行')
                 }
             }
         }

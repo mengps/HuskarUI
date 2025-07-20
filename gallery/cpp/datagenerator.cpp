@@ -50,7 +50,3 @@ QVariantList DataGenerator::genTableData(int rows)
 
     return data.toVariantList();
 }
-
-DataGenerator::DataGenerator(QObject *parent)
-    : QObject{parent}
-{}

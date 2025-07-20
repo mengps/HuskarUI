@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,23 +15,24 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelCopyableText 可复制文本\n
+# HusCopyableText 可复制文本\n
 在需要可复制的文本时使用(替代Text)。\n
 * **继承自 { TextEdit }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - 无\n
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 Qml中普通文本(Text)无法复制，因此在需要可复制的文本时建议使用。
                        `)
         }
 
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -41,21 +42,21 @@ Qml中普通文本(Text)无法复制，因此在需要可复制的文本时建�
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 15
 
-                    DelCopyableText {
-                        text: qsTr("可以复制我")
+                    HusCopyableText {
+                        text: qsTr('可以复制我')
                     }
                 }
             `
             exampleDelegate: Row {
                 spacing: 15
 
-                DelCopyableText {
-                    text: qsTr("可以复制我")
+                HusCopyableText {
+                    text: qsTr('可以复制我')
                 }
             }
         }

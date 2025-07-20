@@ -1,9 +1,0 @@
-{
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "colorIcon": "$onBackground(@colorTextTertiary, @colorBgBase)",
-    "colorIconLast": "@colorTextBase",
-    "colorBg": "@colorFillSecondary",
-    "colorBgLast": "$alpha(@colorTextBase, 0)",
-    "radiusBg": "6"
-}

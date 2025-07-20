@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
 import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,10 +15,11 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelCarousel 走马灯\n
+# HusCarousel 走马灯\n
 一组轮播的区域。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **contentDelegate: Component** 内容代理，代理可访问属性：\n
   - \`index: int\` 内容项索引\n
   - \`model: var\` 内容项数据\n
@@ -27,13 +28,14 @@ Flickable {
   - \`model: var\` 指示器数据\n
 - **prevDelegate: Component** 向前箭头代理\n
 - **nextDelegate: Component** 向后箭头代理\n
-支持的属性：\n
-属性名 | 类型 | 默认值 | 描述 |
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-animationEnabled | bool | true | 是否开启动画
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 initModel | list | [] | 初始数据模型
 currentIndex | int | -1 | 当前索引
-position | enum | DelCarousel.Position_Bottom | 滚动的方向和指示器的位置(来自 DelCarousel)
+position | enum | HusCarousel.Position_Bottom | 滚动的方向和指示器的位置(来自 HusCarousel)
 speed | int | 500 | 切换动效的时间(毫秒)
 infinite | bool | true | 是否无限滚动
 autoplay | bool | false | 是否自动切换
@@ -42,7 +44,8 @@ draggable | bool | true | 是否启用拖拽切换
 showIndicator | bool | true | 是否显示指示器
 indicatorSpacing | int | 6 | 指示器间隔
 showArrow | bool | false | 是否显示箭头
-\n支持的函数：\n
+\n<br/>
+\n### 支持的函数：\n
 - \`swithTo(index: int, animated: bool = true)\` \n
   - \`index\` 要切换的目标处索引
   - \`animated\` 是否使用切换动效
@@ -63,6 +66,10 @@ showArrow | bool | false | 是否显示箭头
                        `)
         }
 
+        ThemeToken {
+            source: 'HusCarousel'
+        }
+
         Description {
             title: qsTr('代码演示')
         }
@@ -76,7 +83,7 @@ showArrow | bool | false | 是否显示箭头
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
@@ -85,15 +92,15 @@ showArrow | bool | false | 是否显示箭头
                     Row {
                         spacing: 10
 
-                        DelText { text: qsTr('无限滚动') }
+                        HusText { text: qsTr('无限滚动') }
 
-                        DelSwitch {
+                        HusSwitch {
                             id: infiniteSwitch
                             checked: true
                         }
                     }
 
-                    DelCarousel {
+                    HusCarousel {
                         id: carousel1
                         width: parent.width
                         height: 200
@@ -109,7 +116,7 @@ showArrow | bool | false | 是否显示箭头
                             height: carousel1.height
                             color: '#364d79'
 
-                            DelText {
+                            HusText {
                                 anchors.centerIn: parent
                                 text: model.label
                                 color: 'white'
@@ -126,15 +133,15 @@ showArrow | bool | false | 是否显示箭头
                 Row {
                     spacing: 10
 
-                    DelText { text: qsTr('无限滚动') }
+                    HusText { text: qsTr('无限滚动') }
 
-                    DelSwitch {
+                    HusSwitch {
                         id: infiniteSwitch
                         checked: true
                     }
                 }
 
-                DelCarousel {
+                HusCarousel {
                     id: carousel1
                     width: parent.width
                     height: 200
@@ -150,7 +157,7 @@ showArrow | bool | false | 是否显示箭头
                         height: carousel1.height
                         color: '#364d79'
 
-                        DelText {
+                        HusText {
                             anchors.centerIn: parent
                             text: model.label
                             color: 'white'
@@ -167,31 +174,31 @@ showArrow | bool | false | 是否显示箭头
             descTitle: qsTr('位置')
             desc: qsTr(`
 通过 \`position\` 属性设置滚动的方向和指示器的位置，支持的位置：\n
-- 水平滚动，指示器在上方，{ DelTabView.Position_Top }\n
-- 水平滚动，指示器在下方{ DelCarousel.Position_Bottom }\n
-- 垂直滚动，指示器在左方{ DelCarousel.Position_Left }\n
-- 垂直滚动，指示器在右方{ DelCarousel.Position_Right }\n
+- 水平滚动，指示器在上方，{ HusTabView.Position_Top }\n
+- 水平滚动，指示器在下方{ HusCarousel.Position_Bottom }\n
+- 垂直滚动，指示器在左方{ HusCarousel.Position_Left }\n
+- 垂直滚动，指示器在右方{ HusCarousel.Position_Right }\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
                     width: parent.width
 
-                    DelRadioBlock {
+                    HusRadioBlock {
                         id: positionBlock
                         initCheckedIndex: 1
                         model: [
-                            { label: qsTr('上'), value: DelCarousel.Position_Top },
-                            { label: qsTr('下'), value: DelCarousel.Position_Bottom },
-                            { label: qsTr('左'), value: DelCarousel.Position_Left },
-                            { label: qsTr('右'), value: DelCarousel.Position_Right }
+                            { label: qsTr('上'), value: HusCarousel.Position_Top },
+                            { label: qsTr('下'), value: HusCarousel.Position_Bottom },
+                            { label: qsTr('左'), value: HusCarousel.Position_Left },
+                            { label: qsTr('右'), value: HusCarousel.Position_Right }
                         ]
                     }
 
-                    DelCarousel {
+                    HusCarousel {
                         id: carousel2
                         width: parent.width
                         height: 200
@@ -207,7 +214,7 @@ showArrow | bool | false | 是否显示箭头
                             height: carousel2.height
                             color: '#364d79'
 
-                            DelText {
+                            HusText {
                                 anchors.centerIn: parent
                                 text: model.label
                                 color: 'white'
@@ -221,18 +228,18 @@ showArrow | bool | false | 是否显示箭头
             exampleDelegate: Column {
                 spacing: 10
 
-                DelRadioBlock {
+                HusRadioBlock {
                     id: positionBlock
                     initCheckedIndex: 1
                     model: [
-                        { label: qsTr('上'), value: DelCarousel.Position_Top },
-                        { label: qsTr('下'), value: DelCarousel.Position_Bottom },
-                        { label: qsTr('左'), value: DelCarousel.Position_Left },
-                        { label: qsTr('右'), value: DelCarousel.Position_Right }
+                        { label: qsTr('上'), value: HusCarousel.Position_Top },
+                        { label: qsTr('下'), value: HusCarousel.Position_Bottom },
+                        { label: qsTr('左'), value: HusCarousel.Position_Left },
+                        { label: qsTr('右'), value: HusCarousel.Position_Right }
                     ]
                 }
 
-                DelCarousel {
+                HusCarousel {
                     id: carousel2
                     width: parent.width
                     height: 200
@@ -248,7 +255,7 @@ showArrow | bool | false | 是否显示箭头
                         height: carousel2.height
                         color: '#364d79'
 
-                        DelText {
+                        HusText {
                             anchors.centerIn: parent
                             text: model.label
                             color: 'white'
@@ -269,13 +276,13 @@ showArrow | bool | false | 是否显示箭头
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
                     width: parent.width
 
-                    DelCarousel {
+                    HusCarousel {
                         id: carousel4
                         width: parent.width
                         height: 200
@@ -291,7 +298,7 @@ showArrow | bool | false | 是否显示箭头
                             height: carousel4.height
                             color: '#364d79'
 
-                            DelText {
+                            HusText {
                                 anchors.centerIn: parent
                                 text: model.label
                                 color: 'white'
@@ -305,7 +312,7 @@ showArrow | bool | false | 是否显示箭头
             exampleDelegate: Column {
                 spacing: 10
 
-                DelCarousel {
+                HusCarousel {
                     id: carousel4
                     width: parent.width
                     height: 200
@@ -321,7 +328,7 @@ showArrow | bool | false | 是否显示箭头
                         height: carousel4.height
                         color: '#364d79'
 
-                        DelText {
+                        HusText {
                             anchors.centerIn: parent
                             text: model.label
                             color: 'white'
@@ -341,13 +348,13 @@ showArrow | bool | false | 是否显示箭头
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
                     width: parent.width
 
-                    DelCarousel {
+                    HusCarousel {
                         id: carousel5
                         width: parent.width
                         height: 200
@@ -363,7 +370,7 @@ showArrow | bool | false | 是否显示箭头
                             height: carousel5.height
                             color: '#364d79'
 
-                            DelText {
+                            HusText {
                                 anchors.centerIn: parent
                                 text: model.label
                                 color: 'white'
@@ -377,7 +384,7 @@ showArrow | bool | false | 是否显示箭头
             exampleDelegate: Column {
                 spacing: 10
 
-                DelCarousel {
+                HusCarousel {
                     id: carousel5
                     width: parent.width
                     height: 200
@@ -393,7 +400,7 @@ showArrow | bool | false | 是否显示箭头
                         height: carousel5.height
                         color: '#364d79'
 
-                        DelText {
+                        HusText {
                             anchors.centerIn: parent
                             text: model.label
                             color: 'white'

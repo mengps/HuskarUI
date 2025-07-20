@@ -1,0 +1,14 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorItemText": "@colorTextBase",
+    "colorItemTextDisabled": "@colorPrimaryTextDisabled",
+    "colorItemBg": "@colorBgBase",
+    "colorItemBgHover": "$onBackground(@colorFillSecondary, @colorBgBase)",
+    "colorItemBgActive": "@colorPrimaryBase-1",
+    "colorItemBgDisabled": "@colorBgBase",
+    "colorIcon": "$onBackground(@colorTextTertiary, @colorBgBase)",
+    "colorIconHover": "$onBackground(@colorTextSecondary, @colorBgBase)",
+    "colorIconDisabled": "$onBackground(@colorTextQuaternary, @colorBgBase)",
+    "radiusLabelBg": "@radiusPrimarySM"
+}

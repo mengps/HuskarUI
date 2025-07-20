@@ -1,13 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -16,10 +16,11 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelAutoComplete 自动完成 \n
+# HusAutoComplete 自动完成 \n
 输入框自动完成功能。\n
-* **继承自 { DelInput }**\n
-支持的代理：\n
+* **继承自 { HusInput }**\n
+\n<br/>
+\n### 支持的代理：\n
 - **labelDelegate: Component** 弹出框标签项代理，代理可访问属性：\n
   - \`parent.textData: var\` {textRole}对应的文本数据\n
   - \`parent.valueData: var\` {valueRole}对应的值数据\n
@@ -32,25 +33,29 @@ Flickable {
   - \`parent.modelData: var\` 选项模型数据\n
   - \`parent.hovered: bool\` 是否悬浮\n
   - \`parent.highlighted: bool\` 是否高亮\n
-- **clearIconDelegate: Component** 清除图标代理，等同于{DelInput.iconDelegate}\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-options | list | 选项模型列表
-filterOption | Function | 输入项将使用该函数进行筛选
-textRole | string | 弹出框文本的模型角色。
-valueRole | string | 弹出框值的模型角色。
-tooltipVisible | bool | 是否显示文字提示
-clearIconSource | enum | 清除图标源(来自 DelIcon)
-clearIconPosition | enum | 清除图标位置(来自 DelInput)
-clearIconSize | int | 清除图标大小
-defaultPopupMaxHeight | int | 默认弹出框最大高度
-defaultOptionSpacing | int | 默认选项间隔
-\n支持的函数：\n
+- **clearIconDelegate: Component** 清除图标代理，等同于{HusInput.iconDelegate}\n
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+options | list | [] | 选项模型列表
+filterOption | function | - | 输入项将使用该函数进行筛选
+textRole | string | 'label' | 弹出框文本的模型角色。
+valueRole | string | 'value' | 弹出框值的模型角色。
+tooltipVisible | bool | false | 是否显示文字提示
+clearIconSource | enum | 0 | 清除图标源(来自 HusIcon)
+clearIconPosition | enum | HusInput.Position_Right | 清除图标位置(来自 HusInput)
+clearIconSize | int | - | 清除图标大小
+defaultPopupMaxHeight | int | 240 | 默认弹出框最大高度
+defaultOptionSpacing | int | 0 | 默认选项间隔
+\n<br/>
+\n### 支持的函数：\n
 - \`clearInput()\` 清空输入 \n
 - \`openPopup()\` 打开弹出框 \n
 - \`closePopup()\` 关闭弹出框 \n
-\n支持的信号：\n
+- \`filter()\` 使用 \`filterOption\` 过滤选项列表
+\n<br/>
+\n### 支持的信号：\n
 - \`search(input: string)\` 搜索补全项的时发出\n
   - \`input\` 输入文本\n
 - \`select(option: var)\` 选择补全项时发出\n
@@ -59,18 +64,22 @@ defaultOptionSpacing | int | 默认选项间隔
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 - 需要一个输入框而不是选择器。\n
 - 需要输入建议/辅助提示。\n
-和 [DelSelect](internal://DelSelect) 的区别是：\n
-- [DelAutoComplete](internal://DelAutoComplete) 是一个带提示的文本输入框，用户可以自由输入，关键词是**辅助输入**。\n
-- [DelSelect](internal://DelSelect) 是在限定的可选项中进行选择，关键词是**选择**。\n
+和 [HusSelect](internal://HusSelect) 的区别是：\n
+- [HusAutoComplete](internal://HusAutoComplete) 是一个带提示的文本输入框，用户可以自由输入，关键词是**辅助输入**。\n
+- [HusSelect](internal://HusSelect) 是在限定的可选项中进行选择，关键词是**选择**。\n
                        `)
         }
 
+        ThemeToken {
+            source: 'HusAutoComplete'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -81,12 +90,12 @@ defaultOptionSpacing | int | 默认选项间隔
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelAutoComplete {
+                    HusAutoComplete {
                         width: 180
                         placeholderText: qsTr('input here')
                         onSearch: function(input) {
@@ -98,7 +107,7 @@ defaultOptionSpacing | int | 默认选项间隔
             exampleDelegate: Row {
                 spacing: 10
 
-                DelAutoComplete {
+                HusAutoComplete {
                     width: 180
                     placeholderText: qsTr('input here')
                     onSearch: function(input) {
@@ -116,12 +125,12 @@ defaultOptionSpacing | int | 默认选项间隔
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelAutoComplete {
+                    HusAutoComplete {
                         width: 180
                         placeholderText: qsTr('input here')
                         onSearch: function(input) {
@@ -141,7 +150,7 @@ defaultOptionSpacing | int | 默认选项间隔
             exampleDelegate: Row {
                 spacing: 10
 
-                DelAutoComplete {
+                HusAutoComplete {
                     width: 180
                     placeholderText: qsTr('input here')
                     onSearch: function(input) {
@@ -163,17 +172,17 @@ defaultOptionSpacing | int | 默认选项间隔
             width: parent.width
             descTitle: qsTr('不区分大小写')
             desc: qsTr(`
-不区分大小写的 DelAutoComplete。\n
+不区分大小写的 HusAutoComplete。\n
 通过 \`filterOption\` 设置过滤选项，它是形如：\`function(input: string, option: var): bool { }\` 的函数。\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelAutoComplete {
+                    HusAutoComplete {
                         width: 180
                         placeholderText: qsTr('try to type \`b\`')
                         options: [
@@ -188,7 +197,7 @@ defaultOptionSpacing | int | 默认选项间隔
             exampleDelegate: Row {
                 spacing: 10
 
-                DelAutoComplete {
+                HusAutoComplete {
                     width: 180
                     placeholderText: qsTr('try to type `b`')
                     options: [
@@ -209,21 +218,21 @@ defaultOptionSpacing | int | 默认选项间隔
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelAutoComplete {
+                    HusAutoComplete {
                         width: 280
                         tooltipVisible: true
                         placeholderText: qsTr('input here')
                         options: [
-                            { label: 'DelegateUI', option: 'Libraries' },
-                            { label: 'DelegateUI for Qml' },
-                            { label: 'DelegateUI FAQ', option: 'Solutions' },
-                            { label: 'DelegateUI for Qml FAQ' },
-                            { label: 'DelegateUI', option: 'Copyright' },
+                            { label: 'HuskarUI', option: 'Libraries' },
+                            { label: 'HuskarUI for Qml' },
+                            { label: 'HuskarUI FAQ', option: 'Solutions' },
+                            { label: 'HuskarUI for Qml FAQ' },
+                            { label: 'HuskarUI', option: 'Copyright' },
                             { label: 'Copyright (C) 2025 mengps. All rights reserved.' },
                         ]
                         labelDelegate: Column {
@@ -233,10 +242,10 @@ defaultOptionSpacing | int | 默认选项间隔
 
                             Loader {
                                 active: delegateColumn.option !== ''
-                                sourceComponent: DelDivider {
+                                sourceComponent: HusDivider {
                                     width: delegateColumn.width
                                     height: 30
-                                    titleAlign: DelDivider.Align_Center
+                                    titleAlign: HusDivider.Align_Center
                                     title: delegateColumn.option
                                     colorText: 'red'
                                 }
@@ -245,10 +254,10 @@ defaultOptionSpacing | int | 默认选项间隔
                             Text {
                                 id: label
                                 text: textData
-                                color: DelTheme.DelAutoComplete.colorItemText
+                                color: HusTheme.HusAutoComplete.colorItemText
                                 font {
-                                    family: DelTheme.DelAutoComplete.fontFamily
-                                    pixelSize: DelTheme.DelAutoComplete.fontSize
+                                    family: HusTheme.HusAutoComplete.fontFamily
+                                    pixelSize: HusTheme.HusAutoComplete.fontSize
                                 }
                                 elide: Text.ElideRight
                                 verticalAlignment: Text.AlignVCenter
@@ -263,9 +272,9 @@ defaultOptionSpacing | int | 默认选项间隔
                                 anchors.bottom: parent.bottom
                                 clip: true
                                 radius: 2
-                                color: highlighted ? DelTheme.DelAutoComplete.colorItemBgActive :
-                                                     hovered ? DelTheme.DelAutoComplete.colorItemBgHover :
-                                                               DelTheme.DelAutoComplete.colorItemBg;
+                                color: highlighted ? HusTheme.HusAutoComplete.colorItemBgActive :
+                                                     hovered ? HusTheme.HusAutoComplete.colorItemBgHover :
+                                                               HusTheme.HusAutoComplete.colorItemBg;
                             }
                         }
                     }
@@ -274,16 +283,16 @@ defaultOptionSpacing | int | 默认选项间隔
             exampleDelegate: Row {
                 spacing: 10
 
-                DelAutoComplete {
+                HusAutoComplete {
                     width: 280
                     tooltipVisible: true
                     placeholderText: qsTr('input here')
                     options: [
-                        { label: 'DelegateUI', option: 'Libraries' },
-                        { label: 'DelegateUI for Qml' },
-                        { label: 'DelegateUI FAQ', option: 'Solutions' },
-                        { label: 'DelegateUI for Qml FAQ' },
-                        { label: 'DelegateUI', option: 'Copyright' },
+                        { label: 'HuskarUI', option: 'Libraries' },
+                        { label: 'HuskarUI for Qml' },
+                        { label: 'HuskarUI FAQ', option: 'Solutions' },
+                        { label: 'HuskarUI for Qml FAQ' },
+                        { label: 'HuskarUI', option: 'Copyright' },
                         { label: 'Copyright (C) 2025 mengps. All rights reserved.' },
                     ]
                     labelDelegate: Column {
@@ -293,10 +302,10 @@ defaultOptionSpacing | int | 默认选项间隔
 
                         Loader {
                             active: delegateColumn.option !== ''
-                            sourceComponent: DelDivider {
+                            sourceComponent: HusDivider {
                                 width: delegateColumn.width
                                 height: 30
-                                titleAlign: DelDivider.Align_Center
+                                titleAlign: HusDivider.Align_Center
                                 title: delegateColumn.option
                                 colorText: 'red'
                             }
@@ -305,10 +314,10 @@ defaultOptionSpacing | int | 默认选项间隔
                         Text {
                             id: label
                             text: textData
-                            color: DelTheme.DelAutoComplete.colorItemText
+                            color: HusTheme.HusAutoComplete.colorItemText
                             font {
-                                family: DelTheme.DelAutoComplete.fontFamily
-                                pixelSize: DelTheme.DelAutoComplete.fontSize
+                                family: HusTheme.HusAutoComplete.fontFamily
+                                pixelSize: HusTheme.HusAutoComplete.fontSize
                             }
                             elide: Text.ElideRight
                             verticalAlignment: Text.AlignVCenter
@@ -323,9 +332,9 @@ defaultOptionSpacing | int | 默认选项间隔
                             anchors.bottom: parent.bottom
                             clip: true
                             radius: 2
-                            color: highlighted ? DelTheme.DelAutoComplete.colorItemBgActive :
-                                                 hovered ? DelTheme.DelAutoComplete.colorItemBgHover :
-                                                           DelTheme.DelAutoComplete.colorItemBg;
+                            color: highlighted ? HusTheme.HusAutoComplete.colorItemBgActive :
+                                                 hovered ? HusTheme.HusAutoComplete.colorItemBgHover :
+                                                           HusTheme.HusAutoComplete.colorItemBg;
                         }
                     }
                 }
@@ -340,12 +349,12 @@ defaultOptionSpacing | int | 默认选项间隔
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: -8
 
-                    DelAutoComplete {
+                    HusAutoComplete {
                         width: 280
                         height: 40
                         rightPadding: 20
@@ -364,17 +373,17 @@ defaultOptionSpacing | int | 默认选项间隔
                                                      const category = \`\${input}\${idx}\`;
                                                      return {
                                                          value: category,
-                                                         label: \`Found \${input} on <span style="color:#1677FF">\${category}</span> \${getRandomInt(200, 100)} results\`
+                                                         label: \`Found \${input} on <span style='color:#1677FF'>\${category}</span> \${getRandomInt(200, 100)} results\`
                                                      }
                                                  });
                             }
                         }
                         labelDelegate: Text {
                             text: textData
-                            color: DelTheme.DelAutoComplete.colorItemText
+                            color: HusTheme.HusAutoComplete.colorItemText
                             font {
-                                family: DelTheme.DelAutoComplete.fontFamily
-                                pixelSize: DelTheme.DelAutoComplete.fontSize
+                                family: HusTheme.HusAutoComplete.fontFamily
+                                pixelSize: HusTheme.HusAutoComplete.fontSize
                             }
                             elide: Text.ElideRight
                             verticalAlignment: Text.AlignVCenter
@@ -382,12 +391,12 @@ defaultOptionSpacing | int | 默认选项间隔
                         }
                     }
 
-                    DelIconButton {
+                    HusIconButton {
                         id: searchButton
                         height: 40
-                        type: DelButton.Type_Primary
-                        iconSource: DelIcon.SearchOutlined
-                        background: DelRectangle {
+                        type: HusButton.Type_Primary
+                        iconSource: HusIcon.SearchOutlined
+                        background: HusRectangle {
                             topLeftRadius: 0
                             bottomLeftRadius: 0
                             topRightRadius: searchButton.radiusBg
@@ -402,7 +411,7 @@ defaultOptionSpacing | int | 默认选项间隔
             exampleDelegate: Row {
                 spacing: -8
 
-                DelAutoComplete {
+                HusAutoComplete {
                     width: 280
                     height: 40
                     rightPadding: 20
@@ -421,17 +430,17 @@ defaultOptionSpacing | int | 默认选项间隔
                                                  const category = `${input}${idx}`;
                                                  return {
                                                      value: category,
-                                                     label: `Found ${input} on <span style="color:#1677FF">${category}</span> ${getRandomInt(200, 100)} results`
+                                                     label: `Found ${input} on <span style='color:#1677FF'>${category}</span> ${getRandomInt(200, 100)} results`
                                                  }
                                              });
                         }
                     }
                     labelDelegate: Text {
                         text: textData
-                        color: DelTheme.DelAutoComplete.colorItemText
+                        color: HusTheme.HusAutoComplete.colorItemText
                         font {
-                            family: DelTheme.DelAutoComplete.fontFamily
-                            pixelSize: DelTheme.DelAutoComplete.fontSize
+                            family: HusTheme.HusAutoComplete.fontFamily
+                            pixelSize: HusTheme.HusAutoComplete.fontSize
                         }
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
@@ -439,12 +448,12 @@ defaultOptionSpacing | int | 默认选项间隔
                     }
                 }
 
-                DelIconButton {
+                HusIconButton {
                     id: searchButton
                     height: 40
-                    type: DelButton.Type_Primary
-                    iconSource: DelIcon.SearchOutlined
-                    background: DelRectangle {
+                    type: HusButton.Type_Primary
+                    iconSource: HusIcon.SearchOutlined
+                    background: HusRectangle {
                         topLeftRadius: 0
                         bottomLeftRadius: 0
                         topRightRadius: searchButton.radiusBg
@@ -463,19 +472,19 @@ defaultOptionSpacing | int | 默认选项间隔
             desc: qsTr(`
 通过 \`clearIconSource\` 设置清除图标，设置为 0 则不显示。\n
 通过 \`clearIconPosition\` 设置清除图标的位置，支持的位置：\n
-- 图标在输入框左边(默认){ DelAutoComplete.Position_Left }\n
-- 图标在输入框右边{ DelAutoComplete.Position_Right }\n
+- 图标在输入框左边(默认){ HusAutoComplete.Position_Left }\n
+- 图标在输入框右边{ HusAutoComplete.Position_Right }\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelAutoComplete {
+                    HusAutoComplete {
                         width: 240
-                        clearIconSource: DelIcon.CloseSquareFilled
+                        clearIconSource: HusIcon.CloseSquareFilled
                         placeholderText: qsTr('Customized clear icon')
                         onSearch: function(input) {
                             options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];
@@ -486,9 +495,9 @@ defaultOptionSpacing | int | 默认选项间隔
             exampleDelegate: Row {
                 spacing: 10
 
-                DelAutoComplete {
+                HusAutoComplete {
                     width: 240
-                    clearIconSource: DelIcon.CloseSquareFilled
+                    clearIconSource: HusIcon.CloseSquareFilled
                     placeholderText: qsTr('Customized clear icon')
                     onSearch: function(input) {
                         options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];

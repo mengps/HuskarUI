@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,37 +15,39 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelRectangle 圆角矩形\n
+# HusRectangle 圆角矩形\n
 在需要任意方向圆角的矩形时使用。\n
 **注意** Qt6.7 以后则可以直接使用 Rectangle。\n
 * **继承自 { QQuickPaintedItem }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - 无\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-radius | real | 统一设置四个圆角半径
-topLeftRadius | real | 左上圆角半径
-topRightRadius | real | 右上圆角半径
-bottomLeftRadius | real | 左下圆角半径
-bottomRightRadius | real | 右下圆角半径
-color | color | 填充颜色
-border.color | color | 边框线颜色
-border.width | int | 边框线宽度
-border.style | int | 边框线样式(来自 Qt.*)
-\n**注意** \`border.style\` 为 DelRectangle 特有。
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+radius | real | 0 | 统一设置四个圆角半径
+topLeftRadius | real | 0 | 左上圆角半径
+topRightRadius | real | 0 | 右上圆角半径
+bottomLeftRadius | real | 0 | 左下圆角半径
+bottomRightRadius | real | 0 | 右下圆角半径
+color | color | '#fff' | 填充颜色
+border.color | color | 'transparent' | 边框线颜色
+border.width | int | 1 | 边框线宽度
+border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
+\n**注意** \`border.style\` 为 HusRectangle 特有。
                        `)
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 在用户需要任意方向圆角的矩形时使用。
                        `)
         }
 
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -55,24 +57,24 @@ border.style | int | 边框线样式(来自 Qt.*)
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 15
 
-                    DelRadioBlock {
+                    HusRadioBlock {
                         id: styleRadio
                         initCheckedIndex: 0
                         model: [
-                            { label: qsTr("实线"), value: Qt.SolidLine },
-                            { label: qsTr("虚线"), value: Qt.DashLine },
-                            { label: qsTr("虚点线"), value: Qt.DashDotLine },
-                            { label: qsTr("虚点点线"), value: Qt.DashDotDotLine }
+                            { label: qsTr('实线'), value: Qt.SolidLine },
+                            { label: qsTr('虚线'), value: Qt.DashLine },
+                            { label: qsTr('虚点线'), value: Qt.DashDotLine },
+                            { label: qsTr('虚点点线'), value: Qt.DashDotDotLine }
                         ]
                     }
 
-                    DelSlider {
+                    HusSlider {
                         id: bordrWidthSlider
                         width: 150
                         height: 30
@@ -81,15 +83,15 @@ border.style | int | 边框线样式(来自 Qt.*)
                         stepSize: 1
                         value: 1
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: qsTr("边框线宽: ") + parent.currentValue.toFixed(0);
+                            text: qsTr('边框线宽: ') + parent.currentValue.toFixed(0);
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         id: topLeftSlider
                         width: 150
                         height: 30
@@ -97,15 +99,15 @@ border.style | int | 边框线样式(来自 Qt.*)
                         max: 100
                         stepSize: 1
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: qsTr("左上圆角: ") + parent.currentValue.toFixed(0);
+                            text: qsTr('左上圆角: ') + parent.currentValue.toFixed(0);
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         id: topRightSlider
                         width: 150
                         height: 30
@@ -113,15 +115,15 @@ border.style | int | 边框线样式(来自 Qt.*)
                         max: 100
                         stepSize: 1
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: qsTr("右上圆角: ") + parent.currentValue.toFixed(0);
+                            text: qsTr('右上圆角: ') + parent.currentValue.toFixed(0);
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         id: bottomLeftSlider
                         width: 150
                         height: 30
@@ -129,15 +131,15 @@ border.style | int | 边框线样式(来自 Qt.*)
                         max: 100
                         stepSize: 1
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: qsTr("左下圆角: ") + parent.currentValue.toFixed(0);
+                            text: qsTr('左下圆角: ') + parent.currentValue.toFixed(0);
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         id: bottomRightSlider
                         width: 150
                         height: 30
@@ -145,20 +147,20 @@ border.style | int | 边框线样式(来自 Qt.*)
                         max: 100
                         stepSize: 1
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
-                            text: qsTr("右下圆角: ") + parent.currentValue.toFixed(0);
+                            text: qsTr('右下圆角: ') + parent.currentValue.toFixed(0);
                         }
                     }
 
-                    DelRectangle {
+                    HusRectangle {
                         width: 200
                         height: 200
-                        color: "#60ff0000"
+                        color: '#60ff0000'
                         border.width: bordrWidthSlider.currentValue
-                        border.color: DelTheme.Primary.colorTextBase
+                        border.color: HusTheme.Primary.colorTextBase
                         border.style: styleRadio.currentCheckedValue
                         topLeftRadius: topLeftSlider.currentValue
                         topRightRadius: topRightSlider.currentValue
@@ -170,18 +172,18 @@ border.style | int | 边框线样式(来自 Qt.*)
             exampleDelegate: Column {
                 spacing: 15
 
-                DelRadioBlock {
+                HusRadioBlock {
                     id: styleRadio
                     initCheckedIndex: 0
                     model: [
-                        { label: qsTr("实线"), value: Qt.SolidLine },
-                        { label: qsTr("虚线"), value: Qt.DashLine },
-                        { label: qsTr("虚点线"), value: Qt.DashDotLine },
-                        { label: qsTr("虚点点线"), value: Qt.DashDotDotLine }
+                        { label: qsTr('实线'), value: Qt.SolidLine },
+                        { label: qsTr('虚线'), value: Qt.DashLine },
+                        { label: qsTr('虚点线'), value: Qt.DashDotLine },
+                        { label: qsTr('虚点点线'), value: Qt.DashDotDotLine }
                     ]
                 }
 
-                DelSlider {
+                HusSlider {
                     id: bordrWidthSlider
                     width: 150
                     height: 30
@@ -190,15 +192,15 @@ border.style | int | 边框线样式(来自 Qt.*)
                     stepSize: 1
                     value: 1
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
-                        text: qsTr("边框线宽: ") + parent.currentValue.toFixed(0);
+                        text: qsTr('边框线宽: ') + parent.currentValue.toFixed(0);
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     id: topLeftSlider
                     width: 150
                     height: 30
@@ -206,15 +208,15 @@ border.style | int | 边框线样式(来自 Qt.*)
                     max: 100
                     stepSize: 1
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
-                        text: qsTr("左上圆角: ") + parent.currentValue.toFixed(0);
+                        text: qsTr('左上圆角: ') + parent.currentValue.toFixed(0);
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     id: topRightSlider
                     width: 150
                     height: 30
@@ -222,15 +224,15 @@ border.style | int | 边框线样式(来自 Qt.*)
                     max: 100
                     stepSize: 1
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
-                        text: qsTr("右上圆角: ") + parent.currentValue.toFixed(0);
+                        text: qsTr('右上圆角: ') + parent.currentValue.toFixed(0);
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     id: bottomLeftSlider
                     width: 150
                     height: 30
@@ -238,15 +240,15 @@ border.style | int | 边框线样式(来自 Qt.*)
                     max: 100
                     stepSize: 1
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
-                        text: qsTr("左下圆角: ") + parent.currentValue.toFixed(0);
+                        text: qsTr('左下圆角: ') + parent.currentValue.toFixed(0);
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     id: bottomRightSlider
                     width: 150
                     height: 30
@@ -254,20 +256,20 @@ border.style | int | 边框线样式(来自 Qt.*)
                     max: 100
                     stepSize: 1
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
-                        text: qsTr("右下圆角: ") + parent.currentValue.toFixed(0);
+                        text: qsTr('右下圆角: ') + parent.currentValue.toFixed(0);
                     }
                 }
 
-                DelRectangle {
+                HusRectangle {
                     width: 200
                     height: 200
-                    color: "#60ff0000"
+                    color: '#60ff0000'
                     border.width: bordrWidthSlider.currentValue
-                    border.color: DelTheme.Primary.colorTextBase
+                    border.color: HusTheme.Primary.colorTextBase
                     border.style: styleRadio.currentCheckedValue
                     topLeftRadius: topLeftSlider.currentValue
                     topRightRadius: topRightSlider.currentValue

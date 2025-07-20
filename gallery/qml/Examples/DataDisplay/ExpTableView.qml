@@ -1,27 +1,23 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 import Gallery
 
 import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Component {
         id: textDelegate
 
-        Text {
+        HusText {
             id: displayText
             leftPadding: 8
             rightPadding: 8
-            font {
-                family: DelTheme.Primary.fontPrimaryFamily
-                pixelSize: DelTheme.Primary.fontPrimarySize
-            }
             text: cellData
-            color: DelTheme.Primary.colorTextBase
+            color: HusTheme.Primary.colorTextBase
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
 
@@ -72,7 +68,7 @@ Flickable {
 
                 Repeater {
                     model: cellData
-                    delegate: DelTag {
+                    delegate: HusTag {
                         text: modelData
                         presetColor: [ 'red', 'green', 'orange', 'magenta', 'cyan'][index]
                         required property int index
@@ -93,13 +89,13 @@ Flickable {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 4
 
-                DelButton {
-                    type: DelButton.Type_Link
+                HusButton {
+                    type: HusButton.Type_Link
                     text: qsTr(`Invite`)
                 }
 
-                DelButton {
-                    type: DelButton.Type_Link
+                HusButton {
+                    type: HusButton.Type_Link
                     text: qsTr(`Delete`)
                 }
             }
@@ -113,10 +109,11 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelTableView 表格\n
+# HusTableView 表格\n
 展示行列数据。\n
-* **继承自 { DelRectangle }**\n
-支持的代理：\n
+* **继承自 { HusRectangle }**\n
+\n<br/>
+\n### 支持的代理：\n
 - **columnHeaderDelegate: Component** 列头代理，代理可访问属性：\n
   - \`model: var\` 列模型数据\n
   - \`headerData: var\` 列描述数据(即columns[column])\n
@@ -131,10 +128,12 @@ Flickable {
 - **columnHeaderFilterIconDelegate: Component** 列头过滤器图标代理，代理可访问属性：\n
   - \`onFilter: var\` 该列的过滤器\n
   - \`column: int\` 列索引\n
-支持的属性：\n
-属性名 | 类型 | 默认值 | 描述 |
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
+propagateWheelEvent | bool | false | 是否传播鼠标滚轮事件
 alternatingRow | bool | false | 是否交替显示行背景
 defaultColumnHeaderHeight | int | 40 | 默认列头高度
 defaultRowHeaderWidth | int | 40 | 默认行头宽度
@@ -156,8 +155,9 @@ rowHeaderTitleFont | font | - | 行头标题字体
 colorRowHeaderTitle | color | - | 行头标题颜色
 colorRowHeaderBg | color | - | 行头背景颜色
 colorResizeBlockBg | color | - | 调整头大小块(左上角方块)背景色
-\n{columns}支持的属性：\n
-属性名 | 类型 | 可选/必选 | 描述 |
+\n<br/>
+\n### {columns}支持的属性：\n
+属性名 | 类型 | 可选/必选 | 描述
 ------ | --- | :---: | ---
 title | string | 必选 | 标题
 dataIndex | sting | 必选 | 数据索引
@@ -172,7 +172,8 @@ sorter | var | 可选 | 该列排序器
 sortDirections | list | 可选 | 该列排序方向, 支持 'false'丨'ascend'丨'descend'
 onFilter | var | 可选 | 该列过滤器
 filterInput | string | 可选 | 该列过滤输入
-\n{columns.delegate}可访问属性：\n
+\n<br/>
+\n### {columns.delegate}可访问属性：\n
 属性名 | 类型 | 描述
 ------ | --- | ---
 row | int | 行索引
@@ -181,7 +182,8 @@ cellData | var | 单元格数据
 cellIndex | int | 单元格索引
 dataIndex | sting | 数据索引
 filterInput | string | 单元格的过滤输入
-\n支持的函数：\n
+\n<br/>
+\n### 支持的函数：\n
 - \`checkForRows(rows: Array)\` 选中 \`rows\` 提供的行列表。\n
 - \`checkForKeys(keys: Array)\` 选中 \`keys\` 提供的键列表。\n
 - \`Array getCheckedKeys()\` 获取选中的键列表。\n
@@ -195,7 +197,7 @@ filterInput | string | 单元格的过滤输入
 **注意** 以下函数仅作用于当前(排序&过滤后)的数据，不会更改 \`initModel\`，并且，为了最佳的性能，\n
 需要用户自行判断是否应该重新排序&过滤(调用 \`filter()\` 即可)\n。
 - \`appendRow(object: var)\` 在当前模型末尾添加 \`object\` 行, 不会更改 \`initModel\`。\n
-- \`object getRow(rowIndex: int)\` 获取当前模型 \`row\` 处的行数据。\n
+- \`getRow(rowIndex: int): var\` 获取当前模型 \`row\` 处的行数据。\n
 - \`setRow(rowIndex: int, object: var)\` 设置当前模型 \`rowIndex\` 处行数据为 \`object\`, 不会更改 \`initModel\`。\n
 - \`insertRow(rowIndex: int, object: var)\` 在当前模型插入行数据 \`object\` 到 \`rowIndex\` 处, 不会更改 \`initModel\`。\n
 - \`moveRow(fromRowIndex: int, toRowIndex: int, count: int = 1)\`将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置, 不会更改 \`initModel\`。\n
@@ -212,6 +214,10 @@ filterInput | string | 单元格的过滤输入
                        `)
         }
 
+        ThemeToken {
+            source: 'HusTableView'
+        }
+
         Description {
             title: qsTr('代码演示')
         }
@@ -224,13 +230,13 @@ filterInput | string | 单元格的过滤输入
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
-                    DelTableView {
+                    HusTableView {
                         width: parent.width
                         height: 200
                         columns: [
@@ -299,7 +305,7 @@ filterInput | string | 单元格的过滤输入
             exampleDelegate: Column {
                 spacing: 10
 
-                DelTableView {
+                HusTableView {
                     width: parent.width
                     height: 200
                     columns: [
@@ -378,7 +384,7 @@ filterInput | string | 单元格的过滤输入
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
@@ -387,9 +393,9 @@ filterInput | string | 单元格的过滤输入
                     Row {
                         spacing: 10
 
-                        DelIconButton {
+                        HusIconButton {
                             text: qsTr('Reload')
-                            type: DelButton.Type_Primary
+                            type: HusButton.Type_Primary
                             enabled: tableView.checkedKeys.length > 0
                             onClicked: {
                                 loading = true;
@@ -406,26 +412,26 @@ filterInput | string | 单元格的过滤输入
                             }
                         }
 
-                        DelButton {
+                        HusButton {
                             text: qsTr('ScrollToRow 0')
-                            type: DelButton.Type_Primary
+                            type: HusButton.Type_Primary
                             onClicked: tableView.scrollToRow(0);
                         }
 
-                        DelButton {
+                        HusButton {
                             text: qsTr('ScrollToRow 99')
-                            type: DelButton.Type_Primary
+                            type: HusButton.Type_Primary
                             onClicked: tableView.scrollToRow(99);
                         }
 
-                        DelCheckBox {
+                        HusCheckBox {
                             anchors.verticalCenter: parent.verticalCenter
                             text: qsTr('Switch alternatingRow')
                             onClicked: tableView.alternatingRow = checked;
                         }
                     }
 
-                    DelTableView {
+                    HusTableView {
                         id: tableView
                         width: parent.width
                         height: 400
@@ -468,7 +474,7 @@ filterInput | string | 单元格的过滤输入
                         ]
                     }
 
-                    DelPagination {
+                    HusPagination {
                         anchors.horizontalCenter: parent.horizontalCenter
                         total: 1000
                         pageSize: 100
@@ -495,9 +501,9 @@ filterInput | string | 单元格的过滤输入
                 Row {
                     spacing: 10
 
-                    DelIconButton {
+                    HusIconButton {
                         text: qsTr('Reload')
-                        type: DelButton.Type_Primary
+                        type: HusButton.Type_Primary
                         enabled: tableView.checkedKeys.length > 0
                         onClicked: {
                             loading = true;
@@ -514,26 +520,26 @@ filterInput | string | 单元格的过滤输入
                         }
                     }
 
-                    DelButton {
+                    HusButton {
                         text: qsTr('ScrollToRow 0')
-                        type: DelButton.Type_Primary
+                        type: HusButton.Type_Primary
                         onClicked: tableView.scrollToRow(0);
                     }
 
-                    DelButton {
+                    HusButton {
                         text: qsTr('ScrollToRow 99')
-                        type: DelButton.Type_Primary
+                        type: HusButton.Type_Primary
                         onClicked: tableView.scrollToRow(99);
                     }
 
-                    DelCheckBox {
+                    HusCheckBox {
                         anchors.verticalCenter: parent.verticalCenter
                         text: qsTr('Switch alternatingRow')
                         onClicked: tableView.alternatingRow = checked;
                     }
                 }
 
-                DelTableView {
+                HusTableView {
                     id: tableView
                     width: parent.width
                     height: 400
@@ -576,7 +582,7 @@ filterInput | string | 单元格的过滤输入
                     ]
                 }
 
-                DelPagination {
+                HusPagination {
                     anchors.horizontalCenter: parent.horizontalCenter
                     total: 1000
                     pageSize: 100
@@ -610,13 +616,13 @@ filterInput | string | 单元格的过滤输入
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     width: parent.width
                     spacing: 10
 
-                    DelTableView {
+                    HusTableView {
                         id: sortAndFilterTable
                         width: parent.width
                         height: 400
@@ -658,7 +664,7 @@ filterInput | string | 单元格的过滤输入
                         ]
                     }
 
-                    DelPagination {
+                    HusPagination {
                         anchors.horizontalCenter: parent.horizontalCenter
                         total: 1000
                         pageSize: 100
@@ -682,7 +688,7 @@ filterInput | string | 单元格的过滤输入
             exampleDelegate: Column {
                 spacing: 10
 
-                DelTableView {
+                HusTableView {
                     id: sortAndFilterTable
                     width: parent.width
                     height: 400
@@ -724,7 +730,7 @@ filterInput | string | 单元格的过滤输入
                     ]
                 }
 
-                DelPagination {
+                HusPagination {
                     anchors.horizontalCenter: parent.horizontalCenter
                     total: 1000
                     pageSize: 100
@@ -774,30 +780,30 @@ filterInput | string | 单元格的过滤输入
         return list;
     }
 \`\`\`\n
-3. 在 Qml 中直接访问该数据集并赋值给 DelTableView.initModel。\n
+3. 在 Qml 中直接访问该数据集并赋值给 HusTableView.initModel。\n
 \`\`\`auto
-    DelTableView {
+    HusTableView {
         Component.onCompleted: {
             initModel = getMyDataList();
         }
     }
 \`\`\`\n
-4. **注意** 使用 DelTableView 提供的接口操作数据(增删查改)。\n
+4. **注意** 使用 HusTableView 提供的接口操作数据(增删查改)。\n
 **更详细的说明请参考官方文档：**\n
 - [QML 和 C++ 之间的数据类型转换](https://doc.qt.io/qt-6/zh/qtqml-cppintegration-data.html)\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
                 import Gallery
 
                 Column {
                     spacing: 10
                     width: parent.width
 
-                    DelButton {
+                    HusButton {
                         text: qsTr('Import 10 pieces data from C++')
-                        type: DelButton.Type_Primary
+                        type: HusButton.Type_Primary
                         onClicked: {
                             const list = DataGenerator.genTableData(10);
                             for (const object of list) {
@@ -806,7 +812,7 @@ filterInput | string | 单元格的过滤输入
                         }
                     }
 
-                    DelTableView {
+                    HusTableView {
                         id: cppTableView
                         width: parent.width
                         height: 400
@@ -857,9 +863,9 @@ filterInput | string | 单元格的过滤输入
             exampleDelegate: Column {
                 spacing: 10
 
-                DelButton {
+                HusButton {
                     text: qsTr('Import 10 pieces data from C++')
-                    type: DelButton.Type_Primary
+                    type: HusButton.Type_Primary
                     onClicked: {
                         const list = DataGenerator.genTableData(10);
                         for (const object of list) {
@@ -868,7 +874,7 @@ filterInput | string | 单元格的过滤输入
                     }
                 }
 
-                DelTableView {
+                HusTableView {
                     id: cppTableView
                     width: parent.width
                     height: 400

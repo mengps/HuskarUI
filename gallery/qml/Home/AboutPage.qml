@@ -2,9 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-DelWindow {
+HusWindow {
     id: root
     width: 400
     height: 500
@@ -14,17 +14,11 @@ DelWindow {
     captionBar.maximizeButtonVisible: false
     captionBar.winTitle: qsTr('关于')
     captionBar.winIconDelegate: Item {
-        DelIconText {
-            iconSize: 22
-            colorIcon: '#C44545'
-            font.bold: true
-            iconSource: DelIcon.DelegateUIPath1
-        }
-        DelIconText {
-            iconSize: 22
-            colorIcon: '#C44545'
-            font.bold: true
-            iconSource: DelIcon.DelegateUIPath2
+        Image {
+            width: 16
+            height: 16
+            anchors.centerIn: parent
+            source: 'qrc:/Gallery/images/huskarui_icon.svg'
         }
     }
     captionBar.closeCallback: () => aboutLoader.visible = false;
@@ -35,7 +29,7 @@ DelWindow {
         MultiEffect {
             anchors.fill: backRect
             source: backRect
-            shadowColor: DelTheme.Primary.colorTextBase
+            shadowColor: HusTheme.Primary.colorTextBase
             shadowEnabled: true
         }
 
@@ -43,8 +37,8 @@ DelWindow {
             id: backRect
             anchors.fill: parent
             radius: 6
-            color: DelTheme.Primary.colorBgBase
-            border.color: DelThemeFunctions.alpha(DelTheme.Primary.colorTextBase, 0.2)
+            color: HusTheme.Primary.colorBgBase
+            border.color: HusThemeFunctions.alpha(HusTheme.Primary.colorTextBase, 0.2)
         }
 
         Item {
@@ -79,80 +73,73 @@ DelWindow {
                 height: width
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                DelIconText {
-                    iconSize: parent.width
-                    colorIcon: '#C44545'
-                    font.bold: true
-                    iconSource: DelIcon.DelegateUIPath1
-                }
-
-                DelIconText {
-                    iconSize: parent.width
-                    colorIcon: '#C44545'
-                    font.bold: true
-                    iconSource: DelIcon.DelegateUIPath2
+                Image {
+                    width: parent.width
+                    height: width
+                    anchors.centerIn: parent
+                    source: 'qrc:/Gallery/images/huskarui_icon.svg'
                 }
             }
 
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font {
-                    family: DelTheme.Primary.fontPrimaryFamily
-                    pixelSize: DelTheme.Primary.fontPrimarySizeHeading3
+                    family: HusTheme.Primary.fontPrimaryFamily
+                    pixelSize: HusTheme.Primary.fontPrimarySizeHeading3
                     bold: true
                 }
-                color: DelTheme.Primary.colorTextBase
-                text: 'DelegateUI Gallery'
+                color: HusTheme.Primary.colorTextBase
+                text: 'HuskarUI Gallery'
             }
 
-            DelCopyableText {
+            HusCopyableText {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr('库版本: ') + DelApp.libVersion()
+                text: qsTr('库版本: ') + HusApp.libVersion()
             }
 
-            DelCopyableText {
+            HusCopyableText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr('作者: MenPenS')
             }
 
-            DelCopyableText {
+            HusCopyableText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr('微信号: MenPenS0612')
             }
 
-            DelCopyableText {
+            HusCopyableText {
                 width: parent.width - 30
                 anchors.horizontalCenter: parent.horizontalCenter
-                wrapMode: DelCopyableText.WordWrap
-                horizontalAlignment: DelCopyableText.AlignHCenter
+                wrapMode: HusCopyableText.WordWrap
+                horizontalAlignment: HusCopyableText.AlignHCenter
                 text: qsTr('QQ交流群号: <a href=\'https://qm.qq.com/q/cMNHn2tWeY\' style=\'color:#722ED1\'>490328047</a>')
-                textFormat: DelCopyableText.RichText
+                textFormat: HusCopyableText.RichText
                 onLinkActivated: (link) => Qt.openUrlExternally(link);
             }
 
-            DelCopyableText {
+            HusCopyableText {
                 width: parent.width - 30
                 anchors.horizontalCenter: parent.horizontalCenter
-                wrapMode: DelCopyableText.WordWrap
-                horizontalAlignment: DelCopyableText.AlignHCenter
-                text: 'Github: <a href=\'https://github.com/mengps/DelegateUI\' style=\'color:#722ED1\'>https://github.com/mengps/DelegateUI</a>'
-                textFormat: DelCopyableText.RichText
+                wrapMode: HusCopyableText.WordWrap
+                horizontalAlignment: HusCopyableText.AlignHCenter
+                text: 'Github: <a href=\'https://github.com/mengps/HuskarUI\' style=\'color:#722ED1\'>https://github.com/mengps/HuskarUI</a>'
+                textFormat: HusCopyableText.RichText
                 onLinkActivated: (link) => Qt.openUrlExternally(link);
             }
 
-            DelCopyableText {
+            HusCopyableText {
                 width: parent.width - 30
                 anchors.horizontalCenter: parent.horizontalCenter
-                wrapMode: DelCopyableText.WordWrap
-                horizontalAlignment: DelCopyableText.AlignHCenter
+                wrapMode: HusCopyableText.WordWrap
+                horizontalAlignment: HusCopyableText.AlignHCenter
                 text: qsTr('如果该项目/源码对你有用，就请点击上方链接给一个免费的Star，谢谢！')
             }
 
-            DelCopyableText {
+            HusCopyableText {
                 width: parent.width - 30
                 anchors.horizontalCenter: parent.horizontalCenter
-                wrapMode: DelCopyableText.WordWrap
-                horizontalAlignment: DelCopyableText.AlignHCenter
+                wrapMode: HusCopyableText.WordWrap
+                horizontalAlignment: HusCopyableText.AlignHCenter
                 text: qsTr('有任何问题可以提Issues或进群！')
             }
         }

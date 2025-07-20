@@ -1,7 +1,0 @@
-{
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "colorText": "@colorTextBase",
-    "colorBg": "@colorBgBase",
-    "colorBgDark": "#424242"
-}

@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
-import "../../Controls"
+import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,10 +15,11 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelSlider 滑动输入条\n
+# HusSlider 滑动输入条\n
 滑动型输入器，展示当前值和可选范围。。\n
 * **继承自 { Item }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **handleDelgate: Component** 滑块代理，代理可访问属性：\n
   - \`slider: Slider / RangeSlider\` 滑动条本身
   - \`visualPosition: real\` 滑块的有效视觉位置\n
@@ -29,29 +30,32 @@ Flickable {
 - **bgDelegate: Component** 背景代理，代理可访问属性：\n
   - \`slider: Slider / RangeSlider\` 滑动条本身
   - \`visualPosition: bool\` 滑块的有效视觉位置\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-hoverCursorShape | int | 悬浮时鼠标形状(来自 Qt.*Cursor)
-min | real | 最小值
-max | real | 最大值
-stepSize | real | 步长
-value | number丨[number, number] | 设置滑块值, range为true时为数组[min, max]
-currentValue(readonly) | number丨[number, number] | 获取当前滑块值, range为true时为数组[min, max]
-contentDescription | string | 内容描述(提高可用性)
-range | bool | 双滑块模式
-hovered | bool | 是否悬浮在滑动条上
-snapMode | enum | 滑块对齐模式(来自 DelSlider)
-orientation | enum | 滑动条方向( Qt.Horizontal 或 Qt.Vertical )
-radiusBg | int | 背景半径
-colorHandle | color | 滑块颜色
-colorTrack | color | 滑块轨道颜色
-colorBg | color | 背景颜色
-\n支持的函数：\n
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
+min | real | 0 | 最小值
+max | real | 100 | 最大值
+stepSize | real | 0.0 | 步长
+value | number丨[number, number] | 0丨[0, 0] | 设置滑块值, range为true时为数组[min, max]
+currentValue(readonly) | number丨[number, number] | - | 获取当前滑块值, range为true时为数组[min, max]
+range | bool | false | 是否双滑块模式
+hovered | bool | - | 是否悬浮在滑动条上
+snapMode | enum | HusSlider.NoSnap | 滑块对齐模式(来自 HusSlider)
+orientation | enum | Qt.Horizontal | 滑动条方向(Qt.Horizontal 或 Qt.Vertical)
+colorHandle | color | - | 滑块颜色
+colorTrack | color | - | 滑块轨道颜色
+colorBg | color | - | 背景颜色
+radiusBg | int | - | 背景圆角
+contentDescription | string | '' | 内容描述(提高可用性)
+\n<br/>
+\n### 支持的函数：\n
 - \`decrease(frist: bool = true)\` 将第 \`first\` 个滑块(first 为 false 则为第二个)值减小 stepSize 或 0.1\n
 - \`increase(frist: bool = true)\` 将第 \`first\` 个滑块(first 为 false 则为第二个)值增加 stepSize 或 0.1\n
-支持的信号：\n
+\n<br/>
+\n### 支持的信号：\n
 - \`firstMoved()\` 第一个滑块移动时发出\n
 - \`firstReleased()\` 第一个滑块释放时发出\n
 - \`secondMoved()\` 第二个滑块移动时发出(range为true)\n
@@ -60,14 +64,18 @@ colorBg | color | 背景颜色
         }
 
         Description {
-            title: qsTr("何时使用")
+            title: qsTr('何时使用')
             desc: qsTr(`
 当用户需要在数值区间/自定义区间内进行选择时，可为连续或离散值。
                        `)
         }
 
+        ThemeToken {
+            source: 'HusSlider'
+        }
+
         Description {
-            title: qsTr("代码演示")
+            title: qsTr('代码演示')
         }
 
         CodeBox {
@@ -81,15 +89,15 @@ colorBg | color | 背景颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
-                    DelSlider {
+                    HusSlider {
                         width: 300
                         height: 30
                         value: 50
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
@@ -97,24 +105,24 @@ colorBg | color | 背景颜色
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         width: 300
                         height: 30
                         range: true
                         value: [20, 50]
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
                             text: {
                                 const v = parent.currentValue;
-                                return v[0].toFixed(0) + ", "+ v[1].toFixed(0);
+                                return v[0].toFixed(0) + ', '+ v[1].toFixed(0);
                             }
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         width: 300
                         height: 30
                         value: 50
@@ -123,12 +131,12 @@ colorBg | color | 背景颜色
                 }
             `
             exampleDelegate: Column {
-                DelSlider {
+                HusSlider {
                     width: 300
                     height: 30
                     value: 50
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
@@ -136,24 +144,24 @@ colorBg | color | 背景颜色
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     width: 300
                     height: 30
                     range: true
                     value: [20, 50]
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
                         text: {
                             const v = parent.currentValue;
-                            return v[0].toFixed(0) + ", "+ v[1].toFixed(0);
+                            return v[0].toFixed(0) + ', '+ v[1].toFixed(0);
                         }
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     width: 300
                     height: 30
                     value: 50
@@ -172,19 +180,19 @@ colorBg | color | 背景颜色
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
-                    height: 310 + DelTheme.Primary.fontPrimarySize
+                    height: 310 + HusTheme.Primary.fontPrimarySize
                     spacing: 30
 
-                    DelSlider {
+                    HusSlider {
                         width: 30
                         height: 300
                         value: 50
                         orientation: Qt.Vertical
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.top: parent.bottom
                             anchors.topMargin: 10
@@ -192,36 +200,36 @@ colorBg | color | 背景颜色
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         width: 30
                         height: 300
                         range: true
                         value: [20, 50]
                         orientation: Qt.Vertical
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.top: parent.bottom
                             anchors.topMargin: 10
                             text: {
                                 const v = parent.currentValue;
-                                return v[0].toFixed(0) + ", "+ v[1].toFixed(0);
+                                return v[0].toFixed(0) + ', '+ v[1].toFixed(0);
                             }
                         }
                     }
                 }
             `
             exampleDelegate: Row {
-                height: 310 + DelTheme.Primary.fontPrimarySize
+                height: 310 + HusTheme.Primary.fontPrimarySize
                 spacing: 30
 
-                DelSlider {
+                HusSlider {
                     width: 30
                     height: 300
                     value: 50
                     orientation: Qt.Vertical
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top: parent.bottom
                         anchors.topMargin: 10
@@ -229,20 +237,20 @@ colorBg | color | 背景颜色
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     width: 30
                     height: 300
                     range: true
                     value: [20, 50]
                     orientation: Qt.Vertical
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top: parent.bottom
                         anchors.topMargin: 10
                         text: {
                             const v = parent.currentValue;
-                            return v[0].toFixed(0) + ", "+ v[1].toFixed(0);
+                            return v[0].toFixed(0) + ', '+ v[1].toFixed(0);
                         }
                     }
                 }
@@ -253,24 +261,24 @@ colorBg | color | 背景颜色
             width: parent.width
             desc: qsTr(`
 通过 \`snapMode\` 属性改变滑块对齐模式，支持的模式：\n
-- 不对齐(默认){ DelSlider.NoSnap }\n
-- 拖动控制柄时滑块会自动对齐 { DelSlider.SnapAlways }\n
-- 滑块在拖动时不会对齐，但只有在释放滑块后才会对齐 { DelSlider.SnapOnRelease }\n
+- 不对齐(默认){ HusSlider.NoSnap }\n
+- 拖动控制柄时滑块会自动对齐 { HusSlider.SnapAlways }\n
+- 滑块在拖动时不会对齐，但只有在释放滑块后才会对齐 { HusSlider.SnapOnRelease }\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
-                    DelSlider {
+                    HusSlider {
                         width: 300
                         height: 30
                         min: 0
                         max: 10
                         stepSize: 1
-                        snapMode: DelSlider.NoSnap
+                        snapMode: HusSlider.NoSnap
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
@@ -278,15 +286,15 @@ colorBg | color | 背景颜色
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         width: 300
                         height: 30
                         min: 0
                         max: 10
                         stepSize: 1
-                        snapMode: DelSlider.SnapAlways
+                        snapMode: HusSlider.SnapAlways
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
@@ -294,15 +302,15 @@ colorBg | color | 背景颜色
                         }
                     }
 
-                    DelSlider {
+                    HusSlider {
                         width: 300
                         height: 30
                         min: 0
                         max: 10
                         stepSize: 1
-                        snapMode: DelSlider.SnapOnRelease
+                        snapMode: HusSlider.SnapOnRelease
 
-                        DelCopyableText {
+                        HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right
                             anchors.leftMargin: 10
@@ -312,15 +320,15 @@ colorBg | color | 背景颜色
                 }
             `
             exampleDelegate: Column {
-                DelSlider {
+                HusSlider {
                     width: 300
                     height: 30
                     min: 0
                     max: 10
                     stepSize: 1
-                    snapMode: DelSlider.NoSnap
+                    snapMode: HusSlider.NoSnap
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
@@ -328,15 +336,15 @@ colorBg | color | 背景颜色
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     width: 300
                     height: 30
                     min: 0
                     max: 10
                     stepSize: 1
-                    snapMode: DelSlider.SnapAlways
+                    snapMode: HusSlider.SnapAlways
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10
@@ -344,15 +352,15 @@ colorBg | color | 背景颜色
                     }
                 }
 
-                DelSlider {
+                HusSlider {
                     width: 300
                     height: 30
                     min: 0
                     max: 10
                     stepSize: 1
-                    snapMode: DelSlider.SnapOnRelease
+                    snapMode: HusSlider.SnapOnRelease
 
-                    DelCopyableText {
+                    HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right
                         anchors.leftMargin: 10

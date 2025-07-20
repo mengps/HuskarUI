@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
 import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,25 +15,27 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelInput 输入框 \n
+# HusInput 输入框 \n
 通过鼠标或键盘输入内容，是最基础的表单域的包装。\n
 * **继承自 { TextField }**\n
-支持的代理：\n
+\n<br/>
+\n### 支持的代理：\n
 - **iconDelegate: Component** 图标代理\n
-支持的属性：\n
-属性名 | 类型 | 描述
------- | --- | ---
-animationEnabled | bool | 是否开启动画(默认true)
-active(readonly) | bool | 是否处于激活状态
-iconSource | enum | 图标源(来自 DelIcon)
-iconSize | int | 图标大小
-iconPosition | enum | 图标位置(来自 DelInput)
-colorIcon | color | 图标颜色
-colorText | color | 文本颜色
-colorBorder | color | 边框颜色
-colorBg | color | 背景颜色
-radiusBg | int | 背景半径
-contentDescription | string | 内容描述(提高可用性)
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
+------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+active(readonly) | bool | - | 是否处于激活状态
+iconSource | enum | 0 | 图标源(来自 HusIcon)
+iconSize | int | - | 图标大小
+iconPosition | enum | HusInput.Position_Left | 图标位置(来自 HusInput)
+colorIcon | color | - | 图标颜色
+colorText | color | - | 文本颜色
+colorBorder | color | - | 边框颜色
+colorBg | color | - | 背景颜色
+radiusBg | int | - | 背景圆角
+contentDescription | string | '' | 内容描述(提高可用性)
                        `)
         }
 
@@ -45,6 +47,10 @@ contentDescription | string | 内容描述(提高可用性)
                        `)
         }
 
+        ThemeToken {
+            source: 'HusInput'
+        }
+
         Description {
             title: qsTr('代码演示')
         }
@@ -54,32 +60,32 @@ contentDescription | string | 内容描述(提高可用性)
             desc: qsTr(`
 通过 \`iconSource\` 属性设置图标源\n
 通过 \`iconPosition\` 属性改变图标位置，支持的位置：\n
-- 图标在输入框左边(默认){ DelInput.Position_Left }\n
-- 图标在输入框右边{ DelInput.Position_Right }\n
+- 图标在输入框左边(默认){ HusInput.Position_Left }\n
+- 图标在输入框右边{ HusInput.Position_Right }\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Row {
                     spacing: 10
 
-                    DelInput {
+                    HusInput {
                         width: 120
                         placeholderText: qsTr('Basic usage')
                     }
 
-                    DelInput {
+                    HusInput {
                         width: 120
-                        iconPosition: DelInput.Position_Left
-                        iconSource: DelIcon.UserOutlined
+                        iconPosition: HusInput.Position_Left
+                        iconSource: HusIcon.UserOutlined
                         placeholderText: qsTr('Username')
                     }
 
-                    DelInput {
+                    HusInput {
                         width: 120
-                        iconPosition: DelInput.Position_Right
-                        iconSource: DelIcon.UserOutlined
+                        iconPosition: HusInput.Position_Right
+                        iconSource: HusIcon.UserOutlined
                         placeholderText: qsTr('Username')
                     }
                 }
@@ -88,22 +94,22 @@ contentDescription | string | 内容描述(提高可用性)
             exampleDelegate: Row {
                 spacing: 10
 
-                DelInput {
+                HusInput {
                     width: 120
                     placeholderText: qsTr('Basic usage')
                 }
 
-                DelInput {
+                HusInput {
                     width: 120
-                    iconPosition: DelInput.Position_Left
-                    iconSource: DelIcon.UserOutlined
+                    iconPosition: HusInput.Position_Left
+                    iconSource: HusIcon.UserOutlined
                     placeholderText: qsTr('Username')
                 }
 
-                DelInput {
+                HusInput {
                     width: 120
-                    iconPosition: DelInput.Position_Right
-                    iconSource: DelIcon.UserOutlined
+                    iconPosition: HusInput.Position_Right
+                    iconSource: HusIcon.UserOutlined
                     placeholderText: qsTr('Username')
                 }
             }

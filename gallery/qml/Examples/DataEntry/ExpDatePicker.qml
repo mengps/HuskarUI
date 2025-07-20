@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls.Basic
-import DelegateUI
+import HuskarUI.Basic
 
 import '../../Controls'
 
 Flickable {
     contentHeight: column.height
-    ScrollBar.vertical: DelScrollBar { }
+    ScrollBar.vertical: HusScrollBar { }
 
     Column {
         id: column
@@ -15,24 +15,26 @@ Flickable {
 
         Description {
             desc: qsTr(`
-## DelDatePicker 日期选择框 \n
+# HusDatePicker 日期选择框 \n
 输入或选择日期的控件。\n
 * **继承自 { Item }**\n
-支持的代理：\n
-- **dayDelegate: Component** 天项代理\n
+\n<br/>
+\n### 支持的代理：\n
+- **dayDelegate: Component** 天项代理，代理可访问属性：\n
   - \`model: var\` 天模型(参见 MonthGrid)\n
   - \`isCurrentWeek: bool\` 是否为当前周\n
   - \`isHoveredWeek: bool\` 是否为悬浮周\n
   - \`isCurrentMonth: bool\` 是否为当前月\n
   - \`isCurrentVisualMonth: bool\` 是否为(==visualMonth)\n
   - \`isCurrentDay: bool\` 是否为当前天\n
-支持的属性：\n
-属性名 | 类型 | 默认值 | 描述 |
+\n<br/>
+\n### 支持的属性：\n
+属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
 placeholderText | string | '' | 输入框占位文本
-iconPosition | int | DelDatePicker.Position_Right | 图标位置(来自 DelDatePicker)
-pickerMode | int | DelDatePicker.Mode_Day | 日期选择模式(来自 DelDatePicker)
+iconPosition | int | HusDatePicker.Position_Right | 图标位置(来自 HusDatePicker)
+pickerMode | int | HusDatePicker.Mode_Day | 日期选择模式(来自 HusDatePicker)
 initDate | date | undefined | 初始日期
 currentDate | date | - | 当前日期
 currentYear | int | - | 当前年份
@@ -44,7 +46,8 @@ visualYear | int | - | 弹窗显示的年份(通常不需要使用)
 visualMonth | int | - | 弹窗显示的月份(通常不需要使用)
 visualQuarter | int | - | 弹窗显示的季度(通常不需要使用)
 dateFormat | string | 'yyyy-MM-dd' | 日期格式
-\n支持的信号：\n
+\n<br/>
+\n### 支持的信号：\n
 - \`clicked(date: var)\` 点击日期时发出\n
   -  \`date\` 点击的日期(jsDate)\n
                        `)
@@ -57,6 +60,10 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
                        `)
         }
 
+        ThemeToken {
+            source: 'HusDatePicker'
+        }
+
         Description {
             title: qsTr('代码演示')
         }
@@ -67,48 +74,48 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
             desc: qsTr(`
 最简单的用法，在浮层中可以选择或者输入日期。
 通过 \`pickerMode\` 属性设置选择模式，支持的模式：\n
-- 年份选择模式{ DelDatePicker.Mode_Year }\n
-- 季度选择模式{ DelDatePicker.Mode_Quarter }\n
-- 月选择模式{ DelDatePicker.Mode_Month }\n
-- 周选择模式{ DelDatePicker.Mode_Week }\n
-- 天选择模式(默认){ DelDatePicker.Mode_Day }\n
+- 年份选择模式{ HusDatePicker.Mode_Year }\n
+- 季度选择模式{ HusDatePicker.Mode_Quarter }\n
+- 月选择模式{ HusDatePicker.Mode_Month }\n
+- 周选择模式{ HusDatePicker.Mode_Week }\n
+- 天选择模式(默认){ HusDatePicker.Mode_Day }\n
 通过 \`dateFormat\` 属性设置日期格式：\n
 年月日遵从一般日期格式 \`yyyy MM dd\`，而 \`w\` 将替换为周数，\`q\` 将替换为季度。\n
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelDatePicker {
+                    HusDatePicker {
                         placeholderText: qsTr('请选择日期')
-                        pickerMode: DelDatePicker.Mode_Day
+                        pickerMode: HusDatePicker.Mode_Day
                         dateFormat: qsTr('yyyy-MM-dd')
                     }
 
-                    DelDatePicker {
+                    HusDatePicker {
                         placeholderText: qsTr('请选择周')
-                        pickerMode: DelDatePicker.Mode_Week
+                        pickerMode: HusDatePicker.Mode_Week
                         dateFormat: qsTr('yyyy-w周')
                     }
 
-                    DelDatePicker {
+                    HusDatePicker {
                         placeholderText: qsTr('请选择月份')
-                        pickerMode: DelDatePicker.Mode_Month
+                        pickerMode: HusDatePicker.Mode_Month
                         dateFormat: qsTr('yyyy-MM')
                     }
 
-                    DelDatePicker {
+                    HusDatePicker {
                         placeholderText: qsTr('请选择季度')
-                        pickerMode: DelDatePicker.Mode_Quarter
+                        pickerMode: HusDatePicker.Mode_Quarter
                         dateFormat: qsTr('yyyy-Qq')
                     }
 
-                    DelDatePicker {
+                    HusDatePicker {
                         placeholderText: qsTr('请选择年份')
-                        pickerMode: DelDatePicker.Mode_Year
+                        pickerMode: HusDatePicker.Mode_Year
                         dateFormat: qsTr('yyyy')
                     }
                 }
@@ -116,33 +123,33 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
             exampleDelegate: Column {
                 spacing: 10
 
-                DelDatePicker {
+                HusDatePicker {
                     placeholderText: qsTr('请选择日期')
-                    pickerMode: DelDatePicker.Mode_Day
+                    pickerMode: HusDatePicker.Mode_Day
                     dateFormat: qsTr('yyyy-MM-dd')
                 }
 
-                DelDatePicker {
+                HusDatePicker {
                     placeholderText: qsTr('请选择周')
-                    pickerMode: DelDatePicker.Mode_Week
+                    pickerMode: HusDatePicker.Mode_Week
                     dateFormat: qsTr('yyyy-w周')
                 }
 
-                DelDatePicker {
+                HusDatePicker {
                     placeholderText: qsTr('请选择月份')
-                    pickerMode: DelDatePicker.Mode_Month
+                    pickerMode: HusDatePicker.Mode_Month
                     dateFormat: qsTr('yyyy-MM')
                 }
 
-                DelDatePicker {
+                HusDatePicker {
                     placeholderText: qsTr('请选择季度')
-                    pickerMode: DelDatePicker.Mode_Quarter
+                    pickerMode: HusDatePicker.Mode_Quarter
                     dateFormat: qsTr('yyyy-Qq')
                 }
 
-                DelDatePicker {
+                HusDatePicker {
                     placeholderText: qsTr('请选择年份')
-                    pickerMode: DelDatePicker.Mode_Year
+                    pickerMode: HusDatePicker.Mode_Year
                     dateFormat: qsTr('yyyy')
                 }
             }
@@ -158,34 +165,34 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
                        `)
             code: `
                 import QtQuick
-                import DelegateUI
+                import HuskarUI.Basic
 
                 Column {
                     spacing: 10
 
-                    DelDatePicker {
+                    HusDatePicker {
                         id: customDatePicker
                         initDate: new Date(2025, 4, 1)
                         placeholderText: qsTr('请选择日期')
-                        pickerMode: DelDatePicker.Mode_Day
+                        pickerMode: HusDatePicker.Mode_Day
                         dateFormat: qsTr('yyyy-MM-dd')
-                        dayDelegate: DelButton {
+                        dayDelegate: HusButton {
                             padding: 0
                             implicitWidth: 50
                             implicitHeight: 50
-                            type: isCurrentDay || hovered ? DelButton.Type_Primary : DelButton.Type_Link
+                            type: isCurrentDay || hovered ? HusButton.Type_Primary : HusButton.Type_Link
                             text: \`<span>\${model.day}</span>\${getHoliday()}\`
                             effectEnabled: false
-                            colorText: isCurrentDay ? 'white' : DelTheme.Primary.colorTextBase
+                            colorText: isCurrentDay ? 'white' : HusTheme.Primary.colorTextBase
                             Component.onCompleted: contentItem.textFormat = Text.RichText;
 
                             function getHoliday() {
                                 if (model.month === 4 && model.day === 1) {
-                                    return '<br/><span style="color:red">劳动节</span>';
+                                    return '<br/><span style=\'color:red\'>劳动节</span>';
                                 } else if (model.month === 4 && model.day === 21) {
-                                    return '<br/><span style="color:red">小满</span>';
+                                    return '<br/><span style=\'color:red\'>小满</span>';
                                 } else if (model.month === 4 && model.day === 31) {
-                                    return '<br/><span style="color:red">端午节</span>';
+                                    return '<br/><span style=\'color:red\'>端午节</span>';
                                 }  else {
                                     const lunarDaysMay2025 = [
                                       '初四', '初五', '初六', '初七', '初八',
@@ -197,7 +204,7 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
                                       '初四'
                                     ];
                                     if (model.month === 4)
-                                        return \`<br/><span style="color:\${colorText}">\${lunarDaysMay2025[model.day - 1]}</span>\`;
+                                        return \`<br/><span style='color:\${colorText}'>\${lunarDaysMay2025[model.day - 1]}</span>\`;
                                     else
                                         return '';
                                 }
@@ -209,29 +216,29 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
             exampleDelegate: Column {
                 spacing: 10
 
-                DelDatePicker {
+                HusDatePicker {
                     id: customDatePicker
                     initDate: new Date(2025, 4, 1)
                     placeholderText: qsTr('请选择日期')
-                    pickerMode: DelDatePicker.Mode_Day
+                    pickerMode: HusDatePicker.Mode_Day
                     dateFormat: qsTr('yyyy-MM-dd')
-                    dayDelegate: DelButton {
+                    dayDelegate: HusButton {
                         padding: 0
                         implicitWidth: 50
                         implicitHeight: 50
-                        type: isCurrentDay || hovered ? DelButton.Type_Primary : DelButton.Type_Link
+                        type: isCurrentDay || hovered ? HusButton.Type_Primary : HusButton.Type_Link
                         text: `<span>${model.day}</span>${getHoliday()}`
                         effectEnabled: false
-                        colorText: isCurrentDay ? 'white' : DelTheme.Primary.colorTextBase
+                        colorText: isCurrentDay ? 'white' : HusTheme.Primary.colorTextBase
                         Component.onCompleted: contentItem.textFormat = Text.RichText;
 
                         function getHoliday() {
                             if (model.month === 4 && model.day === 1) {
-                                return '<br/><span style="color:red">劳动节</span>';
+                                return '<br/><span style=\'color:red\'>劳动节</span>';
                             } else if (model.month === 4 && model.day === 21) {
-                                return '<br/><span style="color:red">小满</span>';
+                                return '<br/><span style=\'color:red\'>小满</span>';
                             } else if (model.month === 4 && model.day === 31) {
-                                return '<br/><span style="color:red">端午节</span>';
+                                return '<br/><span style=\'color:red\'>端午节</span>';
                             }  else {
                                 const lunarDaysMay2025 = [
                                   '初四', '初五', '初六', '初七', '初八',
@@ -243,7 +250,7 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
                                   '初四'
                                 ];
                                 if (model.month === 4)
-                                    return `<br/><span style="color:${colorText}">${lunarDaysMay2025[model.day - 1]}</span>`;
+                                    return `<br/><span style='color:${colorText}'>${lunarDaysMay2025[model.day - 1]}</span>`;
                                 else
                                     return '';
                             }

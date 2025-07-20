@@ -2,13 +2,13 @@
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
 
-#ifdef BUILD_DELEGATEUI_STATIC_LIBRARY
+#ifdef BUILD_HUSKARUI_STATIC_LIBRARY
 #include <QtQml/qqmlextensionplugin.h>
-Q_IMPORT_QML_PLUGIN(DelegateUI)
+Q_IMPORT_QML_PLUGIN(HuskarUI)
 #endif
 
 #include "customtheme.h"
-#include "delapp.h"
+#include "husapp.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,13 +17,13 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     app.setOrganizationName("MenPenS");
-    app.setApplicationName("DelegateUI");
-    app.setApplicationDisplayName("DelegateUI Gallery");
-    app.setApplicationVersion(DelApp::libVersion());
+    app.setApplicationName("HuskarUI");
+    app.setApplicationDisplayName("HuskarUI Gallery");
+    app.setApplicationVersion(HusApp::libVersion());
 
     QQmlApplicationEngine engine;
 
-    DelApp::initialize(&engine);
+    HusApp::initialize(&engine);
     CustomTheme::instance()->registerAll();
 
     const QUrl url(u"qrc:/Gallery/qml/Gallery.qml"_qs);

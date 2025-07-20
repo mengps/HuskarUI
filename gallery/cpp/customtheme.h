@@ -3,7 +3,7 @@
 
 #include <QtQml/qqml.h>
 
-#include "deldefinitions.h"
+#include "husdefinitions.h"
 
 class CustomTheme : public QObject
 {
@@ -11,7 +11,7 @@ class CustomTheme : public QObject
     QML_SINGLETON
     QML_NAMED_ELEMENT(CustomTheme)
 
-    DEL_PROPERTY_READONLY(QVariantMap, MyControl);
+    HUS_PROPERTY_READONLY(QVariantMap, MyControl);
 
 public:
     static CustomTheme *instance();
