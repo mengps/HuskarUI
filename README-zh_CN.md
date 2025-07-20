@@ -1,5 +1,5 @@
 <div align=center>
-<img width=64 src="resources/delegateui_icon.svg">
+<img width=64 src="resources/huskarui_icon.svg">
 
 # 「 HuskarUI 」 基于 Qml 的现代 UI
 
@@ -64,7 +64,7 @@ cd HuskarUI
 cmake -S . -B build 
 cmake --build build --config Release --target all --parallel
 ```
-默认情况下，`plugin` 将构建在 `[QtDir]/[QtVersion]/[Kit]/qml/DeleagetUI` 目录中。
+默认情况下，`plugin` 将构建在 `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` 目录中。
 - 安装
 ```cmake
 cmake --install --prefix <install_dir>
@@ -79,18 +79,18 @@ cmake --install --prefix <install_dir>
     ├─lib
     │   *.lib/so
     └─imports
-        └─DeleagetUI
+        └─HuskarUI
 ```
 - 使用
   - 链接 `<install_dir>/lib`.
   - 包含 `<install_dir>/include`.
-  - 复制 `<install_dir>/bin/DeleagetUI.[dll/so]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
-  - 复制 `<install_dir>/imports/DeleagetUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
+  - 复制 `<install_dir>/bin/HuskarUI.[dll/so]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
+  - 复制 `<install_dir>/imports/HuskarUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 🗂️ 预编译包
 
-  预编译了两个平台的 `Windows / Linux` 程序包和二进制库包.
-  前往 [Release](https://github.com/mengps/HuskarUI/releases) 中下载.
+预编译了两个平台的 `Windows / Linux` 程序包和二进制库包.
+前往 [Release](https://github.com/mengps/HuskarUI/releases) 中下载.
 
 ## 📦 上手
 
@@ -103,7 +103,7 @@ cmake --install --prefix <install_dir>
  ```
  - 添加下面的代码到您的 `main.cpp` 中
  ```cpp
-  #include "delapp.h"
+  #include "husapp.h"
 
   int main(int argc, char *argv[])
   {
@@ -114,14 +114,14 @@ cmake --install --prefix <install_dir>
       ...
       QGuiApplication app(argc, argv);
       QQmlApplicationEngine engine;
-      DelApp::initialize(&engine);
+      HusApp::initialize(&engine);
       ...
   }
  ```
  - 添加下面的代码到您的 `.qml` 中
  ```qml
   import HuskarUI
-  DelWindow { 
+  HusWindow { 
     ...
   }
  ```

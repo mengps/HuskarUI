@@ -64,7 +64,7 @@ cd HuskarUI
 cmake -S . -B build 
 cmake --build build --config Release --target all --parallel
 ```
-By default, the `plugin` will be builded in the `[QtDir]/[QtVersion]/[Kit]/qml/DeleagetUI` directory.
+By default, the `plugin` will be builded in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
 
 - Install
 ```cmake
@@ -80,18 +80,18 @@ The installation directory structure
     ├─lib
     │   *.lib/so
     └─imports
-        └─DeleagetUI
+        └─HuskarUI
 ```
 - Usage
   - Link the `<install_dir>/lib`.
   - Include the `<install_dir>/include`.
-  - Copy the `<install_dir>/bin/DeleagetUI.[dll/so]` to `[QtDir]/[QtVersion]/[Kit]/bin`.
-  - Copy the `<install_dir>/imports/DeleagetUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
+  - Copy the `<install_dir>/bin/HuskarUI.[dll/so]` to `[QtDir]/[QtVersion]/[Kit]/bin`.
+  - Copy the `<install_dir>/imports/HuskarUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 🗂️ Precompiled package
 
-  Precompiled packages and binary libraries for two platforms, `Windows / Linux`, have been created
-  Please visit [Release](https://github.com/mengps/HuskarUI/releases) to download
+Precompiled packages and binary libraries for two platforms, `Windows / Linux`, have been created.
+Please visit [Release](https://github.com/mengps/HuskarUI/releases) to download.
 
 ## 📦 Get started 
 
@@ -104,7 +104,7 @@ The installation directory structure
  ```
  - Add the following code to your `main.cpp`
  ```cpp
-  #include "delapp.h"
+  #include "huspp.h"
 
   int main(int argc, char *argv[])
   {
@@ -114,14 +114,14 @@ The installation directory structure
       ...
       QGuiApplication app(argc, argv);
       QQmlApplicationEngine engine;
-      DelApp::initialize(&engine);
+      HusApp::initialize(&engine);
       ...
   }
  ```
 - Add the following code to your `.qml`
  ```qml
   import HuskarUI
-  DelWindow { 
+  HusWindow { 
     ...
   }
  ```
