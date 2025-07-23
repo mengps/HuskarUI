@@ -9,11 +9,52 @@ Item {
     height: column.height
 
     property string source: ''
-    property var primaryTokens: []
 
-    Component.onCompleted: {
-        for (const key in HusTheme.Primary) {
-            primaryTokens.push({ label: `@${key}` });
+    HusPopup {
+        id: editPopup
+
+        property string key
+        property string value
+        property string rawValue
+
+        padding: 5
+        contentItem: Row {
+            spacing: 5
+
+            HusAutoComplete {
+                id: editInput
+                width: 200
+                options: galleryWindow.primaryTokens
+                tooltipVisible: true
+                filterOption: function(input, option){
+                    return option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1;
+                }
+            }
+
+            HusButton {
+                text: qsTr('确认')
+                onClicked: {
+                    editPopup.value = editInput.text;
+                    HusTheme.installComponentToken(root.source, editPopup.key, editInput.text);
+                    editPopup.close();
+                }
+            }
+
+            HusButton {
+                text: qsTr('取消')
+                onClicked: {
+                    editPopup.close();
+                }
+            }
+
+            HusButton {
+                text: qsTr('重置')
+                onClicked: {
+                    editPopup.value = editPopup.rawValue;
+                    HusTheme.installComponentToken(root.source, editPopup.key, editPopup.rawValue);
+                    editPopup.close();
+                }
+            }
         }
     }
 
@@ -63,52 +104,13 @@ Item {
                     leftPadding: 4
                     rightPadding: 4
                     onClicked: {
+                        editPopup.parent = this;
+                        editPopup.key = editRow.key;
+                        editPopup.value = editRow.value;
+                        editPopup.rawValue = editRow.rawValue;
                         editInput.text = editRow.value;
                         editInput.filter();
                         editPopup.open();
-                    }
-
-                    HusPopup {
-                        id: editPopup
-                        padding: 5
-                        contentItem: Row {
-                            spacing: 5
-
-                            HusAutoComplete {
-                                id: editInput
-                                width: 200
-                                options: root.primaryTokens
-                                tooltipVisible: true
-                                filterOption: function(input, option){
-                                    return option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1;
-                                }
-                            }
-
-                            HusButton {
-                                text: qsTr('确认')
-                                onClicked: {
-                                    editRow.value = editInput.text;
-                                    HusTheme.installComponentToken(root.source, editRow.key, editInput.text);
-                                    editPopup.close();
-                                }
-                            }
-
-                            HusButton {
-                                text: qsTr('取消')
-                                onClicked: {
-                                    editPopup.close();
-                                }
-                            }
-
-                            HusButton {
-                                text: qsTr('重置')
-                                onClicked: {
-                                    editRow.value = editRow.rawValue;
-                                    HusTheme.installComponentToken(root.source, editRow.key, editRow.rawValue);
-                                    editPopup.close();
-                                }
-                            }
-                        }
                     }
 
                     HusToolTip {
@@ -185,6 +187,7 @@ Item {
         Loader {
             width: parent.width
             active: root.source != ''
+            asynchronous: true
             sourceComponent: HusTableView {
                 propagateWheelEvent: true
                 columnGridVisible: true
@@ -213,16 +216,7 @@ Item {
                 ]
                 Component.onCompleted: {
                     if (root.source != '') {
-                        const themeFile = `:/HuskarUI/theme/${root.source}.json`;
-                        const object = JSON.parse(HusApi.readFileToString(themeFile));
-                        let model = [];
-                        for (const key in object) {
-                            model.push({
-                                           'tokenName': key,
-                                           'tokenValue': { 'key': key, 'value': object[key] },
-                                           'tokenCalcValue': key,
-                                       });
-                        }
+                        const model = galleryWindow.componentTokens[root.source];
                         height = defaultColumnHeaderHeight + model.length * minimumRowHeight;
                         initModel = model;
                     }

@@ -35,6 +35,26 @@ HusWindow {
         HusApi.setWindowStaysOnTopHint(galleryWindow, checked);
     }
     Component.onCompleted: {
+        /*! 解析 Primary.tokens */
+        for (const key in HusTheme.Primary) {
+            primaryTokens.push({ label: `@${key}` });
+        }
+        /*! 解析 Component.tokens */
+        const indexFile = `:/HuskarUI/theme/Index.json`;
+        const indexObject = JSON.parse(HusApi.readFileToString(indexFile));
+        for (const source in indexObject.componentStyle) {
+            const themeFile = `:/HuskarUI/theme/${source}.json`;
+            const object = JSON.parse(HusApi.readFileToString(themeFile));
+            let model = [];
+            for (const key in object) {
+                model.push({
+                               'tokenName': key,
+                               'tokenValue': { 'key': key, 'value': object[key] },
+                               'tokenCalcValue': key,
+                           });
+            }
+            componentTokens[source] = model;
+        }
         if (Qt.platform.os === 'windows') {
             if (setSpecialEffect(HusWindow.Win_MicaAlt)) return;
             if (setSpecialEffect(HusWindow.Win_Mica)) return;
@@ -47,6 +67,10 @@ HusWindow {
     onWidthChanged: {
         galleryMenu.compactMode = width < 1100;
     }
+
+    property int themeIndex: 8
+    property var primaryTokens: []
+    property var componentTokens: new Object
 
     Behavior on opacity { NumberAnimation { } }
 

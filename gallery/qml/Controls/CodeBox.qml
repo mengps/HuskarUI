@@ -15,7 +15,7 @@ Rectangle {
 
     property alias expTitle: expDivider.title
     property alias descTitle: descDivider.title
-    property alias desc: descText.text
+    property alias desc: descTextLoader.text
     property Component exampleDelegate: Item { }
     property alias code: codeText.text
 
@@ -37,6 +37,7 @@ Rectangle {
 
         Loader {
             width: parent.width
+            asynchronous: true
             sourceComponent: exampleDelegate
         }
 
@@ -50,31 +51,36 @@ Rectangle {
         MouseArea {
             id: descMouseArea
             width: parent.width
-            height: descText.height
+            height: descTextLoader.height
             hoverEnabled: true
 
-            HusCopyableText {
-                id: descText
+            Loader{
+                id: descTextLoader
                 width: parent.width
-                textFormat: Text.MarkdownText
-                wrapMode: Text.WordWrap
-                onLinkActivated:
-                    (link) => {
-                        if (link.startsWith('internal://'))
-                            galleryMenu.gotoMenu(link.slice(11));
-                        else
-                            Qt.openUrlExternally(link);
-                    }
-                onHoveredLinkChanged: {
-                    if (hoveredLink === '') {
-                        linkTooltip.visible = false;
-                    } else {
-                        linkTooltip.text = hoveredLink;
-                        linkTooltip.x = descMouseArea.mouseX;
-                        linkTooltip.y = descMouseArea.mouseY;
-                        linkTooltip.visible = true;
+                asynchronous: true
+                sourceComponent: HusCopyableText {
+                    textFormat: Text.MarkdownText
+                    wrapMode: Text.WordWrap
+                    text: descTextLoader.text
+                    onLinkActivated:
+                        (link) => {
+                            if (link.startsWith('internal://'))
+                                galleryMenu.gotoMenu(link.slice(11));
+                            else
+                                Qt.openUrlExternally(link);
+                        }
+                    onHoveredLinkChanged: {
+                        if (hoveredLink === '') {
+                            linkTooltip.visible = false;
+                        } else {
+                            linkTooltip.text = hoveredLink;
+                            linkTooltip.x = descMouseArea.mouseX;
+                            linkTooltip.y = descMouseArea.mouseY;
+                            linkTooltip.visible = true;
+                        }
                     }
                 }
+                property string text: ''
             }
 
             HusToolTip {
@@ -98,7 +104,7 @@ Rectangle {
                     }
                     HusToolTip {
                         arrowVisible: false
-                        visible: parent.hovered
+                        visible: parent ? parent.hovered : false
                         text: codeText.expanded ? qsTr('收起代码') : qsTr('展开代码')
                     }
                 }
@@ -115,7 +121,7 @@ Rectangle {
                     }
                     HusToolTip {
                         arrowVisible: false
-                        visible: parent.hovered
+                        visible: parent ? parent.hovered : false
                         text: qsTr('运行代码')
                     }
                 }
