@@ -94,7 +94,7 @@ T.CheckBox {
                 anchors.fill: parent
                 anchors.margins: 2
                 color: control.colorIndicator
-                visible: opacity != 0
+                visible: opacity !== 0
                 opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
 
                 Behavior on opacity {
@@ -109,7 +109,7 @@ T.CheckBox {
                 anchors.centerIn: parent
                 width: parent.iconSize * 0.6
                 height: parent.iconSize * 0.6
-                visible: opacity != 0
+                visible: opacity !== 0
                 scale: control.checkState == Qt.Checked ? 1.1 : 0.2
                 opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
 
@@ -207,7 +207,7 @@ T.CheckBox {
                 iconSource: HusIcon.XFilledPath1
                 iconSize: parent.iconSize * 0.5
                 colorIcon: control.colorIndicator
-                visible: opacity != 0
+                visible: opacity !== 0
                 opacity: control.checkState == Qt.PartiallyChecked ? 1.0 : 0.0
 
                 Behavior on opacity {
