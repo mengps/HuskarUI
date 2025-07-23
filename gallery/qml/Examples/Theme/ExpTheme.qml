@@ -64,11 +64,6 @@ Flickable {
                             border.color: isCurrent || hovered ? HusTheme.Primary.colorPrimaryBorderHover :
                                                                  HusTheme.Primary.colorPrimaryBorder
                             radius: HusTheme.Primary.radiusPrimary
-                            Component.onCompleted: {
-                                if ( HusTheme.Primary.colorPrimary === modelData.color) {
-                                    repeater.currentIndex = index;
-                                }
-                            }
 
                             property bool hovered: false
                             property bool isCurrent: index == repeater.currentIndex
@@ -90,12 +85,12 @@ Flickable {
                                 onEntered: rootItem.hovered = true;
                                 onExited: rootItem.hovered = false;
                                 onClicked: {
-                                    repeater.currentIndex = index;
+                                    galleryWindow.themeIndex = repeater.currentIndex = index;
                                     HusTheme.installThemePrimaryColorBase(rootItem.color);
                                 }
                             }
                         }
-                        property int currentIndex: 8
+                        property int currentIndex: galleryWindow.themeIndex
                     }
                 }
             }
