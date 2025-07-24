@@ -36,8 +36,8 @@ HusWindow {
     }
     Component.onCompleted: {
         /*! 解析 Primary.tokens */
-        for (const key in HusTheme.Primary) {
-            primaryTokens.push({ label: `@${key}` });
+        for (const token in HusTheme.Primary) {
+            primaryTokens.push({ label: `@${token}` });
         }
         /*! 解析 Component.tokens */
         const indexFile = `:/HuskarUI/theme/Index.json`;
@@ -46,11 +46,15 @@ HusWindow {
             const themeFile = `:/HuskarUI/theme/${source}.json`;
             const object = JSON.parse(HusApi.readFileToString(themeFile));
             let model = [];
-            for (const key in object) {
+            for (const token in object) {
                 model.push({
-                               'tokenName': key,
-                               'tokenValue': { 'key': key, 'value': object[key] },
-                               'tokenCalcValue': key,
+                               'tokenName': token,
+                               'tokenValue': {
+                                   'token': token,
+                                   'value': object[token],
+                                   'rawValue': object[token],
+                               },
+                               'tokenCalcValue': token,
                            });
             }
             componentTokens[source] = model;

@@ -13,9 +13,8 @@ Item {
     HusPopup {
         id: editPopup
 
-        property string key
-        property string value
-        property string rawValue
+        property int row
+        property var edit
 
         padding: 5
         contentItem: Row {
@@ -34,8 +33,9 @@ Item {
             HusButton {
                 text: qsTr('确认')
                 onClicked: {
-                    editPopup.value = editInput.text;
-                    HusTheme.installComponentToken(root.source, editPopup.key, editInput.text);
+                    editPopup.edit.value = editInput.text;
+                    galleryWindow.componentTokens[root.source][editPopup.row].tokenValue.value = editPopup.edit.value;
+                    HusTheme.installComponentToken(root.source, editPopup.edit.token, editInput.text);
                     editPopup.close();
                 }
             }
@@ -50,8 +50,8 @@ Item {
             HusButton {
                 text: qsTr('重置')
                 onClicked: {
-                    editPopup.value = editPopup.rawValue;
-                    HusTheme.installComponentToken(root.source, editPopup.key, editPopup.rawValue);
+                    editPopup.edit.value = editPopup.edit.rawValue;
+                    HusTheme.installComponentToken(root.source, editPopup.edit.token, editPopup.edit.rawValue);
                     editPopup.close();
                 }
             }
@@ -92,8 +92,8 @@ Item {
                 anchors.leftMargin: 10
                 spacing: 5
 
-                property string key: cellData.key
-                property string rawValue: cellData.value
+                property string token: cellData.token
+                property string rawValue: cellData.rawValue
                 property string value: cellData.value
 
                 HusIconButton {
@@ -105,9 +105,8 @@ Item {
                     rightPadding: 4
                     onClicked: {
                         editPopup.parent = this;
-                        editPopup.key = editRow.key;
-                        editPopup.value = editRow.value;
-                        editPopup.rawValue = editRow.rawValue;
+                        editPopup.row = row;
+                        editPopup.edit = editRow;
                         editInput.text = editRow.value;
                         editInput.filter();
                         editPopup.open();
@@ -153,7 +152,14 @@ Item {
                 Rectangle {
                     width: tag.height
                     height: tag.height
-                    color: value.startsWith('#') ? value : 'transparent'
+                    color: {
+                        try {
+                            Qt.color(value);
+                            return value;
+                        } catch (err) {
+                            return 'transparent';
+                        }
+                    }
                     property string value: theCellData
                 }
 
