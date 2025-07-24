@@ -174,7 +174,7 @@ showArrow | bool | false | 是否显示箭头
             descTitle: qsTr('位置')
             desc: qsTr(`
 通过 \`position\` 属性设置滚动的方向和指示器的位置，支持的位置：\n
-- 水平滚动，指示器在上方，{ HusTabView.Position_Top }\n
+- 水平滚动，指示器在上方，{ HusCarousel.Position_Top }\n
 - 水平滚动，指示器在下方{ HusCarousel.Position_Bottom }\n
 - 垂直滚动，指示器在左方{ HusCarousel.Position_Left }\n
 - 垂直滚动，指示器在右方{ HusCarousel.Position_Right }\n

@@ -32,7 +32,7 @@ hashLength | int | - | 目标的哈希长度
 source | url | '' | 目标的源地址
 sourceText | color | '' | 目标的源文本
 sourceData | arraybuffer | '' | 目标的源数据
-sourceObject | QObject* | null | 目标的源目标指针
+sourceObject | QObject* | null | 目标的源指针
                        `)
         }
 
