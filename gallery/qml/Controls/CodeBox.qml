@@ -37,7 +37,6 @@ Rectangle {
 
         Loader {
             width: parent.width
-            asynchronous: true
             sourceComponent: exampleDelegate
         }
 
