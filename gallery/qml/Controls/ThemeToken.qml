@@ -191,7 +191,9 @@ Item {
         }
 
         Loader {
+            id: tableLoader
             width: parent.width
+            height: 40 * (galleryWindow.componentTokens[root.source].length + 1)
             active: root.source != ''
             asynchronous: true
             sourceComponent: HusTableView {
