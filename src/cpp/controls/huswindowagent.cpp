@@ -1,5 +1,7 @@
 #include "huswindowagent.h"
 
+#ifdef BUILD_HUSKARUI_ON_DESKTOP_PLATFORM
+
 HusWindowAgent::HusWindowAgent(QObject *parent)
     : QWK::QuickWindowAgent{parent}
 {
@@ -32,3 +34,28 @@ void HusWindowAgent::componentComplete()
 {
 
 }
+
+#else
+
+HusWindowAgent::HusWindowAgent(QObject *parent)
+    : QObject{parent}
+{
+
+}
+
+HusWindowAgent::~HusWindowAgent()
+{
+
+}
+
+void HusWindowAgent::classBegin()
+{
+
+}
+
+void HusWindowAgent::componentComplete()
+{
+
+}
+
+#endif

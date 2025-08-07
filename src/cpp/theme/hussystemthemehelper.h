@@ -12,6 +12,11 @@ QT_FORWARD_DECLARE_CLASS(QWidget);
 
 QT_FORWARD_DECLARE_CLASS(HusSystemThemeHelperPrivate);
 
+#ifndef BUILD_HUSKARUI_ON_DESKTOP_PLATFORM
+Q_DECLARE_OPAQUE_POINTER(QWindow*);
+Q_DECLARE_OPAQUE_POINTER(QWidget*);
+#endif
+
 class HUSKARUI_EXPORT HusSystemThemeHelper : public QObject
 {
     Q_OBJECT

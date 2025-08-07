@@ -1,6 +1,8 @@
 #include "husapp.h"
 
+#ifdef BUILD_HUSKARUI_ON_DESKTOP_PLATFORM
 #include <QWKQuick/qwkquickglobal.h>
+#endif
 
 #include <QtGui/QFontDatabase>
 
@@ -18,7 +20,9 @@ HusApp::~HusApp()
 
 void HusApp::initialize(QQmlEngine *engine)
 {
+#ifdef BUILD_HUSKARUI_ON_DESKTOP_PLATFORM
     QWK::registerTypes(engine);
+#endif
 
     QFontDatabase::addApplicationFont(":/HuskarUI/resources/font/HuskarUI-Icons.ttf");
 }
