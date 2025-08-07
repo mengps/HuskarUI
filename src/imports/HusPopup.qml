@@ -26,7 +26,7 @@ T.Popup {
     implicitHeight: implicitContentHeight + topPadding + bottomPadding
     enter: Transition {
         NumberAnimation {
-            property: 'opacity';
+            property: 'opacity'
             from: 0.0
             to: 1.0
             duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0

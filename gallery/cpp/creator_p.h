@@ -198,7 +198,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("%1")
+    title: qsTr('%1')
 }
 )";
 
@@ -265,7 +265,7 @@ HusWindow {
     width: 640
     height: 480
     visible: true
-    title: qsTr("%1")
+    title: qsTr('%1')
     captionBar.winIconVisible: false
     Component.onCompleted: {
         if (Qt.platform.os === 'windows') {
