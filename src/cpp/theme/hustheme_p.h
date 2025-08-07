@@ -58,6 +58,7 @@ enum class Component : uint16_t
     HusProgress,
     HusCarousel,
     HusBreadcrumb,
+    HusImage,
 
     Size
 };
@@ -96,6 +97,7 @@ static QHash<QString, Component> g_componentTable
     { "HusProgress",      Component::HusProgress      },
     { "HusCarousel",      Component::HusCarousel      },
     { "HusBreadcrumb",    Component::HusBreadcrumb    },
+    { "HusImage",         Component::HusImage         },
 };
 
 struct ThemeData

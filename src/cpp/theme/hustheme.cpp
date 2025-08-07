@@ -2,8 +2,8 @@
 #include "huscolorgenerator.h"
 #include "husthemefunctions.h"
 
-#include <QFont>
-#include <QFile>
+#include <QtCore/QFile>
+#include <QtGui/QFont>
 
 void HusThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &tokenName, const QString &expr)
 {
@@ -436,6 +436,7 @@ void HusThemePrivate::registerDefaultComponentTheme(const QString &component, co
             ADD_COMPONENT_CASE(HusProgress)
             ADD_COMPONENT_CASE(HusCarousel)
             ADD_COMPONENT_CASE(HusBreadcrumb)
+            ADD_COMPONENT_CASE(HusImage)
         default:
             break;
         }

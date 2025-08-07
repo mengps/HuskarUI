@@ -1,0 +1,12 @@
+{
+    "fontFamily": "@fontPrimaryFamily",
+    "fontSize": "@fontPrimarySize",
+    "colorText": "#fff",
+    "colorIndicatorText": "#ccc",
+    "colorButtonTextDisabled": "#888",
+    "colorButtonText": "#ccc",
+    "colorButtonTextHover": "#fff",
+    "colorButtonBg": "@colorFillPrimary",
+    "colorButtonBgHover": "@colorTextQuaternary",
+    "colorOperationBg": "@colorFillPrimary"
+}

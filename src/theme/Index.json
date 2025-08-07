@@ -181,6 +181,7 @@
         "HusDatePicker": ":/HuskarUI/theme/HusDatePicker.json",
         "HusProgress": ":/HuskarUI/theme/HusProgress.json",
         "HusCarousel": ":/HuskarUI/theme/HusCarousel.json",
-        "HusBreadcrumb": ":/HuskarUI/theme/HusBreadcrumb.json"
+        "HusBreadcrumb": ":/HuskarUI/theme/HusBreadcrumb.json",
+        "HusImage": ":/HuskarUI/theme/HusImage.json"
     }
 }
