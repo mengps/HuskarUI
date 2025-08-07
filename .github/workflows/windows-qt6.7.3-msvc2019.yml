@@ -106,8 +106,8 @@ jobs:
           # 删除不必要的文件
           $excludeList = @("*.qmlc", "*.ilk", "*.exp", "*.lib", "*.pdb")
           Remove-Item -Path dist -Include $excludeList -Recurse -Force
-          # 拷贝 HuskarUI.Basic.dll
-          Copy-Item ${{ env.Qt6_DIR }}\bin\HuskarUI.Basic.dll dist\
+          # 拷贝 HuskarUIBasic.dll
+          Copy-Item ${{ env.Qt6_DIR }}\bin\HuskarUIBasic.dll dist\
           # 拷贝vcRedist dll
           $redistDll="{0}{1}\*.CRT\*.dll" -f $env:vcToolsRedistDir.Trim(),$env:msvcArch
           Copy-Item $redistDll dist\
