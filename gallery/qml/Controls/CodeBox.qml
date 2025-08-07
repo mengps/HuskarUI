@@ -95,7 +95,9 @@ Rectangle {
             titleDelegate: Row {
                 spacing: 10
                 HusIconButton {
-                    padding: 5
+                    padding: 4
+                    topPadding: 4
+                    bottomPadding: 4
                     iconSize: HusTheme.Primary.fontPrimarySizeHeading4
                     iconSource: HusIcon.ColumnHeightOutlined
                     onClicked: {
@@ -108,7 +110,9 @@ Rectangle {
                     }
                 }
                 HusIconButton {
-                    padding: 5
+                    padding: 4
+                    topPadding: 4
+                    bottomPadding: 4
                     iconSize: HusTheme.Primary.fontPrimarySizeHeading4
                     iconSource: HusIcon.CodeOutlined
                     onClicked: {

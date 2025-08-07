@@ -63,9 +63,10 @@ HusWindow {
         }
 
         component MySlider: RowLayout {
-            width: 450
             height: 30
-            anchors.margins: 30
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 10
             spacing: 20
 
             property alias label: __label
@@ -146,7 +147,8 @@ HusWindow {
                     Loader {
                         id: itemLoader
                         anchors.left: parent.left
-                        anchors.leftMargin: 20
+                        anchors.right: parent.right
+                        anchors.margins: 20
                         anchors.verticalCenter: parent.verticalCenter
                         sourceComponent: settingsItem.itemDelegate
                     }
