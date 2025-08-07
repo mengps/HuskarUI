@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.0.0)
+set(HUSKARUI_VERSION 0.4.2.0)
 
-message(STATUS "Configuring HuskarUI.Basic Version: ${HUSKARUI_VERSION}")
+message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
-project(HuskarUI.Basic VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
+project(HuskarUIBasic VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
 #Add HuskarUIHelper
 include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/HuskarUIHelper.cmake)
@@ -33,7 +33,7 @@ if(NOT HUSKARUI_PLUGIN_OUTPUT_DIRECTORY)
 endif()
 
 if(BUILD_HUSKARUI_STATIC_LIBRARY)
-    set(PLUGIN_NAME "")
+    set(PLUGIN_NAME HuskarUIBasicPlugin)
     qt_add_library(${PROJECT_NAME} STATIC)
 else()
     set(PLUGIN_NAME huskaruibasicplugin)
@@ -117,6 +117,8 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusContextMenu.qml
         imports/HusBreadcrumb.qml
         imports/HusInputNumber.qml
+        imports/HusImage.qml
+        imports/HusImagePreview.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -173,6 +175,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/HusProgress.json
         theme/HusCarousel.json
         theme/HusBreadcrumb.json
+        theme/HusImage.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
@@ -211,15 +214,17 @@ endif()
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     BUILD_HUSKARUI_LIB
     HUSKARUI_LIBRARY_VERSION="${HUSKARUI_VERSION}"
-    $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:BUILD_HUSKARUI_STATIC_LIBRARY>
     $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
+    $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:BUILD_HUSKARUI_STATIC_LIBRARY>
+    $<$<NOT:$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>>:BUILD_HUSKARUI_SHARED_LIBRARY>
+    $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:BUILD_HUSKARUI_ON_DESKTOP_PLATFORM>
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::QuickPrivate
-    QWKCore
-    QWKQuick
+    $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKCore>
+    $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKQuick>
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
