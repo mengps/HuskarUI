@@ -21,13 +21,17 @@ Window {
     property bool followThemeSwitch: true
     property bool initialized: false
     property int specialEffect: HusWindow.None
+    property bool isDesktopPlatform: Qt.platform.os === 'windows' ||
+                                     Qt.platform.os === 'osx' ||
+                                     Qt.platform.os === 'linux'
 
     visible: true
     objectName: '__HusWindow__'
     Component.onCompleted: {
         initialized = true;
         setWindowMode(HusTheme.isDark);
-        __captionBar.windowAgent = __windowAgent;
+        if (isDesktopPlatform)
+            __captionBar.windowAgent = __windowAgent;
         if (followThemeSwitch)
             __connections.onIsDarkChanged();
     }
@@ -39,9 +43,13 @@ Window {
     }
 
     function setWindowMode(isDark) {
-        if (window.initialized)
-            return windowAgent.setWindowAttribute('dark-mode', isDark);
-        return false;
+        if (isDesktopPlatform) {
+            if (window.initialized)
+                return windowAgent.setWindowAttribute('dark-mode', isDark);
+            return false;
+        } else {
+            return false;
+        }
     }
 
     function setSpecialEffect(specialEffect) {
