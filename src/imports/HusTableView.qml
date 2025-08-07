@@ -95,6 +95,7 @@ HusRectangle {
             active: __columnHeaderDelegate.selectionType == 'checkbox'
             sourceComponent: HusCheckBox {
                 id: __parentBox
+                animationEnabled: control.animationEnabled
 
                 Component.onCompleted: {
                     __parentBox.checkState = __private.parentCheckState;
@@ -230,6 +231,7 @@ HusRectangle {
             x: -width * 0.5
             y: parent.height
             padding: 5
+            animationEnabled: control.animationEnabled
             contentItem: Column {
                 spacing: 5
 
@@ -255,6 +257,7 @@ HusRectangle {
 
                     HusIconButton {
                         id: __searchButton
+                        animationEnabled: control.animationEnabled
                         text: qsTr('Search')
                         iconSource: HusIcon.SearchOutlined
                         type: HusButton.Type_Primary
@@ -267,6 +270,7 @@ HusRectangle {
                     }
 
                     HusButton {
+                        animationEnabled: control.animationEnabled
                         text: qsTr('Reset')
                         onClicked: {
                             if (__searchInput.text.length === 0)
@@ -278,6 +282,7 @@ HusRectangle {
                     }
 
                     HusButton {
+                        animationEnabled: control.animationEnabled
                         text: qsTr('Close')
                         type: HusButton.Type_Link
                         onClicked: {
@@ -679,6 +684,7 @@ HusRectangle {
                     anchors.right: parent.right
                     anchors.rightMargin: sorter !== undefined ? 50 : 20
                     anchors.verticalCenter: parent.verticalCenter
+                    animationEnabled: control.animationEnabled
                     text: display.title
                     visible: activeFocus && __columnHeaderItem.editable
                     TableView.onCommit: {
@@ -886,6 +892,7 @@ HusRectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         sourceComponent: HusCheckBox {
                             id: __childBox
+                            animationEnabled: control.animationEnabled
 
                             Component.onCompleted: {
                                 __childBox.checked = __rootItem.checked = __private.checkedKeysMap.has(key);
@@ -978,6 +985,7 @@ HusRectangle {
         anchors.left: control.rowHeaderVisible ? __rowHeaderViewBg.right : __cellMouseArea.left
         anchors.right: __cellMouseArea.right
         anchors.bottom: __cellMouseArea.bottom
+        animationEnabled: control.animationEnabled
     }
 
     HusScrollBar {
@@ -986,5 +994,6 @@ HusRectangle {
         anchors.right: __cellMouseArea.right
         anchors.top: control.columnHeaderVisible ? __columnHeaderViewBg.bottom : __cellMouseArea.top
         anchors.bottom: __cellMouseArea.bottom
+        animationEnabled: control.animationEnabled
     }
 }

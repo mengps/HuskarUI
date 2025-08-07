@@ -119,6 +119,7 @@ HusInput {
         rightPadding: 4
         topPadding: 6
         bottomPadding: 6
+        animationEnabled: control.animationEnabled
         closePolicy: T.Popup.NoAutoClose | T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent
         onAboutToShow: {
             const pos = control.mapToItem(null, 0, 0);

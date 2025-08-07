@@ -265,6 +265,7 @@ Item {
                                 bottomPadding: 0
                                 leftPadding: 2
                                 rightPadding: 2
+                                animationEnabled: control.animationEnabled
                                 hoverCursorShape: Qt.PointingHandCursor
                                 iconSource: HusIcon.CloseOutlined
                                 colorIcon: hovered ? HusTheme.HusMessage.colorCloseHover : HusTheme.HusMessage.colorClose

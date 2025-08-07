@@ -150,9 +150,10 @@ Item {
         Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
         HusToolTip {
-            arrowVisible: false
-            text: parent.text
             visible: parent.hovered && parent.enabled
+            arrowVisible: false
+            animationEnabled: control.animationEnabled
+            text: parent.text
         }
     }
 
@@ -201,6 +202,7 @@ Item {
             id: __moreTooltip
             arrowVisible: false
             visible: parent.enabled && parent.hovered && text !== ''
+            animationEnabled: control.animationEnabled
         }
     }
 
@@ -232,6 +234,7 @@ Item {
                 id: __tooltip
                 arrowVisible: false
                 visible: parent.hovered && parent.enabled && text !== ''
+                animationEnabled: control.animationEnabled
             }
         }
 

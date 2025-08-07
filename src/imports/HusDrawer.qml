@@ -32,8 +32,9 @@ T.Drawer {
                 bottomPadding: 2
                 leftPadding: 4
                 rightPadding: 4
-                radiusBg: HusTheme.HusDrawer.radiusButtonBg
                 anchors.verticalCenter: parent.verticalCenter
+                animationEnabled: control.animationEnabled
+                radiusBg: HusTheme.HusDrawer.radiusButtonBg
                 iconSource: HusIcon.CloseOutlined
                 hoverCursorShape: Qt.PointingHandCursor
                 onClicked: {
@@ -53,6 +54,7 @@ T.Drawer {
             width: parent.width
             height: 1
             anchors.bottom: parent.bottom
+            animationEnabled: control.animationEnabled
         }
     }
     property Component contentDelegate: Item { }

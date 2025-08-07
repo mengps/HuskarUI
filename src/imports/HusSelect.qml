@@ -84,6 +84,7 @@ T.ComboBox {
         rightPadding: 4
         topPadding: 6
         bottomPadding: 6
+        animationEnabled: control.animationEnabled
         enter: Transition {
             NumberAnimation {
                 property: 'opacity'
@@ -176,12 +177,15 @@ T.ComboBox {
                     sourceComponent: HusToolTip {
                         arrowVisible: false
                         visible: __popupDelegate.hovered
+                        animationEnabled: control.animationEnabled
                         text: __popupDelegate.model[control.textRole]
                         position: HusToolTip.Position_Bottom
                     }
                 }
             }
-            T.ScrollBar.vertical: HusScrollBar { }
+            T.ScrollBar.vertical: HusScrollBar {
+                animationEnabled: control.animationEnabled
+            }
         }
 
         Binding on height { value: __popup.implicitHeight }

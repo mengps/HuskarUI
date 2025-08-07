@@ -91,11 +91,12 @@ Item {
 
         HusIconButton {
             id: __upButton
-            enabled: control.enabled
             width: parent.width
             height: hovered ? parent.hoverHeight :
                               __downButton.hovered ? parent.noHoverHeight : parent.halfHeight
             padding: 0
+            enabled: control.enabled
+            animationEnabled: control.animationEnabled
             autoRepeat: true
             colorIcon: control.enabled ?
                            hovered ? HusTheme.HusInput.colorBorderHover :
@@ -117,13 +118,14 @@ Item {
 
         HusIconButton {
             id: __downButton
-            enabled: control.enabled
             width: parent.width
             height: (hovered ? parent.hoverHeight :
                                __upButton.hovered ? parent.noHoverHeight : parent.halfHeight) + 1
             anchors.top: __upButton.bottom
             anchors.topMargin: -1
             padding: 0
+            enabled: control.enabled
+            animationEnabled: control.animationEnabled
             autoRepeat: true
             colorIcon: control.enabled ?
                            hovered ? HusTheme.HusInput.colorBorderHover :
@@ -212,6 +214,7 @@ Item {
         HusSelect {
             id: __afterText
             rightPadding: 4
+            animationEnabled: control.animationEnabled
             colorBg: 'transparent'
             colorBorder: 'transparent'
             model: isBefore ? control.beforeLabel : control.afterLabel

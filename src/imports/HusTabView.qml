@@ -204,6 +204,7 @@ Item {
             iconSize: tabIconSize
             iconSource: tabIcon
             text: tabTitle
+            animationEnabled: control.animationEnabled
             effectEnabled: false
             colorBg: 'transparent'
             colorBorder: 'transparent'
@@ -440,6 +441,7 @@ Item {
                     anchors.right: parent.right
                     anchors.rightMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
+                    animationEnabled: control.animationEnabled
                     iconSize: tabIconSize
                     iconSource: HusIcon.CloseOutlined
                     colorIcon: hovered ? HusTheme.HusTabView.colorTabCloseHover : HusTheme.HusTabView.colorTabClose

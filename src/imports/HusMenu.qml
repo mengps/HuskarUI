@@ -192,6 +192,7 @@ Item {
                 expanded = !expanded;
         }
         hoverCursorShape: (isGroup && !control.compactMode) ? Qt.ArrowCursor : Qt.PointingHandCursor
+        animationEnabled: control.animationEnabled
         effectEnabled: false
         colorBorder: 'transparent'
         colorText: {
@@ -376,7 +377,9 @@ Item {
                 height: 5
                 width: parent.width
                 active: __rootItem.menuType == 'divider'
-                sourceComponent: HusDivider { }
+                sourceComponent: HusDivider {
+                    animationEnabled: control.animationEnabled
+                }
             }
 
             Rectangle {
@@ -442,9 +445,10 @@ Item {
                     }
 
                     HusToolTip {
+                        visible: control.tooltipVisible ? parent.hovered : false
+                        animationEnabled: control.animationEnabled
                         position: control.compactMode || control.popupMode ? HusToolTip.Position_Right : HusToolTip.Position_Bottom
                         text: __rootItem.menuLabel
-                        visible: control.tooltipVisible ? parent.hovered : false
                         delay: 500
                     }
                 }
@@ -477,6 +481,7 @@ Item {
                     T.ScrollBar.vertical: HusScrollBar {
                         id: childrenScrollBar
                         visible: (control.compactMode || control.popupMode) && childrenScrollBar.size !== 1
+                        animationEnabled: control.animationEnabled
                     }
                     clip: true
                     /* 子 ListView 从父 ListView 的深度累加可实现自动计算 */
@@ -548,6 +553,7 @@ Item {
             width: control.popupWidth
             height: current ? Math.min(control.popupMaxHeight, current.realHeight + topPadding + bottomPadding) : 0
             padding: 5
+            animationEnabled: control.animationEnabled
             onAboutToShow: {
                 let toX = control.width + control.popupOffset;
                 if (parentPopup) {
@@ -593,6 +599,7 @@ Item {
             id: __menuScrollBar
             anchors.rightMargin: -8
             policy: T.ScrollBar.AsNeeded
+            animationEnabled: control.animationEnabled
         }
         property int menuDeep: 0
     }

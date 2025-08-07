@@ -39,6 +39,7 @@ Item {
         delay: toolTip.delay ?? 500
         timeout: toolTip.timeout ?? -1
         visible: hovered
+        animationEnabled: control.animationEnabled
     }
     property Component radioDelegate: HusIconButton {
         id: __rootItem

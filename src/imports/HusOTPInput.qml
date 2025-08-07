@@ -80,6 +80,7 @@ Item {
             verticalAlignment: HusInput.AlignVCenter
             horizontalAlignment: HusInput.AlignHCenter
             enabled: control.enabled
+            animationEnabled: control.animationEnabled
             colorText: control.colorItemText
             colorBorder: active ? control.colorItemBorderActive : control.colorItemBorder
             colorBg: control.colorItemBg

@@ -211,7 +211,9 @@ Item {
         clip: true
         verticalLayoutDirection: control.reverse ? ListView.BottomToTop : ListView.TopToBottom
         model: ListModel { id: __listModel }
-        T.ScrollBar.vertical: HusScrollBar { }
+        T.ScrollBar.vertical: HusScrollBar {
+            animationEnabled: control.animationEnabled
+        }
         add: Transition {
             NumberAnimation { property: 'opacity'; from: 0; to: 1; duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 }
         }

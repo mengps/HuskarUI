@@ -147,7 +147,7 @@ T.CheckBox {
                         const startX = width * 0.2;
                         const midPointX = width * 0.4;
                         const endX = width * 0.8;
-                        const midPointY = height * 0.7;
+                        const midPointY = height * 0.75;
                         const startY = height * 0.5;
                         const endY = height * 0.2;
 

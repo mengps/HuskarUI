@@ -78,6 +78,7 @@ Image {
 
             HusImagePreview {
                 id: __preview
+                animationEnabled: control.animationEnabled
                 items: __private.previewItems
             }
 

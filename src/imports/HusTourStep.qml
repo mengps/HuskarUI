@@ -133,6 +133,7 @@ T.Popup {
                     anchors.rightMargin: 15
                     anchors.bottom: __nextButton.bottom
                     visible: control.currentStep != 0
+                    animationEnabled: control.animationEnabled
                     text: qsTr('上一步')
                     font: control.buttonFont
                     type: HusButton.Type_Outlined
@@ -151,6 +152,7 @@ T.Popup {
                     anchors.right: parent.right
                     anchors.rightMargin: 15
                     anchors.bottom: parent.bottom
+                    animationEnabled: control.animationEnabled
                     text: (control.currentStep + 1 == control.stepModel.length) ? qsTr('结束导览') : qsTr('下一步')
                     font: control.buttonFont
                     type: HusButton.Type_Primary
@@ -173,6 +175,7 @@ T.Popup {
             anchors.rightMargin: 2
             anchors.top: parent.top
             anchors.topMargin: 2
+            animationEnabled: control.animationEnabled
             iconSource: HusIcon.CloseOutlined
             onClicked: {
                 control.close();

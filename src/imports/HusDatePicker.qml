@@ -44,6 +44,7 @@ Item {
         padding: 0
         implicitWidth: 28
         implicitHeight: 28
+        animationEnabled: control.animationEnabled
         type: HusButton.Type_Primary
         text: model.day
         font {
@@ -92,6 +93,7 @@ Item {
     component PageButton: HusIconButton {
         leftPadding: 8
         rightPadding: 8
+        animationEnabled: control.animationEnabled
         type: HusButton.Type_Link
         iconSize: 16
         colorIcon: hovered ? HusTheme.HusDatePicker.colorPageIconHover : HusTheme.HusDatePicker.colorPageIcon
@@ -217,6 +219,7 @@ Item {
         padding: 20
         topPadding: 4
         bottomPadding: 4
+        animationEnabled: control.animationEnabled
         effectEnabled: false
         colorBorder: 'transparent'
         colorBg: checked ? HusTheme.HusDatePicker.colorDayBgCurrent :
@@ -263,6 +266,7 @@ Item {
         id: __input
         width: parent.width
         height: parent.height
+        animationEnabled: control.animationEnabled
         iconPosition: HusInput.Position_Right
         iconDelegate: HusIconText {
             anchors.left: control.iconPosition === HusDatePicker.Position_Left ? parent.left : undefined
@@ -346,6 +350,7 @@ Item {
         padding: 10
         leftPadding: 12
         rightPadding: 12
+        animationEnabled: control.animationEnabled
         closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent
         enter: Transition {
             NumberAnimation {
@@ -668,6 +673,7 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     active: control.pickerMode == HusDatePicker.Mode_Day
                     sourceComponent: HusButton {
+                        animationEnabled: control.animationEnabled
                         type: HusButton.Type_Link
                         text: qsTr('今天')
                         onClicked: __private.selectDate(new Date());

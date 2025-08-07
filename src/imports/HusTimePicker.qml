@@ -194,7 +194,10 @@ T.TextField {
                 Component.onCompleted: checked = (index == 0);
             }
             onContentHeightChanged: cacheBuffer = contentHeight;
-            T.ScrollBar.vertical: HusScrollBar { policy: T.ScrollBar.AsNeeded }
+            T.ScrollBar.vertical: HusScrollBar {
+                policy: T.ScrollBar.AsNeeded
+                animationEnabled: control.animationEnabled
+            }
 
             T.ButtonGroup {
                 id: __buttonGroup
@@ -368,6 +371,7 @@ T.TextField {
         rightPadding: 2
         topPadding: 6
         bottomPadding: 6
+        animationEnabled: control.animationEnabled
         closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent
         enter: Transition {
             NumberAnimation {
@@ -421,6 +425,7 @@ T.TextField {
                         height: parent.height
                         anchors.right: parent.right
                         orientation: Qt.Vertical
+                        animationEnabled: control.animationEnabled
                     }
                 }
 
@@ -438,6 +443,7 @@ T.TextField {
                         orientation: Qt.Vertical
                         visible: control.format == HusTimePicker.Format_HHMMSS ||
                                  control.format == HusTimePicker.Format_MMSS
+                        animationEnabled: control.animationEnabled
                     }
                 }
 
@@ -457,6 +463,7 @@ T.TextField {
                 HusDivider {
                     width: parent.width
                     height: 1
+                    animationEnabled: control.animationEnabled
                 }
 
                 HusButton {
@@ -466,6 +473,7 @@ T.TextField {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     anchors.bottom: parent.bottom
+                    animationEnabled: control.animationEnabled
                     type: HusButton.Type_Text
                     text: qsTr('此刻')
                     colorBg: 'transparent'
@@ -495,6 +503,7 @@ T.TextField {
                     anchors.right: parent.right
                     anchors.rightMargin: 5
                     anchors.bottom: parent.bottom
+                    animationEnabled: control.animationEnabled
                     type: HusButton.Type_Primary
                     text: qsTr('确定')
                     onClicked: {

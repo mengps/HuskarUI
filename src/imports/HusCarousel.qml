@@ -57,6 +57,7 @@ Item {
     }
     property Component prevDelegate: HusIconButton {
         padding: 5
+        animationEnabled: control.animationEnabled
         iconSource: __private.isHorizontal ? HusIcon.LeftOutlined : HusIcon.UpOutlined
         iconSize: 20
         colorIcon: hovered ? HusTheme.HusCarousel.colorArrowHover : HusTheme.HusCarousel.colorArrow
@@ -65,6 +66,7 @@ Item {
     }
     property Component nextDelegate: HusIconButton {
         padding: 5
+        animationEnabled: control.animationEnabled
         iconSource: __private.isHorizontal ? HusIcon.RightOutlined : HusIcon.DownOutlined
         iconSize: 20
         colorIcon: hovered ? HusTheme.HusCarousel.colorArrowHover : HusTheme.HusCarousel.colorArrow
