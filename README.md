@@ -11,7 +11,7 @@ If you need Qt5 impl [HuskarUI for Qt5](https://github.com/mengps/HuskarUI_Qt5)
 
 <div align=center>
 
-![win-badge] ![linux-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
+![win-badge] ![linux-badge] ![macos-badge] ![android-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
 
 English | [中文](./README-zh_CN.md)
 
@@ -19,6 +19,8 @@ English | [中文](./README-zh_CN.md)
 
 [win-badge]: https://img.shields.io/badge/Windows-passing-brightgreen?style=flat-square
 [linux-badge]: https://img.shields.io/badge/Linux-passing-brightgreen?style=flat-square
+[macos-badge]: https://img.shields.io/badge/MacOS-passing-brightgreen?style=flat-square
+[android-badge]: https://img.shields.io/badge/Android-passing-brightgreen?style=flat-square
 
 [issues-image]: https://flat.badgen.net/github/label-issues/mengps/HuskarUI/open
 [issues-url]: https://github.com/mengps/HuskarUI/issues
@@ -52,6 +54,12 @@ Anyone can discuss through issues, QQ groups, or WeChat groups, and ultimately m
 
   - [BiliBili](https://www.bilibili.com/video/BV1jodhYhE8a/?spm_id_from=333.1387.homepage.video_card.click)
 
+## 🗂️ Precompiled package
+
+Precompiled packages and binary libraries for two platforms, `Windows / Linux`, have been created.
+
+Please visit [Release](https://github.com/mengps/HuskarUI/releases) to download.
+
 ## 🔨 How to Build
 
 - Clone
@@ -80,18 +88,13 @@ The installation directory structure
     ├─lib
     │   *.lib/so
     └─imports
-        └─HuskarUI
+        └─HuskarUI/Basic
 ```
 - Usage
   - Link the `<install_dir>/lib`.
   - Include the `<install_dir>/include`.
   - Copy the `<install_dir>/bin/HuskarUI.[dll/so]` to `[QtDir]/[QtVersion]/[Kit]/bin`.
   - Copy the `<install_dir>/imports/HuskarUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
-
-## 🗂️ Precompiled package
-
-Precompiled packages and binary libraries for two platforms, `Windows / Linux`, have been created.
-Please visit [Release](https://github.com/mengps/HuskarUI/releases) to download.
 
 ## 📦 Get started 
 
@@ -120,7 +123,7 @@ Please visit [Release](https://github.com/mengps/HuskarUI/releases) to download.
  ```
 - Add the following code to your `.qml`
  ```qml
-  import HuskarUI
+  import HuskarUI.Basic
   HusWindow { 
     ...
   }

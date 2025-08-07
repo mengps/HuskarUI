@@ -11,7 +11,7 @@ Qt Qml 的 Ant 设计组件库
 
 <div align=center>
 
-![win-badge] ![linux-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
+![win-badge] ![linux-badge] ![macos-badge] ![android-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
 
 [English](./README.md) | 中文
 
@@ -19,6 +19,8 @@ Qt Qml 的 Ant 设计组件库
 
 [win-badge]: https://img.shields.io/badge/Windows-passing-brightgreen?style=flat-square
 [linux-badge]: https://img.shields.io/badge/Linux-passing-brightgreen?style=flat-square
+[macos-badge]: https://img.shields.io/badge/MacOS-passing-brightgreen?style=flat-square
+[android-badge]: https://img.shields.io/badge/Android-passing-brightgreen?style=flat-square
 
 [issues-image]: https://flat.badgen.net/github/label-issues/mengps/HuskarUI/open
 [issues-url]: https://github.com/mengps/HuskarUI/issues
@@ -52,6 +54,12 @@ Qt Qml 的 Ant 设计组件库
 
   - [哔哩哔哩](https://www.bilibili.com/video/BV1jodhYhE8a/?spm_id_from=333.1387.homepage.video_card.click)
 
+## 🗂️ 预编译包
+
+预编译了两个平台的 `Windows / Linux` 程序包和二进制库包.
+
+前往 [Release](https://github.com/mengps/HuskarUI/releases) 中下载.
+
 ## 🔨 如何构建
 
 - 克隆
@@ -79,18 +87,13 @@ cmake --install --prefix <install_dir>
     ├─lib
     │   *.lib/so
     └─imports
-        └─HuskarUI
+        └─HuskarUI/Basic
 ```
 - 使用
   - 链接 `<install_dir>/lib`.
   - 包含 `<install_dir>/include`.
   - 复制 `<install_dir>/bin/HuskarUI.[dll/so]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
   - 复制 `<install_dir>/imports/HuskarUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
-
-## 🗂️ 预编译包
-
-预编译了两个平台的 `Windows / Linux` 程序包和二进制库包.
-前往 [Release](https://github.com/mengps/HuskarUI/releases) 中下载.
 
 ## 📦 上手
 
@@ -120,7 +123,7 @@ cmake --install --prefix <install_dir>
  ```
  - 添加下面的代码到您的 `.qml` 中
  ```qml
-  import HuskarUI
+  import HuskarUI.Basic
   HusWindow { 
     ...
   }
