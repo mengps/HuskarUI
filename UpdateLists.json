@@ -1,6 +1,16 @@
 [
     {
         "isNew": true,
+        "name": "HusImagePreview",
+        "desc": "用于预览的图片的基本工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。\n"
+    },
+    {
+        "isNew": true,
+        "name": "HusImage",
+        "desc": "可预览的图片。\n"
+    },
+    {
+        "isNew": true,
         "name": "HusCaptionBar",
         "desc": "标题栏，为无边框窗口提供一个通用的标题栏。\n"
     },

@@ -120,9 +120,9 @@ HusWindow {
                 const startX = content.width - 170;
                 const startY = 0;
                 const radius = Math.max(distance(startX, startY, 0, 0),
-                                      distance(startX, startY, content.width, 0),
-                                      distance(startX, startY, 0, content.height),
-                                      distance(startX, startY, content.width, content.height));
+                                        distance(startX, startY, content.width, 0),
+                                        distance(startX, startY, 0, content.height),
+                                        distance(startX, startY, content.width, content.height));
                 start(width, height, Qt.point(startX, startY), radius);
             }
         }
@@ -669,6 +669,18 @@ HusWindow {
                             key: 'HusCarousel',
                             label: qsTr('HusCarousel 走马灯'),
                             source: './Examples/DataDisplay/ExpCarousel.qml',
+                            state: 'New',
+                        },
+                        {
+                            key: 'HusImage',
+                            label: qsTr('HusImage 图片'),
+                            source: './Examples/DataDisplay/ExpImage.qml',
+                            state: 'New',
+                        },
+                        {
+                            key: 'HusImagePreview',
+                            label: qsTr('HusImagePreview 图片预览'),
+                            source: './Examples/DataDisplay/ExpImagePreview.qml',
                             state: 'New',
                         }
                     ]
