@@ -1,9 +1,9 @@
 #include "huswatermark.h"
 
-#include <QNetworkReply>
-#include <QNetworkAccessManager>
-#include <QPainter>
-#include <QQmlEngine>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtGui/QPainter>
+#include <QtQml/QQmlEngine>
 
 class HusWatermarkPrivate
 {

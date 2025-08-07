@@ -1,6 +1,6 @@
 #include "huscolorgenerator.h"
 
-#include <QHash>
+#include <QtCore/QHash>
 #include <QtCore/qmath.h>
 
 static const auto g_hueStep = 2; // 色相阶梯

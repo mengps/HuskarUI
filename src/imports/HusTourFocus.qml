@@ -10,11 +10,19 @@ T.Popup {
     property color colorOverlay: HusTheme.HusTour.colorOverlay
     property real focusMargin: 5
 
+    function close() {
+        if (!visible || __private.isClosing) return;
+        if (control.animationEnabled) {
+            __private.startClosing();
+        } else {
+            control.visible = false;
+        }
+    }
+
     objectName: '__HusTourFocus__'
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside
     onAboutToShow: {
         __private.recalcPosition();
-        opacity = 1.0;
     }
     onAboutToHide: {
         if (control.animationEnabled && !__private.isClosing && opacity > 0) {
@@ -54,15 +62,6 @@ T.Popup {
     parent: T.Overlay.overlay
     modal: true
     background: Item { }
-
-    function close() {
-        if (!visible || __private.isClosing) return;
-        if (control.animationEnabled) {
-            __private.startClosing();
-        } else {
-            control.visible = false;
-        }
-    }
 
     NumberAnimation {
         id: __closeAnimation

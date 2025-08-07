@@ -1,7 +1,7 @@
 #include "husrectangle.h"
 
-#include <QPainter>
-#include <QPainterPath>
+#include <QtGui/QPainter>
+#include <QtGui/QPainterPath>
 
 #include <private/qqmlglobal_p.h>
 

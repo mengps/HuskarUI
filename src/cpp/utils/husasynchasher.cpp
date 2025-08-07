@@ -1,13 +1,13 @@
 #include "husasynchasher.h"
 
-#include <QBuffer>
-#include <QDebug>
-#include <QFile>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QQmlEngine>
-#include <QRunnable>
-#include <QThreadPool>
+#include <QtCore/QBuffer>
+#include <QtCore/QDebug>
+#include <QtCore/QFile>
+#include <QtCore/QRunnable>
+#include <QtCore/QThreadPool>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtQml/QQmlEngine>
 
 class AsyncRunnable : public QObject, public QRunnable
 {

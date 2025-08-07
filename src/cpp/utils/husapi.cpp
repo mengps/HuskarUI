@@ -1,8 +1,8 @@
 #include "husapi.h"
 
-#include <QClipboard>
-#include <QFile>
-#include <QGuiApplication>
+#include <QtCore/QFile>
+#include <QtGui/QClipboard>
+#include <QtGui/QGuiApplication>
 
 #ifdef Q_OS_WIN
 #include <Windows.h>

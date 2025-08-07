@@ -1,17 +1,17 @@
 #include "hussystemthemehelper.h"
 
-#include <QBasicTimer>
-#include <QWindow>
-#include <QSettings>
-#include <QLibrary>
+#include <QtCore/QBasicTimer>
+#include <QtCore/QSettings>
+#include <QtCore/QLibrary>
+#include <QtGui/QWindow>
 
 #ifdef QT_WIDGETS_LIB
-# include <QWidget>
+# include <QtWidgets/QWidget>
 #endif //QT_WIDGETS_LIB
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-# include <QGuiApplication>
-# include <QStyleHints>
+# include <QtGui/QGuiApplication>
+# include <QtGui/QStyleHints>
 #endif
 
 #ifdef Q_OS_WIN
