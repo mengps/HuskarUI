@@ -343,6 +343,8 @@ HusPopup {
                     decrementCurrentIndex();
                 } else if (event.key === Qt.Key_Right) {
                     incrementCurrentIndex();
+                } else if (event.key === Qt.Key_Escape) {
+                    control.close();
                 }
             }
             states: [
