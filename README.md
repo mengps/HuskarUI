@@ -93,7 +93,7 @@ The installation directory structure
 - Usage
   - Link the `<install_dir>/lib`.
   - Include the `<install_dir>/include`.
-  - Copy the `<install_dir>/bin/HuskarUI.[dll/so]` to `[QtDir]/[QtVersion]/[Kit]/bin`.
+  - Copy the `<install_dir>/bin/HuskarUIBasic.[dll/so]` to `[QtDir]/[QtVersion]/[Kit]/bin`.
   - Copy the `<install_dir>/imports/HuskarUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 📦 Get started 
@@ -103,7 +103,7 @@ The installation directory structure
  ```cmake
   target_include_directories(<your_target> PRIVATE HuskarUI/include)
   target_link_directories(<your_target> PRIVATE HuskarUI/lib)
-  target_link_libraries(<your_target> PRIVATE HuskarUI)
+  target_link_libraries(<your_target> PRIVATE HuskarUIBasic)
  ```
  - Add the following code to your `main.cpp`
  ```cpp
@@ -112,6 +112,7 @@ The installation directory structure
   int main(int argc, char *argv[])
   {
       ...
+      /*! Set OpenGL, optional */
       QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
       QQuickWindow::setDefaultAlphaBuffer(true);
       ...

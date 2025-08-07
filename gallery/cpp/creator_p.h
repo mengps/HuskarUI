@@ -75,7 +75,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 static auto g_cmake_only_link_huskarui = R"(
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
-    HuskarUI.Basic
+    HuskarUIBasic
 )
 )";
 
@@ -84,7 +84,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE %1)
 target_link_directories(${PROJECT_NAME} PRIVATE %2)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
-    HuskarUI.Basic
+    HuskarUIBasic
 )
 )";
 

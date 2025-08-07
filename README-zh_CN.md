@@ -92,7 +92,7 @@ cmake --install --prefix <install_dir>
 - 使用
   - 链接 `<install_dir>/lib`.
   - 包含 `<install_dir>/include`.
-  - 复制 `<install_dir>/bin/HuskarUI.[dll/so]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
+  - 复制 `<install_dir>/bin/HuskarUIBasic.[dll/so]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
   - 复制 `<install_dir>/imports/HuskarUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 📦 上手
@@ -102,7 +102,7 @@ cmake --install --prefix <install_dir>
  ```cmake
   target_include_directories(<your_target> PRIVATE HuskarUI/include)
   target_link_directories(<your_target> PRIVATE HuskarUI/lib)
-  target_link_libraries(<your_target> PRIVATE HuskarUI)
+  target_link_libraries(<your_target> PRIVATE HuskarUIBasic)
  ```
  - 添加下面的代码到您的 `main.cpp` 中
  ```cpp
