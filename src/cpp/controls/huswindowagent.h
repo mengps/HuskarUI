@@ -10,8 +10,6 @@
 
 #include <QWKQuick/quickwindowagent.h>
 
-#include "husglobal.h"
-
 class HUSKARUI_EXPORT HusWindowAgent : public QWK::QuickWindowAgent, public QQmlParserStatus
 {
     Q_OBJECT

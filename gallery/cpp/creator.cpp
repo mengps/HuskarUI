@@ -78,6 +78,7 @@ void Creator::createProject(const QVariant &projectParams)
     auto isDefaultBuild = params["isDefaultBuild"].toBool();
     auto sourceLocation = params["sourceLocation"].toString();
     auto addDeployScript = params["addDeployScript"].toBool();
+    auto isShareLibrary = params["isShareLibrary"].toBool();
 
     QDir projectDir(projectLocation + "/" + projectName);
     if (!projectDir.exists())
@@ -99,7 +100,7 @@ void Creator::createProject(const QVariant &projectParams)
         } break;
         case ContainMethod::SourceContain:
         {
-            projectCmake.write(QString(g_cmake_src_subdirectory).arg(projectName).toUtf8());
+            projectCmake.write(QString(g_cmake_src_subdirectory).arg(projectName, isShareLibrary ? "OFF" : "ON").toUtf8());
 
             genFileAndCode(projectDir.path() + "/src/main.cpp", QString(g_main_cpp_file).arg(projectName));
             genFileAndCode(projectDir.path() + "/src/Main.qml", QString(g_main_qml_file).arg(projectName));
@@ -116,7 +117,7 @@ void Creator::createProject(const QVariant &projectParams)
         } break;
         case ContainMethod::LibraryContain:
         {
-            projectCmake.write(QString(g_cmake_lib_subdirectory).arg(projectName).toUtf8());
+            projectCmake.write(QString(g_cmake_lib_subdirectory).arg(projectName, isShareLibrary ? "OFF" : "ON").toUtf8());
 
             genFileAndCode(projectDir.path() + "/src/main.cpp",
                            isDefaultBuild ?

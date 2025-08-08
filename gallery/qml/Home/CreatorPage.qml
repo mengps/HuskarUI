@@ -185,6 +185,30 @@ HusWindow {
                 text: qsTr('添加 CMake 部署脚本')
                 checked: true
             }
+
+            HusCheckBox {
+                id: isShareLibrary
+                text: qsTr('HuskarUI 动态库')
+                checked: true
+
+                HusIconText {
+                    anchors.left: parent.right
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    iconSource: HusIcon.QuestionCircleOutlined
+                    iconSize: HusTheme.Primary.fontPrimarySize + 2
+                    colorIcon: HusTheme.Primary.colorPrimary
+
+                    HusToolTip {
+                        text: qsTr('如果 HuskarUI 构建为动态库请勾选，静态库则不要勾选')
+                        visible: isShareLibrarynHover.hovered
+                    }
+
+                    HoverHandler {
+                        id: isShareLibrarynHover
+                    }
+                }
+            }
         }
 
         Row {
@@ -203,6 +227,7 @@ HusWindow {
                     object.isDefaultBuild = defaultCheckBox.checked;
                     object.sourceLocation = sourceLocation.text;
                     object.addDeployScript = addDeployScript.checked;
+                    object.isShareLibrary = isShareLibrary.checked;
                     Creator.createProject(object);
                 }
             }

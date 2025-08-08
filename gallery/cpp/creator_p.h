@@ -6,12 +6,23 @@ cmake_minimum_required(VERSION 3.16)
 
 project(%1_Solution)
 
-#Build QWindowKit
-set(QWINDOWKIT_BUILD_STATIC ON)
-set(QWINDOWKIT_BUILD_WIDGETS OFF)
-set(QWINDOWKIT_BUILD_QUICK ON)
-set(QWINDOWKIT_INSTALL OFF)
-add_subdirectory(3rdparty/qwindowkit)
+option(BUILD_HUSKARUI_STATIC_LIBRARY "Build HuskarUI as a static library." %2)
+option(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM "Build HuskarUI on desktop platform (mobile platform set OFF)." ON)
+
+if (WIN32 OR MACOS OR LINUX)
+    set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM ON)
+else()
+    set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM OFF)
+endif()
+
+if(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
+    #Build QWindowKit
+    set(QWINDOWKIT_BUILD_STATIC ON)
+    set(QWINDOWKIT_BUILD_WIDGETS OFF)
+    set(QWINDOWKIT_BUILD_QUICK ON)
+    set(QWINDOWKIT_INSTALL OFF)
+    add_subdirectory(3rdparty/qwindowkit)
+endif()
 
 #Build HuskarUI
 add_subdirectory(3rdparty/HuskarUI)
@@ -24,6 +35,8 @@ static auto g_cmake_lib_subdirectory = R"(
 cmake_minimum_required(VERSION 3.16)
 
 project(%1_Solution)
+
+option(BUILD_HUSKARUI_STATIC_LIBRARY "HuskarUI is static library." %2)
 
 #Your project
 add_subdirectory(src)
@@ -51,6 +64,10 @@ qt_add_qml_module(${PROJECT_NAME}
         Main.qml
 )
 
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:BUILD_HUSKARUI_STATIC_LIBRARY>
+)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -76,6 +93,7 @@ static auto g_cmake_only_link_huskarui = R"(
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     HuskarUIBasic
+    $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIBasicPlugin>
 )
 )";
 
@@ -85,6 +103,7 @@ target_link_directories(${PROJECT_NAME} PRIVATE %2)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     HuskarUIBasic
+    $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIBasicPlugin>
 )
 )";
 
@@ -207,6 +226,11 @@ static auto g_main_cpp_file = R"(
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
 
+#ifdef BUILD_HUSKARUI_STATIC_LIBRARY
+#include <QtQml/qqmlextensionplugin.h>
+Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
+#endif
+
 #include <husapp.h>
 
 int main(int argc, char *argv[])
@@ -233,6 +257,11 @@ static auto g_main_add_import_cpp_file = R"(
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+
+#ifdef BUILD_HUSKARUI_STATIC_LIBRARY
+#include <QtQml/qqmlextensionplugin.h>
+Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
+#endif
 
 #include <husapp.h>
 
