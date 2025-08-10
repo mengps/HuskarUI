@@ -13,6 +13,7 @@ HusInput {
     property string textRole: 'label'
     property string valueRole: 'value'
     property bool tooltipVisible: false
+    property bool clearEnabled: true
     property int defaultPopupMaxHeight: 240
     property int defaultOptionSpacing: 0
 
@@ -35,30 +36,29 @@ HusInput {
 
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     }
-    property Component clearIconDelegate: HusIconText {
-        iconSource: control.iconSource
-        iconSize: control.iconSize
-        colorIcon: control.enabled ?
-                       __iconMouse.hovered ? HusTheme.HusAutoComplete.colorIconHover :
-                                             HusTheme.HusAutoComplete.colorIcon : HusTheme.HusAutoComplete.colorIconDisabled
-
-        Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-
-        MouseArea {
-            id: __iconMouse
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: control.length > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
-            onEntered: hovered = true;
-            onExited: hovered = false;
-            onClicked: control.clearInput();
-            property bool hovered: false
-        }
-    }
 
     objectName: '__HusAutoComplete__'
     iconPosition: HusInput.Position_Right
-    iconDelegate: clearIconDelegate
+    iconDelegate: HusIconText {
+        iconSource: control.iconSource
+        iconSize: control.iconSize
+        colorIcon: control.enabled ?
+                       __hoverHandler.hovered ? HusTheme.HusAutoComplete.colorIconHover :
+                                                HusTheme.HusAutoComplete.colorIcon : HusTheme.HusAutoComplete.colorIconDisabled
+
+        Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+
+        HoverHandler {
+            id: __hoverHandler
+            enabled: control.clearEnabled
+            cursorShape: control.length > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
+        }
+
+        TapHandler {
+            enabled: control.clearEnabled
+            onTapped: control.clearInput();
+        }
+    }
     onOptionsChanged: {
         __private.model = options;
         __popupListView.currentIndex = -1;

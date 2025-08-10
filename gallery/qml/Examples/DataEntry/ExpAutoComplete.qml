@@ -42,6 +42,7 @@ filterOption | function | - | 输入项将使用该函数进行筛选
 textRole | string | 'label' | 弹出框文本的模型角色。
 valueRole | string | 'value' | 弹出框值的模型角色。
 tooltipVisible | bool | false | 是否显示文字提示
+clearEnabled | bool | true | 是否启用清除按钮
 defaultPopupMaxHeight | int | 240 | 默认弹出框最大高度
 defaultOptionSpacing | int | 0 | 默认选项间隔
 \n<br/>
@@ -466,7 +467,9 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
             width: parent.width
             descTitle: qsTr('自定义清除按钮')
             desc: qsTr(`
+通过 \`clearEnabled\` 设置是否启用清除按钮。\n
 通过 \`iconSource\` 设置清除图标，设置为 0 则不显示。\n
+通过 \`iconSize\` 设置清除图标大小，设置为 0 则不显示。\n
 通过 \`iconPosition\` 设置清除图标的位置，支持的位置：\n
 - 图标在输入框左边(默认){ HusAutoComplete.Position_Left }\n
 - 图标在输入框右边{ HusAutoComplete.Position_Right }\n
