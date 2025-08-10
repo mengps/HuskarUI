@@ -81,14 +81,13 @@ HusWindow {
                 }
             }
 
-            Text {
+            HusText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font {
                     family: HusTheme.Primary.fontPrimaryFamily
                     pixelSize: HusTheme.Primary.fontPrimarySizeHeading3
                     bold: true
                 }
-                color: HusTheme.Primary.colorTextBase
                 text: 'HuskarUI Gallery'
             }
 

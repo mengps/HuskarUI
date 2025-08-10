@@ -92,14 +92,13 @@ colorText | color | - | 水印文本颜色
                             colorText: '#80ff0000'
                         }
 
-                        Text {
+                        HusText {
                             anchors.centerIn: parent
                             text: qsTr('文字水印测试')
                             font {
                                 family: HusTheme.Primary.fontPrimaryFamily
                                 pixelSize: HusTheme.Primary.fontPrimarySize + 20
                             }
-                            color: HusTheme.Primary.colorTextBase
                         }
                     }
                 }
@@ -139,14 +138,13 @@ colorText | color | - | 水印文本颜色
                         colorText: '#80ff0000'
                     }
 
-                    Text {
+                    HusText {
                         anchors.centerIn: parent
                         text: qsTr('文字水印测试')
                         font {
                             family: HusTheme.Primary.fontPrimaryFamily
                             pixelSize: HusTheme.Primary.fontPrimarySize + 20
                         }
-                        color: HusTheme.Primary.colorTextBase
                     }
                 }
             }
@@ -198,14 +196,13 @@ colorText | color | - | 水印文本颜色
                             font.family: HusTheme.Primary.fontPrimaryFamily
                         }
 
-                        Text {
+                        HusText {
                             anchors.centerIn: parent
                             text: qsTr('图片水印测试')
                             font {
                                 family: HusTheme.Primary.fontPrimaryFamily
                                 pixelSize: HusTheme.Primary.fontPrimarySize + 20
                             }
-                            color: HusTheme.Primary.colorTextBase
                         }
                     }
                 }
@@ -247,14 +244,13 @@ colorText | color | - | 水印文本颜色
                         font.family: HusTheme.Primary.fontPrimaryFamily
                     }
 
-                    Text {
+                    HusText {
                         anchors.centerIn: parent
                         text: qsTr('图片水印测试')
                         font {
                             family: HusTheme.Primary.fontPrimaryFamily
                             pixelSize: HusTheme.Primary.fontPrimarySize + 20
                         }
-                        color: HusTheme.Primary.colorTextBase
                     }
                 }
             }

@@ -143,7 +143,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                                 iconSource: rootItem.iconSource
                             }
 
-                            Text {
+                            HusText {
                                 Layout.preferredWidth: parent.width - 10
                                 Layout.fillHeight: true
                                 Layout.alignment: Qt.AlignHCenter

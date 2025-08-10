@@ -248,14 +248,10 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                                 }
                             }
 
-                            Text {
+                            HusText {
                                 id: label
                                 text: textData
                                 color: HusTheme.HusAutoComplete.colorItemText
-                                font {
-                                    family: HusTheme.HusAutoComplete.fontFamily
-                                    pixelSize: HusTheme.HusAutoComplete.fontSize
-                                }
                                 elide: Text.ElideRight
                                 verticalAlignment: Text.AlignVCenter
                             }
@@ -308,14 +304,10 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                             }
                         }
 
-                        Text {
+                        HusText {
                             id: label
                             text: textData
                             color: HusTheme.HusAutoComplete.colorItemText
-                            font {
-                                family: HusTheme.HusAutoComplete.fontFamily
-                                pixelSize: HusTheme.HusAutoComplete.fontSize
-                            }
                             elide: Text.ElideRight
                             verticalAlignment: Text.AlignVCenter
                         }
@@ -375,13 +367,9 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                                                  });
                             }
                         }
-                        labelDelegate: Text {
+                        labelDelegate: HusText {
                             text: textData
                             color: HusTheme.HusAutoComplete.colorItemText
-                            font {
-                                family: HusTheme.HusAutoComplete.fontFamily
-                                pixelSize: HusTheme.HusAutoComplete.fontSize
-                            }
                             elide: Text.ElideRight
                             verticalAlignment: Text.AlignVCenter
                             textFormat: Text.RichText
@@ -432,13 +420,9 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                                              });
                         }
                     }
-                    labelDelegate: Text {
+                    labelDelegate: HusText {
                         text: textData
                         color: HusTheme.HusAutoComplete.colorItemText
-                        font {
-                            family: HusTheme.HusAutoComplete.fontFamily
-                            pixelSize: HusTheme.HusAutoComplete.fontSize
-                        }
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
                         textFormat: Text.RichText

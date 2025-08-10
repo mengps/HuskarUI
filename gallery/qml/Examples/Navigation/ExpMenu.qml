@@ -12,7 +12,7 @@ Flickable {
         id: myContentDelegate
 
         Item {
-            Text {
+            HusText {
                 id: __text
                 anchors.left: parent.left
                 anchors.right: __tag.left

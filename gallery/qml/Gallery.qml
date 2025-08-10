@@ -261,7 +261,7 @@ HusWindow {
             onSelect: function(option) {
                 galleryMenu.gotoMenu(option.key);
             }
-            labelDelegate: Text {
+            labelDelegate: HusText {
                 height: implicitHeight + 4
                 text: parent.textData
                 color: HusTheme.HusAutoComplete.colorItemText
@@ -326,7 +326,7 @@ HusWindow {
                 property var menuButton: parent.menuButton
                 property string tagState: model.state ?? ''
 
-                Text {
+                HusText {
                     anchors.left: parent.left
                     anchors.leftMargin: menuButton.iconSpacing
                     anchors.right: __tag.left

@@ -100,7 +100,7 @@ Rectangle {
                     iconSize: 60
                 }
 
-                Text {
+                HusText {
                     id: __title
                     Layout.preferredWidth: parent.width - 10
                     Layout.preferredHeight: height
@@ -110,7 +110,6 @@ Rectangle {
                         pixelSize: HusTheme.Primary.fontPrimarySizeHeading4
                         bold: true
                     }
-                    color: HusTheme.Primary.colorTextBase
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WrapAnywhere
                 }
@@ -124,10 +123,9 @@ Rectangle {
                     clip: true
                     interactive: false
 
-                    Text {
+                    HusText {
                         id: __desc
                         width: parent.width - 10
-                        color: HusTheme.Primary.colorTextBase
                         font {
                             family: HusTheme.Primary.fontPrimaryFamily
                             pixelSize: HusTheme.Primary.fontPrimarySize
@@ -169,7 +167,7 @@ Rectangle {
                         color: 'white'
                     }
 
-                    Text {
+                    HusText {
                         anchors.verticalCenter: parent.verticalCenter
                         text: __cardComp.isNew ? 'NEW' : 'UPDATE'
                         font {
@@ -191,13 +189,8 @@ Rectangle {
             }
         }
 
-        component MyText: Text {
+        component MyText: HusText {
             anchors.horizontalCenter: parent.horizontalCenter
-            font {
-                family: HusTheme.Primary.fontPrimaryFamily
-                pixelSize: HusTheme.Primary.fontPrimarySize
-            }
-            color: HusTheme.Primary.colorTextBase
         }
 
         Column {

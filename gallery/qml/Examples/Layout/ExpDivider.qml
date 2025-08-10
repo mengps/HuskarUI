@@ -72,15 +72,10 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     width: parent.width
                     spacing: 15
 
-                    Text {
+                    HusText {
                         width: parent.width
                         text: qsTr('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.')
                         wrapMode: Text.WrapAnywhere
-                        color: HusTheme.Primary.colorTextBase
-                        font {
-                            family: HusTheme.Primary.fontPrimaryFamily
-                            pixelSize: HusTheme.Primary.fontPrimarySize
-                        }
                     }
 
                     HusDivider {
@@ -108,15 +103,10 @@ contentDescription | string | '' | 内容描述(提高可用性)
             exampleDelegate: Column {
                 spacing: 15
 
-                Text {
+                HusText {
                     width: parent.width
                     text: qsTr('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.')
                     wrapMode: Text.WrapAnywhere
-                    color: HusTheme.Primary.colorTextBase
-                    font {
-                        family: HusTheme.Primary.fontPrimaryFamily
-                        pixelSize: HusTheme.Primary.fontPrimarySize
-                    }
                 }
 
                 HusDivider {
@@ -158,15 +148,10 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     width: parent.width
                     spacing: 15
 
-                    Text {
+                    HusText {
                         width: parent.width
                         text: qsTr('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.')
                         wrapMode: Text.WrapAnywhere
-                        color: HusTheme.Primary.colorTextBase
-                        font {
-                            family: HusTheme.Primary.fontPrimaryFamily
-                            pixelSize: HusTheme.Primary.fontPrimarySize
-                        }
                     }
 
                     HusDivider {
@@ -186,15 +171,10 @@ contentDescription | string | '' | 内容描述(提高可用性)
             exampleDelegate: Column {
                 spacing: 15
 
-                Text {
+                HusText {
                     width: parent.width
                     text: qsTr('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.')
                     wrapMode: Text.WrapAnywhere
-                    color: HusTheme.Primary.colorTextBase
-                    font {
-                        family: HusTheme.Primary.fontPrimaryFamily
-                        pixelSize: HusTheme.Primary.fontPrimarySize
-                    }
                 }
 
                 HusDivider {
@@ -227,15 +207,10 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     width: parent.width
                     spacing: 15
 
-                    Text {
+                    HusText {
                         width: parent.width
                         text: qsTr('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.')
                         wrapMode: Text.WrapAnywhere
-                        color: HusTheme.Primary.colorTextBase
-                        font {
-                            family: HusTheme.Primary.fontPrimaryFamily
-                            pixelSize: HusTheme.Primary.fontPrimarySize
-                        }
                     }
 
                     HusDivider {
@@ -255,15 +230,10 @@ contentDescription | string | '' | 内容描述(提高可用性)
             exampleDelegate: Column {
                 spacing: 15
 
-                Text {
+                HusText {
                     width: parent.width
                     text: qsTr('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.')
                     wrapMode: Text.WrapAnywhere
-                    color: HusTheme.Primary.colorTextBase
-                    font {
-                        family: HusTheme.Primary.fontPrimaryFamily
-                        pixelSize: HusTheme.Primary.fontPrimarySize
-                    }
                 }
 
                 HusDivider {

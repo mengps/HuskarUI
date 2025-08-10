@@ -250,7 +250,7 @@ halfIcon | enum | HusIcon.StarFilled | 半星图标(来自 HusIcon)
                         id: custom1
                         initValue: 3
                         colorFill: 'red'
-                        fillDelegate: Text {
+                        fillDelegate: HusText {
                             width: custom1.iconSize
                             height: custom1.iconSize
                             color: custom1.colorFill
@@ -260,7 +260,7 @@ halfIcon | enum | HusIcon.StarFilled | 半星图标(来自 HusIcon)
                             }
                             text: index + 1
                         }
-                        emptyDelegate: Text {
+                        emptyDelegate: HusText {
                             width: custom1.iconSize
                             height: custom1.iconSize
                             color: custom1.colorEmpty
@@ -305,7 +305,7 @@ halfIcon | enum | HusIcon.StarFilled | 半星图标(来自 HusIcon)
                     id: custom1
                     initValue: 3
                     colorFill: 'red'
-                    fillDelegate: Text {
+                    fillDelegate: HusText {
                         width: custom1.iconSize
                         height: custom1.iconSize
                         color: custom1.colorFill
@@ -315,7 +315,7 @@ halfIcon | enum | HusIcon.StarFilled | 半星图标(来自 HusIcon)
                         }
                         text: index + 1
                     }
-                    emptyDelegate: Text {
+                    emptyDelegate: HusText {
                         width: custom1.iconSize
                         height: custom1.iconSize
                         color: custom1.colorEmpty
