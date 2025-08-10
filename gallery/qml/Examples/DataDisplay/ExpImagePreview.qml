@@ -48,8 +48,8 @@ url | url | 必选 | 图片源
 - \`set(index: int, object: Object)\` 设置 \`index\` 处的模型数据为 \`object\` \n
 - \`setProperty(index: int, propertyName: string, value: any)\` 设置 \`index\` 处的模型数据属性名 \`propertyName\` 值为 \`value\` \n
 - \`move(from: int, to: int, count: int = 1)\` 将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置 \n
-- \`insert(index: int, object: Object)\` 插入标签 \`object\` 到 \`index\` 处 \n
-- \`append(object: Object)\` 在末尾添加标签 \`object\` \n
+- \`insert(index: int, object: Object)\` 插入图片项 \`object\` 到 \`index\` 处 \n
+- \`append(object: Object)\` 在末尾添加图片项 \`object\` \n
 - \`remove(index: int, count: int = 1)\` 删除 \`index\` 处 \`count\` 个模型数据 \n
 - \`zoomIn()\` 中心放大 \n
 - \`zoomOut()\` 中心缩小 \n
