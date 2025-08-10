@@ -232,6 +232,7 @@ HusWindow {
             rightPadding: 50
             tooltipVisible: true
             placeholderText: qsTr('搜索组件')
+            iconSource: length > 0 ? HusIcon.CloseCircleFilled : HusIcon.SearchOutlined
             colorBg: galleryMenu.compactMode ? HusTheme.HusInput.colorBg : 'transparent'
             Component.onCompleted: {
                 let model = [];
@@ -284,7 +285,6 @@ HusWindow {
                     visible: parent.tagState !== ''
                 }
             }
-            clearIconSource: searchComponent.length > 0 ? HusIcon.CloseCircleFilled : HusIcon.SearchOutlined
 
             Behavior on width {
                 enabled: galleryMenu.compactMode && galleryMenu.width === galleryMenu.compactWidth

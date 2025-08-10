@@ -33,7 +33,6 @@ Flickable {
   - \`parent.modelData: var\` 选项模型数据\n
   - \`parent.hovered: bool\` 是否悬浮\n
   - \`parent.highlighted: bool\` 是否高亮\n
-- **clearIconDelegate: Component** 清除图标代理，等同于{HusInput.iconDelegate}\n
 \n<br/>
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
@@ -43,9 +42,6 @@ filterOption | function | - | 输入项将使用该函数进行筛选
 textRole | string | 'label' | 弹出框文本的模型角色。
 valueRole | string | 'value' | 弹出框值的模型角色。
 tooltipVisible | bool | false | 是否显示文字提示
-clearIconSource | enum | 0 | 清除图标源(来自 HusIcon)
-clearIconPosition | enum | HusInput.Position_Right | 清除图标位置(来自 HusInput)
-clearIconSize | int | - | 清除图标大小
 defaultPopupMaxHeight | int | 240 | 默认弹出框最大高度
 defaultOptionSpacing | int | 0 | 默认选项间隔
 \n<br/>
@@ -470,8 +466,8 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
             width: parent.width
             descTitle: qsTr('自定义清除按钮')
             desc: qsTr(`
-通过 \`clearIconSource\` 设置清除图标，设置为 0 则不显示。\n
-通过 \`clearIconPosition\` 设置清除图标的位置，支持的位置：\n
+通过 \`iconSource\` 设置清除图标，设置为 0 则不显示。\n
+通过 \`iconPosition\` 设置清除图标的位置，支持的位置：\n
 - 图标在输入框左边(默认){ HusAutoComplete.Position_Left }\n
 - 图标在输入框右边{ HusAutoComplete.Position_Right }\n
                        `)
@@ -484,7 +480,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                     HusAutoComplete {
                         width: 240
-                        clearIconSource: HusIcon.CloseSquareFilled
+                        iconSource: HusIcon.CloseSquareFilled
                         placeholderText: qsTr('Customized clear icon')
                         onSearch: function(input) {
                             options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];
@@ -497,7 +493,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                 HusAutoComplete {
                     width: 240
-                    clearIconSource: HusIcon.CloseSquareFilled
+                    iconSource: HusIcon.CloseSquareFilled
                     placeholderText: qsTr('Customized clear icon')
                     onSearch: function(input) {
                         options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];

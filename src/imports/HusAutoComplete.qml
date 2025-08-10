@@ -13,9 +13,6 @@ HusInput {
     property string textRole: 'label'
     property string valueRole: 'value'
     property bool tooltipVisible: false
-    property alias clearIconSource: control.iconSource
-    property alias clearIconSize: control.iconSize
-    property alias clearIconPosition: control.iconPosition
     property int defaultPopupMaxHeight: 240
     property int defaultOptionSpacing: 0
 
@@ -39,7 +36,7 @@ HusInput {
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     }
     property Component clearIconDelegate: HusIconText {
-        iconSource: control.clearIconSource
+        iconSource: control.iconSource
         iconSize: control.iconSize
         colorIcon: control.enabled ?
                        __iconMouse.hovered ? HusTheme.HusAutoComplete.colorIconHover :
@@ -51,7 +48,7 @@ HusInput {
             id: __iconMouse
             anchors.fill: parent
             hoverEnabled: true
-            cursorShape: parent.iconSource == control.clearIconSource ? Qt.PointingHandCursor : Qt.ArrowCursor
+            cursorShape: control.length > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
             onEntered: hovered = true;
             onExited: hovered = false;
             onClicked: control.clearInput();
@@ -60,7 +57,7 @@ HusInput {
     }
 
     objectName: '__HusAutoComplete__'
-    clearIconPosition: HusInput.Position_Right
+    iconPosition: HusInput.Position_Right
     iconDelegate: clearIconDelegate
     onOptionsChanged: {
         __private.model = options;
