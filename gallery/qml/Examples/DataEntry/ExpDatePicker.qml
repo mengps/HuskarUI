@@ -45,7 +45,7 @@ currentQuarter | int | - | 当前季度
 visualYear | int | - | 弹窗显示的年份(通常不需要使用)
 visualMonth | int | - | 弹窗显示的月份(通常不需要使用)
 visualQuarter | int | - | 弹窗显示的季度(通常不需要使用)
-dateFormat | string | 'yyyy-MM-dd' | 日期格式
+format | string | 'yyyy-MM-dd' | 日期格式
 \n<br/>
 \n### 支持的信号：\n
 - \`clicked(date: var)\` 点击日期时发出\n
@@ -79,7 +79,7 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
 - 月选择模式{ HusDatePicker.Mode_Month }\n
 - 周选择模式{ HusDatePicker.Mode_Week }\n
 - 天选择模式(默认){ HusDatePicker.Mode_Day }\n
-通过 \`dateFormat\` 属性设置日期格式：\n
+通过 \`format\` 属性设置日期格式：\n
 年月日遵从一般日期格式 \`yyyy MM dd\`，而 \`w\` 将替换为周数，\`q\` 将替换为季度。\n
                        `)
             code: `
@@ -92,31 +92,31 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
                     HusDatePicker {
                         placeholderText: qsTr('请选择日期')
                         pickerMode: HusDatePicker.Mode_Day
-                        dateFormat: qsTr('yyyy-MM-dd')
+                        format: qsTr('yyyy-MM-dd')
                     }
 
                     HusDatePicker {
                         placeholderText: qsTr('请选择周')
                         pickerMode: HusDatePicker.Mode_Week
-                        dateFormat: qsTr('yyyy-w周')
+                        format: qsTr('yyyy-w周')
                     }
 
                     HusDatePicker {
                         placeholderText: qsTr('请选择月份')
                         pickerMode: HusDatePicker.Mode_Month
-                        dateFormat: qsTr('yyyy-MM')
+                        format: qsTr('yyyy-MM')
                     }
 
                     HusDatePicker {
                         placeholderText: qsTr('请选择季度')
                         pickerMode: HusDatePicker.Mode_Quarter
-                        dateFormat: qsTr('yyyy-Qq')
+                        format: qsTr('yyyy-Qq')
                     }
 
                     HusDatePicker {
                         placeholderText: qsTr('请选择年份')
                         pickerMode: HusDatePicker.Mode_Year
-                        dateFormat: qsTr('yyyy')
+                        format: qsTr('yyyy')
                     }
                 }
             `
@@ -126,31 +126,31 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
                 HusDatePicker {
                     placeholderText: qsTr('请选择日期')
                     pickerMode: HusDatePicker.Mode_Day
-                    dateFormat: qsTr('yyyy-MM-dd')
+                    format: qsTr('yyyy-MM-dd')
                 }
 
                 HusDatePicker {
                     placeholderText: qsTr('请选择周')
                     pickerMode: HusDatePicker.Mode_Week
-                    dateFormat: qsTr('yyyy-w周')
+                    format: qsTr('yyyy-w周')
                 }
 
                 HusDatePicker {
                     placeholderText: qsTr('请选择月份')
                     pickerMode: HusDatePicker.Mode_Month
-                    dateFormat: qsTr('yyyy-MM')
+                    format: qsTr('yyyy-MM')
                 }
 
                 HusDatePicker {
                     placeholderText: qsTr('请选择季度')
                     pickerMode: HusDatePicker.Mode_Quarter
-                    dateFormat: qsTr('yyyy-Qq')
+                    format: qsTr('yyyy-Qq')
                 }
 
                 HusDatePicker {
                     placeholderText: qsTr('请选择年份')
                     pickerMode: HusDatePicker.Mode_Year
-                    dateFormat: qsTr('yyyy')
+                    format: qsTr('yyyy')
                 }
             }
         }
@@ -175,7 +175,7 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
                         initDate: new Date(2025, 4, 1)
                         placeholderText: qsTr('请选择日期')
                         pickerMode: HusDatePicker.Mode_Day
-                        dateFormat: qsTr('yyyy-MM-dd')
+                        format: qsTr('yyyy-MM-dd')
                         dayDelegate: HusButton {
                             padding: 0
                             implicitWidth: 50
@@ -221,7 +221,7 @@ dateFormat | string | 'yyyy-MM-dd' | 日期格式
                     initDate: new Date(2025, 4, 1)
                     placeholderText: qsTr('请选择日期')
                     pickerMode: HusDatePicker.Mode_Day
-                    dateFormat: qsTr('yyyy-MM-dd')
+                    format: qsTr('yyyy-MM-dd')
                     dayDelegate: HusButton {
                         padding: 0
                         implicitWidth: 50

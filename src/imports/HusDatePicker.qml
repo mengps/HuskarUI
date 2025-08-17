@@ -38,7 +38,7 @@ Item {
     property int visualMonth: control.currentMonth
     property int visualQuarter: control.currentQuarter
 
-    property string dateFormat: 'yyyy-MM-dd'
+    property string format: 'yyyy-MM-dd'
 
     property Component dayDelegate: HusButton {
         padding: 0
@@ -244,11 +244,11 @@ Item {
                     weekYear++;
                     inputDate = new Date(weekYear + 1, 0, 0);
                 }
-                __input.text = Qt.formatDate(inputDate, control.dateFormat.replace('w', String(weekNumber)));
+                __input.text = Qt.formatDate(inputDate, control.format.replace('w', String(weekNumber)));
             } else if (control.pickerMode == HusDatePicker.Mode_Quarter) {
-                __input.text = Qt.formatDate(date, control.dateFormat.replace('q', String(quarter)));
+                __input.text = Qt.formatDate(date, control.format.replace('q', String(quarter)));
             } else {
-                __input.text = Qt.formatDate(date, control.dateFormat);
+                __input.text = Qt.formatDate(date, control.format);
             }
 
             control.currentDate = date;
