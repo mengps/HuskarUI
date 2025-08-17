@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Effects
 import QtQuick.Controls.Basic as T
 import HuskarUI.Basic
 
@@ -21,6 +20,7 @@ T.TextField {
 
     property bool animationEnabled: HusTheme.animationEnabled
     readonly property bool active: hovered || activeFocus
+    property var initTime: undefined
     property int format: HusTimePicker.Format_HHMMSS
     property int iconSize: HusTheme.HusTimePicker.fontIconSize
     property int iconPosition: HusTimePicker.Position_Right
@@ -38,14 +38,6 @@ T.TextField {
     property int radiusItemBg: HusTheme.HusTimePicker.radiusItemBg
     property int radiusPopupBg: HusTheme.HusTimePicker.radiusPopupBg
     property string contentDescription: ''
-
-    function clearTime() {
-        if (__private.cleared) {
-            control.text = '';
-        } else {
-            control.text = __private.getTime();
-        }
-    }
 
     objectName: '__HusTimePicker__'
     focus: __picker.opened
@@ -69,6 +61,9 @@ T.TextField {
         border.color: control.colorBorder
         radius: control.radiusBg
     }
+    onInitTimeChanged: {
+        setTime(initTime);
+    }
     onActiveFocusChanged: {
         if (activeFocus)
             __picker.open();
@@ -83,6 +78,20 @@ T.TextField {
     Keys.onPressed: function(event) {
         if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
             __confirmButton.clicked();
+        }
+    }
+
+    function setTime(time) {
+        if (time) {
+            __private.setTime(time);
+        }
+    }
+
+    function clearTime() {
+        if (__private.cleared) {
+            control.text = '';
+        } else {
+            control.text = __private.getTime();
         }
     }
 
@@ -207,38 +216,54 @@ T.TextField {
 
     Item {
         id: __private
+
         property var window: Window.window
         property bool cleared: true
+
+        function setTime(date) {
+            __hourListView.initValue(String(date.getHours()).padStart(2, '0'));
+            __hourListView.checkIndex(date.getHours());
+            __minuteListView.initValue(String(date.getMinutes()).padStart(2, '0'));
+            __minuteListView.checkIndex(date.getMinutes());
+            __secondListView.initValue(String(date.getSeconds()).padStart(2, '0'));
+            __secondListView.checkIndex(date.getSeconds());
+            cleared = false;
+            control.text = getTime();
+        }
+
         function getTime() {
             switch (control.format) {
             case HusTimePicker.Format_HHMMSS:
-                return`${__hourListView.value}:${__minuteListView.value}:${__secondListView.value}`;
+                return `${__hourListView.value}:${__minuteListView.value}:${__secondListView.value}`;
             case HusTimePicker.Format_HHMM:
-                return`${__hourListView.value}:${__minuteListView.value}`;
+                return `${__hourListView.value}:${__minuteListView.value}`;
             case HusTimePicker.Format_MMSS:
-                return`${__minuteListView.value}:${__secondListView.value}`;
+                return `${__minuteListView.value}:${__secondListView.value}`;
             }
         }
+
         function getCheckTime() {
             switch (control.format) {
             case HusTimePicker.Format_HHMMSS:
-                return`${__hourListView.checkValue}:${__minuteListView.checkValue}:${__secondListView.checkValue}`;
+                return `${__hourListView.checkValue}:${__minuteListView.checkValue}:${__secondListView.checkValue}`;
             case HusTimePicker.Format_HHMM:
-                return`${__hourListView.checkValue}:${__minuteListView.checkValue}`;
+                return `${__hourListView.checkValue}:${__minuteListView.checkValue}`;
             case HusTimePicker.Format_MMSS:
-                return`${__minuteListView.checkValue}:${__secondListView.checkValue}`;
+                return `${__minuteListView.checkValue}:${__secondListView.checkValue}`;
             }
         }
+
         function getTempTime() {
             switch (control.format) {
             case HusTimePicker.Format_HHMMSS:
-                return`${__hourListView.tempValue}:${__minuteListView.tempValue}:${__secondListView.tempValue}`;
+                return `${__hourListView.tempValue}:${__minuteListView.tempValue}:${__secondListView.tempValue}`;
             case HusTimePicker.Format_HHMM:
-                return`${__hourListView.tempValue}:${__minuteListView.tempValue}`;
+                return `${__hourListView.tempValue}:${__minuteListView.tempValue}`;
             case HusTimePicker.Format_MMSS:
-                return`${__minuteListView.tempValue}:${__secondListView.tempValue}`;
+                return `${__minuteListView.tempValue}:${__secondListView.tempValue}`;
             }
         }
+
         function testValid() {
             let reg;
             switch (control.format) {
@@ -302,9 +327,7 @@ T.TextField {
         }
     }
 
-    // 时钟图标
     HusIconText {
-        id: clockIcon
         anchors.left: control.iconPosition == HusTimePicker.Position_Left ? parent.left : undefined
         anchors.right: control.iconPosition == HusTimePicker.Position_Right ? parent.right : undefined
         anchors.margins: 5
@@ -323,10 +346,8 @@ T.TextField {
         
         Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
     }
-    
-    // 清除按钮图标
+
     HusIconText {
-        id: clearIcon
         anchors.left: control.iconPosition == HusTimePicker.Position_Left ? parent.left : undefined
         anchors.right: control.iconPosition == HusTimePicker.Position_Right ? parent.right : undefined
         anchors.margins: 5
@@ -478,19 +499,10 @@ T.TextField {
                     text: qsTr('此刻')
                     colorBg: 'transparent'
                     onClicked: {
-                        const now = new Date();
-                        __hourListView.initValue(String(now.getHours()).padStart(2, '0'));
-                        __hourListView.checkIndex(now.getHours());
-                        __minuteListView.initValue(String(now.getMinutes()).padStart(2, '0'));
-                        __minuteListView.checkIndex(now.getMinutes());
-                        __secondListView.initValue(String(now.getSeconds()).padStart(2, '0'));
-                        __secondListView.checkIndex(now.getSeconds());
-
-                        __private.cleared = false;
+                        __private.setTime(new Date());
                         __picker.close();
 
                         control.acceptedTime(__private.getTime());
-                        control.text = __private.getTime();
                     }
                 }
 
@@ -513,8 +525,8 @@ T.TextField {
                         __private.cleared = false;
                         __picker.close();
 
-                        control.acceptedTime(__private.getTime());
                         control.text = __private.getTime();
+                        control.acceptedTime(__private.getTime());
                     }
                 }
             }

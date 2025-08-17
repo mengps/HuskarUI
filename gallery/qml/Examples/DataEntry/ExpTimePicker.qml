@@ -28,6 +28,7 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 active(readonly) | bool | false | 是否处于激活状态
+initTime | date | undefined | 初始时间
 format | enum | HusTimePicker.Format_HHMMSS | 时间格式(来自 HusTimePicker)
 iconSize | int | - | 图标大小
 iconPosition | enum | HusTimePicker.Position_Right | 图标位置(来自 HusTimePicker)
@@ -42,6 +43,7 @@ radiusPopupBg | int | - | 弹出框背景半径
 contentDescription | string | '' | 内容描述(提高可用性)
 \n<br/>
 \n### 支持的函数：\n
+- \`setTime(time: Date)\` 设置当前时间为 \`time\` \n
 - \`clearTime()\` 清空时间 \n
 \n<br/>
 \n### 支持的信号：\n
@@ -80,6 +82,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     spacing: 10
 
                     HusTimePicker {
+                        initTime: HusApi.dateFromString('12:08:23', 'HH:mm:ss')
                         iconPosition: HusTimePicker.Position_Right
                     }
 
@@ -96,6 +99,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                 spacing: 10
 
                 HusTimePicker {
+                    initTime: HusApi.dateFromString('12:08:23', 'HH:mm:ss')
                     iconPosition: HusTimePicker.Position_Right
                 }
 
