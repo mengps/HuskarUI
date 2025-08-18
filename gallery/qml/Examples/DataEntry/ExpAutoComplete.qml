@@ -32,6 +32,7 @@ Flickable {
   - \`parent.valueData: var\` {valueRole}对应的值数据\n
   - \`parent.modelData: var\` 选项模型数据\n
   - \`parent.hovered: bool\` 是否悬浮\n
+  - \`parent.selected: bool\` 是否选择\n
   - \`parent.highlighted: bool\` 是否高亮\n
 \n<br/>
 \n### 支持的属性：\n
