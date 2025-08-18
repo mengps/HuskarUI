@@ -77,7 +77,9 @@ HusInput {
     }
 
     Keys.onPressed: function(event) {
-        if (event.key === Qt.Key_Up) {
+        if (event.key === Qt.Key_Escape) {
+            control.closePopup();
+        } else if (event.key === Qt.Key_Up) {
             control.openPopup();
             if (__popupListView.selectIndex > 0) {
                 __popupListView.selectIndex -= 1;
@@ -97,9 +99,9 @@ HusInput {
                 const valueData = modelData[control.valueRole] ?? textData;
                 control.select(modelData);
                 control.text = valueData;
-                __popupListView.currentIndex = __popupListView.selectIndex;
                 __popup.close();
                 control.filter();
+                __popupListView.currentIndex = __popupListView.selectIndex = 0;
             }
         }
     }
@@ -121,6 +123,7 @@ HusInput {
 
     function filter() {
         __private.model = options.filter(option => filterOption(text, option) === true);
+        __popupListView.currentIndex = __popupListView.selectIndex = -1;
     }
 
     Item {
@@ -162,14 +165,14 @@ HusInput {
                 property: 'opacity'
                 from: 0.0
                 to: 1.0
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.OutQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
             NumberAnimation {
                 property: 'height'
                 from: 0
                 to: __popup.implicitHeight
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.OutQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
         }
@@ -178,13 +181,13 @@ HusInput {
                 property: 'opacity'
                 from: 1.0
                 to: 0.0
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.InQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
             NumberAnimation {
                 property: 'height'
                 to: 0
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.InQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
         }
@@ -233,9 +236,9 @@ HusInput {
                 onClicked: {
                     control.select(__popupDelegate.modelData);
                     control.text = __popupDelegate.valueData;
-                    __popupListView.currentIndex = __popupListView.selectIndex = index;
                     __popup.close();
                     control.filter();
+                    ListView.view.currentIndex = ListView.view.selectIndex = 0;
                 }
 
                 HoverHandler {
@@ -257,6 +260,6 @@ HusInput {
             T.ScrollBar.vertical: HusScrollBar { }
         }
 
-        Binding on height { value: __popup.implicitHeight }
+        Binding on height { when: __popup.opened; value: __popup.implicitHeight }
     }
 }
