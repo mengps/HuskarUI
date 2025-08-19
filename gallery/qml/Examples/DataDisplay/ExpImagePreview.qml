@@ -20,6 +20,8 @@ Flickable {
 * **继承自 { HusPopup }**\n
 \n<br/>
 \n### 支持的代理：\n
+- **sourceDelegate: Component** 预览源项目代理(可以是 \`Image/AnimatedImage/Video\` 等)，必须提供 \`sourceSize\` 属性，代理可访问属性：\n
+  - \`sourceUrl: url\` 源url\n
 - **closeDelegate: Component** 关闭按钮代理。\n
 - **prevDelegate: Component** 前一幅按钮代理。\n
 - **nextDelegate: Component** 后一幅按钮代理。\n
@@ -125,6 +127,75 @@ url | url | 必选 | 图片源
                         { url: 'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp' },
                         { url: 'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp' },
                         { url: 'https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp' },
+                    ]
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            descTitle: qsTr('高级用法')
+            desc: qsTr(`
+可以通过 \`sourceDelegate\` 将预览项替换为其他组件。\n
+                       `)
+            code: `
+                import QtQuick
+                import HuskarUI.Basic
+
+                Column {
+                    spacing: 10
+
+                    HusButton {
+                        text: 'Show gif image preview'
+                        type: HusButton.Type_Primary
+                        onClicked: {
+                            gifPreview.open();
+                        }
+                    }
+
+                    HusImagePreview {
+                        id: gifPreview
+                        sourceDelegate: AnimatedImage {
+                            source: sourceUrl
+                            fillMode: Image.PreserveAspectFit
+                            onStatusChanged: {
+                                if (status == Image.Ready)
+                                    gifPreview.resetTransform();
+                            }
+                        }
+                        items: [
+                            { url: 'https://gw.alipayobjects.com/zos/rmsportal/LyTPSGknLUlxiVdwMWyu.gif' },
+                            { url: 'https://gw.alipayobjects.com/zos/rmsportal/SQOZVQVIossbXpzDmihu.gif' },
+                            { url: 'https://gw.alipayobjects.com/zos/rmsportal/OkIXkscKxywYLSrilPIf.gif' },
+                        ]
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                HusButton {
+                    text: 'Show gif image preview'
+                    type: HusButton.Type_Primary
+                    onClicked: {
+                        gifPreview.open();
+                    }
+                }
+
+                HusImagePreview {
+                    id: gifPreview
+                    sourceDelegate: AnimatedImage {
+                        source: sourceUrl
+                        fillMode: Image.PreserveAspectFit
+                        onStatusChanged: {
+                            if (status == Image.Ready)
+                                gifPreview.resetTransform();
+                        }
+                    }
+                    items: [
+                        { url: 'https://gw.alipayobjects.com/zos/rmsportal/LyTPSGknLUlxiVdwMWyu.gif' },
+                        { url: 'https://gw.alipayobjects.com/zos/rmsportal/SQOZVQVIossbXpzDmihu.gif' },
+                        { url: 'https://gw.alipayobjects.com/zos/rmsportal/OkIXkscKxywYLSrilPIf.gif' },
                     ]
                 }
             }

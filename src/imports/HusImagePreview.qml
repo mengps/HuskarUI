@@ -18,6 +18,14 @@ HusPopup {
     property alias currentIndex: __listView.currentIndex
     readonly property alias count: __listView.count
 
+    property Component sourceDelegate: Image {
+        source: sourceUrl
+        fillMode: Image.PreserveAspectFit
+        onStatusChanged: {
+            if (status == Image.Ready)
+                control.resetTransform();
+        }
+    }
     property Component closeDelegate: HusIconButton {
         topPadding: 10
         bottomPadding: 10
@@ -429,8 +437,11 @@ HusPopup {
                         return x >= __image.x && x <= __image.x + __image.width && y >= __image.y && y <= __image.y + __image.height;
                     }
 
-                    Image {
+                    Loader {
                         id: __image
+
+                        property url sourceUrl: __rootItem.url
+                        property size sourceSize: item ? item.sourceSize : Qt.size(0, 0)
 
                         property real minViewHeight: __rootItem.height - 200
                         property real aspectRatio: sourceSize.width / sourceSize.height
@@ -438,6 +449,7 @@ HusPopup {
                         property point mapTopLeft: mapToItem(parent, 0, 0)
                         property point mapBottomRight: mapToItem(parent, width, height)
 
+                        sourceComponent: control.sourceDelegate
                         onRealSizeChanged: {
                             if (realSize.width < __rootItem.width || realSize.height < __rootItem.height)
                                 __adjustTimer.restart();
@@ -538,8 +550,6 @@ HusPopup {
                         y: (parent.height - height) * 0.5
                         width: height * aspectRatio
                         height: Math.min(sourceSize.height, minViewHeight)
-                        source: __rootItem.url
-                        fillMode: Image.PreserveAspectFit
                         transform: [
                             Scale {
                                 id: __scale
@@ -593,10 +603,6 @@ HusPopup {
                                 }
                             }
                         ]
-                        onStatusChanged: {
-                            if (status == Image.Ready)
-                                __private.toCenter();
-                        }
 
                         Behavior on x {
                             enabled: control.animationEnabled
