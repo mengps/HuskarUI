@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import HuskarUI.Basic
 
@@ -18,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusAutoComplete 自动完成 \n
 输入框自动完成功能。\n
-* **继承自 { HusInput }**\n
+* **继承自 { [HusInput](internal://HusInput) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **labelDelegate: Component** 弹出框标签项代理，代理可访问属性：\n

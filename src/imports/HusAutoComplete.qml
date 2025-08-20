@@ -60,8 +60,6 @@ HusInput {
         }
     }
     onOptionsChanged: {
-        __private.model = options;
-        __popupListView.currentIndex = __popupListView.selectIndex = -1;
         control.filter();
     }
     onFilterOptionChanged: {
@@ -186,6 +184,7 @@ HusInput {
             }
             NumberAnimation {
                 property: 'height'
+                from: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
                 to: 0
                 easing.type: Easing.InQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
