@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.2.0)
+set(HUSKARUI_VERSION 0.4.3.0)
 
 message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
@@ -16,7 +16,7 @@ find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
 
 #Set plugin output dir
-set(HUSKARUI_HEADER_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI headeroutput dir.")
+set(HUSKARUI_HEADER_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI header output dir.")
 set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI library output dir.")
 set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir.")
 
@@ -24,11 +24,14 @@ if(NOT HUSKARUI_HEADER_OUTPUT_DIRECTORY)
     set(HUSKARUI_HEADER_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../include/HuskarUI)
 endif()
 
-if(NOT HUSKARUI_PLUGIN_OUTPUT_DIRECTORY)
+if(NOT HUSKARUI_LIBRARY_OUTPUT_DIRECTORY)
     set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
+endif()
+
+if(NOT HUSKARUI_PLUGIN_OUTPUT_DIRECTORY)
     set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/HuskarUI/Basic)
     if(BUILD_HUSKARUI_STATIC_LIBRARY)
-        set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/HuskarUI/Basic)
+        set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
     endif()
 endif()
 
@@ -124,6 +127,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusInputNumber.qml
         imports/HusImage.qml
         imports/HusImagePreview.qml
+        imports/HusMultiSelect.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -161,6 +165,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/HusTabView.json
         theme/HusToolTip.json
         theme/HusSelect.json
+        theme/HusMultiSelect.json
         theme/HusInput.json
         theme/HusRate.json
         theme/HusRadio.json

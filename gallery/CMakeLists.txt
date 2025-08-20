@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.2.0)
+set(HUSKARUI_VERSION 0.4.3.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -63,6 +63,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpAutoComplete.qml
         qml/Examples/DataEntry/ExpDatePicker.qml
         qml/Examples/DataEntry/ExpInputNumber.qml
+        qml/Examples/DataEntry/ExpMultiSelect.qml
         qml/Examples/DataDisplay/ExpToolTip.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml
