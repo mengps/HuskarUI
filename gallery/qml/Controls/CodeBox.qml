@@ -98,11 +98,37 @@ Rectangle {
                     padding: 4
                     topPadding: 4
                     bottomPadding: 4
-                    iconSize: HusTheme.Primary.fontPrimarySizeHeading4
-                    iconSource: HusIcon.ColumnHeightOutlined
                     onClicked: {
                         codeText.expanded = !codeText.expanded;
                     }
+                    contentItem: Item {
+                        implicitWidth: HusTheme.Primary.fontPrimarySizeHeading4
+                        implicitHeight: implicitWidth
+                        Row {
+                            height: parent.implicitHeight
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            HusIconText {
+                                anchors.verticalCenter: parent.verticalCenter
+                                iconSize: HusTheme.Primary.fontPrimarySize - 4
+                                iconSource: HusIcon.LeftOutlined
+                            }
+                            HusIconText {
+                                anchors.verticalCenter: parent.verticalCenter
+                                iconSize: HusTheme.Primary.fontPrimarySize - 4
+                                iconSource: HusIcon.RightOutlined
+                            }
+                        }
+
+                        HusIconText {
+                            anchors.centerIn: parent
+                            iconSize: HusTheme.Primary.fontPrimarySize - 2
+                            iconSource: HusIcon.MinusOutlined
+                            rotation: -80
+                            opacity: codeText.expanded ? 1 : 0
+                            Behavior on opacity { NumberAnimation { duration: HusTheme.Primary.durationMid } }
+                        }
+                    }
+
                     HusToolTip {
                         arrowVisible: false
                         visible: parent ? parent.hovered : false
