@@ -1,0 +1,13 @@
+{
+    "__init__": {
+        "__import__": ["HusSelect"]
+    },
+    "__style__": {
+        "colorIconSelect": "@colorPrimary",
+        "colorTagText": "@colorTextBase",
+        "colorTagBg": "@colorFillPrimary",
+        "colorTagCloseHover": "@colorTextPrimary",
+        "colorTagClose": "@colorTextTertiary",
+        "radiusTagBg": "@radiusPrimarySM"
+    }
+}
