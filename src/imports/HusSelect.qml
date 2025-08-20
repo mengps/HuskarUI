@@ -10,23 +10,24 @@ T.ComboBox {
     property int hoverCursorShape: Qt.PointingHandCursor
     property bool tooltipVisible: false
     property bool loading: false
-    property int defaulPopupMaxHeight: 240
+    property int defaultPopupMaxHeight: 240
     property color colorText: enabled ?
-                                  popup.visible ? HusTheme.HusSelect.colorTextActive :
-                                                  HusTheme.HusSelect.colorText : HusTheme.HusSelect.colorTextDisabled
+                                  popup.visible ? themeSource.colorTextActive :
+                                                  themeSource.colorText : themeSource.colorTextDisabled
     property color colorBorder: enabled ?
-                                    active ? HusTheme.HusSelect.colorBorderHover :
-                                             HusTheme.HusSelect.colorBorder : HusTheme.HusSelect.colorBorderDisabled
-    property color colorBg: enabled ? HusTheme.HusSelect.colorBg : HusTheme.HusSelect.colorBgDisabled
+                                    active ? themeSource.colorBorderHover :
+                                             themeSource.colorBorder : themeSource.colorBorderDisabled
+    property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
 
-    property int radiusBg: HusTheme.HusSelect.radiusBg
-    property int radiusItemBg: HusTheme.HusSelect.radiusItemBg
-    property int radiusPopupBg: HusTheme.HusSelect.radiusPopupBg
+    property int radiusBg: themeSource.radiusBg
+    property int radiusItemBg: themeSource.radiusItemBg
+    property int radiusPopupBg: themeSource.radiusPopupBg
     property string contentDescription: ''
+    property var themeSource: HusTheme.HusSelect
 
     property Component indicatorDelegate: HusIconText {
-        colorIcon: HusTheme.HusSelect.colorTextActive
-        iconSize: HusTheme.HusSelect.fontSize - 2
+        colorIcon: themeSource.colorTextActive
+        iconSize: themeSource.fontSize - 2
         iconSource: control.loading ? HusIcon.LoadingOutlined : HusIcon.DownOutlined
 
         NumberAnimation on rotation {
@@ -52,8 +53,8 @@ T.ComboBox {
     textRole: 'label'
     valueRole: 'value'
     font {
-        family: HusTheme.HusSelect.fontFamily
-        pixelSize: HusTheme.HusSelect.fontSize
+        family: control.themeSource.fontFamily
+        pixelSize: control.themeSource.fontSize
     }
     delegate: T.ItemDelegate { }
     indicator: Loader {
@@ -82,12 +83,14 @@ T.ComboBox {
         id: __popup
         y: control.height + 2
         implicitWidth: control.width
-        implicitHeight: Math.min(control.defaulPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
+        implicitHeight: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
         leftPadding: 4
         rightPadding: 4
         topPadding: 6
         bottomPadding: 6
         animationEnabled: control.animationEnabled
+        radiusBg: control.themeSource.radiusPopupBg
+        colorBg: HusTheme.isDark ? control.themeSource.colorPopupBgDark : control.themeSource.colorPopupBg
         enter: Transition {
             NumberAnimation {
                 property: 'opacity'
@@ -98,7 +101,6 @@ T.ComboBox {
             }
             NumberAnimation {
                 property: 'height'
-                from: 0
                 to: __popup.implicitHeight
                 easing.type: Easing.OutQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
@@ -114,6 +116,7 @@ T.ComboBox {
             }
             NumberAnimation {
                 property: 'height'
+                from: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
                 to: 0
                 easing.type: Easing.InQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
@@ -140,10 +143,10 @@ T.ComboBox {
                 enabled: model.enabled ?? true
                 contentItem: HusText {
                     text: __popupDelegate.model[control.textRole]
-                    color: __popupDelegate.enabled ? HusTheme.HusSelect.colorItemText : HusTheme.HusSelect.colorItemTextDisabled;
+                    color: __popupDelegate.enabled ? control.themeSource.colorItemText : control.themeSource.colorItemTextDisabled;
                     font {
-                        family: HusTheme.HusSelect.fontFamily
-                        pixelSize: HusTheme.HusSelect.fontSize
+                        family: control.themeSource.fontFamily
+                        pixelSize: control.themeSource.fontSize
                         weight: highlighted ? Font.DemiBold : Font.Normal
                     }
                     elide: Text.ElideRight
@@ -153,11 +156,11 @@ T.ComboBox {
                     radius: control.radiusItemBg
                     color: {
                         if (__popupDelegate.enabled)
-                            return highlighted ? HusTheme.HusSelect.colorItemBgActive :
-                                                 hovered ? HusTheme.HusSelect.colorItemBgHover :
-                                                           HusTheme.HusSelect.colorItemBg;
+                            return highlighted ? control.themeSource.colorItemBgActive :
+                                                 hovered ? control.themeSource.colorItemBgHover :
+                                                           control.themeSource.colorItemBg;
                         else
-                            return HusTheme.HusSelect.colorItemBgDisabled;
+                            return control.themeSource.colorItemBgDisabled;
                     }
 
                     Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
@@ -191,7 +194,7 @@ T.ComboBox {
             }
         }
 
-        Binding on height { value: __popup.implicitHeight }
+        Binding on height { when: __popup.opened; value: __popup.implicitHeight }
     }
 
     HoverHandler {
