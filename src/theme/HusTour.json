@@ -1,12 +1,14 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSizeTitle": "@fontPrimarySizeHeading5",
-    "fontSizeDescription": "@fontPrimarySize",
-    "fontSizeIndicator": "@fontPrimarySize",
-    "fontSizeButton": "@fontPrimarySize",
-    "colorText": "@colorTextBase",
-    "colorBg": "$lighter(@colorBgBase)",
-    "colorOverlay": "@colorBgMask",
-    "radiusCard": "@radiusPrimary",
-    "radiusButtonBg": "@radiusPrimarySM"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSizeTitle": "@fontPrimarySizeHeading5",
+        "fontSizeDescription": "@fontPrimarySize",
+        "fontSizeIndicator": "@fontPrimarySize",
+        "fontSizeButton": "@fontPrimarySize",
+        "colorText": "@colorTextBase",
+        "colorBg": "$lighter(@colorBgBase)",
+        "colorOverlay": "@colorBgMask",
+        "radiusCard": "@radiusPrimary",
+        "radiusButtonBg": "@radiusPrimarySM"
+    }
 }

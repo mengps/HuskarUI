@@ -1,7 +1,9 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "colorText": "@colorTextBase",
-    "colorSelectedText": "#fff",
-    "colorSelection": "@colorPrimary"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorText": "@colorTextBase",
+        "colorSelectedText": "#fff",
+        "colorSelection": "@colorPrimary"
+    }
 }

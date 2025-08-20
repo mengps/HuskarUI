@@ -1,13 +1,15 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "colorText": "@colorTextBase",
-    "colorTextDisabled": "@colorPrimaryTextDisabled",
-    "colorIndicator": "@colorBgBase",
-    "colorIndicatorChecked": "@colorPrimary",
-    "colorIndicatorCheckedHover": "@colorPrimaryHover",
-    "colorIndicatorDisabled": "$alpha(@colorTextBase, 0.1)",
-    "colorIndicatorBorder": "$onBackground(@colorTextQuaternary, @colorBgBase)",
-    "colorIndicatorBorderChecked": "@colorPrimaryBorderActive",
-    "colorEffectBg": "@colorTextTertiary"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorText": "@colorTextBase",
+        "colorTextDisabled": "@colorPrimaryTextDisabled",
+        "colorIndicator": "@colorBgBase",
+        "colorIndicatorChecked": "@colorPrimary",
+        "colorIndicatorCheckedHover": "@colorPrimaryHover",
+        "colorIndicatorDisabled": "$alpha(@colorTextBase, 0.1)",
+        "colorIndicatorBorder": "$onBackground(@colorTextQuaternary, @colorBgBase)",
+        "colorIndicatorBorderChecked": "@colorPrimaryBorderActive",
+        "colorEffectBg": "@colorTextTertiary"
+    }
 }

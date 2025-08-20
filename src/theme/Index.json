@@ -1,19 +1,47 @@
 {
-    "colorTextBase": "#000000|#f3f3f3",
-    "colorBgBase": "#f5f5f5|#181818",
-    "%VariableTable%": {
-        "colorPrimaryBase": "$genColor(#Preset_Blue)",
-        "colorSuccessBase": "$genColor(#Preset_Green)",
-        "colorWarningBase": "$genColor(#Preset_Gold)",
-        "colorErrorBase": "$genColor(#ff4d4f)",
-        "colorInfoBase": "$genColor(#Preset_Blue)",
-        "colorLinkBase": "$genColor(#Preset_Blue)",
-        "fontSizeBase": "$genFontSize(16)",
-        "fontLineHeightBase": "$genFontLineHeight(16)",
-        "fontFamilyBase": "$genFontFamily('Microsoft YaHei UI', BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif)",
-        "radiusBase": "$genRadius(6)"
+    "__init__": {
+        "__base__": {
+            "colorTextBase": "#000000|#f3f3f3",
+            "colorBgBase": "#f5f5f5|#181818"
+        },
+        "__vars__": {
+            "colorPrimaryBase": "$genColor(#Preset_Blue)",
+            "colorSuccessBase": "$genColor(#Preset_Green)",
+            "colorWarningBase": "$genColor(#Preset_Gold)",
+            "colorErrorBase": "$genColor(#ff4d4f)",
+            "colorInfoBase": "$genColor(#Preset_Blue)",
+            "colorLinkBase": "$genColor(#Preset_Blue)",
+            "fontSizeBase": "$genFontSize(16)",
+            "fontLineHeightBase": "$genFontLineHeight(16)",
+            "fontFamilyBase": "$genFontFamily('Microsoft YaHei UI', BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif)",
+            "radiusBase": "$genRadius(6)"
+        }
     },
-    "primaryColorStyle": {
+    "__style__": {
+        "fontPrimaryFamily": "@fontFamilyBase",
+        "fontPrimarySize": "@fontSizeBase-1",
+        "fontPrimarySizeHeading1": "@fontSizeBase-6",
+        "fontPrimarySizeHeading2": "@fontSizeBase-5",
+        "fontPrimarySizeHeading3": "@fontSizeBase-4",
+        "fontPrimarySizeHeading4": "@fontSizeBase-3",
+        "fontPrimarySizeHeading5": "@fontSizeBase-2",
+        "fontPrimaryHeight": "$multiply(@fontSizeBase-1, @fontLineHeightBase-1)",
+        "fontPrimaryLineHeightHeading1": "@fontLineHeightBase-6",
+        "fontPrimaryLineHeightHeading2": "@fontLineHeightBase-5",
+        "fontPrimaryLineHeightHeading3": "@fontLineHeightBase-4",
+        "fontPrimaryLineHeightHeading4": "@fontLineHeightBase-3",
+        "fontPrimaryLineHeightHeading5": "@fontLineHeightBase-2",
+
+        "radiusPrimary": "@radiusBase-1",
+        "radiusPrimaryLG": "@radiusBase-2",
+        "radiusPrimarySM": "@radiusBase-3",
+        "radiusPrimaryXS": "@radiusBase-4",
+        "radiusPrimaryOuter": "@radiusBase-5",
+
+        "durationFast": "100",
+        "durationMid": "200",
+        "durationSlow": "300",
+
         "colorTextPrimary": "$alpha(@colorTextBase, 0.88)",
         "colorTextSecondary": "$alpha(@colorTextBase, 0.65)",
         "colorTextTertiary": "$alpha(@colorTextBase, 0.45)",
@@ -69,7 +97,7 @@
         "colorSuccessTextHover": "@colorSuccessBase-8",
         "colorSuccessText": "@colorSuccessBase-9",
         "colorSuccessTextActive": "@colorSuccessBase-10",
-    
+
         "colorErrorBg": "@colorErrorBase-1",
         "colorErrorBgHover": "@colorErrorBase-2",
         "colorErrorBgActive": "@colorErrorBase-3",
@@ -81,7 +109,7 @@
         "colorErrorTextHover": "@colorErrorBase-8",
         "colorErrorText": "@colorErrorBase-9",
         "colorErrorTextActive": "@colorErrorBase-10",
-    
+
         "colorWarningBg": "@colorWarningBase-1",
         "colorWarningBgHover": "@colorWarningBase-2",
         "colorWarningBorder": "@colorWarningBase-3",
@@ -92,7 +120,7 @@
         "colorWarningTextHover": "@colorWarningBase-8",
         "colorWarningText": "@colorWarningBase-9",
         "colorWarningTextActive": "@colorWarningBase-10",
-    
+
         "colorInfoBg": "@colorInfoBase-1",
         "colorInfoBgHover": "@colorInfoBase-2",
         "colorInfoBorder": "@colorInfoBase-3",
@@ -103,7 +131,7 @@
         "colorInfoTextHover": "@colorInfoBase-8",
         "colorInfoText": "@colorInfoBase-9",
         "colorInfoTextActive": "@colorInfoBase-10",
-    
+
         "colorLinkHover": "@colorLinkBase-4",
         "colorLink": "@colorLinkBase-6",
         "colorLinkActive": "@colorLinkBase-7",
@@ -122,34 +150,7 @@
         "colorMain-12": "#141414",
         "colorMain-13": "#000000"
     },
-    "primaryFontStyle": {
-        "fontPrimaryFamily": "@fontFamilyBase",
-        "fontPrimarySize": "@fontSizeBase-1",
-        "fontPrimarySizeHeading1": "@fontSizeBase-6",
-        "fontPrimarySizeHeading2": "@fontSizeBase-5",
-        "fontPrimarySizeHeading3": "@fontSizeBase-4",
-        "fontPrimarySizeHeading4": "@fontSizeBase-3",
-        "fontPrimarySizeHeading5": "@fontSizeBase-2",
-        "fontPrimaryHeight": "$multiply(@fontSizeBase-1,@fontLineHeightBase-1)",
-        "fontPrimaryLineHeightHeading1": "@fontLineHeightBase-6",
-        "fontPrimaryLineHeightHeading2": "@fontLineHeightBase-5",
-        "fontPrimaryLineHeightHeading3": "@fontLineHeightBase-4",
-        "fontPrimaryLineHeightHeading4": "@fontLineHeightBase-3",
-        "fontPrimaryLineHeightHeading5": "@fontLineHeightBase-2"
-    },
-    "primaryRadius": {
-        "radiusPrimary": "@radiusBase-1",
-        "radiusPrimaryLG": "@radiusBase-2",
-        "radiusPrimarySM": "@radiusBase-3",
-        "radiusPrimaryXS": "@radiusBase-4",
-        "radiusPrimaryOuter": "@radiusBase-5"
-    },
-    "primaryAnimation": {
-        "durationFast": "100",
-        "durationMid": "200",
-        "durationSlow": "300"
-    },
-    "componentStyle": {
+    "__component__": {
         "HusButton": ":/HuskarUI/theme/HusButton.json",
         "HusCaptionButton": ":/HuskarUI/theme/HusCaptionButton.json",
         "HusTour": ":/HuskarUI/theme/HusTour.json",
@@ -182,6 +183,7 @@
         "HusProgress": ":/HuskarUI/theme/HusProgress.json",
         "HusCarousel": ":/HuskarUI/theme/HusCarousel.json",
         "HusBreadcrumb": ":/HuskarUI/theme/HusBreadcrumb.json",
-        "HusImage": ":/HuskarUI/theme/HusImage.json"
+        "HusImage": ":/HuskarUI/theme/HusImage.json",
+        "HusMultiSelect": ":/HuskarUI/theme/HusMultiSelect.json"
     }
 }

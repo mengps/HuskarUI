@@ -1,19 +1,21 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "fontIconSize": "@fontPrimarySizeHeading5",
-    "colorText": "@colorTextBase",
-    "colorTextDisabled": "@colorPrimaryTextDisabled",
-    "colorPlaceholderText": "@colorTextQuaternary",
-    "colorPlaceholderTextDisabled": "@colorPrimaryTextDisabled",
-    "colorSelectedText": "@colorTextBase",
-    "colorSelection": "$alpha(@colorPrimary, 0.6)",
-    "colorBorder": "$onBackground(@colorTextQuaternary, @colorBgBase)",
-    "colorBorderHover": "@colorPrimary",
-    "colorBorderDisabled": "$onBackground(@colorFill, @colorBgBase)",
-    "colorBg": "@colorBgBase",
-    "colorBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)",
-    "colorLabelBg": "$onBackground(@colorFillQuaternary, @colorBgBase)",
-    "colorLabelBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)",
-    "radiusBg": "@radiusPrimary"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "fontIconSize": "@fontPrimarySizeHeading5",
+        "colorText": "@colorTextBase",
+        "colorTextDisabled": "@colorPrimaryTextDisabled",
+        "colorPlaceholderText": "@colorTextQuaternary",
+        "colorPlaceholderTextDisabled": "@colorPrimaryTextDisabled",
+        "colorSelectedText": "@colorTextBase",
+        "colorSelection": "$alpha(@colorPrimary, 0.6)",
+        "colorBorder": "$onBackground(@colorTextQuaternary, @colorBgBase)",
+        "colorBorderHover": "@colorPrimary",
+        "colorBorderDisabled": "$onBackground(@colorFill, @colorBgBase)",
+        "colorBg": "@colorBgBase",
+        "colorBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)",
+        "colorLabelBg": "$onBackground(@colorFillQuaternary, @colorBgBase)",
+        "colorLabelBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)",
+        "radiusBg": "@radiusPrimary"
+    }
 }

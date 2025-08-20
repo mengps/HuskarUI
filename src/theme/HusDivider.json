@@ -1,6 +1,8 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "colorText": "@colorTextBase",
-    "colorSplit": "$alpha(@colorTextBase, 0.1)"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorText": "@colorTextBase",
+        "colorSplit": "$alpha(@colorTextBase, 0.1)"
+    }
 }

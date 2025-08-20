@@ -1,16 +1,18 @@
 {
-    "colorHandle": "@colorBgBase",
-    "colorHandleBorder": "@colorPrimaryBgActive",
-    "colorHandleBorderDisabled": "@colorTextQuaternary",
-    "colorHandleBorderHover": "@colorPrimaryBorderActive",
-    "colorHandleBorderDark": "@colorPrimaryBase-7",
-    "colorHandleBorderHoverDark": "@colorPrimaryBorderActive",
-    "colorTrackDisabled": "$alpha(@colorPrimaryBgActive, 0)",
-    "colorBg": "$alpha(@colorTextBase, 0.15)",
-    "colorBgHover": "$alpha(@colorTextBase, 0.25)",
-    "colorTrack": "@colorPrimaryBgActive",
-    "colorTrackHover": "@colorPrimaryBorderHover",
-    "colorTrackDark": "@colorPrimaryBase-7",
-    "colorTrackHoverDark": "@colorPrimaryBase-6",
-    "radiusBg": "@radiusPrimary"
+    "__style__": {
+        "colorHandle": "@colorBgBase",
+        "colorHandleBorder": "@colorPrimaryBgActive",
+        "colorHandleBorderDisabled": "@colorTextQuaternary",
+        "colorHandleBorderHover": "@colorPrimaryBorderActive",
+        "colorHandleBorderDark": "@colorPrimaryBase-7",
+        "colorHandleBorderHoverDark": "@colorPrimaryBorderActive",
+        "colorTrackDisabled": "$alpha(@colorPrimaryBgActive, 0)",
+        "colorBg": "$alpha(@colorTextBase, 0.15)",
+        "colorBgHover": "$alpha(@colorTextBase, 0.25)",
+        "colorTrack": "@colorPrimaryBgActive",
+        "colorTrackHover": "@colorPrimaryBorderHover",
+        "colorTrackDark": "@colorPrimaryBase-7",
+        "colorTrackHoverDark": "@colorPrimaryBase-6",
+        "radiusBg": "@radiusPrimary"
+    }
 }

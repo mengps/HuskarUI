@@ -1,14 +1,16 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "colorText": "@colorTextBase",
-    "colorHandle": "#ffffff",
-    "colorBgDisabled": "$alpha(@colorTextQuaternary, 0.15)",
-    "colorCheckedBgDisabled": "$alpha(@colorPrimary, 0.65)",
-    "colorBg": "@colorTextQuaternary",
-    "colorBgHover": "@colorTextTertiary",
-    "colorBgActive": "@colorTextQuaternary",
-    "colorCheckedBg": "@colorPrimary",
-    "colorCheckedBgHover": "@colorPrimaryHover",
-    "colorCheckedBgActive": "@colorPrimary"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorText": "@colorTextBase",
+        "colorHandle": "#ffffff",
+        "colorBgDisabled": "$alpha(@colorTextQuaternary, 0.15)",
+        "colorCheckedBgDisabled": "$alpha(@colorPrimary, 0.65)",
+        "colorBg": "@colorTextQuaternary",
+        "colorBgHover": "@colorTextTertiary",
+        "colorBgActive": "@colorTextQuaternary",
+        "colorCheckedBg": "@colorPrimary",
+        "colorCheckedBgHover": "@colorPrimaryHover",
+        "colorCheckedBgActive": "@colorPrimary"
+    }
 }

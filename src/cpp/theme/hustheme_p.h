@@ -59,6 +59,7 @@ enum class Component : uint16_t
     HusCarousel,
     HusBreadcrumb,
     HusImage,
+    HusMultiSelect,
 
     Size
 };
@@ -98,6 +99,7 @@ static QHash<QString, Component> g_componentTable
     { "HusCarousel",      Component::HusCarousel      },
     { "HusBreadcrumb",    Component::HusBreadcrumb    },
     { "HusImage",         Component::HusImage         },
+    { "HusMultiSelect",   Component::HusMultiSelect   },
 };
 
 struct ThemeData
@@ -118,6 +120,7 @@ public:
     HusThemePrivate(HusTheme *q) : q_ptr(q) { }
 
     Q_DECLARE_PUBLIC(HusTheme);
+
     HusTheme *q_ptr = nullptr;
     HusTheme::DarkMode m_darkMode = HusTheme::DarkMode::Light;
     HusTheme::TextRenderType m_textRenderType = HusTheme::TextRenderType::QtRendering;
@@ -141,6 +144,7 @@ public:
 
     void reloadIndexTheme();
     void reloadComponentTheme(const QMap<QObject *, ThemeData> &dataMap);
+    bool reloadComponentImport(QJsonObject &style, const QString &componentName);
     void reloadComponentThemeFile(QObject *themeObject, const QString &componentName, const ThemeData::Component &componentTheme);
     void reloadDefaultComponentTheme();
     void reloadCustomComponentTheme();

@@ -1,10 +1,12 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "colorDefaultText": "@colorTextBase",
-    "colorDefaultBg": "@colorFillTertiary",
-    "colorDefaultBorder": "$alpha(@colorTextBase, 0.2)",
-    "colorCloseIconHover": "@colorTextPrimary",
-    "colorCloseIcon": "@colorTextTertiary",
-    "radiusBg": "@radiusPrimarySM"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorDefaultText": "@colorTextBase",
+        "colorDefaultBg": "@colorFillTertiary",
+        "colorDefaultBorder": "$alpha(@colorTextBase, 0.2)",
+        "colorCloseIconHover": "@colorTextPrimary",
+        "colorCloseIcon": "@colorTextTertiary",
+        "radiusBg": "@radiusPrimarySM"
+    }
 }

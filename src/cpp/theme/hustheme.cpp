@@ -3,6 +3,7 @@
 #include "husthemefunctions.h"
 
 #include <QtCore/QFile>
+#include <QtCore/QJsonArray>
 #include <QtGui/QFont>
 
 void HusThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &tokenName, const QString &expr)
@@ -138,7 +139,6 @@ void HusThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &tokenN
                 } else if (argList.length() == 2) {
                     auto arg1 = colorFromIndexTable(argList.at(0));
                     auto arg2 = numberFromIndexTable(argList.at(1));
-                    arg1.setAlphaF(arg2);
                     out[tokenName] = HusThemeFunctions::alpha(arg1, arg2);
                 } else {
                     qDebug() << QString("func alpha() only accepts 1/2 parameters:(%1)").arg(args);
@@ -159,8 +159,8 @@ void HusThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &tokenN
             {
                 auto argList = args.split(',');
                 if (argList.length() == 2) {
-                    auto arg1 = numberFromIndexTable(argList.at(0));
-                    auto arg2 = numberFromIndexTable(argList.at(1));
+                    auto arg1 = numberFromIndexTable(argList.at(0).trimmed());
+                    auto arg2 = numberFromIndexTable(argList.at(1).trimmed());
                     out[tokenName] = HusThemeFunctions::multiply(arg1, arg2);
                 } else {
                     qDebug() << QString("func multiply() only accepts 2 parameters:(%1)").arg(args);
@@ -292,59 +292,49 @@ void HusThemePrivate::reloadIndexTheme()
     m_indexTokenTable.clear();
     q->m_Primary.clear();
 
-    auto colorTextBase = m_indexObject["colorTextBase"].toString();
-    auto colorBgBase = m_indexObject["colorBgBase"].toString();
+    auto __init__ = m_indexObject["__init__"].toObject();
+    auto __base__ = __init__["__base__"].toObject();
+
+    auto colorTextBase = __base__["colorTextBase"].toString();
+    auto colorBgBase = __base__["colorBgBase"].toString();
     auto colorTextBaseList = colorTextBase.split("|");
     auto colorBgBaseList = colorBgBase.split("|");
 
-    Q_ASSERT_X(colorTextBaseList.size() == 2, "HusThemePrivate",
+    Q_ASSERT_X(colorTextBaseList.size() == 2, "HusThemePrivate::reloadIndexTheme",
                QString("colorTextBase(%1) Must be in light:color|dark:color format").arg(colorTextBase).toStdString().c_str());
-    Q_ASSERT_X(colorBgBaseList.size() == 2, "HusThemePrivate",
+    Q_ASSERT_X(colorBgBaseList.size() == 2, "HusThemePrivate::reloadIndexTheme ",
                QString("colorBgBase(%1) Must be in light:color|dark:color format").arg(colorBgBase).toStdString().c_str());
 
     m_indexTokenTable["colorTextBase"] = q->isDark() ? colorTextBaseList.at(1) : colorTextBaseList.at(0);
     m_indexTokenTable["colorBgBase"] = q->isDark() ? colorBgBaseList.at(1) : colorBgBaseList.at(0);
 
-    auto variableTable = m_indexObject["%VariableTable%"].toObject();
-    for (auto it = variableTable.constBegin(); it != variableTable.constEnd(); it++) {
+    auto __vars__ = __init__["__vars__"].toObject();
+    for (auto it = __vars__.constBegin(); it != __vars__.constEnd(); it++) {
         auto expr = it.value().toString().simplified();
         parseIndexExpr(it.key(), expr);
     }
-    auto primaryColorStyle = m_indexObject["primaryColorStyle"].toObject();
-    for (auto it = primaryColorStyle.constBegin(); it != primaryColorStyle.constEnd(); it++) {
+
+    /*! Index.json<__style__> => Primary */
+    auto __style__ = m_indexObject["__style__"].toObject();
+    for (auto it = __style__.constBegin(); it != __style__.constEnd(); it++) {
         auto expr = it.value().toString().simplified();
         parseIndexExpr(it.key(), expr);
     }
-    auto primaryFontStyle = m_indexObject["primaryFontStyle"].toObject();
-    for (auto it = primaryFontStyle.constBegin(); it != primaryFontStyle.constEnd(); it++) {
-        auto expr = it.value().toString().simplified();
-        parseIndexExpr(it.key(), expr);
-    }
-    auto primaryRadius = m_indexObject["primaryRadius"].toObject();
-    for (auto it = primaryRadius.constBegin(); it != primaryRadius.constEnd(); it++) {
-        auto expr = it.value().toString().simplified();
-        parseIndexExpr(it.key(), expr);
-    }
-    auto primaryAnimation = m_indexObject["primaryAnimation"].toObject();
-    for (auto it = primaryAnimation.constBegin(); it != primaryAnimation.constEnd(); it++) {
-        auto expr = it.value().toString().simplified();
-        parseIndexExpr(it.key(), expr);
-    }
-    /*! Index.json => Primary */
     for (auto it = m_indexTokenTable.constBegin(); it != m_indexTokenTable.constEnd(); it++) {
         q->m_Primary[it.key()] = it.value();
     }
     emit q->PrimaryChanged();
-    auto componentStyle = m_indexObject["componentStyle"].toObject();
-    for (auto it = componentStyle.constBegin(); it != componentStyle.constEnd(); it++) {
+
+    auto __component__ = m_indexObject["__component__"].toObject();
+    for (auto it = __component__.constBegin(); it != __component__.constEnd(); it++) {
         registerDefaultComponentTheme(it.key(), it.value().toString());
     }
 }
 
 void HusThemePrivate::reloadComponentTheme(const QMap<QObject *, ThemeData> &dataMap)
 {
-    for (const auto &themeData: dataMap) {
-        for (auto it = themeData.componentMap.begin(); it != themeData.componentMap.end(); it++) {
+    for (auto &themeData: dataMap) {
+        for (auto it = themeData.componentMap.constBegin(); it != themeData.componentMap.constEnd(); it++) {
             auto componentName = it.key();
             auto componentTheme = it.value();
             reloadComponentThemeFile(themeData.themeObject, componentName, componentTheme);
@@ -352,31 +342,76 @@ void HusThemePrivate::reloadComponentTheme(const QMap<QObject *, ThemeData> &dat
     }
 }
 
+bool HusThemePrivate::reloadComponentImport(QJsonObject &style, const QString &componentName)
+{
+    Q_Q(HusTheme);
+
+    const auto __component__ = m_indexObject["__component__"].toObject();
+    if (__component__.contains(componentName)) {
+        const auto themePath = __component__[componentName].toString();
+        if (QFile theme(themePath); theme.open(QIODevice::ReadOnly)) {
+            QJsonParseError error;
+            QJsonDocument themeDoc = QJsonDocument::fromJson(theme.readAll(), &error);
+            if (error.error == QJsonParseError::NoError) {
+                const auto object = themeDoc.object();
+                const auto componentObject = themeDoc.object();
+                const auto __init__ = object["__init__"].toObject();
+                if (__init__.contains("__import__")) {
+                    const auto __import__ = __init__["__import__"].toArray();
+                    for (const auto &v: __import__) {
+                        reloadComponentImport(style, v.toString());
+                    }
+                }
+                /*QVariantMap tokenMap;
+                if (__init__.contains("__vars__")) {
+                    auto __vars__ = __init__["__vars__"].toObject();
+                    for (auto it = __vars__.constBegin(); it != __vars__.constEnd(); it++) {
+                        parseComponentExpr(&tokenMap, it.key(), it.value().toString().simplified());
+                    }
+                }
+                for (auto it = tokenMap.constBegin(); it != tokenMap.constEnd(); it++) {
+                    style[it.key()] = it.value().toString();
+                }*/
+                /*!
+                 * 读取 <Component>.json<__style__> 中的变量
+                 */
+                const auto __style__ = componentObject["__style__"].toObject();
+                for (auto it = __style__.constBegin(); it != __style__.constEnd(); it++) {
+                    style[it.key()] = it.value();
+                }
+            } else {
+                qDebug() << QString("Parse import component theme [%1] faild:").arg(themePath) << error.errorString();
+            }
+        } else {
+            qDebug() << "Open import component theme faild:" << theme.errorString() << themePath;
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void HusThemePrivate::reloadComponentThemeFile(QObject *themeObject, const QString &componentName,
                                                    const ThemeData::Component &componentTheme)
 {
-    if (QFile theme(componentTheme.path); theme.open(QIODevice::ReadOnly)) {
-        QJsonParseError error;
-        QJsonDocument themeDoc = QJsonDocument::fromJson(theme.readAll(), &error);
-        if (error.error == QJsonParseError::NoError) {
-            auto tokenMapPtr = componentTheme.tokenMap;
-            auto installTokenMap = componentTheme.installTokenMap;
-            auto object = themeDoc.object();
-            /*! 读取 <Component>.json 文件中的变量 */
-            for (auto it = object.constBegin(); it != object.constEnd(); it++) {
-                parseComponentExpr(tokenMapPtr, it.key(), it.value().toString());
-            }
-            /*! 读取通过 @link installComponentToken() 安装的变量, 存在则覆盖, 否则添加 */
-            for (auto it = installTokenMap.constBegin(); it != installTokenMap.constEnd(); it++) {
-                parseComponentExpr(tokenMapPtr, it.key(), it.value());
-            }
-            auto signalName = componentName + "Changed";
-            QMetaObject::invokeMethod(themeObject, signalName.toStdString().c_str());
-        } else {
-            qDebug() << QString("Parse theme [%1] faild:").arg(componentTheme.path) << error.errorString();
+    Q_Q(HusTheme);
+
+    auto tokenMapPtr = componentTheme.tokenMap;
+    auto installTokenMap = componentTheme.installTokenMap;
+
+    auto style = QJsonObject();
+    if (reloadComponentImport(style, componentName)) {
+        for (auto it = style.constBegin(); it != style.constEnd(); it++) {
+            parseComponentExpr(tokenMapPtr, it.key(), it.value().toString().simplified());
         }
-    } else {
-        qDebug() << "Open theme faild:" << theme.errorString() << componentTheme.path;
+
+        /*! 读取通过 @link installComponentToken() 安装的变量, 存在则覆盖, 否则添加 */
+        for (auto it = installTokenMap.constBegin(); it != installTokenMap.constEnd(); it++) {
+            parseComponentExpr(tokenMapPtr, it.key(), it.value());
+        }
+
+        auto signalName = componentName + "Changed";
+        QMetaObject::invokeMethod(themeObject, signalName.toStdString().c_str());
     }
 }
 
@@ -394,16 +429,16 @@ void HusThemePrivate::reloadCustomComponentTheme()
     reloadComponentTheme(m_customTheme);
 }
 
-void HusThemePrivate::registerDefaultComponentTheme(const QString &component, const QString &themePath)
+void HusThemePrivate::registerDefaultComponentTheme(const QString &componentName, const QString &themePath)
 {
     Q_Q(HusTheme);
 
 #define ADD_COMPONENT_CASE(ComponentName) \
     case Component::ComponentName: \
-    registerComponentTheme(q, component, &q->m_##ComponentName, themePath, m_defaultTheme); break;
+    registerComponentTheme(q, componentName, &q->m_##ComponentName, themePath, m_defaultTheme); break;
 
-    if (g_componentTable.contains(component)) {
-        switch (auto key = g_componentTable[component]; key) {
+    if (g_componentTable.contains(componentName)) {
+        switch (auto key = g_componentTable[componentName]; key) {
             ADD_COMPONENT_CASE(HusButton)
             ADD_COMPONENT_CASE(HusIconText)
             ADD_COMPONENT_CASE(HusCopyableText)
@@ -437,6 +472,7 @@ void HusThemePrivate::registerDefaultComponentTheme(const QString &component, co
             ADD_COMPONENT_CASE(HusCarousel)
             ADD_COMPONENT_CASE(HusBreadcrumb)
             ADD_COMPONENT_CASE(HusImage)
+            ADD_COMPONENT_CASE(HusMultiSelect)
         default:
             break;
         }
@@ -608,11 +644,11 @@ void HusTheme::installThemePrimaryAnimationBase(int durationFast, int durationMi
 {
     Q_D(HusTheme);
 
-    auto primaryAnimation = d->m_indexObject["primaryAnimation"].toObject();
-    primaryAnimation["durationFast"] = QString::number(durationFast);
-    primaryAnimation["durationMid"] = QString::number(durationMid);
-    primaryAnimation["durationSlow"] = QString::number(durationSlow);
-    d->m_indexObject["primaryAnimation"] = primaryAnimation;
+    auto __style__ = d->m_indexObject["__style__"].toObject();
+    __style__["durationFast"] = QString::number(durationFast);
+    __style__["durationMid"] = QString::number(durationMid);
+    __style__["durationSlow"] = QString::number(durationSlow);
+    d->m_indexObject["primaryAnimation"] = __style__;
     d->reloadIndexTheme();
     d->reloadDefaultComponentTheme();
     d->reloadCustomComponentTheme();
@@ -631,9 +667,11 @@ void HusTheme::installIndexToken(const QString &token, const QString &value)
 {
     Q_D(HusTheme);
 
-    auto variableTable = d->m_indexObject["%VariableTable%"].toObject();
-    variableTable[token] = value.simplified();
-    d->m_indexObject["%VariableTable%"] = variableTable;
+    auto __init__ = d->m_indexObject["__init__"].toObject();
+    auto __vars__ = __init__["__vars__"].toObject();
+    __vars__[token] = value.simplified();
+    __init__["__vars__"] = __vars__;
+    d->m_indexObject["__init__"] = __init__;
     d->reloadIndexTheme();
     d->reloadDefaultComponentTheme();
     d->reloadCustomComponentTheme();
@@ -643,10 +681,10 @@ void HusTheme::installComponentTheme(const QString &component, const QString &th
 {
     Q_D(HusTheme);
 
-    auto componentStyle = d->m_indexObject["componentStyle"].toObject();
-    if (componentStyle.contains(component)) {
-        componentStyle[component] = themePath;
-        d->m_indexObject["componentStyle"] = componentStyle;
+    auto __component__ = d->m_indexObject["__component__"].toObject();
+    if (__component__.contains(component)) {
+        __component__[component] = themePath;
+        d->m_indexObject["__component__"] = __component__;
         d->reloadDefaultComponentTheme();
     } else {
         qWarning() << QString("Component [%1] not found!").arg(component);
@@ -657,15 +695,23 @@ void HusTheme::installComponentToken(const QString &component, const QString &to
 {
     Q_D(HusTheme);
 
-    if (d->m_defaultTheme.contains(this)) {
-        auto &componentMap = d->m_defaultTheme[this].componentMap;
-        if (componentMap.contains(component)) {
-            componentMap[component].installTokenMap.insert(token, value);
-            d->reloadComponentThemeFile(d->m_defaultTheme[this].themeObject, component, componentMap[component]);
-        } else {
-            qWarning() << QString("Component [%1] not found!").arg(component);
+    for (auto &theme: d->m_defaultTheme) {
+        if (theme.componentMap.contains(component)) {
+            theme.componentMap[component].installTokenMap.insert(token, value);
+            d->reloadComponentThemeFile(theme.themeObject, component, theme.componentMap[component]);
+            return;
         }
     }
+
+    for (auto &theme: d->m_customTheme) {
+        if (theme.componentMap.contains(component)) {
+            theme.componentMap[component].installTokenMap.insert(token, value);
+            d->reloadComponentThemeFile(theme.themeObject, component, theme.componentMap[component]);
+            return;
+        }
+    }
+
+    qWarning() << QString("Component [%1] not found!").arg(component);
 }
 
 HusTheme::HusTheme(QObject *parent)

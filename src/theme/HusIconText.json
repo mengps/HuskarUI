@@ -1,4 +1,6 @@
 {
-    "fontSize": "@fontPrimarySize",
-    "colorText": "@colorTextBase"
+    "__style__": {
+        "fontSize": "@fontPrimarySize",
+        "colorText": "@colorTextBase"
+    }
 }

@@ -1,8 +1,10 @@
 {
-    "colorIndicator": "$alpha(@colorBgBase, 0.2)",
-    "colorIndicatorActive": "@colorBgBase",
-    "colorIndicatorHover": "$alpha(@colorBgBase, 0.8)",
-    "colorArrow": "$alpha(#fff, 0.4)",
-    "colorArrowHover": "#fff",
-    "radiusIndicator": "@radiusPrimaryXS"
+    "__style__": {
+        "colorIndicator": "$alpha(@colorBgBase, 0.2)",
+        "colorIndicatorActive": "@colorBgBase",
+        "colorIndicatorHover": "$alpha(@colorBgBase, 0.8)",
+        "colorArrow": "$alpha(#fff, 0.4)",
+        "colorArrowHover": "#fff",
+        "radiusIndicator": "@radiusPrimaryXS"
+    }
 }

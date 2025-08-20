@@ -1,14 +1,16 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySizeHeading5",
-    "colorTextDisabled": "@colorPrimaryTextDisabled",
-    "colorText": "@colorTextBase",
-    "colorTextActive": "@colorPrimaryTextHover",
-    "colorBgDisabled": "transparent",
-    "colorBg": "$alpha(@colorPrimaryBgActive, 0)",
-    "colorBgHover": "$alpha(@colorPrimaryBgActive, 0.15)",
-    "colorBgActive": "$alpha(@colorPrimaryBgActive, 0.25)",
-    "colorChildBg": "@colorFillQuaternary",
-    "colorEdge": "$alpha(@colorTextBase, 0.1)",
-    "radiusBg": "@radiusPrimary"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySizeHeading5",
+        "colorTextDisabled": "@colorPrimaryTextDisabled",
+        "colorText": "@colorTextBase",
+        "colorTextActive": "@colorPrimaryTextHover",
+        "colorBgDisabled": "transparent",
+        "colorBg": "$alpha(@colorPrimaryBgActive, 0)",
+        "colorBgHover": "$alpha(@colorPrimaryBgActive, 0.15)",
+        "colorBgActive": "$alpha(@colorPrimaryBgActive, 0.25)",
+        "colorChildBg": "@colorFillQuaternary",
+        "colorEdge": "$alpha(@colorTextBase, 0.1)",
+        "radiusBg": "@radiusPrimary"
+    }
 }

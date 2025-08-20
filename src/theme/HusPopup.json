@@ -1,8 +1,10 @@
 {
-    "fontFamily": "@fontPrimaryFamily",
-    "fontSize": "@fontPrimarySize",
-    "colorShadow": "@colorTextBase",
-    "colorBg": "@colorBgBase",
-    "colorBgDark": "#222",
-    "radiusBg": "@radiusPrimary"
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorShadow": "@colorTextBase",
+        "colorBg": "@colorBgBase",
+        "colorBgDark": "#222",
+        "radiusBg": "@radiusPrimary"
+    }
 }
