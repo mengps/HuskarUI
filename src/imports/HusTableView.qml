@@ -296,7 +296,7 @@ HusRectangle {
 
     objectName: '__HusTableView__'
     clip: true
-    color: HusTheme.Primary.colorBgBase
+    color: HusTheme.HusTableView.colorBg
     topLeftRadius: HusTheme.HusTableView.radiusBg
     topRightRadius: HusTheme.HusTableView.radiusBg
     onColumnsChanged: {
@@ -745,6 +745,8 @@ HusRectangle {
             anchors.fill: parent
             syncDirection: Qt.Vertical
             syncView: __cellView
+            rowSpacing: __cellView.rowSpacing
+            columnSpacing: __cellView.columnSpacing
             boundsBehavior: Flickable.StopAtBounds
             clip: true
             model: TableModel {
@@ -863,22 +865,6 @@ HusRectangle {
                 property alias cellData: __rootItem.display
                 property bool checked: false
 
-                Loader {
-                    active: control.rowGridVisible
-                    width: parent.width
-                    height: 1
-                    anchors.bottom: parent.bottom
-                    sourceComponent: Rectangle { color: control.colorGridLine }
-                }
-
-                Loader {
-                    active: control.columnGridVisible
-                    width: 1
-                    height: parent.height
-                    anchors.right: parent.right
-                    sourceComponent: Rectangle { color: control.colorGridLine }
-                }
-
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
@@ -940,6 +926,22 @@ HusRectangle {
                         property alias filterInput: __rootItem.filterInput
                         property alias current: __rootItem.current
                     }
+                }
+
+                Loader {
+                    active: control.rowGridVisible
+                    width: parent.width
+                    height: 1
+                    anchors.bottom: parent.bottom
+                    sourceComponent: Rectangle { color: control.colorGridLine }
+                }
+
+                Loader {
+                    active: control.columnGridVisible
+                    width: 1
+                    height: parent.height
+                    anchors.right: parent.right
+                    sourceComponent: Rectangle { color: control.colorGridLine }
                 }
             }
         }
