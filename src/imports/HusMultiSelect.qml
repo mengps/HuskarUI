@@ -178,7 +178,7 @@ HusSelect {
             bottomPadding: 0
             leftPadding: 0
             rightPadding: 0
-            anchors.top: __flow.top
+            anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.left: __flow.left
             anchors.leftMargin: 2
@@ -223,6 +223,7 @@ HusSelect {
             anchors.leftMargin: 2
             anchors.right: __suffixLoader.left
             anchors.rightMargin: 2
+            anchors.verticalCenter: parent.verticalCenter
             spacing: control.tagSpacing
             onPositioningComplete: {
                 const item = __tagRepeater.itemAt(__tagListModel.count - 1);
