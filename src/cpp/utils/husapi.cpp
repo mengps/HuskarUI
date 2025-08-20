@@ -42,14 +42,23 @@ void HusApi::setWindowStaysOnTopHint(QWindow *window, bool hint)
     }
 }
 
-QString HusApi::getClipbordText()
+QString HusApi::getClipbordText() const
 {
-    return QGuiApplication::clipboard()->text();
+    if (auto clipboard = QGuiApplication::clipboard(); clipboard) {
+        return clipboard->text();
+    }
+
+    return QString();
 }
 
-void HusApi::setClipbordText(const QString &text)
+bool HusApi::setClipbordText(const QString &text)
 {
-    QGuiApplication::clipboard()->setText(text);
+    if (auto clipboard = QGuiApplication::clipboard(); clipboard) {
+        clipboard->setText(text);
+        return true;
+    }
+
+    return false;
 }
 
 QString HusApi::readFileToString(const QString &fileName)
@@ -65,9 +74,14 @@ QString HusApi::readFileToString(const QString &fileName)
     return result;
 }
 
-int HusApi::getWeekNumber(const QDate &date)
+int HusApi::getWeekNumber(const QDateTime &dateTime) const
 {
-    return date.weekNumber();
+    return dateTime.date().weekNumber();
+}
+
+QDateTime HusApi::dateFromString(const QString &dateTime, const QString &format) const
+{
+    return QDateTime::fromString(dateTime, format);
 }
 
 HusApi::HusApi(QObject *parent)

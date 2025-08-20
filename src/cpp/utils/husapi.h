@@ -21,11 +21,13 @@ public:
 
     Q_INVOKABLE void setWindowStaysOnTopHint(QWindow *window, bool hint);
 
-    Q_INVOKABLE QString getClipbordText();
-    Q_INVOKABLE void setClipbordText(const QString &text);
+    Q_INVOKABLE QString getClipbordText() const;
+    Q_INVOKABLE bool setClipbordText(const QString &text);
 
     Q_INVOKABLE QString readFileToString(const QString &fileName);
-    Q_INVOKABLE int getWeekNumber(const QDate &date);
+
+    Q_INVOKABLE int getWeekNumber(const QDateTime &dateTime) const;
+    Q_INVOKABLE QDateTime dateFromString(const QString &dateTime, const QString &format) const;
 
 private:
     explicit HusApi(QObject *parent = nullptr);
