@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "HusMultiSelect",
+        "desc": "多选器，可多选的下拉选择器。\n"
+    },
+    {
+        "isNew": true,
         "name": "HusImagePreview",
         "desc": "用于预览的图片的基本工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。\n"
     },

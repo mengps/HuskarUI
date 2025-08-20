@@ -42,22 +42,35 @@ HusWindow {
         /*! 解析 Component.tokens */
         const indexFile = `:/HuskarUI/theme/Index.json`;
         const indexObject = JSON.parse(HusApi.readFileToString(indexFile));
-        for (const source in indexObject.componentStyle) {
-            const themeFile = `:/HuskarUI/theme/${source}.json`;
-            const object = JSON.parse(HusApi.readFileToString(themeFile));
-            let model = [];
-            for (const token in object) {
-                model.push({
-                               'tokenName': token,
-                               'tokenValue': {
-                                   'token': token,
-                                   'value': object[token],
-                                   'rawValue': object[token],
-                               },
-                               'tokenCalcValue': token,
-                           });
+        for (const source in indexObject.__component__) {
+            const __style__ = {};
+            const parseImport = (name) => {
+                const path = `:/HuskarUI/theme/${name}.json`;
+                const object = JSON.parse(HusApi.readFileToString(path));
+                const imports = object?.__init__?.__import__;
+                const style = object.__style__;
+                if (imports) {
+                    imports.forEach(i => parseImport(i));
+                }
+                for (const token in style) {
+                    __style__[token] = style[token];
+                }
             }
-            componentTokens[source] = model;
+            parseImport(source);
+
+            const list = [];
+            for (const token in __style__) {
+                list.push({
+                              'tokenName': token,
+                              'tokenValue': {
+                                  'token': token,
+                                  'value': __style__[token],
+                                  'rawValue': __style__[token],
+                              },
+                              'tokenCalcValue': token,
+                          });
+            }
+            componentTokens[source] = list;
         }
         if (Qt.platform.os === 'windows') {
             if (setSpecialEffect(HusWindow.Win_MicaAlt)) return;
@@ -601,6 +614,12 @@ HusWindow {
                             label: qsTr('HusInputNumber 数字输入框'),
                             source: './Examples/DataEntry/ExpInputNumber.qml',
                             state: 'New',
+                        },
+                        {
+                            key: 'HusMultiSelect',
+                            label: qsTr('HusMultiSelect 多选器'),
+                            source: './Examples/DataEntry/ExpMultiSelect.qml',
+                            state: 'New',
                         }
                     ]
                 },
@@ -679,7 +698,7 @@ HusWindow {
                         },
                         {
                             key: 'HusImagePreview',
-                            label: qsTr('HusImagePreview 图片预览'),
+                            label: qsTr('HusImagePreview 预览'),
                             source: './Examples/DataDisplay/ExpImagePreview.qml',
                             state: 'New',
                         }
