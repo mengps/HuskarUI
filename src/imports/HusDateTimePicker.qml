@@ -593,6 +593,7 @@ HusInput {
         padding: 8
         leftPadding: control.showDate ? 8 : 2
         rightPadding: control.showDate ? (control.showTime ? 2 : 8) : 2
+        colorBg: HusTheme.isDark ? control.themeSource.colorPopupBgDark : control.themeSource.colorPopupBg
         radiusBg: control.radiusPopupBg
         animationEnabled: control.animationEnabled
         closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent

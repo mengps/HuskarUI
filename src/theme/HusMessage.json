@@ -4,7 +4,7 @@
         "fontSize": "@fontPrimarySize",
         "colorMessage": "@colorTextPrimary",
         "colorBg": "@colorBgBase",
-        "colorBgDark": "#222",
+        "colorBgDark": "@colorMain-11",
         "colorBgShadow": "@colorTextBase",
         "colorClose": "@colorTextTertiary",
         "colorCloseHover": "@colorTextBase",

@@ -11,7 +11,7 @@
         "colorBg": "@colorBgBase",
         "colorBgDisabled": "$alpha(@colorTextBase, 0.1)",
         "colorPopupBg": "@colorBgBase",
-        "colorPopupBgDark": "#222",
+        "colorPopupBgDark": "@colorMain-11",
         "colorItemText": "@colorTextBase",
         "colorItemTextDisabled": "@colorPrimaryTextDisabled",
         "colorItemBg": "@colorBgBase",

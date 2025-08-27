@@ -4,7 +4,7 @@
         "fontSize": "@fontPrimarySize",
         "colorShadow": "@colorTextBase",
         "colorBg": "@colorBgBase",
-        "colorBgDark": "#222",
+        "colorBgDark": "@colorMain-11",
         "radiusBg": "@radiusPrimary"
     }
 }

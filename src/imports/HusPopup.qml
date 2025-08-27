@@ -47,7 +47,7 @@ T.Popup {
             shadowColor: control.colorShadow
             shadowEnabled: true
             shadowBlur: 1.0
-            shadowOpacity: HusTheme.isDark ? 0.5 : 0.2
+            shadowOpacity: HusTheme.isDark ? 0.4 : 0.2
             shadowScale: 1.02
         }
         Rectangle {

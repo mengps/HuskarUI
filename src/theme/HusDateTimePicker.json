@@ -26,7 +26,7 @@
         "colorTimeText": "@colorTextBase",
         "colorTimeHeaderText": "@colorTextBase",
         "colorPopupBg": "@colorBgBase",
-        "colorPopupBgDark": "#222",
+        "colorPopupBgDark": "@colorMain-11",
         "colorButtonBgHover": "$alpha(@colorTextBase, 0.05)",
         "colorButtonBgActive": "@colorPrimaryBase-1",
         "radiusBg": "@radiusPrimary",
