@@ -13,16 +13,17 @@ T.TextField {
     property bool animationEnabled: HusTheme.animationEnabled
     readonly property bool active: hovered || activeFocus
     property int iconSource: 0
-    property int iconSize: HusTheme.HusInput.fontIconSize
+    property int iconSize: themeSource.fontIconSize
     property int iconPosition: HusInput.Position_Left
     property color colorIcon: colorText
-    property color colorText: enabled ? HusTheme.HusInput.colorText : HusTheme.HusInput.colorTextDisabled
+    property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     property color colorBorder: enabled ?
-                                    active ? HusTheme.HusInput.colorBorderHover :
-                                              HusTheme.HusInput.colorBorder : HusTheme.HusInput.colorBorderDisabled
-    property color colorBg: enabled ? HusTheme.HusInput.colorBg : HusTheme.HusInput.colorBgDisabled
-    property int radiusBg: HusTheme.HusInput.radiusBg
+                                    active ? themeSource.colorBorderHover :
+                                              themeSource.colorBorder : themeSource.colorBorderDisabled
+    property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
+    property int radiusBg: themeSource.radiusBg
     property string contentDescription: ''
+    property var themeSource: HusTheme.HusInput
 
     property Component iconDelegate: HusIconText {
         iconSource: control.iconSource
@@ -38,12 +39,12 @@ T.TextField {
     implicitWidth: contentWidth + leftPadding + rightPadding
     implicitHeight: contentHeight + topPadding + bottomPadding
     color: colorText
-    placeholderTextColor: enabled ? HusTheme.HusInput.colorPlaceholderText : HusTheme.HusInput.colorPlaceholderTextDisabled
-    selectedTextColor: HusTheme.HusInput.colorSelectedText
-    selectionColor: HusTheme.HusInput.colorSelection
+    placeholderTextColor: enabled ? themeSource.colorPlaceholderText : themeSource.colorPlaceholderTextDisabled
+    selectedTextColor: themeSource.colorSelectedText
+    selectionColor: themeSource.colorSelection
     font {
-        family: HusTheme.HusInput.fontFamily
-        pixelSize: HusTheme.HusInput.fontSize
+        family: themeSource.fontFamily
+        pixelSize: themeSource.fontSize
     }
     background: Rectangle {
         color: control.colorBg
