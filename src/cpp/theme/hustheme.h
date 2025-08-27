@@ -39,7 +39,6 @@ class HUSKARUI_EXPORT HusTheme : public QObject
     HUS_PROPERTY_READONLY(QVariantMap, HusRate);
     HUS_PROPERTY_READONLY(QVariantMap, HusRadio);
     HUS_PROPERTY_READONLY(QVariantMap, HusCheckBox);
-    HUS_PROPERTY_READONLY(QVariantMap, HusTimePicker);
     HUS_PROPERTY_READONLY(QVariantMap, HusDrawer);
     HUS_PROPERTY_READONLY(QVariantMap, HusCollapse);
     HUS_PROPERTY_READONLY(QVariantMap, HusCard);
@@ -50,12 +49,13 @@ class HUSKARUI_EXPORT HusTheme : public QObject
     HUS_PROPERTY_READONLY(QVariantMap, HusTableView);
     HUS_PROPERTY_READONLY(QVariantMap, HusMessage);
     HUS_PROPERTY_READONLY(QVariantMap, HusAutoComplete);
-    HUS_PROPERTY_READONLY(QVariantMap, HusDatePicker);
     HUS_PROPERTY_READONLY(QVariantMap, HusProgress);
     HUS_PROPERTY_READONLY(QVariantMap, HusCarousel);
     HUS_PROPERTY_READONLY(QVariantMap, HusBreadcrumb);
     HUS_PROPERTY_READONLY(QVariantMap, HusImage);
     HUS_PROPERTY_READONLY(QVariantMap, HusMultiSelect);
+    HUS_PROPERTY_READONLY(QVariantMap, HusDateTimePicker);
+
 
 public:
     enum class DarkMode {

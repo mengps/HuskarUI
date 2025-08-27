@@ -456,7 +456,6 @@ void HusThemePrivate::registerDefaultComponentTheme(const QString &componentName
             ADD_COMPONENT_CASE(HusRate)
             ADD_COMPONENT_CASE(HusRadio)
             ADD_COMPONENT_CASE(HusCheckBox)
-            ADD_COMPONENT_CASE(HusTimePicker)
             ADD_COMPONENT_CASE(HusDrawer)
             ADD_COMPONENT_CASE(HusCollapse)
             ADD_COMPONENT_CASE(HusCard)
@@ -467,12 +466,12 @@ void HusThemePrivate::registerDefaultComponentTheme(const QString &componentName
             ADD_COMPONENT_CASE(HusTableView)
             ADD_COMPONENT_CASE(HusMessage)
             ADD_COMPONENT_CASE(HusAutoComplete)
-            ADD_COMPONENT_CASE(HusDatePicker)
             ADD_COMPONENT_CASE(HusProgress)
             ADD_COMPONENT_CASE(HusCarousel)
             ADD_COMPONENT_CASE(HusBreadcrumb)
             ADD_COMPONENT_CASE(HusImage)
             ADD_COMPONENT_CASE(HusMultiSelect)
+            ADD_COMPONENT_CASE(HusDateTimePicker)
         default:
             break;
         }

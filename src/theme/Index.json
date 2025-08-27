@@ -168,7 +168,6 @@
         "HusRate": ":/HuskarUI/theme/HusRate.json",
         "HusRadio": ":/HuskarUI/theme/HusRadio.json",
         "HusCheckBox": ":/HuskarUI/theme/HusCheckBox.json",
-        "HusTimePicker": ":/HuskarUI/theme/HusTimePicker.json",
         "HusDrawer": ":/HuskarUI/theme/HusDrawer.json",
         "HusCollapse": ":/HuskarUI/theme/HusCollapse.json",
         "HusCard": ":/HuskarUI/theme/HusCard.json",
@@ -179,11 +178,11 @@
         "HusTableView": ":/HuskarUI/theme/HusTableView.json",
         "HusMessage": ":/HuskarUI/theme/HusMessage.json",
         "HusAutoComplete": ":/HuskarUI/theme/HusAutoComplete.json",
-        "HusDatePicker": ":/HuskarUI/theme/HusDatePicker.json",
         "HusProgress": ":/HuskarUI/theme/HusProgress.json",
         "HusCarousel": ":/HuskarUI/theme/HusCarousel.json",
         "HusBreadcrumb": ":/HuskarUI/theme/HusBreadcrumb.json",
         "HusImage": ":/HuskarUI/theme/HusImage.json",
-        "HusMultiSelect": ":/HuskarUI/theme/HusMultiSelect.json"
+        "HusMultiSelect": ":/HuskarUI/theme/HusMultiSelect.json",
+        "HusDateTimePicker": ":/HuskarUI/theme/HusDateTimePicker.json"
     }
 }
