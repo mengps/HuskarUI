@@ -50,8 +50,8 @@ HusInput {
 
     property string format: 'yyyy-MM-dd hh:mm:ss'
 
-    property int radiusItemBg: HusTheme.HusDateTimePicker.radiusItemBg
-    property int radiusPopupBg: HusTheme.HusDateTimePicker.radiusPopupBg
+    property int radiusItemBg: control.themeSource.radiusItemBg
+    property int radiusPopupBg: control.themeSource.radiusPopupBg
 
     property Component dayDelegate: HusButton {
         padding: 0
@@ -61,28 +61,28 @@ HusInput {
         type: HusButton.Type_Primary
         text: model.day
         font {
-            family: HusTheme.HusDateTimePicker.fontFamily
-            pixelSize: HusTheme.HusDateTimePicker.fontSize
+            family: control.themeSource.fontFamily
+            pixelSize: control.themeSource.fontSize
         }
         radiusBg: control.radiusItemBg
         effectEnabled: false
-        colorBorder: model.today ? HusTheme.HusDateTimePicker.colorDayBorderToday : 'transparent'
+        colorBorder: model.today ? control.themeSource.colorDayBorderToday : 'transparent'
         colorText: {
             if (control.datePickerMode === HusDateTimePicker.Mode_Week) {
-                return isCurrentWeek || isHoveredWeek ? 'white' : isCurrentVisualMonth ? HusTheme.HusDateTimePicker.colorDayText :
-                                                                                         HusTheme.HusDateTimePicker.colorDayTextNone;
+                return isCurrentWeek || isHoveredWeek ? 'white' : isCurrentVisualMonth ? control.themeSource.colorDayText :
+                                                                                         control.themeSource.colorDayTextNone;
             } else {
-                return isCurrentDay ? 'white' : isCurrentVisualMonth ? HusTheme.HusDateTimePicker.colorDayText :
-                                                                       HusTheme.HusDateTimePicker.colorDayTextNone;
+                return isCurrentDay ? 'white' : isCurrentVisualMonth ? control.themeSource.colorDayText :
+                                                                       control.themeSource.colorDayTextNone;
             }
         }
         colorBg: {
             if (control.datePickerMode === HusDateTimePicker.Mode_Week) {
                 return 'transparent';
             } else {
-                return isCurrentDay ? HusTheme.HusDateTimePicker.colorDayBgCurrent :
-                                      isHovered ? HusTheme.HusDateTimePicker.colorDayBgHover :
-                                                  HusTheme.HusDateTimePicker.colorDayBg;
+                return isCurrentDay ? control.themeSource.colorDayBgCurrent :
+                                      isHovered ? control.themeSource.colorDayBgHover :
+                                                  control.themeSource.colorDayBg;
             }
         }
     }
@@ -127,8 +127,8 @@ HusInput {
                                                                                    HusIcon.ClockCircleOutlined
         iconSize: control.iconSize
         colorIcon: control.enabled ?
-                       __iconMouse.hovered ? HusTheme.HusDateTimePicker.colorIconHover :
-                                             HusTheme.HusDateTimePicker.colorIcon : HusTheme.HusDateTimePicker.colorIconDisabled
+                       __iconMouse.hovered ? control.themeSource.colorIconHover :
+                                             control.themeSource.colorIcon : control.themeSource.colorIconDisabled
 
         Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
@@ -233,11 +233,11 @@ HusInput {
                 contentItem: HusText {
                     id: __viewText
                     font {
-                        family: HusTheme.HusDateTimePicker.fontFamily
-                        pixelSize: HusTheme.HusDateTimePicker.fontSize
+                        family: control.themeSource.fontFamily
+                        pixelSize: control.themeSource.fontSize
                     }
                     text: String(index).padStart(2, '0')
-                    color: HusTheme.HusDateTimePicker.colorPopupText
+                    color: control.themeSource.colorTimeText
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -246,7 +246,7 @@ HusInput {
                         id: selectionRect
                         anchors.fill: parent
                         radius: control.radiusItemBg
-                        color: HusTheme.HusDateTimePicker.colorButtonBgActive
+                        color: control.themeSource.colorButtonBgActive
                         opacity: checked ? 1.0 : 0.0
 
                         Behavior on opacity {
@@ -258,7 +258,7 @@ HusInput {
                     Rectangle {
                         anchors.fill: parent
                         radius: control.radiusItemBg
-                        color: hovered && !checked ? HusTheme.HusDateTimePicker.colorButtonBgHover : 'transparent'
+                        color: hovered && !checked ? control.themeSource.colorButtonBgHover : 'transparent'
                         z: -1
 
                         Behavior on color {
@@ -300,7 +300,7 @@ HusInput {
         animationEnabled: control.animationEnabled
         type: HusButton.Type_Link
         iconSize: 16
-        colorIcon: hovered ? HusTheme.HusDateTimePicker.colorPageIconHover : HusTheme.HusDateTimePicker.colorPageIcon
+        colorIcon: hovered ? control.themeSource.colorPageIconHover : control.themeSource.colorPageIcon
     }
 
     component PickerHeader: RowLayout {
@@ -357,7 +357,7 @@ HusInput {
 
                 PageButton {
                     text: control.visualYear + qsTr('年')
-                    colorText: hovered ? HusTheme.HusDateTimePicker.colorPageTextHover : HusTheme.HusDateTimePicker.colorPageText
+                    colorText: hovered ? control.themeSource.colorPageTextHover : control.themeSource.colorPageText
                     font.bold: true
                     onClicked: {
                         __pickerHeaderComp.isPickYear = true;
@@ -372,7 +372,7 @@ HusInput {
                              !__pickerHeaderComp.isPickQuarter &&
                              !__pickerHeaderComp.isPickYear
                     text: (control.visualMonth + 1) + qsTr('月')
-                    colorText: hovered ? HusTheme.HusDateTimePicker.colorPageTextHover : HusTheme.HusDateTimePicker.colorPageText
+                    colorText: hovered ? control.themeSource.colorPageTextHover : control.themeSource.colorPageText
                     font.bold: true
                     onClicked: {
                         __pickerHeaderComp.isPickYear = false;
@@ -426,13 +426,13 @@ HusInput {
         animationEnabled: control.animationEnabled
         effectEnabled: false
         colorBorder: 'transparent'
-        colorBg: checked ? HusTheme.HusDateTimePicker.colorDayBgCurrent :
-                           hovered ? HusTheme.HusDateTimePicker.colorDayBgHover :
-                                     HusTheme.HusDateTimePicker.colorDayBg
-        colorText: checked ? 'white' : HusTheme.HusDateTimePicker.colorDayText
+        colorBg: checked ? control.themeSource.colorDayBgCurrent :
+                           hovered ? control.themeSource.colorDayBgHover :
+                                     control.themeSource.colorDayBg
+        colorText: checked ? 'white' : control.themeSource.colorDayText
         font {
-            family: HusTheme.HusDateTimePicker.fontFamily
-            pixelSize: HusTheme.HusDateTimePicker.fontSize
+            family: control.themeSource.fontFamily
+            pixelSize: control.themeSource.fontSize
         }
         radiusBg: control.radiusItemBg
     }
@@ -681,7 +681,7 @@ HusInput {
                         Rectangle {
                             width: parent.width
                             height: 1
-                            color: HusTheme.HusDateTimePicker.colorSplitLine
+                            color: control.themeSource.colorSplitLine
                         }
 
                         T.DayOfWeekRow {
@@ -696,10 +696,10 @@ HusInput {
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
                                 font {
-                                    family: HusTheme.HusDateTimePicker.fontFamily
-                                    pixelSize: HusTheme.HusDateTimePicker.fontSize
+                                    family: control.themeSource.fontFamily
+                                    pixelSize: control.themeSource.fontSize
                                 }
-                                color: HusTheme.HusDateTimePicker.colorWeekText
+                                color: control.themeSource.colorWeekText
 
                                 required property string shortName
                             }
@@ -738,9 +738,9 @@ HusInput {
                                     clip: true
                                     color: {
                                         if (control.datePickerMode === HusDateTimePicker.Mode_Week) {
-                                            return __dayItem.isCurrentWeek ? HusTheme.HusDateTimePicker.colorDayItemBgCurrent :
-                                                                             __dayItem.isHoveredWeek ? HusTheme.HusDateTimePicker.colorDayItemBgHover :
-                                                                                                       HusTheme.HusDateTimePicker.colorDayItemBg;
+                                            return __dayItem.isCurrentWeek ? control.themeSource.colorDayItemBgCurrent :
+                                                                             __dayItem.isHoveredWeek ? control.themeSource.colorDayItemBgHover :
+                                                                                                       control.themeSource.colorDayItemBg;
                                         } else {
                                             return 'transparent';
                                         }
@@ -923,7 +923,7 @@ HusInput {
                             active: control.datePickerMode == HusDateTimePicker.Mode_Day && !control.showTime
                             sourceComponent: Rectangle {
                                 height: 1
-                                color: HusTheme.HusDateTimePicker.colorSplitLine
+                                color: control.themeSource.colorSplitLine
                             }
                         }
 
@@ -949,7 +949,7 @@ HusInput {
                                 width: 1
                                 height: parent.height
                                 anchors.right: parent.right
-                                color: HusTheme.HusDateTimePicker.colorSplitLine
+                                color: control.themeSource.colorSplitLine
                             }
                         }
                     }
@@ -966,8 +966,8 @@ HusInput {
                             HusText {
                                 anchors.centerIn: parent
                                 font {
-                                    family: HusTheme.HusDateTimePicker.fontFamily
-                                    pixelSize: HusTheme.HusDateTimePicker.fontSize
+                                    family: control.themeSource.fontFamily
+                                    pixelSize: control.themeSource.fontSize
                                     bold: true
                                 }
                                 text: {
@@ -980,13 +980,14 @@ HusInput {
                                         return `${__minuteListView.checkValue}:${__secondListView.checkValue}`;
                                     }
                                 }
+                                color: control.themeSource.colorTimeHeaderText
                             }
 
                             Rectangle {
                                 width: parent.width
                                 height: 1
                                 anchors.bottom: parent.bottom
-                                color: HusTheme.HusDateTimePicker.colorSplitLine
+                                color: control.themeSource.colorSplitLine
                                 visible: control.showDate && control.showTime
                             }
                         }
@@ -1005,7 +1006,7 @@ HusInput {
                                     width: 1
                                     height: parent.height
                                     anchors.right: parent.right
-                                    color: HusTheme.HusDateTimePicker.colorSplitLine
+                                    color: control.themeSource.colorSplitLine
                                 }
                             }
 
@@ -1022,7 +1023,7 @@ HusInput {
                                     anchors.right: parent.right
                                     visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
                                              control.timePickerMode == HusDateTimePicker.Mode_MMSS
-                                    color: HusTheme.HusDateTimePicker.colorSplitLine
+                                    color: control.themeSource.colorSplitLine
                                 }
                             }
 
@@ -1045,7 +1046,7 @@ HusInput {
                         Rectangle {
                             width: parent.width
                             height: 1
-                            color: HusTheme.HusDateTimePicker.colorSplitLine
+                            color: control.themeSource.colorSplitLine
                         }
 
                         HusButton {
