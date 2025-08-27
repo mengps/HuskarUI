@@ -305,7 +305,8 @@ HusSelect {
                 enabled: (model.enabled ?? true) && ((!selected && control.maxTagCount >= 0) ? (__tagListModel.count < control.maxTagCount) : true)
                 contentItem: HusText {
                     text: __popupDelegate.model[control.textRole]
-                    color: __popupDelegate.enabled ? control.themeSource.colorItemText : control.themeSource.colorItemTextDisabled;
+                    color: __popupDelegate.enabled ? control.themeSource.colorItemText :
+                                                     control.themeSource.colorItemTextDisabled
                     font {
                         family: control.themeSource.fontFamily
                         pixelSize: control.themeSource.fontSize

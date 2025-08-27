@@ -502,7 +502,7 @@ radiusTagBg | int | - | 标签圆角
 
                 Loader {
                     asynchronous: true
-                    sourceComponent:  HusMultiSelect {
+                    sourceComponent: HusMultiSelect {
                         width: 500
                         genDefaultKey: false
                         filterOption: (input, option) => option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1
@@ -522,7 +522,7 @@ radiusTagBg | int | - | 标签圆角
 
                 Loader {
                     asynchronous: true
-                    sourceComponent:  HusMultiSelect {
+                    sourceComponent: HusMultiSelect {
                         width: 500
                         genDefaultKey: false
                         filterOption: (input, option) => option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1

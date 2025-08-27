@@ -31,7 +31,8 @@ Item {
     property color colorText: 'white'
 
     property bool __parentIsLayout: parent instanceof Row || parent instanceof Column || parent instanceof Grid ||
-                                    parent instanceof RowLayout || parent instanceof ColumnLayout || parent instanceof GridLayout
+                                    parent instanceof RowLayout || parent instanceof ColumnLayout || parent instanceof GridLayout ||
+                                    parent instanceof Flow
 
     objectName: '__HusBadge__'
     width: __badge.width
