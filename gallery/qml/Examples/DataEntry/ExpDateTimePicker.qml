@@ -87,7 +87,7 @@ radiusPopupBg | int | - | 弹窗圆角
             width: parent.width
             descTitle: qsTr('基本')
             desc: qsTr(`
-最简单的用法，在浮层中可以选择或者输入日期。
+最简单的用法，在浮层中可以选择或者输入日期。\n
 通过 \`showDate\` 属性设置是否显示日期选择部分。\n
 通过 \`showTime\` 属性设置是否显示时间选择部分。\n
 通过 \`datePickerMode\` 属性设置日期选择模式，支持的模式：\n
@@ -214,7 +214,7 @@ radiusPopupBg | int | - | 弹窗圆角
             width: parent.width
             descTitle: qsTr('任意选择时分秒部分')
             desc: qsTr(`
-可任意选择小时分钟秒/小时分钟/分钟秒三种模式。
+可任意选择小时分钟秒/小时分钟/分钟秒三种模式。\n
                        `)
             code: `
                 import QtQuick
@@ -282,7 +282,7 @@ radiusPopupBg | int | - | 弹窗圆角
 
                     HusDateTimePicker {
                         id: customDatePicker
-                        initDate: new Date(2025, 4, 1)
+                        initDateTime: new Date(2025, 4, 1)
                         placeholderText: qsTr('请选择日期')
                         datePickerMode: HusDateTimePicker.Mode_Day
                         showTime: false
@@ -291,7 +291,7 @@ radiusPopupBg | int | - | 弹窗圆角
                             padding: 0
                             implicitWidth: 50
                             implicitHeight: 50
-                            type: isCurrentDay || hovered ? HusButton.Type_Primary : HusButton.Type_Link
+                            type: isCurrentDay || isHovered ? HusButton.Type_Primary : HusButton.Type_Link
                             text: \`<span>\${model.day}</span>\${getHoliday()}\`
                             effectEnabled: false
                             colorText: isCurrentDay ? 'white' : HusTheme.Primary.colorTextBase
@@ -299,12 +299,12 @@ radiusPopupBg | int | - | 弹窗圆角
 
                             function getHoliday() {
                                 if (model.month === 4 && model.day === 1) {
-                                    return '<br/><span style=\'color:red\'>劳动节</span>';
+                                    return \`<br/><span style=\'color:red\'>劳动节</span>\`;
                                 } else if (model.month === 4 && model.day === 21) {
-                                    return '<br/><span style=\'color:red\'>小满</span>';
+                                    return \`<br/><span style=\'color:red\'>小满</span>\`;
                                 } else if (model.month === 4 && model.day === 31) {
-                                    return '<br/><span style=\'color:red\'>端午节</span>';
-                                }  else {
+                                    return \`<br/><span style=\'color:red\'>端午节</span>\`;
+                                } else {
                                     const lunarDaysMay2025 = [
                                       '初四', '初五', '初六', '初七', '初八',
                                       '初九', '初十', '十一', '十二', '十三',
@@ -338,7 +338,7 @@ radiusPopupBg | int | - | 弹窗圆角
                         padding: 0
                         implicitWidth: 50
                         implicitHeight: 50
-                        type: isCurrentDay || hovered ? HusButton.Type_Primary : HusButton.Type_Link
+                        type: isCurrentDay || isHovered ? HusButton.Type_Primary : HusButton.Type_Link
                         text: `<span>${model.day}</span>${getHoliday()}`
                         effectEnabled: false
                         colorText: isCurrentDay ? 'white' : HusTheme.Primary.colorTextBase
@@ -346,12 +346,12 @@ radiusPopupBg | int | - | 弹窗圆角
 
                         function getHoliday() {
                             if (model.month === 4 && model.day === 1) {
-                                return '<br/><span style=\'color:red\'>劳动节</span>';
+                                return `<br/><span style=\'color:red\'>劳动节</span>`;
                             } else if (model.month === 4 && model.day === 21) {
-                                return '<br/><span style=\'color:red\'>小满</span>';
+                                return `<br/><span style=\'color:red\'>小满</span>`;
                             } else if (model.month === 4 && model.day === 31) {
-                                return '<br/><span style=\'color:red\'>端午节</span>';
-                            }  else {
+                                return `<br/><span style=\'color:red\'>端午节</span>`;
+                            } else {
                                 const lunarDaysMay2025 = [
                                   '初四', '初五', '初六', '初七', '初八',
                                   '初九', '初十', '十一', '十二', '十三',
