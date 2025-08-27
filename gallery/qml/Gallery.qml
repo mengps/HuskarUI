@@ -595,19 +595,9 @@ HusWindow {
                             source: './Examples/DataEntry/ExpCheckBox.qml',
                         },
                         {
-                            key: 'HusTimePicker',
-                            label: qsTr('HusTimePicker 时间选择框'),
-                            source: './Examples/DataEntry/ExpTimePicker.qml',
-                        },
-                        {
                             key: 'HusAutoComplete',
                             label: qsTr('HusAutoComplete 自动完成'),
                             source: './Examples/DataEntry/ExpAutoComplete.qml',
-                        },
-                        {
-                            key: 'HusDatePicker',
-                            label: qsTr('HusDatePicker 日期选择框'),
-                            source: './Examples/DataEntry/ExpDatePicker.qml',
                         },
                         {
                             key: 'HusInputNumber',
@@ -619,6 +609,12 @@ HusWindow {
                             key: 'HusMultiSelect',
                             label: qsTr('HusMultiSelect 多选器'),
                             source: './Examples/DataEntry/ExpMultiSelect.qml',
+                            state: 'New',
+                        },
+                        {
+                            key: 'HusDateTimePicker',
+                            label: qsTr('HusDateTimePicker 日期时间选择框'),
+                            source: './Examples/DataEntry/ExpDateTimePicker.qml',
                             state: 'New',
                         }
                     ]
@@ -698,7 +694,7 @@ HusWindow {
                         },
                         {
                             key: 'HusImagePreview',
-                            label: qsTr('HusImagePreview 预览'),
+                            label: qsTr('HusImagePreview 图片预览'),
                             source: './Examples/DataDisplay/ExpImagePreview.qml',
                             state: 'New',
                         }

@@ -1,6 +1,11 @@
 [
     {
         "isNew": true,
+        "name": "HusDateTimePicker",
+        "desc": "日期时间选择框，输入或选择日期的控件。\n"
+    },
+    {
+        "isNew": true,
         "name": "HusMultiSelect",
         "desc": "多选器，可多选的下拉选择器。\n"
     },
@@ -96,11 +101,6 @@
     },
     {
         "isNew": true,
-        "name": "HusDatePicker",
-        "desc": "日期选择框，输入或选择日期的控件。"
-    },
-    {
-        "isNew": true,
         "name": "HusAutoComplete",
         "desc": "输入框自动完成功能。"
     },
@@ -158,11 +158,6 @@
         "isNew": true,
         "name": "HusCollapse",
         "desc": "可以折叠/展开的内容区域。"
-    },
-    {
-        "isNew": true,
-        "name": "HusTimePicker",
-        "desc": "输入或选择时间的控件。"
     },
     {
         "isNew": true,
