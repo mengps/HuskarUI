@@ -194,7 +194,6 @@ Item {
         Loader {
             id: tableLoader
             width: parent.width
-            height: 40 * (galleryWindow.componentTokens[root.source].length + 1)
             active: root.source != ''
             asynchronous: true
             sourceComponent: HusTableView {
@@ -226,7 +225,7 @@ Item {
                 Component.onCompleted: {
                     if (root.source != '') {
                         const model = galleryWindow.componentTokens[root.source];
-                        height = defaultColumnHeaderHeight + model.length * minimumRowHeight;
+                        height = Math.min(400, defaultColumnHeaderHeight + model.length * minimumRowHeight);
                         initModel = model;
                     }
                 }
