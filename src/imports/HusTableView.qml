@@ -340,7 +340,7 @@ HusRectangle {
     }
 
     function checkForKeys(keys: var) {
-        keys.forEach(key => __private.checkedKeysMap.set(object.key, true));
+        keys.forEach(key => __private.checkedKeysMap.set(key, true));
         __private.checkedKeysMapChanged();
     }
 
