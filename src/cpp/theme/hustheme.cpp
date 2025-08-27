@@ -647,7 +647,7 @@ void HusTheme::installThemePrimaryAnimationBase(int durationFast, int durationMi
     __style__["durationFast"] = QString::number(durationFast);
     __style__["durationMid"] = QString::number(durationMid);
     __style__["durationSlow"] = QString::number(durationSlow);
-    d->m_indexObject["primaryAnimation"] = __style__;
+    d->m_indexObject["__style__"] = __style__;
     d->reloadIndexTheme();
     d->reloadDefaultComponentTheme();
     d->reloadCustomComponentTheme();
