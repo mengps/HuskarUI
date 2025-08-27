@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.3.0)
+set(HUSKARUI_VERSION 0.4.4.0)
 
 message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
@@ -14,11 +14,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
-
-#Set plugin output dir
-set(HUSKARUI_HEADER_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI header output dir.")
-set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI library output dir.")
-set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir.")
 
 if(NOT HUSKARUI_HEADER_OUTPUT_DIRECTORY)
     set(HUSKARUI_HEADER_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../include/HuskarUI)
@@ -103,7 +98,6 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusRadio.qml
         imports/HusRadioBlock.qml
         imports/HusCheckBox.qml
-        imports/HusTimePicker.qml
         imports/HusDrawer.qml
         imports/HusCollapse.qml
         imports/HusAvatar.qml
@@ -116,7 +110,6 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusMessage.qml
         imports/HusAutoComplete.qml
         imports/HusText.qml
-        imports/HusDatePicker.qml
         imports/HusProgress.qml
         imports/HusBadge.qml
         imports/HusButtonBlock.qml
@@ -128,6 +121,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusImage.qml
         imports/HusImagePreview.qml
         imports/HusMultiSelect.qml
+        imports/HusDateTimePicker.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -170,7 +164,6 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/HusRate.json
         theme/HusRadio.json
         theme/HusCheckBox.json
-        theme/HusTimePicker.json
         theme/HusDrawer.json
         theme/HusCollapse.json
         theme/HusCard.json
@@ -181,11 +174,11 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/HusTableView.json
         theme/HusMessage.json
         theme/HusAutoComplete.json
-        theme/HusDatePicker.json
         theme/HusProgress.json
         theme/HusCarousel.json
         theme/HusBreadcrumb.json
         theme/HusImage.json
+        theme/HusDateTimePicker.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
