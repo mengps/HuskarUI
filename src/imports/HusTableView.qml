@@ -41,12 +41,15 @@ HusRectangle {
 
     property Component columnHeaderDelegate: Item {
         id: __columnHeaderDelegate
-        property bool editable: headerData.editable ?? false
-        property string align: headerData.align ?? 'center'
-        property string selectionType: headerData.selectionType ?? ''
-        property var sorter: headerData.sorter
-        property var sortDirections: headerData.sortDirections ?? []
-        property var onFilter: headerData.onFilter
+
+        property var model: parent.model
+        property var headerData: parent.headerData
+        property bool editable: headerData?.editable ?? false
+        property string align: headerData?.align ?? 'center'
+        property string selectionType: headerData?.selectionType ?? ''
+        property var sorter: headerData?.sorter
+        property var sortDirections: headerData?.sortDirections ?? []
+        property var onFilter: headerData?.onFilter
 
         HusText {
             anchors {
@@ -60,7 +63,7 @@ HusRectangle {
                 bottomMargin: 4
             }
             font: control.columnHeaderTitleFont
-            text: headerData.title
+            text: headerData?.title ?? ''
             color: control.colorColumnHeaderTitle
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: {
@@ -149,7 +152,7 @@ HusRectangle {
                 }
                 sortMode = ref.sortMode;
             }
-            property int column: model.column
+            property int column: __columnHeaderDelegate?.model?.column ?? -1
             property alias sorter: __columnHeaderDelegate.sorter
             property alias sortDirections: __columnHeaderDelegate.sortDirections
             property string sortMode: 'false'
@@ -162,7 +165,7 @@ HusRectangle {
             anchors.verticalCenter: parent.verticalCenter
             active: onFilter !== undefined
             sourceComponent: columnHeaderFilterIconDelegate
-            property int column: model.column
+            property int column: __columnHeaderDelegate?.model?.column ?? -1
             property alias onFilter: __columnHeaderDelegate.onFilter
         }
     }
