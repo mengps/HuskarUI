@@ -34,9 +34,9 @@ HusInput {
     property int currentDay: new Date().getDate()
     property int currentWeekNumber: HusApi.getWeekNumber(new Date())
     property int currentQuarter: Math.floor(currentMonth / 3) + 1
-    property int currentHours: new Date().getHours()
-    property int currentMinutes: new Date().getMinutes()
-    property int currentSeconds: new Date().getSeconds()
+    property int currentHours: 0
+    property int currentMinutes: 0
+    property int currentSeconds: 0
 
     property int visualYear: control.currentYear
     property int visualMonth: control.currentMonth
