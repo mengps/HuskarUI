@@ -16,6 +16,7 @@ Rectangle {
     property alias expTitle: expDivider.title
     property alias descTitle: descDivider.title
     property alias desc: descTextLoader.text
+    property bool async: true
     property Component exampleDelegate: Item { }
     property alias code: codeText.text
 
@@ -37,6 +38,7 @@ Rectangle {
 
         Loader {
             width: parent.width
+            asynchronous: root.async
             sourceComponent: exampleDelegate
         }
 

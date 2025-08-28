@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusDateTimePicker 日期选择框 \n
 输入或选择日期时间的控件。\n
-* **继承自 { HusInput }**\n
+* **继承自 { [HusInput](internal://HusInput) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **dayDelegate: Component** 天项代理，代理可访问属性：\n
@@ -97,9 +97,9 @@ radiusPopupBg | int | - | 弹窗圆角
 - 周选择模式{ HusDateTimePicker.Mode_Week }\n
 - 天选择模式(默认){ HusDateTimePicker.Mode_Day }\n
 通过 \`timePickerMode\` 属性设置时间选择模式，支持的模式：\n
-- 小时分钟秒{hh:mm:ss}(默认){ HusDateTimePicker.Format_HHMMSS }\n
-- 小时分钟{hh:mm}{ HusDateTimePicker.Format_HHMM }\n
-- 分钟秒{mm:ss}{ HusDateTimePicker.Format_MMSS }\n
+- 小时分钟秒{hh:mm:ss}(默认){ HusDateTimePicker.Mode_HHMMSS }\n
+- 小时分钟{hh:mm}{ HusDateTimePicker.Mode_HHMM }\n
+- 分钟秒{mm:ss}{ HusDateTimePicker.Mode_MMSS }\n
 通过 \`format\` 属性设置日期时间格式：\n
 年月日时分秒遵从一般日期格式 \`yyyy MM dd hh mm ss\`，而 \`w\` 将替换为周数，\`q\` 将替换为季度。\n
                        `)
