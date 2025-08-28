@@ -56,6 +56,7 @@ colorOverlay | color | - | 覆盖层颜色
 
         CodeBox {
             width: parent.width
+            async: false
             desc: qsTr(`
 基础抽屉，点击触发按钮抽屉从右滑出，点击遮罩区(非抽屉区)关闭。
                        `)
@@ -100,6 +101,7 @@ colorOverlay | color | - | 覆盖层颜色
 
         CodeBox {
             width: parent.width
+            async: false
             desc: qsTr(`
 通过 \`edge\` 属性设置抽屉打开的位置，支持的位置：\n
 - 抽屉在窗口上边{ Qt.TopEdge }\n
