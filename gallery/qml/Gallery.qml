@@ -14,7 +14,7 @@ HusWindow {
     minimumWidth: 800
     minimumHeight: 600
     title: qsTr('HuskarUI Gallery')
-    followThemeSwitch: false
+    followThemeSwitch: true
     captionBar.color: HusTheme.Primary.colorFillTertiary
     captionBar.themeButtonVisible: true
     captionBar.topButtonVisible: true
@@ -116,7 +116,6 @@ HusWindow {
             target: galleryWindow.contentItem
             isDark: HusTheme.isDark
             onSwitchStarted: {
-                galleryWindow.setWindowMode(!HusTheme.isDark);
                 galleryBackground.color = HusTheme.isDark ? '#f5f5f5' : '#181818';
                 themeSwitchLoader.changeDark();
             }
