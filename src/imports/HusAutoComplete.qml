@@ -19,32 +19,33 @@ HusInput {
 
     property Component labelDelegate: HusText {
         text: textData
-        color: HusTheme.HusAutoComplete.colorItemText
+        color: control.themeSource.colorItemText
         font {
-            family: HusTheme.HusAutoComplete.fontFamily
-            pixelSize: HusTheme.HusAutoComplete.fontSize
+            family: control.themeSource.fontFamily
+            pixelSize: control.themeSource.fontSize
             weight: highlighted ? Font.DemiBold : Font.Normal
         }
         elide: Text.ElideRight
         verticalAlignment: Text.AlignVCenter
     }
     property Component labelBgDelegate: Rectangle {
-        radius: HusTheme.HusAutoComplete.radiusLabelBg
-        color: highlighted ? HusTheme.HusAutoComplete.colorItemBgActive :
-                             (hovered || selected) ? HusTheme.HusAutoComplete.colorItemBgHover :
-                                                     HusTheme.HusAutoComplete.colorItemBg;
+        radius: control.themeSource.radiusLabelBg
+        color: highlighted ? control.themeSource.colorItemBgActive :
+                             (hovered || selected) ? control.themeSource.colorItemBgHover :
+                                                     control.themeSource.colorItemBg;
 
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     }
 
     objectName: '__HusAutoComplete__'
+    themeSource: HusTheme.HusAutoComplete
     iconPosition: HusInput.Position_Right
     iconDelegate: HusIconText {
         iconSource: control.iconSource
         iconSize: control.iconSize
         colorIcon: control.enabled ?
-                       __hoverHandler.hovered ? HusTheme.HusAutoComplete.colorIconHover :
-                                                HusTheme.HusAutoComplete.colorIcon : HusTheme.HusAutoComplete.colorIconDisabled
+                       __hoverHandler.hovered ? control.themeSource.colorIconHover :
+                                                control.themeSource.colorIcon : control.themeSource.colorIconDisabled
 
         Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 

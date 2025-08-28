@@ -6,11 +6,6 @@ import HuskarUI.Basic
 HusInput {
     id: control
 
-    enum IconPosition {
-        Position_Left = 0,
-        Position_Right = 1
-    }
-
     enum DatePickerMode {
         Mode_Year = 0,
         Mode_Quarter = 1,
@@ -299,6 +294,10 @@ HusInput {
         rightPadding: 8
         animationEnabled: control.animationEnabled
         type: HusButton.Type_Link
+        font {
+            family: control.themeSource.fontFamily
+            pixelSize: control.themeSource.fontSize
+        }
         iconSize: 16
         colorIcon: hovered ? control.themeSource.colorPageIconHover : control.themeSource.colorPageIcon
     }

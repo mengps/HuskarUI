@@ -1,4 +1,7 @@
 {
+    "__init__": {
+        "__import__": ["HusInput"]
+    },
     "__style__": {
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
