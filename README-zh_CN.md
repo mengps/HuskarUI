@@ -11,9 +11,13 @@ Qt Qml 的 Ant 设计组件库
 
 <div align=center>
 
-![win-badge] ![linux-badge] ![macos-badge] ![android-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
+![win-badge] ![linux-badge] ![macos-badge] ![android-badge]
 
-[English](./README.md) | 中文
+[![Issues][issues-open-image]][issues-open-url] [![Issues][issues-close-image]][issues-close-url] [![Release][release-image]][release-url]
+
+[![QQGroup][qqgroup-image]][qqgroup-url]
+
+English | [中文](./README-zh_CN.md)
 
 </div>
 
@@ -22,10 +26,15 @@ Qt Qml 的 Ant 设计组件库
 [macos-badge]: https://img.shields.io/badge/MacOS-passing-brightgreen?style=flat-square
 [android-badge]: https://img.shields.io/badge/Android-passing-brightgreen?style=flat-square
 
-[issues-image]: https://flat.badgen.net/github/label-issues/mengps/HuskarUI/open
-[issues-url]: https://github.com/mengps/HuskarUI/issues
+[issues-open-image]: https://img.shields.io/github/issues/mengps/HuskarUI?label=Issue&style=flat-square
+[issues-open-url]: https://github.com/mengps/HuskarUI/issues
+[issues-close-image]: https://img.shields.io/github/issues-closed/mengps/HuskarUI?color=brightgreen&label=Issue&style=flat-square
+[issues-close-url]: https://github.com/mengps/HuskarUI/issues?q=is%3Aissue%20state%3Aclosed
 
-[qqgroup-image]: https://img.shields.io/badge/QQ群-490328047-f74658?style=flat-square
+[release-image]: https://img.shields.io/github/v/release/mengps/HuskarUI?label=Release&style=flat-square
+[release-url]: https://github.com/mengps/HuskarUI/releases
+
+[qqgroup-image]: https://img.shields.io/badge/QQGroup-490328047-f74658?style=flat-square
 [qqgroup-url]: https://qm.qq.com/q/cMNHn2tWeY
 
 <div align=center>
@@ -43,6 +52,7 @@ Qt Qml 的 Ant 设计组件库
 - 📦 一套开箱即用的优质 Qml 组件.
 - 🎨 强大的主题定制系统.
 - 💻 基于Qml，完全跨平台.
+- 🔧 高度灵活的基于委托的组件定制.
 
 ## 🗺️ 路线图
 

@@ -11,7 +11,11 @@ If you need Qt5 impl [HuskarUI for Qt5](https://github.com/mengps/HuskarUI_Qt5)
 
 <div align=center>
 
-![win-badge] ![linux-badge] ![macos-badge] ![android-badge] [![Issues][issues-image]][issues-url] [![QQGroup][qqgroup-image]][qqgroup-url]
+![win-badge] ![linux-badge] ![macos-badge] ![android-badge]
+
+[![Issues][issues-open-image]][issues-open-url] [![Issues][issues-close-image]][issues-close-url] [![Release][release-image]][release-url]
+
+[![QQGroup][qqgroup-image]][qqgroup-url]
 
 English | [中文](./README-zh_CN.md)
 
@@ -22,8 +26,13 @@ English | [中文](./README-zh_CN.md)
 [macos-badge]: https://img.shields.io/badge/MacOS-passing-brightgreen?style=flat-square
 [android-badge]: https://img.shields.io/badge/Android-passing-brightgreen?style=flat-square
 
-[issues-image]: https://flat.badgen.net/github/label-issues/mengps/HuskarUI/open
-[issues-url]: https://github.com/mengps/HuskarUI/issues
+[issues-open-image]: https://img.shields.io/github/issues/mengps/HuskarUI?label=Issue&style=flat-square
+[issues-open-url]: https://github.com/mengps/HuskarUI/issues
+[issues-close-image]: https://img.shields.io/github/issues-closed/mengps/HuskarUI?color=brightgreen&label=Issue&style=flat-square
+[issues-close-url]: https://github.com/mengps/HuskarUI/issues?q=is%3Aissue%20state%3Aclosed
+
+[release-image]: https://img.shields.io/github/v/release/mengps/HuskarUI?label=Release&style=flat-square
+[release-url]: https://github.com/mengps/HuskarUI/releases
 
 [qqgroup-image]: https://img.shields.io/badge/QQGroup-490328047-f74658?style=flat-square
 [qqgroup-url]: https://qm.qq.com/q/cMNHn2tWeY
@@ -43,6 +52,7 @@ English | [中文](./README-zh_CN.md)
 - 📦 A set of high-quality Qml components out of the box.
 - 🎨 Powerful theme customization system.
 - 💻 Based on Qml, completely cross platform.
+- 🔧 Highly flexible delegate based component customization.
 
 ## 🗺️ Roadmap
 
