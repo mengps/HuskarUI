@@ -221,7 +221,7 @@ radiusTagBg | int | - | 标签圆角
             desc: qsTr(`
 通过 \`prefix\` 设置前缀文本。\n
 通过 \`suffix\` 设置后缀文本。\n
-通过 \`prefixDelegate\` 设置后缀代理。\n
+通过 \`prefixDelegate\` 设置前缀代理。\n
 通过 \`suffixDelegate\` 设置后缀代理。\n
                        `)
             code: `
