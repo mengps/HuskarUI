@@ -71,7 +71,6 @@ Item {
     }
 
     objectName: '__HusProgress__'
-    width: parent.width
     height: 16
     onPercentChanged: __canvas.requestPaint();
     onStepsChanged: __canvas.requestPaint();

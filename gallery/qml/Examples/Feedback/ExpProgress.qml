@@ -86,21 +86,21 @@ colorInfo | color | - | 进度条信息文本颜色
                     width: parent.width
                     spacing: 10
 
-                    HusProgress { percent: 30 }
-                    HusProgress { percent: 50; status: HusProgress.Status_Active }
-                    HusProgress { percent: 70; status: HusProgress.Status_Exception }
-                    HusProgress { percent: 100; status: HusProgress.Status_Success }
-                    HusProgress { percent: 50; showInfo: false }
+                    HusProgress { width: parent.width; percent: 30 }
+                    HusProgress { width: parent.width; percent: 50; status: HusProgress.Status_Active }
+                    HusProgress { width: parent.width; percent: 70; status: HusProgress.Status_Exception }
+                    HusProgress { width: parent.width; percent: 100; status: HusProgress.Status_Success }
+                    HusProgress { width: parent.width; percent: 50; showInfo: false }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                HusProgress { percent: 30 }
-                HusProgress { percent: 50; status: HusProgress.Status_Active }
-                HusProgress { percent: 70; status: HusProgress.Status_Exception }
-                HusProgress { percent: 100; status: HusProgress.Status_Success }
-                HusProgress { percent: 50; showInfo: false }
+                HusProgress { width: parent.width; percent: 30 }
+                HusProgress { width: parent.width; percent: 50; status: HusProgress.Status_Active }
+                HusProgress { width: parent.width; percent: 70; status: HusProgress.Status_Exception }
+                HusProgress { width: parent.width; percent: 100; status: HusProgress.Status_Success }
+                HusProgress { width: parent.width; percent: 50; showInfo: false }
             }
         }
 
