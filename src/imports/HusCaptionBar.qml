@@ -35,7 +35,7 @@ Rectangle {
     property var topCallback: checked => { }
     property var minimizeCallback:
         () => {
-            if (targetWindow) targetWindow.showMinimized();
+            if (targetWindow) HusApi.setWindowState(targetWindow, Qt.WindowMinimized);
         }
     property var maximizeCallback: () => {
             if (!targetWindow) return;
@@ -102,9 +102,19 @@ Rectangle {
         HusCaptionButton {
             id: __maximizeButton
             visible: control.maximizeButtonVisible
-            iconSource: targetWindow ? (targetWindow.visibility === Window.Maximized ?
-                                            HusIcon.SwitcherOutlined : HusIcon.BorderOutlined) : 0
-            iconSize: 14
+            topPadding: 8
+            bottomPadding: 8
+            contentItem: HusIconText {
+                iconSource: HusIcon.SwitcherTwotonePath3
+                iconSize: 14
+                visible: targetWindow
+
+                HusIconText {
+                    iconSource: HusIcon.SwitcherTwotonePath2
+                    iconSize: 14
+                    visible: targetWindow.visibility === Window.Maximized
+                }
+            }
             contentDescription: qsTr('最大化')
             onClicked: control.maximizeCallback();
         }

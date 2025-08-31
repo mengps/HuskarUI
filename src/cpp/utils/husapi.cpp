@@ -42,6 +42,28 @@ void HusApi::setWindowStaysOnTopHint(QWindow *window, bool hint)
     }
 }
 
+void HusApi::setWindowState(QWindow *window, int state)
+{
+    if (window) {
+#ifdef Q_OS_WIN
+        HWND hwnd = reinterpret_cast<HWND>(window->winId());
+        switch (state) {
+        case Qt::WindowMinimized:
+            ::ShowWindow(hwnd, SW_MINIMIZE);
+            break;
+        case Qt::WindowMaximized:
+            ::ShowWindow(hwnd, SW_MAXIMIZE);
+            break;
+        default:
+            window->setWindowState(Qt::WindowState(state));
+            break;
+        }
+#else
+        window->setWindowState(Qt::WindowState(state));
+#endif
+    }
+}
+
 QString HusApi::getClipbordText() const
 {
     if (auto clipboard = QGuiApplication::clipboard(); clipboard) {

@@ -20,6 +20,7 @@ public:
     static HusApi *create(QQmlEngine *, QJSEngine *);
 
     Q_INVOKABLE void setWindowStaysOnTopHint(QWindow *window, bool hint);
+    Q_INVOKABLE void setWindowState(QWindow *window, int state);
 
     Q_INVOKABLE QString getClipbordText() const;
     Q_INVOKABLE bool setClipbordText(const QString &text);
