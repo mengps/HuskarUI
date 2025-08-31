@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.4.0)
+set(HUSKARUI_VERSION 0.4.5.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -89,6 +89,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Feedback/ExpDrawer.qml
         qml/Examples/Feedback/ExpMessage.qml
         qml/Examples/Feedback/ExpProgress.qml
+        qml/Examples/Feedback/ExpNotification.qml
         qml/Examples/Utils/ExpAsyncHasher.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Controls/CodeBox.qml
