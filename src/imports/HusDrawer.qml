@@ -68,14 +68,12 @@ T.Drawer {
     enter: Transition { NumberAnimation { duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 } }
     exit: Transition { NumberAnimation { duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 } }
     background: Item {
-        MultiEffect {
+        HusShadow {
             anchors.fill: __rect
             source: __rect
-            shadowEnabled: true
             shadowColor: HusTheme.HusDrawer.colorShadow
-            shadowBlur: HusTheme.isDark ? 0.8 : 0.5
-            shadowOpacity: HusTheme.isDark ? 0.8 : 0.5
         }
+
         Rectangle {
             id: __rect
             anchors.fill: parent

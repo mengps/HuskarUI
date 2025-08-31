@@ -25,6 +25,7 @@ Item {
     property color colorFill: HusTheme.HusRate.colorFill
     property color colorEmpty: HusTheme.HusRate.colorEmpty
     property color colorHalf: HusTheme.HusRate.colorHalf
+    property color colorToolTipShadow: HusTheme.HusRate.colorToolTipShadow
     property color colorToolTipText: HusTheme.HusRate.colorToolTipText
     property color colorToolTipBg: HusTheme.isDark ? HusTheme.HusRate.colorToolTipBgDark : HusTheme.HusRate.colorToolTipBg
     /* 允许半星 */
@@ -89,14 +90,10 @@ Item {
 
         Behavior on opacity { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationFast } }
 
-        MultiEffect {
+        HusShadow {
             anchors.fill: __item
             source: __item
-            shadowEnabled: true
-            shadowColor: control.colorToolTipBg
-            shadowBlur: 1.0
-            shadowOpacity: HusTheme.isDark ? 0.5 : 0.2
-            shadowScale: 1.02
+            shadowColor: control.colorToolTipShadow
         }
 
         Item {

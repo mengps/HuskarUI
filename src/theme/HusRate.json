@@ -5,6 +5,7 @@
         "colorFill": "$alpha(#Preset_Yellow, 0.9)",
         "colorEmpty": "$alpha(@colorTextBase, 0.1)",
         "colorHalf": "$alpha(#Preset_Yellow, 0.9)",
+        "colorToolTipShadow": "@colorTextBase",
         "colorToolTipText": "@colorTextBase",
         "colorToolTipBg": "@colorBgBase",
         "colorToolTipBgDark": "#424242",

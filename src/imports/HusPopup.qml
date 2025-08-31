@@ -41,14 +41,10 @@ T.Popup {
         }
     }
     background: Item {
-        MultiEffect {
+        HusShadow {
             anchors.fill: __popupRect
             source: __popupRect
             shadowColor: control.colorShadow
-            shadowEnabled: true
-            shadowBlur: 1.0
-            shadowOpacity: HusTheme.isDark ? 0.4 : 0.2
-            shadowScale: 1.02
         }
         Rectangle {
             id: __popupRect

@@ -17,6 +17,7 @@ T.ToolTip {
     property bool animationEnabled: HusTheme.animationEnabled
     property bool arrowVisible: false
     property int position: HusToolTip.Position_Top
+    property color colorShadow: HusTheme.HusToolTip.colorShadow
     property color colorText: HusTheme.HusToolTip.colorText
     property color colorBg: HusTheme.isDark ? HusTheme.HusToolTip.colorBgDark : HusTheme.HusToolTip.colorBg
     property int radiusBg: HusTheme.HusToolTip.radiusBg
@@ -100,13 +101,10 @@ T.ToolTip {
         implicitWidth: __bg.width + (__private.isHorizontal ? 0 : __arrow.width)
         implicitHeight: __bg.height + (__private.isHorizontal ? __arrow.height : 0)
 
-        MultiEffect {
+        HusShadow {
             anchors.fill: __item
             source: __item
-            shadowColor: control.colorText
-            shadowEnabled: true
-            shadowBlur: HusTheme.isDark ? 0.8 : 0.4
-            shadowOpacity: HusTheme.isDark ? 0.8 : 0.4
+            shadowColor: control.colorShadow
         }
 
         Item {
