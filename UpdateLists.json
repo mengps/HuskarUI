@@ -1,6 +1,16 @@
 [
     {
         "isNew": true,
+        "name": "HusNotification",
+        "desc": "通知提醒框，全局展示通知提醒信息。\n"
+    },
+    {
+        "isNew": false,
+        "name": "HusMessage",
+        "desc": "新增消息体代理 messageDelegate。\n新增 defaultIconSize。\n新增 spacing。\n新增 topMargin。"
+    },
+    {
+        "isNew": true,
         "name": "HusDateTimePicker",
         "desc": "日期时间选择框，输入或选择日期的控件。\n"
     },
@@ -108,11 +118,6 @@
         "isNew": true,
         "name": "HusText",
         "desc": "代替 Text 的来统一字体和文本。"
-    },
-    {
-        "isNew": true,
-        "name": "HusMessage",
-        "desc": "消息提示，用于页面内的消息提示。"
     },
     {
         "isNew": true,

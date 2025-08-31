@@ -751,6 +751,12 @@ HusWindow {
                             label: qsTr('HusProgress 进度条'),
                             source: './Examples/Feedback/ExpProgress.qml',
                             state: 'New',
+                        },
+                        {
+                            key: 'HusNotification',
+                            label: qsTr('HusNotification 通知提醒框'),
+                            source: './Examples/Feedback/ExpNotification.qml',
+                            state: 'New',
                         }
                     ]
                 },
