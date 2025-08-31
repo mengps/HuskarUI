@@ -136,20 +136,22 @@ HusInput {
             onExited: hovered = false;
             onClicked: {
                 if (control.showTime) {
+                    control.currentHours = 0;
+                    control.currentMinutes = 0;
+                    control.currentSeconds = 0;
                     __hourListView.clearCheck();
                     __minuteListView.clearCheck();
                     __secondListView.clearCheck();
                     __private.cleared = true;
                 }
                 if (control.length === 0) {
-                    if (!__picker.opened)
-                        __picker.open();
+                    control.openPicker();
                 } else {
                     if (control.initDateTime) {
                         __private.selectDateTime(control.initDateTime);
                         control.clear();
                     } else {
-                        __private.selectDateTime(new Date());
+                        __private.selectDateTime(__private.getDateTime());
                         control.clear();
                     }
                 }
@@ -482,15 +484,12 @@ HusInput {
         }
 
         function getDateTime() {
-            const date = new Date();
-            date.setFullYear(control.currentYear);
-            date.setMonth(control.currentMonth);
-            date.setDate(control.currentDay);
-            date.setHours(control.currentHours);
-            date.setMinutes(control.currentMinutes);
-            date.setSeconds(control.currentSeconds);
-
-            return date;
+            return new Date(control.currentYear,
+                            control.currentMonth,
+                            control.currentDay,
+                            control.currentHours,
+                            control.currentMinutes,
+                            control.currentSeconds);
         }
 
         function setDateTimeString(dateTimeString) {
