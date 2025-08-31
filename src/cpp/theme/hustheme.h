@@ -55,7 +55,7 @@ class HUSKARUI_EXPORT HusTheme : public QObject
     HUS_PROPERTY_READONLY(QVariantMap, HusImage);
     HUS_PROPERTY_READONLY(QVariantMap, HusMultiSelect);
     HUS_PROPERTY_READONLY(QVariantMap, HusDateTimePicker);
-
+    HUS_PROPERTY_READONLY(QVariantMap, HusNotification);
 
 public:
     enum class DarkMode {

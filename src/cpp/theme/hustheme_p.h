@@ -59,6 +59,7 @@ enum class Component : uint16_t
     HusImage,
     HusMultiSelect,
     HusDateTimePicker,
+    HusNotification,
 
     Size
 };
@@ -98,6 +99,7 @@ static QHash<QString, Component> g_componentTable
     { "HusImage",           Component::HusImage            },
     { "HusMultiSelect",     Component::HusMultiSelect      },
     { "HusDateTimePicker",  Component::HusDateTimePicker   },
+    { "HusNotification",    Component::HusNotification   },
 };
 
 struct ThemeData

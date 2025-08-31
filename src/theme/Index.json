@@ -183,6 +183,7 @@
         "HusBreadcrumb": ":/HuskarUI/theme/HusBreadcrumb.json",
         "HusImage": ":/HuskarUI/theme/HusImage.json",
         "HusMultiSelect": ":/HuskarUI/theme/HusMultiSelect.json",
-        "HusDateTimePicker": ":/HuskarUI/theme/HusDateTimePicker.json"
+        "HusDateTimePicker": ":/HuskarUI/theme/HusDateTimePicker.json",
+        "HusNotification": ":/HuskarUI/theme/HusNotification.json"
     }
 }

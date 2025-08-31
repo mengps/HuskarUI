@@ -1,0 +1,15 @@
+{
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontMessageSize": "@fontPrimarySizeHeading5",
+        "fontDescriptionSize": "@fontPrimarySize",
+        "colorMessage": "@colorTextPrimary",
+        "colorDescription": "@colorTextSecondary",
+        "colorBg": "@colorBgBase",
+        "colorBgDark": "@colorMain-11",
+        "colorBgShadow": "@colorTextBase",
+        "colorClose": "@colorTextTertiary",
+        "colorCloseHover": "@colorTextBase",
+        "radiusBg": "@radiusPrimaryLG"
+    }
+}
