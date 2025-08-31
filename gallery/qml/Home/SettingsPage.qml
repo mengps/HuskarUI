@@ -26,11 +26,9 @@ HusWindow {
     Item {
         anchors.fill: parent
 
-        MultiEffect {
+        HusShadow {
             anchors.fill: backRect
             source: backRect
-            shadowColor: HusTheme.Primary.colorTextBase
-            shadowEnabled: true
         }
 
         Rectangle {
