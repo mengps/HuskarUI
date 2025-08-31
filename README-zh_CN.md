@@ -17,7 +17,7 @@ Qt Qml 的 Ant 设计组件库
 
 [![QQGroup][qqgroup-image]][qqgroup-url]
 
-English | [中文](./README-zh_CN.md)
+[English](./README.md) | 中文
 
 </div>
 
