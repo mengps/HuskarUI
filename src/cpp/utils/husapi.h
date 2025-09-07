@@ -22,6 +22,8 @@ public:
     Q_INVOKABLE void setWindowStaysOnTopHint(QWindow *window, bool hint);
     Q_INVOKABLE void setWindowState(QWindow *window, int state);
 
+    Q_INVOKABLE void setPopupAllowAutoFlip(QObject *popup, bool allowVerticalFlip = true, bool allowHorizontalFlip = true);
+
     Q_INVOKABLE QString getClipbordText() const;
     Q_INVOKABLE bool setClipbordText(const QString &text);
 

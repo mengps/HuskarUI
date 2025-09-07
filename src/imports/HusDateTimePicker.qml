@@ -563,27 +563,6 @@ HusInput {
 
     HusPopup {
         id: __picker
-
-        function adjustPosition() {
-            const pos = control.mapToItem(null, 0, 0);
-            const pickerX = (control.width - implicitWidth) * 0.5;
-            if ((pos.x + pickerX) < 0)
-                x = pickerX + Math.abs(pos.x + pickerX) + 6;
-            else if (__private.window.width < (pos.x + pickerX + implicitWidth)) {
-                x = __private.window.width - pos.x - implicitWidth - 6;
-            } else {
-                x = pickerX;
-            }
-
-            if (__private.window.height > (pos.y + control.height + implicitHeight + 6)){
-                y = control.height + 6;
-            } else if (pos.y > implicitHeight) {
-                y = -implicitHeight - 6;
-            } else {
-                y = __private.window.height - (pos.y + implicitHeight + 6);
-            }
-        }
-
         x: (control.width - implicitWidth) * 0.5
         y: control.height + 6
         implicitWidth: implicitContentWidth + leftPadding + rightPadding
@@ -613,6 +592,7 @@ HusInput {
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
         }
+        Component.onCompleted: HusApi.setPopupAllowAutoFlip(this);
         onAboutToShow: {
             control.visualYear = control.currentYear;
             control.visualMonth = control.currentMonth;
@@ -652,13 +632,11 @@ HusInput {
                 __pickerHeader.isPickQuarter = false;
             }
             }
-            adjustPosition();
 
             if (control.showTime) {
                 __private.timeViewAtBeginning();
             }
         }
-        onHeightChanged: adjustPosition();
         contentItem: Item {
             implicitWidth: __pickerColumn.implicitWidth
             implicitHeight: __pickerColumn.implicitHeight

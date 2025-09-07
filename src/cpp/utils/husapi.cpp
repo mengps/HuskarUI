@@ -4,6 +4,9 @@
 #include <QtGui/QClipboard>
 #include <QtGui/QGuiApplication>
 
+#include <private/qquickpopup_p_p.h>
+#include <private/qquickpopuppositioner_p_p.h>
+
 #ifdef Q_OS_WIN
 #include <Windows.h>
 #endif
@@ -61,6 +64,14 @@ void HusApi::setWindowState(QWindow *window, int state)
 #else
         window->setWindowState(Qt::WindowState(state));
 #endif
+    }
+}
+
+void HusApi::setPopupAllowAutoFlip(QObject *popup, bool allowVerticalFlip, bool allowHorizontalFlip)
+{
+    if (auto p = qobject_cast<QQuickPopup*>(popup); p) {
+        QQuickPopupPrivate::get(p)->allowVerticalFlip = allowVerticalFlip;
+        QQuickPopupPrivate::get(p)->allowHorizontalFlip = allowHorizontalFlip;
     }
 }
 

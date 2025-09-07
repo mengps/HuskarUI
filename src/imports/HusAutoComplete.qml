@@ -140,6 +140,7 @@ HusInput {
 
     HusPopup {
         id: __popup
+        y: control.height + 6
         implicitWidth: control.width
         implicitHeight: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
         leftPadding: 4
@@ -148,17 +149,7 @@ HusInput {
         bottomPadding: 6
         animationEnabled: control.animationEnabled
         closePolicy: T.Popup.NoAutoClose | T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent
-        onAboutToShow: {
-            const pos = control.mapToItem(null, 0, 0);
-            x = (control.width - width) * 0.5;
-            if (__private.window.height > (pos.y + control.height + implicitHeight + 6)){
-                y = control.height + 6;
-            } else if (pos.y > implicitHeight) {
-                y = Qt.binding(() => -implicitHeight - 6);
-            } else {
-                y = __private.window.height - (pos.y + implicitHeight + 6);
-            }
-        }
+        Component.onCompleted: HusApi.setPopupAllowAutoFlip(this);
         enter: Transition {
             NumberAnimation {
                 property: 'opacity'

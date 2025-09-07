@@ -111,6 +111,7 @@ Item {
                 closePolicy: HusPopup.NoAutoClose | HusPopup.CloseOnPressOutsideParent | HusPopup.CloseOnEscape
                 onHoveredChanged: if (hovered) open();
                 onClickMenu: (deep, menuKey, menuData) => control.clickMenu(deep, menuKey, menuData);
+                Component.onCompleted: HusApi.setPopupAllowAutoFlip(this);
                 property bool hovered: __hoverHandler.hovered
 
                 Connections {
