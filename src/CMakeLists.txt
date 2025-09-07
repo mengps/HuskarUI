@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.5.0)
+set(HUSKARUI_VERSION 0.4.5.1)
 
 message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
@@ -12,7 +12,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/HuskarUIHelper.cmake)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(Qt6 6.5 COMPONENTS Quick ShaderTools REQUIRED)
+find_package(Qt6 6.5 COMPONENTS Quick QuickTemplates2 ShaderTools REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
 
 if(NOT HUSKARUI_HEADER_OUTPUT_DIRECTORY)
@@ -228,6 +228,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::QuickPrivate
+    Qt6::QuickTemplates2Private
     $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKCore>
     $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKQuick>
 )
