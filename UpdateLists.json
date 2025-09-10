@@ -1,5 +1,10 @@
 [
     {
+        "isNew": false,
+        "name": "HusCaptionBar",
+        "desc": "新增窗口额外按钮代理 winExtraButtonsDelegate。\n"
+    },
+    {
         "isNew": true,
         "name": "HusNotification",
         "desc": "通知提醒框，全局展示通知提醒信息。\n"
@@ -28,11 +33,6 @@
         "isNew": true,
         "name": "HusImage",
         "desc": "可预览的图片。\n"
-    },
-    {
-        "isNew": true,
-        "name": "HusCaptionBar",
-        "desc": "标题栏，为无边框窗口提供一个通用的标题栏。\n"
     },
     {
         "isNew": true,

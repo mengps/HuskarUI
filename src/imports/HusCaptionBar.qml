@@ -37,7 +37,8 @@ Rectangle {
         () => {
             if (targetWindow) HusApi.setWindowState(targetWindow, Qt.WindowMinimized);
         }
-    property var maximizeCallback: () => {
+    property var maximizeCallback:
+        () => {
             if (!targetWindow) return;
 
             if (targetWindow.visibility === Window.Maximized) targetWindow.showNormal();
@@ -57,17 +58,12 @@ Rectangle {
         color: winTitleColor
         font: winTitleFont
     }
-    property Component winButtonsDelegate: Row {
+    property Component winExtraButtonsDelegate: Row {
         Connections {
             target: control
             function onWindowAgentChanged() {
-                if (windowAgent) {
-                    windowAgent.setHitTestVisible(__themeButton, true);
-                    windowAgent.setHitTestVisible(__topButton, true);
-                    windowAgent.setSystemButton(HusWindowAgent.Minimize, __minimizeButton);
-                    windowAgent.setSystemButton(HusWindowAgent.Maximize, __maximizeButton);
-                    windowAgent.setSystemButton(HusWindowAgent.Close, __closeButton);
-                }
+                control.addInteractionItem(__themeButton);
+                control.addInteractionItem(__topButton);
             }
         }
 
@@ -88,6 +84,18 @@ Rectangle {
             checkable: true
             contentDescription: qsTr('置顶')
             onClicked: control.topCallback(checked);
+        }
+    }
+    property Component winButtonsDelegate: Row {
+        Connections {
+            target: control
+            function onWindowAgentChanged() {
+                if (windowAgent) {
+                    windowAgent.setSystemButton(HusWindowAgent.Minimize, __minimizeButton);
+                    windowAgent.setSystemButton(HusWindowAgent.Maximize, __maximizeButton);
+                    windowAgent.setSystemButton(HusWindowAgent.Close, __closeButton);
+                }
+            }
         }
 
         HusCaptionButton {
@@ -193,8 +201,11 @@ Rectangle {
 
         Loader {
             Layout.alignment: Qt.AlignVCenter
-            width: item ? item.width : 0
-            height: item ? item.height : 0
+            sourceComponent: winExtraButtonsDelegate
+        }
+
+        Loader {
+            Layout.alignment: Qt.AlignVCenter
             sourceComponent: winButtonsDelegate
         }
     }
