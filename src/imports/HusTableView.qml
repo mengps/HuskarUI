@@ -242,7 +242,7 @@ HusRectangle {
                     id: __searchInput
                     width: parent.width
                     anchors.horizontalCenter: parent.horizontalCenter
-                    placeholderText: qsTr('Search ') + control.columns[column].dataIndex
+                    placeholderText: qsTr('Search ') + control.columns[column]?.dataIndex ?? ''
                     onEditingFinished: __searchButton.clicked();
                     Component.onCompleted: {
                         let ref = control.columns[column];
@@ -294,6 +294,7 @@ HusRectangle {
                     }
                 }
             }
+            Component.onCompleted: HusApi.setPopupAllowAutoFlip(this);
         }
     }
 
