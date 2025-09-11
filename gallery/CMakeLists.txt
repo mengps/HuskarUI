@@ -137,6 +137,20 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     WIN32_EXECUTABLE TRUE  #VSCode 打印需要屏蔽此属性
 )
 
+# Configure Android_OpenSSL
+if(ANDROID)
+    include(FetchContent)
+    FetchContent_Declare(
+      android_openssl
+      DOWNLOAD_EXTRACT_TIMESTAMP true
+      URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip
+#      URL_HASH MD5=c97d6ad774fab16be63b0ab40f78d945 #optional
+    )
+    FetchContent_MakeAvailable(android_openssl)
+    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
+    add_android_openssl_libraries(${PROJECT_NAME})
+endif()
+
 target_include_directories(${PROJECT_NAME} PRIVATE
     cpp
 )
