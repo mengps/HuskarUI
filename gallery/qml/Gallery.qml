@@ -35,6 +35,12 @@ HusWindow {
         HusApi.setWindowStaysOnTopHint(galleryWindow, checked);
     }
     Component.onCompleted: {
+        /*! 非桌面平台移除标题栏 */
+        if (Qt.platform.os != 'windows' && Qt.platform.os != 'linux' && Qt.platform.os != 'osx') {
+            captionBar.height = 0;
+            captionBar.visible = false;
+        }
+
         /*! 解析 Primary.tokens */
         for (const token in HusTheme.Primary) {
             primaryTokens.push({ label: `@${token}` });
