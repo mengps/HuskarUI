@@ -188,6 +188,7 @@ HusWindow {
 
             HusCheckBox {
                 id: isShareLibrary
+                visible: containMethod.currentCheckedIndex != 0
                 text: qsTr('HuskarUI 动态库')
                 checked: true
 
