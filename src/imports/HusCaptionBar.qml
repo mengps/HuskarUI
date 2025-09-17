@@ -69,6 +69,7 @@ Rectangle {
 
         HusCaptionButton {
             id: __themeButton
+            height: parent.height
             visible: control.themeButtonVisible
             iconSource: HusTheme.isDark ? HusIcon.MoonOutlined : HusIcon.SunOutlined
             iconSize: 16
@@ -78,6 +79,7 @@ Rectangle {
 
         HusCaptionButton {
             id: __topButton
+            height: parent.height
             visible: control.topButtonVisible
             iconSource: HusIcon.PushpinOutlined
             iconSize: 16
@@ -100,6 +102,7 @@ Rectangle {
 
         HusCaptionButton {
             id: __minimizeButton
+            height: parent.height
             visible: control.minimizeButtonVisible
             iconSource: HusIcon.LineOutlined
             iconSize: 14
@@ -109,6 +112,7 @@ Rectangle {
 
         HusCaptionButton {
             id: __maximizeButton
+            height: parent.height
             visible: control.maximizeButtonVisible
             topPadding: 8
             bottomPadding: 8
@@ -129,6 +133,7 @@ Rectangle {
 
         HusCaptionButton {
             id: __closeButton
+            height: parent.height
             visible: control.closeButtonVisible
             iconSource: HusIcon.CloseOutlined
             iconSize: 14
@@ -200,11 +205,13 @@ Rectangle {
         }
 
         Loader {
+            Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
             sourceComponent: winExtraButtonsDelegate
         }
 
         Loader {
+            Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
             sourceComponent: winButtonsDelegate
         }
