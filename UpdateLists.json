@@ -1,6 +1,16 @@
 [
     {
         "isNew": false,
+        "name": "HusTourStep",
+        "desc": "新增 penetrationEvent/focusRadius 属性。\n优化步骤卡片显示逻辑。\n"
+    },
+    {
+        "isNew": false,
+        "name": "HusTourFocus",
+        "desc": "新增 penetrationEvent/focusRadius 属性。\n"
+    },
+    {
+        "isNew": false,
         "name": "HusCaptionBar",
         "desc": "新增窗口额外按钮代理 winExtraButtonsDelegate。\n"
     },

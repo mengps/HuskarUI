@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.5.1)
+set(HUSKARUI_VERSION 0.4.5.2)
 
 message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
@@ -198,7 +198,6 @@ qt_add_resources(${PROJECT_NAME} "resources"
 qt_add_shaders(${PROJECT_NAME} "shaders"
     PREFIX "/HuskarUI"
     FILES
-        shaders/hustour.frag
         shaders/husrate.frag
 )
 
