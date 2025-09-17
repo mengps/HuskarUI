@@ -15,6 +15,8 @@ HusWindow {
     minimumHeight: 600
     title: qsTr('HuskarUI Gallery')
     followThemeSwitch: true
+    captionBar.visible: Qt.platform.os == 'windows' || Qt.platform.os == 'linux' || Qt.platform.os == 'osx'
+    captionBar.height: captionBar.visible ? 30 : 0
     captionBar.color: HusTheme.Primary.colorFillTertiary
     captionBar.themeButtonVisible: true
     captionBar.topButtonVisible: true
@@ -35,12 +37,6 @@ HusWindow {
         HusApi.setWindowStaysOnTopHint(galleryWindow, checked);
     }
     Component.onCompleted: {
-        /*! 非桌面平台移除标题栏 */
-        if (Qt.platform.os != 'windows' && Qt.platform.os != 'linux' && Qt.platform.os != 'osx') {
-            captionBar.height = 0;
-            captionBar.visible = false;
-        }
-
         /*! 解析 Primary.tokens */
         for (const token in HusTheme.Primary) {
             primaryTokens.push({ label: `@${token}` });
@@ -176,6 +172,8 @@ HusWindow {
             radius: HusTheme.Primary.radiusPrimary
             color: hovered ? HusTheme.isDark ? '#10ffffff' : '#10000000' : 'transparent'
             visible: !galleryMenu.compactMode
+            clip: true
+
             property bool hovered: authorCardHover.hovered
 
             Behavior on height { NumberAnimation { duration: HusTheme.Primary.durationFast } }
@@ -637,11 +635,13 @@ HusWindow {
                             key: 'HusTourFocus',
                             label: qsTr('HusTourFocus 漫游焦点'),
                             source: './Examples/DataDisplay/ExpTourFocus.qml',
+                            state: 'Update',
                         },
                         {
                             key: 'HusTourStep',
                             label: qsTr('HusTourStep 漫游式引导'),
                             source: './Examples/DataDisplay/ExpTourStep.qml',
+                            state: 'Update',
                         },
                         {
                             key: 'HusTabView',
