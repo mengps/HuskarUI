@@ -29,6 +29,7 @@ T.Popup {
             property: 'opacity'
             from: 0.0
             to: 1.0
+            easing.type: Easing.OutQuad
             duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
         }
     }
@@ -37,6 +38,7 @@ T.Popup {
             property: 'opacity'
             from: 1.0
             to: 0
+            easing.type: Easing.InQuad
             duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
         }
     }
