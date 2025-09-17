@@ -6,26 +6,37 @@ T.Popup {
     id: control
 
     property bool animationEnabled: HusTheme.animationEnabled
+    property bool penetrationEvent: false
     property Item target: null
     property color colorOverlay: HusTheme.HusTour.colorOverlay
-    property real focusMargin: 5
+    property int focusMargin: 5
+    property int focusRadius: 2
 
     function close() {
         if (!visible || __private.isClosing) return;
-        if (control.animationEnabled) {
+        if (animationEnabled) {
             __private.startClosing();
         } else {
-            control.visible = false;
+            visible = false;
         }
     }
 
+    focus: true
+    modal: !penetrationEvent
+    dim: true
     objectName: '__HusTourFocus__'
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside
+    onFocusMarginChanged: {
+        __private.recalcPosition();
+    }
+    onFocusRadiusChanged: {
+        __private.repaint();
+    }
     onAboutToShow: {
         __private.recalcPosition();
     }
     onAboutToHide: {
-        if (control.animationEnabled && !__private.isClosing && opacity > 0) {
+        if (animationEnabled && !__private.isClosing && opacity > 0) {
             visible = true;
             __private.startClosing();
         }
@@ -39,29 +50,73 @@ T.Popup {
         }
     }
     exit: null
+    parent: T.Overlay.overlay
+    background: Item { }
     T.Overlay.modal: Item {
-        id: modalOverlay
+        id: __overlayItem
         onWidthChanged: __private.recalcPosition();
         onHeightChanged: __private.recalcPosition();
 
-        Rectangle {
-            id: source
-            color: control.colorOverlay
+        Canvas {
+            id: __canvas
             anchors.fill: parent
             opacity: control.opacity
-            layer.enabled: true
-            layer.effect: ShaderEffect {
-                property real xMin: __private.focusX / source.width
-                property real xMax: (__private.focusX + __private.focusWidth) / source.width
-                property real yMin: __private.focusY / source.height
-                property real yMax: (__private.focusY + __private.focusHeight) / source.height
-                fragmentShader: 'qrc:/HuskarUI/shaders/hustour.frag.qsb'
+            onPaint: {
+                const ctx = getContext('2d');
+                ctx.clearRect(0, 0, width, height);
+
+                ctx.save();
+                ctx.fillStyle = control.colorOverlay;
+                ctx.fillRect(0, 0, width, height);
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.fillStyle = '#fff';
+
+                const rect = Qt.rect(__private.focusX, __private.focusY, __private.focusWidth, __private.focusHeight);
+                ctx.beginPath();
+                ctx.moveTo(rect.x + control.focusRadius, rect.y);
+                ctx.lineTo(rect.x + rect.width - control.focusRadius, rect.y);
+                ctx.arcTo(rect.x + rect.width, rect.y, rect.x + rect.width, rect.y + control.focusRadius, control.focusRadius);
+                ctx.lineTo(rect.x + rect.width, rect.y + rect.height - control.focusRadius);
+                ctx.arcTo(rect.x + rect.width, rect.y + rect.height, rect.x + rect.width - control.focusRadius, rect.y + rect.height, control.focusRadius);
+                ctx.lineTo(rect.x + control.focusRadius, rect.y + rect.height);
+                ctx.arcTo(rect.x, rect.y + rect.height, rect.x, rect.y + rect.height - control.focusRadius, control.focusRadius);
+                ctx.lineTo(rect.x, rect.y + control.focusRadius);
+                ctx.arcTo(rect.x, rect.y, rect.x + control.focusRadius, rect.y, control.focusRadius);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.restore();
             }
         }
+
+        Connections {
+            target: __private
+            function onRepaint() {
+                __canvas.requestPaint();
+            }
+        }
+
+        Item {
+            id: __eventArea
+            x: __private.focusX
+            y: __private.focusY
+            width: __private.focusWidth
+            height: __private.focusHeight
+            visible: false
+        }
+
+        /*! 禁止 target 外的滚动 */
+        WheelHandler {
+            onWheel:
+                event => {
+                    if (!__eventArea.contains(Qt.point(event.x, event.y))) {
+                        event.accepted = true;
+                    }
+                }
+        }
     }
-    parent: T.Overlay.overlay
-    modal: true
-    background: Item { }
+    T.Overlay.modeless: T.Overlay.modal
 
     NumberAnimation {
         id: __closeAnimation
@@ -79,17 +134,26 @@ T.Popup {
 
     QtObject {
         id: __private
+
+        signal repaint()
+
         property real focusX: 0
         property real focusY: 0
         property real focusWidth: control.target ? (control.target.width + control.focusMargin * 2) : 0
         property real focusHeight: control.target ? (control.target.height + control.focusMargin * 2) : 0
         property bool isClosing: false
 
+        onFocusXChanged: repaint();
+        onFocusYChanged: repaint();
+        onFocusWidthChanged: repaint();
+        onFocusHeightChanged: repaint();
+
         function recalcPosition() {
             if (!control.target) return;
             const pos = control.target.mapToItem(null, 0, 0);
             focusX = pos.x - control.focusMargin;
             focusY = pos.y - control.focusMargin;
+            __private.repaint();
         }
 
         function startClosing() {
