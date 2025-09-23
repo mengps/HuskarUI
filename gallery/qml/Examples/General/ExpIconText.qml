@@ -17,26 +17,52 @@ Item {
         closeButtonVisible: true
     }
 
-    Description {
-        id: description
-        desc: qsTr(`
+    Flickable {
+        id: flickable
+        width: parent.width
+        height: 400
+        contentHeight: column.height
+        clip: true
+        ScrollBar.vertical: HusScrollBar { }
+
+        Column {
+            id: column
+            width: parent.width - 15
+            spacing: 30
+
+            Description {
+                desc: qsTr(`
 # HusIconText 图标文本\n
-语义化的图标文本。\n
+语义化的图标文本或图标。\n
 * **继承自 { Text }**\n
 \n<br/>
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-iconSource | 0 | 图标源(来自 HusIcon)
+empty | bool(readonly) | - | 指示图标是否为空(iconSource == 0或'')
+iconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接
 iconSize | int | - | 图标大小
 colorIcon | color | - | 图标颜色
 contentDescription | string | '' | 内容描述(提高可用性)
 \n**注意** 双色风格图标使用需要多个<Path{1~N}>图标覆盖使用\n
-                   `)
+                           `)
+            }
+
+            ThemeToken {
+                id: themeToken
+                source: 'HusIconText'
+            }
+        }
+    }
+
+    HusDivider {
+        width: parent.width
+        height: 1
+        anchors.bottom: flickable.bottom
     }
 
     HusTabView {
-        anchors.top: description.bottom
+        anchors.top: flickable.bottom
         anchors.topMargin: 5
         anchors.bottom: parent.bottom
         anchors.left: parent.left

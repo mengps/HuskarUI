@@ -4,16 +4,31 @@ import HuskarUI.Basic
 HusText {
     id: control
 
-    property int iconSource: 0
+    readonly property bool empty: iconSource === 0 || iconSource === ''
+    property var iconSource: 0 ?? ''
     property alias iconSize: control.font.pixelSize
     property alias colorIcon: control.color
     property string contentDescription: text
 
     objectName: '__HusIconText__'
-    text: String.fromCharCode(iconSource)
+    width: __iconLoader.active ? (__iconLoader.implicitWidth + leftPadding + rightPadding): implicitWidth
+    height: __iconLoader.active ? (__iconLoader.implicitHeight + topPadding + bottomPadding) : implicitHeight
+    text: __iconLoader.active ? '' : String.fromCharCode(iconSource)
     font.family: 'HuskarUI-Icons'
     font.pixelSize: HusTheme.HusIconText.fontSize
     color: HusTheme.HusIconText.colorText
+
+    Loader {
+        id: __iconLoader
+        anchors.centerIn: parent
+        active: typeof iconSource == 'string' && iconSource !== ''
+        sourceComponent: Image {
+            source: control.iconSource
+            width: control.iconSize
+            height: control.iconSize
+            sourceSize: Qt.size(width, height)
+        }
+    }
 
     Accessible.role: Accessible.StaticText
     Accessible.name: control.text
