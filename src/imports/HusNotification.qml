@@ -8,7 +8,7 @@ import HuskarUI.Basic
 Item {
     id: control
 
-    enum Position {
+    enum NotificationPosition {
         Position_Top = 0,
         Position_TopLeft = 1,
         Position_TopRight = 2,
