@@ -22,9 +22,9 @@ Rectangle {
                                     pixelSize: HusTheme.HusTag.fontSize - 2
                                 })
     property bool rotating: false
-    property int iconSource: 0
+    property var iconSource: 0 ?? ''
     property int iconSize: HusTheme.HusButton.fontSize
-    property int closeIconSource: 0
+    property var closeIconSource: 0 ?? ''
     property int closeIconSize: HusTheme.HusButton.fontSize
     property alias spacing: __row.spacing
     property string presetColor: ''

@@ -173,7 +173,7 @@ Item {
     component MenuButton: HusButton {
         id: __menuButtonImpl
 
-        property int iconSource: 0
+        property var iconSource: 0 ?? ''
         property int iconSize: HusTheme.HusMenu.fontSize
         property int iconSpacing: 5
         property int iconStart: 0
@@ -295,7 +295,7 @@ Item {
             property string menuLabel: model.label || ''
             property int menuHeight: model.height || defaultMenuHeight
             property int menuIconSize: model.iconSize || defaultMenuIconSize
-            property int menuIconSource: model.iconSource || 0
+            property var menuIconSource: model.iconSource || 0
             property int menuIconSpacing: model.iconSpacing || defaultMenuIconSpacing
             property var menuChildren: model.menuChildren || []
             property int menuChildrenLength: menuChildren ? menuChildren.length : 0

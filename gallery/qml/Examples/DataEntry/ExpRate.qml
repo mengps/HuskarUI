@@ -54,9 +54,9 @@ colorToolTipText | color | - | 文字提示文本颜色
 colorToolTipBg | color | - | 文字提示背景颜色
 allowHalf | bool | false | 是否允许半星
 isDone | bool | false | 是否已经完成评分
-fillIcon | enum | HusIcon.StarFilled | 满星图标(来自 HusIcon)
-emptyIcon | enum | HusIcon.StarFilled | 空星图标(来自 HusIcon)
-halfIcon | enum | HusIcon.StarFilled | 半星图标(来自 HusIcon)
+fillIcon | int丨string | HusIcon.StarFilled丨'' | 满星图标(来自 HusIcon)或图标链接
+emptyIcon | int丨string | HusIcon.StarFilled丨'' | 空星图标(来自 HusIcon)或图标链接
+halfIcon | int丨string | HusIcon.StarFilled丨'' | 半星图标(来自 HusIcon)或图标链接
 \n<br/>
 \n### 支持的信号：\n
 - \`done(value: int)\` 完成评分时发出\n

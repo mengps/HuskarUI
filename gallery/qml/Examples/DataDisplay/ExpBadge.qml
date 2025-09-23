@@ -327,9 +327,9 @@ colorText | color | - | 文本颜色
 
                         HusButtonBlock {
                             model: [
-                                { icon: HusIcon.MinusOutlined, autoRepeat: true },
-                                { icon: HusIcon.PlusOutlined, autoRepeat: true },
-                                { icon: HusIcon.QuestionOutlined, autoRepeat: true },
+                                { iconSource: HusIcon.MinusOutlined, autoRepeat: true },
+                                { iconSource: HusIcon.PlusOutlined, autoRepeat: true },
+                                { iconSource: HusIcon.QuestionOutlined, autoRepeat: true },
                             ]
                             onClicked:
                                 (index) => {
@@ -375,9 +375,9 @@ colorText | color | - | 文本颜色
 
                     HusButtonBlock {
                         model: [
-                            { icon: HusIcon.MinusOutlined, autoRepeat: true },
-                            { icon: HusIcon.PlusOutlined, autoRepeat: true },
-                            { icon: HusIcon.QuestionOutlined, autoRepeat: true },
+                            { iconSource: HusIcon.MinusOutlined, autoRepeat: true },
+                            { iconSource: HusIcon.PlusOutlined, autoRepeat: true },
+                            { iconSource: HusIcon.QuestionOutlined, autoRepeat: true },
                         ]
                         onClicked:
                             (index) => {

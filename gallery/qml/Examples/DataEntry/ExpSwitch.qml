@@ -31,8 +31,8 @@ hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Q
 loading | bool | false | 是否在加载中
 checkedText | string | '' | 选中文本
 uncheckedText | string | '' | 未选中文本
-checkedIconSource | enum | 0 | 选中图标(来自 HusIcon)
-uncheckedIconSource | enum | 0 | 未选中图标(来自 HusIcon)
+checkedIconSource | int丨string | 0丨'' | 选中图标(来自 HusIcon)或图标链接
+uncheckedIconSource | int丨string | 0丨'' | 未选中图标(来自 HusIcon)或图标链接
 radiusBg | int | - | 背景半径
 colorHandle | color | - | 把手颜色
 colorBg | color | - | 背景颜色

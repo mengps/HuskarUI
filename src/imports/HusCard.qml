@@ -16,7 +16,7 @@ Rectangle {
     property int coverFillMode: Image.Stretch
 
     property int bodyAvatarSize: 40
-    property int bodyAvatarIcon: 0
+    property var bodyAvatarIcon: 0 ?? ''
     property string bodyAvatarSource: ''
     property string bodyAvatarText: ''
     property string bodyTitle: ''

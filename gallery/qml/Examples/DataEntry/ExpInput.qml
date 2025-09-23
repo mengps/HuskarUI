@@ -27,7 +27,7 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 active(readonly) | bool | - | 是否处于激活状态
-iconSource | enum | 0 | 图标源(来自 HusIcon)
+iconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接
 iconSize | int | - | 图标大小
 iconPosition | enum | HusInput.Position_Left | 图标位置(来自 HusInput)
 colorIcon | color | - | 图标颜色

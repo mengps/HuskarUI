@@ -27,7 +27,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 size | int | 30 | 头像大小
-iconSource | int | 0 | 头像图标(来自 HusIcon)
+iconSource | int丨string | 0 | 头像图标(来自 HusIcon)或图标链接
 imageSource | url | '' | 头像图像
 imageMipmap | bool | false | 是否开启层级映射
 textSource | string | '' | 头像文本

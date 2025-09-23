@@ -41,7 +41,7 @@ spacing | int | -1 | 每个面板间的间隔
 accordion | bool | false | 是否为手风琴
 activeKey | string丨list | ''丨[] | 当前激活的键(手风琴模式为string,否则为list)
 defaultActiveKey | list | [] | 初始激活的面板项 key 数组
-expandIcon | int | HusIcon.RightOutlined | 展开图标(来自 HusIcon)
+expandIcon | int丨string | HusIcon.RightOutlined | 展开图标(来自 HusIcon)或图标链接
 titleFont | font | - | 标题字体
 contentFont | font | - | 内容字体
 colorBg | color | - | 背景颜色

@@ -15,7 +15,7 @@ Item {
     property bool accordion: false
     property var activeKey: accordion ? '' : []
     property var defaultActiveKey: []
-    property int expandIcon: HusIcon.RightOutlined
+    property var expandIcon: HusIcon.RightOutlined || ''
     property font titleFont: Qt.font({
                                          family: HusTheme.HusCollapse.fontFamily,
                                          pixelSize: HusTheme.HusCollapse.fontSizeTitle

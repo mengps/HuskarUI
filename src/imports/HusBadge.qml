@@ -17,7 +17,7 @@ Item {
     property int badgeState: HusBadge.State_Error
     property string presetColor: ''
     property int count: 0
-    property int iconSource: 0
+    property var iconSource: 0 ?? ''
     property bool dot: false
     property bool showZero: false
     property int overflowCount: 99

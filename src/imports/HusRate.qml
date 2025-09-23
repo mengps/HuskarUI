@@ -31,9 +31,9 @@ Item {
     /* 允许半星 */
     property bool allowHalf: false
     property bool isDone: false
-    property int fillIcon: HusIcon.StarFilled
-    property int emptyIcon: HusIcon.StarFilled
-    property int halfIcon: HusIcon.StarFilled
+    property var fillIcon: HusIcon.StarFilled || ''
+    property var emptyIcon: HusIcon.StarFilled || ''
+    property var halfIcon: HusIcon.StarFilled || ''
     property Component fillDelegate: HusIconText {
         colorIcon: control.colorFill
         iconSource: control.fillIcon

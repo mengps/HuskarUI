@@ -12,7 +12,7 @@ T.TextField {
 
     property bool animationEnabled: HusTheme.animationEnabled
     readonly property bool active: hovered || activeFocus
-    property int iconSource: 0
+    property var iconSource: 0 ?? ''
     property int iconSize: themeSource.fontIconSize
     property int iconPosition: HusInput.Position_Left
     property color colorIcon: colorText

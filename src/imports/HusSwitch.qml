@@ -11,8 +11,8 @@ T.Switch {
     property bool loading: false
     property string checkedText: ''
     property string uncheckedText: ''
-    property int checkedIconSource: 0
-    property int uncheckedIconSource: 0
+    property var checkedIconSource: 0 ?? ''
+    property var uncheckedIconSource: 0 ?? ''
     property int radiusBg: __bg.height * 0.5
     property color colorHandle: HusTheme.HusSwitch.colorHandle
     property color colorBg: {

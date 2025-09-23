@@ -11,7 +11,7 @@ Item {
     }
 
     property int size: 30
-    property int iconSource: 0
+    property var iconSource: 0 ?? ''
 
     property url imageSource: ''
     property bool imageMipmap: false
