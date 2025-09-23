@@ -50,7 +50,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 label | string | 必选 | 本按钮的标签
 value | sting | 可选 | 本按钮的值
 enabled | bool | 可选 | 本按钮是否启用
-icon | enum | 可选 | 本按钮图标(参见 HusIcon)
+iconSource | int丨string | 可选 | 本按钮图标(参见 HusIcon)或图标链接
 type | enum | 可选 | 本按钮类型(参见 HusButton.type)
 autoRepeat | bool | 可选 | 本按钮是否自动重复(参见 Button.autoRepeat)
 \n<br/>
@@ -90,7 +90,7 @@ autoRepeat | bool | 可选 | 本按钮是否自动重复(参见 Button.autoRepea
 - { label: 本按钮的标签 }\n
 - { value: 本按钮的值 }\n
 - { enabled: 本按钮是否启用 }\n
-- { icon: 本按钮图标 }\n
+- { iconSource: 本按钮图标源 }\n
 - { type: 本按钮类型(参见 HusButton.type) }\n
 - { autoRepeat: 本按钮是否自动重复(参见Button.autoRepeat) }\n
                        `)
@@ -138,9 +138,9 @@ autoRepeat | bool | 可选 | 本按钮是否自动重复(参见 Button.autoRepea
 
                     HusButtonBlock {
                         model: [
-                            { icon: HusIcon.PlusOutlined },
-                            { icon: HusIcon.MinusOutlined },
-                            { icon: HusIcon.CloseOutlined },
+                            { iconSource: HusIcon.PlusOutlined },
+                            { iconSource: HusIcon.MinusOutlined },
+                            { iconSource: HusIcon.CloseOutlined },
                             { label: ' / ' },
                         ]
                     }
@@ -186,9 +186,9 @@ autoRepeat | bool | 可选 | 本按钮是否自动重复(参见 Button.autoRepea
 
                 HusButtonBlock {
                     model: [
-                        { icon: HusIcon.PlusOutlined },
-                        { icon: HusIcon.MinusOutlined },
-                        { icon: HusIcon.CloseOutlined },
+                        { iconSource: HusIcon.PlusOutlined },
+                        { iconSource: HusIcon.MinusOutlined },
+                        { iconSource: HusIcon.CloseOutlined },
                         { label: ' / ' },
                     ]
                 }

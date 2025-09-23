@@ -59,7 +59,7 @@ colorContentText | color | - | 内容文本颜色
 属性名 | 类型 | 可选/必选 | 描述
 ------ | --- | :---: | ---
 colorNode | string | 可选 | 本时间节点的节点颜色
-icon | int | 可选 | 本时间节点的图标
+iconSource | int丨string | 可选 | 本时间节点的图标源
 iconSize | sting | 可选 | 本时间节点的图标大小
 loading | bool | 可选 | 本时间节点是否在加载中
 time | date | 可选 | 本时间节点的时间

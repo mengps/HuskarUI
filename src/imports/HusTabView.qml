@@ -52,6 +52,7 @@ Item {
         iconSize: HusTheme.HusTabView.fontSize
         iconSource: HusIcon.PlusOutlined
         colorIcon: HusTheme.HusTabView.colorTabCloseHover
+        hoverCursorShape: Qt.PointingHandCursor
         background: Rectangle {
             radius: HusTheme.HusTabView.radiusButton
             color: __addButton.colorBg
@@ -156,7 +157,7 @@ Item {
     }
 
     function set(index, object) {
-        //默认为true
+        /*! 默认为true */
         if (object.editable === undefined)
             object.editable = true;
         __tabModel.set(index, object);
@@ -171,14 +172,14 @@ Item {
     }
 
     function insert(index, object) {
-        //默认为true
+        /*! 默认为true */
         if (object.editable === undefined)
             object.editable = true;
         __tabModel.insert(index, object);
     }
 
     function append(object) {
-        //默认为true
+        /*! 默认为true */
         if (object.editable === undefined)
             object.editable = true;
         __tabModel.append(object);
@@ -225,11 +226,11 @@ Item {
                 implicitWidth: control.tabSize == HusTabView.Size_Auto ? (__text.width + calcIconWidth) : __tabItem.tabFixedWidth
                 implicitHeight: Math.max(__icon.implicitHeight, __text.implicitHeight)
 
-                property int calcIconWidth: iconSource == 0 ? 0 : (__icon.implicitWidth + __tabItem.tabIconSpacing)
+                property int calcIconWidth: __icon.empty ? 0 : (__icon.implicitWidth + __tabItem.tabIconSpacing)
 
                 HusIconText {
                     id: __icon
-                    width: iconSource == 0 ? 0 : implicitWidth
+                    width: empty ? 0 : implicitWidth
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     color: __tabItem.colorIcon
@@ -240,12 +241,12 @@ Item {
                     Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
                 }
 
-                Text {
+                HusText {
                     id: __text
                     width: control.tabSize == HusTabView.Size_Auto ? implicitWidth :
-                                                                    Math.max(0, __tabItem.tabFixedWidth - 5 - parent.calcIconWidth)
+                                                                     Math.max(0, __tabItem.tabFixedWidth - 5 - parent.calcIconWidth)
                     anchors.left: __icon.right
-                    anchors.leftMargin: __icon.iconSource == 0 ? 0 : __tabItem.tabIconSpacing
+                    anchors.leftMargin: __icon.empty ? 0 : __tabItem.tabIconSpacing
                     anchors.verticalCenter: parent.verticalCenter
                     text: __tabItem.text
                     font: __tabItem.font
@@ -267,13 +268,13 @@ Item {
             property alias modelData: __tabItem.model
             property bool isCurrent: __tabView.currentIndex === index
             property string tabKey: modelData.key || ''
-            property int tabIcon: modelData.icon || 0
+            property var tabIcon: modelData.iconSource || 0
             property int tabIconSize: modelData.iconSize || HusTheme.HusTabView.fontSize
             property int tabIconSpacing: modelData.iconSpacing || 5
             property string tabTitle: modelData.title || ''
             property int tabFixedWidth: modelData.tabWidth || defaultTabWidth
             property int tabWidth: control.tabSize == HusTabView.Size_Auto ? (implicitContentWidth + leftPadding + rightPadding) :
-                                                                            implicitContentWidth
+                                                                             implicitContentWidth
             property int tabHeight: modelData.tabHeight || defaultTabHeight
         }
     }
@@ -292,7 +293,7 @@ Item {
             property alias tabItem: __tabItem
             property bool isCurrent: __tabView.currentIndex === index
             property string tabKey: modelData.key || ''
-            property int tabIcon: modelData.icon || 0
+            property var tabIcon: modelData.iconSource || 0
             property int tabIconSize: modelData.iconSize || HusTheme.HusTabView.fontSize
             property int tabIconSpacing: modelData.iconSpacing || 5
             property string tabTitle: modelData.title || ''
@@ -327,10 +328,12 @@ Item {
                 bottomLeftRadius: control.tabPosition == HusTabView.Position_Bottom || control.tabPosition == HusTabView.Position_Left ? defaultTabBgRadius : 0
                 bottomRightRadius: control.tabPosition == HusTabView.Position_Bottom || control.tabPosition == HusTabView.Position_Right ? defaultTabBgRadius : 0
 
-                property int calcIconWidth: __icon.iconSource == 0 ? 0 : (__icon.implicitWidth + __tabContainer.tabIconSpacing)
+                property bool down: false
+                property bool hovered: false
+                property int calcIconWidth: __icon.empty ? 0 : (__icon.implicitWidth + __tabContainer.tabIconSpacing)
                 property int calcCloseWidth: __close.visible ? (__close.implicitWidth + 5) : 0
                 property real calcWidth: control.tabSize == HusTabView.Size_Auto ? (__text.width + calcIconWidth + calcCloseWidth + 10)
-                                                                                : __tabContainer.tabFixedWidth
+                                                                                 : __tabContainer.tabFixedWidth
                 property real calcHeight: Math.max(__icon.implicitHeight, __text.implicitHeight, __close.height)
                 property color colorText: {
                     if (isCurrent) {
@@ -341,8 +344,6 @@ Item {
                                                 HusTheme.HusTabView.colorTab;
                     }
                 }
-                property bool down: false
-                property bool hovered: false
 
                 Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
@@ -414,9 +415,9 @@ Item {
                 Text {
                     id: __text
                     width: control.tabSize == HusTabView.Size_Auto ? implicitWidth :
-                                                                    Math.max(0, __tabContainer.tabFixedWidth - 5 - __tabItem.calcIconWidth - __tabItem.calcCloseWidth)
+                                                                     Math.max(0, __tabContainer.tabFixedWidth - 5 - __tabItem.calcIconWidth - __tabItem.calcCloseWidth)
                     anchors.left: __icon.right
-                    anchors.leftMargin: __icon.iconSource == 0 ? 0 : __tabContainer.tabIconSpacing
+                    anchors.leftMargin: __icon.empty ? 0 : __tabContainer.tabIconSpacing
                     anchors.verticalCenter: parent.verticalCenter
                     text: tabTitle
                     font {
@@ -442,6 +443,7 @@ Item {
                     anchors.rightMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
                     animationEnabled: control.animationEnabled
+                    hoverCursorShape: Qt.PointingHandCursor
                     iconSize: tabIconSize
                     iconSource: HusIcon.CloseOutlined
                     colorIcon: hovered ? HusTheme.HusTabView.colorTabCloseHover : HusTheme.HusTabView.colorTabClose
@@ -479,9 +481,9 @@ Item {
         onWheel:
             (wheel) => {
                 if (__private.isHorizontal)
-                    __tabView.flick(wheel.angleDelta.y * 6.5, 0);
+                __tabView.flick(wheel.angleDelta.y * 6.5, 0);
                 else
-                    __tabView.flick(0, wheel.angleDelta.y * 6.5);
+                __tabView.flick(0, wheel.angleDelta.y * 6.5);
             }
     }
 

@@ -56,7 +56,7 @@ Item {
         enabled: control.enabled && (modelData.enabled === undefined ? true : modelData.enabled)
         font: control.font
         type: modelData.type ?? HusButton.Type_Default
-        iconSource: modelData.icon ?? 0
+        iconSource: modelData.iconSource ?? 0
         text: modelData.label
         background: Item {
             Rectangle {

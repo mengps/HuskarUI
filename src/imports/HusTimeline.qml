@@ -53,9 +53,9 @@ Item {
             Loader {
                 id: __icon
                 anchors.horizontalCenter: parent.horizontalCenter
-                active: !__loading.active && model.icon !== 0
+                active: !__loading.active && model.iconSource !== 0
                 sourceComponent: HusIconText {
-                    iconSource: model.icon
+                    iconSource: model.iconSource
                     iconSize: model.iconSize
                     colorIcon: model.colorNode
                 }
@@ -187,7 +187,7 @@ Item {
             }
 
             if (!object.hasOwnProperty('colorNode')) object.colorNode = String(control.colorNode);
-            if (!object.hasOwnProperty('icon')) object.icon = 0;
+            if (!object.hasOwnProperty('iconSource')) object.iconSource = 0;
             if (!object.hasOwnProperty('iconSize')) object.iconSize = control.defaultNodeSize;
             if (!object.hasOwnProperty('loading')) object.loading = false;
 

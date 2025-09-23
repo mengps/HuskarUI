@@ -48,6 +48,18 @@ defaultTabBgRadius | int | - | 默认标签背景半径(tabType == Type_Card*生
 defaultHighlightWidth | int | 30丨20 | 默认高亮条宽度半径(tabType == Type_Default生效)
 addTabCallback | function | - | 添加标签回调(点击+按钮时调用)
 \n<br/>
+\n### 模型支持的属性：\n
+属性名 | 类型 | 可选/必选 | 描述
+------ | --- | :---: | ---
+key | string | 可选 | 本标签页的键
+title | string | 可选 | 本标签的标题
+iconSource | int丨string | 可选 | 本标签的图标源
+iconSize | int | 可选 | 本标签的图标大小
+iconSpacing | bool | 可选 | 本标签图标和文本的间隔
+tabWidth | int | 可选 | 本标签宽度
+tabHeight | int | 可选 | 本标签高度
+editable | bool | 可选 | 本标签是否可编辑
+\n<br/>
 \n### 支持的函数：\n
 - \`flick(index: int)\` 等同于调用 \`Flickable.flick()\` \n
 - \`positionViewAtBeginning(index: int)\` 等同于调用 \`ListView.positionViewAtBeginning()\` \n
@@ -89,9 +101,9 @@ addTabCallback | function | - | 添加标签回调(点击+按钮时调用)
 通过 \`initModel\` 属性设置初始标签页的模型{需为list}，标签项支持的属性有：\n
 - { key: 本标签页的键 }\n
 - { title: 本标签的标题 }\n
-- { icon: 本标签的图标 }\n
+- { iconSource: 本标签的图标源 }\n
 - { iconSize: 本标签的图标大小 }\n
-- { iconSpacing: 本标签和文本间隔 }\n
+- { iconSpacing: 本标签图标和文本的间隔 }\n
 - { tabWidth: 本标签宽度 }\n
 - { tabHeight: 本标签高度 }\n
 - { editable: 本标签是否可编辑(tabType == Type_CardEditable时生效) }\n
@@ -179,14 +191,14 @@ addTabCallback | function | - | 添加标签回调(点击+按钮时调用)
                         initModel: [
                             {
                                 key: '1',
-                                icon: HusIcon.CreditCardOutlined,
+                                iconSource: HusIcon.CreditCardOutlined,
                                 title: 'Tab 1',
                                 content: 'Content of Tab Content ',
                                 contentColor: '#60ff0000'
                             },
                             {
                                 key: '2',
-                                icon: HusIcon.CreditCardOutlined,
+                                iconSource: HusIcon.CreditCardOutlined,
                                 title: 'Tab 2',
                                 content: 'Content of Tab Content ',
                                 contentColor: '#6000ff00'
@@ -270,14 +282,14 @@ addTabCallback | function | - | 添加标签回调(点击+按钮时调用)
                     initModel: [
                         {
                             key: '1',
-                            icon: HusIcon.CreditCardOutlined,
+                            iconSource: HusIcon.CreditCardOutlined,
                             title: 'Tab 1',
                             content: 'Content of Tab Content ',
                             contentColor: '#60ff0000'
                         },
                         {
                             key: '2',
-                            icon: HusIcon.CreditCardOutlined,
+                            iconSource: HusIcon.CreditCardOutlined,
                             title: 'Tab 2',
                             content: 'Content of Tab Content ',
                             contentColor: '#6000ff00'
@@ -389,7 +401,7 @@ addTabCallback | function | - | 添加标签回调(点击+按钮时调用)
                         initModel: [
                             {
                                 key: '1',
-                                icon: HusIcon.CreditCardOutlined,
+                                iconSource: HusIcon.CreditCardOutlined,
                                 title: 'Tab 1',
                                 content: 'Content of Card Tab Content ',
                                 contentColor: '#60ff0000'
@@ -397,7 +409,7 @@ addTabCallback | function | - | 添加标签回调(点击+按钮时调用)
                             {
                                 key: '2',
                                 editable: false,
-                                icon: HusIcon.CreditCardOutlined,
+                                iconSource: HusIcon.CreditCardOutlined,
                                 title: 'Tab 2',
                                 content: 'Content of Card Tab Content ',
                                 contentColor: '#6000ff00'
@@ -502,7 +514,7 @@ addTabCallback | function | - | 添加标签回调(点击+按钮时调用)
                     initModel: [
                         {
                             key: '1',
-                            icon: HusIcon.CreditCardOutlined,
+                            iconSource: HusIcon.CreditCardOutlined,
                             title: 'Tab 1',
                             content: 'Content of Card Tab Content ',
                             contentColor: '#60ff0000'
@@ -510,7 +522,7 @@ addTabCallback | function | - | 添加标签回调(点击+按钮时调用)
                         {
                             key: '2',
                             editable: false,
-                            icon: HusIcon.CreditCardOutlined,
+                            iconSource: HusIcon.CreditCardOutlined,
                             title: 'Tab 2',
                             content: 'Content of Card Tab Content ',
                             contentColor: '#6000ff00'
