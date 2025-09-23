@@ -117,9 +117,9 @@ HusInput {
         anchors.right: control.iconPosition === HusDateTimePicker.Position_Right ? parent.right : undefined
         anchors.margins: 5
         anchors.verticalCenter: parent.verticalCenter
-        iconSource: (control.hovered && control.length !== 0) ? HusIcon.CloseCircleFilled :
-                                                                control.showDate ? HusIcon.CalendarOutlined :
-                                                                                   HusIcon.ClockCircleOutlined
+        iconSource: (__private.interactive && control.hovered && control.length !== 0) ?
+                        HusIcon.CloseCircleFilled : control.showDate ? HusIcon.CalendarOutlined :
+                                                                       HusIcon.ClockCircleOutlined
         iconSize: control.iconSize
         colorIcon: control.enabled ?
                        __iconMouse.hovered ? control.themeSource.colorIconHover :
@@ -130,6 +130,7 @@ HusInput {
         MouseArea {
             id: __iconMouse
             anchors.fill: parent
+            enabled: __private.interactive
             hoverEnabled: true
             cursorShape: parent.iconSource == HusIcon.CloseCircleFilled ? Qt.PointingHandCursor : Qt.ArrowCursor
             onEntered: hovered = true;
@@ -445,6 +446,7 @@ HusInput {
         property int hoveredWeekNumber: control.currentWeekNumber
         property int hoveredDay: control.currentDay
         property bool cleared: true
+        property bool interactive: control.enabled && !control.readOnly
 
         function selectDateTime(date, close = true) {
             if (isValidDate(date)) {
@@ -556,6 +558,7 @@ HusInput {
     }
 
     TapHandler {
+        enabled: __private.interactive
         onTapped: {
             control.openPicker();
         }

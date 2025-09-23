@@ -51,12 +51,12 @@ HusInput {
 
         HoverHandler {
             id: __hoverHandler
-            enabled: control.clearEnabled
+            enabled: control.clearEnabled && !control.readOnly
             cursorShape: control.length > 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
         }
 
         TapHandler {
-            enabled: control.clearEnabled
+            enabled: control.clearEnabled && !control.readOnly
             onTapped: control.clearInput();
         }
     }
@@ -132,6 +132,7 @@ HusInput {
     }
 
     TapHandler {
+        enabled: control.enabled && !control.readOnly
         onTapped: {
             if (__private.model.length > 0)
                 control.openPopup();
