@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Effects
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
@@ -17,9 +16,10 @@ T.Popup {
     property real maximumWidth: Number.NaN
     property real minimumHeight: 0
     property real maximumHeight: Number.NaN
-    property color colorShadow: HusTheme.HusPopup.colorShadow
-    property color colorBg: HusTheme.isDark ? HusTheme.HusPopup.colorBgDark : HusTheme.HusPopup.colorBg
-    property int radiusBg: HusTheme.HusPopup.radiusBg
+    property color colorShadow: themeSource.colorShadow
+    property color colorBg: HusTheme.isDark ? themeSource.colorBgDark : themeSource.colorBg
+    property int radiusBg: themeSource.radiusBg
+    property var themeSource: HusTheme.HusPopup
 
     objectName: '__HusPopup__'
     implicitWidth: implicitContentWidth + leftPadding + rightPadding
