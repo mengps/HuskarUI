@@ -65,6 +65,7 @@ public:
 
     HusPen *border();
 
+protected:
     void paint(QPainter *painter) override;
 
 signals:

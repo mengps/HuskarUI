@@ -51,7 +51,7 @@ public:
     void setColorText(const QColor &colorText);
 
 protected:
-    void paint(QPainter *painter);
+    void paint(QPainter *painter) override;
 
 signals:
     void textChanged();
