@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Effects
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
