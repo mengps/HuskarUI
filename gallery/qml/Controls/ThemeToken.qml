@@ -23,7 +23,7 @@ Item {
             HusAutoComplete {
                 id: editInput
                 width: 200
-                options: galleryWindow.primaryTokens
+                options: galleryGlobal.primaryTokens
                 tooltipVisible: true
                 iconSource: length > 0 ? HusIcon.CloseCircleFilled : 0
                 filterOption: function(input, option){
@@ -35,7 +35,7 @@ Item {
                 text: qsTr('确认')
                 onClicked: {
                     editPopup.edit.value = editInput.text;
-                    galleryWindow.componentTokens[root.source][editPopup.row].tokenValue.value = editPopup.edit.value;
+                    galleryGlobal.componentTokens[root.source][editPopup.row].tokenValue.value = editPopup.edit.value;
                     HusTheme.installComponentToken(root.source, editPopup.edit.token, editInput.text);
                     editPopup.close();
                 }
@@ -182,6 +182,8 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 15
 
+        UpdateDesc { }
+
         HusText {
             text: qsTr('主题变量（Design Token）')
             width: parent.width
@@ -194,7 +196,7 @@ Item {
         Loader {
             id: tableLoader
             width: parent.width
-            height: Math.min(400, 40 * (galleryWindow.componentTokens[root.source].length + 1))
+            height: Math.min(400, 40 * (galleryGlobal.componentTokens[root.source].length + 1))
             active: root.source != ''
             asynchronous: true
             sourceComponent: HusTableView {
@@ -225,7 +227,7 @@ Item {
                 ]
                 Component.onCompleted: {
                     if (root.source != '') {
-                        const model = galleryWindow.componentTokens[root.source];
+                        const model = galleryGlobal.componentTokens[root.source];
                         height = Math.min(400, defaultColumnHeaderHeight + model.length * minimumRowHeight);
                         initModel = model;
                     }
