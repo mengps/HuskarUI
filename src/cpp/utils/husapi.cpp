@@ -3,6 +3,7 @@
 #include <QtCore/QFile>
 #include <QtGui/QClipboard>
 #include <QtGui/QGuiApplication>
+#include <QtGui/QDesktopServices>
 
 #include <private/qquickpopup_p_p.h>
 
@@ -116,6 +117,11 @@ int HusApi::getWeekNumber(const QDateTime &dateTime) const
 QDateTime HusApi::dateFromString(const QString &dateTime, const QString &format) const
 {
     return QDateTime::fromString(dateTime, format);
+}
+
+void HusApi::openLocalUrl(const QString &local)
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(local));
 }
 
 HusApi::HusApi(QObject *parent)

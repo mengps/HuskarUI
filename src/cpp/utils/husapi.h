@@ -32,6 +32,8 @@ public:
     Q_INVOKABLE int getWeekNumber(const QDateTime &dateTime) const;
     Q_INVOKABLE QDateTime dateFromString(const QString &dateTime, const QString &format) const;
 
+    Q_INVOKABLE void openLocalUrl(const QString &local);
+
 private:
     explicit HusApi(QObject *parent = nullptr);
 };
