@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.5.2)
+set(HUSKARUI_VERSION 0.4.6.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -90,16 +90,19 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Feedback/ExpMessage.qml
         qml/Examples/Feedback/ExpProgress.qml
         qml/Examples/Feedback/ExpNotification.qml
+        qml/Examples/Feedback/ExpPopconfirm.qml
         qml/Examples/Utils/ExpAsyncHasher.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Controls/CodeBox.qml
         qml/Controls/Description.qml
         qml/Controls/CodeRunner.qml
         qml/Controls/ThemeToken.qml
+        qml/Controls/UpdateDesc.qml
         qml/Home/HomePage.qml
         qml/Home/AboutPage.qml
         qml/Home/SettingsPage.qml
         qml/Home/CreatorPage.qml
+        qml/Global.qml
         qml/Gallery.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${GALLERY_RC_FILE}>
@@ -108,8 +111,6 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/datagenerator.h cpp/datagenerator.cpp
         cpp/creator.h cpp/creator_p.h cpp/creator.cpp
         cpp/main.cpp
-    RESOURCES
-        ../UpdateLists.json
 )
 
 qt_add_resources(${PROJECT_NAME} "images"
