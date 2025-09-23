@@ -53,7 +53,7 @@ Rectangle {
         sourceSize.height: height
         mipmap: true
     }
-    property Component winTitleDelegate: Text {
+    property Component winTitleDelegate: HusText {
         text: winTitle
         color: winTitleColor
         font: winTitleFont
@@ -119,11 +119,13 @@ Rectangle {
             contentItem: HusIconText {
                 iconSource: HusIcon.SwitcherTwotonePath3
                 iconSize: 14
+                colorIcon: __maximizeButton.colorIcon
                 visible: targetWindow
 
                 HusIconText {
                     iconSource: HusIcon.SwitcherTwotonePath2
                     iconSize: 14
+                    colorIcon: __maximizeButton.colorIcon
                     visible: targetWindow.visibility === Window.Maximized
                 }
             }
