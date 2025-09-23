@@ -85,12 +85,12 @@ Flickable {
                                 onEntered: rootItem.hovered = true;
                                 onExited: rootItem.hovered = false;
                                 onClicked: {
-                                    galleryWindow.themeIndex = repeater.currentIndex = index;
+                                    galleryGlobal.themeIndex = repeater.currentIndex = index;
                                     HusTheme.installThemePrimaryColorBase(rootItem.color);
                                 }
                             }
                         }
-                        property int currentIndex: galleryWindow.themeIndex
+                        property int currentIndex: galleryGlobal.themeIndex
                     }
                 }
             }
