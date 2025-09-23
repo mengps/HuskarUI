@@ -59,8 +59,7 @@ Rectangle {
             property alias desc: __desc
             property alias linkIcon: __linkIcon
             property string link: ''
-            property bool isNew: false
-            property alias newVisible: __new.visible
+            property string tagState: ''
 
             Behavior on scale { NumberAnimation { duration: HusTheme.Primary.durationFast } }
 
@@ -95,7 +94,7 @@ Rectangle {
                 HusIconText {
                     id: __icon
                     Layout.preferredWidth: width
-                    Layout.preferredHeight: iconSource == 0 ? 0 : height
+                    Layout.preferredHeight: empty ? 0 : height
                     Layout.alignment: Qt.AlignHCenter
                     iconSize: 60
                 }
@@ -154,7 +153,15 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: 5
                 radius: 2
-                color: __cardComp.isNew ? HusTheme.Primary.colorError : HusTheme.Primary.colorSuccess
+                visible: __cardComp.tagState != ''
+                color: {
+                    if (__cardComp.tagState == 'New')
+                        return HusTheme.Primary.colorError;
+                    else if (__cardComp.tagState == 'Update')
+                        HusTheme.Primary.colorSuccess;
+                    else
+                        return 'transparent';
+                }
 
                 Row {
                     id: __row
@@ -169,7 +176,7 @@ Rectangle {
 
                     HusText {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: __cardComp.isNew ? 'NEW' : 'UPDATE'
+                        text: __cardComp.tagState.toUpperCase()
                         font {
                             family: HusTheme.Primary.fontPrimaryFamily
                             pixelSize: HusTheme.Primary.fontPrimarySize
@@ -268,7 +275,6 @@ Rectangle {
                     title.text: qsTr('HuskarUI Github')
                     desc.text: qsTr('HuskarUI 是遵循「Ant Design」设计体系的一个 Qml UI 库，用于构建由「Qt Quick」驱动的用户界面。')
                     link: 'https://github.com/mengps/HuskarUI'
-                    newVisible: false
                 }
             }
 
@@ -288,7 +294,6 @@ Rectangle {
                 title.text: qsTr('HuskarUI-ThemeDesigner')
                 desc.text: qsTr('HuskarUI-ThemeDesigner 是专为「HuskarUI」打造的主题设计工具。')
                 link: 'https://github.com/mengps/HuskarUI-ThemeDesigner'
-                newVisible: false
             }
 
             MyText {
@@ -302,22 +307,20 @@ Rectangle {
             }
 
             ListView {
-                id: newView
+                id: galleryView
                 width: parent.width
                 height: 200
                 orientation: Qt.Horizontal
                 spacing: -80
-                Component.onCompleted: {
-                    const updates = HusApi.readFileToString(':/Gallery/UpdateLists.json');
-                    newView.model = JSON.parse(updates);
-                }
+                model: galleryGlobal.updates
                 delegate: Item {
                     id: __rootItem
                     z: index
                     width: __card.hovered ? 390 : 250
-                    height: newView.height - 30
+                    height: galleryView.height - 30
+
                     required property int index
-                    required property bool isNew
+                    required property string tagState
                     required property string name
                     required property string desc
 
@@ -368,9 +371,9 @@ Rectangle {
                         width: 250
                         height: parent.height
                         anchors.centerIn: parent
+                        tagState: __rootItem.tagState
                         title.text: __rootItem.name
                         desc.text: __rootItem.desc
-                        isNew: __rootItem.isNew
                         transform: Rotation {
                             origin.x: __rootItem.width * 0.5
                             origin.y: __rootItem.height * 0.5
