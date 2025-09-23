@@ -20,8 +20,8 @@ Flickable {
 * **继承自 { Drawer }**\n
 \n<br/>
 \n### 支持的代理：\n
-- **titleDelegate: Component** 标题的代理\n
-- **contentDelegate: Component** 内容的代理\n
+- **titleDelegate: Component** 标题代理\n
+- **contentDelegate: Component** 内容代理\n
 \n<br/>
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
