@@ -39,6 +39,21 @@ Item {
                     else
                         Qt.openUrlExternally(link);
                 }
+            onLinkHovered:
+                (link) => {
+                    shapeMouse.cursorShape = link !== "" ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
+
+            MouseArea {
+                id: shapeMouse
+                anchors.fill: parent
+                z: parent.z - 2
+                propagateComposedEvents: true
+                onClicked:
+                    (mouse) => {
+                        mouse.accepted = false
+                    }
+            }
         }
     }
 }
