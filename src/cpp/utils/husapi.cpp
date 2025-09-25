@@ -2,16 +2,19 @@
 
 #include <QtCore/QFile>
 #include <QtGui/QClipboard>
-#include <QtGui/QGuiApplication>
 #include <QtGui/QDesktopServices>
+#include <QtGui/QGuiApplication>
+#include <QtGui/QWindow>
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+# include <QtQml/QQmlInfo>
+#endif
 
 #include <private/qquickpopup_p_p.h>
 
 #ifdef Q_OS_WIN
-#include <Windows.h>
+# include <Windows.h>
 #endif
-
-#include <QtGui/QWindow>
 
 HusApi::~HusApi()
 {
