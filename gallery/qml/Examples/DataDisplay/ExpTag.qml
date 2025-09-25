@@ -31,9 +31,9 @@ tagState | enum | HusTag.State_Default | 标签状态(来自 HusTag)
 text | string | '' | 标签文本
 font | font | - | 标签字体
 rotating | bool | false | 旋转中
-iconSource | enum | 0 | 图标(来自 HusIcon)
+iconSource | int丨string | 0丨'' | 图标(来自 HusIcon)或图标链接
 iconSize | int | - | 图标大小
-closeIconSource | enum | 0 | 关闭图标(来自 HusIcon)
+closeIconSource | int丨string | 0丨'' | 关闭图标(来自 HusIcon)或图标链接
 closeIconSize | int | true | 关闭图标大小
 spacing | int | 5 | 图标间隔
 presetColor | string | '' | 预设颜色

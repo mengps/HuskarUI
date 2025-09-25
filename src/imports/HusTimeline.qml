@@ -53,7 +53,7 @@ Item {
             Loader {
                 id: __icon
                 anchors.horizontalCenter: parent.horizontalCenter
-                active: !__loading.active && model.iconSource !== 0
+                active: !__loading.active && model.iconSource !== 0 && model.iconSource !== ''
                 sourceComponent: HusIconText {
                     iconSource: model.iconSource
                     iconSize: model.iconSize

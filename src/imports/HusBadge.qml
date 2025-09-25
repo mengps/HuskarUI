@@ -22,10 +22,10 @@ Item {
     property bool showZero: false
     property int overflowCount: 99
     property font font: Qt.font({
-                                    family: 'HuskarUI-Icons',
-                                    pixelSize: iconSource == 0 ? 12 : 16
+                                    family: __private.isNumber ? HusTheme.Primary.fontPrimaryFamily : 'HuskarUI-Icons',
+                                    pixelSize: __private.isNumber ? 12 : 16
                                 })
-    property color colorBg: presetColor == '' ? (iconSource !== 0 ? 'transparent' : HusTheme.Primary.colorError) :
+    property color colorBg: presetColor == '' ? (!__private.isNumber ? 'transparent' : HusTheme.Primary.colorError) :
                                                 __private.isCustom ? presetColor : __private.colorArray[5]
     property alias colorBorder: __border.border.color
     property color colorText: 'white'
@@ -99,7 +99,7 @@ Item {
         property color presetColor: '#000'
         property var colorArray: HusThemeFunctions.genColor(presetColor, !HusTheme.isDark, HusTheme.Primary.colorBgBase)
         property int lastCount: control.count
-        property bool isNumber: control.iconSource == 0
+        property bool isNumber: control.iconSource === 0 || control.iconSource === ''
     }
 
     Rectangle {
@@ -152,7 +152,7 @@ Item {
         radius: height * 0.5
         color: 'transparent'
         border.width: 2
-        border.color: control.iconSource !== 0 ? 'transparent' : 'white'
+        border.color: !__private.isNumber ? 'transparent' : 'white'
         scale: __badge.scale
     }
 
@@ -164,7 +164,7 @@ Item {
         anchors.centerIn: parent
         radius: height * 0.5
         color: control.colorBg
-        scale: (control.dot || control.count > 0 || control.showZero || control.iconSource != 0) ? 1 : 0
+        scale: (control.dot || control.count > 0 || control.showZero || !__private.isNumber) ? 1 : 0
 
         Behavior on scale {
             enabled: control.animationEnabled
@@ -184,7 +184,7 @@ Item {
 
             HusText {
                 id: __content
-                visible: (control.count > 0 || control.showZero || control.iconSource != 0) && !__upAnimation.running && !__downAnimation.running
+                visible: (control.count > 0 || control.showZero || !__private.isNumber) && !__upAnimation.running && !__downAnimation.running
                 font: control.font
                 text: control.iconSource === 0 ? (control.count > control.overflowCount ? `${control.overflowCount}+` : control.count) :
                                                  String.fromCharCode(control.iconSource)
@@ -194,7 +194,7 @@ Item {
 
             ListView {
                 id: __numberList
-                visible: (control.count > 0 || control.showZero || control.iconSource != 0) && control.iconSource === 0 && !__content.visible
+                visible: (control.count > 0 || control.showZero || !__private.isNumber) && control.iconSource === 0 && !__content.visible
                 anchors.fill: parent
                 interactive: false
                 clip: true

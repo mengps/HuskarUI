@@ -132,7 +132,7 @@ HusInput {
             anchors.fill: parent
             enabled: __private.interactive
             hoverEnabled: true
-            cursorShape: parent.iconSource == HusIcon.CloseCircleFilled ? Qt.PointingHandCursor : Qt.ArrowCursor
+            cursorShape: parent.iconSource === HusIcon.CloseCircleFilled ? Qt.PointingHandCursor : Qt.ArrowCursor
             onEntered: hovered = true;
             onExited: hovered = false;
             onClicked: {

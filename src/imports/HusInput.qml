@@ -34,13 +34,13 @@ T.TextField {
     objectName: '__HusInput__'
     focus: true
     padding: 6
-    leftPadding: 10 + ((iconSource != 0 && iconPosition == HusInput.Position_Left) ? iconSize : 0)
-    rightPadding: 10 + ((iconSource != 0 && iconPosition == HusInput.Position_Right) ? iconSize : 0)
+    leftPadding: 10 + (((iconSource !== 0 && iconSource !== '') && iconPosition == HusInput.Position_Left) ? iconSize : 0)
+    rightPadding: 10 + (((iconSource !== 0 && iconSource !== '') && iconPosition == HusInput.Position_Right) ? iconSize : 0)
     implicitWidth: contentWidth + leftPadding + rightPadding
     implicitHeight: contentHeight + topPadding + bottomPadding
     color: colorText
     placeholderTextColor: enabled ? themeSource.colorPlaceholderText : themeSource.colorPlaceholderTextDisabled
-    selectedTextColor: themeSource.colorSelectedText
+    selectedTextColor: themeSource.colorTextSelected
     selectionColor: themeSource.colorSelection
     font {
         family: themeSource.fontFamily
@@ -52,9 +52,9 @@ T.TextField {
         radius: control.radiusBg
     }
 
-    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
     Loader {
         anchors.left: iconPosition == HusInput.Position_Left ? parent.left : undefined

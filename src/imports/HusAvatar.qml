@@ -140,7 +140,7 @@ Item {
     Loader {
         id: __loader
         sourceComponent: {
-            if (control.iconSource != 0)
+            if (control.iconSource !== 0 && control.iconSource !== '')
                 return __iconImpl;
             else if (control.imageSource != '')
                 return __imageImpl;

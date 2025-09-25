@@ -63,6 +63,7 @@ Item {
     }
     property Component infoDelegate: HusIconText {
         color: control.colorInfo
+        font.family: isIcon ? 'HuskarUI-Icons' : HusTheme.HusProgress.fontFamily
         font.pixelSize: type === HusProgress.Type_Line ? HusTheme.HusProgress.fontSize + (!isIcon ? 0 : 2) :
                                                          HusTheme.HusProgress.fontSize + (!isIcon ? 8 : 16)
         text: isIcon ? String.fromCharCode(formatText) : formatText

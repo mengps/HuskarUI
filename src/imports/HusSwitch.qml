@@ -17,12 +17,12 @@ T.Switch {
     property color colorHandle: HusTheme.HusSwitch.colorHandle
     property color colorBg: {
         if (!enabled)
-            return checked ? HusTheme.HusSwitch.colorCheckedBgDisabled : HusTheme.HusSwitch.colorBgDisabled;
+            return checked ? HusTheme.HusSwitch.colorBgCheckedDisabled : HusTheme.HusSwitch.colorBgDisabled;
 
         if (checked)
-            return control.down ? HusTheme.HusSwitch.colorCheckedBgActive :
-                                  control.hovered ? HusTheme.HusSwitch.colorCheckedBgHover :
-                                                    HusTheme.HusSwitch.colorCheckedBg;
+            return control.down ? HusTheme.HusSwitch.colorBgCheckedActive :
+                                  control.hovered ? HusTheme.HusSwitch.colorBgCheckedHover :
+                                                    HusTheme.HusSwitch.colorBgChecked;
         else
             return control.down ? HusTheme.HusSwitch.colorBgActive :
                                   control.hovered ? HusTheme.HusSwitch.colorBgHover :
@@ -106,18 +106,20 @@ T.Switch {
         Rectangle {
             id: __bg
             width: Math.max(Math.max(checkedWidth, uncheckedWidth) + __handle.width, height * 2)
-            height: hasText ? Math.max(checkedHeight, uncheckedHeight, 22) : 22
+            height: hasContent ? Math.max(checkedHeight, uncheckedHeight, 22) : 22
             anchors.centerIn: parent
             radius: control.radiusBg
             color: control.colorBg
             clip: true
 
-            property bool hasText: control.checkedIconSource !== 0 || control.uncheckedIconSource !== 0  ||
-                                   control.checkedText.length !== 0 || control.uncheckedText.length !== 0
-            property real checkedWidth: control.checkedIconSource == 0 ? __checkedText.width + 6 : __checkedIcon.width + 6
-            property real uncheckedWidth: control.checkedIconSource == 0 ? __uncheckedText.width + 6 : __uncheckedIcon.width + 6
-            property real checkedHeight: control.checkedIconSource == 0 ? __checkedText.height + 4 : __checkedIcon.height + 4
-            property real uncheckedHeight: control.checkedIconSource == 0 ? __uncheckedText.height + 4 : __uncheckedIcon.height + 4
+            property bool hasCheckedIcon: control.checkedIconSource !== 0 && control.checkedIconSource !== ''
+            property bool hasUncheckedIcon: control.uncheckedIconSource !== 0 && control.uncheckedIconSource !== ''
+            property bool hasContent: hasCheckedIcon || hasUncheckedIcon ||
+                                      control.checkedText.length !== 0 || control.uncheckedText.length !== 0
+            property real checkedWidth: !hasCheckedIcon ? __checkedText.width + 6 :  __checkedIcon.width + 6
+            property real uncheckedWidth: !hasUncheckedIcon ? __uncheckedText.width + 6 : __uncheckedIcon.width + 6
+            property real checkedHeight: !hasCheckedIcon ? __checkedText.height + 4 : __checkedIcon.height + 4
+            property real uncheckedHeight: !hasUncheckedIcon ? __uncheckedText.height + 4 : __uncheckedIcon.height + 4
 
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
@@ -147,26 +149,28 @@ T.Switch {
 
             HusIconText {
                 id: __checkedIcon
-                width: text.length === 0 ? 0 : implicitWidth + 8
+                leftPadding: 4
+                rightPadding: 4
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: __handle.left
                 iconSize: control.font.pixelSize
                 iconSource: control.checkedIconSource
                 colorIcon: control.colorHandle
                 horizontalAlignment: Text.AlignHCenter
-                visible: iconSource != 0
+                visible: !empty
             }
 
             HusIconText {
                 id: __uncheckedIcon
-                width: text.length === 0 ? 0 : implicitWidth + 8
+                leftPadding: 4
+                rightPadding: 4
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: __handle.right
                 iconSize: control.font.pixelSize
                 iconSource: control.uncheckedIconSource
                 colorIcon: control.colorHandle
                 horizontalAlignment: Text.AlignHCenter
-                visible: iconSource != 0
+                visible: !empty
             }
 
             Loader {
