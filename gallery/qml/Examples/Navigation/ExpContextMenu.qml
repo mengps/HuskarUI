@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusContextMenu 上下文菜单\n
 上下文菜单，通常作为右键单击后显示的菜单。\n
-* **继承自 { HusPopup }**\n
+* **继承自 { [HusPopup](internal://HusPopup) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n

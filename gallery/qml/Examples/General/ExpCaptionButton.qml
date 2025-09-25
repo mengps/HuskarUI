@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusCaptionButton 标题按钮\n
 一般用于窗口标题栏的按钮。\n
-* **继承自 { HusIconButton }**\n
+* **继承自 { [HusIconButton](internal://HusIconButton) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n

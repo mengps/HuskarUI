@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusImagePreview 图片预览\n
 用于预览的图片的基本工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。\n
-* **继承自 { HusPopup }**\n
+* **继承自 { [HusPopup](internal://HusPopup) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **sourceDelegate: Component** 预览源项目代理(可以是 \`Image/AnimatedImage/Video\` 等)，必须提供 \`sourceSize\` 属性，代理可访问属性：\n
