@@ -49,6 +49,7 @@ Item {
         }
     property Component addButtonDelegate: HusCaptionButton {
         id: __addButton
+        animationEnabled: control.animationEnabled
         iconSize: HusTheme.HusTabView.fontSize
         iconSource: HusIcon.PlusOutlined
         colorIcon: HusTheme.HusTabView.colorTabCloseHover
@@ -412,7 +413,7 @@ Item {
                     Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
                 }
 
-                Text {
+                HusText {
                     id: __text
                     width: control.tabSize == HusTabView.Size_Auto ? implicitWidth :
                                                                      Math.max(0, __tabContainer.tabFixedWidth - 5 - __tabItem.calcIconWidth - __tabItem.calcCloseWidth)
@@ -478,13 +479,12 @@ Item {
 
     MouseArea {
         anchors.fill: __tabView
-        onWheel:
-            (wheel) => {
-                if (__private.isHorizontal)
+        onWheel: function(wheel) {
+            if (__private.isHorizontal)
                 __tabView.flick(wheel.angleDelta.y * 6.5, 0);
-                else
+            else
                 __tabView.flick(0, wheel.angleDelta.y * 6.5);
-            }
+        }
     }
 
     ListView {
