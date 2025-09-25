@@ -15,20 +15,39 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(Qt6 6.5 COMPONENTS Quick QuickTemplates2 ShaderTools REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
 
+#Set header output dir.
 if(NOT HUSKARUI_HEADER_OUTPUT_DIRECTORY)
-    set(HUSKARUI_HEADER_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../include/HuskarUI)
-endif()
-
-if(NOT HUSKARUI_LIBRARY_OUTPUT_DIRECTORY)
-    set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
-endif()
-
-if(NOT HUSKARUI_PLUGIN_OUTPUT_DIRECTORY)
-    set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/HuskarUI/Basic)
-    if(BUILD_HUSKARUI_STATIC_LIBRARY)
-        set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
+    if(BUILD_HUSKARUI_IN_DEFAULT_LOCATION)
+        set(HUSKARUI_HEADER_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../include/HuskarUI)
+    else()
+        set(HUSKARUI_HEADER_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/HuskarUI/include)
     endif()
 endif()
+
+#Set library output dir.
+if(NOT HUSKARUI_LIBRARY_OUTPUT_DIRECTORY)
+    if(BUILD_HUSKARUI_IN_DEFAULT_LOCATION)
+        set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
+        if(BUILD_HUSKARUI_STATIC_LIBRARY)
+            set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
+        endif()
+    else()
+        set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/HuskarUI/lib)
+    endif()
+endif()
+
+#Set plugin output dir.
+if(NOT HUSKARUI_PLUGIN_OUTPUT_DIRECTORY)
+    if(BUILD_HUSKARUI_IN_DEFAULT_LOCATION)
+        set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/HuskarUI/Basic)
+    else()
+        set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/HuskarUI/plugins/HuskarUI/Basic)
+    endif()
+endif()
+
+message(STATUS "The HuskarUI header output dir: ${HUSKARUI_HEADER_OUTPUT_DIRECTORY}")
+message(STATUS "The HuskarUI library output dir: ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}")
+message(STATUS "The HuskarUI plugin output dir: ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}")
 
 if(BUILD_HUSKARUI_STATIC_LIBRARY)
     set(PLUGIN_NAME HuskarUIBasicPlugin)
@@ -43,6 +62,7 @@ if(NOT DEFINED BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
     set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM ON)
 endif()
 
+#Add windows RC
 set(HUSKARUI_RC_FILE "")
 if(WIN32)
     set(HUSKARUI_RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_Resource.rc)

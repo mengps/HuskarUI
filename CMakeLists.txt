@@ -5,8 +5,9 @@ project(HuskarUI_Solution)
 option(BUILD_HUSKARUI_GALLERY "Build HuskarUI Gallery." ON)
 option(BUILD_HUSKARUI_STATIC_LIBRARY "Build HuskarUI as a static library." OFF)
 option(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM "Build HuskarUI on desktop platform (mobile platform set OFF)." ON)
+option(BUILD_HUSKARUI_IN_DEFAULT_LOCATION "Build HuskarUI in default location[QtSDK Dir]." ON)
 
-#Set plugin output dir
+#Set HuskarUI output dir
 set(HUSKARUI_HEADER_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI header output dir.")
 set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI library output dir.")
 set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir.")
