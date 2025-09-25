@@ -6,14 +6,9 @@ cmake_minimum_required(VERSION 3.16)
 
 project(%1_Solution)
 
-option(BUILD_HUSKARUI_STATIC_LIBRARY "Build HuskarUI as a static library." %2)
-option(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM "Build HuskarUI on desktop platform (mobile platform set OFF)." ON)
-
-if (WIN32 OR MACOS OR LINUX)
-    set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM ON)
-else()
-    set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM OFF)
-endif()
+set(BUILD_HUSKARUI_STATIC_LIBRARY %2)
+set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM ON)
+set(BUILD_HUSKARUI_IN_DEFAULT_LOCATION ON)
 
 if(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
     #Build QWindowKit
