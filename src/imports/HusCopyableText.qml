@@ -10,7 +10,7 @@ TextEdit {
     color: HusTheme.HusCopyableText.colorText
     selectByMouse: true
     selectByKeyboard: true
-    selectedTextColor: HusTheme.HusCopyableText.colorSelectedText
+    selectedTextColor: HusTheme.HusCopyableText.colorTextSelected
     selectionColor: HusTheme.HusCopyableText.colorSelection
     font {
         family: HusTheme.HusCopyableText.fontFamily

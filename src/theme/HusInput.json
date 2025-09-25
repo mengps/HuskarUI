@@ -7,7 +7,7 @@
         "colorTextDisabled": "@colorPrimaryTextDisabled",
         "colorPlaceholderText": "@colorTextQuaternary",
         "colorPlaceholderTextDisabled": "@colorPrimaryTextDisabled",
-        "colorSelectedText": "@colorTextBase",
+        "colorTextSelected": "@colorTextBase",
         "colorSelection": "$alpha(@colorPrimary, 0.6)",
         "colorBorder": "$onBackground(@colorTextQuaternary, @colorBgBase)",
         "colorBorderHover": "@colorPrimary",

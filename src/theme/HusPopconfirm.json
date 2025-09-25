@@ -6,7 +6,7 @@
         "fontTitleSize": "@fontPrimarySizeHeading5",
         "fontDescriptionSize": "@fontPrimarySize",
         "colorIcon": "@colorWarning",
-        "colorTitle": "@colorTextPrimary",
-        "colorDescription": "@colorTextSecondary"
+        "colorTitle": "@colorTextBase",
+        "colorDescription": "@colorTextPrimary"
     }
 }

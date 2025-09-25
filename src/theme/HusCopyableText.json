@@ -3,7 +3,7 @@
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
         "colorText": "@colorTextBase",
-        "colorSelectedText": "#fff",
+        "colorTextSelected": "#fff",
         "colorSelection": "@colorPrimary"
     }
 }
