@@ -18,17 +18,17 @@ HusPopup {
     property bool showArrow: true
     property int arrowWidth: 16
     property int arrowHeight: 8
-    property color colorIcon: HusTheme.HusPopconfirm.colorIcon
-    property color colorTitle: HusTheme.HusPopconfirm.colorTitle
-    property color colorDescription: HusTheme.HusPopconfirm.colorDescription
+    property color colorIcon: control.themeSource.colorIcon
+    property color colorTitle: control.themeSource.colorTitle
+    property color colorDescription: control.themeSource.colorDescription
     property font titleFont: Qt.font({
-                                         family: HusTheme.HusPopconfirm.fontFamily,
+                                         family: control.themeSource.fontFamily,
                                          weight: Font.DemiBold,
-                                         pixelSize: parseInt(HusTheme.HusPopconfirm.fontTitleSize)
+                                         pixelSize: parseInt(control.themeSource.fontTitleSize)
                                      })
     property font descriptionFont: Qt.font({
-                                               family: HusTheme.HusPopconfirm.fontFamily,
-                                               pixelSize: parseInt(HusTheme.HusPopconfirm.fontDescriptionSize)
+                                               family: control.themeSource.fontFamily,
+                                               pixelSize: parseInt(control.themeSource.fontDescriptionSize)
                                            })
     property Component arrowDelegate: Canvas {
         id: __arrowDelegate
@@ -150,6 +150,39 @@ HusPopup {
     objectName: '__HusPopconfirm__'
     themeSource: HusTheme.HusPopconfirm
     implicitHeight: implicitBackgroundHeight + topInset + bottomInset
+    transformOrigin: __private.isTop ? Item.Bottom : Item.Top
+    enter: Transition {
+        NumberAnimation {
+            property: 'scale'
+            from: 0.5
+            to: 1.0
+            easing.type: Easing.OutQuad
+            duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+        }
+        NumberAnimation {
+            property: 'opacity'
+            from: 0.0
+            to: 1.0
+            easing.type: Easing.OutQuad
+            duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+        }
+    }
+    exit: Transition {
+        NumberAnimation {
+            property: 'scale'
+            from: 1.0
+            to: 0.5
+            easing.type: Easing.InQuad
+            duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+        }
+        NumberAnimation {
+            property: 'opacity'
+            from: 1.0
+            to: 0
+            easing.type: Easing.InQuad
+            duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+        }
+    }
     background: Item {
         implicitHeight: __bg.height
 
@@ -182,24 +215,20 @@ HusPopup {
             width: parent.width
             height: __arrowLoader.height + __contentLoader.height
 
-            property real parentWidth: control.parent?.width ?? 0
-            property real parentHeight: control.parent?.height ?? 0
-            property bool isTop: control.y < parentHeight
-
             Loader {
                 id: __arrowLoader
-                x: -control.x + (__bg.parentWidth - width) * 0.5
-                y: __bg.isTop ? (__bg.height - height) : 0
+                x: -control.x + (__private.parentWidth - width) * 0.5
+                y: __private.isTop ? (__bg.height - height) : 0
                 width: control.arrowWidth
                 height: control.arrowHeight
-                rotation: __bg.isTop ? 180 : 0
+                rotation: __private.isTop ? 180 : 0
                 active: control.showArrow
                 sourceComponent: control.arrowDelegate
             }
 
             Loader {
                 id: __bgLoader
-                y: __bg.isTop ? 0 : __arrowLoader.height
+                y: __private.isTop ? 0 : __arrowLoader.height
                 width: parent.width
                 height: __contentLoader.height
                 sourceComponent: control.bgDelegate
@@ -208,10 +237,17 @@ HusPopup {
 
         Loader {
             id: __contentLoader
-            y: __bg.isTop ? 0 : __arrowLoader.height
+            y: __private.isTop ? 0 : __arrowLoader.height
             width: parent.width
             sourceComponent: control.contentDelegate
         }
     }
     Component.onCompleted: HusApi.setPopupAllowAutoFlip(this);
+
+    QtObject {
+        id: __private
+        property real parentWidth: control.parent?.width ?? 0
+        property real parentHeight: control.parent?.height ?? 0
+        property bool isTop: control.y < parentHeight
+    }
 }
