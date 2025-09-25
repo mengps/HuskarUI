@@ -34,14 +34,15 @@ Item {
             textFormat: Text.MarkdownText
             onLinkActivated:
                 (link) => {
-                    if (link.startsWith('internal://'))
+                    if (link.startsWith('internal://')) {
                         galleryMenu.gotoMenu(link.slice(11));
-                    else
+                    } else {
                         Qt.openUrlExternally(link);
+                    }
                 }
             onLinkHovered:
                 (link) => {
-                    shapeMouse.cursorShape = link !== "" ? Qt.PointingHandCursor : Qt.ArrowCursor
+                    shapeMouse.cursorShape = link !== '' ? Qt.PointingHandCursor : Qt.ArrowCursor;
                 }
 
             MouseArea {
@@ -51,7 +52,7 @@ Item {
                 propagateComposedEvents: true
                 onClicked:
                     (mouse) => {
-                        mouse.accepted = false
+                        mouse.accepted = false;
                     }
             }
         }

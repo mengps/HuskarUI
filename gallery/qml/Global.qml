@@ -474,7 +474,7 @@ QtObject {
             componentTokens[source] = list;
         }
 
-        /*! 解析创建菜单 */
+        /*! 创建菜单等 */
         let __menus = [], __options = [], __updates = [];
         for (const item of galleryModel) {
             if (item && item.menuChildren) {
