@@ -82,27 +82,32 @@ HusWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                Row {
-                    anchors.top: parent.top
-                    anchors.topMargin: 6
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: scaleVisible
-                    spacing: (parent.width - 14 - ((__repeater.count - 1) * 4)) / (__repeater.count - 1)
+                Loader {
+                    width: parent.width
+                    active: scaleVisible
+                    sourceComponent: Item {
+                        Row {
+                            anchors.top: parent.top
+                            anchors.topMargin: 6
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: (parent.width - 14 - ((__repeater.count - 1) * 4)) / (__repeater.count - 1)
 
-                    Repeater {
-                        id: __repeater
-                        model: Math.round((__slider.max - __slider.min) / __slider.stepSize) + 1
-                        delegate: Rectangle {
-                            width: 4
-                            height: 6
-                            radius: 2
-                            color: __slider.colorBg
+                            Repeater {
+                                id: __repeater
+                                model: Math.round((__slider.max - __slider.min) / __slider.stepSize) + 1
+                                delegate: Rectangle {
+                                    width: 4
+                                    height: 6
+                                    radius: 2
+                                    color: __slider.colorBg
 
-                            HusText {
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.top: parent.bottom
-                                anchors.topMargin: 8
-                                text: (__slider.stepSize) * index + __slider.min
+                                    HusText {
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        anchors.top: parent.bottom
+                                        anchors.topMargin: 8
+                                        text: (__slider.stepSize) * index + __slider.min
+                                    }
+                                }
                             }
                         }
                     }
