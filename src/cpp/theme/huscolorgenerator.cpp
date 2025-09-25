@@ -196,7 +196,7 @@ QList<QColor> HusColorGenerator::generate(const QColor &color, bool light, const
             std::make_tuple(1, 98)
         };
         QList<QColor> darkColorString;
-        std::for_each(g_darkColorMap.begin(), g_darkColorMap.end(), [&patterns, &darkColorString, background](const std::tuple<int, qreal> &value){
+        std::for_each(g_darkColorMap.begin(), g_darkColorMap.end(), [&patterns, &darkColorString, background](const std::tuple<int, int> &value){
             const auto [index, amount] = value;
             darkColorString.append(mix(background.isValid() ? background : QColor(0x141414), patterns[index], amount));
         });
