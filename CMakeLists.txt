@@ -10,7 +10,7 @@ option(BUILD_HUSKARUI_IN_DEFAULT_LOCATION "Build HuskarUI in default location[Qt
 #Set HuskarUI output dir
 set(HUSKARUI_HEADER_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI header output dir.")
 set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI library output dir.")
-set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir.")
+set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir (Must end with [HuskarUI/Basic]).")
 
 set(MACOS FALSE)
 if(APPLE)
