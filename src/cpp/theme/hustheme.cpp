@@ -474,6 +474,7 @@ void HusThemePrivate::registerDefaultComponentTheme(const QString &componentName
             ADD_COMPONENT_CASE(HusDateTimePicker)
             ADD_COMPONENT_CASE(HusNotification)
             ADD_COMPONENT_CASE(HusPopconfirm)
+            ADD_COMPONENT_CASE(HusModal)
         default:
             break;
         }

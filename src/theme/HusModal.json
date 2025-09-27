@@ -1,0 +1,14 @@
+{
+    "__init__": {
+        "__import__": ["HusPopup"]
+    },
+    "__style__": {
+        "fontTitleSize": "@fontPrimarySizeHeading5",
+        "fontDescriptionLineHeight": "@fontPrimaryLineHeightHeading1",
+        "fontDescriptionSize": "@fontPrimarySize",
+        "colorIcon": "@colorInfo",
+        "colorTitle": "@colorTextBase",
+        "colorDescription": "@colorTextPrimary",
+        "radiusCloseBg": "@radiusPrimarySM"
+    }
+}
