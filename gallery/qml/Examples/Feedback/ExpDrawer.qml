@@ -151,10 +151,10 @@ colorOverlay | color | - | 覆盖层颜色
                     id: edgeRadio
                     initCheckedIndex: 0
                     model: [
-                        { label: qsTr('上'), value: Qt.TopEdge },
-                        { label: qsTr('下'), value: Qt.BottomEdge },
-                        { label: qsTr('左'), value: Qt.LeftEdge },
-                        { label: qsTr('右'), value: Qt.RightEdge }
+                        { label: 'Top', value: Qt.TopEdge },
+                        { label: 'Bottom', value: Qt.BottomEdge },
+                        { label: 'Left', value: Qt.LeftEdge },
+                        { label: 'Righ', value: Qt.RightEdge }
                     ]
                 }
 
@@ -165,7 +165,7 @@ colorOverlay | color | - | 覆盖层颜色
 
                     HusDrawer {
                         id: drawer2
-                        edge: edgeRadio.currentCheckedValue
+                        edge: parseInt(edgeRadio.currentCheckedValue)
                         title: qsTr('Basic Drawer')
                         contentDelegate: HusCopyableText {
                             leftPadding: 15
