@@ -25,7 +25,7 @@ HusPopup {
     property string description: ''
     property string confirmText: ''
     property string cancelText: ''
-    property color colorOverlay: HusTheme.HusTour.colorOverlay
+    property color colorOverlay: control.themeSource.colorOverlay
     property color colorIcon: control.themeSource.colorIcon
     property color colorTitle: control.themeSource.colorTitle
     property color colorDescription: control.themeSource.colorDescription

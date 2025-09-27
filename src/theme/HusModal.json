@@ -6,6 +6,7 @@
         "fontTitleSize": "@fontPrimarySizeHeading5",
         "fontDescriptionLineHeight": "@fontPrimaryLineHeightHeading1",
         "fontDescriptionSize": "@fontPrimarySize",
+        "colorOverlay": "@colorBgMask",
         "colorIcon": "@colorInfo",
         "colorTitle": "@colorTextBase",
         "colorDescription": "@colorTextPrimary",
