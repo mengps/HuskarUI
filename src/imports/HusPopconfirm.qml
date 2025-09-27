@@ -23,7 +23,7 @@ HusPopup {
     property color colorDescription: control.themeSource.colorDescription
     property font titleFont: Qt.font({
                                          family: control.themeSource.fontFamily,
-                                         weight: Font.DemiBold,
+                                         bold: true,
                                          pixelSize: parseInt(control.themeSource.fontTitleSize)
                                      })
     property font descriptionFont: Qt.font({
@@ -71,20 +71,20 @@ HusPopup {
     }
     property Component confirmButtonDelegate: HusButton {
         animationEnabled: control.animationEnabled
-        padding: 8
+        padding: 10
         topPadding: 4
         bottomPadding: 4
         text: control.confirmText
-        type: HusButton.Type_Default
+        type: HusButton.Type_Primary
         onClicked: control.confirm();
     }
     property Component cancelButtonDelegate: HusButton {
         animationEnabled: control.animationEnabled
-        padding: 8
+        padding: 10
         topPadding: 4
         bottomPadding: 4
         text: control.cancelText
-        type: HusButton.Type_Primary
+        type: HusButton.Type_Default
         onClicked: control.cancel();
     }
     property Component contentDelegate: Item {

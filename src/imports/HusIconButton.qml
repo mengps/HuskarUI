@@ -21,6 +21,8 @@ HusButton {
         implicitWidth: __row.implicitWidth
         implicitHeight: Math.max(__icon.implicitHeight, __text.implicitHeight)
 
+        Behavior on implicitWidth { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationMid } }
+
         Row {
             id: __row
             anchors.horizontalCenter: parent.horizontalCenter

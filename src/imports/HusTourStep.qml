@@ -378,13 +378,13 @@ T.Popup {
     }
 
     NumberAnimation {
-        id: __closeAnimation
+        running: __private.isClosing
         target: control
         property: 'opacity'
         from: 1.0
         to: 0.0
         duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
-        easing.type: Easing.InOutQuad
+        easing.type: Easing.InQuad
         onFinished: {
             __private.isClosing = false;
             control.resetStep();
@@ -421,7 +421,6 @@ T.Popup {
         function startClosing() {
             if (isClosing) return;
             isClosing = true;
-            __closeAnimation.restart();
         }
 
         Behavior on focusX {
