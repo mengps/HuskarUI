@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.6.0)
+set(HUSKARUI_VERSION 0.4.7.0)
 
 message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
@@ -145,6 +145,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusShadow.qml
         imports/HusNotification.qml
         imports/HusPopconfirm.qml
+        imports/HusModal.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -204,6 +205,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/HusDateTimePicker.json
         theme/HusNotification.json
         theme/HusPopconfirm.json
+        theme/HusModal.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
