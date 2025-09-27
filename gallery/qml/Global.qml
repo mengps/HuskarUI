@@ -415,6 +415,14 @@ QtObject {
                     addVersion: '0.4.6',
                     state: 'New',
                     desc: qsTr('气泡确认框，弹出气泡式的确认框。')
+                },
+                {
+                    key: 'HusModal',
+                    label: qsTr('HusModal 对话框'),
+                    source: './Examples/Feedback/ExpModal.qml',
+                    addVersion: '0.4.7',
+                    state: 'New',
+                    desc: qsTr('展示一个对话框，提供标题、内容区、操作区。')
                 }
             ]
         },
