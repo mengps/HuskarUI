@@ -7,6 +7,7 @@ T.Popup {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property bool penetrationEvent: false
+    property bool maskClosable: true
     property Item target: null
     property color colorOverlay: HusTheme.HusTour.colorOverlay
     property int focusMargin: 5
@@ -25,7 +26,7 @@ T.Popup {
     modal: !penetrationEvent
     dim: true
     objectName: '__HusTourFocus__'
-    closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside
+    closePolicy: maskClosable ? T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside : T.Popup.NoAutoClose
     onFocusMarginChanged: {
         __private.recalcPosition();
     }

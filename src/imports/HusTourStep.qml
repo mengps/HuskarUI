@@ -7,6 +7,7 @@ T.Popup {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property bool penetrationEvent: false
+    property bool maskClosable: false
     property var stepModel: []
     property Item currentTarget: null
     property int currentStep: 0
@@ -253,7 +254,7 @@ T.Popup {
     focus: true
     modal: !penetrationEvent
     dim: true
-    closePolicy: T.Popup.CloseOnEscape
+    closePolicy: maskClosable ? T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside : T.Popup.NoAutoClose
     parent: T.Overlay.overlay
     T.Overlay.modal: Item {
         Canvas {

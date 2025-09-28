@@ -36,6 +36,7 @@ Flickable {
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 position | enum | HusModal.Position_Center | 弹框出现的位置(来自 HusModal)
 positionMargin | int | 120 | 弹框出现位置距离窗口边缘的距离
+maskClosable | bool | true | 点击蒙层是否允许关闭
 iconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接
 iconSize | int | 24 | 图标大小
 title | string | '' | 标题文本

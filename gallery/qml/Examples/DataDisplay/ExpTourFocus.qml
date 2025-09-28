@@ -27,6 +27,7 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 penetrationEvent | bool | false | 是否可穿透事件
+maskClosable | bool | true | 点击蒙层是否允许关闭
 target | Item | - | 焦点目标
 overlayColor | color | - | 覆盖层颜色
 focusMargin | int | 5 | 焦点边距

@@ -19,6 +19,7 @@ HusPopup {
 
     property int position: HusModal.Position_Center
     property int positionMargin: 120
+    property bool maskClosable: true
     property var iconSource: 0 || ''
     property int iconSize: 24
     property string title: ''
@@ -225,6 +226,7 @@ HusPopup {
     implicitHeight: implicitBackgroundHeight + topInset + bottomInset
     modal: true
     focus: true
+    closePolicy: maskClosable ? T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside : T.Popup.NoAutoClose
     enter: Transition {
         NumberAnimation {
             property: 'scale'

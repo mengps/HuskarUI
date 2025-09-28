@@ -29,6 +29,7 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 penetrationEvent | bool | false | 是否可穿透事件
+maskClosable | bool | false | 点击蒙层是否允许关闭
 stepModel | list | [] | 步骤模型
 currentTarget | Item | null | 当前步骤目标
 currentStep | int | 0 | 当前步数
