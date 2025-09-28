@@ -165,7 +165,7 @@ colorOverlay | color | - | 覆盖层颜色
 
                     HusDrawer {
                         id: drawer2
-                        edge: parseInt(edgeRadio.currentCheckedValue)
+                        edge: edgeRadio.currentCheckedValue
                         title: qsTr('Basic Drawer')
                         contentDelegate: HusCopyableText {
                             leftPadding: 15

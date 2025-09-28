@@ -72,21 +72,21 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
                     HusInput {
                         width: 120
-                        placeholderText: qsTr('Basic usage')
+                        placeholderText: 'Basic usage'
                     }
 
                     HusInput {
                         width: 120
                         iconPosition: HusInput.Position_Left
                         iconSource: HusIcon.UserOutlined
-                        placeholderText: qsTr('Username')
+                        placeholderText: 'Username'
                     }
 
                     HusInput {
                         width: 120
                         iconPosition: HusInput.Position_Right
                         iconSource: HusIcon.UserOutlined
-                        placeholderText: qsTr('Username')
+                        placeholderText: 'Username'
                     }
                 }
 
@@ -96,21 +96,21 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
                 HusInput {
                     width: 120
-                    placeholderText: qsTr('Basic usage')
+                    placeholderText: 'Basic usage'
                 }
 
                 HusInput {
                     width: 120
                     iconPosition: HusInput.Position_Left
                     iconSource: HusIcon.UserOutlined
-                    placeholderText: qsTr('Username')
+                    placeholderText: 'Username'
                 }
 
                 HusInput {
                     width: 120
                     iconPosition: HusInput.Position_Right
                     iconSource: HusIcon.UserOutlined
-                    placeholderText: qsTr('Username')
+                    placeholderText: 'Username'
                 }
             }
         }
