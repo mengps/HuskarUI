@@ -241,6 +241,14 @@ QtObject {
                     addVersion: '0.4.4',
                     state: 'New',
                     desc: qsTr('日期时间选择框，输入或选择日期的控件。')
+                },
+                {
+                    key: 'HusTextArea',
+                    label: qsTr('HusTextArea 文本域'),
+                    source: './Examples/DataEntry/ExpTextArea.qml',
+                    addVersion: '0.4.8',
+                    state: 'New',
+                    desc: qsTr('用于替代 TextArea，提供多行文本输入。')
                 }
             ]
         },
@@ -357,6 +365,14 @@ QtObject {
                     label: qsTr('HusSwitchEffect 切换特效'),
                     source: './Examples/Effect/ExpSwitchEffect.qml',
                     desc: qsTr('为两个组件之间增加切换/过渡特效。')
+                },
+                {
+                    key: 'HusShadow',
+                    label: qsTr('HusShadow 阴影效果'),
+                    source: './Examples/Effect/ExpShadow.qml',
+                    addVersion: '0.4.8',
+                    state: 'New',
+                    desc: qsTr('通用&统一的阴影特效。')
                 }
             ]
         },
@@ -518,7 +534,7 @@ QtObject {
             __menus.push(item);
         }
         menus = __menus;
-        options = __options;
+        options = __options.sort((a, b) => a.key.localeCompare(b.key));
         updates = __updates.sort(
                     (a, b) => {
                         const parts1 = a.version.split('.').map(Number);
