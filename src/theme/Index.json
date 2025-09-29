@@ -186,6 +186,7 @@
         "HusDateTimePicker": ":/HuskarUI/theme/HusDateTimePicker.json",
         "HusNotification": ":/HuskarUI/theme/HusNotification.json",
         "HusPopconfirm": ":/HuskarUI/theme/HusPopconfirm.json",
-        "HusModal": ":/HuskarUI/theme/HusModal.json"
+        "HusModal": ":/HuskarUI/theme/HusModal.json",
+        "HusTextArea": ":/HuskarUI/theme/HusTextArea.json"
     }
 }
