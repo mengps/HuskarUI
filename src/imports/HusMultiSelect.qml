@@ -220,9 +220,9 @@ HusSelect {
         Flow {
             id: __flow
             anchors.left: __prefixLoader.right
-            anchors.leftMargin: 2
+            anchors.leftMargin: 4
             anchors.right: __suffixLoader.left
-            anchors.rightMargin: 2
+            anchors.rightMargin: 4
             anchors.verticalCenter: parent.verticalCenter
             spacing: control.tagSpacing
             onPositioningComplete: {
