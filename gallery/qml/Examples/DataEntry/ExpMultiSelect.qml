@@ -39,7 +39,7 @@ genDefaultKey | bool | true | 是否生成默认键(如果没有给定key则为l
 selectedKeys | list | [] | 选中项的键
 searchEnabled | bool | true | 是否启用搜索
 placeholderText | string | '' | 占位符文本
-tagCount(readonly) | int | 0 | 当前(选择)标签数量
+tagCount | int(readonly) | 0 | 当前(选择)标签数量
 maxTagCount | int | -1 | 最多显示多少个标签(-1无限制)
 tagSpacing | int | 5 | 标签间隔
 colorTagText | color | - | 标签文本颜色

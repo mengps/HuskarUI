@@ -40,7 +40,7 @@ min | real | 0 | 最小值
 max | real | 100 | 最大值
 stepSize | real | 0.0 | 步长
 value | number丨[number, number] | 0丨[0, 0] | 设置滑块值, range为true时为数组[min, max]
-currentValue(readonly) | number丨[number, number] | - | 获取当前滑块值, range为true时为数组[min, max]
+currentValue | number丨[number, number](readonly) | - | 获取当前滑块值, range为true时为数组[min, max]
 range | bool | false | 是否双滑块模式
 hovered | bool | - | 是否悬浮在滑动条上
 snapMode | enum | HusSlider.NoSnap | 滑块对齐模式(来自 HusSlider)

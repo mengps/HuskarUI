@@ -50,10 +50,10 @@ luminosity | real | 0.01 | 亮度
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`sourceItem\` 属性设置需要该效果的项目，**注意** \`HusAcrylic\` 不能为 \`sourceItem\` 的子项 \n
-通过 \`opacityTint\` 属性设置色调透明度 \n
-通过 \`luminosity\` 属性设置亮度 \n
-通过 \`radiusBlur\` 模糊半径 \n
+通过 \`sourceItem\` 属性设置需要该效果的项目，**注意** \`HusAcrylic\` 不能为 \`sourceItem\` 的子项。\n
+通过 \`opacityTint\` 属性设置色调透明度。\n
+通过 \`luminosity\` 属性设置亮度。\n
+通过 \`radiusBlur\` 模糊半径。\n
                        `)
             code: `
                 import QtQuick
