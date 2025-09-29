@@ -66,6 +66,6 @@ T.TextField {
     }
 
     Accessible.role: Accessible.EditableText
-    Accessible.editable: true
+    Accessible.editable: control.readOnly
     Accessible.description: control.contentDescription
 }
