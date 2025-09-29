@@ -3,7 +3,7 @@
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
         "colorText": "@colorTextBase",
-        "colorTextSelected": "#fff",
-        "colorSelection": "@colorPrimary"
+        "colorTextSelected": "@colorTextBase",
+        "colorSelection": "$alpha(@colorPrimary, 0.6)"
     }
 }
