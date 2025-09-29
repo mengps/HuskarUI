@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.7.0)
+set(HUSKARUI_VERSION 0.4.8.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -63,6 +63,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpInputNumber.qml
         qml/Examples/DataEntry/ExpMultiSelect.qml
         qml/Examples/DataEntry/ExpDateTimePicker.qml
+        qml/Examples/DataEntry/ExpTextArea.qml
         qml/Examples/DataDisplay/ExpToolTip.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml
@@ -85,6 +86,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Layout/ExpDivider.qml
         qml/Examples/Effect/ExpAcrylic.qml
         qml/Examples/Effect/ExpSwitchEffect.qml
+        qml/Examples/Effect/ExpShadow.qml
         qml/Examples/Feedback/ExpWatermark.qml
         qml/Examples/Feedback/ExpDrawer.qml
         qml/Examples/Feedback/ExpMessage.qml

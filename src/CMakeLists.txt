@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.7.0)
+set(HUSKARUI_VERSION 0.4.8.0)
 
 message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
@@ -93,7 +93,7 @@ qt_add_qml_module(${PROJECT_NAME}
     TYPEINFO "plugins.qmltypes"
     OUTPUT_DIRECTORY ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}
     QML_FILES
-        imports/HusButton.qml
+        imports/HusButton.qml imports/HusButtonBlock.qml
         imports/HusIconButton.qml
         imports/HusCaptionButton.qml
         imports/HusTourFocus.qml imports/HusTourStep.qml
@@ -115,8 +115,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusInput.qml
         imports/HusOTPInput.qml
         imports/HusRate.qml
-        imports/HusRadio.qml
-        imports/HusRadioBlock.qml
+        imports/HusRadio.qml imports/HusRadioBlock.qml
         imports/HusCheckBox.qml
         imports/HusDrawer.qml
         imports/HusCollapse.qml
@@ -132,7 +131,6 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusText.qml
         imports/HusProgress.qml
         imports/HusBadge.qml
-        imports/HusButtonBlock.qml
         imports/HusCarousel.qml
         imports/HusSwitchEffect.qml
         imports/HusContextMenu.qml
@@ -146,6 +144,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusNotification.qml
         imports/HusPopconfirm.qml
         imports/HusModal.qml
+        imports/HusTextArea.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -206,6 +205,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/HusNotification.json
         theme/HusPopconfirm.json
         theme/HusModal.json
+        theme/HusTextArea.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
