@@ -20,6 +20,7 @@ Flickable {
 * **继承自 { Drawer }**\n
 \n<br/>
 \n### 支持的代理：\n
+- **closeDelegate: Component** 关闭按钮代理\n
 - **titleDelegate: Component** 标题代理\n
 - **contentDelegate: Component** 内容代理\n
 \n<br/>
@@ -27,8 +28,10 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+maskClosable | bool | true | 点击蒙层是否允许关闭
+closePosition | enum | HusDrawer.Position_Start | 关闭按钮的位置(来自 HusDrawer)
 drawerSize | int | 378 | 抽屉宽度
-edge | enum | bool | 抽屉打开的位置(来自 Qt.*Edge)
+edge | enum | Qt.RightEdge | 抽屉打开的位置(来自 Qt.*Edge)
 title | string | '' | 标题文本
 titleFont | font | - | 标题字体
 colorTitle | color | - | 标题颜色
@@ -107,25 +110,17 @@ colorOverlay | color | - | 覆盖层颜色
 - 抽屉在窗口上边{ Qt.TopEdge }\n
 - 抽屉在项目下边{ Qt.BottomEdge }\n
 - 抽屉在项目左边{ Qt.LeftEdge }\n
-- 抽屉在项目右边(默认){ Qt.RightEdge }\n
+- 抽屉在项目右边(默认){ Qt.RightEdge }\n\n
+通过 \`closePosition\` 属性设置抽屉关闭按钮的位置，支持的位置：\n
+- 起始位置(默认){ HusDrawer.Position_Start }\n
+- 末尾位置{ HusDrawer.Position_End }\n
                        `)
             code: `
                 import QtQuick
                 import HuskarUI.Basic
 
-                Row {
+                Column {
                     spacing: 10
-
-                    HusRadioBlock {
-                        id: edgeRadio
-                        initCheckedIndex: 0
-                        model: [
-                            { label: qsTr('上'), value: Qt.TopEdge },
-                            { label: qsTr('下'), value: Qt.BottomEdge },
-                            { label: qsTr('左'), value: Qt.LeftEdge },
-                            { label: qsTr('右'), value: Qt.RightEdge }
-                        ]
-                    }
 
                     HusButton {
                         type: HusButton.Type_Primary
@@ -136,27 +131,37 @@ colorOverlay | color | - | 覆盖层颜色
                             id: drawer2
                             edge: edgeRadio.currentCheckedValue
                             title: qsTr('Basic Drawer')
+                            closePosition: closeRadio.currentCheckedValue
                             contentDelegate: HusCopyableText {
                                 leftPadding: 15
-                                text: 'Some contents...\\nSome contents...\\nSome contents...'
+                                text: 'Some contents...\nSome contents...\nSome contents...'
                             }
                         }
                     }
+
+                    HusRadioBlock {
+                        id: edgeRadio
+                        initCheckedIndex: 3
+                        model: [
+                            { label: 'Top', value: Qt.TopEdge },
+                            { label: 'Bottom', value: Qt.BottomEdge },
+                            { label: 'Left', value: Qt.LeftEdge },
+                            { label: 'Right', value: Qt.RightEdge }
+                        ]
+                    }
+
+                    HusRadioBlock {
+                        id: closeRadio
+                        initCheckedIndex: 0
+                        model: [
+                            { label: 'Start', value: HusDrawer.Position_Start },
+                            { label: 'End', value: HusDrawer.Position_End }
+                        ]
+                    }
                 }
             `
-            exampleDelegate: Row {
+            exampleDelegate: Column {
                 spacing: 10
-
-                HusRadioBlock {
-                    id: edgeRadio
-                    initCheckedIndex: 0
-                    model: [
-                        { label: 'Top', value: Qt.TopEdge },
-                        { label: 'Bottom', value: Qt.BottomEdge },
-                        { label: 'Left', value: Qt.LeftEdge },
-                        { label: 'Righ', value: Qt.RightEdge }
-                    ]
-                }
 
                 HusButton {
                     type: HusButton.Type_Primary
@@ -167,11 +172,32 @@ colorOverlay | color | - | 覆盖层颜色
                         id: drawer2
                         edge: edgeRadio.currentCheckedValue
                         title: qsTr('Basic Drawer')
+                        closePosition: closeRadio.currentCheckedValue
                         contentDelegate: HusCopyableText {
                             leftPadding: 15
                             text: 'Some contents...\nSome contents...\nSome contents...'
                         }
                     }
+                }
+
+                HusRadioBlock {
+                    id: edgeRadio
+                    initCheckedIndex: 3
+                    model: [
+                        { label: 'Top', value: Qt.TopEdge },
+                        { label: 'Bottom', value: Qt.BottomEdge },
+                        { label: 'Left', value: Qt.LeftEdge },
+                        { label: 'Right', value: Qt.RightEdge }
+                    ]
+                }
+
+                HusRadioBlock {
+                    id: closeRadio
+                    initCheckedIndex: 0
+                    model: [
+                        { label: 'Start', value: HusDrawer.Position_Start },
+                        { label: 'End', value: HusDrawer.Position_End }
+                    ]
                 }
             }
         }

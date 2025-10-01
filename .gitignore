@@ -76,6 +76,7 @@ CMakeLists.txt.user*
 /HuskarUI/
 /build/
 /bin/
+/gallery/bin/
 /package/
 CMakeCache.txt
 CMakeFiles
@@ -89,3 +90,6 @@ Makefile
 
 # clang
 /.cache/
+
+# clion
+**/.idea

@@ -1,13 +1,19 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Effects
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
 T.Drawer {
     id: control
 
+    enum ClosePosition {
+        Position_Start = 0,
+        Position_End = 1
+    }
+
     property bool animationEnabled: HusTheme.animationEnabled
+    property bool maskClosable: true
+    property int closePosition: HusDrawer.Position_Start
     property int drawerSize: 378
     property string title: ''
     property font titleFont: Qt.font({
@@ -17,36 +23,57 @@ T.Drawer {
     property color colorTitle: HusTheme.HusDrawer.colorTitle
     property color colorBg: HusTheme.HusDrawer.colorBg
     property color colorOverlay: HusTheme.HusDrawer.colorOverlay
+
+    property Component closeDelegate: Component {
+        HusCaptionButton {
+            topPadding: 2
+            bottomPadding: 2
+            leftPadding: 4
+            rightPadding: 4
+            anchors.verticalCenter: parent.verticalCenter
+            animationEnabled: control.animationEnabled
+            radiusBg: HusTheme.HusDrawer.radiusButtonBg
+            iconSource: HusIcon.CloseOutlined
+            hoverCursorShape: Qt.PointingHandCursor
+            onClicked: {
+                control.close();
+            }
+        }
+    }
+
     property Component titleDelegate: Item {
         height: 56
 
-        Row {
-            height: parent.height
-            anchors.left: parent.left
+        RowLayout {
+            anchors.fill: parent
             anchors.leftMargin: 15
+            anchors.rightMargin: 15
             spacing: 5
 
-            HusCaptionButton {
-                id: __close
-                topPadding: 2
-                bottomPadding: 2
-                leftPadding: 4
-                rightPadding: 4
-                anchors.verticalCenter: parent.verticalCenter
-                animationEnabled: control.animationEnabled
-                radiusBg: HusTheme.HusDrawer.radiusButtonBg
-                iconSource: HusIcon.CloseOutlined
-                hoverCursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    control.close();
-                }
+            Loader {
+                id: __closeStartLoader
+                sourceComponent: closeDelegate
+                Layout.alignment: Qt.AlignVCenter
+                active: control.closePosition === HusDrawer.Position_Start
+                visible: control.closePosition === HusDrawer.Position_Start
             }
 
             HusText {
-                anchors.verticalCenter: parent.verticalCenter
+                id: husText
+                Layout.alignment: Qt.AlignVCenter
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignLeft
                 text: control.title
                 font: control.titleFont
                 color: control.colorTitle
+            }
+
+            Loader {
+                id: __closeEndLoader
+                sourceComponent: closeDelegate
+                Layout.alignment: Qt.AlignVCenter
+                active: control.closePosition === HusDrawer.Position_End
+                visible: control.closePosition === HusDrawer.Position_End
             }
         }
 
@@ -57,6 +84,7 @@ T.Drawer {
             animationEnabled: control.animationEnabled
         }
     }
+
     property Component contentDelegate: Item { }
 
     objectName: '__HusDrawer__'
@@ -65,6 +93,7 @@ T.Drawer {
     edge: Qt.RightEdge
     parent: T.Overlay.overlay
     modal: true
+    closePolicy: maskClosable ? T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside : T.Popup.NoAutoClose
     enter: Transition { NumberAnimation { duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 } }
     exit: Transition { NumberAnimation { duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 } }
     background: Item {

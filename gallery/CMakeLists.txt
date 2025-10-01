@@ -7,7 +7,7 @@ project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../bin/${CMAKE_BUILD_TYPE})
 
 find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
@@ -16,7 +16,7 @@ qt_standard_project_setup(REQUIRES 6.5)
 include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/HuskarUIHelper.cmake)
 
 set(GALLERY_RC_FILE "")
-if (WIN32)
+if(WIN32)
     set(GALLERY_RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_Resource.rc)
     hus_add_win_rc(${PROJECT_NAME}
         COMMENTS "HuskarUI Gallery"
@@ -165,7 +165,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIBasicPlugin>
 )
 
-if (BUILD_HUSKARUI_STATIC_LIBRARY)
+if(BUILD_HUSKARUI_STATIC_LIBRARY)
     target_compile_definitions(${PROJECT_NAME} PRIVATE BUILD_HUSKARUI_STATIC_LIBRARY)
 endif()
 
@@ -174,8 +174,8 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
     if(APPLE)
         find_program(QT_DEPLOY_QT NAMES macdeployqt)
         set(QT_DEPLOY_ARGS
-            ${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.app
-            --qmldir=${CMAKE_CURRENT_LIST_DIR}
+            ${CMAKE_CURRENT_SOURCE_DIR}/../package/${PROJECT_NAME}.app
+            --qmldir=${CMAKE_CURRENT_SOURCE_DIR}
             --no-opengl-sw
             --no-widgets
             --no-virtualkeyboard
@@ -192,8 +192,8 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
             --no-translations
         )
         add_custom_target(Script-DeployRelease
-                COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/package
-                COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_SOURCE_DIR}/package
+                COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_SOURCE_DIR}/../package
+                COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_CURRENT_SOURCE_DIR}/../package
                 COMMAND ${QT_DEPLOY_QT} ${QT_DEPLOY_ARGS}
                 COMMENT "MacOs Deploying Qt Dependencies After Build........."
                 SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
@@ -204,8 +204,8 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
     if(WIN32)
         find_program(QT_DEPLOY_QT NAMES windeployqt)
         set(QT_DEPLOY_ARGS
-            --qmldir=${CMAKE_CURRENT_LIST_DIR}
-            --plugindir=${CMAKE_SOURCE_DIR}/package/plugins
+            --qmldir=${CMAKE_CURRENT_SOURCE_DIR}
+            --plugindir=${CMAKE_CURRENT_SOURCE_DIR}/../package/plugins
             --no-opengl-sw
             --no-widgets
             --no-virtualkeyboard
@@ -221,15 +221,15 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
             --no-quickcontrols2imaginestyleimpl
             --no-translations
             --compiler-runtime
-            ${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.exe
+            ${CMAKE_CURRENT_SOURCE_DIR}/../package/${PROJECT_NAME}.exe
         )
         add_custom_target(Script-DeployRelease
-                COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/package
-                COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_SOURCE_DIR}/package
-                COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.qmltypes"
-                COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}_qml_module_dir_map.qrc"
-                COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_SOURCE_DIR}/package/qmldir"
-                COMMAND ${CMAKE_COMMAND} -E copy ${Qt6_DIR}/../../../bin/HuskarUIBasic.dll ${CMAKE_SOURCE_DIR}/package
+                COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_SOURCE_DIR}/../package
+                COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_CURRENT_SOURCE_DIR}/../package
+                COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_SOURCE_DIR}/../package/${PROJECT_NAME}.qmltypes"
+                COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_SOURCE_DIR}/../package/${PROJECT_NAME}_qml_module_dir_map.qrc"
+                COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_SOURCE_DIR}/../package/qmldir"
+                COMMAND ${CMAKE_COMMAND} -E copy ${Qt6_DIR}/../../../bin/HuskarUIBasic.dll ${CMAKE_CURRENT_SOURCE_DIR}/../package
                 COMMAND ${QT_DEPLOY_QT} ${QT_DEPLOY_ARGS}
                 COMMENT "Windows Deploying Qt Dependencies After Build........."
                 SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
