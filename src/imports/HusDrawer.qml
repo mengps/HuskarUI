@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Effects
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
@@ -8,11 +7,13 @@ T.Drawer {
     id: control
 
     enum ClosePosition {
-        Start = 0,
-        End = 1
+        Position_Start = 0,
+        Position_End = 1
     }
 
     property bool animationEnabled: HusTheme.animationEnabled
+    property bool maskClosable: true
+    property int closePosition: HusDrawer.Position_Start
     property int drawerSize: 378
     property string title: ''
     property font titleFont: Qt.font({
@@ -22,7 +23,6 @@ T.Drawer {
     property color colorTitle: HusTheme.HusDrawer.colorTitle
     property color colorBg: HusTheme.HusDrawer.colorBg
     property color colorOverlay: HusTheme.HusDrawer.colorOverlay
-    property int closePosition: HusDrawer.Start
 
     property Component closeDelegate: Component {
         HusCaptionButton {
@@ -54,8 +54,8 @@ T.Drawer {
                 id: __closeStartLoader
                 sourceComponent: closeDelegate
                 Layout.alignment: Qt.AlignVCenter
-                active: control.closePosition == HusDrawer.Start
-                visible: control.closePosition == HusDrawer.Start
+                active: control.closePosition === HusDrawer.Position_Start
+                visible: control.closePosition === HusDrawer.Position_Start
             }
 
             HusText {
@@ -72,8 +72,8 @@ T.Drawer {
                 id: __closeEndLoader
                 sourceComponent: closeDelegate
                 Layout.alignment: Qt.AlignVCenter
-                active: control.closePosition == HusDrawer.End
-                visible: control.closePosition == HusDrawer.End
+                active: control.closePosition === HusDrawer.Position_End
+                visible: control.closePosition === HusDrawer.Position_End
             }
         }
 
@@ -93,6 +93,7 @@ T.Drawer {
     edge: Qt.RightEdge
     parent: T.Overlay.overlay
     modal: true
+    closePolicy: maskClosable ? T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside : T.Popup.NoAutoClose
     enter: Transition { NumberAnimation { duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 } }
     exit: Transition { NumberAnimation { duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 } }
     background: Item {
