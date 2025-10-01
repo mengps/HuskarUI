@@ -79,8 +79,13 @@ git clone --recursive https://github.com/mengps/HuskarUI.git
 - Build
 ```cmake
 cd HuskarUI
-cmake -S . -B build 
+cmake -S . -B build
 cmake --build build --config Release --target all --parallel
+```
+
+- Build with MinGW
+```cmake
+cmake -S . -B build -G "MinGW Makefiles"
 ```
 By default, the `plugin` will be builded in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
 
