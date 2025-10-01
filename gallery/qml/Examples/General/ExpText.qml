@@ -15,7 +15,7 @@ Flickable {
 
         Description {
             desc: qsTr(`
-# HusCopyableText 可复制文本\n
+# HusText 文本\n
 提供统一字体和颜色的文本(替代Text)。\n
 * **继承自 { Text }**\n
 \n<br/>
