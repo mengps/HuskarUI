@@ -230,7 +230,7 @@ QtObject {
                     source: './Examples/DataEntry/ExpInputNumber.qml',
                     updateVersion: '0.4.8.1',
                     state: 'Update',
-                    desc: qsTr('新增 clearIconDelegate。\n新增 bgDelegate代理。\n新增清除图标相关属性和信号。')
+                    desc: qsTr('新增清除图标相关属性和信号。')
                 },
                 {
                     key: 'HusMultiSelect',
