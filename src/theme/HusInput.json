@@ -3,6 +3,13 @@
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
         "fontIconSize": "@fontPrimarySizeHeading5",
+        "fontClearIconSize": "@fontPrimarySize",
+        "colorIcon": "@colorTextBase",
+        "colorIconDisabled": "$onBackground(@colorTextQuaternary, @colorBgBase)",
+        "colorClearIcon": "$onBackground(@colorTextQuaternary, @colorBgBase)",
+        "colorClearIconHover": "$onBackground(@colorTextTertiary, @colorBgBase)",
+        "colorClearIconActive": "$onBackground(@colorTextPrimary, @colorBgBase)",
+        "colorClearIconDisabled": "$onBackground(@colorTextQuaternary, @colorBgBase)",
         "colorText": "@colorTextBase",
         "colorTextDisabled": "@colorPrimaryTextDisabled",
         "colorPlaceholderText": "@colorTextQuaternary",
@@ -14,6 +21,7 @@
         "colorBorderDisabled": "$onBackground(@colorFill, @colorBgBase)",
         "colorBg": "@colorBgBase",
         "colorBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)",
+
         "colorLabelBg": "$onBackground(@colorFillQuaternary, @colorBgBase)",
         "colorLabelBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)",
         "radiusBg": "@radiusPrimary"
