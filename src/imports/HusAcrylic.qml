@@ -35,13 +35,13 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: HusThemeFunctions.alpha('#fff', luminosity)
+        color: HusThemeFunctions.alpha('#fff', control.luminosity)
         radius: control.radiusBg
     }
 
     Rectangle {
         anchors.fill: parent
-        color: HusThemeFunctions.alpha(colorTint, opacityTint)
+        color: HusThemeFunctions.alpha(control.colorTint, control.opacityTint)
         radius: control.radiusBg
     }
 
