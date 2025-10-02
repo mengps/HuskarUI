@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.8.0)
+set(HUSKARUI_VERSION 0.4.8.1)
 
 message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
 project(HuskarUIBasic VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
 #Add HuskarUIHelper
-include(${CMAKE_CURRENT_LIST_DIR}/../.cmake/HuskarUIHelper.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUIHelper.cmake)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
@@ -265,7 +265,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 #Gen HuskarUI/include
-if (HUSKARUI_HEADER_OUTPUT_DIRECTORY)
+if(HUSKARUI_HEADER_OUTPUT_DIRECTORY)
     file(COPY cpp/husglobal.h cpp/husapp.h cpp/husdefinitions.h cpp/controls cpp/theme cpp/utils
          DESTINATION ${HUSKARUI_HEADER_OUTPUT_DIRECTORY}
          FILES_MATCHING PATTERN "*.h"
