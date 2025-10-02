@@ -59,7 +59,6 @@ T.Drawer {
             }
 
             HusText {
-                id: husText
                 Layout.alignment: Qt.AlignVCenter
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
