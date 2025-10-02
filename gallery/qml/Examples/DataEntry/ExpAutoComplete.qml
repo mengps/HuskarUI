@@ -42,7 +42,6 @@ filterOption | function | - | 输入项将使用该函数进行筛选
 textRole | string | 'label' | 弹出框文本的模型角色。
 valueRole | string | 'value' | 弹出框值的模型角色。
 tooltipVisible | bool | false | 是否显示文字提示
-clearEnabled | bool | true | 是否启用清除按钮
 defaultPopupMaxHeight | int | 240 | 默认弹出框最大高度
 defaultOptionSpacing | int | 0 | 默认选项间隔
 \n<br/>
@@ -94,7 +93,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                     HusAutoComplete {
                         width: 180
-                        placeholderText: qsTr('input here')
+                        placeholderText: 'input here'
                         onSearch: function(input) {
                             options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];
                         }
@@ -106,7 +105,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                 HusAutoComplete {
                     width: 180
-                    placeholderText: qsTr('input here')
+                    placeholderText: 'input here'
                     onSearch: function(input) {
                         options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];
                     }
@@ -129,7 +128,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                     HusAutoComplete {
                         width: 180
-                        placeholderText: qsTr('input here')
+                        placeholderText: 'input here'
                         onSearch: function(input) {
                             if (!input || input.includes('@')) {
                                 options = [];
@@ -149,7 +148,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                 HusAutoComplete {
                     width: 180
-                    placeholderText: qsTr('input here')
+                    placeholderText: 'input here'
                     onSearch: function(input) {
                         if (!input || input.includes('@')) {
                             options = [];
@@ -181,7 +180,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                     HusAutoComplete {
                         width: 180
-                        placeholderText: qsTr('try to type \`b\`')
+                        placeholderText: 'try to type \`b\`'
                         options: [
                             { label: 'Burns Bay Road' },
                             { label: 'Downing Street' },
@@ -196,7 +195,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                 HusAutoComplete {
                     width: 180
-                    placeholderText: qsTr('try to type `b`')
+                    placeholderText: 'try to type `b`'
                     options: [
                         { label: 'Burns Bay Road' },
                         { label: 'Downing Street' },
@@ -223,7 +222,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                     HusAutoComplete {
                         width: 280
                         tooltipVisible: true
-                        placeholderText: qsTr('input here')
+                        placeholderText: 'input here'
                         options: [
                             { label: 'HuskarUI', option: 'Libraries' },
                             { label: 'HuskarUI for Qml' },
@@ -279,7 +278,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                 HusAutoComplete {
                     width: 280
                     tooltipVisible: true
-                    placeholderText: qsTr('input here')
+                    placeholderText: 'input here'
                     options: [
                         { label: 'HuskarUI', option: 'Libraries' },
                         { label: 'HuskarUI for Qml' },
@@ -348,7 +347,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                         height: 40
                         rightPadding: 20
                         tooltipVisible: true
-                        placeholderText: qsTr('input here')
+                        placeholderText: 'input here'
                         onSearch: function(input) {
                             if (!input) {
                                 options = [];
@@ -401,7 +400,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                     height: 40
                     rightPadding: 20
                     tooltipVisible: true
-                    placeholderText: qsTr('input here')
+                    placeholderText: 'input here'
                     onSearch: function(input) {
                         if (!input) {
                             options = [];
@@ -452,11 +451,11 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
             descTitle: qsTr('自定义清除按钮')
             desc: qsTr(`
 通过 \`clearEnabled\` 设置是否启用清除按钮。\n
-通过 \`iconSource\` 设置清除图标，设置为 0 则不显示。\n
-通过 \`iconSize\` 设置清除图标大小，设置为 0 则不显示。\n
-通过 \`iconPosition\` 设置清除图标的位置，支持的位置：\n
-- 图标在输入框左边(默认){ HusAutoComplete.Position_Left }\n
-- 图标在输入框右边{ HusAutoComplete.Position_Right }\n
+通过 \`clearIconSource\` 设置清除图标，为 0 则不显示。\n
+通过 \`clearIconSize\` 设置清除图标大小。\n
+通过 \`clearIconPosition\` 设置清除图标的位置，支持的位置：\n
+- 清除图标在输入框左边(默认){ HusAutoComplete.Position_Left }\n
+- 清除图标在输入框右边{ HusAutoComplete.Position_Right }\n
                        `)
             code: `
                 import QtQuick
@@ -467,8 +466,8 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                     HusAutoComplete {
                         width: 240
-                        iconSource: HusIcon.CloseSquareFilled
-                        placeholderText: qsTr('Customized clear icon')
+                        clearIconSource: HusIcon.CloseSquareFilled
+                        placeholderText: 'Customized clear icon'
                         onSearch: function(input) {
                             options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];
                         }
@@ -480,8 +479,8 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                 HusAutoComplete {
                     width: 240
-                    iconSource: HusIcon.CloseSquareFilled
-                    placeholderText: qsTr('Customized clear icon')
+                    clearIconSource: HusIcon.CloseSquareFilled
+                    placeholderText: 'Customized clear icon'
                     onSearch: function(input) {
                         options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];
                     }

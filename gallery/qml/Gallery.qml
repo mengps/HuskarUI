@@ -210,7 +210,7 @@ HusWindow {
             rightPadding: 50
             tooltipVisible: true
             placeholderText: qsTr('搜索组件')
-            iconSource: length > 0 ? HusIcon.CloseCircleFilled : HusIcon.SearchOutlined
+            iconSource: HusIcon.SearchOutlined
             colorBg: galleryMenu.compactMode ? HusTheme.HusInput.colorBg : 'transparent'
             options: galleryGlobal.options
             filterOption: function(input, option) {

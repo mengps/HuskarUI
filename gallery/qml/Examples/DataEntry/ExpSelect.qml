@@ -28,6 +28,8 @@ Flickable {
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 active | bool(readonly) | - | 是否处于激活状态
 hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
+clearEnabled | bool | false | 是否启用清除按钮
+clearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接
 tooltipVisible | bool | false | 是否显示文字提示
 loading | bool | false | 是否在加载中
 defaultPopupMaxHeight | int | 240 | 默认弹窗最大高度
@@ -38,6 +40,9 @@ radiusBg | int | - | 背景圆角
 radiusItemBg | int | - | 选项背景圆角
 radiusPopupBg | int | - | 弹窗背景圆角
 contentDescription | string | '' | 内容描述(提高可用性)
+\n<br/>
+\n### 支持的信号：\n
+- \`clickClear()\` 点击清除图标时发出\n
                        `)
         }
 

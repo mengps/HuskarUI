@@ -111,15 +111,16 @@ HusInput {
     objectName: '__HusDateTimePicker__'
     width: showDate && showTime ? 210 : 160
     themeSource: HusTheme.HusDateTimePicker
+    iconSource: (__private.interactive && control.hovered && control.length !== 0) ?
+                    HusIcon.CloseCircleFilled : control.showDate ? HusIcon.CalendarOutlined :
+                                                                   HusIcon.ClockCircleOutlined
     iconPosition: HusInput.Position_Right
     iconDelegate: HusIconText {
         anchors.left: control.iconPosition === HusDateTimePicker.Position_Left ? parent.left : undefined
         anchors.right: control.iconPosition === HusDateTimePicker.Position_Right ? parent.right : undefined
         anchors.margins: 5
         anchors.verticalCenter: parent.verticalCenter
-        iconSource: (__private.interactive && control.hovered && control.length !== 0) ?
-                        HusIcon.CloseCircleFilled : control.showDate ? HusIcon.CalendarOutlined :
-                                                                       HusIcon.ClockCircleOutlined
+        iconSource: control.iconSource
         iconSize: control.iconSize
         colorIcon: control.enabled ?
                        __iconMouse.hovered ? control.themeSource.colorIconHover :

@@ -5,10 +5,15 @@ import HuskarUI.Basic
 Item {
     id: control
 
-    signal activedBefore(index: int, var data)
-    signal activedAfter(index: int, var data)
+    signal beforeActivated(index: int, var data)
+    signal afterActivated(index: int, var data)
 
     property bool animationEnabled: HusTheme.animationEnabled
+    property alias clearEnabled: __input.clearEnabled
+    property alias clearIconSource: __input.clearIconSource
+    property alias clearIconSize: __input.clearIconSize
+    property alias clearIconPosition: __input.clearIconPosition
+    property alias readOnly: __input.readOnly
     property bool showHandler: true
     property bool alwaysShowHandler: false
     property bool useWheel: false
@@ -35,6 +40,9 @@ Item {
     property int defaultHandlerWidth: 24
     property alias colorText: __input.colorText
     property int radiusBg: HusTheme.HusInput.radiusBg
+    property var themeSource: HusTheme.HusInput
+
+    property alias input: __input
 
     property Component beforeDelegate: HusRectangle {
         enabled: control.enabled
@@ -105,7 +113,7 @@ Item {
             iconSource: control.upIcon
             hoverCursorShape: control.value >= control.max ? Qt.ForbiddenCursor : Qt.PointingHandCursor
             background: HusRectangle {
-                topRightRadius: control.beforeLabel?.length === 0 ? control.radiusBg : 0
+                topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg : 0
                 color: 'transparent'
                 border.color: __handlerRoot.colorBorder
             }
@@ -172,11 +180,11 @@ Item {
     }
 
     function selectAll(start: int, end: int) {
-        __input.selectAll();
+        __input.selectAll(start, end);
     }
 
     function selectWord(start: int, end: int) {
-        __input.selectWord();
+        __input.selectWord(start, end);
     }
 
     function clear() {
@@ -221,9 +229,9 @@ Item {
             onActivated:
                 (index) => {
                     if (isBefore) {
-                        control.activedBefore(index, valueAt(index));
+                        control.beforeActivated(index, valueAt(index));
                     } else {
-                        control.activedAfter(index, valueAt(index));
+                        control.afterActivated(index, valueAt(index));
                     }
                 }
             onCurrentTextChanged: {
@@ -271,14 +279,42 @@ Item {
             Layout.fillWidth: true
             enabled: control.enabled
             animationEnabled: control.animationEnabled
-            leftPadding: __prefixLoader.active ? __prefixLoader.implicitWidth : 10
-            rightPadding: __handlerLoader.implicitWidth + (__suffixLoader.active ? __suffixLoader.implicitWidth : 10)
+            leftPadding: (__prefixLoader.active ? __prefixLoader.implicitWidth : 10) + leftIconPadding + leftClearIconPadding
+            rightPadding: (__suffixLoader.active ? 0 : 10) + rightIconPadding + rightClearIconPadding
             background: HusRectangle {
                 color: __input.colorBg
                 topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg : 0
                 bottomLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg : 0
                 topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg : 0
                 bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg : 0
+            }
+            clearIconDelegate: HusIconText {
+                iconSource: control.clearIconSource
+                iconSize: control.clearIconSize
+                rightPadding: __handlerLoader.implicitWidth + __suffixLoader.implicitWidth
+                colorIcon: {
+                    if (control.enabled) {
+                        return __tapHandler.pressed ? control.themeSource.colorClearIconActive :
+                                                      __hoverHandler.hovered ? control.themeSource.colorClearIconHover :
+                                                                               control.themeSource.colorClearIcon;
+                    } else {
+                        return control.themeSource.colorClearIconDisabled;
+                    }
+                }
+
+                Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+
+                HoverHandler {
+                    id: __hoverHandler
+                    enabled: control.clearEnabled && !control.readOnly
+                    cursorShape: Qt.PointingHandCursor
+                }
+
+                TapHandler {
+                    id: __tapHandler
+                    enabled: control.clearEnabled && !control.readOnly
+                    onTapped: control.clear();
+                }
             }
             onTextChanged: {
                 let v = control.parser(text);
@@ -331,7 +367,7 @@ Item {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                active: control.showHandler
+                active: control.showHandler && !__input.readOnly
                 sourceComponent: control.handlerDelegate
             }
 

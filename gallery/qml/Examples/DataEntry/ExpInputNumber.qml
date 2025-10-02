@@ -28,6 +28,11 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
+clearEnabled | bool | false | 是否启用清除按钮
+clearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接
+clearIconSize | int | - | 清除图标大小
+clearIconPosition | enum | HusInput.Position_Right | 清除图标位置(来自 HusInput)
+readOnly | bool | false | 输入框是否只读
 showHandler | bool | true | 是否显示增减按钮
 alwaysShowHandler | bool | false | 是否始终显示增减按钮
 useWheel | bool | false | 是否使用鼠标滚轮控制
@@ -51,12 +56,13 @@ parser | function | - | 解析器(解析字符串为数值)
 defaultHandlerWidth | int | 24 | 默认增减按钮宽度
 colorText | color | - | 文本颜色
 radiusBg | int | - | 背景圆角
+input | [HusInput](internal://HusInput) | - | 访问内部输入框
 \n<br/>
 \n### 支持的信号：\n
-- \`activedBefore(index: int, var data)\` 当前置为列表时，点击选择项发出\n
+- \`beforeActivated(index: int, var data)\` 当前置为列表时，点击选择项发出\n
   - \`index\` 选择项索引\n
   - \`data\` 选择项数据\n
-- \`activedAfter(index: int, var data)\` 当后置为列表时，点击选择项发出\n
+- \`afterActivated(index: int, var data)\` 当后置为列表时，点击选择项发出\n
   - \`index\` 选择项索引\n
   - \`data\` 选择项数据\n
 \n<br/>

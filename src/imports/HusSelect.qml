@@ -5,9 +5,13 @@ import HuskarUI.Basic
 T.ComboBox {
     id: control
 
+    signal clickClear()
+
     property bool animationEnabled: HusTheme.animationEnabled
     readonly property bool active: hovered || activeFocus
     property int hoverCursorShape: Qt.PointingHandCursor
+    property bool clearEnabled: true
+    property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
     property bool tooltipVisible: false
     property bool loading: false
     property int defaultPopupMaxHeight: 240
@@ -26,9 +30,28 @@ T.ComboBox {
     property var themeSource: HusTheme.HusSelect
 
     property Component indicatorDelegate: HusIconText {
-        colorIcon: themeSource.colorTextActive
-        iconSize: themeSource.fontSize - 2
-        iconSource: control.loading ? HusIcon.LoadingOutlined : HusIcon.DownOutlined
+        colorIcon: {
+            if (control.enabled) {
+                if (__clearMouseArea.active) {
+                    return __clearMouseArea.pressed ? control.themeSource.colorIndicatorActive :
+                                                      __clearMouseArea.hovered ? control.themeSource.colorIndicatorHover :
+                                                                                 control.themeSource.colorIndicator;
+                } else {
+                    return control.themeSource.colorIndicator;
+                }
+            } else {
+                return control.themeSource.colorIndicatorDisabled;
+            }
+        }
+        iconSize: control.themeSource.fontSize
+        iconSource: {
+            if (control.enabled && __clearMouseArea.active)
+                return HusIcon.CloseCircleFilled;
+            else
+                control.loading ? HusIcon.LoadingOutlined : HusIcon.DownOutlined
+        }
+
+        Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
         NumberAnimation on rotation {
             running: control.loading
@@ -36,6 +59,31 @@ T.ComboBox {
             to: 360
             loops: Animation.Infinite
             duration: 1000
+        }
+
+        MouseArea {
+            id: __clearMouseArea
+            anchors.fill: parent
+            enabled: control.enabled
+            hoverEnabled: true
+            cursorShape: hovered ? Qt.PointingHandCursor : Qt.ArrowCursor
+            onEntered: hovered = true;
+            onExited: hovered = false;
+            onClicked: function(mouse) {
+                if (active) {
+                    control.currentIndex = -1;
+                    control.clickClear();
+                    mouse.accepted = true;
+                } else {
+                    if (control.popup.opened) {
+                        control.popup.close();
+                    } else {
+                        control.popup.open();
+                    }
+                }
+            }
+            property bool active: !control.loading && control.currentIndex >= 0 && control.count > 0 && control.hovered
+            property bool hovered: false
         }
     }
 

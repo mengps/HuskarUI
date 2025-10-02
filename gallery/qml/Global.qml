@@ -176,13 +176,17 @@ QtObject {
                     key: 'HusSelect',
                     label: qsTr('HusSelect 选择器'),
                     source: './Examples/DataEntry/ExpSelect.qml',
-                    desc: qsTr('下拉选择器(即传统组合框)。')
+                    updateVersion: '0.4.8.1',
+                    state: 'Update',
+                    desc: qsTr('新增 clearIconDelegate。\n新增 bgDelegate代理。\n新增清除图标相关属性和信号。')
                 },
                 {
                     key: 'HusInput',
                     label: qsTr('HusInput 输入框'),
                     source: './Examples/DataEntry/ExpInput.qml',
-                    desc: qsTr('通过鼠标或键盘输入内容，是最基础的表单域的包装(即传统输入框)。')
+                    updateVersion: '0.4.8.1',
+                    state: 'Update',
+                    desc: qsTr('新增 clearIconDelegate。\n新增 bgDelegate代理。\n新增清除图标相关属性和信号。')
                 },
                 {
                     key: 'HusOTPInput',
@@ -224,7 +228,9 @@ QtObject {
                     key: 'HusInputNumber',
                     label: qsTr('HusInputNumber 数字输入框'),
                     source: './Examples/DataEntry/ExpInputNumber.qml',
-                    desc: qsTr('数字输入框，通过鼠标或键盘，输入范围内的数值。')
+                    updateVersion: '0.4.8.1',
+                    state: 'Update',
+                    desc: qsTr('新增 clearIconDelegate。\n新增 bgDelegate代理。\n新增清除图标相关属性和信号。')
                 },
                 {
                     key: 'HusMultiSelect',

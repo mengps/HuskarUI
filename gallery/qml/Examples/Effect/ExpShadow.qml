@@ -31,6 +31,10 @@ Flickable {
                        `)
         }
 
+        ThemeToken {
+            source: ''
+        }
+
         Description {
             title: qsTr('代码演示')
         }
