@@ -87,7 +87,7 @@ cmake --build build --config Release --target all --parallel
 ```cmake
 cmake -S . -B build -G "MinGW Makefiles"
 ```
-By default, the `plugin` will be builded in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
+By default, the `plugin` will be built in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
 
 - Install
 ```cmake

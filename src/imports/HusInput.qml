@@ -21,17 +21,17 @@ T.TextField {
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
     property int clearIconSize: themeSource.fontClearIconSize
     property int clearIconPosition: HusInput.Position_Right
-    readonly property int leftIconPadding: iconPosition == HusInput.Position_Left ? __private.iconSize : 0
-    readonly property int rightIconPadding: iconPosition == HusInput.Position_Right ? __private.iconSize : 0
+    readonly property int leftIconPadding: iconPosition === HusInput.Position_Left ? __private.iconSize : 0
+    readonly property int rightIconPadding: iconPosition === HusInput.Position_Right ? __private.iconSize : 0
     readonly property int leftClearIconPadding: {
-        if (clearIconPosition == HusInput.Position_Left) {
+        if (clearIconPosition === HusInput.Position_Left) {
             return leftIconPadding > 0 ? (__private.clearIconSize + 5) : __private.clearIconSize;
         } else {
             return 0;
         }
     }
     readonly property int rightClearIconPadding: {
-        if (clearIconPosition == HusInput.Position_Right) {
+        if (clearIconPosition === HusInput.Position_Right) {
             return rightIconPadding > 0 ? (__private.clearIconSize + 5) : __private.clearIconSize;
         } else {
             return 0;
@@ -120,8 +120,8 @@ T.TextField {
     Loader {
         id: __iconLoader
         active: control.iconSource !== 0 && control.iconSource !== ''
-        anchors.left: control.iconPosition == HusInput.Position_Left ? parent.left : undefined
-        anchors.right: control.iconPosition == HusInput.Position_Right ? parent.right : undefined
+        anchors.left: control.iconPosition === HusInput.Position_Left ? parent.left : undefined
+        anchors.right: control.iconPosition === HusInput.Position_Right ? parent.right : undefined
         anchors.margins: 5
         anchors.verticalCenter: parent.verticalCenter
         sourceComponent: control.iconDelegate
@@ -129,23 +129,23 @@ T.TextField {
 
     Loader {
         id: __clearIconLoader
-        active: control.clearEnabled && control.clearIconSource !== 0 && control.clearIconSource !== ''
+        active: control.enabled && !control.readOnly && control.clearEnabled && control.clearIconSource !== 0 && control.clearIconSource !== '' && control.length > 0
         anchors.left: {
-            if (control.clearIconPosition == HusInput.Position_Left) {
-                return __iconLoader.active && control.iconPosition == HusInput.Position_Left ? __iconLoader.right : parent.left;
+            if (control.clearIconPosition === HusInput.Position_Left) {
+                return __iconLoader.active && control.iconPosition === HusInput.Position_Left ? __iconLoader.right : parent.left;
             } else {
                 return undefined;
             }
         }
         anchors.right: {
-            if (control.clearIconPosition == HusInput.Position_Right) {
-                return __iconLoader.active && control.iconPosition == HusInput.Position_Right ? __iconLoader.left : parent.right;
+            if (control.clearIconPosition === HusInput.Position_Right) {
+                return __iconLoader.active && control.iconPosition === HusInput.Position_Right ? __iconLoader.left : parent.right;
             } else {
                 return undefined;
             }
         }
-        anchors.leftMargin: __iconLoader.active && control.iconPosition == HusInput.Position_Left ? 5 : 5
-        anchors.rightMargin: __iconLoader.active && control.iconPosition == HusInput.Position_Right ? 5 : 5
+        anchors.leftMargin: __iconLoader.active && control.iconPosition === HusInput.Position_Left ? 5 : 5
+        anchors.rightMargin: __iconLoader.active && control.iconPosition === HusInput.Position_Right ? 5 : 5
         anchors.verticalCenter: parent.verticalCenter
         sourceComponent: control.clearIconDelegate
     }
