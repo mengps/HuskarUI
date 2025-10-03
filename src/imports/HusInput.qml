@@ -129,7 +129,7 @@ T.TextField {
 
     Loader {
         id: __clearIconLoader
-        active: control.enabled && !control.readOnly && control.clearEnabled && control.clearIconSource !== 0 && control.clearIconSource !== '' && control.length > 0
+        active: control.enabled && !control.readOnly && control.clearEnabled && control.clearIconSource !== 0 && control.clearIconSource !== '' && control.active && control.length > 0
         anchors.left: {
             if (control.clearIconPosition === HusInput.Position_Left) {
                 return __iconLoader.active && control.iconPosition === HusInput.Position_Left ? __iconLoader.right : parent.left;
