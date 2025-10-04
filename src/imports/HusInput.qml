@@ -129,7 +129,7 @@ T.TextField {
 
     Loader {
         id: __clearIconLoader
-        active: control.enabled && !control.readOnly && control.clearEnabled && control.clearIconSource !== 0 && control.clearIconSource !== '' && control.active && control.length > 0
+        active: control.enabled && !control.readOnly && control.clearEnabled && control.clearIconSource !== 0 && control.clearIconSource !== ''
         anchors.left: {
             if (control.clearIconPosition === HusInput.Position_Left) {
                 return __iconLoader.active && control.iconPosition === HusInput.Position_Left ? __iconLoader.right : parent.left;
@@ -144,8 +144,8 @@ T.TextField {
                 return undefined;
             }
         }
-        anchors.leftMargin: __iconLoader.active && control.iconPosition === HusInput.Position_Left ? 5 : 5
-        anchors.rightMargin: __iconLoader.active && control.iconPosition === HusInput.Position_Right ? 5 : 5
+        anchors.leftMargin: 5
+        anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
         sourceComponent: control.clearIconDelegate
     }
