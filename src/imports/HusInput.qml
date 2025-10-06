@@ -18,6 +18,7 @@ T.TextField {
     property int iconSize: themeSource.fontIconSize
     property int iconPosition: HusInput.Position_Left
     property bool clearEnabled: false
+    property bool clearActiveOnly: false
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
     property int clearIconSize: themeSource.fontClearIconSize
     property int clearIconPosition: HusInput.Position_Right
@@ -129,7 +130,7 @@ T.TextField {
 
     Loader {
         id: __clearIconLoader
-        active: control.enabled && !control.readOnly && control.clearEnabled && control.clearIconSource !== 0 && control.clearIconSource !== ''
+        active: control.enabled && !control.readOnly && control.clearEnabled && control.clearIconSource !== 0 && control.clearIconSource !== '' && (!control.clearActiveOnly || (control.clearActiveOnly && control.active))
         anchors.left: {
             if (control.clearIconPosition === HusInput.Position_Left) {
                 return __iconLoader.active && control.iconPosition === HusInput.Position_Left ? __iconLoader.right : parent.left;

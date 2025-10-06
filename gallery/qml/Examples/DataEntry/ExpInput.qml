@@ -33,6 +33,7 @@ iconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接
 iconSize | int | - | 图标大小
 iconPosition | enum | HusInput.Position_Left | 图标位置(来自 HusInput)
 clearEnabled | bool | false | 是否启用清除按钮
+clearActiveOnly | bool | false | 清除按钮是否仅当激活状态下可见
 clearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接
 clearIconSize | int | - | 清除图标大小
 clearIconPosition | enum | HusInput.Position_Right | 清除图标位置(来自 HusInput)
@@ -94,6 +95,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                         width: 150
                         placeholderText: 'Basic usage'
                         clearEnabled: true
+                        clearActiveOnly: true
                     }
 
                     HusInput {
@@ -137,6 +139,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     width: 150
                     placeholderText: 'Basic usage'
                     clearEnabled: true
+                    clearActiveOnly: true
                 }
 
                 HusInput {

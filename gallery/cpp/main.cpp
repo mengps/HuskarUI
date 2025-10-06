@@ -15,18 +15,18 @@ int main(int argc, char *argv[])
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
     QQuickWindow::setDefaultAlphaBuffer(true);
 
-    QGuiApplication app(argc, argv);
-    app.setOrganizationName("MenPenS");
-    app.setApplicationName("HuskarUI");
-    app.setApplicationDisplayName("HuskarUI Gallery");
-    app.setApplicationVersion(HusApp::libVersion());
+    const QGuiApplication app(argc, argv);
+    QGuiApplication::setOrganizationName("MenPenS");
+    QGuiApplication::setApplicationName("HuskarUI");
+    QGuiApplication::setApplicationDisplayName("HuskarUI Gallery");
+    QGuiApplication::setApplicationVersion(HusApp::libVersion());
 
     QQmlApplicationEngine engine;
 
     HusApp::initialize(&engine);
     CustomTheme::instance()->registerAll();
 
-    const QUrl url(u"qrc:/Gallery/qml/Gallery.qml"_qs);
+    const QUrl url = QUrl(QStringLiteral("qrc:/Gallery/qml/Gallery.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl)
@@ -34,5 +34,5 @@ int main(int argc, char *argv[])
         }, Qt::QueuedConnection);
     engine.load(url);
 
-    return app.exec();
+    return QGuiApplication::exec();
 }
