@@ -45,8 +45,8 @@ T.ComboBox {
         }
         iconSize: control.themeSource.fontSize
         iconSource: {
-            if (control.enabled && __clearMouseArea.active)
-                return HusIcon.CloseCircleFilled;
+            if (control.enabled && control.clearEnabled && __clearMouseArea.active)
+                return control.clearIconSource;
             else
                 control.loading ? HusIcon.LoadingOutlined : HusIcon.DownOutlined
         }
