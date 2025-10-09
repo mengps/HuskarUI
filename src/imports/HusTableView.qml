@@ -507,6 +507,21 @@ HusRectangle {
         }
     }
 
+    function getCellData(rowIndex, columnIndex) {
+        if (rowIndex >= 0 && rowIndex < __private.model.length
+                && columnIndex >= 0 && columnIndex < columns.length) {
+            return __cellModel.data(__cellModel.index(rowIndex, columnIndex), 'display');
+        }
+        return undefined;
+    }
+
+    function setCellData(rowIndex, columnIndex, data: var) {
+        if (rowIndex >= 0 && rowIndex < __private.model.length
+                && columnIndex >= 0 && columnIndex < columns.length) {
+            __cellModel.setData(__cellModel.index(rowIndex, columnIndex), 'display', data);
+        }
+    }
+
     component HoverIcon: HusIconText {
         signal clicked()
         property alias hovered: __hoverHandler.hovered

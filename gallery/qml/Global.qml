@@ -324,7 +324,9 @@ QtObject {
                     key: 'HusTableView',
                     label: qsTr('HusTableView 表格'),
                     source: './Examples/DataDisplay/ExpTableView.qml',
-                    desc: qsTr('展示行列数据。')
+                    updateVersion: '0.4.8.1',
+                    state: 'Update',
+                    desc: qsTr('新增 getCellData 获取单元数据。\n新增 setCellData 设置单元数据。')
                 },
                 {
                     key: 'HusBadge',
