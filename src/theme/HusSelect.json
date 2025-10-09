@@ -13,7 +13,7 @@
         "colorBorderHover": "@colorPrimary",
         "colorBorderDisabled": "transparent",
         "colorBg": "@colorBgBase",
-        "colorBgDisabled": "$alpha(@colorTextBase, 0.1)",
+        "colorBgDisabled": "$onBackground(@colorFillPrimary, @colorBgBase)",
         "colorPopupBg": "@colorBgBase",
         "colorPopupBgDark": "@colorMain-11",
         "colorItemText": "@colorTextBase",
