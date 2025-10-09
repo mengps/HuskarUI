@@ -70,10 +70,9 @@ T.ComboBox {
             onEntered: hovered = true;
             onExited: hovered = false;
             onClicked: function(mouse) {
-                if (active) {
+                if (active && control.clearEnabled) {
                     control.currentIndex = -1;
                     control.clickClear();
-                    mouse.accepted = true;
                 } else {
                     if (control.popup.opened) {
                         control.popup.close();
@@ -81,6 +80,7 @@ T.ComboBox {
                         control.popup.open();
                     }
                 }
+                mouse.accepted = true;
             }
             property bool active: !control.loading && control.currentIndex >= 0 && control.count > 0 && control.hovered
             property bool hovered: false
