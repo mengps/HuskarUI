@@ -56,7 +56,6 @@ QtObject {
                     label: qsTr('HusIconText 图标文本'),
                     source: './Examples/General/ExpIconText.qml',
                     updateVersion: '0.4.6',
-                    state: 'Update',
                     desc: qsTr('新增 empty 用于判断图标是否为空。\n新增 iconSource 支持内置图标和外部 url 链接。')
                 },
                 {
@@ -131,7 +130,7 @@ QtObject {
                     key: 'HusMenu',
                     label: qsTr('HusMenu 菜单'),
                     source: './Examples/Navigation/ExpMenu.qml',
-                    updateVersion: '0.4.8.2',
+                    updateVersion: '0.4.8.1',
                     desc: qsTr('新增 setData() 函数。\n新增 setDataProperty() 函数。')
                 },
                 {
@@ -182,7 +181,6 @@ QtObject {
                     label: qsTr('HusSelect 选择器'),
                     source: './Examples/DataEntry/ExpSelect.qml',
                     updateVersion: '0.4.8.1',
-                    state: 'Update',
                     desc: qsTr('新增 clearIconDelegate。\n新增 bgDelegate代理。\n新增清除图标相关属性和信号。')
                 },
                 {
@@ -190,7 +188,6 @@ QtObject {
                     label: qsTr('HusInput 输入框'),
                     source: './Examples/DataEntry/ExpInput.qml',
                     updateVersion: '0.4.8.1',
-                    state: 'Update',
                     desc: qsTr('新增 clearIconDelegate。\n新增 bgDelegate代理。\n新增清除图标相关属性和信号。')
                 },
                 {
@@ -234,7 +231,6 @@ QtObject {
                     label: qsTr('HusInputNumber 数字输入框'),
                     source: './Examples/DataEntry/ExpInputNumber.qml',
                     updateVersion: '0.4.8.1',
-                    state: 'Update',
                     desc: qsTr('新增清除图标相关属性和信号。')
                 },
                 {
@@ -242,7 +238,6 @@ QtObject {
                     label: qsTr('HusMultiSelect 多选器'),
                     source: './Examples/DataEntry/ExpMultiSelect.qml',
                     addVersion: '0.4.3',
-                    state: 'New',
                     desc: qsTr('多选器，可多选的下拉选择器。'),
                 },
                 {
@@ -250,7 +245,6 @@ QtObject {
                     label: qsTr('HusDateTimePicker 日期时间选择框'),
                     source: './Examples/DataEntry/ExpDateTimePicker.qml',
                     addVersion: '0.4.4',
-                    state: 'New',
                     desc: qsTr('日期时间选择框，输入或选择日期的控件。')
                 },
                 {
@@ -258,7 +252,6 @@ QtObject {
                     label: qsTr('HusTextArea 文本域'),
                     source: './Examples/DataEntry/ExpTextArea.qml',
                     addVersion: '0.4.8',
-                    state: 'New',
                     desc: qsTr('用于替代 TextArea，提供多行文本输入。')
                 }
             ]
@@ -279,7 +272,6 @@ QtObject {
                     label: qsTr('HusTourFocus 漫游焦点'),
                     source: './Examples/DataDisplay/ExpTourFocus.qml',
                     updateVersion: '0.4.5.2',
-                    state: 'Update',
                     desc: qsTr('新增 penetrationEvent/focusRadius 属性。')
                 },
                 {
@@ -287,7 +279,6 @@ QtObject {
                     label: qsTr('HusTourStep 漫游式引导'),
                     source: './Examples/DataDisplay/ExpTourStep.qml',
                     updateVersion: '0.4.5.2',
-                    state: 'Update',
                     desc: qsTr('新增 penetrationEvent/focusRadius 属性。\n优化步骤卡片显示逻辑。')
                 },
                 {
@@ -331,7 +322,6 @@ QtObject {
                     label: qsTr('HusTableView 表格'),
                     source: './Examples/DataDisplay/ExpTableView.qml',
                     updateVersion: '0.4.8.1',
-                    state: 'Update',
                     desc: qsTr('新增 getCellData 获取单元数据。\n新增 setCellData 设置单元数据。')
                 },
                 {
@@ -351,7 +341,6 @@ QtObject {
                     label: qsTr('HusImage 图片'),
                     source: './Examples/DataDisplay/ExpImage.qml',
                     addVersion: '0.4.2',
-                    state: 'New',
                     desc: qsTr('可预览的图片。')
                 },
                 {
@@ -359,7 +348,6 @@ QtObject {
                     label: qsTr('HusImagePreview 图片预览'),
                     source: './Examples/DataDisplay/ExpImagePreview.qml',
                     addVersion: '0.4.2',
-                    state: 'New',
                     desc: qsTr('用于预览的图片的基本工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。')
                 }
             ]
@@ -386,7 +374,6 @@ QtObject {
                     label: qsTr('HusShadow 阴影效果'),
                     source: './Examples/Effect/ExpShadow.qml',
                     addVersion: '0.4.8',
-                    state: 'New',
                     desc: qsTr('通用&统一的阴影特效。')
                 }
             ]
@@ -438,7 +425,6 @@ QtObject {
                     label: qsTr('HusNotification 通知提醒框'),
                     source: './Examples/Feedback/ExpNotification.qml',
                     addVersion: '0.4.5',
-                    state: 'New',
                     desc: qsTr('通知提醒框，全局展示通知提醒信息。')
                 },
                 {
@@ -446,7 +432,6 @@ QtObject {
                     label: qsTr('HusPopconfirm 气泡确认框'),
                     source: './Examples/Feedback/ExpPopconfirm.qml',
                     addVersion: '0.4.6',
-                    state: 'New',
                     desc: qsTr('气泡确认框，弹出气泡式的确认框。')
                 },
                 {
@@ -454,7 +439,6 @@ QtObject {
                     label: qsTr('HusModal 对话框'),
                     source: './Examples/Feedback/ExpModal.qml',
                     addVersion: '0.4.7',
-                    state: 'New',
                     desc: qsTr('展示一个对话框，提供标题、内容区、操作区。')
                 }
             ]
@@ -525,6 +509,7 @@ QtObject {
                 item.menuChildren.sort((a, b) => a.key.localeCompare(b.key));
                 item.menuChildren.forEach(
                             object => {
+                                object.state = object.addVersion ? 'New' : object.updateVersion ? 'Update' : '';
                                 if (object.state) {
                                     if (object.state === 'New') hasNew = true;
                                     if (object.state === 'Update') hasUpdate = true;
@@ -534,12 +519,12 @@ QtObject {
                                                        'key': object.key,
                                                        'value': object.key,
                                                        'label': object.label,
-                                                       'state': object.state ?? '',
+                                                       'state': object.state,
                                                    });
                                     __updates.push({
                                                        'name': object.key,
                                                        'desc': object.desc ?? '',
-                                                       'tagState': object.state ?? '',
+                                                       'tagState': object.state,
                                                        'version': object.addVersion || object.updateVersion || '',
                                                    });
                                 }
