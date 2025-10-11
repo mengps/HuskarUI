@@ -93,7 +93,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                     HusAutoComplete {
                         width: 180
-                        placeholderText: 'input here'
+                        placeholderText: 'Basic Usage'
                         onSearch: function(input) {
                             options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];
                         }
@@ -105,7 +105,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                 HusAutoComplete {
                     width: 180
-                    placeholderText: 'input here'
+                    placeholderText: 'Basic Usage'
                     onSearch: function(input) {
                         options = input ? [{ label: input.repeat(1) }, { label: input.repeat(2) }, { label: input.repeat(3) }] : [];
                     }
@@ -128,7 +128,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                     HusAutoComplete {
                         width: 180
-                        placeholderText: 'input here'
+                        placeholderText: 'Custom Options'
                         onSearch: function(input) {
                             if (!input || input.includes('@')) {
                                 options = [];
@@ -148,7 +148,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                 HusAutoComplete {
                     width: 180
-                    placeholderText: 'input here'
+                    placeholderText: 'Custom Options'
                     onSearch: function(input) {
                         if (!input || input.includes('@')) {
                             options = [];
