@@ -244,6 +244,14 @@ HusWindow {
                 }
             }
 
+            Keys.onEscapePressed: {
+                if (expanded) {
+                    expanded = false;
+                } else {
+                    closePopup();
+                }
+            }
+
             Behavior on width {
                 enabled: galleryMenu.compactMode && galleryMenu.width === galleryMenu.compactWidth
                 NumberAnimation { duration: HusTheme.Primary.durationFast }
@@ -261,7 +269,12 @@ HusWindow {
             colorText: HusTheme.Primary.colorTextBase
             iconSource: HusIcon.SearchOutlined
             iconSize: searchComponent.iconSize
-            onClicked: searchComponent.expanded = !searchComponent.expanded;
+            onClicked: {
+                searchComponent.expanded = !searchComponent.expanded;
+                if (searchComponent.expanded) {
+                    searchComponent.forceActiveFocus();
+                }
+            }
             onVisibleChanged: {
                 if (visible) {
                     searchComponent.closePopup();
@@ -330,13 +343,17 @@ HusWindow {
                     visible: parent.badgeState !== ''
                 }
             }
-            onClickMenu: function(deep, key, data) {
-                console.debug('onClickMenu', deep, key, JSON.stringify(data));
+            onClickMenu: function(deep, key, keyPath, data) {
                 if (data) {
-                    containerLoader.version = data.addVersion || data.updateVersion || '';
-                    containerLoader.desc = data.desc || '';
-                    containerLoader.tagState = data.state || '';
-                    gallerySwitchEffect.switchToSource(data.source);
+                    if (data.hasOwnProperty('menuChildren')) {
+                        setDataProperty(key, 'badgeState', '');
+                    } else {
+                        console.debug('onClickMenu', deep, key, keyPath, JSON.stringify(data));
+                        containerLoader.version = data.addVersion || data.updateVersion || '';
+                        containerLoader.desc = data.desc || '';
+                        containerLoader.tagState = data.state || '';
+                        gallerySwitchEffect.switchToSource(data.source);
+                    }
                 }
             }
         }
