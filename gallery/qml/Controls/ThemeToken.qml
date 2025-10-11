@@ -25,7 +25,6 @@ Item {
                 width: 200
                 options: galleryGlobal.primaryTokens
                 tooltipVisible: true
-                iconSource: length > 0 ? HusIcon.CloseCircleFilled : 0
                 filterOption: function(input, option){
                     return option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1;
                 }
