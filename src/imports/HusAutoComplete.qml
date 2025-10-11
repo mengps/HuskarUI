@@ -39,7 +39,7 @@ HusInput {
     objectName: '__HusAutoComplete__'
     themeSource: HusTheme.HusAutoComplete
     iconPosition: HusInput.Position_Right
-    clearEnabled: length > 0
+    clearEnabled: control.clearEnabled ?? 'active'
     onClickClear: {
         control.clearInput();
     }
@@ -75,7 +75,7 @@ HusInput {
             __popupListView.selectIndex = (__popupListView.selectIndex + 1) % __popupListView.count;
             __popupListView.positionViewAtIndex(__popupListView.selectIndex, ListView.Contain);
         } else if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
-            if (__popupListView.selectIndex != -1) {
+            if (__popupListView.selectIndex !== -1) {
                 const modelData = __private.model[__popupListView.selectIndex];
                 const textData = modelData[control.textRole];
                 const valueData = modelData[control.valueRole] ?? textData;
