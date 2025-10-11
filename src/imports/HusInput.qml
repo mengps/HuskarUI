@@ -17,7 +17,7 @@ T.TextField {
     property var iconSource: 0 ?? ''
     property int iconSize: themeSource.fontIconSize
     property int iconPosition: HusInput.Position_Left
-    property var clearEnabled: false
+    property var clearEnabled: false ?? ''
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
     property int clearIconSize: themeSource.fontClearIconSize
     property int clearIconPosition: HusInput.Position_Right
