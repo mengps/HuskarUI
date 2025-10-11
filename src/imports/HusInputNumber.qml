@@ -307,13 +307,13 @@ Item {
 
                 HoverHandler {
                     id: __hoverHandler
-                    enabled: control.clearEnabled && !control.readOnly
+                    enabled: (control.clearEnabled === 'active' || control.clearEnabled === true) && !control.readOnly
                     cursorShape: Qt.PointingHandCursor
                 }
 
                 TapHandler {
                     id: __tapHandler
-                    enabled: control.clearEnabled && !control.readOnly
+                    enabled: (control.clearEnabled === 'active' || control.clearEnabled === true) && !control.readOnly
                     onTapped: control.clear();
                 }
             }

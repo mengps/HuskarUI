@@ -28,7 +28,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
-clearEnabled | bool | false | 是否启用清除按钮
+clearEnabled | bool丨'active' | false | 是否启用清除按钮(active-仅当激活状态下可见)
 clearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接
 clearIconSize | int | - | 清除图标大小
 clearIconPosition | enum | HusInput.Position_Right | 清除图标位置(来自 HusInput)
@@ -109,8 +109,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                 import QtQuick
                 import HuskarUI.Basic
 
-                Row {
-                    width: parent.width
+                Column {
                     spacing: 10
 
                     HusInputNumber {
@@ -118,15 +117,29 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                         min: 0
                         max: 10
                     }
+
+                    HusInputNumber {
+                        width: 120
+                        min: 0
+                        max: 10
+                        clearEnabled: 'active'
+                    }
                 }
             `
-            exampleDelegate: Row {
+            exampleDelegate: Column {
                 spacing: 10
 
                 HusInputNumber {
                     width: 120
                     min: 0
                     max: 10
+                }
+
+                HusInputNumber {
+                    width: 120
+                    min: 0
+                    max: 10
+                    clearEnabled: 'active'
                 }
             }
         }
