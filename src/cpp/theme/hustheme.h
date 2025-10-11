@@ -147,9 +147,9 @@ public:
      */
     Q_INVOKABLE void installIndexTheme(const QString &themePath);
     /**
-     * @brief 设置Index主题标记
-     * @param token 标记名
-     * @param value 标记值
+     * @brief 设置Index主题令牌
+     * @param token 令牌名
+     * @param value 令牌值
      * @warning 支持Token生成函数(genColor/genFont/genFontSize/genRadius)
      */
     Q_INVOKABLE void installIndexToken(const QString &token, const QString &value);
@@ -161,10 +161,10 @@ public:
      */
     Q_INVOKABLE void installComponentTheme(const QString &component, const QString &themePath);
     /**
-     * @brief 设置组件主题标记
+     * @brief 设置组件主题令牌
      * @param component 组件名称
-     * @param token 标记名
-     * @param value 标记值
+     * @param token 令牌名
+     * @param value 令牌值
      */
     Q_INVOKABLE void installComponentToken(const QString &component, const QString &token, const QString &value);
 
