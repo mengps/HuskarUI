@@ -197,12 +197,14 @@ filterInput | string | 单元格的过滤输入
 **注意** 以下函数仅作用于当前(排序&过滤后)的数据，不会更改 \`initModel\`，并且，为了最佳的性能，\n
 需要用户自行判断是否应该重新排序&过滤(调用 \`filter()\` 即可)\n。
 - \`appendRow(object: var)\` 在当前模型末尾添加 \`object\` 行, 不会更改 \`initModel\`。\n
-- \`getRow(rowIndex: int): var\` 获取当前模型 \`row\` 处的行数据。\n
+- \`getRow(rowIndex: int): var\` 获取当前模型 \`rowIndex\` 处的行数据。\n
 - \`setRow(rowIndex: int, object: var)\` 设置当前模型 \`rowIndex\` 处行数据为 \`object\`, 不会更改 \`initModel\`。\n
 - \`insertRow(rowIndex: int, object: var)\` 在当前模型插入行数据 \`object\` 到 \`rowIndex\` 处, 不会更改 \`initModel\`。\n
 - \`moveRow(fromRowIndex: int, toRowIndex: int, count: int = 1)\`将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置, 不会更改 \`initModel\`。\n
 - \`removeRow(rowIndex: int, count: int = 1)\` 删除当前模型 \`rowIndex\` 处的 \`count\` 条行数据, 不会更改 \`initModel\`。\n
-- \`getTableModel()\` 获取当前表格模型(排序&过滤后的数据)。\n
+- \`getCellData(rowIndex: int, columnIndex: int): var\` 获取当前模型 \`(rowIndex, columnIndex)\` 处的单元数据。\n
+- \`setCellData(rowIndex: int, columnIndex: int, data: var)\` 设置当前模型 \`(rowIndex, columnIndex)\` 处的单元数据为 \`data\`, 不会更改 \`initModel\`。\n
+- \`getTableModel(): Array\` 获取当前表格模型(排序&过滤后的数据)。\n
                        `)
         }
 
@@ -243,34 +245,29 @@ filterInput | string | 单元格的过滤输入
                             {
                                 title: 'Name',
                                 dataIndex: 'name',
-                                key: 'name',
                                 delegate: textDelegate,
                                 width: 200
                             },
                             {
                                 title: 'Age',
                                 dataIndex: 'age',
-                                key: 'age',
                                 delegate: textDelegate,
                                 width: 100
                             },
                             {
                                 title: 'Address',
                                 dataIndex: 'address',
-                                key: 'address',
                                 delegate: textDelegate,
                                 width: 300
                             },
                             {
                                 title: 'Tags',
-                                key: 'tags',
                                 dataIndex: 'tags',
                                 delegate: tagsDelegate,
                                 width: 200
                             },
                             {
                                 title: 'Action',
-                                key: 'action',
                                 dataIndex: 'action',
                                 delegate: actionDelegate,
                                 width: 300
@@ -312,34 +309,29 @@ filterInput | string | 单元格的过滤输入
                         {
                             title: 'Name',
                             dataIndex: 'name',
-                            key: 'name',
                             delegate: textDelegate,
                             width: 200
                         },
                         {
                             title: 'Age',
                             dataIndex: 'age',
-                            key: 'age',
                             delegate: textDelegate,
                             width: 100
                         },
                         {
                             title: 'Address',
                             dataIndex: 'address',
-                            key: 'address',
                             delegate: textDelegate,
                             width: 300
                         },
                         {
                             title: 'Tags',
-                            key: 'tags',
                             dataIndex: 'tags',
                             delegate: tagsDelegate,
                             width: 200
                         },
                         {
                             title: 'Action',
-                            key: 'action',
                             dataIndex: 'action',
                             delegate: actionDelegate,
                             width: 300
@@ -820,34 +812,29 @@ filterInput | string | 单元格的过滤输入
                             {
                                 title: 'Name',
                                 dataIndex: 'name',
-                                key: 'name',
                                 delegate: textDelegate,
                                 width: 200
                             },
                             {
                                 title: 'Age',
                                 dataIndex: 'age',
-                                key: 'age',
                                 delegate: textDelegate,
                                 width: 100
                             },
                             {
                                 title: 'Address',
                                 dataIndex: 'address',
-                                key: 'address',
                                 delegate: textDelegate,
                                 width: 300
                             },
                             {
                                 title: 'Tags',
-                                key: 'tags',
                                 dataIndex: 'tags',
                                 delegate: tagsDelegate,
                                 width: 200
                             },
                             {
                                 title: 'Action',
-                                key: 'action',
                                 dataIndex: 'action',
                                 delegate: actionDelegate,
                                 width: 300
@@ -882,34 +869,29 @@ filterInput | string | 单元格的过滤输入
                         {
                             title: 'Name',
                             dataIndex: 'name',
-                            key: 'name',
                             delegate: textDelegate,
                             width: 200
                         },
                         {
                             title: 'Age',
                             dataIndex: 'age',
-                            key: 'age',
                             delegate: textDelegate,
                             width: 100
                         },
                         {
                             title: 'Address',
                             dataIndex: 'address',
-                            key: 'address',
                             delegate: textDelegate,
                             width: 300
                         },
                         {
                             title: 'Tags',
-                            key: 'tags',
                             dataIndex: 'tags',
                             delegate: tagsDelegate,
                             width: 200
                         },
                         {
                             title: 'Action',
-                            key: 'action',
                             dataIndex: 'action',
                             delegate: actionDelegate,
                             width: 300

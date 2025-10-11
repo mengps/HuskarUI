@@ -151,6 +151,7 @@ HusSelect {
         pixelSize: themeSource.fontSize
     }
     leftPadding: 2
+    clearEnabled: false
     contentItem: Item {
         implicitHeight: Math.max(__flow.implicitHeight, 22)
 

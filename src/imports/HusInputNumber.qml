@@ -225,6 +225,7 @@ Item {
             animationEnabled: control.animationEnabled
             colorBg: 'transparent'
             colorBorder: 'transparent'
+            clearEnabled: false
             model: isBefore ? control.beforeLabel : control.afterLabel
             onActivated:
                 (index) => {
