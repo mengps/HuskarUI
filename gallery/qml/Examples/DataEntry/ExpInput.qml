@@ -93,7 +93,6 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     HusInput {
                         width: 150
                         placeholderText: 'Basic Usage'
-                        clearEnabled: true
                     }
 
                     HusInput {
@@ -142,7 +141,6 @@ contentDescription | string | '' | 内容描述(提高可用性)
                 HusInput {
                     width: 150
                     placeholderText: 'Basic Usage'
-                    clearEnabled: true
                 }
 
                 HusInput {
