@@ -5,11 +5,7 @@ import HuskarUI.Basic
 Item {
     id: control
 
-    implicitWidth: compactMode ? compactWidth : defaultMenuWidth
-    implicitHeight: __listView.contentHeight + __listView.anchors.topMargin + __listView.anchors.bottomMargin
-    clip: true
-
-    signal clickMenu(deep: int, menuKey: string, menuData: var)
+    signal clickMenu(deep: int, key: string, keyPath: var, data: var)
 
     property bool animationEnabled: HusTheme.animationEnabled
     property string contentDescription: ''
@@ -110,6 +106,9 @@ Item {
     }
 
     objectName: '__HusMenu__'
+    implicitWidth: compactMode ? compactWidth : defaultMenuWidth
+    implicitHeight: __listView.contentHeight + __listView.anchors.topMargin + __listView.anchors.bottomMargin
+    clip: true
     onInitModelChanged: {
         __listView.model = initModel;
     }
@@ -137,6 +136,72 @@ Item {
         if (index >= 0 && index < __listView.model.length) {
             __listView.model[index][propertyName] = value;
             __listView.modelChanged();
+        }
+    }
+
+    /*
+    function getData(key) {
+        const findItemFunc = list => {
+            for (const item of list) {
+                if (item.hasOwnProperty('key') && item.key === key) {
+                    return item;
+                } else {
+                    if (item.hasOwnProperty('menuChildren')) {
+                        const data = findItemFunc(item.menuChildren);
+                        if (data !== undefined) {
+                            return data;
+                        }
+                    }
+                }
+            }
+            return undefined;
+        }
+
+        return findItemFunc(__listView.model);
+    }
+    */
+
+    function setData(key, data) {
+        const setItemFunc = list => {
+            for (let i = 0; i < list.length; i++) {
+                let item = list[i];
+                if (item.hasOwnProperty('key') && item.key === key) {
+                    list[i] = data;
+                    return true;
+                } else {
+                    if (item.hasOwnProperty('menuChildren')) {
+                        if (setItemFunc(item.menuChildren)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        if (setItemFunc(__listView.model)) {
+            __private.setData(key, data);
+        }
+    }
+
+    function setDataProperty(key, propertyName, value) {
+        const setItemFunc = list => {
+            for (let i = 0; i < list.length; i++) {
+                let item = list[i];
+                if (item.hasOwnProperty('key') && item.key === key) {
+                    list[i][propertyName] = value;
+                    return true;
+                } else {
+                    if (item.hasOwnProperty('menuChildren')) {
+                        if (setItemFunc(item.menuChildren)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        if (setItemFunc(__listView.model)) {
+            __private.setDataProperty(key, propertyName, value);
         }
     }
 
@@ -305,13 +370,20 @@ Item {
             property var menuBackgroundDelegate: model.backgroundDelegate ?? control.menuBackgroundDelegate
 
             property var parentMenu: view.menuDeep === 0 ? null : view.parentMenu
+            property var keyPath: parentMenu ? [...parentMenu.keyPath, menuKey] : [menuKey]
             property bool isCurrent: __private.selectedItem === __rootItem || isCurrentParent
             property bool isCurrentParent: false
             property var layerPopup: null
 
+            function clickMenu() {
+                control.clickMenu(view.menuDeep, menuKey, keyPath, model);
+            }
+
             function expandMenu() {
-                if (__menuButton.expandedVisible)
+                if (__menuButton.expandedVisible) {
                     __menuButton.expanded = true;
+                }
+                __rootItem.clickMenu();
             }
 
             /*! 查找当前菜单的根菜单 */
@@ -364,10 +436,27 @@ Item {
 
             Connections {
                 target: __private
+                enabled: __rootItem.menuKey !== ''
+                ignoreUnknownSignals: true
+
                 function onGotoMenu(key) {
-                    if (__rootItem.menuKey !== '' && __rootItem.menuKey === key) {
+                    if (__rootItem.menuKey === key) {
                         __rootItem.expandParent();
                         __menuButton.clicked();
+                    }
+                }
+
+                function onSetData(key, data) {
+                    if (__rootItem.menuKey === key) {
+                        __rootItem.model = data;
+                        __rootItem.modelChanged();
+                    }
+                }
+
+                function onSetDataProperty(key, propertyName, value) {
+                    if (__rootItem.menuKey === key) {
+                        __rootItem.model[propertyName] = value;
+                        __rootItem.modelChanged();
                     }
                 }
             }
@@ -420,8 +509,8 @@ Item {
                     contentDelegate: __rootItem.menuContentDelegate
                     backgroundDelegate: __rootItem.menuBackgroundDelegate
                     onClicked: {
+                        __rootItem.clickMenu();
                         if (__rootItem.menuChildrenLength == 0) {
-                            control.clickMenu(__rootItem.view.menuDeep, __rootItem.menuKey, model);
                             __private.selectedItem = __rootItem;
                             __rootItem.selectedCurrentParentMenu();
                             if (control.compactMode || control.popupMode)
@@ -516,17 +605,23 @@ Item {
 
     Item {
         id: __private
+
         signal gotoMenu(key: string)
+        signal setData(key: string, data: var)
+        signal setDataProperty(key: string, propertyName: string, value: var)
+
         property string gotoMenuKey: ''
         property var window: Window.window
         property var selectedItem: null
         property var popupList: []
+
         function createPopupList(deep) {
             /*! 为每一层创建一个弹窗 */
             if (popupList[deep] === undefined) {
                 let parentPopup = deep > 0 ? popupList[deep - 1] : null;
                 popupList[deep] = __popupComponent.createObject(control, { parentPopup: parentPopup });
             }
+
             return popupList[deep];
         }
     }

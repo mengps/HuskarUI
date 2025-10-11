@@ -23,6 +23,7 @@ QtObject {
             type: 'divider'
         },
         {
+            key: 'General',
             label: qsTr('通用'),
             iconSource: HusIcon.ProductOutlined,
             menuChildren: [
@@ -109,6 +110,7 @@ QtObject {
             ]
         },
         {
+            key: 'Layout',
             label: qsTr('布局'),
             iconSource: HusIcon.BarsOutlined,
             menuChildren: [
@@ -121,6 +123,7 @@ QtObject {
             ]
         },
         {
+            key: 'Navigation',
             label: qsTr('导航'),
             iconSource: HusIcon.SendOutlined,
             menuChildren: [
@@ -128,7 +131,8 @@ QtObject {
                     key: 'HusMenu',
                     label: qsTr('HusMenu 菜单'),
                     source: './Examples/Navigation/ExpMenu.qml',
-                    desc: qsTr('优化菜单背景颜色以及显示逻辑。')
+                    updateVersion: '0.4.8.2',
+                    desc: qsTr('新增 setData() 函数。\n新增 setDataProperty() 函数。')
                 },
                 {
                     key: 'HusScrollBar',
@@ -157,6 +161,7 @@ QtObject {
             ]
         },
         {
+            key: 'DataEntry',
             label: qsTr('数据录入'),
             iconSource: HusIcon.InsertRowBelowOutlined,
             menuChildren: [
@@ -259,6 +264,7 @@ QtObject {
             ]
         },
         {
+            key: 'DataDisplay',
             label: qsTr('数据展示'),
             iconSource: HusIcon.FundProjectionScreenOutlined,
             menuChildren: [
@@ -359,6 +365,7 @@ QtObject {
             ]
         },
         {
+            key: 'Effect',
             label: qsTr('效果'),
             iconSource: HusIcon.FireOutlined,
             menuChildren: [
@@ -385,6 +392,7 @@ QtObject {
             ]
         },
         {
+            key: 'Utils',
             label: qsTr('工具'),
             iconSource: HusIcon.ToolOutlined,
             menuChildren: [
@@ -397,6 +405,7 @@ QtObject {
             ]
         },
         {
+            key: 'Feedback',
             label: qsTr('反馈'),
             iconSource: HusIcon.MessageOutlined,
             menuChildren: [
@@ -454,6 +463,7 @@ QtObject {
             type: 'divider'
         },
         {
+            key: 'Theme',
             label: qsTr('主题相关'),
             iconSource: HusIcon.SkinOutlined,
             type: 'group',
