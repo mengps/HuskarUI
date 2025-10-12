@@ -435,6 +435,13 @@ QtObject {
                     desc: qsTr('气泡确认框，弹出气泡式的确认框。')
                 },
                 {
+                    key: 'HusPopover',
+                    label: qsTr('HusPopover 气泡显示框'),
+                    source: './Examples/Feedback/ExpPopover.qml',
+                    addVersion: '0.4.8',
+                    desc: qsTr('气泡显示框，弹出气泡式的显示框。')
+                },
+                {
                     key: 'HusModal',
                     label: qsTr('HusModal 对话框'),
                     source: './Examples/Feedback/ExpModal.qml',
@@ -473,7 +480,12 @@ QtObject {
             const __style__ = {};
             const parseImport = (name) => {
                 const path = `:/HuskarUI/theme/${name}.json`;
-                const object = JSON.parse(HusApi.readFileToString(path));
+                const fileContent = HusApi.readFileToString(path);
+                if (!fileContent) {
+                    console.warn("Failed to read file:", path);
+                    return;
+                }
+                const object = JSON.parse(fileContent);
                 const imports = object?.__init__?.__import__;
                 const style = object.__style__;
                 if (imports) {

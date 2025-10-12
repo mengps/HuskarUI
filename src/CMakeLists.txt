@@ -143,6 +143,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusShadow.qml
         imports/HusNotification.qml
         imports/HusPopconfirm.qml
+        imports/HusPopover.qml
         imports/HusModal.qml
         imports/HusTextArea.qml
     SOURCES
@@ -204,6 +205,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/HusDateTimePicker.json
         theme/HusNotification.json
         theme/HusPopconfirm.json
+        theme/HusPopover.json
         theme/HusModal.json
         theme/HusTextArea.json
 )

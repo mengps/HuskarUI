@@ -26,36 +26,17 @@ Flickable {
             desc: qsTr(`
 # HusPopconfirm 气泡确认框 \n
 点击元素，弹出气泡式的确认框。\n
-* **继承自 { [HusPopup](internal://HusPopup) }**\n
+* **继承自 { [HusPopover](internal://HusPopover) }**\n
 \n<br/>
 \n### 支持的代理：\n
-- **arrowDelegate: Component** 箭头代理\n
-- **iconDelegate: Component** 内容代理\n
-- **titleDelegate: Component** 标题代理\n
-- **descriptionDelegate: Component** 描述代理\n
 - **confirmButtonDelegate: Component** 确认按钮代理\n
 - **cancelButtonDelegate: Component** 取消按钮代理\n
-- **contentDelegate: Component** 内容代理\n
-- **bgDelegate: Component** 背景代理\n
 \n<br/>
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
-iconSource | int丨string | HusIcon.ExclamationCircleFilled丨'' | 图标源(来自 HusIcon)或图标链接
-iconSize | int | 16 | 图标大小
-title | string | '' | 标题文本
-description | string | '' | 描述文本
 confirmText | string | '' | 确认文本
 cancelText | string | '' | 取消文本
-showArrow | bool | true | 是否显示箭头
-arrowWidth | int | 16 | 箭头宽度
-arrowHeight | int | 8 | 箭头高度
-colorIcon | color | - | 图标颜色
-colorTitle | color | - | 标题文本颜色
-colorDescription | color | - | 描述文本颜色
-titleFont | font | - | 标题文本字体
-descriptionFont | font | - | 描述文本字体
 \n<br/>
 \n### 支持的信号：\n
 - \`confirm()\` 点击确认按钮后发出\n
