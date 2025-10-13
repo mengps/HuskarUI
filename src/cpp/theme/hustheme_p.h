@@ -61,6 +61,7 @@ enum class Component : uint16_t
     HusDateTimePicker,
     HusNotification,
     HusPopconfirm,
+    HusPopover,
     HusModal,
     HusTextArea,
 
@@ -104,6 +105,7 @@ static QHash<QString, Component> g_componentTable
     { "HusDateTimePicker",  Component::HusDateTimePicker   },
     { "HusNotification",    Component::HusNotification     },
     { "HusPopconfirm",      Component::HusPopconfirm       },
+    { "HusPopover",         Component::HusPopover          },
     { "HusModal",           Component::HusModal            },
     { "HusTextArea",        Component::HusTextArea         },
 };
