@@ -474,8 +474,8 @@ Item {
             Rectangle {
                 id: __layout
                 width: parent.width
-                anchors.top: parent.top
                 height: __menuButton.height + ((control.compactMode || control.popupMode) ? 0 : __childrenListView.height)
+                anchors.top: parent.top
                 color: (view.menuDeep === 0 || control.compactMode || control.popupMode) ? 'transparent' : HusTheme.HusMenu.colorChildBg
                 visible: menuType == 'item' || menuType == 'group'
 
@@ -649,6 +649,7 @@ Item {
             height: current ? Math.min(control.popupMaxHeight, current.realHeight + topPadding + bottomPadding) : 0
             padding: 5
             animationEnabled: control.animationEnabled
+            contentItem: Item { clip: true }
             onAboutToShow: {
                 let toX = control.width + control.popupOffset;
                 if (parentPopup) {
