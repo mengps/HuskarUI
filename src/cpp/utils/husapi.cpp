@@ -10,7 +10,7 @@
 # include <QtQml/QQmlInfo>
 #endif
 
-#include <private/qquickpopup_p_p.h>
+#include <QtQuickTemplates2/private/qquickpopup_p_p.h>
 
 #ifdef Q_OS_WIN
 # include <Windows.h>
@@ -72,7 +72,7 @@ void HusApi::setWindowState(QWindow *window, int state)
 
 void HusApi::setPopupAllowAutoFlip(QObject *popup, bool allowVerticalFlip, bool allowHorizontalFlip)
 {
-    if (auto p = qobject_cast<QQuickPopup*>(popup); p) {
+    if (auto p = qobject_cast<QQuickPopup*>(popup)) {
         QQuickPopupPrivate::get(p)->allowVerticalFlip = allowVerticalFlip;
         QQuickPopupPrivate::get(p)->allowHorizontalFlip = allowHorizontalFlip;
     } else {
@@ -82,7 +82,7 @@ void HusApi::setPopupAllowAutoFlip(QObject *popup, bool allowVerticalFlip, bool 
 
 QString HusApi::getClipbordText() const
 {
-    if (auto clipboard = QGuiApplication::clipboard(); clipboard) {
+    if (auto clipboard = QGuiApplication::clipboard()) {
         return clipboard->text();
     }
 
@@ -91,7 +91,7 @@ QString HusApi::getClipbordText() const
 
 bool HusApi::setClipbordText(const QString &text)
 {
-    if (auto clipboard = QGuiApplication::clipboard(); clipboard) {
+    if (auto clipboard = QGuiApplication::clipboard()) {
         clipboard->setText(text);
         return true;
     }
