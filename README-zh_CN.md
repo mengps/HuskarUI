@@ -60,6 +60,9 @@ Qt Qml 的 Ant 设计组件库
 
 任何人都可以通过 issue/qq群/wx群 进行讨论, 最终有意义的组件/功能将添加到开发计划.
 
+## 🌐 在线 wiki
+- [HuskarUI 在线 wiki (AI)](https://deepwiki.com/mengps/HuskarUI)
+
 ## 📺 在线演示
 
   - [哔哩哔哩](https://www.bilibili.com/video/BV1jodhYhE8a/?spm_id_from=333.1387.homepage.video_card.click)
@@ -85,9 +88,13 @@ cmake --build build --config Release --target all --parallel
 
 - 使用 MinGW 构建
 ```cmake
+cmake -S . -B build -G "Ninja"
+or
 cmake -S . -B build -G "MinGW Makefiles"
 ```
-默认情况下，`plugin` 将构建在 `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` 目录中。
+> [!IMPORTANT]
+> 默认情况下，`BUILD_HUSKARUI_IN_DEFAULT_LOCATION=ON`，`plugin` 将构建在 `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` 目录中。
+
 - 安装
 ```cmake
 cmake --install --prefix <install_dir>

@@ -60,6 +60,9 @@ The development plan can be found here: [Component Roadmap](https://github.com/m
 
 Anyone can discuss through issues, QQ groups, or WeChat groups, and ultimately meaningful components/functions will be added to the development plan.
 
+## 🌐 Online wiki
+- [HuskarUI Online wiki (AI)](https://deepwiki.com/mengps/HuskarUI)
+
 ## 📺 Online Demo
 
   - [BiliBili](https://www.bilibili.com/video/BV1jodhYhE8a/?spm_id_from=333.1387.homepage.video_card.click)
@@ -85,9 +88,12 @@ cmake --build build --config Release --target all --parallel
 
 - Build with MinGW
 ```cmake
+cmake -S . -B build -G "Ninja"
+or
 cmake -S . -B build -G "MinGW Makefiles"
 ```
-By default, the `plugin` will be built in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
+> [!IMPORTANT]
+> By default, `BUILD_HUSKARUI_IN_DEFAULT_LOCATION=ON` , the `plugin` will be built in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
 
 - Install
 ```cmake
