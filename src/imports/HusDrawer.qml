@@ -124,6 +124,14 @@ T.Drawer {
             sourceComponent: contentDelegate
         }
     }
+    onAboutToShow: {
+        if (captionBar && modal)
+            captionBar.enabled = false;
+    }
+    onAboutToHide: {
+        if (captionBar && modal)
+            captionBar.enabled = true;
+    }
 
     T.Overlay.modal: Rectangle {
         color: control.colorOverlay
