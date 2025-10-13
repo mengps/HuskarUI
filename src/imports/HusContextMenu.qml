@@ -4,7 +4,7 @@ import HuskarUI.Basic
 HusPopup {
     id: control
 
-    signal clickMenu(deep: int, menuKey: string, menuData: var)
+    signal clickMenu(deep: int, key: string, keyPath: var, data: var)
 
     property bool animationEnabled: HusTheme.animationEnabled
     property var initModel: []
@@ -76,9 +76,11 @@ HusPopup {
         defaultMenuHeight: control.defaultMenuHeight
         defaultMenuSpacing: control.defaultMenuSpacing
         onClickMenu:
-            (deep, menuKey, menuData) => {
-                control.clickMenu(deep, menuKey, menuData);
-                control.close();
+            (deep, key, keyPath, data) => {
+                control.clickMenu(deep, key, keyPath, data);
+                if (!data.hasOwnProperty('menuChildren')) {
+                    close();
+                }
             }
         menuIconDelegate: HusIconText {
             color: !menuButton.isGroup && menuButton.enabled ? HusTheme.HusMenu.colorText : HusTheme.HusMenu.colorTextDisabled
