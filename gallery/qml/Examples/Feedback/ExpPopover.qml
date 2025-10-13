@@ -30,7 +30,7 @@ Flickable {
 \n<br/>
 \n### 支持的代理：\n
 - **arrowDelegate: Component** 箭头代理\n
-- **iconDelegate: Component** 内容代理\n
+- **iconDelegate: Component** 图标代理\n
 - **titleDelegate: Component** 标题代理\n
 - **descriptionDelegate: Component** 描述代理\n
 - **contentDelegate: Component** 内容代理\n
@@ -76,7 +76,7 @@ descriptionFont | font | - | 描述文本字体
             width: parent.width
             descTitle: qsTr('基本')
             desc: qsTr(`
-最简单的用法，支持标题和描述以及确认/取消按钮。\n
+最简单的用法，支持标题和描述。\n
 通过 \`title\` 属性设置标题文本。\n
 通过 \`description\` 属性设置描述文本。\n
                        `)
@@ -85,6 +85,23 @@ descriptionFont | font | - | 描述文本字体
                 import HuskarUI.Basic
 
                 Row {
+                    spacing: 10
+
+                    HusButton {
+                        text: 'Hover'
+                        type: HusButton.Type_Outlined
+
+                        HusPopover {
+                            x: (parent.width - width) * 0.5
+                            y: parent.height + 6
+                            width: 300
+                            visible: parent.hovered || parent.down
+                            closePolicy: HusPopover.NoAutoClose
+                            title: 'Hover details'
+                            description: 'What are you doing here?'
+                        }
+                    }
+
                     HusButton {
                         text: 'Click'
                         type: HusButton.Type_Outlined
@@ -102,6 +119,23 @@ descriptionFont | font | - | 描述文本字体
                 }
             `
             exampleDelegate: Row {
+                spacing: 10
+
+                HusButton {
+                    text: 'Hover'
+                    type: HusButton.Type_Outlined
+
+                    HusPopover {
+                        x: (parent.width - width) * 0.5
+                        y: parent.height + 6
+                        width: 300
+                        visible: parent.hovered || parent.down
+                        closePolicy: HusPopover.NoAutoClose
+                        title: 'Hover details'
+                        description: 'What are you doing here?'
+                    }
+                }
+
                 HusButton {
                     text: 'Click'
                     type: HusButton.Type_Outlined
