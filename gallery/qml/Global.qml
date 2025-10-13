@@ -438,7 +438,7 @@ QtObject {
                     key: 'HusPopover',
                     label: qsTr('HusPopover 气泡显示框'),
                     source: './Examples/Feedback/ExpPopover.qml',
-                    addVersion: '0.4.8',
+                    addVersion: '0.4.8.2',
                     desc: qsTr('气泡显示框，弹出气泡式的显示框。')
                 },
                 {
