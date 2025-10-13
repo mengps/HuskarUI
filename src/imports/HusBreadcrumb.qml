@@ -6,7 +6,7 @@ Item {
     id: control
 
     signal click(index: int, data: var)
-    signal clickMenu(deep: int, menuKey: string, menuData: var)
+    signal clickMenu(deep: int, key: string, keyPath: var, data: var)
 
     property bool animationEnabled: HusTheme.animationEnabled
     property var initModel: []
@@ -103,14 +103,18 @@ Item {
             sourceComponent: HusContextMenu {
                 id: __menu
                 parent: __itemDelegate
-                x: (parent.width - implicitWidth) * 0.5
-                y: parent.height
                 tooltipVisible: true
                 initModel: __itemDelegate.menuItem
                 defaultMenuWidth: __itemDelegate.menu.width ?? control.defaultMenuWidth
                 closePolicy: HusPopup.NoAutoClose | HusPopup.CloseOnPressOutsideParent | HusPopup.CloseOnEscape
-                onHoveredChanged: if (hovered) open();
-                onClickMenu: (deep, menuKey, menuData) => control.clickMenu(deep, menuKey, menuData);
+                onHoveredChanged: {
+                    if (hovered) {
+                        x = (parent.width - implicitWidth) * 0.5;
+                        y = parent.height + 2;
+                        open();
+                    }
+                }
+                onClickMenu: (deep, key, keyPath, data) => control.clickMenu(deep, key, keyPath, data);
                 Component.onCompleted: HusApi.setPopupAllowAutoFlip(this);
                 property bool hovered: __hoverHandler.hovered
 
