@@ -111,8 +111,7 @@ HusPopup {
         color: control.colorBg
         radius: control.radiusBg
     }
-    property Component footerDelegate: Item {
-    }
+    property Component footerDelegate: Item { }
 
     objectName: '__HusPopover__'
     themeSource: HusTheme.HusPopover
