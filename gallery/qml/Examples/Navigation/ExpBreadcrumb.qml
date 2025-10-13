@@ -76,10 +76,12 @@ items | list | 可选 | 菜单模型
 - \`click(index: int, data: var)\` 点击路由项时发出\n
   - \`index\` 路由项索引\n
   - \`data\` 路由项数据\n
-- \`clickMenu(deep: int, menuKey: string, menuData: var)\` 点击路由-菜单项时发出\n
+\n### 支持的信号：\n
+- \`clickMenu(deep: int, key: string, keyPath: var, data: var)\` 点击任意菜单项时发出\n
   - \`deep\` 菜单项深度\n
-  - \`menuKey\` 菜单项的键\n
-  - \`menuData\` 菜单项数据\n
+  - \`key\` 菜单项的键\n
+  - \`keyPath\` 菜单项的键路径数组\n
+  - \`data\` 菜单项数据\n
                        `)
         }
 

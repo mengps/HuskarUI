@@ -37,10 +37,11 @@ subMenuOffset | int | -4 | 子菜单偏移
 radiusBg | int | - | 背景圆角
 \n<br/>
 \n### 支持的信号：\n
-- \`clickMenu(deep: int, menuKey: string, menuData: var)\` 点击任意菜单项时发出\n
+- \`clickMenu(deep: int, key: string, keyPath: var, data: var)\` 点击任意菜单项时发出\n
   - \`deep\` 菜单项深度\n
-  - \`menuKey\` 菜单项的键\n
-  - \`menuData\` 菜单项数据\n
+  - \`key\` 菜单项的键\n
+  - \`keyPath\` 菜单项的键路径数组\n
+  - \`data\` 菜单项数据\n
                        `)
         }
 
@@ -107,12 +108,13 @@ radiusBg | int | - | 背景圆角
                             { type: 'divider' },
                             { key: 'Exit', label: 'Exit', iconSource: HusIcon.IcoMoonExit },
                         ]
-                        onClickMenu: (deep, menuKey, menuData) => copyableText.append('Click: ' + menuKey)
+                        onClickMenu: (deep, key, keyPath, data) => copyableText.append('Click: ' + key);
                     }
 
                     HusCopyableText {
                         id: copyableText
                         anchors.fill: parent
+                        clip: true
                         text: 'Please right-click with the mouse.'
                     }
                 }
@@ -156,12 +158,13 @@ radiusBg | int | - | 背景圆角
                         { type: 'divider' },
                         { key: 'Exit', label: 'Exit', iconSource: HusIcon.IcoMoonExit },
                     ]
-                    onClickMenu: (deep, menuKey, menuData) => copyableText.append('Click: ' + menuKey)
+                    onClickMenu: (deep, key, keyPath, data) => copyableText.append('Click: ' + key);
                 }
 
                 HusCopyableText {
                     id: copyableText
                     anchors.fill: parent
+                    clip: true
                     text: 'Please right-click with the mouse.'
                 }
             }
@@ -212,10 +215,10 @@ radiusBg | int | - | 背景圆角
                                 { key: 'Light', label: 'Light', iconDelegate: checkIconDelegate, },
                             ]
                             onClickMenu:
-                                (deep, menuKey, menuData) => {
-                                    if (menuKey === 'Dark') {
+                                (deep, key, keyPath, data) => {
+                                    if (key === 'Dark') {
                                         galleryWindow.captionBar.themeCallback();
-                                    } else if (menuKey === 'Light') {
+                                    } else if (key === 'Light') {
                                         galleryWindow.captionBar.themeCallback();
                                     }
                                 }
@@ -258,10 +261,10 @@ radiusBg | int | - | 背景圆角
                             { key: 'Light', label: 'Light', iconDelegate: checkIconDelegate, },
                         ]
                         onClickMenu:
-                            (deep, menuKey, menuData) => {
-                                if (menuKey === 'Dark' && !HusTheme.isDark) {
+                            (deep, key, keyPath, data) => {
+                                if (key === 'Dark' && !HusTheme.isDark) {
                                     galleryWindow.captionBar.themeCallback();
-                                } else if (menuKey === 'Light' && HusTheme.isDark) {
+                                } else if (key === 'Light' && HusTheme.isDark) {
                                     galleryWindow.captionBar.themeCallback();
                                 }
                             }

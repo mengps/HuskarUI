@@ -116,7 +116,7 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
 - \`set(index: int, object: Object)\` 设置 \`index\` 处的模型数据为 \`object\` \n
 - \`setProperty(index: int, propertyName: string, value: any)\` 设置 \`index\` 处的模型数据属性名 \`propertyName\` 值为 \`value\` \n
 - \`setData(key: string, data: var)\` 将菜单键为 \`key\` 处的菜单项数据设置为 \`data\` \n
-- \`setDataProperty(key: string, propertyName: string, value: var)\` 将菜单键为 \`key\` 处的菜单项数据属性名 \`propertyName\` 值为 \`value\` \n
+- \`setDataProperty(key: string, propertyName: string, value: var)\` 设置菜单键为 \`key\` 处的菜单项数据属性名 \`propertyName\` 的值为 \`value\` \n
 - \`move(from: int, to: int, count: int = 1)\` 将 \`count\` 个模型数据从 \`from\` 位置移动到 \`to\` 位置 \n
 - \`insert(index: int, object: Object)\` 插入菜单 \`object\` 到 \`index\` 处 \n
 - \`append(object: Object)\` 在末尾添加菜单 \`object\` \n
