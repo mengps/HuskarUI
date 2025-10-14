@@ -16,6 +16,8 @@
 # include <Windows.h>
 #endif
 
+Q_LOGGING_CATEGORY(lcHusApi, "huskarui.basic.api");
+
 HusApi::~HusApi()
 {
 
@@ -106,7 +108,7 @@ QString HusApi::readFileToString(const QString &fileName)
     if (file.open(QIODevice::ReadOnly)) {
         result = file.readAll();
     } else {
-        qDebug() << "Open file error:" << file.errorString();
+        qCDebug(lcHusApi) << "Open file error:" << file.errorString();
     }
 
     return result;
