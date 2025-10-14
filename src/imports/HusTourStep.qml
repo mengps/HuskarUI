@@ -7,6 +7,7 @@ T.Popup {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property bool penetrationEvent: false
+    property bool closable: true
     property bool maskClosable: false
     property var stepModel: []
     property Item currentTarget: null
@@ -68,6 +69,19 @@ T.Popup {
                 }
                 __arrowDelegate.requestPaint();
             }
+        }
+    }
+    property Component closeButtonDelegate: HusCaptionButton {
+        topPadding: 2
+        bottomPadding: 2
+        leftPadding: 4
+        rightPadding: 4
+        animationEnabled: control.animationEnabled
+        radiusBg: HusTheme.HusTour.radiusButtonBg
+        iconSource: HusIcon.CloseOutlined
+        hoverCursorShape: Qt.PointingHandCursor
+        onClicked: {
+            control.close();
         }
     }
     property Component stepCardDelegate: Rectangle {
@@ -166,22 +180,13 @@ T.Popup {
             }
         }
 
-        HusCaptionButton {
-            topPadding: 2
-            bottomPadding: 2
-            leftPadding: 4
-            rightPadding: 4
+        Loader {
             anchors.right: parent.right
             anchors.rightMargin: 2
             anchors.top: parent.top
             anchors.topMargin: 2
-            animationEnabled: control.animationEnabled
-            radiusBg: HusTheme.HusTour.radiusButtonBg
-            iconSource: HusIcon.CloseOutlined
-            hoverCursorShape: Qt.PointingHandCursor
-            onClicked: {
-                control.close();
-            }
+            sourceComponent: control.closeButtonDelegate
+            active: control.closable
         }
     }
     property Component indicatorDelegate: HusText {

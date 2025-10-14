@@ -21,6 +21,7 @@ Flickable {
 \n<br/>
 \n### 支持的代理：\n
 - **arrowDelegate: Component** 步骤箭头代理\n
+- **closeButtonDelegate: Component** 右上角关闭按钮代理\n
 - **stepCardDelegate: Component** 步骤卡片代理\n
 - **indicatorDelegate: Component** 步骤指示器代理\n
 \n<br/>
@@ -29,6 +30,7 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 penetrationEvent | bool | false | 是否可穿透事件
+closable | bool | true | 是否显示右上角的关闭按钮
 maskClosable | bool | false | 点击蒙层是否允许关闭
 stepModel | list | [] | 步骤模型
 currentTarget | Item | null | 当前步骤目标
@@ -120,6 +122,7 @@ cardRadius | int | 可选 | 本步骤卡片圆角
 
                         HusTourStep {
                             id: tourStep
+                            closable: closableRadio.currentCheckedValue
                             stepModel: [
                                 {
                                     target: tourStepButton1,
@@ -165,6 +168,15 @@ cardRadius | int | 可选 | 本步骤卡片圆角
                             type: HusButton.Type_Outlined
                         }
                     }
+
+                    HusRadioBlock {
+                        id: closableRadio
+                        initCheckedIndex: 0
+                        model: [
+                            { label: 'Closable', value: true},
+                            { label: 'Non-closable', value: false }
+                        ]
+                    }
                 }
             `
             exampleDelegate: Column {
@@ -180,6 +192,7 @@ cardRadius | int | 可选 | 本步骤卡片圆角
 
                     HusTourStep {
                         id: tourStep
+                        closable: closableRadio.currentCheckedValue
                         stepModel: [
                             {
                                 target: tourStepButton1,
@@ -224,6 +237,15 @@ cardRadius | int | 可选 | 本步骤卡片圆角
                         text: qsTr('漫游步骤3   ####')
                         type: HusButton.Type_Outlined
                     }
+                }
+
+                HusRadioBlock {
+                    id: closableRadio
+                    initCheckedIndex: 0
+                    model: [
+                        { label: 'Closable', value: true},
+                        { label: 'Non-closable', value: false }
+                    ]
                 }
             }
         }
