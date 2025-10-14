@@ -510,8 +510,6 @@ HusTheme *HusTheme::instance()
 
 HusTheme *HusTheme::create(QQmlEngine *, QJSEngine *)
 {
-    instance()->reloadTheme();
-
     return instance();
 }
 
@@ -748,6 +746,8 @@ HusTheme::HusTheme(QObject *parent)
             emit isDarkChanged();
         }
     });
+
+    reloadTheme();
 }
 
 HusTheme::~HusTheme()
