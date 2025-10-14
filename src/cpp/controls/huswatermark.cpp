@@ -1,9 +1,12 @@
 #include "huswatermark.h"
 
+#include <QtCore/QLoggingCategory>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtGui/QPainter>
 #include <QtQml/QQmlEngine>
+
+Q_LOGGING_CATEGORY(lcHusWatermark, "huskarui.basic.watermark");
 
 class HusWatermarkPrivate
 {
@@ -48,7 +51,7 @@ void HusWatermarkPrivate::updateImage()
             if (qmlEngine(q)) {
                 m_manager = qmlEngine(q)->networkAccessManager();
             } else {
-                qWarning() << "HusWatermark without QmlEngine, we cannot get QNetworkAccessManager!";
+                qCWarning(lcHusWatermark) << "HusWatermark without QmlEngine, we cannot get QNetworkAccessManager!";
             }
         }
 
@@ -61,7 +64,7 @@ void HusWatermarkPrivate::updateImage()
                     updateMarkSize();
                     q->update();
                 } else {
-                    qWarning() << "Request image error:" << m_imageReply->errorString();
+                    qCWarning(lcHusWatermark) << "Request image error:" << m_imageReply->errorString();
                 }
                 m_imageReply->deleteLater();
                 m_imageReply = nullptr;
