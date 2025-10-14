@@ -664,6 +664,7 @@ void HusTheme::installThemePrimaryAnimationBase(int durationFast, int durationMi
     __style__["durationMid"] = QString::number(durationMid);
     __style__["durationSlow"] = QString::number(durationSlow);
     d->m_indexObject["__style__"] = __style__;
+
     d->reloadIndexTheme();
     d->reloadDefaultComponentTheme();
     d->reloadCustomComponentTheme();
@@ -673,9 +674,14 @@ void HusTheme::installIndexTheme(const QString &themePath)
 {
     Q_D(HusTheme);
 
-    d->m_themeIndexPath = themePath;
+    if (themePath != d->m_themeIndexPath) {
+        if (themePath.isEmpty())
+            d->m_themeIndexPath = ":/HuskarUI/theme/Index.json";
+        else
+            d->m_themeIndexPath = themePath;
 
-    reloadTheme();
+        reloadTheme();
+    }
 }
 
 void HusTheme::installIndexToken(const QString &token, const QString &value)
@@ -687,6 +693,7 @@ void HusTheme::installIndexToken(const QString &token, const QString &value)
     __vars__[token] = value.simplified();
     __init__["__vars__"] = __vars__;
     d->m_indexObject["__init__"] = __init__;
+
     d->reloadIndexTheme();
     d->reloadDefaultComponentTheme();
     d->reloadCustomComponentTheme();

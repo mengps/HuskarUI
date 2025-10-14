@@ -144,7 +144,7 @@ public:
 
     /**
      * @brief 设置Index主题
-     * @param themePath 主题路径
+     * @param themePath 主题路径(为空时重置为默认)
      */
     Q_INVOKABLE void installIndexTheme(const QString &themePath);
     /**
