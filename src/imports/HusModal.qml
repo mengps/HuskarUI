@@ -19,6 +19,7 @@ HusPopup {
 
     property int position: HusModal.Position_Center
     property int positionMargin: 120
+    property bool closable: true
     property bool maskClosable: true
     property var iconSource: 0 || ''
     property int iconSize: 24
@@ -152,6 +153,7 @@ HusPopup {
             anchors.top: parent.top
             anchors.topMargin: 2
             sourceComponent: control.closeButtonDelegate
+            active: control.closable
         }
     }
     property Component bgDelegate: Rectangle {

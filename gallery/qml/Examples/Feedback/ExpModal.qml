@@ -36,6 +36,7 @@ Flickable {
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 position | enum | HusModal.Position_Center | 弹框出现的位置(来自 HusModal)
 positionMargin | int | 120 | 弹框出现位置距离窗口边缘的距离
+closable | bool | true | 是否显示右上角的关闭按钮
 maskClosable | bool | true | 点击蒙层是否允许关闭
 iconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接
 iconSize | int | 24 | 图标大小
@@ -86,6 +87,7 @@ descriptionFont | font | - | 描述文本字体
 通过 \`description\` 属性设置描述文本。\n
 通过 \`confirmText\` 属性设置确认文本\n
 通过 \`cancelText\` 属性设置取消文本。\n
+通过 \`closable\` 属性设置右上角关闭按钮。\n
                        `)
             code: `
                 import QtQuick
@@ -104,6 +106,7 @@ descriptionFont | font | - | 描述文本字体
                             width: 500
                             modal: modalSwitch.checked
                             position: parseInt(positionRadio.currentCheckedValue)
+                            closable: closableRadio.currentCheckedValue
                             title: 'Basic Modal'
                             description: 'Some contents...\\nSome contents...\\nSome contents...'
                             confirmText: 'Yes'
@@ -138,6 +141,15 @@ descriptionFont | font | - | 描述文本字体
                             { label: 'Right', value: HusModal.Position_Right }
                         ]
                     }
+
+                    HusRadioBlock {
+                        id: closableRadio
+                        initCheckedIndex: 0
+                        model: [
+                            { label: 'Closable', value: true},
+                            { label: 'Non-closable', value: false }
+                        ]
+                    }
                 }
             `
             exampleDelegate: Column {
@@ -153,6 +165,7 @@ descriptionFont | font | - | 描述文本字体
                         width: 500
                         modal: modalSwitch.checked
                         position: parseInt(positionRadio.currentCheckedValue)
+                        closable: closableRadio.currentCheckedValue
                         title: 'Basic Modal'
                         description: 'Some contents...\nSome contents...\nSome contents...'
                         confirmText: 'Yes'
@@ -185,6 +198,15 @@ descriptionFont | font | - | 描述文本字体
                         { label: 'Center', value: HusModal.Position_Center },
                         { label: 'Left', value: HusModal.Position_Left },
                         { label: 'Right', value: HusModal.Position_Right }
+                    ]
+                }
+
+                HusRadioBlock {
+                    id: closableRadio
+                    initCheckedIndex: 0
+                    model: [
+                        { label: 'Closable', value: true},
+                        { label: 'Non-closable', value: false }
                     ]
                 }
             }
