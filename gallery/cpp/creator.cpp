@@ -1,8 +1,11 @@
 #include "creator.h"
 #include "creator_p.h"
 
-#include <QDir>
-#include <QDesktopServices>
+#include <QtCore/QDir>
+#include <QtCore/QLoggingCategory>
+#include <QtGui/QDesktopServices>
+
+Q_LOGGING_CATEGORY(lcCreator, "gallery.creator");
 
 static void copyDirectory(const QString &from, const QString &to, bool overwrite = true)
 {
@@ -11,7 +14,8 @@ static void copyDirectory(const QString &from, const QString &to, bool overwrite
         QDir toDir(to);
         if (!toDir.exists())
             toDir.mkpath(toDir.path());
-        for (const auto &item : fromDir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot)) {
+        const auto infoList = fromDir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot);
+        for (const auto &item : infoList) {
             QString srcItemPath = fromDir.path() + "/" + item.fileName();
             QString dstItemPath = toDir.path() + "/" + item.fileName();
             if (item.isDir()) {
@@ -21,12 +25,12 @@ static void copyDirectory(const QString &from, const QString &to, bool overwrite
                 /*! 删除已存在的文件 */
                 if (overwrite && QFile::exists(dstItemPath)) {
                     if (!QFile::remove(dstItemPath)) {
-                        qWarning() << "Failed to remove existing file:" << dstItemPath;
+                        qCWarning(lcCreator) << "Failed to remove existing file:" << dstItemPath;
                     }
                 }
                 /*! 拷贝文件 */
                 if (!QFile::copy(srcItemPath, dstItemPath)) {
-                    qWarning() << "Failed to copy file:" << srcItemPath << "to" << dstItemPath;
+                    qCWarning(lcCreator) << "Failed to copy file:" << srcItemPath << "to" << dstItemPath;
                 }
             }
         }
@@ -44,7 +48,7 @@ static void genFileAndCode(const QString &fileName, const QString &code)
         file.write(code.toUtf8());
         file.close();
     } else {
-        qDebug() << QString("The %1 cannot be created! Error: %2").arg(fileName, file.errorString());
+        qCDebug(lcCreator) << QString("The %1 cannot be created! Error: %2").arg(fileName, file.errorString());
     }
 }
 
@@ -147,6 +151,6 @@ void Creator::createProject(const QVariant &projectParams)
         }
         QDesktopServices::openUrl(QUrl::fromLocalFile(projectDir.path()));
     } else {
-        qDebug() << "The CMakeLists.txt cannot be created! Error: " + projectCmake.errorString();
+        qCDebug(lcCreator) << "The CMakeLists.txt cannot be created! Error: " + projectCmake.errorString();
     }
 }

@@ -3,11 +3,14 @@
 #include <QtCore/QBuffer>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
+#include <QtCore/QLoggingCategory>
 #include <QtCore/QRunnable>
 #include <QtCore/QThreadPool>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtQml/QQmlEngine>
+
+Q_LOGGING_CATEGORY(lcHusAsyncHasher, "huskarui.basic.asynchasher");
 
 class AsyncRunnable : public QObject, public QRunnable
 {
@@ -177,7 +180,7 @@ void HusAsyncHasher::setSource(const QUrl &source)
                     file->deleteLater();
                 }
             } else {
-                qWarning() << "File Error:" << file->errorString();
+                qCWarning(lcHusAsyncHasher) << "File Error:" << file->errorString();
                 file->deleteLater();
             }
         } else {
@@ -188,7 +191,7 @@ void HusAsyncHasher::setSource(const QUrl &source)
                 if (qmlEngine(this)) {
                     d->m_manager = qmlEngine(this)->networkAccessManager();
                 } else {
-                    qWarning() << "HusAsyncHasher without QmlEngine, we cannot get QNetworkAccessManager!";
+                    qCWarning(lcHusAsyncHasher) << "HusAsyncHasher without QmlEngine, we cannot get QNetworkAccessManager!";
                 }
             }
             if (d->m_manager) {
@@ -207,7 +210,7 @@ void HusAsyncHasher::setSource(const QUrl &source)
                             d->m_reply->deleteLater();
                         }
                     } else {
-                        qWarning() << "HTTP Request Error:" << d->m_reply->errorString();
+                        qCWarning(lcHusAsyncHasher) << "HTTP Request Error:" << d->m_reply->errorString();
                         d->m_reply->deleteLater();
                     }
                     d->m_reply = nullptr;
