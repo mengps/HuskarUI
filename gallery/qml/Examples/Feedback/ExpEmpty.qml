@@ -57,7 +57,7 @@ showDescription | bool | true | 是否显示描述文本
             width: parent.width
             descTitle: qsTr('基本')
             desc: qsTr(`
-最简单的用法，支持标题和描述。\n
+最简单的用法，支持图像和描述。\n
 通过 \`imageSource\` 属性设置图片地址。\n
 通过 \`imageType\` 属性设置预设的图片类型。\n
 通过 \`description\` 属性设置描述文本。\n
@@ -71,7 +71,7 @@ showDescription | bool | true | 是否显示描述文本
     
                     HusRadioBlock {
                         id: imageTypeRadio
-                        initCheckedIndex: 3
+                        initCheckedIndex: 2
                         model: [
                             { label: 'None', value: HusEmpty.Image_None },
                             { label: 'Default', value: HusEmpty.Image_Default },
@@ -98,7 +98,7 @@ showDescription | bool | true | 是否显示描述文本
 
                 HusRadioBlock {
                     id: imageTypeRadio
-                    initCheckedIndex: 1
+                    initCheckedIndex: 2
                     model: [
                         { label: 'None', value: HusEmpty.Image_None },
                         { label: 'Default', value: HusEmpty.Image_Default },

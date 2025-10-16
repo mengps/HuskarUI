@@ -14,7 +14,7 @@ Item {
         Image_Simple = 2
     }
 
-    property url imageSource: Qt.resolvedUrl('')
+    property url imageSource: Qt.url('')
     property int imageType: HusEmpty.Image_Simple
     property int imageWidth: -1
     property int imageHeight: -1
@@ -28,7 +28,7 @@ Item {
     property color colorText: HusTheme.HusEmpty.colorTextSecondary
     property Component descriptionDelegate: Component {
         HusText {
-            text: control.description ?? '暂无数据'
+            text: control.description ?? qsTr('暂无数据')
             font: control.descriptionFont
             color: control.colorText
             horizontalAlignment: Text.AlignHCenter
@@ -37,12 +37,8 @@ Item {
 
     objectName: '__HusEmpty__'
 
-    readonly property int _defaultWidth: 200
-    readonly property int _defaultHeight: 200
-    implicitWidth: _defaultWidth
-    implicitHeight: _defaultHeight
-    width: _defaultWidth
-    height: _defaultHeight
+    width: 200
+    height: 200
 
     ColumnLayout {
         id: __columnLayout
@@ -57,7 +53,7 @@ Item {
             sourceComponent: Image {
                 width: calcImageWidth()
                 height: calcImageHeight()
-                source: (!!control.imageSource && control.imageSource !== Qt.resolvedUrl('')) ? control.imageSource : Qt.resolvedUrl('qrc:/HuskarUI/resources/images/empty-' + (control.imageType === HusEmpty.Image_Simple ? 'simple' : 'default') + '.svg')
+                source: (!!control.imageSource && control.imageSource !== Qt.url('')) ? control.imageSource : Qt.url('qrc:/HuskarUI/resources/images/empty-' + (control.imageType === HusEmpty.Image_Simple ? 'simple' : 'default') + '.svg')
             }
         }
 
@@ -101,6 +97,6 @@ Item {
     }
 
     function hasCustomImageSource() {
-        return !!control.imageSource && control.imageSource !== Qt.resolvedUrl('');
+        return !!control.imageSource && control.imageSource !== Qt.url('');
     }
 }

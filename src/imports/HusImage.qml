@@ -8,8 +8,8 @@ Image {
     property bool previewEnabled: true
     readonly property alias hovered: __hoverHandler.hovered
     property int hoverCursorShape: Qt.PointingHandCursor
-    property url fallback: Qt.resolvedUrl('')
-    property url placeholder: Qt.resolvedUrl('')
+    property url fallback: Qt.url('')
+    property url placeholder: Qt.url('')
     property var items: []
 
     objectName: '__HusImage__'
@@ -31,7 +31,7 @@ Image {
 
     Loader {
         anchors.centerIn: parent
-        active: control.status === Image.Error && !!control.fallback && control.fallback !== Qt.resolvedUrl('')
+        active: control.status === Image.Error && !!control.fallback && control.fallback !== Qt.url('')
         sourceComponent: Image {
             source: control.fallback
             Component.onCompleted: {
@@ -42,7 +42,7 @@ Image {
 
     Loader {
         anchors.centerIn: parent
-        active: control.status === Image.Loading && !!control.placeholder && control.placeholder !== Qt.resolvedUrl('')
+        active: control.status === Image.Loading && !!control.placeholder && control.placeholder !== Qt.url('')
         sourceComponent: Image {
             source: control.placeholder
         }
