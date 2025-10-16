@@ -103,6 +103,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusWindow.qml
         imports/HusMenu.qml
         imports/HusDivider.qml
+        imports/HusEmpty.qml
         imports/HusSwitch.qml
         imports/HusScrollBar.qml
         imports/HusResizeMouseArea.qml
@@ -177,6 +178,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         theme/HusCopyableText.json
         theme/HusMenu.json
         theme/HusDivider.json
+        theme/HusEmpty.json
         theme/HusSwitch.json
         theme/HusScrollBar.json
         theme/HusSlider.json
@@ -213,6 +215,8 @@ qt_add_resources(${PROJECT_NAME} "theme"
 qt_add_resources(${PROJECT_NAME} "resources"
     PREFIX "/HuskarUI"
     FILES
+        resources/images/empty-default.svg
+        resources/images/empty-simple.svg
         resources/images/hblinds.png
         resources/images/heart.png
         resources/images/smoke.png

@@ -409,6 +409,13 @@ QtObject {
                     desc: qsTr('新增 drawerSize(抽屉宽度) 属性。')
                 },
                 {
+                    key: 'HusEmpty',
+                    label: qsTr('HusEmpty 空状态'),
+                    source: './Examples/Feedback/ExpEmpty.qml',
+                    addVersion: '0.4.8.2',
+                    desc: qsTr('显示一个表示空状态的图像和描述文本。')
+                },
+                {
                     key: 'HusMessage',
                     label: qsTr('HusMessage 消息提示'),
                     source: './Examples/Feedback/ExpMessage.qml',

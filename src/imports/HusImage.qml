@@ -8,13 +8,13 @@ Image {
     property bool previewEnabled: true
     readonly property alias hovered: __hoverHandler.hovered
     property int hoverCursorShape: Qt.PointingHandCursor
-    property url fallback: ''
-    property url placeholder: ''
+    property url fallback: Qt.resolvedUrl('')
+    property url placeholder: Qt.resolvedUrl('')
     property var items: []
 
     objectName: '__HusImage__'
     onSourceChanged: {
-        if (items.length == 0) {
+        if (items.length === 0) {
             __private.previewItems = [{ url: source }];
         }
     }
@@ -31,7 +31,7 @@ Image {
 
     Loader {
         anchors.centerIn: parent
-        active: control.status == Image.Error && control.fallback != ''
+        active: control.status === Image.Error && !!control.fallback && control.fallback !== Qt.resolvedUrl('')
         sourceComponent: Image {
             source: control.fallback
             Component.onCompleted: {
@@ -42,7 +42,7 @@ Image {
 
     Loader {
         anchors.centerIn: parent
-        active: control.status == Image.Loading && control.placeholder != ''
+        active: control.status === Image.Loading && !!control.placeholder && control.placeholder !== Qt.resolvedUrl('')
         sourceComponent: Image {
             source: control.placeholder
         }
