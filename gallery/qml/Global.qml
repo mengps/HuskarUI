@@ -412,7 +412,7 @@ QtObject {
                     key: 'HusEmpty',
                     label: qsTr('HusEmpty 空状态'),
                     source: './Examples/Feedback/ExpEmpty.qml',
-                    addVersion: '0.4.8.2',
+                    addVersion: '0.4.8.3',
                     desc: qsTr('显示一个表示空状态的图像和描述文本。')
                 },
                 {
