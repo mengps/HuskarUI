@@ -29,17 +29,19 @@ Item {
     property var downIcon: HusIcon.DownOutlined || ''
     property font labelFont: Qt.font({
                                          family: 'HuskarUI-Icons',
-                                         pixelSize: HusTheme.HusInput.fontSize
+                                         pixelSize: themeSource.fontSize
                                      })
     property var beforeLabel: '' || []
     property var afterLabel: '' || []
+    property int initBeforeLabelIndex: 0
+    property int initAfterLabelIndex: 0
     property string currentBeforeLabel: ''
     property string currentAfterLabel: ''
     property var formatter: value => value.toFixed(precision)
     property var parser: text => Number(text)
     property int defaultHandlerWidth: 24
     property alias colorText: __input.colorText
-    property int radiusBg: HusTheme.HusInput.radiusBg
+    property int radiusBg: themeSource.radiusBg
     property var themeSource: HusTheme.HusInput
 
     property alias input: __input
@@ -49,8 +51,8 @@ Item {
         width: Math.max(30, __beforeLoader.implicitWidth + 10)
         topLeftRadius: control.radiusBg
         bottomLeftRadius: control.radiusBg
-        color: enabled ? HusTheme.HusInput.colorLabelBg : HusTheme.HusInput.colorLabelBgDisabled
-        border.color: enabled ? HusTheme.HusInput.colorBorder : HusTheme.HusInput.colorBorderDisabled
+        color: enabled ? control.themeSource.colorLabelBg : control.themeSource.colorLabelBgDisabled
+        border.color: enabled ? control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
 
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
@@ -66,8 +68,8 @@ Item {
         width: Math.max(30, __afterLoader.implicitWidth + 10)
         topRightRadius: control.radiusBg
         bottomRightRadius: control.radiusBg
-        color: enabled ? HusTheme.HusInput.colorLabelBg : HusTheme.HusInput.colorLabelBgDisabled
-        border.color: enabled ? HusTheme.HusInput.colorBorder : HusTheme.HusInput.colorBorderDisabled
+        color: enabled ? control.themeSource.colorLabelBg : control.themeSource.colorLabelBgDisabled
+        border.color: enabled ? control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
 
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
@@ -87,7 +89,7 @@ Item {
         property real halfHeight: height * 0.5
         property real hoverHeight: height * 0.6
         property real noHoverHeight: height * 0.4
-        property color colorBorder: enabled ? HusTheme.HusInput.colorBorder : HusTheme.HusInput.colorBorderDisabled
+        property color colorBorder: enabled ? control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
 
         Behavior on width {
             enabled: control.animationEnabled;
@@ -107,9 +109,9 @@ Item {
             animationEnabled: control.animationEnabled
             autoRepeat: true
             colorIcon: control.enabled ?
-                           hovered ? HusTheme.HusInput.colorBorderHover :
-                                     HusTheme.HusInput.colorBorder : HusTheme.HusInput.colorBorderDisabled
-            iconSize: HusTheme.HusInput.fontSize - 4
+                           hovered ? control.themeSource.colorBorderHover :
+                                     control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
+            iconSize: control.themeSource.fontSize - 4
             iconSource: control.upIcon
             hoverCursorShape: control.value >= control.max ? Qt.ForbiddenCursor : Qt.PointingHandCursor
             background: HusRectangle {
@@ -136,9 +138,9 @@ Item {
             animationEnabled: control.animationEnabled
             autoRepeat: true
             colorIcon: control.enabled ?
-                           hovered ? HusTheme.HusInput.colorBorderHover :
-                                     HusTheme.HusInput.colorBorder : HusTheme.HusInput.colorBorderDisabled
-            iconSize: HusTheme.HusInput.fontSize - 4
+                           hovered ? control.themeSource.colorBorderHover :
+                                     control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
+            iconSize: control.themeSource.fontSize - 4
             iconSource: control.downIcon
             hoverCursorShape: control.value <= control.min ? Qt.ForbiddenCursor : Qt.PointingHandCursor
             background: HusRectangle {
@@ -227,6 +229,7 @@ Item {
             colorBorder: 'transparent'
             clearEnabled: false
             model: isBefore ? control.beforeLabel : control.afterLabel
+            currentIndex: isBefore ? control.initBeforeLabelIndex : control.initAfterLabelIndex
             onActivated:
                 (index) => {
                     if (isBefore) {
