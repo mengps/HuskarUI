@@ -31,7 +31,7 @@ Image {
 
     Loader {
         anchors.centerIn: parent
-        active: control.status === Image.Error && !!control.fallback && control.fallback !== Qt.url('')
+        active: control.status === Image.Error && control.fallback !== Qt.url('')
         sourceComponent: Image {
             source: control.fallback
             Component.onCompleted: {
@@ -42,7 +42,7 @@ Image {
 
     Loader {
         anchors.centerIn: parent
-        active: control.status === Image.Loading && !!control.placeholder && control.placeholder !== Qt.url('')
+        active: control.status === Image.Loading && control.fallback !== Qt.url('')
         sourceComponent: Image {
             source: control.placeholder
         }
