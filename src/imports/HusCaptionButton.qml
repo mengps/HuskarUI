@@ -5,6 +5,7 @@ HusIconButton {
     id: control
 
     property bool isError: false
+    property bool noDisabledState: false
 
     objectName: '__HusCaptionButton__'
     leftPadding: 12
@@ -15,7 +16,7 @@ HusIconButton {
     iconSize: HusTheme.HusCaptionButton.fontSize
     effectEnabled: false
     colorIcon: {
-        if (enabled) {
+        if (enabled || noDisabledState) {
             return checked ? HusTheme.HusCaptionButton.colorIconChecked :
                              HusTheme.HusCaptionButton.colorIcon;
         } else {
@@ -23,7 +24,7 @@ HusIconButton {
         }
     }
     colorBg: {
-        if (enabled) {
+        if (enabled || noDisabledState) {
             if (isError) {
                 return control.down ? HusTheme.HusCaptionButton.colorErrorBgActive:
                                       control.hovered ? HusTheme.HusCaptionButton.colorErrorBgHover :

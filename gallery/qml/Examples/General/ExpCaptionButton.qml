@@ -26,6 +26,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 isError | bool | false | 是否为警示按钮
+noDisabledState | bool | false | 无禁用状态(即被禁用时不会更改颜色)
                        `)
         }
 

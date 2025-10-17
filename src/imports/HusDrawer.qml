@@ -111,7 +111,7 @@ T.Drawer {
     contentItem: ColumnLayout {
         Loader {
             Layout.fillWidth: true
-            sourceComponent: titleDelegate
+            sourceComponent: control.titleDelegate
             onLoaded: {
                 /*! 无边框窗口的标题栏会阻止事件传递, 需要调这个 */
                 if (captionBar)
@@ -121,7 +121,7 @@ T.Drawer {
         Loader {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            sourceComponent: contentDelegate
+            sourceComponent: control.contentDelegate
         }
     }
     onAboutToShow: {

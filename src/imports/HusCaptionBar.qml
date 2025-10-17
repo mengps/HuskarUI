@@ -71,6 +71,7 @@ Rectangle {
             id: __themeButton
             height: parent.height
             visible: control.themeButtonVisible
+            noDisabledState: true
             iconSource: HusTheme.isDark ? HusIcon.MoonOutlined : HusIcon.SunOutlined
             iconSize: 16
             contentDescription: qsTr('明暗主题切换')
@@ -81,6 +82,7 @@ Rectangle {
             id: __topButton
             height: parent.height
             visible: control.topButtonVisible
+            noDisabledState: true
             iconSource: HusIcon.PushpinOutlined
             iconSize: 16
             checkable: true
@@ -104,6 +106,7 @@ Rectangle {
             id: __minimizeButton
             height: parent.height
             visible: control.minimizeButtonVisible
+            noDisabledState: true
             iconSource: HusIcon.LineOutlined
             iconSize: 14
             contentDescription: qsTr('最小化')
@@ -113,9 +116,10 @@ Rectangle {
         HusCaptionButton {
             id: __maximizeButton
             height: parent.height
-            visible: control.maximizeButtonVisible
             topPadding: 8
             bottomPadding: 8
+            visible: control.maximizeButtonVisible
+            noDisabledState: true
             contentItem: HusIconText {
                 iconSource: HusIcon.SwitcherTwotonePath3
                 iconSize: 14
@@ -137,6 +141,7 @@ Rectangle {
             id: __closeButton
             height: parent.height
             visible: control.closeButtonVisible
+            noDisabledState: true
             iconSource: HusIcon.CloseOutlined
             iconSize: 14
             isError: true
@@ -166,6 +171,7 @@ Rectangle {
         HusCaptionButton {
             id: __returnButton
             Layout.alignment: Qt.AlignVCenter
+            noDisabledState: true
             iconSource: HusIcon.ArrowLeftOutlined
             iconSize: HusTheme.HusCaptionButton.fontSize + 2
             visible: control.returnButtonVisible
