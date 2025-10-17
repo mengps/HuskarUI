@@ -41,12 +41,10 @@ Item {
     height: 200
 
     ColumnLayout {
-        id: __columnLayout
         anchors.centerIn: parent
         spacing: control.descriptionPadding
 
         Loader {
-            id: __imageLoader
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
             active: hasCustomImageSource() || control.imageType !== HusEmpty.Image_None
@@ -58,7 +56,6 @@ Item {
         }
 
         Loader {
-            id: __descriptionLoader
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
             active: control.showDescription
@@ -86,7 +83,7 @@ Item {
             return control.imageHeight;
         }
         if (hasCustomImageSource()) {
-            return (control.imageHeight > 0) ? control.imageHeight : control.imageHeight / 3;
+            return (control.imageHeight > 0) ? control.imageHeight : control.height / 3;
         }
         if (control.imageType === HusEmpty.Image_Default) {
             return 76;
