@@ -775,7 +775,7 @@ HusRectangle {
             delegate: Item {
                 id: __rowHeaderItem
                 implicitWidth: __rowHeaderView.width
-                implicitHeight: 40
+                implicitHeight: control.minimumRowHeight
                 clip: true
 
                 required property var model
@@ -843,7 +843,7 @@ HusRectangle {
             delegate: Rectangle {
                 id: __rootItem
                 implicitWidth: control.columns[column].width
-                implicitHeight: control.defaultRowHeaderWidth
+                implicitHeight: control.minimumRowHeight
                 clip: true
                 color: {
                     if (__private.checkedKeysMap.has(key)) {
