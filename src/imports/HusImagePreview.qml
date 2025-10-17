@@ -430,7 +430,7 @@ HusPopup {
                             }
                         }
 
-                    required property url url
+                    required property string url
                     property bool isCurrent: ListView.isCurrentItem
 
                     function imageContains(x, y) {
@@ -440,7 +440,7 @@ HusPopup {
                     Loader {
                         id: __image
 
-                        property url sourceUrl: __rootItem.url
+                        property string sourceUrl: __rootItem.url
                         property size sourceSize: item ? item.sourceSize : Qt.size(0, 0)
 
                         property real minViewHeight: __rootItem.height - 200
