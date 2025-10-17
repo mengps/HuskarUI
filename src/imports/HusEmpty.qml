@@ -13,11 +13,11 @@ Item {
     }
 
     property int imageStyle: HusEmpty.Image_Default
-    property url imageSource: {
+    property string imageSource: {
         switch (imageStyle) {
-        case HusEmpty.Style_None: return Qt.url('');
-        case HusEmpty.Style_Default: return Qt.url('qrc:/HuskarUI/resources/images/empty-default.svg');
-        case HusEmpty.Style_Simple: return Qt.url('qrc:/HuskarUI/resources/images/empty-simple.svg');
+        case HusEmpty.Style_None: return '';
+        case HusEmpty.Style_Default: return 'qrc:/HuskarUI/resources/images/empty-default.svg';
+        case HusEmpty.Style_Simple: return 'qrc:/HuskarUI/resources/images/empty-simple.svg';
         }
     }
     property int imageWidth: {
@@ -68,7 +68,7 @@ Item {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
             visible: active
-            active: control.imageSource !== Qt.url('') || control.imageType !== HusEmpty.Image_None
+            active: control.imageSource !== '' || control.imageType !== HusEmpty.Image_None
             sourceComponent: control.imageDelegate
         }
 

@@ -12,7 +12,7 @@ Rectangle {
                                          pixelSize: HusTheme.HusCard.fontSizeTitle,
                                          weight: Font.DemiBold,
                                      })
-    property url coverSource: ''
+    property string coverSource: ''
     property int coverFillMode: Image.Stretch
 
     property int bodyAvatarSize: 40

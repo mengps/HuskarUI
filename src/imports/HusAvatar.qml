@@ -13,7 +13,7 @@ Item {
     property int size: 30
     property var iconSource: 0 ?? ''
 
-    property url imageSource: ''
+    property string imageSource: ''
     property bool imageMipmap: false
 
     property string textSource: ''

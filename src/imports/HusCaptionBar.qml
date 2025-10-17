@@ -10,7 +10,7 @@ Rectangle {
 
     property alias layoutDirection: __row.layoutDirection
 
-    property url winIcon: ''
+    property string winIcon: ''
     property alias winIconWidth: __winIconLoader.width
     property alias winIconHeight: __winIconLoader.height
     property alias winIconVisible: __winIconLoader.visible
