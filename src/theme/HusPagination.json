@@ -6,7 +6,7 @@
         "colorButtonBg": "@colorBgBase",
         "colorButtonBgHover": "$onBackground(@colorFillSecondary, @colorBgBase)",
         "colorButtonBgActive": "$onBackground(@colorFill, @colorBgBase)",
-        "colorButtonBgDisabled": "@colorPrimaryContainerBgDisabled",
+        "colorButtonBgDisabled": "$onBackground(@colorPrimaryContainerBgDisabled, @colorBgBase)",
         "colorActionBg": "transparent",
         "colorActionBgHover": "@colorFillSecondary",
         "colorActionBgActive": "@colorFill",
