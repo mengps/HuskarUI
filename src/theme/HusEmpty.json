@@ -2,6 +2,6 @@
     "__style__": {
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
-        "colorTextSecondary": "@colorTextSecondary"
+        "colorDescription": "@colorTextSecondary"
     }
 }
