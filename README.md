@@ -93,7 +93,10 @@ or
 cmake -S . -B build -G "MinGW Makefiles"
 ```
 > [!IMPORTANT]
-> By default, `BUILD_HUSKARUI_IN_DEFAULT_LOCATION=ON` , the `plugin` will be built in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
+> By default, `BUILD_HUSKARUI_IN_DEFAULT_LOCATION=ON`:
+> - the `*.dll/*.so` will be built in the `[QtDir]/[QtVersion]/[Kit]/lib` directory.
+> - the `*.lib` will be built in the `[QtDir]/[QtVersion]/[Kit]/lib` directory.
+> - the `qmlplugin` will be built in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
 
 - Install
 ```cmake
