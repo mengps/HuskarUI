@@ -311,6 +311,7 @@ Item {
         HusSelect {
             anchors.verticalCenter: parent.verticalCenter
             animationEnabled: control.animationEnabled
+            clearEnabled: false
             model: control.pageSizeModel
             visible: count > 0
             onActivated:
