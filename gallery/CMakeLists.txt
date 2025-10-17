@@ -78,6 +78,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataDisplay/ExpCarousel.qml
         qml/Examples/DataDisplay/ExpImage.qml
         qml/Examples/DataDisplay/ExpImagePreview.qml
+        qml/Examples/DataDisplay/ExpEmpty.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Navigation/ExpContextMenu.qml
         qml/Examples/Navigation/ExpScrollBar.qml
@@ -89,7 +90,6 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Effect/ExpShadow.qml
         qml/Examples/Feedback/ExpWatermark.qml
         qml/Examples/Feedback/ExpDrawer.qml
-        qml/Examples/Feedback/ExpEmpty.qml
         qml/Examples/Feedback/ExpMessage.qml
         qml/Examples/Feedback/ExpProgress.qml
         qml/Examples/Feedback/ExpNotification.qml

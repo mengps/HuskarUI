@@ -15,7 +15,7 @@
 #endif
 
 #ifdef Q_OS_WIN
-#include <Windows.h>
+# include <Windows.h>
 
 using DwmSetWindowAttributeFunc = HRESULT(WINAPI *)(HWND hwnd, DWORD dwAttribute, LPCVOID pvAttribute, DWORD cbAttribute);
 
