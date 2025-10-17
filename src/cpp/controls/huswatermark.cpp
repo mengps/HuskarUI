@@ -1,4 +1,5 @@
 #include "huswatermark.h"
+#include "hustheme.h"
 
 #include <QtCore/QLoggingCategory>
 #include <QtNetwork/QNetworkReply>
@@ -29,7 +30,7 @@ public:
     QPointF m_gap { 100, 100 };
     QPointF m_offset { 50, 50 };
     qreal m_rotate = -22;
-    QFont m_font { "sans-serif", 16 };
+    QFont m_font;
     QColor m_colorText { 0, 0, 0, 15 };
 };
 
@@ -88,7 +89,10 @@ HusWatermark::HusWatermark(QQuickItem *parent)
     : QQuickPaintedItem(parent)
     , d_ptr(new HusWatermarkPrivate(this))
 {
+    Q_D(HusWatermark);
 
+    d->m_font.setFamily(HusTheme::instance()->Primary()["fontPrimaryFamily"].toString());
+    d->m_font.setPixelSize(HusTheme::instance()->Primary()["fontPrimarySize"].toInt());
 }
 
 HusWatermark::~HusWatermark()
