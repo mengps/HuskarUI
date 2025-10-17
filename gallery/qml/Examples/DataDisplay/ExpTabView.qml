@@ -39,6 +39,7 @@ currentIndex | int | true | 当前标签页索引(更改该值可切换页)
 tabType | enum | HusTabView.Type_Default | 标签类型(来自 HusTabView)
 tabSize | enum | HusTabView.Size_Auto | 标签大小(来自 HusTabView)
 tabPosition | enum | HusTabView.Position_Top | 标签位置(来自 HusTabView)
+tabAddable | bool | false | 标签是否可增加
 tabCentered | bool | false | 标签是否居中
 tabCardMovable | bool | true | 标签卡片是否可移动(tabType == Type_Card*生效)
 defaultTabWidth | int | 80 | 默认标签宽度
@@ -115,6 +116,7 @@ editable | bool | 可选 | 本标签是否可编辑
 通过 \`tabSize\` 属性设置标签大小计算方式，支持的方式：\n
 - 自动计算标签大小(取决于文本大小){ HusTabView.Size_Auto }\n
 - 固定标签大小(取决于 tabWidth 和 defaultTabWidth){ HusTabView.Size_Fixed }\n
+通过 \`tabAddable\` 属性设置标签列表是否可增加\n
 通过 \`tabCentered\` 属性设置标签列表是否居中\n
                        `)
             code: `
@@ -134,6 +136,19 @@ editable | bool | 可选 | 本标签是否可编辑
                             { label: qsTr('左'), value: HusTabView.Position_Left },
                             { label: qsTr('右'), value: HusTabView.Position_Right }
                         ]
+                    }
+
+                    Row {
+                        spacing: 10
+    
+                        HusText { text: qsTr('是否可增加') }
+    
+                        HusSwitch {
+                            id: addableSwitch
+                            checkedText: qsTr('是')
+                            uncheckedText: qsTr('否')
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
                     }
 
                     Row {
@@ -169,6 +184,7 @@ editable | bool | 可选 | 本标签是否可编辑
                         defaultTabWidth: 40
                         tabPosition: positionRadio1.currentCheckedValue
                         tabSize: sizeSwitch.checked ? HusTabView.Size_Fixed : HusTabView.Size_Auto
+                        tabAddable: addableSwitch.checked
                         tabCentered: isCenterSwitch.checked
                         addTabCallback:
                             () => {
@@ -230,6 +246,19 @@ editable | bool | 可选 | 本标签是否可编辑
                 Row {
                     spacing: 10
 
+                    HusText { text: qsTr('是否可增加') }
+
+                    HusSwitch {
+                        id: addableSwitch
+                        checkedText: qsTr('是')
+                        uncheckedText: qsTr('否')
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+
+                Row {
+                    spacing: 10
+
                     HusText { text: qsTr('是否居中')  }
 
                     HusSwitch {
@@ -260,6 +289,7 @@ editable | bool | 可选 | 本标签是否可编辑
                     defaultTabWidth: 40
                     tabPosition: positionRadio1.currentCheckedValue
                     tabSize: sizeSwitch.checked ? HusTabView.Size_Fixed : HusTabView.Size_Auto
+                    tabAddable: addableSwitch.checked
                     tabCentered: isCenterSwitch.checked
                     addTabCallback:
                         () => {

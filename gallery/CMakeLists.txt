@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.8.2)
+set(HUSKARUI_VERSION 0.4.8.3)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -89,6 +89,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Effect/ExpShadow.qml
         qml/Examples/Feedback/ExpWatermark.qml
         qml/Examples/Feedback/ExpDrawer.qml
+        qml/Examples/Feedback/ExpEmpty.qml
         qml/Examples/Feedback/ExpMessage.qml
         qml/Examples/Feedback/ExpProgress.qml
         qml/Examples/Feedback/ExpNotification.qml

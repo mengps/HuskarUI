@@ -42,47 +42,47 @@ Item {
         property real lineY: __titleLoader.y + __titleLoader.implicitHeight * 0.5
 
         ShapePath {
-            strokeStyle: control.style == HusDivider.SolidLine ? ShapePath.SolidLine : ShapePath.DashLine
+            strokeStyle: control.style === HusDivider.SolidLine ? ShapePath.SolidLine : ShapePath.DashLine
             strokeColor: control.colorSplit
             strokeWidth: 1
             fillColor: 'transparent'
-            startX: control.orientation == Qt.Horizontal ? 0 : __shape.lineX
-            startY: control.orientation == Qt.Horizontal ? __shape.lineY : 0
+            startX: control.orientation === Qt.Horizontal ? 0 : __shape.lineX
+            startY: control.orientation === Qt.Horizontal ? __shape.lineY : 0
             PathLine {
                 x: {
-                    if (control.orientation == Qt.Horizontal) {
-                        return control.title == '' ? 0 : __titleLoader.x - 10;
+                    if (control.orientation === Qt.Horizontal) {
+                        return control.title === '' ? 0 : __titleLoader.x - 10;
                     } else {
                         return __shape.lineX;
                     }
                 }
-                y: control.orientation == Qt.Horizontal ? __shape.lineY : __titleLoader.y - 10
+                y: control.orientation === Qt.Horizontal ? __shape.lineY : __titleLoader.y - 10
             }
         }
 
         ShapePath {
-            strokeStyle: control.style == HusDivider.SolidLine ? ShapePath.SolidLine : ShapePath.DashLine
+            strokeStyle: control.style === HusDivider.SolidLine ? ShapePath.SolidLine : ShapePath.DashLine
             strokeColor: control.colorSplit
             strokeWidth: 1
             fillColor: 'transparent'
             startX: {
-                if (control.orientation == Qt.Horizontal) {
-                    return control.title == '' ? 0 : (__titleLoader.x + __titleLoader.implicitWidth + 10);
+                if (control.orientation === Qt.Horizontal) {
+                    return control.title === '' ? 0 : (__titleLoader.x + __titleLoader.implicitWidth + 10);
                 } else {
                     return __shape.lineX;
                 }
             }
             startY: {
-                if (control.orientation == Qt.Horizontal) {
+                if (control.orientation === Qt.Horizontal) {
                     return __shape.lineY;
                 } else {
-                    return control.title == '' ? 0 : (__titleLoader.y + __titleLoader.implicitHeight + 10);
+                    return control.title === '' ? 0 : (__titleLoader.y + __titleLoader.implicitHeight + 10);
                 }
             }
 
             PathLine {
-                x: control.orientation == Qt.Horizontal ?  control.width : __shape.lineX
-                y: control.orientation == Qt.Horizontal ? __shape.lineY : control.height
+                x: control.orientation === Qt.Horizontal ?  control.width : __shape.lineX
+                y: control.orientation === Qt.Horizontal ? __shape.lineY : control.height
             }
         }
     }
@@ -101,16 +101,16 @@ Item {
     Loader {
         id: __titleLoader
         z: 1
-        anchors.top: (control.orientation != Qt.Horizontal && control.titleAlign == HusDivider.Align_Left) ? parent.top : undefined
-        anchors.topMargin: (control.orientation != Qt.Horizontal && control.titleAlign == HusDivider.Align_Left) ? control.titlePadding : 0
-        anchors.bottom: (control.orientation != Qt.Horizontal && control.titleAlign == HusDivider.Align_Right) ? parent.right : undefined
-        anchors.bottomMargin: (control.orientation != Qt.Horizontal && control.titleAlign == HusDivider.Align_Right) ? control.titlePadding : 0
-        anchors.left: (control.orientation == Qt.Horizontal && control.titleAlign == HusDivider.Align_Left) ? parent.left : undefined
-        anchors.leftMargin: (control.orientation == Qt.Horizontal && control.titleAlign == HusDivider.Align_Left) ? control.titlePadding : 0
-        anchors.right: (control.orientation == Qt.Horizontal && control.titleAlign == HusDivider.Align_Right) ? parent.right : undefined
-        anchors.rightMargin: (control.orientation == Qt.Horizontal && control.titleAlign == HusDivider.Align_Right) ? control.titlePadding : 0
-        anchors.horizontalCenter: (control.orientation != Qt.Horizontal || control.titleAlign == HusDivider.Align_Center) ? parent.horizontalCenter : undefined
-        anchors.verticalCenter: (control.orientation == Qt.Horizontal || control.titleAlign == HusDivider.Align_Center) ? parent.verticalCenter : undefined
+        anchors.top: (control.orientation !== Qt.Horizontal && control.titleAlign === HusDivider.Align_Left) ? parent.top : undefined
+        anchors.topMargin: (control.orientation !== Qt.Horizontal && control.titleAlign === HusDivider.Align_Left) ? control.titlePadding : 0
+        anchors.bottom: (control.orientation !== Qt.Horizontal && control.titleAlign === HusDivider.Align_Right) ? parent.right : undefined
+        anchors.bottomMargin: (control.orientation !== Qt.Horizontal && control.titleAlign === HusDivider.Align_Right) ? control.titlePadding : 0
+        anchors.left: (control.orientation === Qt.Horizontal && control.titleAlign === HusDivider.Align_Left) ? parent.left : undefined
+        anchors.leftMargin: (control.orientation === Qt.Horizontal && control.titleAlign === HusDivider.Align_Left) ? control.titlePadding : 0
+        anchors.right: (control.orientation === Qt.Horizontal && control.titleAlign === HusDivider.Align_Right) ? parent.right : undefined
+        anchors.rightMargin: (control.orientation === Qt.Horizontal && control.titleAlign === HusDivider.Align_Right) ? control.titlePadding : 0
+        anchors.horizontalCenter: (control.orientation !== Qt.Horizontal || control.titleAlign === HusDivider.Align_Center) ? parent.horizontalCenter : undefined
+        anchors.verticalCenter: (control.orientation === Qt.Horizontal || control.titleAlign === HusDivider.Align_Center) ? parent.verticalCenter : undefined
         sourceComponent: titleDelegate
     }
 

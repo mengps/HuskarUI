@@ -35,6 +35,7 @@ Item {
     property int tabType: HusTabView.Type_Default
     property int tabSize: HusTabView.Size_Auto
     property int tabPosition: HusTabView.Position_Top
+    property bool tabAddable: false
     property bool tabCentered: false
     property bool tabCardMovable: true
     property int defaultTabWidth: 80
@@ -621,6 +622,7 @@ Item {
 
     Loader {
         id: __addButtonLoader
+        active: control.tabAddable
         x: {
             switch (tabPosition) {
             case HusTabView.Position_Top:

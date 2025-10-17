@@ -1,0 +1,7 @@
+{
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorDescription": "@colorTextSecondary"
+    }
+}
