@@ -1,99 +1,83 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Shapes
 import HuskarUI.Basic
-
 
 Item {
     id: control
 
-    enum Presented_Image
+    enum ImageStyle
     {
-        Image_None = 0,
-        Image_Default = 1,
-        Image_Simple = 2
+        Style_None = 0,
+        Style_Default = 1,
+        Style_Simple = 2
     }
 
-    property url imageSource: Qt.url('')
-    property int imageType: HusEmpty.Image_Simple
-    property int imageWidth: -1
-    property int imageHeight: -1
-    property string description: ''
-    property font descriptionFont: Qt.font({
-                                         family: HusTheme.HusEmpty.fontFamily,
-                                         pixelSize: HusTheme.HusEmpty.fontSize - 1
-                                     })
-    property int descriptionPadding: 12
-    property bool showDescription: true
-    property color colorText: HusTheme.HusEmpty.colorTextSecondary
-    property Component descriptionDelegate: Component {
-        HusText {
-            text: control.description ?? qsTr('暂无数据')
-            font: control.descriptionFont
-            color: control.colorText
-            horizontalAlignment: Text.AlignHCenter
+    property int imageStyle: HusEmpty.Image_Default
+    property url imageSource: {
+        switch (imageStyle) {
+        case HusEmpty.Style_None: return Qt.url('');
+        case HusEmpty.Style_Default: return Qt.url('qrc:/HuskarUI/resources/images/empty-default.svg');
+        case HusEmpty.Style_Simple: return Qt.url('qrc:/HuskarUI/resources/images/empty-simple.svg');
         }
+    }
+    property int imageWidth: {
+        switch (imageStyle) {
+        case HusEmpty.Style_None: return width / 3;
+        case HusEmpty.Style_Default: return 92;
+        case HusEmpty.Style_Simple: return 64;
+        }
+    }
+    property int imageHeight: {
+        switch (imageStyle) {
+        case HusEmpty.Style_None: return height / 3;
+        case HusEmpty.Style_Default: return 76;
+        case HusEmpty.Style_Simple: return 41;
+        }
+    }
+    property bool showDescription: true
+    property string description: ''
+    property int descriptionSpacing: 12
+    property font descriptionFont: Qt.font({
+                                               family: HusTheme.HusEmpty.fontFamily,
+                                               pixelSize: HusTheme.HusEmpty.fontSize - 1
+                                           })
+    property color colorDescription: HusTheme.HusEmpty.colorDescription
+
+    property Component imageDelegate: Image {
+        width: control.imageWidth
+        height: control.imageHeight
+        source: control.imageSource
+        sourceSize: Qt.size(width, height)
+    }
+    property Component descriptionDelegate: HusText {
+        text: control.description
+        font: control.descriptionFont
+        color: control.colorDescription
+        horizontalAlignment: Text.AlignHCenter
     }
 
     objectName: '__HusEmpty__'
-
     width: 200
     height: 200
 
     ColumnLayout {
         anchors.centerIn: parent
-        spacing: control.descriptionPadding
+        spacing: control.descriptionSpacing
 
         Loader {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
-            active: hasCustomImageSource() || control.imageType !== HusEmpty.Image_None
-            sourceComponent: Image {
-                width: calcImageWidth()
-                height: calcImageHeight()
-                source: (!!control.imageSource && control.imageSource !== Qt.url('')) ? control.imageSource : Qt.url('qrc:/HuskarUI/resources/images/empty-' + (control.imageType === HusEmpty.Image_Simple ? 'simple' : 'default') + '.svg')
-            }
+            visible: active
+            active: control.imageSource !== Qt.url('') || control.imageType !== HusEmpty.Image_None
+            sourceComponent: control.imageDelegate
         }
 
         Loader {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
+            visible: active
             active: control.showDescription
-            sourceComponent: descriptionDelegate
+            sourceComponent: control.descriptionDelegate
         }
-    }
-
-    function calcImageWidth() {
-        if (control.imageWidth > 0) {
-            return control.imageWidth;
-        }
-        if (hasCustomImageSource()) {
-            return (control.imageWidth > 0) ? control.imageWidth : control.width / 3;
-        }
-        if (control.imageType === HusEmpty.Image_Default) {
-            return 92;
-        } else if (control.imageType === HusEmpty.Image_Simple) {
-            return 64;
-        }
-        return 0;
-    }
-
-    function calcImageHeight() {
-        if (control.imageHeight > 0) {
-            return control.imageHeight;
-        }
-        if (hasCustomImageSource()) {
-            return (control.imageHeight > 0) ? control.imageHeight : control.height / 3;
-        }
-        if (control.imageType === HusEmpty.Image_Default) {
-            return 76;
-        } else if (control.imageType === HusEmpty.Image_Simple) {
-            return 41;
-        }
-        return 0;
-    }
-
-    function hasCustomImageSource() {
-        return !!control.imageSource && control.imageSource !== Qt.url('');
     }
 }
