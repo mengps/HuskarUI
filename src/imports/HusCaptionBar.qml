@@ -58,7 +58,7 @@ Rectangle {
         color: winTitleColor
         font: winTitleFont
     }
-    property Component winExtraButtonsDelegate: Row {
+    property Component winPresetButtonsDelegate: Row {
         Connections {
             target: control
             function onWindowAgentChanged() {
@@ -73,7 +73,7 @@ Rectangle {
             visible: control.themeButtonVisible
             noDisabledState: true
             iconSource: HusTheme.isDark ? HusIcon.MoonOutlined : HusIcon.SunOutlined
-            iconSize: 16
+            iconSize: 14
             contentDescription: qsTr('明暗主题切换')
             onClicked: control.themeCallback();
         }
@@ -84,11 +84,13 @@ Rectangle {
             visible: control.topButtonVisible
             noDisabledState: true
             iconSource: HusIcon.PushpinOutlined
-            iconSize: 16
+            iconSize: 14
             checkable: true
             contentDescription: qsTr('置顶')
             onClicked: control.topCallback(checked);
         }
+    }
+    property Component winExtraButtonsDelegate: Item {
     }
     property Component winButtonsDelegate: Row {
         Connections {
@@ -210,6 +212,12 @@ Rectangle {
                     sourceComponent: winTitleDelegate
                 }
             }
+        }
+
+        Loader {
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignVCenter
+            sourceComponent: winPresetButtonsDelegate
         }
 
         Loader {
