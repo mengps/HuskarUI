@@ -8,11 +8,11 @@ T.CheckBox {
     property bool animationEnabled: HusTheme.animationEnabled
     property bool effectEnabled: true
     property int hoverCursorShape: Qt.PointingHandCursor
-    property int indicatorSize: 20
+    property int indicatorSize: 18
     property color colorText: enabled ? HusTheme.HusCheckBox.colorText : HusTheme.HusCheckBox.colorTextDisabled
     property color colorIndicator: {
         if (enabled) {
-            return (checkState != Qt.Unchecked) ? hovered ? HusTheme.HusCheckBox.colorIndicatorCheckedHover :
+            return (checkState !== Qt.Unchecked) ? hovered ? HusTheme.HusCheckBox.colorIndicatorCheckedHover :
                                                             HusTheme.HusCheckBox.colorIndicatorChecked : HusTheme.HusCheckBox.colorIndicator
         } else {
             return HusTheme.HusCheckBox.colorIndicatorDisabled;
@@ -35,14 +35,14 @@ T.CheckBox {
     spacing: 6
     indicator: Item {
         x: control.leftPadding
-        implicitWidth: __bg.implicitWidth
-        implicitHeight: __bg.implicitHeight
+        implicitWidth: __bg.width
+        implicitHeight: __bg.height
         anchors.verticalCenter: parent.verticalCenter
 
         Rectangle {
             id: __effect
-            width: __bg.implicitWidth
-            height: __bg.implicitHeight
+            width: __bg.width
+            height: __bg.height
             radius: HusTheme.Primary.radiusPrimaryXS
             anchors.centerIn: parent
             visible: control.effectEnabled
@@ -55,12 +55,12 @@ T.CheckBox {
                 id: __animation
                 onFinished: __effect.border.width = 0;
                 NumberAnimation {
-                    target: __effect; property: 'width'; from: __bg.implicitWidth + 2; to: __bg.implicitWidth + 6;
+                    target: __effect; property: 'width'; from: __bg.width + 2; to: __bg.width + 6;
                     duration: HusTheme.Primary.durationFast
                     easing.type: Easing.OutQuart
                 }
                 NumberAnimation {
-                    target: __effect; property: 'height'; from: __bg.implicitHeight + 2; to: __bg.implicitHeight + 6;
+                    target: __effect; property: 'height'; from: __bg.height + 2; to: __bg.height + 6;
                     duration: HusTheme.Primary.durationFast
                     easing.type: Easing.OutQuart
                 }
@@ -81,21 +81,24 @@ T.CheckBox {
             }
         }
 
-        HusIconText {
+        Rectangle {
             id: __bg
-            iconSize: control.indicatorSize
-            iconSource: HusIcon.BorderOutlined
+            width: control.indicatorSize
+            height: control.indicatorSize
+            radius: HusTheme.Primary.radiusPrimarySM
+            color: 'transparent'
+            border.color: control.colorIndicatorBorder
+            border.width: 1
             anchors.centerIn: parent
-            colorIcon: control.colorIndicatorBorder
 
             /*! 勾选背景 */
             Rectangle {
                 id: __checkedBg
                 anchors.fill: parent
-                anchors.margins: 2
                 color: control.colorIndicator
                 visible: opacity !== 0
-                opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
+                opacity: control.checkState === Qt.Checked ? 1.0 : 0.0
+                radius: parent.radius - 1
 
                 Behavior on opacity {
                     enabled: control.animationEnabled
@@ -107,11 +110,11 @@ T.CheckBox {
             Item {
                 id: __checkMarkContainer
                 anchors.centerIn: parent
-                width: parent.iconSize * 0.6
-                height: parent.iconSize * 0.6
+                width: parent.width * 0.6
+                height: parent.height * 0.6
                 visible: opacity !== 0
-                scale: control.checkState == Qt.Checked ? 1.1 : 0.2
-                opacity: control.checkState == Qt.Checked ? 1.0 : 0.0
+                scale: control.checkState === Qt.Checked ? 1.1 : 0.2
+                opacity: control.checkState === Qt.Checked ? 1.0 : 0.0
 
                 Behavior on scale {
                     enabled: control.animationEnabled
@@ -126,7 +129,7 @@ T.CheckBox {
                 Canvas {
                     id: __checkMark
                     anchors.fill: parent
-                    visible: control.checkState == Qt.Checked
+                    visible: control.checkState === Qt.Checked
 
                     property real animationProgress: control.animationEnabled ? 0 : 1
                     property real lineWidth: 2
@@ -173,7 +176,7 @@ T.CheckBox {
 
                     SequentialAnimation {
                         id: __checkMarkAnimation
-                        running: control.checkState == Qt.Checked && control.animationEnabled
+                        running: control.checkState === Qt.Checked && control.animationEnabled
 
                         NumberAnimation {
                             target: __checkMark
@@ -190,7 +193,7 @@ T.CheckBox {
                         }
 
                         onRunningChanged: {
-                            if (!running && control.checkState != Qt.Checked) {
+                            if (!running && control.checkState !== Qt.Checked) {
                                 __checkMark.animationProgress = 0;
                                 __checkMark.visible = false;
                             }
@@ -201,14 +204,15 @@ T.CheckBox {
             }
 
             /*! 部分选择状态 */
-            HusIconText {
+            Rectangle {
                 id: __partialCheckMark
-                anchors.centerIn: parent
-                iconSource: HusIcon.XFilledPath1
-                iconSize: parent.iconSize * 0.5
-                colorIcon: control.colorIndicator
-                visible: opacity !== 0
-                opacity: control.checkState == Qt.PartiallyChecked ? 1.0 : 0.0
+                x: (parent.width - width) / 2
+                y: (parent.height - height) / 2
+                width: parent.width * 0.5
+                height: parent.height * 0.5
+                color: control.colorIndicator
+                visible: control.checkState === Qt.PartiallyChecked
+                radius: parent.radius * 0.5
 
                 Behavior on opacity {
                     enabled: control.animationEnabled
@@ -233,11 +237,11 @@ T.CheckBox {
     background: Item { }
 
     onCheckStateChanged: {
-        if (control.checkState == Qt.Unchecked) {
+        if (control.checkState === Qt.Unchecked) {
             __checkMark.animationProgress = 0;
             __checkMark.visible = false;
             __checkMark.requestPaint();
-        } else if (control.checkState == Qt.Checked && !control.animationEnabled) {
+        } else if (control.checkState === Qt.Checked && !control.animationEnabled) {
             /*! 不开启动画时立即显示完整勾选标记 */
             __checkMark.animationProgress = 1;
             __checkMark.visible = true;
