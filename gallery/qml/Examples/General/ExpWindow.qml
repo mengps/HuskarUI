@@ -34,7 +34,7 @@ initialized | bool | false | 指示窗口是否已经初始化完毕
 specialEffect | enum | HusWindow.None | 特殊效果(来自 HusWindow)
 \n<br/>
 \n### 支持的函数：\n
-- \`setMacSystemButtonsVisble(visible: bool): bool\` 设置是否显示系统按钮(MacOSX有效) \n
+- \`setMacSystemButtonsVisible(visible: bool): bool\` 设置是否显示系统按钮(MacOSX有效) \n
 - \`setWindowMode(isDark: bool): bool\` 设置窗口明/暗模式 \n
 - \`setSpecialEffect(specialEffect: int): bool\` 设置窗口的特殊效果 \n
                        `)
