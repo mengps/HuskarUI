@@ -42,6 +42,7 @@ winTitleColor | color | - | 窗口标题颜色
 winTitleVisible | bool | true | 窗口标题是否可见
 returnButtonVisible | bool | false | 返回按钮是否可见
 themeButtonVisible | bool | false | 主题按钮是否可见
+topButtonChecked | bool | false | 置顶按钮是否默认选中
 topButtonVisible | bool | false | 置顶按钮是否可见
 minimizeButtonVisible | bool | true | 最小化按钮是否可见
 maximizeButtonVisible | bool | true | 最大化按钮是否可见
