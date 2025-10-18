@@ -31,7 +31,7 @@ QtObject {
                     key: 'HusWindow',
                     label: qsTr('HusWindow 无边框窗口'),
                     source: './Examples/General/ExpWindow.qml',
-                    desc: qsTr('添加 setMacSystemButtonsVisble() 函数。\n更新 [SpecialEffect] 枚举值。')
+                    desc: qsTr('添加 setMacSystemButtonsVisible() 函数。\n更新 [SpecialEffect] 枚举值。')
                 },
                 {
                     key: 'HusButton',

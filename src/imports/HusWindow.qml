@@ -36,7 +36,7 @@ Window {
             __connections.onIsDarkChanged();
     }
 
-    function setMacSystemButtonsVisble(visible) {
+    function setMacSystemButtonsVisible(visible) {
         if (Qt.platform.os === 'osx') {
             windowAgent.setWindowAttribute('no-system-buttons', !visible);
         }
