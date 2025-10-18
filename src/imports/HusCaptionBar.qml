@@ -25,6 +25,7 @@ Rectangle {
 
     property bool returnButtonVisible: false
     property bool themeButtonVisible: false
+    property bool topButtonChecked: false
     property bool topButtonVisible: false
     property bool minimizeButtonVisible: Qt.platform.os !== 'osx'
     property bool maximizeButtonVisible: Qt.platform.os !== 'osx'
@@ -86,6 +87,7 @@ Rectangle {
             iconSource: HusIcon.PushpinOutlined
             iconSize: 14
             checkable: true
+            checked: control.topButtonChecked
             contentDescription: qsTr('置顶')
             onClicked: control.topCallback(checked);
         }
