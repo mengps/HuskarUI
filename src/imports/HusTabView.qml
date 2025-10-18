@@ -55,10 +55,7 @@ Item {
         iconSource: HusIcon.PlusOutlined
         colorIcon: HusTheme.HusTabView.colorTabCloseHover
         hoverCursorShape: Qt.PointingHandCursor
-        background: Rectangle {
-            radius: HusTheme.HusTabView.radiusButton
-            color: __addButton.colorBg
-        }
+        radiusBg: HusTheme.HusTabView.radiusButton
         onClicked: addTabCallback();
     }
     property Component tabDelegate: tabType == HusTabView.Type_Default ? __defaultTabDelegate : __cardTabDelegate
