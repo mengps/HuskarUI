@@ -10,6 +10,7 @@
         "colorIndicatorDisabled": "$alpha(@colorTextBase, 0.1)",
         "colorIndicatorBorder": "$onBackground(@colorTextQuaternary, @colorBgBase)",
         "colorIndicatorBorderChecked": "@colorPrimaryBorderActive",
-        "colorEffectBg": "@colorTextTertiary"
+        "colorEffectBg": "@colorTextTertiary",
+        "radiusIndicator": "@radiusPrimarySM"
     }
 }
