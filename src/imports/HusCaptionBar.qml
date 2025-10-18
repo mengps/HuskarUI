@@ -90,8 +90,7 @@ Rectangle {
             onClicked: control.topCallback(checked);
         }
     }
-    property Component winExtraButtonsDelegate: Item {
-    }
+    property Component winExtraButtonsDelegate: Item { }
     property Component winButtonsDelegate: Row {
         Connections {
             target: control
