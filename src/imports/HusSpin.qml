@@ -87,6 +87,10 @@ Item {
                 visible: control.iconSource === 0
                 antialiasing: true
 
+                property real opacityOffset: 0    // 透明度偏移量
+
+                onOpacityOffsetChanged: requestPaint()
+
                 onPaint: {
                     const ctx = getContext('2d');
                     ctx.clearRect(0, 0, width, height);
@@ -104,19 +108,30 @@ Item {
                         { x: centerX - leafDistance, y: centerY }            // 左
                     ];
 
-                    // 透明度数组：从 0.3 到 1.0 递增
+                    // 透明度数组
                     const opacities = [0.3, 0.5, 0.7, 1.0];
 
-                    // 绘制四个叶片，每个叶片使用不同的透明度
+                    // 绘制四个叶片，每个叶片使用循环偏移后的透明度
                     for (let i = 0; i < positions.length; i++) {
                         ctx.save();
-                        ctx.globalAlpha = opacities[i];
+                        // 使用偏移量循环选择透明度
+                        const opacityIndex = (i + Math.floor(opacityOffset)) % opacities.length;
+                        ctx.globalAlpha = opacities[opacityIndex];
                         ctx.fillStyle = control.colorIcon;
                         ctx.beginPath();
                         ctx.arc(positions[i].x, positions[i].y, radius, 0, Math.PI * 2);
                         ctx.fill();
                         ctx.restore();
                     }
+                }
+
+                // 透明度循环动画
+                NumberAnimation on opacityOffset {
+                    running: control.spinning && control.animationEnabled && __private.spinVisible
+                    from: 0
+                    to: 4    // 循环 4 次(对应 4 个透明度值)
+                    loops: Animation.Infinite
+                    duration: 1000    // 与旋转动画同步
                 }
 
                 Connections {
