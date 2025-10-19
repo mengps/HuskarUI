@@ -357,6 +357,13 @@ QtObject {
                     addVersion: '0.4.8.3',
                     desc: qsTr('显示一个表示空状态的图像和描述文本。')
                 },
+                {
+                    key: 'HusSpin',
+                    label: qsTr('HusSpin 加载中'),
+                    source: './Examples/DataDisplay/ExpSpin.qml',
+                    addVersion: '0.4.8.3',
+                    desc: qsTr('显示一个正在加载的状态的图像和提示文本。')
+                }
             ]
         },
         {

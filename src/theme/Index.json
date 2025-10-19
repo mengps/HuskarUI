@@ -189,6 +189,7 @@
         "HusPopconfirm": ":/HuskarUI/theme/HusPopconfirm.json",
         "HusPopover": ":/HuskarUI/theme/HusPopover.json",
         "HusModal": ":/HuskarUI/theme/HusModal.json",
+        "HusSpin": ":/HuskarUI/theme/HusSpin.json",
         "HusTextArea": ":/HuskarUI/theme/HusTextArea.json"
     }
 }

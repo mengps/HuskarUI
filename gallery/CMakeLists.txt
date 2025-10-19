@@ -79,6 +79,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataDisplay/ExpImage.qml
         qml/Examples/DataDisplay/ExpImagePreview.qml
         qml/Examples/DataDisplay/ExpEmpty.qml
+        qml/Examples/DataDisplay/ExpSpin.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Navigation/ExpContextMenu.qml
         qml/Examples/Navigation/ExpScrollBar.qml
