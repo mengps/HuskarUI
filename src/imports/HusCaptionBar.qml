@@ -15,7 +15,7 @@ Rectangle {
     property alias winIconHeight: __winIconLoader.height
     property alias winIconVisible: __winIconLoader.visible
 
-    property string winTitle: targetWindow ? targetWindow.title : ''
+    property string winTitle: targetWindow?.title ?? ''
     property font winTitleFont: Qt.font({
                                             family: HusTheme.Primary.fontPrimaryFamily,
                                             pixelSize: 14
@@ -36,17 +36,26 @@ Rectangle {
     property var topCallback: checked => { }
     property var minimizeCallback:
         () => {
-            if (targetWindow) HusApi.setWindowState(targetWindow, Qt.WindowMinimized);
+            if (targetWindow) {
+                HusApi.setWindowState(targetWindow, Qt.WindowMinimized);
+            }
         }
     property var maximizeCallback:
         () => {
             if (!targetWindow) return;
 
-            if (targetWindow.visibility === Window.Maximized) targetWindow.showNormal();
-            else targetWindow.showMaximized();
+            if (targetWindow.visibility === Window.Maximized ||
+                targetWindow.visibility === Window.FullScreen) {
+                targetWindow.showNormal();
+            } else {
+                targetWindow.showMaximized();
+            }
         }
-    property var closeCallback: () => { if (targetWindow) targetWindow.close(); }
-    property string contentDescription: targetWindow ? targetWindow.title : ''
+    property var closeCallback:
+        () => {
+            if (targetWindow) targetWindow.close();
+        }
+    property string contentDescription: winTitle
 
     property Component winIconDelegate: Image {
         source: control.winIcon
@@ -178,7 +187,7 @@ Rectangle {
             iconSource: HusIcon.ArrowLeftOutlined
             iconSize: HusTheme.HusCaptionButton.fontSize + 2
             visible: control.returnButtonVisible
-            onClicked: returnCallback();
+            onClicked: control.returnCallback();
             contentDescription: qsTr('返回')
         }
 
