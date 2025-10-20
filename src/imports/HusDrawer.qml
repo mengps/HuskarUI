@@ -109,6 +109,7 @@ T.Drawer {
         }
     }
     contentItem: ColumnLayout {
+        spacing: 0
         Loader {
             Layout.fillWidth: true
             sourceComponent: control.titleDelegate
