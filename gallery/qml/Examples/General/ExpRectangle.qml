@@ -32,6 +32,7 @@ topRightRadius | real | 0 | 右上圆角半径
 bottomLeftRadius | real | 0 | 左下圆角半径
 bottomRightRadius | real | 0 | 右下圆角半径
 color | color | '#fff' | 填充颜色
+gradient | Gradient | - | 填充渐变
 border.color | color | 'transparent' | 边框线颜色
 border.width | int | 1 | 边框线宽度
 border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
@@ -158,7 +159,6 @@ border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
                     HusRectangle {
                         width: 200
                         height: 200
-                        color: '#60ff0000'
                         border.width: bordrWidthSlider.currentValue
                         border.color: HusTheme.Primary.colorTextBase
                         border.style: styleRadio.currentCheckedValue
@@ -166,6 +166,11 @@ border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
                         topRightRadius: topRightSlider.currentValue
                         bottomLeftRadius: bottomLeftSlider.currentValue
                         bottomRightRadius: bottomRightSlider.currentValue
+                        gradient: Gradient {
+                            GradientStop { position: 0.0; color: 'red' }
+                            GradientStop { position: 0.33; color: 'yellow' }
+                            GradientStop { position: 1.0; color: 'green' }
+                        }
                     }
                 }
             `
@@ -267,7 +272,6 @@ border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
                 HusRectangle {
                     width: 200
                     height: 200
-                    color: '#60ff0000'
                     border.width: bordrWidthSlider.currentValue
                     border.color: HusTheme.Primary.colorTextBase
                     border.style: styleRadio.currentCheckedValue
@@ -275,6 +279,11 @@ border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
                     topRightRadius: topRightSlider.currentValue
                     bottomLeftRadius: bottomLeftSlider.currentValue
                     bottomRightRadius: bottomRightSlider.currentValue
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: 'red' }
+                        GradientStop { position: 0.33; color: 'yellow' }
+                        GradientStop { position: 1.0; color: 'green' }
+                    }
                 }
             }
         }
