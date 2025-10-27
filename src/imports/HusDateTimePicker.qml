@@ -45,19 +45,20 @@ HusInput {
 
     property string format: 'yyyy-MM-dd hh:mm:ss'
 
-    property int radiusItemBg: control.themeSource.radiusItemBg
-    property int radiusPopupBg: control.themeSource.radiusPopupBg
+    property HusRadius radiusItemBg: HusRadius { all: themeSource.radiusItemBg }
+    property HusRadius radiusPopupBg: HusRadius { all: themeSource.radiusPopupBg }
 
     property Component dayDelegate: HusButton {
         padding: 0
-        implicitWidth: 28
-        implicitHeight: 28
+        implicitWidth: 28 * control.sizeRatio
+        implicitHeight: 28 * control.sizeRatio
         animationEnabled: control.animationEnabled
+        sizeRatio: control.sizeRatio
         type: HusButton.Type_Primary
         text: model.day
         font {
             family: control.themeSource.fontFamily
-            pixelSize: control.themeSource.fontSize
+            pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
         }
         radiusBg: control.radiusItemBg
         effectEnabled: false
@@ -109,17 +110,15 @@ HusInput {
     }
 
     objectName: '__HusDateTimePicker__'
-    width: showDate && showTime ? 210 : 160
+    width: (showDate && showTime ? 210 : 160) * control.sizeRatio
     themeSource: HusTheme.HusDateTimePicker
     iconSource: (__private.interactive && control.hovered && control.length !== 0) ?
                     HusIcon.CloseCircleFilled : control.showDate ? HusIcon.CalendarOutlined :
                                                                    HusIcon.ClockCircleOutlined
     iconPosition: HusInput.Position_Right
     iconDelegate: HusIconText {
-        anchors.left: control.iconPosition === HusDateTimePicker.Position_Left ? parent.left : undefined
-        anchors.right: control.iconPosition === HusDateTimePicker.Position_Right ? parent.right : undefined
-        anchors.margins: 5
-        anchors.verticalCenter: parent.verticalCenter
+        leftPadding: control.iconPosition === HusInput.Position_Left ? 10 * sizeRatio: 0
+        rightPadding: control.iconPosition === HusInput.Position_Right ? 10 * sizeRatio: 0
         iconSource: control.iconSource
         iconSize: control.iconSize
         colorIcon: control.enabled ?
@@ -209,8 +208,8 @@ HusInput {
             __listView.positionViewAtIndex(index, mode);
         }
 
-        width: 52
-        height: parent.height
+        Layout.preferredWidth: 52 * control.sizeRatio
+        Layout.fillHeight: true
         hoverEnabled: true
         onExited: {
             tempValue = checkValue;
@@ -222,18 +221,18 @@ HusInput {
             height: parent.height
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.margins: 2
+            anchors.margins: 2 * control.sizeRatio
             clip: true
             boundsBehavior: Flickable.StopAtBounds
             delegate: T.AbstractButton {
                 width: __listView.width
-                height: 28
+                height: 28 * control.sizeRatio
                 checkable: true
                 contentItem: HusText {
                     id: __viewText
                     font {
                         family: control.themeSource.fontFamily
-                        pixelSize: control.themeSource.fontSize
+                        pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
                     }
                     text: String(index).padStart(2, '0')
                     color: control.themeSource.colorTimeText
@@ -241,10 +240,14 @@ HusInput {
                     verticalAlignment: Text.AlignVCenter
                 }
                 background: Item {
-                    Rectangle {
+                    HusRectangleInternal {
                         id: selectionRect
                         anchors.fill: parent
-                        radius: control.radiusItemBg
+                        radius: control.radiusItemBg.all
+                        topLeftRadius: control.radiusItemBg.topLeft
+                        topRightRadius: control.radiusItemBg.topRight
+                        bottomLeftRadius: control.radiusItemBg.bottomLeft
+                        bottomRightRadius: control.radiusItemBg.bottomRight
                         color: control.themeSource.colorButtonBgActive
                         opacity: checked ? 1.0 : 0.0
 
@@ -254,9 +257,13 @@ HusInput {
                         }
                     }
 
-                    Rectangle {
+                    HusRectangleInternal {
                         anchors.fill: parent
-                        radius: control.radiusItemBg
+                        radius: control.radiusItemBg.all
+                        topLeftRadius: control.radiusItemBg.topLeft
+                        topRightRadius: control.radiusItemBg.topRight
+                        bottomLeftRadius: control.radiusItemBg.bottomLeft
+                        bottomRightRadius: control.radiusItemBg.bottomRight
                         color: hovered && !checked ? control.themeSource.colorButtonBgHover : 'transparent'
                         z: -1
 
@@ -294,15 +301,16 @@ HusInput {
     }
 
     component PageButton: HusIconButton {
-        leftPadding: 8
-        rightPadding: 8
+        leftPadding: 8 * control.sizeRatio
+        rightPadding: 8 * control.sizeRatio
         animationEnabled: control.animationEnabled
+        sizeRatio: control.sizeRatio
         type: HusButton.Type_Link
         font {
             family: control.themeSource.fontFamily
-            pixelSize: control.themeSource.fontSize
+            pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
         }
-        iconSize: 16
+        iconSize: 16 * control.sizeRatio
         colorIcon: hovered ? control.themeSource.colorPageIconHover : control.themeSource.colorPageIcon
     }
 
@@ -423,10 +431,11 @@ HusInput {
     }
 
     component PickerButton: HusButton {
-        padding: 20
-        topPadding: 4
-        bottomPadding: 4
+        padding: 20 * control.sizeRatio
+        topPadding: 4 * control.sizeRatio
+        bottomPadding: 4 * control.sizeRatio
         animationEnabled: control.animationEnabled
+        sizeRatio: control.sizeRatio
         effectEnabled: false
         colorBorder: 'transparent'
         colorBg: checked ? control.themeSource.colorDayBgCurrent :
@@ -435,7 +444,7 @@ HusInput {
         colorText: checked ? 'white' : control.themeSource.colorDayText
         font {
             family: control.themeSource.fontFamily
-            pixelSize: control.themeSource.fontSize
+            pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
         }
         radiusBg: control.radiusItemBg
     }
@@ -571,9 +580,9 @@ HusInput {
         y: control.height + 6
         implicitWidth: implicitContentWidth + leftPadding + rightPadding
         implicitHeight: implicitContentHeight + topPadding + bottomPadding
-        padding: 8
-        leftPadding: control.showDate ? 8 : 2
-        rightPadding: control.showDate ? (control.showTime ? 2 : 8) : 2
+        padding: 8 * control.sizeRatio
+        leftPadding: (control.showDate ? 8 : 2) * control.sizeRatio
+        rightPadding: (control.showDate ? (control.showTime ? 2 : 8) : 2) * control.sizeRatio
         colorBg: HusTheme.isDark ? control.themeSource.colorPopupBgDark : control.themeSource.colorPopupBg
         radiusBg: control.radiusPopupBg
         animationEnabled: control.animationEnabled
@@ -641,36 +650,36 @@ HusInput {
                 __private.timeViewAtBeginning();
             }
         }
-        contentItem: Item {
-            implicitWidth: __pickerColumn.implicitWidth
-            implicitHeight: __pickerColumn.implicitHeight
+        contentItem: ColumnLayout {
+            spacing: 0
 
-            Column {
-                id: __pickerColumn
+            RowLayout {
+                spacing: 0
 
-                Row {
+                ColumnLayout {
+                    visible: control.showDate
+                    spacing: 5 * control.sizeRatio
+
+                    PickerHeader {
+                        id: __pickerHeader
+                        Layout.fillWidth: true
+                    }
+
+                    Rectangle {
+                        Layout.fillWidth: true
+                        height: 1
+                        color: control.themeSource.colorSplitLine
+                    }
 
                     Column {
-                        visible: control.showDate
-                        spacing: 5
-
-                        PickerHeader {
-                            id: __pickerHeader
-                            width: parent.width
-                        }
-
-                        Rectangle {
-                            width: parent.width
-                            height: 1
-                            color: control.themeSource.colorSplitLine
-                        }
+                        spacing: 0
 
                         T.DayOfWeekRow {
                             id: __dayOfWeekRow
-                            visible: (control.datePickerMode == HusDateTimePicker.Mode_Day || control.datePickerMode == HusDateTimePicker.Mode_Week) &&
-                                     !__pickerHeader.isPickYear && !__pickerHeader.isPickMonth
+                            visible: (control.datePickerMode == HusDateTimePicker.Mode_Day || control.datePickerMode == HusDateTimePicker.Mode_Week)
+                                     && !__pickerHeader.isPickYear && !__pickerHeader.isPickMonth
                             locale: __monthGrid.locale
-                            spacing: 10
+                            spacing: 10 * control.sizeRatio
                             delegate: HusText {
                                 width: __dayOfWeekRow.itemWidth
                                 text: shortName
@@ -678,7 +687,7 @@ HusInput {
                                 verticalAlignment: Text.AlignVCenter
                                 font {
                                     family: control.themeSource.fontFamily
-                                    pixelSize: control.themeSource.fontSize
+                                    pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
                                 }
                                 color: control.themeSource.colorWeekText
 
@@ -697,8 +706,8 @@ HusInput {
                             locale: Qt.locale()
                             delegate: Item {
                                 id: __dayItem
-                                width: __dayLoader.implicitWidth + 16
-                                height: __dayLoader.implicitHeight + 6
+                                width: __dayLoader.implicitWidth + 16 * control.sizeRatio
+                                height: __dayLoader.implicitHeight + 6 * control.sizeRatio
 
                                 required property var model
                                 property int weekYear: (model.weekNumber === 1 && model.month === 11) ? (model.year + 1) : model.year
@@ -767,164 +776,227 @@ HusInput {
                                 duration: HusTheme.Primary.durationMid
                             }
                         }
+                    }
 
-                        Grid {
-                            id: __yearPicker
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            rows: 4
-                            columns: 3
-                            rowSpacing: 10
-                            columnSpacing: 10
-                            visible: __pickerHeader.isPickYear
+                    Grid {
+                        id: __yearPicker
+                        Layout.alignment: Qt.AlignHCenter
+                        visible: __pickerHeader.isPickYear
+                        rows: 4
+                        columns: 3
+                        rowSpacing: 10 * control.sizeRatio
+                        columnSpacing: 10 * control.sizeRatio
 
-                            NumberAnimation on scale {
-                                running: control.animationEnabled && __yearPicker.visible
-                                from: 0
-                                to: 1
-                                easing.type: Easing.OutCubic
-                                duration: HusTheme.Primary.durationMid
-                            }
-
-                            Repeater {
-                                model: 12
-                                delegate: Item {
-                                    width: 80
-                                    height: 40
-
-                                    PickerButton {
-                                        id: __yearPickerButton
-                                        anchors.centerIn: parent
-                                        text: year
-                                        checked: year == control.visualYear
-                                        onClicked: {
-                                            control.visualYear = year;
-                                            if (control.datePickerMode == HusDateTimePicker.Mode_Day ||
-                                                    control.datePickerMode == HusDateTimePicker.Mode_Week ||
-                                                    control.datePickerMode == HusDateTimePicker.Mode_Month) {
-                                                __pickerHeader.isPickYear = false;
-                                                __pickerHeader.isPickMonth = true;
-                                            } else if (control.datePickerMode == HusDateTimePicker.Mode_Quarter) {
-                                                __pickerHeader.isPickYear = false;
-                                                __pickerHeader.isPickQuarter = true;
-                                            } else if (control.datePickerMode == HusDateTimePicker.Mode_Year) {
-                                                __private.selectDateTime(new Date(control.visualYear + 1, 0, 0), !(control.showDate && control.showTime));
-                                            }
-                                        }
-                                        property int year: control.visualYear + modelData - 4
-                                    }
-                                }
-                            }
+                        NumberAnimation on scale {
+                            running: control.animationEnabled && __yearPicker.visible
+                            from: 0
+                            to: 1
+                            easing.type: Easing.OutCubic
+                            duration: HusTheme.Primary.durationMid
                         }
 
-                        Grid {
-                            id: __monthPicker
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            rows: 4
-                            columns: 3
-                            rowSpacing: 10
-                            columnSpacing: 10
-                            visible: __pickerHeader.isPickMonth
+                        Repeater {
+                            model: 12
+                            delegate: Item {
+                                width: 80 * control.sizeRatio
+                                height: 40 * control.sizeRatio
 
-                            NumberAnimation on scale {
-                                running: control.animationEnabled && __monthPicker.visible
-                                from: 0
-                                to: 1
-                                easing.type: Easing.OutCubic
-                                duration: HusTheme.Primary.durationMid
-                            }
-
-                            Repeater {
-                                model: 12
-                                delegate: Item {
-                                    width: 80
-                                    height: 40
-
-                                    PickerButton {
-                                        id: __monthPickerButton
-                                        anchors.centerIn: parent
-                                        text: (month + 1) + qsTr('月')
-                                        checked: month == control.visualMonth
-                                        onClicked: {
-                                            control.visualMonth = month;
-                                            if (control.datePickerMode == HusDateTimePicker.Mode_Day ||
-                                                    control.datePickerMode == HusDateTimePicker.Mode_Week) {
-                                                __pickerHeader.isPickMonth = false;
-                                            } else if (control.datePickerMode == HusDateTimePicker.Mode_Month) {
-                                                __private.selectDateTime(new Date(control.visualYear, control.visualMonth + 1, 0),
-                                                                         !(control.showDate && control.showTime));
-                                            }
-                                        }
-                                        property int month: modelData
-                                    }
-                                }
-                            }
-                        }
-
-                        Row {
-                            id: __quarterPicker
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            visible: __pickerHeader.isPickQuarter
-                            spacing: 10
-
-                            NumberAnimation on scale {
-                                running: control.animationEnabled && __quarterPicker.visible
-                                from: 0
-                                to: 1
-                                easing.type: Easing.OutCubic
-                                duration: HusTheme.Primary.durationMid
-                            }
-
-                            Repeater {
-                                model: 4
-                                delegate: Item {
-                                    width: 60
-                                    height: 40
-
-                                    PickerButton {
-                                        anchors.centerIn: parent
-                                        text: `Q${quarter}`
-                                        checked: quarter == control.visualQuarter
-                                        onClicked: {
-                                            control.visualQuarter = quarter;
+                                PickerButton {
+                                    id: __yearPickerButton
+                                    anchors.centerIn: parent
+                                    text: year
+                                    checked: year == control.visualYear
+                                    onClicked: {
+                                        control.visualYear = year;
+                                        if (control.datePickerMode == HusDateTimePicker.Mode_Day ||
+                                                control.datePickerMode == HusDateTimePicker.Mode_Week ||
+                                                control.datePickerMode == HusDateTimePicker.Mode_Month) {
                                             __pickerHeader.isPickYear = false;
-
-                                            if (control.datePickerMode == HusDateTimePicker.Mode_Quarter) {
-                                                __private.selectDateTime(new Date(control.visualYear, (quarter - 1) * 3 + 1, 0),
-                                                                         !(control.showDate && control.showTime));
-                                            }
+                                            __pickerHeader.isPickMonth = true;
+                                        } else if (control.datePickerMode == HusDateTimePicker.Mode_Quarter) {
+                                            __pickerHeader.isPickYear = false;
+                                            __pickerHeader.isPickQuarter = true;
+                                        } else if (control.datePickerMode == HusDateTimePicker.Mode_Year) {
+                                            __private.selectDateTime(new Date(control.visualYear + 1, 0, 0), !(control.showDate && control.showTime));
                                         }
-                                        property int quarter: modelData + 1
                                     }
+                                    property int year: control.visualYear + modelData - 4
                                 }
                             }
                         }
+                    }
 
-                        Loader {
-                            width: parent.width
-                            active: control.datePickerMode == HusDateTimePicker.Mode_Day && !control.showTime
-                            sourceComponent: Rectangle {
-                                height: 1
-                                color: control.themeSource.colorSplitLine
-                            }
+                    Grid {
+                        id: __monthPicker
+                        Layout.alignment: Qt.AlignHCenter
+                        visible: __pickerHeader.isPickMonth
+                        rows: 4
+                        columns: 3
+                        rowSpacing: 10 * control.sizeRatio
+                        columnSpacing: 10 * control.sizeRatio
+
+                        NumberAnimation on scale {
+                            running: control.animationEnabled && __monthPicker.visible
+                            from: 0
+                            to: 1
+                            easing.type: Easing.OutCubic
+                            duration: HusTheme.Primary.durationMid
                         }
 
-                        Loader {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            active: control.datePickerMode == HusDateTimePicker.Mode_Day && !control.showTime
-                            sourceComponent: HusButton {
-                                animationEnabled: control.animationEnabled
-                                type: HusButton.Type_Link
-                                text: qsTr('今天')
-                                onClicked: __private.selectDateTime(new Date(), !(control.showDate && control.showTime));
+                        Repeater {
+                            model: 12
+                            delegate: Item {
+                                width: 80 * control.sizeRatio
+                                height: 40 * control.sizeRatio
+
+                                PickerButton {
+                                    id: __monthPickerButton
+                                    anchors.centerIn: parent
+                                    text: (month + 1) + qsTr('月')
+                                    checked: month == control.visualMonth
+                                    onClicked: {
+                                        control.visualMonth = month;
+                                        if (control.datePickerMode == HusDateTimePicker.Mode_Day ||
+                                                control.datePickerMode == HusDateTimePicker.Mode_Week) {
+                                            __pickerHeader.isPickMonth = false;
+                                        } else if (control.datePickerMode == HusDateTimePicker.Mode_Month) {
+                                            __private.selectDateTime(new Date(control.visualYear, control.visualMonth + 1, 0),
+                                                                     !(control.showDate && control.showTime));
+                                        }
+                                    }
+                                    property int month: modelData
+                                }
+                            }
+                        }
+                    }
+
+                    Row {
+                        id: __quarterPicker
+                        Layout.alignment: Qt.AlignHCenter
+                        visible: __pickerHeader.isPickQuarter
+                        spacing: 10 * control.sizeRatio
+
+                        NumberAnimation on scale {
+                            running: control.animationEnabled && __quarterPicker.visible
+                            from: 0
+                            to: 1
+                            easing.type: Easing.OutCubic
+                            duration: HusTheme.Primary.durationMid
+                        }
+
+                        Repeater {
+                            model: 4
+                            delegate: Item {
+                                width: 60 * control.sizeRatio
+                                height: 40 * control.sizeRatio
+
+                                PickerButton {
+                                    anchors.centerIn: parent
+                                    text: `Q${quarter}`
+                                    checked: quarter == control.visualQuarter
+                                    onClicked: {
+                                        control.visualQuarter = quarter;
+                                        __pickerHeader.isPickYear = false;
+
+                                        if (control.datePickerMode == HusDateTimePicker.Mode_Quarter) {
+                                            __private.selectDateTime(new Date(control.visualYear, (quarter - 1) * 3 + 1, 0),
+                                                                     !(control.showDate && control.showTime));
+                                        }
+                                    }
+                                    property int quarter: modelData + 1
+                                }
                             }
                         }
                     }
 
                     Loader {
-                        height: parent.height
-                        active: control.showDate && control.showTime
-                        sourceComponent: Item {
-                            width: 8
+                        width: parent.width
+                        active: control.datePickerMode == HusDateTimePicker.Mode_Day && !control.showTime
+                        visible: active
+                        sourceComponent: Rectangle {
+                            height: 1
+                            color: control.themeSource.colorSplitLine
+                        }
+                    }
+
+                    Loader {
+                        Layout.alignment: Qt.AlignHCenter
+                        active: control.datePickerMode == HusDateTimePicker.Mode_Day && !control.showTime
+                        visible: active
+                        sourceComponent: HusButton {
+                            animationEnabled: control.animationEnabled
+                            sizeRatio: control.sizeRatio
+                            type: HusButton.Type_Link
+                            text: qsTr('今天')
+                            onClicked: __private.selectDateTime(new Date(), !(control.showDate && control.showTime));
+                        }
+                    }
+                }
+
+                Loader {
+                    Layout.fillHeight: true
+                    active: control.showDate && control.showTime
+                    visible: active
+                    sourceComponent: Item {
+                        width: 8 * control.sizeRatio
+
+                        Rectangle {
+                            width: 1
+                            height: parent.height
+                            anchors.right: parent.right
+                            color: control.themeSource.colorSplitLine
+                        }
+                    }
+                }
+
+                ColumnLayout {
+                    visible: control.showTime
+                    Layout.preferredHeight: Math.max(220 * control.sizeRatio, implicitHeight)
+
+                    Item {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 36 * control.sizeRatio
+                        visible: control.showDate
+
+                        HusText {
+                            anchors.centerIn: parent
+                            font {
+                                family: control.themeSource.fontFamily
+                                pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
+                                bold: true
+                            }
+                            text: {
+                                switch (control.timePickerMode) {
+                                case HusDateTimePicker.Mode_HHMMSS:
+                                    return `${__hourListView.checkValue}:${__minuteListView.checkValue}:${__secondListView.checkValue}`;
+                                case HusDateTimePicker.Mode_HHMM:
+                                    return `${__hourListView.checkValue}:${__minuteListView.checkValue}`;
+                                case HusDateTimePicker.Mode_MMSS:
+                                    return `${__minuteListView.checkValue}:${__secondListView.checkValue}`;
+                                }
+                            }
+                            color: control.themeSource.colorTimeHeaderText
+                        }
+
+                        Rectangle {
+                            width: parent.width
+                            height: 1
+                            anchors.bottom: parent.bottom
+                            color: control.themeSource.colorSplitLine
+                            visible: control.showDate && control.showTime
+                        }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        spacing: 0
+
+                        TimeListView {
+                            id: __hourListView
+                            model: 24
+                            visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
+                                     control.timePickerMode == HusDateTimePicker.Mode_HHMM
 
                             Rectangle {
                                 width: 1
@@ -933,144 +1005,89 @@ HusInput {
                                 color: control.themeSource.colorSplitLine
                             }
                         }
-                    }
 
-                    ColumnLayout {
-                        visible: control.showTime
-                        height: Math.max(220, parent.height)
-
-                        Item {
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: 36
-                            visible: control.showDate
-
-                            HusText {
-                                anchors.centerIn: parent
-                                font {
-                                    family: control.themeSource.fontFamily
-                                    pixelSize: control.themeSource.fontSize
-                                    bold: true
-                                }
-                                text: {
-                                    switch (control.timePickerMode) {
-                                    case HusDateTimePicker.Mode_HHMMSS:
-                                        return `${__hourListView.checkValue}:${__minuteListView.checkValue}:${__secondListView.checkValue}`;
-                                    case HusDateTimePicker.Mode_HHMM:
-                                        return `${__hourListView.checkValue}:${__minuteListView.checkValue}`;
-                                    case HusDateTimePicker.Mode_MMSS:
-                                        return `${__minuteListView.checkValue}:${__secondListView.checkValue}`;
-                                    }
-                                }
-                                color: control.themeSource.colorTimeHeaderText
-                            }
+                        TimeListView {
+                            id: __minuteListView
+                            model: 60
+                            visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
+                                     control.timePickerMode == HusDateTimePicker.Mode_HHMM ||
+                                     control.timePickerMode == HusDateTimePicker.Mode_MMSS
 
                             Rectangle {
-                                width: parent.width
-                                height: 1
-                                anchors.bottom: parent.bottom
+                                width: 1
+                                height: parent.height
+                                anchors.right: parent.right
+                                visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
+                                         control.timePickerMode == HusDateTimePicker.Mode_MMSS
                                 color: control.themeSource.colorSplitLine
-                                visible: control.showDate && control.showTime
                             }
                         }
 
-                        Row {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-
-                            TimeListView {
-                                id: __hourListView
-                                model: 24
-                                visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
-                                         control.timePickerMode == HusDateTimePicker.Mode_HHMM
-
-                                Rectangle {
-                                    width: 1
-                                    height: parent.height
-                                    anchors.right: parent.right
-                                    color: control.themeSource.colorSplitLine
-                                }
-                            }
-
-                            TimeListView {
-                                id: __minuteListView
-                                model: 60
-                                visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
-                                         control.timePickerMode == HusDateTimePicker.Mode_HHMM ||
-                                         control.timePickerMode == HusDateTimePicker.Mode_MMSS
-
-                                Rectangle {
-                                    width: 1
-                                    height: parent.height
-                                    anchors.right: parent.right
-                                    visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
-                                             control.timePickerMode == HusDateTimePicker.Mode_MMSS
-                                    color: control.themeSource.colorSplitLine
-                                }
-                            }
-
-                            TimeListView {
-                                id: __secondListView
-                                model: 60
-                                visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
-                                         control.timePickerMode == HusDateTimePicker.Mode_MMSS
-                            }
+                        TimeListView {
+                            id: __secondListView
+                            model: 60
+                            visible: control.timePickerMode == HusDateTimePicker.Mode_HHMMSS ||
+                                     control.timePickerMode == HusDateTimePicker.Mode_MMSS
                         }
                     }
                 }
+            }
 
-                Loader {
-                    width: parent.width - (control.showDate ? 8 : 0)
-                    active: control.showTime
-                    sourceComponent: Item {
-                        height: 32
+            Loader {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 32 * control.sizeRatio
+                active: control.showTime
+                visible: active
+                sourceComponent: Item {
 
-                        Rectangle {
-                            width: parent.width
-                            height: 1
-                            color: control.themeSource.colorSplitLine
+                    Rectangle {
+                        width: parent.width
+                        height: 1
+                        color: control.themeSource.colorSplitLine
+                    }
+
+                    HusButton {
+                        padding: 2 * control.sizeRatio
+                        topPadding: 2 * control.sizeRatio
+                        bottomPadding: 2 * control.sizeRatio
+                        anchors.left: parent.left
+                        anchors.leftMargin: 5 * control.sizeRatio
+                        anchors.bottom: parent.bottom
+                        animationEnabled: control.animationEnabled
+                        sizeRatio: control.sizeRatio
+                        type: HusButton.Type_Link
+                        text: qsTr('此刻')
+                        colorBg: 'transparent'
+                        onClicked: {
+                            const date = new Date();
+                            __hourListView.initValue(String(date.getHours()).padStart(2, '0'));
+                            __hourListView.checkIndex(date.getHours());
+                            __minuteListView.initValue(String(date.getMinutes()).padStart(2, '0'));
+                            __minuteListView.checkIndex(date.getMinutes());
+                            __secondListView.initValue(String(date.getSeconds()).padStart(2, '0'));
+                            __secondListView.checkIndex(date.getSeconds());
+                            __private.selectDateTime(date);
                         }
+                    }
 
-                        HusButton {
-                            padding: 2
-                            topPadding: 2
-                            bottomPadding: 2
-                            anchors.left: parent.left
-                            anchors.leftMargin: 5
-                            anchors.bottom: parent.bottom
-                            animationEnabled: control.animationEnabled
-                            type: HusButton.Type_Link
-                            text: qsTr('此刻')
-                            colorBg: 'transparent'
-                            onClicked: {
-                                const date = new Date();
-                                __hourListView.initValue(String(date.getHours()).padStart(2, '0'));
-                                __hourListView.checkIndex(date.getHours());
-                                __minuteListView.initValue(String(date.getMinutes()).padStart(2, '0'));
-                                __minuteListView.checkIndex(date.getMinutes());
-                                __secondListView.initValue(String(date.getSeconds()).padStart(2, '0'));
-                                __secondListView.checkIndex(date.getSeconds());
-                                __private.selectDateTime(date);
-                            }
-                        }
-
-                        HusButton {
-                            id: __confirmButton
-                            topPadding: 4
-                            bottomPadding: 4
-                            leftPadding: 10
-                            rightPadding: 10
-                            anchors.right: parent.right
-                            anchors.rightMargin: 5
-                            anchors.bottom: parent.bottom
-                            animationEnabled: control.animationEnabled
-                            type: HusButton.Type_Primary
-                            text: qsTr('确定')
-                            onClicked: {
-                                __hourListView.initValue(__hourListView.checkValue);
-                                __minuteListView.initValue(__minuteListView.checkValue);
-                                __secondListView.initValue(__secondListView.checkValue);
-                                __private.selectDateTime(__private.getDateTime());
-                            }
+                    HusButton {
+                        id: __confirmButton
+                        topPadding: 4 * control.sizeRatio
+                        bottomPadding: 4 * control.sizeRatio
+                        leftPadding: 10 * control.sizeRatio
+                        rightPadding: 10 * control.sizeRatio
+                        anchors.right: parent.right
+                        anchors.rightMargin: 5 * control.sizeRatio
+                        anchors.bottom: parent.bottom
+                        animationEnabled: control.animationEnabled
+                        sizeRatio: control.sizeRatio
+                        type: HusButton.Type_Primary
+                        text: qsTr('确定')
+                        onClicked: {
+                            __hourListView.initValue(__hourListView.checkValue);
+                            __minuteListView.initValue(__minuteListView.checkValue);
+                            __secondListView.initValue(__secondListView.checkValue);
+                            __private.selectDateTime(__private.getDateTime());
                         }
                     }
                 }

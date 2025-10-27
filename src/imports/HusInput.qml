@@ -13,46 +13,41 @@ T.TextField {
     signal clickClear()
 
     property bool animationEnabled: HusTheme.animationEnabled
+    property bool darkMode: HusTheme.isDark
     readonly property bool active: hovered || activeFocus
     property var iconSource: 0 ?? ''
-    property int iconSize: themeSource.fontIconSize
+    property int iconSize: parseInt(themeSource.fontIconSize) * sizeRatio
     property int iconPosition: HusInput.Position_Left
     property var clearEnabled: false ?? ''
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
-    property int clearIconSize: themeSource.fontClearIconSize
+    property int clearIconSize: parseInt(themeSource.fontClearIconSize) * sizeRatio
     property int clearIconPosition: HusInput.Position_Right
     readonly property int leftIconPadding: iconPosition === HusInput.Position_Left ? __private.iconSize : 0
     readonly property int rightIconPadding: iconPosition === HusInput.Position_Right ? __private.iconSize : 0
-    readonly property int leftClearIconPadding: {
-        if (clearIconPosition === HusInput.Position_Left) {
-            return leftIconPadding > 0 ? (__private.clearIconSize + 5) : __private.clearIconSize;
-        } else {
-            return 0;
-        }
-    }
-    readonly property int rightClearIconPadding: {
-        if (clearIconPosition === HusInput.Position_Right) {
-            return rightIconPadding > 0 ? (__private.clearIconSize + 5) : __private.clearIconSize;
-        } else {
-            return 0;
-        }
-    }
+    readonly property int leftClearIconPadding: clearIconPosition === HusInput.Position_Left ? __private.clearIconSize : 0
+    readonly property int rightClearIconPadding: clearIconPosition === HusInput.Position_Right ? __private.clearIconSize : 0
     property color colorIcon: enabled ? control.themeSource.colorIcon : control.themeSource.colorIconDisabled
     property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     property color colorBorder: enabled ?
                                     active ? themeSource.colorBorderHover :
                                              themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
-    property int radiusBg: themeSource.radiusBg
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property string sizeHint: 'normal'
+    property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property string contentDescription: ''
     property var themeSource: HusTheme.HusInput
 
     property Component iconDelegate: HusIconText {
+        leftPadding: control.iconPosition === HusInput.Position_Left ? 10 * sizeRatio: 0
+        rightPadding: control.iconPosition === HusInput.Position_Right ? 10 * sizeRatio: 0
         iconSource: control.iconSource
         iconSize: control.iconSize
         colorIcon: control.colorIcon
     }
     property Component clearIconDelegate: HusIconText {
+        leftPadding: control.clearIconPosition === HusInput.Position_Left ? (control.leftIconPadding > 0 ? 5 : 10) * sizeRatio : 0
+        rightPadding: control.clearIconPosition === HusInput.Position_Right ? (control.rightIconPadding > 0 ? 5 : 10) * sizeRatio : 0
         iconSource: control.length > 0 ? control.clearIconSource : 0
         iconSize: control.clearIconSize
         colorIcon: {
@@ -82,17 +77,21 @@ T.TextField {
             }
         }
     }
-    property Component bgDelegate: Rectangle {
+    property Component bgDelegate: HusRectangleInternal {
         color: control.colorBg
         border.color: control.colorBorder
-        radius: control.radiusBg
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
     }
 
     objectName: '__HusInput__'
     focus: true
-    padding: 6
-    leftPadding: 10 + leftIconPadding + leftClearIconPadding
-    rightPadding: 10 + rightIconPadding + rightClearIconPadding
+    padding: 6 * sizeRatio
+    leftPadding: (__private.leftHasIcons ? 5 : 10) * sizeRatio + leftIconPadding + leftClearIconPadding
+    rightPadding: (__private.rightHasIcons ? 5 : 10) * sizeRatio + rightIconPadding + rightClearIconPadding
     implicitWidth: contentWidth + leftPadding + rightPadding
     implicitHeight: contentHeight + topPadding + bottomPadding
     color: colorText
@@ -101,7 +100,7 @@ T.TextField {
     selectionColor: themeSource.colorSelection
     font {
         family: themeSource.fontFamily
-        pixelSize: themeSource.fontSize
+        pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
     background: Loader {
         sourceComponent: control.bgDelegate
@@ -113,6 +112,8 @@ T.TextField {
 
     QtObject {
         id: __private
+        property bool leftHasIcons: control.leftIconPadding + control.leftClearIconPadding > 0
+        property bool rightHasIcons: control.rightIconPadding + control.rightClearIconPadding > 0
         property int iconSize: __iconLoader.active ? __iconLoader.width : 0
         property int clearIconSize: __clearIconLoader.active ? __clearIconLoader.width : 0
     }
@@ -122,14 +123,14 @@ T.TextField {
         active: control.iconSource !== 0 && control.iconSource !== ''
         anchors.left: control.iconPosition === HusInput.Position_Left ? parent.left : undefined
         anchors.right: control.iconPosition === HusInput.Position_Right ? parent.right : undefined
-        anchors.margins: 5
         anchors.verticalCenter: parent.verticalCenter
         sourceComponent: control.iconDelegate
     }
 
     Loader {
         id: __clearIconLoader
-        active: control.enabled && !control.readOnly && control.clearIconSource !== 0 && control.clearIconSource !== '' && (control.clearEnabled === true || (control.clearEnabled === 'active' && control.active))
+        active: control.enabled && !control.readOnly && control.clearIconSource !== 0 && control.clearIconSource !== ''
+                && (control.clearEnabled === true || (control.clearEnabled === 'active' && control.active))
         anchors.left: {
             if (control.clearIconPosition === HusInput.Position_Left) {
                 return __iconLoader.active && control.iconPosition === HusInput.Position_Left ? __iconLoader.right : parent.left;
@@ -144,8 +145,6 @@ T.TextField {
                 return undefined;
             }
         }
-        anchors.leftMargin: 5
-        anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
         sourceComponent: control.clearIconDelegate
     }

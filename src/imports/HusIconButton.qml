@@ -12,7 +12,7 @@ HusButton {
     property bool loading: false
     property var iconSource: 0 ?? ''
     property int iconSize: HusTheme.HusButton.fontSize
-    property int iconSpacing: 5
+    property int iconSpacing: 5 * sizeRatio
     property int iconPosition: HusIconButton.Position_Start
     property color colorIcon: colorText
 
