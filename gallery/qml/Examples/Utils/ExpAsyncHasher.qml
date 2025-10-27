@@ -33,6 +33,13 @@ source | url | '' | 目标的源地址
 sourceText | color | '' | 目标的源文本
 sourceData | arraybuffer | '' | 目标的源数据
 sourceObject | QObject* | null | 目标的源指针
+\n<br/>
+\n### 支持的信号：\n
+- \`hashProgress(processed: int, total: int)\` 散列值计算进度\n
+  - \`processed\` 已处理的字节数\n
+  - \`total\` 总字节数\n
+- \`started(processed: int, total: int)\` 散列值计算开始时发出\n
+- \`finished(processed: int, total: int)\` 散列值计算结束时发出\n
                        `)
         }
 
