@@ -572,6 +572,13 @@ void HusTheme::setTextRenderType(TextRenderType renderType)
     }
 }
 
+QVariantMap HusTheme::sizeHint() const
+{
+    Q_D(const HusTheme);
+
+    return d->m_sizeHintMap;
+}
+
 void HusTheme::registerCustomComponentTheme(QObject *themeObject, const QString &component, QVariantMap *themeMap, const QString &themePath)
 {
     Q_D(HusTheme);
@@ -671,6 +678,26 @@ void HusTheme::installThemePrimaryAnimationBase(int durationFast, int durationMi
     d->reloadCustomComponentTheme();
 }
 
+void HusTheme::installSizeHintRatio(const QString &size, qreal ratio)
+{
+    Q_D(HusTheme);
+
+    bool changed = false;
+    if (d->m_sizeHintMap.contains(size)) {
+        auto value = d->m_sizeHintMap.value(size).toDouble();
+        if (!qFuzzyCompare(value, ratio)) {
+            changed = true;
+        }
+    } else {
+        changed = true;
+    }
+
+    if (changed) {
+        d->m_sizeHintMap[size] = ratio;
+        emit sizeHintChanged();
+    }
+}
+
 void HusTheme::installIndexTheme(const QString &themePath)
 {
     Q_D(HusTheme);
@@ -754,6 +781,10 @@ HusTheme::HusTheme(QObject *parent)
             emit isDarkChanged();
         }
     });
+
+    d->m_sizeHintMap["small"] = 0.8;
+    d->m_sizeHintMap["normal"] = 1.0;
+    d->m_sizeHintMap["large"] = 1.25;
 
     reloadTheme();
 }

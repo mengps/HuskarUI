@@ -143,6 +143,8 @@ public:
     QMap<QObject *, ThemeData> m_defaultTheme;
     QMap<QObject *, ThemeData> m_customTheme;
 
+    QVariantMap m_sizeHintMap;
+
     static HusThemePrivate *get(HusTheme *theme) { return theme->d_func(); }
 
     void parse$(QMap<QString, QVariant> &out, const QString &tokenName, const QString &expr);

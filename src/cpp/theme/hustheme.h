@@ -17,6 +17,7 @@ class HUSKARUI_EXPORT HusTheme : public QObject
     Q_PROPERTY(bool isDark READ isDark NOTIFY isDarkChanged)
     Q_PROPERTY(DarkMode darkMode READ darkMode WRITE setDarkMode NOTIFY darkModeChanged FINAL)
     Q_PROPERTY(TextRenderType textRenderType READ textRenderType WRITE setTextRenderType NOTIFY textRenderTypeChanged FINAL)
+    Q_PROPERTY(QVariantMap sizeHint READ sizeHint NOTIFY sizeHintChanged FINAL)
 
     HUS_PROPERTY_INIT(bool, animationEnabled, setAnimationEnabled, true);
 
@@ -90,6 +91,8 @@ public:
     TextRenderType textRenderType() const;
     void setTextRenderType(TextRenderType renderType);
 
+    QVariantMap sizeHint() const;
+
     /**
      * @brief 注册自定义组件主题
      * @param themeObject 主题对象指针
@@ -141,6 +144,12 @@ public:
      * @param duratoinSlow [Slow 动画持续时间(ms)]
      */
     Q_INVOKABLE void installThemePrimaryAnimationBase(int durationFast, int durationMid, int durationSlow);
+    /**
+     * @brief 设置尺寸提示比率
+     * @param size  尺寸名
+     * @param ratio 比率
+     */
+    Q_INVOKABLE void installSizeHintRatio(const QString &size, qreal ratio);
 
 
     /**
@@ -174,6 +183,7 @@ signals:
     void isDarkChanged();
     void darkModeChanged();
     void textRenderTypeChanged();
+    void sizeHintChanged();
 
 private:
     explicit HusTheme(QObject *parent = nullptr);
