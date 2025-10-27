@@ -8,7 +8,6 @@ Item {
     signal clickMenu(deep: int, key: string, keyPath: var, data: var)
 
     property bool animationEnabled: HusTheme.animationEnabled
-    property string contentDescription: ''
     property bool showEdge: false
     property bool tooltipVisible: false
     property bool compactMode: false
@@ -25,7 +24,9 @@ Item {
     property var defaultSelectedKey: []
     property var initModel: []
     property alias scrollBar: __menuScrollBar
-    property int radiusBg: HusTheme.HusMenu.radiusBg
+    property HusRadius radiusMenuBg: HusRadius { all: HusTheme.HusMenu.radiusMenuBg }
+    property HusRadius radiusPopupBg: HusRadius { all: HusTheme.HusMenu.radiusPopupBg }
+    property string contentDescription: ''
 
     property Component menuIconDelegate: HusIconText {
         color: menuButton.colorText
@@ -47,8 +48,12 @@ Item {
 
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
     }
-    property Component menuBackgroundDelegate: Rectangle {
-        radius: menuButton.radiusBg
+    property Component menuBackgroundDelegate: HusRectangleInternal {
+        radius: control.radiusMenuBg.all
+        topLeftRadius: control.radiusMenuBg.topLeft
+        topRightRadius: control.radiusMenuBg.topRight
+        bottomLeftRadius: control.radiusMenuBg.bottomLeft
+        bottomRightRadius: control.radiusMenuBg.bottomRight
         color: menuButton.colorBg
         border.color: menuButton.colorBorder
         border.width: 1
@@ -487,7 +492,7 @@ Item {
                     leftPadding: 15 + (control.compactMode || control.popupMode ? 0 : iconSize * __rootItem.view.menuDeep)
                     bottomInset: control.defaultMenuSpacing * 0.5
                     enabled: __rootItem.menuEnabled
-                    radiusBg: control.radiusBg
+                    radiusBg: control.radiusMenuBg
                     text: (control.compactMode && __rootItem.view.menuDeep === 0) ? '' : __rootItem.menuLabel
                     checkable: true
                     iconSize: __rootItem.menuIconSize
@@ -649,6 +654,7 @@ Item {
             height: current ? Math.min(control.popupMaxHeight, current.realHeight + topPadding + bottomPadding) : 0
             padding: 5
             animationEnabled: control.animationEnabled
+            radiusBg: control.radiusPopupBg
             contentItem: Item { clip: true }
             onAboutToShow: {
                 let toX = control.width + control.popupOffset;

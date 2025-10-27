@@ -11,6 +11,7 @@
         "colorBgActive": "$alpha(@colorPrimaryBgActive, 0.25)",
         "colorChildBg": "@colorFillQuaternary",
         "colorEdge": "$alpha(@colorTextBase, 0.1)",
-        "radiusBg": "@radiusPrimary"
+        "radiusMenuBg": "@radiusPrimary",
+        "radiusPopupBg": "@radiusPrimary"
     }
 }
