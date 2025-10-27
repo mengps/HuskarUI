@@ -27,10 +27,10 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 radius | real | 0 | 统一设置四个圆角半径
-topLeftRadius | real | 0 | 左上圆角半径
-topRightRadius | real | 0 | 右上圆角半径
-bottomLeftRadius | real | 0 | 左下圆角半径
-bottomRightRadius | real | 0 | 右下圆角半径
+topLeftRadius | real | -1 | 左上圆角半径
+topRightRadius | real | -1 | 右上圆角半径
+bottomLeftRadius | real | -1 | 左下圆角半径
+bottomRightRadius | real | -1 | 右下圆角半径
 color | color | '#fff' | 填充颜色
 gradient | Gradient | - | 填充渐变
 border.color | color | 'transparent' | 边框线颜色
