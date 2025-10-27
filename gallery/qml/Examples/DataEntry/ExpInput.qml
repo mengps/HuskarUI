@@ -44,7 +44,8 @@ colorIcon | color | - | 图标颜色
 colorText | color | - | 文本颜色
 colorBorder | color | - | 边框颜色
 colorBg | color | - | 背景颜色
-radiusBg | int | - | 背景圆角
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+sizeHint | string | 'normal' | 尺寸提示
 contentDescription | string | '' | 内容描述(提高可用性)
 \n<br/>
 \n### 支持的信号：\n
@@ -133,7 +134,6 @@ contentDescription | string | '' | 内容描述(提高可用性)
                         placeholderText: 'Username'
                     }
                 }
-
             `
             exampleDelegate: Column {
                 spacing: 10
@@ -179,6 +179,106 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     clearEnabled: true
                     clearIconPosition: HusInput.Position_Right
                     placeholderText: 'Username'
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            desc: qsTr(`
+通过 \`sizeHint\` 属性设置尺寸。\n
+                       `)
+            code: `
+                import QtQuick
+                import HuskarUI.Basic
+
+                Column {
+                    spacing: 10
+
+                    HusRadioBlock {
+                        id: sizeHintRadio
+                        initCheckedIndex: 1
+                        model: [
+                            { label: 'Small', value: 'small' },
+                            { label: 'Normal', value: 'normal' },
+                            { label: 'Large', value: 'large' },
+                        ]
+                    }
+
+                    HusInput {
+                        width: 150
+                        iconPosition: HusInput.Position_Left
+                        iconSource: HusIcon.UserOutlined
+                        placeholderText: 'Username'
+                        sizeHint: sizeHintRadio.currentCheckedValue
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                HusRadioBlock {
+                    id: sizeHintRadio
+                    initCheckedIndex: 1
+                    model: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Normal', value: 'normal' },
+                        { label: 'Large', value: 'large' },
+                    ]
+                }
+
+                HusInput {
+                    width: 150
+                    iconPosition: HusInput.Position_Left
+                    iconSource: HusIcon.UserOutlined
+                    placeholderText: 'Username'
+                    sizeHint: sizeHintRadio.currentCheckedValue
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            desc: qsTr(`
+组合其他组件。\n
+                       `)
+            code: `
+                import QtQuick
+                import HuskarUI.Basic
+
+                Row {
+                    HusInput {
+                        id: input
+                        width: 250
+                        text: 'Combine input and button'
+                        radiusBg.topRight: 0
+                        radiusBg.bottomRight: 0
+                    }
+
+                    HusButton {
+                        type: HusButton.Type_Primary
+                        text: 'Submit'
+                        radiusBg.all: input.radiusBg.all
+                        radiusBg.topLeft: 0
+                        radiusBg.bottomLeft: 0
+                    }
+                }
+            `
+            exampleDelegate: Row {
+                HusInput {
+                    id: input
+                    width: 250
+                    text: 'Combine input and button'
+                    radiusBg.topRight: 0
+                    radiusBg.bottomRight: 0
+                }
+
+                HusButton {
+                    type: HusButton.Type_Primary
+                    text: 'Submit'
+                    radiusBg.all: input.radiusBg.all
+                    radiusBg.topLeft: 0
+                    radiusBg.bottomLeft: 0
                 }
             }
         }

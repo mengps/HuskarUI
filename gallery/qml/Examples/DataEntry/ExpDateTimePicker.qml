@@ -51,8 +51,8 @@ visualMonth | int | - | 弹窗显示的月份(通常不需要使用)
 visualDay | int | - | 弹窗显示的天数(通常不需要使用)
 visualQuarter | int | - | 弹窗显示的季度(通常不需要使用)
 format | string | 'yyyy-MM-dd hh:mm:ss' | 日期时间格式
-radiusItemBg | int | - | 选择项圆角
-radiusPopupBg | int | - | 弹窗圆角
+radiusItemBg | [HusRadius](internal://HusRadius) | - | 选择项圆角
+radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗圆角
 \n<br/>
 \n### 支持的函数：\n
 - \`setDateTime(date: jsDate)\` 设置当前日期时间为 \`date\` \n
@@ -110,9 +110,20 @@ radiusPopupBg | int | - | 弹窗圆角
                 Column {
                     spacing: 10
 
+                    HusRadioBlock {
+                        id: sizeHintRadio
+                        initCheckedIndex: 1
+                        model: [
+                            { label: 'Small', value: 'small' },
+                            { label: 'Normal', value: 'normal' },
+                            { label: 'Large', value: 'large' },
+                        ]
+                    }
+
                     HusDateTimePicker {
                         placeholderText: qsTr('请选择日期时间')
                         format: qsTr('yyyy-MM-dd hh:mm:ss')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusDateTimePicker {
@@ -120,6 +131,7 @@ radiusPopupBg | int | - | 弹窗圆角
                         datePickerMode: HusDateTimePicker.Mode_Day
                         showTime: false
                         format: qsTr('yyyy-MM-dd')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusDateTimePicker {
@@ -127,6 +139,7 @@ radiusPopupBg | int | - | 弹窗圆角
                         datePickerMode: HusDateTimePicker.Mode_Week
                         showTime: false
                         format: qsTr('yyyy-w周')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusDateTimePicker {
@@ -134,6 +147,7 @@ radiusPopupBg | int | - | 弹窗圆角
                         datePickerMode: HusDateTimePicker.Mode_Month
                         showTime: false
                         format: qsTr('yyyy-MM')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusDateTimePicker {
@@ -141,6 +155,7 @@ radiusPopupBg | int | - | 弹窗圆角
                         datePickerMode: HusDateTimePicker.Mode_Quarter
                         showTime: false
                         format: qsTr('yyyy-Qq')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusDateTimePicker {
@@ -148,6 +163,7 @@ radiusPopupBg | int | - | 弹窗圆角
                         datePickerMode: HusDateTimePicker.Mode_Year
                         showTime: false
                         format: qsTr('yyyy')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusDateTimePicker {
@@ -155,15 +171,27 @@ radiusPopupBg | int | - | 弹窗圆角
                         showDate: false
                         timePickerMode: HusDateTimePicker.Mode_HHMMSS
                         format: qsTr('hh:mm:ss')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
 
+                HusRadioBlock {
+                    id: sizeHintRadio
+                    initCheckedIndex: 1
+                    model: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Normal', value: 'normal' },
+                        { label: 'Large', value: 'large' },
+                    ]
+                }
+
                 HusDateTimePicker {
                     placeholderText: qsTr('请选择日期时间')
                     format: qsTr('yyyy-MM-dd hh:mm:ss')
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusDateTimePicker {
@@ -171,6 +199,7 @@ radiusPopupBg | int | - | 弹窗圆角
                     datePickerMode: HusDateTimePicker.Mode_Day
                     showTime: false
                     format: qsTr('yyyy-MM-dd')
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusDateTimePicker {
@@ -178,6 +207,7 @@ radiusPopupBg | int | - | 弹窗圆角
                     datePickerMode: HusDateTimePicker.Mode_Week
                     showTime: false
                     format: qsTr('yyyy-w周')
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusDateTimePicker {
@@ -185,6 +215,7 @@ radiusPopupBg | int | - | 弹窗圆角
                     datePickerMode: HusDateTimePicker.Mode_Month
                     showTime: false
                     format: qsTr('yyyy-MM')
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusDateTimePicker {
@@ -192,6 +223,7 @@ radiusPopupBg | int | - | 弹窗圆角
                     datePickerMode: HusDateTimePicker.Mode_Quarter
                     showTime: false
                     format: qsTr('yyyy-Qq')
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusDateTimePicker {
@@ -199,6 +231,7 @@ radiusPopupBg | int | - | 弹窗圆角
                     datePickerMode: HusDateTimePicker.Mode_Year
                     showTime: false
                     format: qsTr('yyyy')
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusDateTimePicker {
@@ -206,6 +239,7 @@ radiusPopupBg | int | - | 弹窗圆角
                     showDate: false
                     timePickerMode: HusDateTimePicker.Mode_HHMMSS
                     format: qsTr('hh:mm:ss')
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
             }
         }

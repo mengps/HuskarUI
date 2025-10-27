@@ -30,10 +30,11 @@ effectEnabled | bool | true | 是否开启点击效果
 hoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
 type | enum | HusButton.Type_Default | 按钮类型(来自 HusButton)
 shape | enum | HusButton.Shape_Default | 按钮形状(来自 HusButton)
-radiusBg | int | - | 背景圆角半径
 colorText | color | - | 文本颜色
 colorBg | color | - | 背景颜色
 colorBorder | color | - | 边框颜色
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角半径
+sizeHint | string | 'normal' | 尺寸提示
 contentDescription | string | '' | 内容描述(提高可用性)
                        `)
         }
@@ -63,6 +64,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
         CodeBox {
             width: parent.width
             desc: qsTr(`
+通过 \`sizeHint\` 属性设置尺寸。\n
 通过 \`type\` 属性改变按钮类型，支持的类型：\n
 - 默认按钮{ HusButton.Type_Default }\n
 - 线框按钮{ HusButton.Type_Outlined }\n
@@ -75,69 +77,109 @@ contentDescription | string | '' | 内容描述(提高可用性)
                 import QtQuick
                 import HuskarUI.Basic
 
+                Column {
+                    spacing: 10
+
+                    HusRadioBlock {
+                        id: sizeHintRadio
+                        initCheckedIndex: 1
+                        model: [
+                            { label: 'Small', value: 'small' },
+                            { label: 'Normal', value: 'normal' },
+                            { label: 'Large', value: 'large' },
+                        ]
+                    }
+
+                    Row {
+                        spacing: 15
+
+                        HusButton {
+                            text: qsTr('默认')
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+
+                        HusButton {
+                            text: qsTr('线框')
+                            type: HusButton.Type_Outlined
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+
+                        HusButton {
+                            text: qsTr('主要')
+                            type: HusButton.Type_Primary
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+
+                        HusButton {
+                            text: qsTr('填充')
+                            type: HusButton.Type_Filled
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+
+                        HusButton {
+                            text: qsTr('文本')
+                            type: HusButton.Type_Text
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+
+                        HusButton {
+                            text: qsTr('链接')
+                            type: HusButton.Type_Link
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                HusRadioBlock {
+                    id: sizeHintRadio
+                    initCheckedIndex: 1
+                    model: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Normal', value: 'normal' },
+                        { label: 'Large', value: 'large' },
+                    ]
+                }
+
                 Row {
                     spacing: 15
 
                     HusButton {
                         text: qsTr('默认')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusButton {
                         text: qsTr('线框')
                         type: HusButton.Type_Outlined
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusButton {
                         text: qsTr('主要')
                         type: HusButton.Type_Primary
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusButton {
                         text: qsTr('填充')
                         type: HusButton.Type_Filled
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusButton {
                         text: qsTr('文本')
                         type: HusButton.Type_Text
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusButton {
                         text: qsTr('链接')
                         type: HusButton.Type_Link
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
-                }
-            `
-            exampleDelegate: Row {
-                spacing: 15
-
-                HusButton {
-                    text: qsTr('默认')
-                }
-
-                HusButton {
-                    text: qsTr('线框')
-                    type: HusButton.Type_Outlined
-                }
-
-                HusButton {
-                    text: qsTr('主要')
-                    type: HusButton.Type_Primary
-                }
-
-                HusButton {
-                    text: qsTr('填充')
-                    type: HusButton.Type_Filled
-                }
-
-                HusButton {
-                    text: qsTr('文本')
-                    type: HusButton.Type_Text
-                }
-
-                HusButton {
-                    text: qsTr('链接')
-                    type: HusButton.Type_Link
                 }
             }
         }
