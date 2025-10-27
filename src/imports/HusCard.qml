@@ -95,7 +95,7 @@ Rectangle {
                     textSource: control.bodyAvatarText
                     colorIcon: control.colorBodyAvatar
                     colorText: control.colorBodyAvatar
-                    visible: !(iconSource == 0 && imageSource == '' && textSource == '')
+                    visible: !((iconSource === 0 || iconSource === '') && imageSource === '' && textSource === '')
                 }
             }
 
