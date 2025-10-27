@@ -27,7 +27,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 contentHeight | int | - | 窗口内容高度(即减去标题栏高度)
-captionBar | HusCaptionBar | - | 窗口标题栏
+captionBar | [HusCaptionBar](internal://HusCaptionBar) | - | 窗口标题栏
 windowAgent | HusWindowAgent | - | 窗口代理
 followThemeSwitch | bool | true | 是否跟随系统明/暗模式自动切换
 initialized | bool | false | 指示窗口是否已经初始化完毕
