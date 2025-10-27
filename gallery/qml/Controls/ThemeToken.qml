@@ -184,6 +184,7 @@ Item {
         UpdateDesc { }
 
         HusText {
+            visible: root.source != ''
             text: qsTr('主题变量（Design Token）')
             width: parent.width
             font {
