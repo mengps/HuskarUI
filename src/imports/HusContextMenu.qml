@@ -15,7 +15,7 @@ HusPopup {
     property int defaultMenuHeight: 30
     property int defaultMenuSpacing: 4
     property int subMenuOffset: -4
-    property int radiusBg: HusTheme.Primary.radiusPrimary
+    property HusRadius radiusMenuBg: HusRadius { all: HusTheme.Primary.radiusPrimary }
 
     function open() {
         visible = true;
@@ -65,6 +65,8 @@ HusPopup {
         }
     }
     contentItem: HusMenu {
+        radiusMenuBg: control.radiusMenuBg
+        radiusPopupBg: control.radiusBg
         initModel: control.initModel
         tooltipVisible: control.tooltipVisible
         popupMode: true
@@ -142,8 +144,12 @@ HusPopup {
                 Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
             }
         }
-        menuBackgroundDelegate: Rectangle {
-            radius: control.radiusBg
+        menuBackgroundDelegate: HusRectangleInternal {
+            radius: control.radiusMenuBg.all
+            topLeftRadius: control.radiusMenuBg.topLeft
+            topRightRadius: control.radiusMenuBg.topRight
+            bottomLeftRadius: control.radiusMenuBg.bottomLeft
+            bottomRightRadius: control.radiusMenuBg.bottomRight
             color: {
                 if (enabled) {
                     if (menuButton.isGroup) return HusTheme.HusMenu.colorBgDisabled;

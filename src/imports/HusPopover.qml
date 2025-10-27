@@ -107,9 +107,13 @@ HusPopup {
             }
         }
     }
-    property Component bgDelegate: Rectangle {
+    property Component bgDelegate: HusRectangleInternal {
         color: control.colorBg
-        radius: control.radiusBg
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
     }
     property Component footerDelegate: Item { }
 

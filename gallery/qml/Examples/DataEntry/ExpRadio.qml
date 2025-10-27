@@ -32,7 +32,7 @@ hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Q
 colorText | color | - | 文本颜色
 colorIndicator | color | - | 指示器颜色
 colorIndicatorBorder | color | - | 指示器边框颜色
-radiusIndicator | int | 8 | 指示器圆角
+radiusIndicator | [HusRadius](internal://HusRadius) | 8 | 指示器圆角
 contentDescription | string | '' | 内容描述(提高可用性)
                        `)
         }

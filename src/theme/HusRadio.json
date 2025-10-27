@@ -10,6 +10,7 @@
         "colorIndicatorBorder": "@colorTextQuaternary",
         "colorIndicatorBorderChecked": "@colorPrimaryBorderActive",
         "colorEffectBg": "@colorTextTertiary",
+        "radiusIndicator": "8",
 
         "colorBlockText": "@colorTextBase",
         "colorBlockTextFilledChecked": "#fff",

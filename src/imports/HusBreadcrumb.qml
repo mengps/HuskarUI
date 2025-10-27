@@ -16,14 +16,19 @@ Item {
     property font titleFont
     property int defaultIconSize: HusTheme.HusBreadcrumb.fontSize + 2
     property int defaultMenuWidth: 120
-    property int radiusItemBg: HusTheme.HusBreadcrumb.radiusItemBg
+    property HusRadius radiusItemBg: HusRadius { all: HusTheme.HusBreadcrumb.radiusItemBg }
 
-    property Component itemDelegate: Rectangle {
+    property Component itemDelegate: HusRectangleInternal {
         id: __itemDelegate
 
         implicitWidth: __itemRow.implicitWidth + 8
         implicitHeight: Math.max(__icon.implicitHeight, __text.implicitHeight) + 4
-        radius: control.radiusItemBg
+        radius: control.radiusItemBg.all
+        topLeftRadius: control.radiusItemBg.topLeft
+        topRightRadius: control.radiusItemBg.topRight
+        bottomLeftRadius: control.radiusItemBg.bottomLeft
+        bottomRightRadius: control.radiusItemBg.bottomRight
+
         color: isCurrent || !__hoverHandler.hovered ? HusTheme.HusBreadcrumb.colorBgLast :
                                                       HusTheme.HusBreadcrumb.colorBg;
 

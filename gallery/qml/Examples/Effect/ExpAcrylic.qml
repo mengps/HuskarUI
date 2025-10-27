@@ -29,8 +29,8 @@ sourceItem | Item | - | 源项目
 sourceRect | rect | - | 源矩形大小
 opacityNoise | real | 0.02 | 噪声图像透明度
 radiusBlur | real | 32 | 模糊半径
-radiusBg | real | 0 | 背景半径
 colorTint | color | '#fff' | 色调颜色
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 opacityTint | real | 0.65 | 色调透明度
 luminosity | real | 0.01 | 亮度
                        `)

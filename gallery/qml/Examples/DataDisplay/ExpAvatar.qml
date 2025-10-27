@@ -37,7 +37,7 @@ textGap | int | 4 | 文本距离两侧单位像素(文本头像时生效)
 colorBg | color | - | 背景颜色
 colorIcon | color | - | 图标颜色(图标头像时生效)
 colorText | color | - |文本颜色(文本头像时生效)
-radiusBg | int | - | 背景圆角
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 \n **注意** \`[iconSource/imageSource/textSource]\`只需提供一种即可
                        `)
         }
@@ -102,31 +102,31 @@ radiusBg | int | - | 背景圆角
                         HusAvatar {
                             size: 100
                             iconSource: HusIcon.UserOutlined
-                            radiusBg: 6
+                            radiusBg.all: 6
                         }
 
                         HusAvatar {
                             size: 80
                             iconSource: HusIcon.UserOutlined
-                            radiusBg: 6
+                            radiusBg.all: 6
                         }
 
                         HusAvatar {
                             size: 60
                             iconSource: HusIcon.UserOutlined
-                            radiusBg: 6
+                            radiusBg.all: 6
                         }
 
                         HusAvatar {
                             size: 40
                             iconSource: HusIcon.UserOutlined
-                            radiusBg: 6
+                            radiusBg.all: 6
                         }
 
                         HusAvatar {
                             size: 20
                             iconSource: HusIcon.UserOutlined
-                            radiusBg: 6
+                            radiusBg.all: 6
                         }
                     }
                 }
@@ -169,31 +169,31 @@ radiusBg | int | - | 背景圆角
                     HusAvatar {
                         size: 100
                         iconSource: HusIcon.UserOutlined
-                        radiusBg: 6
+                        radiusBg.all: 6
                     }
 
                     HusAvatar {
                         size: 80
                         iconSource: HusIcon.UserOutlined
-                        radiusBg: 6
+                        radiusBg.all: 6
                     }
 
                     HusAvatar {
                         size: 60
                         iconSource: HusIcon.UserOutlined
-                        radiusBg: 6
+                        radiusBg.all: 6
                     }
 
                     HusAvatar {
                         size: 40
                         iconSource: HusIcon.UserOutlined
-                        radiusBg: 6
+                        radiusBg.all: 6
                     }
 
                     HusAvatar {
                         size: 20
                         iconSource: HusIcon.UserOutlined
-                        radiusBg: 6
+                        radiusBg.all: 6
                     }
                 }
             }

@@ -8,13 +8,13 @@ T.RadioButton {
     property bool animationEnabled: HusTheme.animationEnabled
     property bool effectEnabled: true
     property int hoverCursorShape: Qt.PointingHandCursor
-    property int radiusIndicator: 8
     property color colorText: enabled ? HusTheme.HusRadio.colorText : HusTheme.HusRadio.colorTextDisabled
     property color colorIndicator: enabled ?
                                        checked ? HusTheme.HusRadio.colorIndicatorChecked :
                                                  HusTheme.HusRadio.colorIndicator : HusTheme.HusRadio.colorIndicatorDisabled
     property color colorIndicatorBorder: (enabled && (hovered || checked)) ? HusTheme.HusRadio.colorIndicatorBorderChecked :
                                                                              HusTheme.HusRadio.colorIndicatorBorder
+    property HusRadius radiusIndicator: HusRadius { all: HusTheme.HusRadio.radiusIndicator }
     property string contentDescription: ''
 
     objectName: '__HusRadio__'
@@ -75,7 +75,7 @@ T.RadioButton {
 
         Rectangle {
             id: __bg
-            width: control.radiusIndicator * 2
+            width: control.radiusIndicator.all * 2
             height: width
             anchors.centerIn: parent
             radius: height * 0.5
@@ -87,7 +87,7 @@ T.RadioButton {
             Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
             Rectangle {
-                width: control.checked ? control.radiusIndicator - 2 : 0
+                width: control.checked ? control.radiusIndicator.all - 2 : 0
                 height: width
                 anchors.centerIn: parent
                 radius: width * 0.5

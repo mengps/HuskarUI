@@ -227,7 +227,9 @@ colorInfo | color | - | 进度条信息文本颜色
                     Row {
                         HusIconButton {
                             padding: 10
-                            radiusBg: 0
+                            radiusBg.all: 0
+                            radiusBg.topLeft: 5
+                            radiusBg.bottomLeft: 5
                             iconSource: HusIcon.MinusOutlined
                             onClicked: {
                                 if (newPercent - 10 >= 0)
@@ -236,7 +238,9 @@ colorInfo | color | - | 进度条信息文本颜色
                         }
                         HusIconButton {
                             padding: 10
-                            radiusBg: 0
+                            radiusBg.all: 0
+                            radiusBg.topRight: 5
+                            radiusBg.bottomRight: 5
                             iconSource: HusIcon.PlusOutlined
                             onClicked: {
                                 if (newPercent + 10 <= 100)
@@ -279,7 +283,9 @@ colorInfo | color | - | 进度条信息文本颜色
                 Row {
                     HusIconButton {
                         padding: 10
-                        radiusBg: 0
+                        radiusBg.all: 0
+                        radiusBg.topLeft: 5
+                        radiusBg.bottomLeft: 5
                         iconSource: HusIcon.MinusOutlined
                         onClicked: {
                             if (newPercent - 10 >= 0)
@@ -288,7 +294,9 @@ colorInfo | color | - | 进度条信息文本颜色
                     }
                     HusIconButton {
                         padding: 10
-                        radiusBg: 0
+                        radiusBg.all: 0
+                        radiusBg.topRight: 5
+                        radiusBg.bottomRight: 5
                         iconSource: HusIcon.PlusOutlined
                         onClicked: {
                             if (newPercent + 10 <= 100)

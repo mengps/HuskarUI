@@ -24,7 +24,7 @@ Item {
     property color colorItemBorder: enabled ? HusTheme.HusInput.colorBorder : HusTheme.HusInput.colorBorderDisabled
     property color colorItemBorderActive: enabled ? HusTheme.HusInput.colorBorderHover : HusTheme.HusInput.colorBorderDisabled
     property color colorItemBg: enabled ? HusTheme.HusInput.colorBg : HusTheme.HusInput.colorBgDisabled
-    property int radiusBg: HusTheme.HusInput.radiusBg
+    property HusRadius radiusBg: HusRadius { all: HusTheme.HusInput.radiusBg }
 
     property Component dividerDelegate: Item { }
 

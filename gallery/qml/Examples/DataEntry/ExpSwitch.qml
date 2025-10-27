@@ -33,9 +33,9 @@ checkedText | string | '' | 选中文本
 uncheckedText | string | '' | 未选中文本
 checkedIconSource | int丨string | 0丨'' | 选中图标(来自 HusIcon)或图标链接
 uncheckedIconSource | int丨string | 0丨'' | 未选中图标(来自 HusIcon)或图标链接
-radiusBg | int | - | 背景半径
 colorHandle | color | - | 把手颜色
 colorBg | color | - | 背景颜色
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景半径
 contentDescription | string | '' | 内容描述(提高可用性)
                        `)
         }
@@ -221,7 +221,7 @@ Switch 支持两种文本：\n
 
                     HusSwitch {
                         id: switch2
-                        radiusBg: 2
+                        radiusBg.all: 2
                         handleDelegate: Rectangle {
                             radius: 2
                             color: switch2.colorHandle
@@ -234,7 +234,7 @@ Switch 支持两种文本：\n
 
                 HusSwitch {
                     id: switch2
-                    radiusBg: 2
+                    radiusBg.all: 2
                     handleDelegate: Rectangle {
                         radius: 2
                         color: switch2.colorHandle

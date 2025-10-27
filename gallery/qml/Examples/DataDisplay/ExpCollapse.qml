@@ -51,7 +51,7 @@ colorTitleBg | color | - | 标题背景颜色
 colorContent | color | - | 内容文本颜色
 colorContentBg | color | - | 内容背景颜色
 colorBorder | color | - | 边框颜色
-radiusBg | int | - | 背景圆角
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 \n<br/>
 \n### 支持的函数：\n
 - \`get(index: int): Object\` 获取 \`index\` 处的模型数据 \n

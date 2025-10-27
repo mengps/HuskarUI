@@ -51,7 +51,7 @@ colorMessage | color | - | 通知消息文本颜色
 colorDescription | color | - | 通知描述文本颜色
 colorBg | color | - | 背景颜色
 colorBgShadow | color | - | 背景阴影颜色
-radiusBg | int | - | 背景半径
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景半径
 messageFont | font | - | 通知消息字体
 messageSpacing | int | 8 | 通知文本和图标之间的间隔
 descriptionFont | font | - | 通知描述字体

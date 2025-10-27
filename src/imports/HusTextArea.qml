@@ -33,7 +33,7 @@ Item {
                                     active ? themeSource.colorBorderHover :
                                              themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
-    property int radiusBg: themeSource.radiusBg
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property string contentDescription: ''
     property var themeSource: HusTheme.HusTextArea
 
@@ -41,10 +41,14 @@ Item {
     property alias verScrollBar: __vScrollBar
     property alias horScrollBar: __hScrollBar
 
-    property Component bgDelegate: Rectangle {
+    property Component bgDelegate: HusRectangleInternal {
         color: control.colorBg
         border.color: control.colorBorder
-        radius: control.radiusBg
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
     }
 
     objectName: '__HusTextArea__'

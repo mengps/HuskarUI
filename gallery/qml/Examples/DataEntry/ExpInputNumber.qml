@@ -57,7 +57,7 @@ formatter | function | - | 格式化器(格式化数值为字符串)
 parser | function | - | 解析器(解析字符串为数值)
 defaultHandlerWidth | int | 24 | 默认增减按钮宽度
 colorText | color | - | 文本颜色
-radiusBg | int | - | 背景圆角
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 input | [HusInput](internal://HusInput) | - | 访问内部输入框
 \n<br/>
 \n### 支持的信号：\n
@@ -124,7 +124,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                         width: 120
                         min: 0
                         max: 10
-                        clearEnabled: 'active'
+                        clearEnabled: true
                     }
                 }
             `
@@ -141,7 +141,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                     width: 120
                     min: 0
                     max: 10
-                    clearEnabled: 'active'
+                    clearEnabled: true
                 }
             }
         }

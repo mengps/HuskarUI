@@ -18,7 +18,7 @@ T.Popup {
     property real maximumHeight: Number.NaN
     property color colorShadow: themeSource.colorShadow
     property color colorBg: HusTheme.isDark ? themeSource.colorBgDark : themeSource.colorBg
-    property int radiusBg: themeSource.radiusBg
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property var themeSource: HusTheme.HusPopup
 
     objectName: '__HusPopup__'
@@ -48,11 +48,15 @@ T.Popup {
             source: __popupRect
             shadowColor: control.colorShadow
         }
-        Rectangle {
+        HusRectangleInternal {
             id: __popupRect
             anchors.fill: parent
             color: control.colorBg
-            radius: control.radiusBg
+            radius: control.radiusBg.all
+            topLeftRadius: control.radiusBg.topLeft
+            topRightRadius: control.radiusBg.topRight
+            bottomLeftRadius: control.radiusBg.bottomLeft
+            bottomRightRadius: control.radiusBg.bottomRight
         }
         Loader {
             active: control.movable || control.resizable

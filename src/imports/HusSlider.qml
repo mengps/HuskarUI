@@ -44,7 +44,7 @@ Item {
         else
             return hovered ? HusTheme.HusSlider.colorTrackHover : HusTheme.HusSlider.colorTrack;
     }
-    property int radiusBg: HusTheme.HusSlider.radiusBg
+    property HusRadius radiusBg: HusRadius { all: HusTheme.HusSlider.radiusBg }
     property Component handleToolTipDelegate: Item { }
     property Component handleDelegate: Rectangle {
         id: __handleItem
@@ -100,12 +100,16 @@ Item {
         }
     }
     property Component bgDelegate: Item {
-        Rectangle {
+        HusRectangleInternal {
             width: control.orientation == Qt.Horizontal ? parent.width : 4
             height: control.orientation == Qt.Horizontal ? 4 : parent.height
             anchors.horizontalCenter: control.orientation == Qt.Horizontal ? undefined : parent.horizontalCenter
             anchors.verticalCenter: control.orientation == Qt.Horizontal ? parent.verticalCenter : undefined
-            radius: control.radiusBg
+            radius: control.radiusBg.all
+            topLeftRadius: control.radiusBg.topLeft
+            topRightRadius: control.radiusBg.topRight
+            bottomLeftRadius: control.radiusBg.bottomLeft
+            bottomRightRadius: control.radiusBg.bottomRight
             color: control.colorBg
 
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }

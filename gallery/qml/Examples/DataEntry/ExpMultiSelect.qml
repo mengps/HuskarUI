@@ -44,7 +44,7 @@ maxTagCount | int | -1 | 最多显示多少个标签(-1无限制)
 tagSpacing | int | 5 | 标签间隔
 colorTagText | color | - | 标签文本颜色
 colorTagBg | color | - | 标签背景颜色
-radiusTagBg | int | - | 标签圆角
+radiusTagBg | [HusRadius](internal://HusRadius) | - | 标签圆角
 \n<br/>
 \n### 支持的函数：\n
 - \`findKey(key: string)\` 查找 \`key\` 处的选项数据 \n

@@ -32,7 +32,7 @@ T.Drawer {
             rightPadding: 4
             anchors.verticalCenter: parent.verticalCenter
             animationEnabled: control.animationEnabled
-            radiusBg: HusTheme.HusDrawer.radiusButtonBg
+            radiusBg.all: HusTheme.HusDrawer.radiusButtonBg
             iconSource: HusIcon.CloseOutlined
             hoverCursorShape: Qt.PointingHandCursor
             onClicked: {

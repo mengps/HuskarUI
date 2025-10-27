@@ -40,7 +40,7 @@ bgRightPadding | int | 12 | 背景右部填充
 colorMessage | color | - | 消息颜色
 colorBg | color | - | 背景颜色
 colorBgShadow | color | - | 背景阴影颜色
-radiusBg | int | - | 背景半径
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景半径
 messageFont | font | - | 消息字体
 messageSpacing | int | 8 | 消息和图标之间间隔
 \n<br/>

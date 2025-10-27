@@ -41,7 +41,7 @@ colorItemText | color | - | 输入项文本颜色
 colorItemBorder | color | - | 输入项边框颜色
 colorItemBorderActive | color | - | 输入项边框激活时颜色
 colorItemBg | color | - | 输入项背景颜色
-radiusBg | int | - | 输入项背景圆角
+radiusBg | [HusRadius](internal://HusRadius) | - | 输入项背景圆角
 \n<br/>
 \n### 支持的函数：\n
 - \`setInput(inputs: list)\` 通过 \`inputs\` 设置每项的输入文本\n

@@ -33,7 +33,7 @@ Item {
                                     family: HusTheme.HusRadio.fontFamily,
                                     pixelSize: HusTheme.HusRadio.fontSize
                                 })
-    property int radiusBg: HusTheme.HusRadio.radiusBlockBg
+    property HusRadius radiusBg: HusRadius { all: HusTheme.HusRadio.radiusBlockBg }
     property Component toolTipDelegate: HusToolTip {
         text: toolTip.text ?? ''
         delay: toolTip.delay ?? 500
@@ -141,16 +141,16 @@ Item {
                 }
             }
 
-            HusRectangle {
+            HusRectangleInternal {
                 id: __bg
                 width: parent.width
                 height: parent.height
                 anchors.centerIn: parent
                 color: __rootItem.colorBg
-                topLeftRadius: index == 0 ? control.radiusBg : 0
-                bottomLeftRadius: index == 0 ? control.radiusBg : 0
-                topRightRadius: index === (count - 1) ? control.radiusBg : 0
-                bottomRightRadius: index === (count - 1) ? control.radiusBg : 0
+                topLeftRadius: index == 0 ? control.radiusBg.topLeft : 0
+                topRightRadius: index === (count - 1) ? control.radiusBg.topRight : 0
+                bottomLeftRadius: index == 0 ? control.radiusBg.bottomLeft : 0
+                bottomRightRadius: index === (count - 1) ? control.radiusBg.bottomRight : 0
                 border.width: 1
                 border.color: __rootItem.colorBorder
 

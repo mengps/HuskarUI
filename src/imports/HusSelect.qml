@@ -23,9 +23,9 @@ T.ComboBox {
                                              themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
 
-    property int radiusBg: themeSource.radiusBg
-    property int radiusItemBg: themeSource.radiusItemBg
-    property int radiusPopupBg: themeSource.radiusPopupBg
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusRadius radiusItemBg: HusRadius { all: themeSource.radiusItemBg }
+    property HusRadius radiusPopupBg: HusRadius { all: themeSource.radiusPopupBg }
     property string contentDescription: ''
     property var themeSource: HusTheme.HusSelect
 
@@ -121,11 +121,15 @@ T.ComboBox {
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
     }
-    background: Rectangle {
+    background: HusRectangleInternal {
         color: control.colorBg
         border.color: control.colorBorder
         border.width: control.visualFocus ? 2 : 1
-        radius: control.radiusBg
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
     }
     popup: HusPopup {
         id: __popup
@@ -137,7 +141,7 @@ T.ComboBox {
         topPadding: 6
         bottomPadding: 6
         animationEnabled: control.animationEnabled
-        radiusBg: control.themeSource.radiusPopupBg
+        radiusBg: control.radiusPopupBg
         colorBg: HusTheme.isDark ? control.themeSource.colorPopupBgDark : control.themeSource.colorPopupBg
         enter: Transition {
             NumberAnimation {
@@ -201,7 +205,11 @@ T.ComboBox {
                     verticalAlignment: Text.AlignVCenter
                 }
                 background: Rectangle {
-                    radius: control.radiusItemBg
+                    radius: control.radiusItemBg.all
+                    topLeftRadius: control.radiusItemBg.topLeft
+                    topRightRadius: control.radiusItemBg.topRight
+                    bottomLeftRadius: control.radiusItemBg.bottomLeft
+                    bottomRightRadius: control.radiusItemBg.bottomRight
                     color: {
                         if (__popupDelegate.enabled)
                             return highlighted ? control.themeSource.colorItemBgActive :

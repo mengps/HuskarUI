@@ -41,7 +41,7 @@ buttonRightPadding | int | 10 | 按钮项右填充
 buttonTopPadding | int | 8 | 按钮项上填充
 buttonBottomPadding | int | 8 | 按钮项下填充
 font | font | - | 按钮项字体
-radiusBg | int | - | 按钮项背景半径
+radiusBg | [HusRadius](internal://HusRadius) | - | 按钮项背景半径
 contentDescription | string | '' | 内容描述(提高可用性)
 \n<br/>
 \n### 模型支持的属性：\n

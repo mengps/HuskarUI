@@ -8,9 +8,9 @@ HusIconButton {
     property bool noDisabledState: false
 
     objectName: '__HusCaptionButton__'
-    leftPadding: 12
-    rightPadding: 12
-    radiusBg: 0
+    leftPadding: 12 * sizeRatio
+    rightPadding: 12 * sizeRatio
+    radiusBg.all: 0
     hoverCursorShape: Qt.ArrowCursor
     type: HusButton.Type_Text
     iconSize: HusTheme.HusCaptionButton.fontSize

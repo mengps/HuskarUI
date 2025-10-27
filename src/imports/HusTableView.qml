@@ -655,7 +655,7 @@ HusRectangle {
         onCheckedKeysMapChanged: updateCheckedKeys();
     }
 
-    HusRectangle {
+    HusRectangleInternal {
         id: __columnHeaderViewBg
         height: control.defaultColumnHeaderHeight
         anchors.left: control.rowHeaderVisible ? __rowHeaderViewBg.right : parent.left
@@ -972,7 +972,7 @@ HusRectangle {
         width: __rowHeaderViewBg.width
         height: __columnHeaderViewBg.height
         active: control.rowHeaderVisible && control.columnHeaderVisible
-        sourceComponent: HusRectangle {
+        sourceComponent: HusRectangleInternal {
             color: control.colorResizeBlockBg
             topLeftRadius: HusTheme.HusTableView.radiusBg
 

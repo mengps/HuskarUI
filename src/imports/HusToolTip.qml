@@ -19,7 +19,7 @@ T.ToolTip {
     property color colorShadow: HusTheme.HusToolTip.colorShadow
     property color colorText: HusTheme.HusToolTip.colorText
     property color colorBg: HusTheme.isDark ? HusTheme.HusToolTip.colorBgDark : HusTheme.HusToolTip.colorBg
-    property int radiusBg: HusTheme.HusToolTip.radiusBg
+    property HusRadius radiusBg: HusRadius { all: HusTheme.HusToolTip.radiusBg }
 
     component Arrow: Canvas {
         onWidthChanged: requestPaint();
@@ -129,7 +129,7 @@ T.ToolTip {
                 }
             }
 
-            Rectangle {
+            HusRectangleInternal {
                 id: __bg
                 width: __text.implicitWidth + 14
                 height: __text.implicitHeight + 12
@@ -138,7 +138,11 @@ T.ToolTip {
                 anchors.left: control.position == HusToolTip.Position_Left ? parent.left : undefined
                 anchors.right: control.position == HusToolTip.Position_Right ? parent.right : undefined
                 anchors.margins: 1
-                radius: control.radiusBg
+                radius: control.radiusBg.all
+                topLeftRadius: control.radiusBg.topLeft
+                topRightRadius: control.radiusBg.topRight
+                bottomLeftRadius: control.radiusBg.bottomLeft
+                bottomRightRadius: control.radiusBg.bottomRight
                 color: control.colorBg
 
                 HusText {

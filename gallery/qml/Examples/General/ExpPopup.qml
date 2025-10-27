@@ -39,7 +39,7 @@ minimumHeight | int | 0 | 可改变的最小高度(resizable为true生效)
 maximumHeight | int | Number.NaN | 可改变的最小高度(resizable为true生效)
 colorShadow | color | - | 阴影颜色
 colorBg | color | - | 背景颜色
-radiusBg | int | - | 背景圆角半径
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角半径
                        `)
         }
 
@@ -100,10 +100,12 @@ radiusBg | int | - | 背景圆角半径
                         maximumY: parent.height - height
                         minimumWidth: 400
                         minimumHeight: 300
+                        radiusBg.topLeft: 100
+                        radiusBg.bottomRight: 100
                         contentItem: Item {
                             HusCaptionButton {
                                 anchors.right: parent.right
-                                radiusBg: popup.radiusBg * 0.5
+                                radiusBg.topRight: popup.radiusBg.topRight
                                 colorText: colorIcon
                                 iconSource: HusIcon.CloseOutlined
                                 onClicked: popup.close();
@@ -142,10 +144,12 @@ radiusBg | int | - | 背景圆角半径
                     maximumY: parent.height - height
                     minimumWidth: 400
                     minimumHeight: 300
+                    radiusBg.topLeft: 100
+                    radiusBg.bottomRight: 100
                     contentItem: Item {
                         HusCaptionButton {
                             anchors.right: parent.right
-                            radiusBg: popup.radiusBg * 0.5
+                            radiusBg.topRight: popup.radiusBg.topRight
                             colorText: colorIcon
                             iconSource: HusIcon.CloseOutlined
                             onClicked: popup.close();

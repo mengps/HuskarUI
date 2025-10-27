@@ -13,7 +13,6 @@ T.Switch {
     property string uncheckedText: ''
     property var checkedIconSource: 0 ?? ''
     property var uncheckedIconSource: 0 ?? ''
-    property int radiusBg: __bg.height * 0.5
     property color colorHandle: HusTheme.HusSwitch.colorHandle
     property color colorBg: {
         if (!enabled)
@@ -28,6 +27,7 @@ T.Switch {
                                   control.hovered ? HusTheme.HusSwitch.colorBgHover :
                                                     HusTheme.HusSwitch.colorBg;
     }
+    property HusRadius radiusBg: HusRadius { all: control.implicitIndicatorHeight * 0.5 }
     property string contentDescription: ''
     property Component handleDelegate: Rectangle {
         radius: height * 0.5
@@ -62,11 +62,15 @@ T.Switch {
         implicitWidth: __bg.width
         implicitHeight: __bg.height
 
-        Rectangle {
+        HusRectangleInternal {
             id: __effect
             width: __bg.width
             height: __bg.height
             radius: __bg.radius
+            topLeftRadius: __bg.topLeftRadius
+            topRightRadius: __bg.topRightRadius
+            bottomLeftRadius: __bg.bottomLeftRadius
+            bottomRightRadius: __bg.bottomRightRadius
             anchors.centerIn: parent
             visible: control.effectEnabled
             color: 'transparent'
@@ -103,12 +107,17 @@ T.Switch {
                 }
             }
         }
-        Rectangle {
+
+        HusRectangleInternal {
             id: __bg
             width: Math.max(Math.max(checkedWidth, uncheckedWidth) + __handle.width, height * 2)
             height: hasContent ? Math.max(checkedHeight, uncheckedHeight, 22) : 22
             anchors.centerIn: parent
-            radius: control.radiusBg
+            radius: control.radiusBg.all
+            topLeftRadius: control.radiusBg.topLeft
+            topRightRadius: control.radiusBg.topRight
+            bottomLeftRadius: control.radiusBg.bottomLeft
+            bottomRightRadius: control.radiusBg.bottomRight
             color: control.colorBg
             clip: true
 

@@ -36,9 +36,9 @@ defaultPopupMaxHeight | int | 240 | 默认弹窗最大高度
 colorText | color | - | 文本颜色
 colorBorder | color | - | 边框颜色
 colorBg | color | - | 背景颜色
-radiusBg | int | - | 背景圆角
-radiusItemBg | int | - | 选项背景圆角
-radiusPopupBg | int | - | 弹窗背景圆角
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+radiusItemBg | [HusRadius](internal://HusRadius) | - | 选项背景圆角
+radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角
 contentDescription | string | '' | 内容描述(提高可用性)
 \n<br/>
 \n### 支持的信号：\n

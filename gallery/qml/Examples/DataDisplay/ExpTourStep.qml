@@ -42,7 +42,7 @@ arrowHeight | int | 8 | 箭头高度
 focusMargin | int | 5 | 焦点边距
 focusRadius | int | 2 | 焦点圆角
 stepCardWidth | int | 250 | 步骤卡片宽度
-radiusStepCard | int | - | 步骤默认卡片半径
+radiusStepCard | [HusRadius](internal://HusRadius) | - | 步骤默认卡片半径
 colorStepCard | color | - | 步骤默认卡片颜色
 stepTitleFont | font | - | 步骤默认标题字体
 colorStepTitle | color | - | 步骤默认标题颜色

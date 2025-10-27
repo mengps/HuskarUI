@@ -23,7 +23,7 @@ HusSelect {
     property int tagSpacing: 5
     property color colorTagText: themeSource.colorTagText
     property color colorTagBg: themeSource.colorTagBg
-    property int radiusTagBg: themeSource.radiusTagBg
+    property HusRadius radiusTagBg: HusRadius { all: themeSource.radiusTagBg }
 
     property Component prefixDelegate: HusText {
         font: control.font
@@ -35,7 +35,7 @@ HusSelect {
         text: control.suffix
         color: control.themeSource.colorText
     }
-    property Component tagDelegate: Rectangle {
+    property Component tagDelegate: HusRectangleInternal {
         id: __tag
 
         required property int index
@@ -43,7 +43,11 @@ HusSelect {
 
         implicitWidth: __row.implicitWidth + 16
         implicitHeight: Math.max(__text.implicitHeight, __closeIcon.implicitHeight) + 4
-        radius: control.radiusTagBg
+        radius: control.radiusTagBg.all
+        topLeftRadius: control.radiusTagBg.topLeft
+        topRightRadius: control.radiusTagBg.topRight
+        bottomLeftRadius: control.radiusTagBg.bottomLeft
+        bottomRightRadius: control.radiusTagBg.bottomRight
         color: control.colorTagBg
 
         MouseArea {
@@ -249,7 +253,7 @@ HusSelect {
         topPadding: 6
         bottomPadding: 6
         animationEnabled: control.animationEnabled
-        radiusBg: control.themeSource.radiusPopupBg
+        radiusBg: control.radiusPopupBg
         colorBg: HusTheme.isDark ? control.themeSource.colorPopupBgDark : control.themeSource.colorPopupBg
         enter: Transition {
             NumberAnimation {
@@ -325,8 +329,13 @@ HusSelect {
                         visible: __popupDelegate.enabled && selected
                     }
                 }
-                background: Rectangle {
-                    radius: control.radiusItemBg
+                background: HusRectangleInternal {
+                    radius: control.radiusItemBg.all
+                    topLeftRadius: control.radiusItemBg.topLeft
+                    topRightRadius: control.radiusItemBg.topRight
+                    bottomLeftRadius: control.radiusItemBg.bottomLeft
+                    bottomRightRadius: control.radiusItemBg.bottomRight
+
                     color: {
                         if (__popupDelegate.selected) {
                             return control.themeSource.colorItemBgActive;

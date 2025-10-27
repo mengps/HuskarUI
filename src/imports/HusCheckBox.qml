@@ -9,7 +9,6 @@ T.CheckBox {
     property bool effectEnabled: true
     property int hoverCursorShape: Qt.PointingHandCursor
     property int indicatorSize: 18
-    property int radiusIndicator: themeSource.radiusIndicator
     property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     property color colorIndicator: {
         if (enabled) {
@@ -22,6 +21,7 @@ T.CheckBox {
     property color colorIndicatorBorder: enabled ?
                                              (hovered || checked) ? themeSource.colorIndicatorBorderChecked :
                                                                     themeSource.colorIndicatorBorder : themeSource.colorIndicatorDisabled
+    property HusRadius radiusIndicator: HusRadius { all: themeSource.radiusIndicator }
     property string contentDescription: ''
     property var themeSource: HusTheme.HusCheckBox
 
@@ -83,24 +83,32 @@ T.CheckBox {
             }
         }
 
-        Rectangle {
+        HusRectangleInternal {
             id: __bg
             width: control.indicatorSize
             height: control.indicatorSize
-            radius: control.radiusIndicator
+            radius: control.radiusIndicator.all
+            topLeftRadius: control.radiusIndicator.topLeft
+            topRightRadius: control.radiusIndicator.topRight
+            bottomLeftRadius: control.radiusIndicator.bottomLeft
+            bottomRightRadius: control.radiusIndicator.bottomRight
             color: 'transparent'
             border.color: control.colorIndicatorBorder
             border.width: 1
             anchors.centerIn: parent
 
             /*! 勾选背景 */
-            Rectangle {
+            HusRectangleInternal {
                 id: __checkedBg
                 anchors.fill: parent
                 color: control.colorIndicator
                 visible: opacity !== 0
                 opacity: control.checkState === Qt.Checked ? 1.0 : 0.0
                 radius: parent.radius - 1
+                topLeftRadius: parent.topLeftRadius - 1
+                topRightRadius: parent.topRightRadius - 1
+                bottomLeftRadius: parent.bottomLeftRadius - 1
+                bottomRightRadius: parent.bottomRightRadius - 1
 
                 Behavior on opacity {
                     enabled: control.animationEnabled

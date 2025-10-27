@@ -39,7 +39,7 @@ spacing | int | 4 | 路由项间隔
 titleFont | font | - | 路由项标题字体
 defaultIconSize | int | - | 默认图标大小
 defaultMenuWidth | int | 120 | 默认菜单宽度
-radiusItemBg | int | - | 路由项的背景圆角半径
+radiusItemBg | [HusRadius](internal://HusRadius) | - | 路由项的背景圆角半径
 \n<br/>
 \n### 模型支持的属性：\n
 属性名 | 类型 | 可选/必选 | 描述

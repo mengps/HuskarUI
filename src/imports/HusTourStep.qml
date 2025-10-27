@@ -19,7 +19,7 @@ T.Popup {
     property int focusMargin: 5
     property int focusRadius: 2
     property int stepCardWidth: 250
-    property int radiusStepCard: HusTheme.HusTour.radiusCard
+    property HusRadius radiusStepCard: HusRadius { all: HusTheme.HusTour.radiusCard }
     property color colorStepCard: HusTheme.HusTour.colorBg
     property font stepTitleFont: Qt.font({
                                              bold: true,
@@ -77,19 +77,23 @@ T.Popup {
         leftPadding: 4
         rightPadding: 4
         animationEnabled: control.animationEnabled
-        radiusBg: HusTheme.HusTour.radiusButtonBg
+        radiusBg.all: HusTheme.HusTour.radiusButtonBg
         iconSource: HusIcon.CloseOutlined
         hoverCursorShape: Qt.PointingHandCursor
         onClicked: {
             control.close();
         }
     }
-    property Component stepCardDelegate: Rectangle {
+    property Component stepCardDelegate: HusRectangleInternal {
         id: __stepCardDelegate
         width: stepData.cardWidth ? stepData.cardWidth : control.stepCardWidth
         height: stepData.cardHeight ? stepData.cardHeight : (__stepCardColumn.height + 20)
         color: stepData.cardColor ? stepData.cardColor : control.colorStepCard
-        radius: stepData.cardRadius ? stepData.cardRadius : control.radiusStepCard
+        radius: stepData.cardRadius ? stepData.cardRadius : control.radiusStepCard.all
+        topLeftRadius: stepData.cardRadius ? stepData.cardRadius : control.radiusStepCard.topLeft
+        topRightRadius: stepData.cardRadius ? stepData.cardRadius : control.radiusStepCard.topRight
+        bottomLeftRadius: stepData.cardRadius ? stepData.cardRadius : control.radiusStepCard.bottomLeft
+        bottomRightRadius: stepData.cardRadius ? stepData.cardRadius : control.radiusStepCard.bottomRight
         clip: true
 
         property var stepData: control.stepModel[control.currentStep]

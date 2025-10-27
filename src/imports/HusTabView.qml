@@ -310,7 +310,7 @@ Item {
                 __private.tabMaxWidth = Math.max(__private.tabMaxWidth, __tabItem.calcWidth);
             }
 
-            HusRectangle {
+            HusRectangleInternal {
                 id: __tabItem
                 width: (!__private.isHorizontal && control.tabSize == HusTabView.Size_Auto) ? Math.max(__private.tabMaxWidth, tabWidth) : tabWidth
                 height: tabHeight

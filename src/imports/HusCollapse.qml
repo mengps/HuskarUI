@@ -31,7 +31,7 @@ Item {
     property color colorContent: HusTheme.HusCollapse.colorContent
     property color colorContentBg: HusTheme.HusCollapse.colorContentBg
     property color colorBorder: HusTheme.isDark ? HusTheme.HusCollapse.colorBorderDark : HusTheme.HusCollapse.colorBorder
-    property int radiusBg: HusTheme.HusCollapse.radiusBg
+    property HusRadius radiusBg: HusRadius { all: HusTheme.HusCollapse.radiusBg }
     property Component titleDelegate: Row {
         leftPadding: 16
         rightPadding: 16
@@ -151,14 +151,14 @@ Item {
         model: ListModel { id: __listModel }
         onContentHeightChanged: realHeight = Math.max(contentHeight, 0);
         onRealHeightChanged: cacheBuffer = realHeight;
-        delegate: HusRectangle {
+        delegate: HusRectangleInternal {
             id: __rootItem
             width: __listView.width
             height: __column.height + ((detached && active) ? 1 : 0)
-            topLeftRadius: (isStart || detached) ? control.radiusBg : 0
-            topRightRadius: (isStart || detached) ? control.radiusBg : 0
-            bottomLeftRadius: (isEnd || detached) ? control.radiusBg : 0
-            bottomRightRadius: (isEnd || detached) ? control.radiusBg : 0
+            topLeftRadius: (isStart || detached) ? control.radiusBg.topLeft : 0
+            topRightRadius: (isStart || detached) ? control.radiusBg.topRight : 0
+            bottomLeftRadius: (isEnd || detached) ? control.radiusBg.bottomLeft : 0
+            bottomRightRadius: (isEnd || detached) ? control.radiusBg.bottomRight : 0
             color: control.colorBg
             border.color: control.colorBorder
             border.width: detached ? 1 : 0
@@ -181,13 +181,13 @@ Item {
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                HusRectangle {
+                HusRectangleInternal {
                     width: parent.width
                     height: __titleLoader.height
-                    topLeftRadius: (isStart || detached) ? control.radiusBg : 0
-                    topRightRadius: (isStart || detached) ? control.radiusBg : 0
-                    bottomLeftRadius: (isEnd && !active) || (detached && !active) ? control.radiusBg : 0
-                    bottomRightRadius: (isEnd && !active) || (detached && !active) ? control.radiusBg : 0
+                    topLeftRadius: (isStart || detached) ? control.radiusBg.topLeft : 0
+                    topRightRadius: (isStart || detached) ? control.radiusBg.topRight : 0
+                    bottomLeftRadius: (isEnd && !active) || (detached && !active) ? control.radiusBg.bottomLeft : 0
+                    bottomRightRadius: (isEnd && !active) || (detached && !active) ? control.radiusBg.bottomRight : 0
                     color: control.colorTitleBg
                     border.color: control.colorBorder
 
@@ -224,12 +224,12 @@ Item {
                     }
                 }
 
-                HusRectangle {
+                HusRectangleInternal {
                     width: parent.width - __rootItem.border.width * 2
                     height: active ? __contentLoader.height : 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    bottomLeftRadius: control.radiusBg
-                    bottomRightRadius: control.radiusBg
+                    bottomLeftRadius: control.radiusBg.bottomLeft
+                    bottomRightRadius: control.radiusBg.bottomRight
                     color: control.colorContentBg
                     clip: true
 
@@ -255,7 +255,11 @@ Item {
         sourceComponent: Rectangle {
             color: 'transparent'
             border.color: control.colorBorder
-            radius: control.radiusBg
+            radius: control.radiusBg.all
+            topLeftRadius: control.radiusBg.topLeft
+            topRightRadius: control.radiusBg.topRight
+            bottomLeftRadius: control.radiusBg.bottomLeft
+            bottomRightRadius: control.radiusBg.bottomRight
         }
     }
 }

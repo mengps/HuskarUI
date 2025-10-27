@@ -82,7 +82,7 @@ HusPopup {
         rightPadding: 8
         hoverCursorShape: Qt.PointingHandCursor
         iconSource: HusIcon.CloseOutlined
-        radiusBg: control.themeSource.radiusCloseBg
+        radiusBg.all: control.themeSource.radiusCloseBg
         onClicked: control.close();
     }
     property Component footerDelegate: Item {
@@ -156,9 +156,13 @@ HusPopup {
             active: control.closable
         }
     }
-    property Component bgDelegate: Rectangle {
+    property Component bgDelegate: HusRectangleInternal {
         color: control.colorBg
-        radius: control.radiusBg
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
     }
 
     function openInfo() {
