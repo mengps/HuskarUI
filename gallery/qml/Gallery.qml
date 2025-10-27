@@ -320,7 +320,7 @@ HusWindow {
                 }
             }
             menuBackgroundDelegate: Rectangle {
-                radius: menuButton.radiusBg
+                radius: menuButton.radiusBg.all
                 color: menuButton.colorBg
                 border.color: menuButton.colorBorder
                 border.width: 1
@@ -391,7 +391,7 @@ HusWindow {
             height: 40
             anchors.bottom: aboutButton.top
             type: HusButton.Type_Text
-            radiusBg: 0
+            radiusBg.all: 0
             text: galleryMenu.compactMode ? '' : qsTr('创建')
             colorText: HusTheme.Primary.colorTextBase
             iconSize: galleryMenu.defaultMenuIconSize
@@ -409,7 +409,7 @@ HusWindow {
             height: 40
             anchors.bottom: setttingsButton.top
             type: HusButton.Type_Text
-            radiusBg: 0
+            radiusBg.all: 0
             text: galleryMenu.compactMode ? '' : qsTr('关于')
             colorText: HusTheme.Primary.colorTextBase
             iconSize: galleryMenu.defaultMenuIconSize
@@ -427,7 +427,7 @@ HusWindow {
             height: 40
             anchors.bottom: parent.bottom
             type: HusButton.Type_Text
-            radiusBg: 0
+            radiusBg.all: 0
             text: galleryMenu.compactMode ? '' : qsTr('设置')
             colorText: HusTheme.Primary.colorTextBase
             iconSize: galleryMenu.defaultMenuIconSize
