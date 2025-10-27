@@ -15,7 +15,7 @@ Flickable {
 
         Description {
             desc: qsTr(`
-# HusRadius 按钮\n
+# HusRadius 圆角半径\n
 提供四方向的圆角半径类型。\n
 * **继承自 { QObject }**\n
 \n<br/>
