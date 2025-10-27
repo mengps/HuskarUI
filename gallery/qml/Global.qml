@@ -37,7 +37,8 @@ QtObject {
                     key: 'HusButton',
                     label: qsTr('HusButton 按钮'),
                     source: './Examples/General/ExpButton.qml',
-                    desc: qsTr('新增 Link 类型按钮。')
+                    updateVersion: '0.4.9.0',
+                    desc: qsTr('新增 sizeHint 尺寸提示。')
                 },
                 {
                     key: 'HusIconButton',
@@ -55,7 +56,7 @@ QtObject {
                     key: 'HusIconText',
                     label: qsTr('HusIconText 图标文本'),
                     source: './Examples/General/ExpIconText.qml',
-                    updateVersion: '0.4.6',
+                    updateVersion: '0.4.6.0',
                     desc: qsTr('新增 empty 用于判断图标是否为空。\n新增 iconSource 支持内置图标和外部 url 链接。')
                 },
                 {
@@ -105,6 +106,13 @@ QtObject {
                     label: qsTr('HusCaptionBar 标题栏'),
                     source: './Examples/General/ExpCaptionBar.qml',
                     desc: qsTr('新增窗口额外按钮代理 winExtraButtonsDelegate。')
+                },
+                {
+                    key: 'HusRadius',
+                    label: qsTr('HusRadius 圆角半径'),
+                    source: './Examples/General/ExpRadius.qml',
+                    addVersion: '0.4.9.0',
+                    desc: qsTr('提供四方向的圆角半径类型。')
                 }
             ]
         },
@@ -187,8 +195,8 @@ QtObject {
                     key: 'HusInput',
                     label: qsTr('HusInput 输入框'),
                     source: './Examples/DataEntry/ExpInput.qml',
-                    updateVersion: '0.4.8.1',
-                    desc: qsTr('新增 clearIconDelegate。\n新增 bgDelegate代理。\n新增清除图标相关属性和信号。')
+                    updateVersion: '0.4.9.0',
+                    desc: qsTr('新增 sizeHint 尺寸提示。')
                 },
                 {
                     key: 'HusOTPInput',

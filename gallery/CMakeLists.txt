@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.8.3)
+set(HUSKARUI_VERSION 0.4.9.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -50,6 +50,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/General/ExpCaptionBar.qml
         qml/Examples/General/ExpMoveMouseArea.qml
         qml/Examples/General/ExpResizeMouseArea.qml
+        qml/Examples/General/ExpRadius.qml
         qml/Examples/DataEntry/ExpSwitch.qml
         qml/Examples/DataEntry/ExpSlider.qml
         qml/Examples/DataEntry/ExpSelect.qml
