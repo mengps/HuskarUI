@@ -9,6 +9,35 @@
 #include <private/qqmlglobal_p.h>
 #include <private/qquickrectangle_p.h>
 
+class HusRectanglePrivate
+{
+public:
+    bool maybeSetImplicitAntialiasing()
+    {
+        bool implicitAA = (m_radius != 0);
+        if (!implicitAA) {
+            implicitAA = m_topLeftRadius > 0.0
+                         || m_topRightRadius > 0.0
+                         || m_bottomLeftRadius > 0.0
+                         || m_bottomRightRadius > 0.0;
+        }
+        return implicitAA;
+    }
+
+    QColor m_color = { 0xffffff };
+    HusPen *m_pen = nullptr;
+    QJSValue m_gradient;
+    qreal m_radius = 0;
+    qreal m_topLeftRadius = -1.;
+    qreal m_topRightRadius = -1.;
+    qreal m_bottomLeftRadius = -1.;
+    qreal m_bottomRightRadius = -1.;
+
+    static int doUpdateSlotIdx;
+};
+
+int HusRectanglePrivate::doUpdateSlotIdx = -1;
+
 qreal HusRadius::all() const
 {
     return m_all;
@@ -119,23 +148,6 @@ void HusRadius::setBottomRight(qreal bottomRight)
     m_bottomRight = bottomRight;
     emit bottomRightChanged();
 }
-
-class HusRectanglePrivate
-{
-public:
-    QColor m_color = { 0xffffff };
-    HusPen *m_pen = nullptr;
-    QJSValue m_gradient;
-    qreal m_radius = 0;
-    qreal m_topLeftRadius = 0;
-    qreal m_topRightRadius = 0;
-    qreal m_bottomLeftRadius = 0;
-    qreal m_bottomRightRadius = 0;
-
-    static int doUpdateSlotIdx;
-};
-
-int HusRectanglePrivate::doUpdateSlotIdx = -1;
 
 HusRectangle::HusRectangle(QQuickItem *parent)
     : QQuickPaintedItem{parent}
@@ -400,7 +412,9 @@ void HusRectangle::paint(QPainter *painter)
     Q_D(HusRectangle);
 
     painter->save();
-    painter->setRenderHint(QPainter::Antialiasing);
+
+    if (antialiasing() || d->maybeSetImplicitAntialiasing())
+        painter->setRenderHint(QPainter::Antialiasing);
 
     auto rect = boundingRect();
     if (d->m_pen && d->m_pen->isValid()) {
@@ -465,6 +479,7 @@ void HusRectangle::paint(QPainter *painter)
             }
         }
     }
+
     if (stops.isEmpty()) {
         painter->setBrush(d->m_color);
     } else {

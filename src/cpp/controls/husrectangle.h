@@ -147,7 +147,7 @@ class HusRectangleInternal: public QQuickRectangle
 
 public:
     explicit HusRectangleInternal(QQuickItem *parent = nullptr) : QQuickRectangle{parent} { }
-    ~HusRectangleInternal() { };
+    ~HusRectangleInternal() { }
 };
 
 #else
@@ -160,7 +160,7 @@ class HusRectangleInternal: public HusRectangle
 
 public:
     explicit HusRectangleInternal(QQuickItem *parent = nullptr) : HusRectangle{parent} { }
-    ~HusRectangleInternal() { };
+    ~HusRectangleInternal() { }
 };
 
 #endif
