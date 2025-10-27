@@ -93,6 +93,8 @@ HusWatermark::HusWatermark(QQuickItem *parent)
 
     d->m_font.setFamily(HusTheme::instance()->Primary()["fontPrimaryFamily"].toString());
     d->m_font.setPixelSize(HusTheme::instance()->Primary()["fontPrimarySize"].toInt());
+
+    setAntialiasing(true);
 }
 
 HusWatermark::~HusWatermark()
@@ -261,7 +263,9 @@ void HusWatermark::paint(QPainter *painter)
     Q_D(HusWatermark);
 
     painter->save();
-    painter->setRenderHint(QPainter::Antialiasing);
+
+    if (antialiasing())
+        painter->setRenderHint(QPainter::Antialiasing);
 
     painter->setFont(d->m_font);
     painter->setPen(d->m_colorText);
