@@ -160,7 +160,7 @@ colorResizeBlockBg | color | - | 调整头大小块(左上角方块)背景色
 属性名 | 类型 | 可选/必选 | 描述
 ------ | --- | :---: | ---
 title | string | 必选 | 标题
-dataIndex | sting | 必选 | 数据索引
+dataIndex | string | 必选 | 数据索引
 delegate | var | 必选 | 该列的单元格代理
 width | int | 必选 | 该列初始宽度
 minimumWidth | int | 可选 | 该列最小宽度
@@ -180,7 +180,7 @@ row | int | 行索引
 column | int | 列索引
 cellData | var | 单元格数据
 cellIndex | int | 单元格索引
-dataIndex | sting | 数据索引
+dataIndex | string | 数据索引
 filterInput | string | 单元格的过滤输入
 \n<br/>
 \n### 支持的函数：\n

@@ -32,8 +32,8 @@ Flickable {
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-showDate | bool | - | 显示日期部分
-showTime | bool | - | 显示时间部分
+showDate | bool | true | 显示日期部分
+showTime | bool | true | 显示时间部分
 datePickerMode | int | HusDateTimePicker.Mode_Day | 日期选择模式(来自 HusDateTimePicker)
 timePickerMode | int | HusDateTimePicker.Mode_HHMMSS | 时间选择模式(来自 HusDateTimePicker)
 initDateTime | date | undefined | 初始日期时间
