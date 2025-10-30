@@ -418,7 +418,6 @@ void HusRectangle::paint(QPainter *painter)
 
     auto rect = boundingRect();
     if (d->m_pen && d->m_pen->isValid()) {
-        rect = boundingRect();
         if (rect.width() > d->m_pen->width() * 2) {
             auto dx = d->m_pen->width() * 0.5;
             rect.adjust(dx, 0, -dx, 0);
@@ -427,7 +426,7 @@ void HusRectangle::paint(QPainter *painter)
             auto dy = d->m_pen->width() * 0.5;
             rect.adjust(0, dy, 0, -dy);
         }
-        painter->setPen(QPen(d->m_pen->color(), d->m_pen->width(), Qt::PenStyle(d->m_pen->style()), Qt::SquareCap, Qt::SvgMiterJoin));
+        painter->setPen(QPen(d->m_pen->color(), d->m_pen->width(), Qt::PenStyle(d->m_pen->style()), Qt::FlatCap, Qt::SvgMiterJoin));
     } else {
         painter->setPen(QPen(Qt::transparent));
     }
