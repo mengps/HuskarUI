@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import HuskarUI.Basic
 
 HusPopup {
@@ -8,11 +9,12 @@ HusPopup {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property var initModel: []
-    property bool tooltipVisible: false
-    property int defaultMenuIconSize: HusTheme.HusMenu.fontSize
+    property bool showToolTip: false
+    property int defaultMenuIconSize: parseInt(HusTheme.HusMenu.fontSize)
     property int defaultMenuIconSpacing: 8
     property int defaultMenuWidth: 140
-    property int defaultMenuHeight: 30
+    property int defaultMenuTopPadding: 5
+    property int defaultMenuBottomPadding: 5
     property int defaultMenuSpacing: 4
     property int subMenuOffset: -4
     property HusRadius radiusMenuBg: HusRadius { all: HusTheme.Primary.radiusPrimary }
@@ -38,14 +40,7 @@ HusPopup {
             property: 'opacity'
             from: 0.0
             to: 1.0
-            easing.type: Easing.InOutQuad
-            duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
-        }
-        NumberAnimation {
-            property: 'height'
-            from: 0
-            to: control.implicitHeight
-            easing.type: Easing.InOutQuad
+            easing.type: Easing.OutQuad
             duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
         }
     }
@@ -53,29 +48,25 @@ HusPopup {
         NumberAnimation {
             property: 'opacity'
             from: 1.0
-            to: 0.0
-            easing.type: Easing.InOutQuad
-            duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
-        }
-        NumberAnimation {
-            property: 'height'
             to: 0
-            easing.type: Easing.InOutQuad
+            easing.type: Easing.InQuad
             duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
         }
     }
     contentItem: HusMenu {
+        implicitHeight: implicitMenuHeight
         radiusMenuBg: control.radiusMenuBg
         radiusPopupBg: control.radiusBg
         initModel: control.initModel
-        tooltipVisible: control.tooltipVisible
+        showToolTip: control.showToolTip
         popupMode: true
         popupWidth: control.defaultMenuWidth
         popupOffset: control.subMenuOffset
         defaultMenuIconSize: control.defaultMenuIconSize
         defaultMenuIconSpacing: control.defaultMenuIconSpacing
         defaultMenuWidth: control.defaultMenuWidth
-        defaultMenuHeight: control.defaultMenuHeight
+        defaultMenuTopPadding: control.defaultMenuTopPadding
+        defaultMenuBottomPadding: control.defaultMenuBottomPadding
         defaultMenuSpacing: control.defaultMenuSpacing
         onClickMenu:
             (deep, key, keyPath, data) => {
@@ -104,44 +95,46 @@ HusPopup {
 
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
         }
+
         menuContentDelegate: Item {
             id: __menuContentItem
-
+            implicitHeight: __rowLayout.implicitHeight
             property var __menuButton: menuButton
             property var model: menuButton.model
             property bool isGroup: menuButton.isGroup
-            property bool hovered: menuButton.hovered
 
-            Loader {
-                id: __iconLoader
-                x: menuButton.iconStart
-                anchors.verticalCenter: parent.verticalCenter
-                sourceComponent: menuButton.iconDelegate
-                property var model: __menuButton.model
-                property alias menuButton: __menuContentItem.__menuButton
-            }
-
-            Loader {
-                id: __labelLoader
-                anchors.left: __iconLoader.right
-                anchors.leftMargin: menuButton.iconSpacing
+            RowLayout {
+                id: __rowLayout
+                visible: !__menuContentItem.isVertical
+                anchors.left: parent.left
                 anchors.right: menuButton.expandedVisible ? __expandedIcon.left : parent.right
-                anchors.rightMargin: menuButton.iconSpacing
                 anchors.verticalCenter: parent.verticalCenter
-                sourceComponent: menuButton.labelDelegate
-                property var model: __menuButton.model
-                property alias menuButton: __menuContentItem.__menuButton
+                spacing: menuButton.iconSpacing
+
+                Loader {
+                    sourceComponent: menuButton.iconDelegate
+                    property var model: __menuButton.model
+                    property alias menuButton: __menuContentItem.__menuButton
+                }
+
+                Loader {
+                    Layout.alignment: Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    sourceComponent: menuButton.labelDelegate
+                    property var model: __menuButton.model
+                    property alias menuButton: __menuContentItem.__menuButton
+                }
             }
 
             HusIconText {
                 id: __expandedIcon
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                visible: menuButton.expandedVisible
+                visible: menuButton.showExpanded
                 iconSource: HusIcon.RightOutlined
                 colorIcon: !isGroup && menuButton.enabled ? HusTheme.HusMenu.colorText : HusTheme.HusMenu.colorTextDisabled
 
-                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
             }
         }
         menuBackgroundDelegate: HusRectangleInternal {

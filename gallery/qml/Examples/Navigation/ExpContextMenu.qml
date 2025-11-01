@@ -27,11 +27,12 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
 initModel | list | [] | 初始菜单模型
-tooltipVisible | bool | false | 是否显示工具提示
+showToolTip | bool | false | 是否显示工具提示
 defaultMenuIconSize | int | - | 默认菜单图标大小
 defaultMenuIconSpacing | int | 8 | 默认菜单图标间隔
 defaultMenuWidth | int | 140 | 默认菜单宽度
-defaultMenuHieght | int | 40 | 默认菜单高度
+defaultMenuTopPadding | int | 5 | 默认菜单上边距
+defaultMenuBottomPadding | int | 5 | 默认菜单下边距
 defaultMenuSpacing | int | 4 | 默认菜单间隔
 subMenuOffset | int | -4 | 子菜单偏移
 radiusMenuBg | [HusRadius](internal://HusRadius) | - | 菜单项背景圆角
