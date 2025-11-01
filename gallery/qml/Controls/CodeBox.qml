@@ -132,7 +132,7 @@ Rectangle {
                     }
 
                     HusToolTip {
-                        arrowVisible: false
+                        showArrow: false
                         visible: parent ? parent.hovered : false
                         text: codeText.expanded ? qsTr('收起代码') : qsTr('展开代码')
                     }
@@ -151,7 +151,7 @@ Rectangle {
                         }
                     }
                     HusToolTip {
-                        arrowVisible: false
+                        showArrow: false
                         visible: parent ? parent.hovered : false
                         text: qsTr('运行代码')
                     }

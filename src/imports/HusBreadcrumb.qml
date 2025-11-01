@@ -108,7 +108,7 @@ Item {
             sourceComponent: HusContextMenu {
                 id: __menu
                 parent: __itemDelegate
-                tooltipVisible: true
+                showToolTip: true
                 initModel: __itemDelegate.menuItem
                 defaultMenuWidth: __itemDelegate.menu.width ?? control.defaultMenuWidth
                 closePolicy: HusPopup.NoAutoClose | HusPopup.CloseOnPressOutsideParent | HusPopup.CloseOnEscape
@@ -143,7 +143,7 @@ Item {
     height: 30
     titleFont {
         family: HusTheme.HusBreadcrumb.fontFamily
-        pixelSize: HusTheme.HusBreadcrumb.fontSize
+        pixelSize: parseInt(HusTheme.HusBreadcrumb.fontSize)
     }
     onInitModelChanged: reset();
 

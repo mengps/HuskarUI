@@ -11,8 +11,8 @@ HusRectangle {
     property bool alternatingRow: false
     property int defaultColumnHeaderHeight: 40
     property int defaultRowHeaderWidth: 40
-    property bool columnGridVisible: false
-    property bool rowGridVisible: false
+    property bool showColumnGrid: false
+    property bool showRowGrid: false
     property real minimumRowHeight: 40
     property real maximumRowHeight: Number.NaN
     property var initModel: []
@@ -20,18 +20,18 @@ HusRectangle {
     property var columns: []
     property var checkedKeys: []
 
-    property bool columnHeaderVisible: true
+    property bool showColumnHeader: true
     property font columnHeaderTitleFont: Qt.font({
                                                      family: HusTheme.HusTableView.fontFamily,
-                                                     pixelSize: HusTheme.HusTableView.fontSize
+                                                     pixelSize: parseInt(HusTheme.HusTableView.fontSize)
                                                  })
     property color colorColumnHeaderTitle: HusTheme.HusTableView.colorColumnTitle
     property color colorColumnHeaderBg: HusTheme.HusTableView.colorColumnHeaderBg
 
-    property bool rowHeaderVisible: true
+    property bool showRowHeader: true
     property font rowHeaderTitleFont: Qt.font({
                                                   family: HusTheme.HusTableView.fontFamily,
-                                                  pixelSize: HusTheme.HusTableView.fontSize
+                                                  pixelSize: parseInt(HusTheme.HusTableView.fontSize)
                                               })
     property color colorRowHeaderTitle: HusTheme.HusTableView.colorRowTitle
     property color colorRowHeaderBg: HusTheme.HusTableView.colorRowHeaderBg
@@ -203,7 +203,7 @@ HusRectangle {
                 colorIcon: sortMode === 'ascend' ? HusTheme.HusTableView.colorIconHover :
                                                    HusTheme.HusTableView.colorIcon
                 iconSource: HusIcon.CaretUpOutlined
-                iconSize: HusTheme.HusTableView.fontSize - 2
+                iconSize: parseInt(HusTheme.HusTableView.fontSize) - 2
             }
 
             HusIconText {
@@ -211,7 +211,7 @@ HusRectangle {
                 colorIcon: sortMode === 'descend' ? HusTheme.HusTableView.colorIconHover :
                                                     HusTheme.HusTableView.colorIcon
                 iconSource: HusIcon.CaretDownOutlined
-                iconSize: HusTheme.HusTableView.fontSize - 2
+                iconSize: parseInt(HusTheme.HusTableView.fontSize) - 2
             }
         }
     }
@@ -314,7 +314,7 @@ HusRectangle {
         }
 
         __columnHeaderModel.clear();
-        if (columnHeaderVisible) {
+        if (showColumnHeader) {
             __columnHeaderModel.columns = headerColumns;
             __columnHeaderModel.rows = [headerRow];
         }
@@ -658,12 +658,12 @@ HusRectangle {
     HusRectangleInternal {
         id: __columnHeaderViewBg
         height: control.defaultColumnHeaderHeight
-        anchors.left: control.rowHeaderVisible ? __rowHeaderViewBg.right : parent.left
+        anchors.left: control.showRowHeader ? __rowHeaderViewBg.right : parent.left
         anchors.right: parent.right
-        topLeftRadius: control.rowHeaderVisible ? 0 : HusTheme.HusTableView.radiusBg
+        topLeftRadius: control.showRowHeader ? 0 : HusTheme.HusTableView.radiusBg
         topRightRadius: HusTheme.HusTableView.radiusBg
         color: control.colorColumnHeaderBg
-        visible: control.columnHeaderVisible
+        visible: control.showColumnHeader
 
         TableView {
             id: __columnHeaderView
@@ -754,10 +754,10 @@ HusRectangle {
     Rectangle {
         id: __rowHeaderViewBg
         width: control.defaultRowHeaderWidth
-        anchors.top: control.columnHeaderVisible ? __columnHeaderViewBg.bottom : __cellMouseArea.top
+        anchors.top: control.showColumnHeader ? __columnHeaderViewBg.bottom : __cellMouseArea.top
         anchors.bottom: __cellMouseArea.bottom
         color: control.colorRowHeaderBg
-        visible: control.rowHeaderVisible
+        visible: control.showRowHeader
 
         TableView {
             id: __rowHeaderView
@@ -821,7 +821,7 @@ HusRectangle {
 
     MouseArea {
         id: __cellMouseArea
-        anchors.top: control.columnHeaderVisible ? __columnHeaderViewBg.bottom : parent.top
+        anchors.top: control.showColumnHeader ? __columnHeaderViewBg.bottom : parent.top
         anchors.bottom: parent.bottom
         anchors.left: __columnHeaderViewBg.left
         anchors.right: __columnHeaderViewBg.right
@@ -948,7 +948,7 @@ HusRectangle {
                 }
 
                 Loader {
-                    active: control.rowGridVisible
+                    active: control.showRowGrid
                     width: parent.width
                     height: 1
                     anchors.bottom: parent.bottom
@@ -956,7 +956,7 @@ HusRectangle {
                 }
 
                 Loader {
-                    active: control.columnGridVisible
+                    active: control.showColumnGrid
                     width: 1
                     height: parent.height
                     anchors.right: parent.right
@@ -971,7 +971,7 @@ HusRectangle {
         z: 10
         width: __rowHeaderViewBg.width
         height: __columnHeaderViewBg.height
-        active: control.rowHeaderVisible && control.columnHeaderVisible
+        active: control.showRowHeader && control.showColumnHeader
         sourceComponent: HusRectangleInternal {
             color: control.colorResizeBlockBg
             topLeftRadius: HusTheme.HusTableView.radiusBg
@@ -1003,7 +1003,7 @@ HusRectangle {
     HusScrollBar {
         id: __hScrollBar
         z: 11
-        anchors.left: control.rowHeaderVisible ? __rowHeaderViewBg.right : __cellMouseArea.left
+        anchors.left: control.showRowHeader ? __rowHeaderViewBg.right : __cellMouseArea.left
         anchors.right: __cellMouseArea.right
         anchors.bottom: __cellMouseArea.bottom
         animationEnabled: control.animationEnabled
@@ -1013,7 +1013,7 @@ HusRectangle {
         id: __vScrollBar
         z: 12
         anchors.right: __cellMouseArea.right
-        anchors.top: control.columnHeaderVisible ? __columnHeaderViewBg.bottom : __cellMouseArea.top
+        anchors.top: control.showColumnHeader ? __columnHeaderViewBg.bottom : __cellMouseArea.top
         anchors.bottom: __cellMouseArea.bottom
         animationEnabled: control.animationEnabled
     }

@@ -13,7 +13,7 @@ HusIconButton {
     radiusBg.all: 0
     hoverCursorShape: Qt.ArrowCursor
     type: HusButton.Type_Text
-    iconSize: HusTheme.HusCaptionButton.fontSize
+    iconSize: parseInt(HusTheme.HusCaptionButton.fontSize)
     effectEnabled: false
     colorIcon: {
         if (enabled || noDisabledState) {

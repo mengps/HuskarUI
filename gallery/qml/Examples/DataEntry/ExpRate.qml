@@ -45,7 +45,7 @@ value | int | 0 | 当前值
 spacing | int | 4 | 星星间隔
 iconSize | int | 24 | 图标大小
 toolTipFont | font | - | 文字提示字体
-toolTipVisible | bool | false | 是否显示文字提示
+showToolTip | bool | false | 是否显示文字提示
 toolTipTexts | list | [] | 文字提示文本列表(长度需等于count)
 colorFill | color | - | 满星颜色
 colorEmpty | color | - | 空星颜色
@@ -136,7 +136,7 @@ halfIcon | int丨string | HusIcon.StarFilled丨'' | 半星图标(来自 HusIcon)
             clip: false
             width: parent.width
             desc: qsTr(`
-通过 \`toolTipVisible\` 设置是否显示文字提示。\n
+通过 \`showToolTip\` 设置是否显示文字提示。\n
 通过 \`toolTipTexts\` 设置文字提示文本列表。\n
 **注意** 文字提示并非弹出，需要注意clip。\n
                        `)
@@ -149,7 +149,7 @@ halfIcon | int丨string | HusIcon.StarFilled丨'' | 半星图标(来自 HusIcon)
 
                     HusRate {
                         initValue: 3
-                        toolTipVisible: true
+                        showToolTip: true
                         toolTipTexts: ['terrible', 'bad', 'normal', 'good', 'wonderful']
                     }
                 }
@@ -159,7 +159,7 @@ halfIcon | int丨string | HusIcon.StarFilled丨'' | 半星图标(来自 HusIcon)
 
                 HusRate {
                     initValue: 3
-                    toolTipVisible: true
+                    showToolTip: true
                     toolTipTexts: ['terrible', 'bad', 'normal', 'good', 'wonderful']
                 }
             }

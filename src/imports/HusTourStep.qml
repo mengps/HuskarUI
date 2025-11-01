@@ -24,22 +24,22 @@ T.Popup {
     property font stepTitleFont: Qt.font({
                                              bold: true,
                                              family: HusTheme.HusTour.fontFamily,
-                                             pixelSize: HusTheme.HusTour.fontSizeTitle
+                                             pixelSize: parseInt(HusTheme.HusTour.fontSizeTitle)
                                          })
     property color colorStepTitle: HusTheme.HusTour.colorText
     property font stepDescriptionFont: Qt.font({
                                                    family: HusTheme.HusTour.fontFamily,
-                                                   pixelSize: HusTheme.HusTour.fontSizeDescription
+                                                   pixelSize: parseInt(HusTheme.HusTour.fontSizeDescription)
                                                })
     property color colorStepDescription: HusTheme.HusTour.colorText
     property font indicatorFont: Qt.font({
                                              family: HusTheme.HusTour.fontFamily,
-                                             pixelSize: HusTheme.HusTour.fontSizeIndicator
+                                             pixelSize: parseInt(HusTheme.HusTour.fontSizeIndicator)
                                          })
     property color colorIndicator: HusTheme.HusTour.colorText
     property font buttonFont: Qt.font({
                                           family: HusTheme.HusTour.fontFamily,
-                                          pixelSize: HusTheme.HusTour.fontSizeButton
+                                          pixelSize: parseInt(HusTheme.HusTour.fontSizeButton)
                                       })
     property Component arrowDelegate: Canvas {
         id: __arrowDelegate

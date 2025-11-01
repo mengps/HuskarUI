@@ -66,7 +66,7 @@ Image {
                     anchors.verticalCenter: parent.verticalCenter
                     colorIcon: HusTheme.HusImage.colorText
                     iconSource: HusIcon.EyeOutlined
-                    iconSize: HusTheme.HusImage.fontSize + 2
+                    iconSize: parseInt(HusTheme.HusImage.fontSize) + 2
                 }
 
                 HusText {

@@ -14,6 +14,6 @@ TextEdit {
     selectionColor: HusTheme.HusCopyableText.colorSelection
     font {
         family: HusTheme.HusCopyableText.fontFamily
-        pixelSize: HusTheme.HusCopyableText.fontSize
+        pixelSize: parseInt(HusTheme.HusCopyableText.fontSize)
     }
 }

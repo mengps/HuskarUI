@@ -15,7 +15,7 @@ HusText {
     height: __iconLoader.active ? (__iconLoader.implicitHeight + topPadding + bottomPadding) : implicitHeight
     text: __iconLoader.active ? '' : String.fromCharCode(iconSource)
     font.family: 'HuskarUI-Icons'
-    font.pixelSize: HusTheme.HusIconText.fontSize
+    font.pixelSize: parseInt(HusTheme.HusIconText.fontSize)
     color: HusTheme.HusIconText.colorText
 
     Loader {
@@ -30,7 +30,7 @@ HusText {
         }
     }
 
-    Accessible.role: Accessible.StaticText
+    Accessible.role: Accessible.Graphic
     Accessible.name: control.text
     Accessible.description: control.contentDescription
 }

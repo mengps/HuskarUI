@@ -33,7 +33,7 @@ T.CheckBox {
     implicitWidth: implicitContentWidth + leftPadding + rightPadding
     implicitHeight: Math.max(implicitContentHeight, implicitIndicatorHeight) + topPadding + bottomPadding
     font.family: themeSource.fontFamily
-    font.pixelSize: themeSource.fontSize
+    font.pixelSize: parseInt(themeSource.fontSize)
     spacing: 6
     indicator: Item {
         x: control.leftPadding

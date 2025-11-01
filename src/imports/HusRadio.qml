@@ -22,7 +22,7 @@ T.RadioButton {
     implicitHeight: Math.max(implicitContentHeight, implicitIndicatorHeight) + topPadding + bottomPadding
     font {
         family: HusTheme.HusRadio.fontFamily
-        pixelSize: HusTheme.HusRadio.fontSize
+        pixelSize: parseInt(HusTheme.HusRadio.fontSize)
     }
     spacing: 8
     indicator: Item {

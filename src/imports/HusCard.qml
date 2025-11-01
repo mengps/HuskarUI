@@ -9,7 +9,7 @@ Rectangle {
     property string title: ''
     property font titleFont: Qt.font({
                                          family: HusTheme.HusCard.fontFamily,
-                                         pixelSize: HusTheme.HusCard.fontSizeTitle,
+                                         pixelSize: parseInt(HusTheme.HusCard.fontSizeTitle),
                                          weight: Font.DemiBold,
                                      })
     property string coverSource: ''
@@ -22,13 +22,13 @@ Rectangle {
     property string bodyTitle: ''
     property font bodyTitleFont: Qt.font({
                                              family: HusTheme.HusCard.fontFamily,
-                                             pixelSize: HusTheme.HusCard.fontSizeBodyTitle,
+                                             pixelSize: parseInt(HusTheme.HusCard.fontSizeBodyTitle),
                                              weight: Font.DemiBold,
                                          })
     property string bodyDescription: ''
     property font bodyDescriptionFont: Qt.font({
                                                    family: HusTheme.HusCard.fontFamily,
-                                                   pixelSize: HusTheme.HusCard.fontSizeBodyDescription,
+                                                   pixelSize: parseInt(HusTheme.HusCard.fontSizeBodyDescription),
                                                })
     property color colorTitle: HusTheme.HusCard.colorTitle
     property color colorBodyAvatar: HusTheme.HusCard.colorBodyAvatar

@@ -21,8 +21,8 @@ HusWindow {
             source: 'qrc:/Gallery/images/huskarui_icon.svg'
         }
     }
-    captionBar.minimizeButtonVisible: false
-    captionBar.maximizeButtonVisible: false
+    captionBar.showMinimizeButton: false
+    captionBar.showMaximizeButton: false
     captionBar.color: HusTheme.Primary.colorFillTertiary
     captionBar.closeCallback: () => creatorLoader.visible = false;
     Component.onCompleted: setSpecialEffect(galleryWindow.specialEffect);

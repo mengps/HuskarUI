@@ -81,7 +81,7 @@ HusPopup {
         text: `${control.currentIndex + 1} / ${control.count}`
         font {
             family: HusTheme.HusImage.fontFamily
-            pixelSize: HusTheme.HusImage.fontSize + 1
+            pixelSize: parseInt(HusTheme.HusImage.fontSize) + 1
         }
     }
     property Component operationDelegate: MouseArea {

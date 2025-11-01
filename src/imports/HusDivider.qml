@@ -22,7 +22,7 @@ Item {
     property string title: ''
     property font titleFont: Qt.font({
                                          family: HusTheme.HusDivider.fontFamily,
-                                         pixelSize: HusTheme.HusDivider.fontSize
+                                         pixelSize: parseInt(HusTheme.HusDivider.fontSize)
                                      })
     property int titleAlign: HusDivider.Align_Left
     property int titlePadding: 20

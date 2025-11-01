@@ -56,7 +56,7 @@ T.Switch {
     height: implicitIndicatorHeight + topPadding + bottomPadding
     font {
         family: HusTheme.HusSwitch.fontFamily
-        pixelSize: HusTheme.HusSwitch.fontSize - 2
+        pixelSize: parseInt(HusTheme.HusSwitch.fontSize) - 2
     }
     indicator: Item {
         implicitWidth: __bg.width

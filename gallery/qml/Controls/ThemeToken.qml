@@ -24,7 +24,7 @@ Item {
                 id: editInput
                 width: 200
                 options: galleryGlobal.primaryTokens
-                tooltipVisible: true
+                showToolTip: true
                 filterOption: function(input, option){
                     return option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1;
                 }
@@ -201,7 +201,7 @@ Item {
             asynchronous: true
             sourceComponent: HusTableView {
                 propagateWheelEvent: false
-                columnGridVisible: true
+                showColumnGrid: true
                 columns: [
                     {
                         title: qsTr('Token 名称'),

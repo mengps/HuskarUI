@@ -41,7 +41,7 @@ stackThreshold | int | 5 | 堆叠阈值
 defaultIconSize | int | 20 | 默认图标大小
 maxNotificationWidth | int | 300 | 通知框最大宽度
 spacing | int | 10 | 通知之间的间隔
-closeButtonVisible | bool | false | 是否显示关闭按钮
+showCloseButton | bool | false | 是否显示关闭按钮
 topMargin | int | 12 | 通知距离顶端的距离
 bgTopPadding | int | 12 | 背景上部填充
 bgBottomPadding | int | 12 | 背景下部填充

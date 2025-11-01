@@ -38,7 +38,7 @@ Item {
             text: qsTr('跳至')
             font {
                 family: HusTheme.HusCopyableText.fontFamily
-                pixelSize: HusTheme.HusCopyableText.fontSize
+                pixelSize: parseInt(HusTheme.HusCopyableText.fontSize)
             }
             color: HusTheme.Primary.colorTextBase
         }
@@ -151,7 +151,6 @@ Item {
 
         HusToolTip {
             visible: parent.hovered && parent.enabled
-            arrowVisible: false
             animationEnabled: control.animationEnabled
             text: parent.text
         }
@@ -200,7 +199,6 @@ Item {
 
         HusToolTip {
             id: __moreTooltip
-            arrowVisible: false
             visible: parent.enabled && parent.hovered && text !== ''
             animationEnabled: control.animationEnabled
         }
@@ -232,7 +230,6 @@ Item {
 
             HusToolTip {
                 id: __tooltip
-                arrowVisible: false
                 visible: parent.hovered && parent.enabled && text !== ''
                 animationEnabled: control.animationEnabled
             }

@@ -10,8 +10,8 @@ HusWindow {
     height: 500
     minimumWidth: 400
     minimumHeight: 500
-    captionBar.minimizeButtonVisible: false
-    captionBar.maximizeButtonVisible: false
+    captionBar.showMinimizeButton: false
+    captionBar.showMaximizeButton: false
     captionBar.winTitle: qsTr('关于')
     captionBar.winIconDelegate: Item {
         Image {

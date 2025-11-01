@@ -13,7 +13,7 @@ Rectangle {
     property string winIcon: ''
     property alias winIconWidth: __winIconLoader.width
     property alias winIconHeight: __winIconLoader.height
-    property alias winIconVisible: __winIconLoader.visible
+    property alias showWinIcon: __winIconLoader.visible
 
     property string winTitle: targetWindow?.title ?? ''
     property font winTitleFont: Qt.font({
@@ -21,15 +21,15 @@ Rectangle {
                                             pixelSize: 14
                                         })
     property color winTitleColor: HusTheme.Primary.colorTextBase
-    property alias winTitleVisible: __winTitleLoader.visible
+    property alias showWinTitle: __winTitleLoader.visible
 
-    property bool returnButtonVisible: false
-    property bool themeButtonVisible: false
+    property bool showReturnButton: false
+    property bool showThemeButton: false
     property bool topButtonChecked: false
-    property bool topButtonVisible: false
-    property bool minimizeButtonVisible: Qt.platform.os !== 'osx'
-    property bool maximizeButtonVisible: Qt.platform.os !== 'osx'
-    property bool closeButtonVisible: Qt.platform.os !== 'osx'
+    property bool showTopButton: false
+    property bool showMinimizeButton: Qt.platform.os !== 'osx'
+    property bool showMaximizeButton: Qt.platform.os !== 'osx'
+    property bool showCloseButton: Qt.platform.os !== 'osx'
 
     property var returnCallback: () => { }
     property var themeCallback: () => { HusTheme.darkMode = HusTheme.isDark ? HusTheme.Light : HusTheme.Dark; }
@@ -80,7 +80,7 @@ Rectangle {
         HusCaptionButton {
             id: __themeButton
             height: parent.height
-            visible: control.themeButtonVisible
+            visible: control.showThemeButton
             noDisabledState: true
             iconSource: HusTheme.isDark ? HusIcon.MoonOutlined : HusIcon.SunOutlined
             iconSize: 14
@@ -91,7 +91,7 @@ Rectangle {
         HusCaptionButton {
             id: __topButton
             height: parent.height
-            visible: control.topButtonVisible
+            visible: control.showTopButton
             noDisabledState: true
             iconSource: HusIcon.PushpinOutlined
             iconSize: 14
@@ -117,7 +117,7 @@ Rectangle {
         HusCaptionButton {
             id: __minimizeButton
             height: parent.height
-            visible: control.minimizeButtonVisible
+            visible: control.showMinimizeButton
             noDisabledState: true
             iconSource: HusIcon.LineOutlined
             iconSize: 14
@@ -130,7 +130,7 @@ Rectangle {
             height: parent.height
             topPadding: 8
             bottomPadding: 8
-            visible: control.maximizeButtonVisible
+            visible: control.showMaximizeButton
             noDisabledState: true
             contentItem: HusIconText {
                 iconSource: HusIcon.SwitcherTwotonePath3
@@ -152,7 +152,7 @@ Rectangle {
         HusCaptionButton {
             id: __closeButton
             height: parent.height
-            visible: control.closeButtonVisible
+            visible: control.showCloseButton
             noDisabledState: true
             iconSource: HusIcon.CloseOutlined
             iconSize: 14
@@ -185,8 +185,8 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
             noDisabledState: true
             iconSource: HusIcon.ArrowLeftOutlined
-            iconSize: HusTheme.HusCaptionButton.fontSize + 2
-            visible: control.returnButtonVisible
+            iconSize: parseInt(HusTheme.HusCaptionButton.fontSize) + 2
+            visible: control.showReturnButton
             onClicked: control.returnCallback();
             contentDescription: qsTr('返回')
         }

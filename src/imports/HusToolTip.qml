@@ -14,7 +14,7 @@ T.ToolTip {
     }
 
     property bool animationEnabled: HusTheme.animationEnabled
-    property bool arrowVisible: false
+    property bool showArrow: false
     property int position: HusToolTip.Position_Top
     property color colorShadow: HusTheme.HusToolTip.colorShadow
     property color colorText: HusTheme.HusToolTip.colorText
@@ -87,7 +87,7 @@ T.ToolTip {
     padding: 0
     font {
         family: HusTheme.HusToolTip.fontFamily
-        pixelSize: HusTheme.HusToolTip.fontSize
+        pixelSize: parseInt(HusTheme.HusToolTip.fontSize)
     }
     enter: Transition {
         NumberAnimation { property: 'opacity'; from: 0.0; to: 1.0; duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 }
@@ -161,7 +161,7 @@ T.ToolTip {
     QtObject {
         id: __private
         property bool isHorizontal: control.position == HusToolTip.Position_Top || control.position == HusToolTip.Position_Bottom
-        property size arrowSize: control.arrowVisible ? (isHorizontal ? Qt.size(12, 6) : Qt.size(6, 12)) : Qt.size(0, 0)
+        property size arrowSize: control.showArrow ? (isHorizontal ? Qt.size(12, 6) : Qt.size(6, 12)) : Qt.size(0, 0)
         property real controlParentWidth: control.parent ? control.parent.width : 0
         property real controlParentHeight: control.parent ? control.parent.height : 0
     }

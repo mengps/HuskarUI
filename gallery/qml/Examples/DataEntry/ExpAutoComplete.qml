@@ -38,12 +38,18 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 options | list | [] | 选项模型列表
-filterOption | function | - | 输入项将使用该函数进行筛选
+filterOption | function(input, option) | - | 输入项将使用该函数进行筛选
 textRole | string | 'label' | 弹出框文本的模型角色。
 valueRole | string | 'value' | 弹出框值的模型角色。
-tooltipVisible | bool | false | 是否显示文字提示
+showToolTip | bool | false | 是否显示文字提示
 defaultPopupMaxHeight | int | 240 | 默认弹出框最大高度
 defaultOptionSpacing | int | 0 | 默认选项间隔
+\n<br/>
+\n### 模型支持的属性：\n
+属性名 | 类型 | 可选/必选 | 描述
+------ | --- | :---: | ---
+label | sting | 必选 | 标签
+value | string | 可选 | 值
 \n<br/>
 \n### 支持的函数：\n
 - \`clearInput()\` 清空输入 \n
@@ -221,7 +227,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                     HusAutoComplete {
                         width: 280
-                        tooltipVisible: true
+                        showToolTip: true
                         placeholderText: 'input here'
                         options: [
                             { label: 'HuskarUI', option: 'Libraries' },
@@ -277,7 +283,7 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
 
                 HusAutoComplete {
                     width: 280
-                    tooltipVisible: true
+                    showToolTip: true
                     placeholderText: 'input here'
                     options: [
                         { label: 'HuskarUI', option: 'Libraries' },
@@ -340,13 +346,12 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                 import HuskarUI.Basic
 
                 Row {
-                    spacing: -8
-
                     HusAutoComplete {
                         width: 280
                         height: 40
-                        rightPadding: 20
-                        tooltipVisible: true
+                        radiusBg.topRight: 0
+                        radiusBg.bottomRight: 0
+                        showToolTip: true
                         placeholderText: 'input here'
                         onSearch: function(input) {
                             if (!input) {
@@ -380,27 +385,19 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                         height: 40
                         type: HusButton.Type_Primary
                         iconSource: HusIcon.SearchOutlined
-                        background: HusRectangle {
-                            topLeftRadius: 0
-                            bottomLeftRadius: 0
-                            topRightRadius: searchButton.radiusBg
-                            bottomRightRadius: searchButton.radiusBg
-                            color: searchButton.colorBg
-                            border.color: searchButton.colorBorder
-                            border.width: 1
-                        }
+                        radiusBg.topLeft: 0
+                        radiusBg.bottomLeft: 0
                     }
                 }
             `
             exampleDelegate: Row {
-                spacing: -8
-
                 HusAutoComplete {
                     width: 280
                     height: 40
-                    rightPadding: 20
-                    tooltipVisible: true
+                    showToolTip: true
                     placeholderText: 'input here'
+                    radiusBg.topRight: 0
+                    radiusBg.bottomRight: 0
                     onSearch: function(input) {
                         if (!input) {
                             options = [];
@@ -433,15 +430,8 @@ defaultOptionSpacing | int | 0 | 默认选项间隔
                     height: 40
                     type: HusButton.Type_Primary
                     iconSource: HusIcon.SearchOutlined
-                    background: HusRectangle {
-                        topLeftRadius: 0
-                        bottomLeftRadius: 0
-                        topRightRadius: searchButton.radiusBg
-                        bottomRightRadius: searchButton.radiusBg
-                        color: searchButton.colorBg
-                        border.color: searchButton.colorBorder
-                        border.width: 1
-                    }
+                    radiusBg.topLeft: 0
+                    radiusBg.bottomLeft: 0
                 }
             }
         }

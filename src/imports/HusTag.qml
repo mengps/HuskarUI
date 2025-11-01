@@ -19,13 +19,13 @@ Rectangle {
     property string text: ''
     property font font: Qt.font({
                                     family: HusTheme.HusTag.fontFamily,
-                                    pixelSize: HusTheme.HusTag.fontSize - 2
+                                    pixelSize: parseInt(HusTheme.HusTag.fontSize) - 2
                                 })
     property bool rotating: false
     property var iconSource: 0 ?? ''
-    property int iconSize: HusTheme.HusButton.fontSize
+    property int iconSize: parseInt(HusTheme.HusButton.fontSize)
     property var closeIconSource: 0 ?? ''
-    property int closeIconSize: HusTheme.HusButton.fontSize
+    property int closeIconSize: parseInt(HusTheme.HusButton.fontSize)
     property alias spacing: __row.spacing
     property string presetColor: ''
     property color colorText: presetColor == '' ? HusTheme.HusTag.colorDefaultText : __private.isCustom ? '#fff' : __private.colorArray[5]
@@ -100,7 +100,7 @@ Rectangle {
             iconSize: control.iconSize
             iconSource: control.iconSource
             verticalAlignment: Text.AlignVCenter
-            visible: iconSource != 0
+            visible: !empty
 
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
@@ -131,7 +131,7 @@ Rectangle {
             iconSize: control.closeIconSize
             iconSource: control.closeIconSource
             verticalAlignment: Text.AlignVCenter
-            visible: iconSource != 0
+            visible: !empty
 
             property alias hovered: __hoverHander.hovered
             property alias down: __tapHander.pressed

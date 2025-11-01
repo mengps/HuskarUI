@@ -137,8 +137,8 @@ propagateWheelEvent | bool | false | 是否传播鼠标滚轮事件
 alternatingRow | bool | false | 是否交替显示行背景
 defaultColumnHeaderHeight | int | 40 | 默认列头高度
 defaultRowHeaderWidth | int | 40 | 默认行头宽度
-columnGridVisible | bool | false | 是否显示列网格线
-rowGridVisible | bool | false | 是否显示行网格线
+showColumnGrid | bool | false | 是否显示列网格线
+showRowGrid | bool | false | 是否显示行网格线
 minimumRowHeight | int | 40 | 最小行高
 maximumRowHeight | int | Number.NaN | 最大行高
 initModel | list | [] | 表格初始数据模型
@@ -146,11 +146,11 @@ rowCount | int | 0 | 当前模型行数
 columns | list | [] | 列描述对象数组
 checkedKeys | list | [] | 选中行的键列表
 colorGridLine | color | - | 网格线颜色
-columnHeaderVisible | bool | true | 是否显示列头
+showColumnHeader | bool | true | 是否显示列头
 columnHeaderTitleFont | font | - | 列头标题字体
 colorColumnHeaderTitle | color | - | 列头标题颜色
 colorColumnHeaderBg | color | - |  列头背景颜色
-rowHeaderVisible | bool | true | 是否显示行头
+showRowHeader | bool | true | 是否显示行头
 rowHeaderTitleFont | font | - | 行头标题字体
 colorRowHeaderTitle | color | - | 行头标题颜色
 colorRowHeaderBg | color | - | 行头背景颜色

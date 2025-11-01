@@ -30,7 +30,7 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 defaultIconSize | int | 18 | 默认图标大小
-closeButtonVisible | bool | false | 是否显示关闭按钮
+showCloseButton | bool | false | 是否显示关闭按钮
 spacing | int | 10 | 消息之间的间隔
 topMargin | int | 12 | 消息距离顶端的距离
 bgTopPadding | int | 12 | 背景上部填充
@@ -371,7 +371,7 @@ colorIcon | color | 可选 | 消息图标颜色
             desc: qsTr(`
 通过 \`iconSource\` 属性设置图标源(来自 HusIcon)。\n
 通过 \`colorIcon\` 属性设置图标颜色。\n
-通过 \`closeButtonVisible\` 显示关闭按钮。\n
+通过 \`showCloseButton\` 显示关闭按钮。\n
                        `)
             code: `
                 import QtQuick
@@ -387,7 +387,7 @@ colorIcon | color | 可选 | 消息图标颜色
                         width: parent.width
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top: parent.bottom
-                        closeButtonVisible: true
+                        showCloseButton: true
                     }
 
                     HusButton {
@@ -411,7 +411,7 @@ colorIcon | color | 可选 | 消息图标颜色
                     width: parent.width
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: parent.bottom
-                    closeButtonVisible: true
+                    showCloseButton: true
                 }
 
                 HusButton {

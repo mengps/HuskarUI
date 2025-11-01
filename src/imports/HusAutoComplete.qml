@@ -12,7 +12,7 @@ HusInput {
     property var filterOption: (input, option) => true
     property string textRole: 'label'
     property string valueRole: 'value'
-    property bool tooltipVisible: false
+    property bool showToolTip: false
     property int defaultPopupMaxHeight: 240
     property int defaultOptionSpacing: 0
 
@@ -21,7 +21,7 @@ HusInput {
         color: control.themeSource.colorItemText
         font {
             family: control.themeSource.fontFamily
-            pixelSize: control.themeSource.fontSize
+            pixelSize: parseInt(control.themeSource.fontSize)
             weight: highlighted ? Font.DemiBold : Font.Normal
         }
         elide: Text.ElideRight
@@ -83,7 +83,6 @@ HusInput {
                 control.text = valueData;
                 __popup.close();
                 control.filter();
-                __popupListView.currentIndex = __popupListView.selectIndex = 0;
             }
         }
     }
@@ -190,7 +189,7 @@ HusInput {
                 rightPadding: 8
                 topPadding: 5
                 bottomPadding: 5
-                highlighted: __popupListView.currentIndex === index
+                highlighted: control.text === valueData
                 contentItem: Loader {
                     sourceComponent: control.labelDelegate
                     property alias textData: __popupDelegate.textData
@@ -213,7 +212,6 @@ HusInput {
                     control.text = __popupDelegate.valueData;
                     __popup.close();
                     control.filter();
-                    ListView.view.currentIndex = ListView.view.selectIndex = 0;
                 }
 
                 HoverHandler {
@@ -223,9 +221,9 @@ HusInput {
                 Loader {
                     y: __popupDelegate.height
                     anchors.horizontalCenter: parent.horizontalCenter
-                    active: control.tooltipVisible
+                    active: control.showToolTip
                     sourceComponent: HusToolTip {
-                        arrowVisible: false
+                        showArrow: false
                         visible: __popupDelegate.hovered && !__popupDelegate.pressed
                         text: __popupDelegate.textData
                         position: HusToolTip.Position_Bottom

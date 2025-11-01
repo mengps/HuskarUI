@@ -20,7 +20,7 @@ Item {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property int defaultIconSize: 18
-    property bool closeButtonVisible: false
+    property bool showCloseButton: false
     property int spacing: 10
     property int topMargin: 12
     property int bgTopPadding: 12
@@ -34,7 +34,7 @@ Item {
 
     property font messageFont: Qt.font({
                                            family: HusTheme.HusMessage.fontFamily,
-                                           pixelSize: HusTheme.HusMessage.fontSize
+                                           pixelSize: parseInt(HusTheme.HusMessage.fontSize)
                                        })
     property int messageSpacing: 8
 
@@ -281,7 +281,7 @@ Item {
 
                         Loader {
                             Layout.alignment: Qt.AlignVCenter
-                            active: control.closeButtonVisible
+                            active: control.showCloseButton
                             sourceComponent: HusCaptionButton {
                                 topPadding: 2
                                 bottomPadding: 2

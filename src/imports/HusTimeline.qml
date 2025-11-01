@@ -24,12 +24,12 @@ Item {
     property color colorLine: HusTheme.HusTimeline.colorLine
     property font timeFont: Qt.font({
                                         family: HusTheme.HusTimeline.fontFamily,
-                                        pixelSize: HusTheme.HusTimeline.fontSize
+                                        pixelSize: parseInt(HusTheme.HusTimeline.fontSize)
                                     })
     property color colorTimeText: HusTheme.HusTimeline.colorTimeText
     property font contentFont: Qt.font({
                                            family: HusTheme.HusTimeline.fontFamily,
-                                           pixelSize: HusTheme.HusTimeline.fontSize
+                                           pixelSize: parseInt(HusTheme.HusTimeline.fontSize)
                                        })
     property color colorContentText: HusTheme.HusTimeline.colorContentText
     property Component nodeDelegate: Component {

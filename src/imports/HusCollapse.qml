@@ -18,7 +18,7 @@ Item {
     property var expandIcon: HusIcon.RightOutlined || ''
     property font titleFont: Qt.font({
                                          family: HusTheme.HusCollapse.fontFamily,
-                                         pixelSize: HusTheme.HusCollapse.fontSizeTitle
+                                         pixelSize: parseInt(HusTheme.HusCollapse.fontSizeTitle)
                                      })
     property color colorBg: HusTheme.HusCollapse.colorBg
     property color colorIcon: HusTheme.HusCollapse.colorIcon
@@ -26,7 +26,7 @@ Item {
     property color colorTitleBg: HusTheme.HusCollapse.colorTitleBg
     property font contentFont: Qt.font({
                                            family: HusTheme.HusCollapse.fontFamily,
-                                           pixelSize: HusTheme.HusCollapse.fontSizeContent
+                                           pixelSize: parseInt(HusTheme.HusCollapse.fontSizeContent)
                                        })
     property color colorContent: HusTheme.HusCollapse.colorContent
     property color colorContentBg: HusTheme.HusCollapse.colorContentBg

@@ -31,7 +31,7 @@ Item {
     property int radioHeight: 30
     property font font: Qt.font({
                                     family: HusTheme.HusRadio.fontFamily,
-                                    pixelSize: HusTheme.HusRadio.fontSize
+                                    pixelSize: parseInt(HusTheme.HusRadio.fontSize)
                                 })
     property HusRadius radiusBg: HusRadius { all: HusTheme.HusRadio.radiusBlockBg }
     property Component toolTipDelegate: HusToolTip {

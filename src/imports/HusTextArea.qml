@@ -75,7 +75,7 @@ Item {
     }
     font {
         family: control.themeSource.fontFamily
-        pixelSize: control.themeSource.fontSize
+        pixelSize: parseInt(control.themeSource.fontSize)
     }
     wheelEnabled: autoSize ? (minRows > 0 && maxRows > 0) : (__vScrollBar.visible || __vScrollBar.active)
 

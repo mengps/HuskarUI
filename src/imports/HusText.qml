@@ -9,6 +9,6 @@ Text {
     color: HusTheme.Primary.colorTextBase
     font {
         family: HusTheme.Primary.fontPrimaryFamily
-        pixelSize: HusTheme.Primary.fontPrimarySize
+        pixelSize: parseInt(HusTheme.Primary.fontPrimarySize)
     }
 }

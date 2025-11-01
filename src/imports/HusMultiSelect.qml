@@ -73,7 +73,7 @@ HusSelect {
                 id: __closeIcon
                 anchors.verticalCenter: parent.verticalCenter
                 colorIcon: __hoverHander.hovered ? control.themeSource.colorTagCloseHover : control.themeSource.colorTagClose
-                iconSize: control.themeSource.fontSize - 2
+                iconSize: parseInt(control.themeSource.fontSize) - 2
                 iconSource: HusIcon.CloseOutlined
                 verticalAlignment: Text.AlignVCenter
 
@@ -152,7 +152,7 @@ HusSelect {
     themeSource: HusTheme.HusMultiSelect
     font {
         family: themeSource.fontFamily
-        pixelSize: themeSource.fontSize
+        pixelSize: parseInt(themeSource.fontSize)
     }
     leftPadding: 2
     clearEnabled: false
@@ -314,7 +314,7 @@ HusSelect {
                                                      control.themeSource.colorItemTextDisabled
                     font {
                         family: control.themeSource.fontFamily
-                        pixelSize: control.themeSource.fontSize
+                        pixelSize: parseInt(control.themeSource.fontSize)
                         weight: selected ? Font.DemiBold : Font.Normal
                     }
                     elide: Text.ElideRight
@@ -368,9 +368,9 @@ HusSelect {
                 Loader {
                     y: __popupDelegate.height
                     anchors.horizontalCenter: parent.horizontalCenter
-                    active: control.tooltipVisible
+                    active: control.showToolTip
                     sourceComponent: HusToolTip {
-                        arrowVisible: false
+                        showArrow: false
                         visible: __popupDelegate.hovered
                         animationEnabled: control.animationEnabled
                         text: __popupDelegate.model[control.textRole]

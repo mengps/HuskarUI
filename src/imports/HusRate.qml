@@ -18,9 +18,9 @@ Item {
     /* 文字提示 */
     property font toolTipFont: Qt.font({
                                            family: HusTheme.HusRate.fontFamily,
-                                           pixelSize: HusTheme.HusRate.fontSize
+                                           pixelSize: parseInt(HusTheme.HusRate.fontSize)
                                        })
-    property bool toolTipVisible: false
+    property bool showToolTip: false
     property list<string> toolTipTexts: []
     property color colorFill: HusTheme.HusRate.colorFill
     property color colorEmpty: HusTheme.HusRate.colorEmpty
@@ -316,7 +316,7 @@ Item {
                         x: (parent.width - width) * 0.5
                         y: -height - 4
                         z: 10
-                        active: control.toolTipVisible
+                        active: control.showToolTip
                         sourceComponent: control.toolTipDelegate
                         property int index: __rootItem.index
                         property bool hovered: __rootItem.hovered
