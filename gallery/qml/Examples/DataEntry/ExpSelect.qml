@@ -30,7 +30,7 @@ active | bool(readonly) | - | 是否处于激活状态
 hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
 clearEnabled | bool | false | 是否启用清除按钮
 clearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接
-tooltipVisible | bool | false | 是否显示文字提示
+showToolTip | bool | false | 是否显示文字提示
 loading | bool | false | 是否在加载中
 defaultPopupMaxHeight | int | 240 | 默认弹窗最大高度
 colorText | color | - | 文本颜色
@@ -67,28 +67,96 @@ contentDescription | string | '' | 内容描述(提高可用性)
         CodeBox {
             width: parent.width
             desc: qsTr(`
+通过 \`editable\` 属性设置是否可编辑。\n
 通过 \`model\` 属性设置初始选择器的模型，选择项支持的属性：\n
 - { label: 本选择项的标签 } 可通过 **textRole** 更改\n
 - { value: 本选择项的值 } 可通过 **valueRole** 更改\n
 - { enabled: 本选择项是否启用 }\n
 通过 \`loading\` 属性设置是否在加载中。\n
 可以让 \`enabled\` 绑定 \`loading\` 实现加载完成才启用。\n
-通过 \`tooltipVisible\` 属性设置是否显示文字提示框(主要用于长文本)。\n
+通过 \`showToolTip\` 属性设置是否显示文字提示框(主要用于长文本)。\n
 通过 \`defaultPopupMaxHeight\` 属性设置默认弹出窗口的高度。\n
                        `)
             code: `
                 import QtQuick
-                import QtQuick.Layouts
                 import HuskarUI.Basic
 
+                Column {
+                    spacing: 10
+
+                    HusRadioBlock {
+                        id: editableRadio
+                        initCheckedIndex: 0
+                        model: [
+                            { label: 'Noeditable', value: false },
+                            { label: 'Editable', value: true },
+                        ]
+                    }
+
+                    Row {
+                        spacing: 10
+
+                        HusSelect {
+                            width: 120
+                            height: 30
+                            editable: editableRadio.currentCheckedValue
+                            showToolTip: true
+                            model: [
+                                { value: 'jack', label: 'Jack' },
+                                { value: 'lucy', label: 'Lucy' },
+                                { value: 'yiminghe', label: 'Yimingheabcdef' },
+                                { value: 'disabled', label: 'Disabled', enabled: false },
+                            ]
+                        }
+
+                        HusSelect {
+                            width: 120
+                            height: 30
+                            editable: editableRadio.currentCheckedValue
+                            enabled: false
+                            model: [
+                                { value: 'jack', label: 'Jack' },
+                                { value: 'lucy', label: 'Lucy' },
+                                { value: 'yiminghe', label: 'Yiminghe' },
+                                { value: 'disabled', label: 'Disabled', enabled: false },
+                            ]
+                        }
+
+                        HusSelect {
+                            width: 120
+                            height: 30
+                            editable: editableRadio.currentCheckedValue
+                            loading: true
+                            model: [
+                                { value: 'jack', label: 'Jack' },
+                                { value: 'lucy', label: 'Lucy' },
+                                { value: 'yiminghe', label: 'Yiminghe' },
+                                { value: 'disabled', label: 'Disabled', enabled: false },
+                            ]
+                        }
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                HusRadioBlock {
+                    id: editableRadio
+                    initCheckedIndex: 0
+                    model: [
+                        { label: 'Noeditable', value: false },
+                        { label: 'Editable', value: true },
+                    ]
+                }
+
                 Row {
-                    width: parent.width
                     spacing: 10
 
                     HusSelect {
                         width: 120
                         height: 30
-                        tooltipVisible: true
+                        editable: editableRadio.currentCheckedValue
+                        showToolTip: true
                         model: [
                             { value: 'jack', label: 'Jack' },
                             { value: 'lucy', label: 'Lucy' },
@@ -100,6 +168,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     HusSelect {
                         width: 120
                         height: 30
+                        editable: editableRadio.currentCheckedValue
                         enabled: false
                         model: [
                             { value: 'jack', label: 'Jack' },
@@ -112,6 +181,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     HusSelect {
                         width: 120
                         height: 30
+                        editable: editableRadio.currentCheckedValue
                         loading: true
                         model: [
                             { value: 'jack', label: 'Jack' },
@@ -120,45 +190,6 @@ contentDescription | string | '' | 内容描述(提高可用性)
                             { value: 'disabled', label: 'Disabled', enabled: false },
                         ]
                     }
-                }
-            `
-            exampleDelegate: Row {
-                spacing: 10
-
-                HusSelect {
-                    width: 120
-                    height: 30
-                    tooltipVisible: true
-                    model: [
-                        { value: 'jack', label: 'Jack' },
-                        { value: 'lucy', label: 'Lucy' },
-                        { value: 'yiminghe', label: 'Yimingheabcdef' },
-                        { value: 'disabled', label: 'Disabled', enabled: false },
-                    ]
-                }
-
-                HusSelect {
-                    width: 120
-                    height: 30
-                    enabled: false
-                    model: [
-                        { value: 'jack', label: 'Jack' },
-                        { value: 'lucy', label: 'Lucy' },
-                        { value: 'yiminghe', label: 'Yiminghe' },
-                        { value: 'disabled', label: 'Disabled', enabled: false },
-                    ]
-                }
-
-                HusSelect {
-                    width: 120
-                    height: 30
-                    loading: true
-                    model: [
-                        { value: 'jack', label: 'Jack' },
-                        { value: 'lucy', label: 'Lucy' },
-                        { value: 'yiminghe', label: 'Yiminghe' },
-                        { value: 'disabled', label: 'Disabled', enabled: false },
-                    ]
                 }
             }
         }

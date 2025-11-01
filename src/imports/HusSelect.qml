@@ -12,12 +12,12 @@ T.ComboBox {
     property int hoverCursorShape: Qt.PointingHandCursor
     property bool clearEnabled: true
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
-    property bool tooltipVisible: false
+    property bool showToolTip: false
     property bool loading: false
     property int defaultPopupMaxHeight: 240
     property color colorText: enabled ?
-                                  popup.visible ? themeSource.colorTextActive :
-                                                  themeSource.colorText : themeSource.colorTextDisabled
+                                  (popup.visible && !editable) ? themeSource.colorTextActive :
+                                                                 themeSource.colorText : themeSource.colorTextDisabled
     property color colorBorder: enabled ?
                                     active ? themeSource.colorBorderHover :
                                              themeSource.colorBorder : themeSource.colorBorderDisabled
@@ -30,6 +30,8 @@ T.ComboBox {
     property var themeSource: HusTheme.HusSelect
 
     property Component indicatorDelegate: HusIconText {
+        leftPadding: 4
+        rightPadding: 8
         colorIcon: {
             if (control.enabled) {
                 if (__clearMouseArea.active) {
@@ -43,7 +45,7 @@ T.ComboBox {
                 return control.themeSource.colorIndicatorDisabled;
             }
         }
-        iconSize: control.themeSource.fontSize
+        iconSize: parseInt(control.themeSource.fontSize)
         iconSource: {
             if (control.enabled && control.clearEnabled && __clearMouseArea.active)
                 return control.clearIconSource;
@@ -71,6 +73,8 @@ T.ComboBox {
             onExited: hovered = false;
             onClicked: function(mouse) {
                 if (active && control.clearEnabled) {
+                    if (control.editable)
+                        control.editText = '';
                     control.currentIndex = -1;
                     control.clickClear();
                 } else {
@@ -82,7 +86,7 @@ T.ComboBox {
                 }
                 mouse.accepted = true;
             }
-            property bool active: !control.loading && control.currentIndex >= 0 && control.count > 0 && control.hovered
+            property bool active: !control.loading && (control.displayText.length > 0 || control.editText.length > 0) && control.hovered
             property bool hovered: false
         }
     }
@@ -92,8 +96,8 @@ T.ComboBox {
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
     objectName: '__HusSelect__'
-    leftPadding: 4
-    rightPadding: 8
+    leftPadding: padding + (!control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
+    rightPadding: padding + (control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
     topPadding: 4
     bottomPadding: 4
     implicitWidth: implicitContentWidth + implicitIndicatorWidth + leftPadding + rightPadding
@@ -102,24 +106,58 @@ T.ComboBox {
     valueRole: 'value'
     font {
         family: control.themeSource.fontFamily
-        pixelSize: control.themeSource.fontSize
+        pixelSize: parseInt(control.themeSource.fontSize)
     }
+    selectTextByMouse: editable
     delegate: T.ItemDelegate { }
     indicator: Loader {
-        x: control.width - width - control.rightPadding
+        x: control.mirrored ? control.padding : control.width - width - control.padding
         y: control.topPadding + (control.availableHeight - height) / 2
         sourceComponent: indicatorDelegate
     }
-    contentItem: HusText {
-        topPadding: 1
-        bottomPadding: 1
-        leftPadding: 8
-        rightPadding: control.indicator.width + control.spacing
-        text: control.displayText
-        font: control.font
-        color: control.colorText
+    contentItem: HusInput {
+        leftPadding: !control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
+        rightPadding: control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
+        topPadding: 0
+        bottomPadding: 0
+        text: control.editable ? control.editText : control.displayText
+        readOnly: !control.editable
+        autoScroll: control.editable
+        inputMethodHints: control.inputMethodHints
+        validator: control.validator
+        selectByMouse: control.selectTextByMouse
         verticalAlignment: Text.AlignVCenter
-        elide: Text.ElideRight
+        colorText: control.colorText
+        colorBg: 'transparent'
+        colorBorder: 'transparent'
+
+        HoverHandler {
+            cursorShape: control.editable ? Qt.IBeamCursor : control.hoverCursorShape
+        }
+
+        TapHandler {
+            onTapped: {
+                if (!control.editable) {
+                    if (control.popup.opened) {
+                        control.popup.close();
+                    } else {
+                        control.popup.open();
+                    }
+                } else {
+                    __openPopupTimer.restart();
+                }
+            }
+        }
+
+        Timer {
+            id: __openPopupTimer
+            interval: 100
+            onTriggered: {
+                if (!control.popup.opened) {
+                    control.popup.open();
+                }
+            }
+        }
     }
     background: HusRectangleInternal {
         color: control.colorBg
@@ -195,10 +233,10 @@ T.ComboBox {
                 enabled: model.enabled ?? true
                 contentItem: HusText {
                     text: __popupDelegate.model[control.textRole]
-                    color: __popupDelegate.enabled ? control.themeSource.colorItemText : control.themeSource.colorItemTextDisabled;
+                    color: __popupDelegate.enabled ? control.themeSource.colorItemText : control.themeSource.colorItemTextDisabled
                     font {
                         family: control.themeSource.fontFamily
-                        pixelSize: control.themeSource.fontSize
+                        pixelSize: parseInt(control.themeSource.fontSize)
                         weight: highlighted ? Font.DemiBold : Font.Normal
                     }
                     elide: Text.ElideRight
@@ -235,9 +273,9 @@ T.ComboBox {
                 Loader {
                     y: __popupDelegate.height
                     anchors.horizontalCenter: parent.horizontalCenter
-                    active: control.tooltipVisible
+                    active: control.showToolTip
                     sourceComponent: HusToolTip {
-                        arrowVisible: false
+                        showArrow: false
                         visible: __popupDelegate.hovered
                         animationEnabled: control.animationEnabled
                         text: __popupDelegate.model[control.textRole]
