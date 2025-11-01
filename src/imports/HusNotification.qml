@@ -38,7 +38,7 @@ Item {
     property int defaultIconSize: 20
     property int maxNotificationWidth: 300
     property int spacing: 10
-    property bool closeButtonVisible: true
+    property bool showCloseButton: true
     property int topMargin: 12
     property int bgTopPadding: 12
     property int bgBottomPadding: 12
@@ -52,13 +52,13 @@ Item {
 
     property font messageFont: Qt.font({
                                            family: HusTheme.HusNotification.fontFamily,
-                                           pixelSize: parseInt(HusTheme.HusNotification.fontMessageSize)
+                                           pixelSize: parseInt(HusTheme.HusNotification.fontSizeMessage)
                                        })
     property int messageSpacing: 8
 
     property font descriptionFont: Qt.font({
                                                family: HusTheme.HusNotification.fontFamily,
-                                               pixelSize: parseInt(HusTheme.HusNotification.fontDescriptionSize)
+                                               pixelSize: parseInt(HusTheme.HusNotification.fontSizeDescription)
                                            })
     property int descriptionSpacing: 10
 
@@ -399,7 +399,7 @@ Item {
                         Loader {
                             Layout.alignment: Qt.AlignTop
                             Layout.topMargin: 5
-                            active: control.closeButtonVisible
+                            active: control.showCloseButton
                             sourceComponent: HusCaptionButton {
                                 topPadding: 2
                                 bottomPadding: 2

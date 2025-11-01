@@ -19,11 +19,11 @@ HusPopup {
     property font titleFont: Qt.font({
                                          family: control.themeSource.fontFamily,
                                          bold: true,
-                                         pixelSize: parseInt(control.themeSource.fontTitleSize)
+                                         pixelSize: parseInt(control.themeSource.fontSizeTitle)
                                      })
     property font descriptionFont: Qt.font({
                                                family: control.themeSource.fontFamily,
-                                               pixelSize: parseInt(control.themeSource.fontDescriptionSize)
+                                               pixelSize: parseInt(control.themeSource.fontSizeDescription)
                                            })
     property Component arrowDelegate: Canvas {
         id: __arrowDelegate
@@ -86,6 +86,7 @@ HusPopup {
 
                 Loader {
                     id: __titleLoader
+                    Layout.fillWidth: true
                     Layout.alignment: Qt.AlignVCenter
                     active: control.title !== ''
                     sourceComponent: control.titleDelegate

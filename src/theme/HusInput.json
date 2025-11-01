@@ -2,8 +2,8 @@
     "__style__": {
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
-        "fontIconSize": "@fontPrimarySizeHeading5",
-        "fontClearIconSize": "@fontPrimarySize",
+        "fontSizeIcon": "@fontPrimarySizeHeading5",
+        "fontSizeClearIcon": "@fontPrimarySize",
         "colorIcon": "@colorTextBase",
         "colorIconDisabled": "$onBackground(@colorTextQuaternary, @colorBgBase)",
         "colorClearIcon": "$onBackground(@colorTextQuaternary, @colorBgBase)",

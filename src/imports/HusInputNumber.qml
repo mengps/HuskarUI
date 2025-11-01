@@ -111,7 +111,7 @@ Item {
             colorIcon: control.enabled ?
                            hovered ? control.themeSource.colorBorderHover :
                                      control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
-            iconSize: control.themeSource.fontSize - 4
+            iconSize: parseInt(control.themeSource.fontSize) - 4
             iconSource: control.upIcon
             hoverCursorShape: control.value >= control.max ? Qt.ForbiddenCursor : Qt.PointingHandCursor
             background: HusRectangle {
@@ -140,7 +140,7 @@ Item {
             colorIcon: control.enabled ?
                            hovered ? control.themeSource.colorBorderHover :
                                      control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
-            iconSize: control.themeSource.fontSize - 4
+            iconSize: parseInt(control.themeSource.fontSize) - 4
             iconSource: control.downIcon
             hoverCursorShape: control.value <= control.min ? Qt.ForbiddenCursor : Qt.PointingHandCursor
             background: HusRectangle {

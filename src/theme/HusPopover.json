@@ -3,8 +3,8 @@
         "__import__": ["HusPopup"]
     },
     "__style__": {
-        "fontTitleSize": "@fontPrimarySizeHeading5",
-        "fontDescriptionSize": "@fontPrimarySize",
+        "fontSizeTitle": "@fontPrimarySizeHeading5",
+        "fontSizeDescription": "@fontPrimarySize",
         "colorIcon": "@colorWarning",
         "colorTitle": "@colorTextBase",
         "colorDescription": "@colorTextPrimary"

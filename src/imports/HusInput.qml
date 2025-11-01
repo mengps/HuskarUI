@@ -16,11 +16,11 @@ T.TextField {
     property bool darkMode: HusTheme.isDark
     readonly property bool active: hovered || activeFocus
     property var iconSource: 0 ?? ''
-    property int iconSize: parseInt(themeSource.fontIconSize) * sizeRatio
+    property int iconSize: parseInt(themeSource.fontSizeIcon) * sizeRatio
     property int iconPosition: HusInput.Position_Left
     property var clearEnabled: false ?? ''
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
-    property int clearIconSize: parseInt(themeSource.fontClearIconSize) * sizeRatio
+    property int clearIconSize: parseInt(themeSource.fontSizeClearIcon) * sizeRatio
     property int clearIconPosition: HusInput.Position_Right
     readonly property int leftIconPadding: iconPosition === HusInput.Position_Left ? __private.iconSize : 0
     readonly property int rightIconPadding: iconPosition === HusInput.Position_Right ? __private.iconSize : 0

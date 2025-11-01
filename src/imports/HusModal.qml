@@ -34,11 +34,11 @@ HusPopup {
     property font titleFont: Qt.font({
                                          family: control.themeSource.fontFamily,
                                          bold: true,
-                                         pixelSize: parseInt(control.themeSource.fontTitleSize)
+                                         pixelSize: parseInt(control.themeSource.fontSizeTitle)
                                      })
     property font descriptionFont: Qt.font({
                                                family: control.themeSource.fontFamily,
-                                               pixelSize: parseInt(control.themeSource.fontDescriptionSize)
+                                               pixelSize: parseInt(control.themeSource.fontSizeDescription)
                                            })
     property Component iconDelegate: HusIconText {
         color: control.colorIcon
@@ -58,7 +58,7 @@ HusPopup {
         font: control.descriptionFont
         color: control.colorDescription
         text: control.description
-        lineHeight: control.themeSource.fontDescriptionLineHeight
+        lineHeight: control.themeSource.fontLineHeightDescription
         horizontalAlignment: Text.AlignLeft
         wrapMode: Text.WrapAnywhere
     }
