@@ -39,7 +39,7 @@ Item {
     property bool tabCentered: false
     property bool tabCardMovable: true
     property int defaultTabWidth: 80
-    property int defaultTabHeight: HusTheme.HusTabView.fontSize + 16
+    property int defaultTabHeight: parseInt(HusTheme.HusTabView.fontSize) + 16
     property int defaultTabSpacing: 2
     property int defaultTabBgRadius: HusTheme.HusTabView.radiusTabBg
     property int defaultHighlightWidth: __private.isHorizontal ? 30 : 20
@@ -48,10 +48,14 @@ Item {
             append({ title: `New Tab ${__tabView.count + 1}` });
             positionViewAtEnd();
         }
+    property var closeTabCallback:
+        (index, data) => {
+            remove(index);
+        }
     property Component addButtonDelegate: HusCaptionButton {
         id: __addButton
         animationEnabled: control.animationEnabled
-        iconSize: HusTheme.HusTabView.fontSize
+        iconSize: parseInt(HusTheme.HusTabView.fontSize)
         iconSource: HusIcon.PlusOutlined
         colorIcon: HusTheme.HusTabView.colorTabCloseHover
         hoverCursorShape: Qt.PointingHandCursor
@@ -219,7 +223,7 @@ Item {
             }
             font {
                 family: HusTheme.HusTabView.fontFamily
-                pixelSize: HusTheme.HusTabView.fontSize
+                pixelSize: parseInt(HusTheme.HusTabView.fontSize)
             }
             contentItem: Item {
                 implicitWidth: control.tabSize == HusTabView.Size_Auto ? (__text.width + calcIconWidth) : __tabItem.tabFixedWidth
@@ -268,7 +272,7 @@ Item {
             property bool isCurrent: __tabView.currentIndex === index
             property string tabKey: modelData.key || ''
             property var tabIcon: modelData.iconSource || 0
-            property int tabIconSize: modelData.iconSize || HusTheme.HusTabView.fontSize
+            property int tabIconSize: modelData.iconSize || parseInt(HusTheme.HusTabView.fontSize)
             property int tabIconSpacing: modelData.iconSpacing || 5
             property string tabTitle: modelData.title || ''
             property int tabFixedWidth: modelData.tabWidth || defaultTabWidth
@@ -293,7 +297,7 @@ Item {
             property bool isCurrent: __tabView.currentIndex === index
             property string tabKey: modelData.key || ''
             property var tabIcon: modelData.iconSource || 0
-            property int tabIconSize: modelData.iconSize || HusTheme.HusTabView.fontSize
+            property int tabIconSize: modelData.iconSize || parseInt(HusTheme.HusTabView.fontSize)
             property int tabIconSpacing: modelData.iconSpacing || 5
             property string tabTitle: modelData.title || ''
             property int tabFixedWidth: modelData.tabWidth || defaultTabWidth
@@ -421,7 +425,7 @@ Item {
                     text: tabTitle
                     font {
                         family: HusTheme.HusTabView.fontFamily
-                        pixelSize: HusTheme.HusTabView.fontSize
+                        pixelSize: parseInt(HusTheme.HusTabView.fontSize)
                     }
                     color: __tabItem.colorText
                     elide: Text.ElideRight
@@ -447,7 +451,7 @@ Item {
                     iconSource: HusIcon.CloseOutlined
                     colorIcon: hovered ? HusTheme.HusTabView.colorTabCloseHover : HusTheme.HusTabView.colorTabClose
                     onClicked: {
-                        control.remove(index);
+                        control.closeTabCallback(__tabContainer.index, __tabContainer.model);
                     }
 
                     HoverHandler {
