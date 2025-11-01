@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import HuskarUI.Basic
 
 HusButton {
@@ -11,54 +12,113 @@ HusButton {
 
     property bool loading: false
     property var iconSource: 0 ?? ''
-    property int iconSize: HusTheme.HusButton.fontSize
+    property int iconSize: parseInt(HusTheme.HusButton.fontSize)
     property int iconSpacing: 5 * sizeRatio
     property int iconPosition: HusIconButton.Position_Start
+    property int orientation: Qt.Horizontal
     property color colorIcon: colorText
 
     objectName: '__HusIconButton__'
     contentItem: Item {
-        implicitWidth: __row.implicitWidth
-        implicitHeight: Math.max(__icon.implicitHeight, __text.implicitHeight)
+        implicitWidth: control.orientation === Qt.Horizontal ? __horLoader.implicitWidth : __verLoader.implicitWidth
+        implicitHeight: control.orientation === Qt.Horizontal ? __horLoader.implicitHeight : __verLoader.implicitHeight
 
         Behavior on implicitWidth { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationMid } }
+        Behavior on implicitHeight { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationMid } }
 
-        Row {
-            id: __row
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: control.iconSpacing
-            layoutDirection: control.iconPosition === HusIconButton.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
+        Loader {
+            id: __horLoader
+            anchors.centerIn: parent
+            active: control.orientation === Qt.Horizontal
+            sourceComponent: RowLayout {
+                spacing: control.iconSpacing
+                layoutDirection: control.iconPosition === HusIconButton.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
 
-            HusIconText {
-                id: __icon
-                anchors.verticalCenter: parent.verticalCenter
-                color: control.colorIcon
-                iconSize: control.iconSize
-                iconSource: control.loading ? HusIcon.LoadingOutlined : control.iconSource
-                verticalAlignment: Text.AlignVCenter
+                HusIconText {
+                    id: __icon
+                    Layout.minimumHeight: __text.implicitHeight
+                    Layout.alignment: Qt.AlignVCenter
+                    color: control.colorIcon
+                    iconSize: control.iconSize
+                    iconSource: control.loading ? HusIcon.LoadingOutlined : control.iconSource
+                    verticalAlignment: Text.AlignVCenter
+                    visible: !empty
 
-                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
-                NumberAnimation on rotation {
-                    running: control.loading
-                    from: 0
-                    to: 360
-                    loops: Animation.Infinite
-                    duration: 1000
+                    NumberAnimation on rotation {
+                        running: control.loading
+                        from: 0
+                        to: 360
+                        loops: Animation.Infinite
+                        duration: 1000
+                    }
+                }
+
+                HusText {
+                    id: __text
+                    Layout.alignment: Qt.AlignVCenter
+                    text: control.text
+                    font: control.font
+                    lineHeight: HusTheme.HusButton.fontLineHeight
+                    color: control.colorText
+                    elide: Text.ElideRight
+                    visible: text !== ''
+
+                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
                 }
             }
+        }
 
-            HusText {
-                id: __text
-                anchors.verticalCenter: parent.verticalCenter
-                text: control.text
-                font: control.font
-                lineHeight: HusTheme.HusButton.fontLineHeight
-                color: control.colorText
-                elide: Text.ElideRight
+        Loader {
+            id: __verLoader
+            active: control.orientation === Qt.Vertical
+            anchors.centerIn: parent
+            sourceComponent: ColumnLayout {
+                spacing: control.iconSpacing
+                Component.onCompleted: relayout();
 
-                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+                function relayout() {
+                    if (control.iconPosition === HusIconButton.Position_Start) {
+                        children = [__icon, __text];
+                    } else {
+                        children = [__text, __icon];
+                    }
+                }
+
+                HusIconText {
+                    id: __icon
+                    Layout.minimumHeight: __text.implicitHeight
+                    Layout.alignment: Qt.AlignHCenter
+                    color: control.colorIcon
+                    iconSize: control.iconSize
+                    iconSource: control.loading ? HusIcon.LoadingOutlined : control.iconSource
+                    verticalAlignment: Text.AlignVCenter
+                    visible: !empty
+
+                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+
+                    NumberAnimation on rotation {
+                        running: control.loading
+                        from: 0
+                        to: 360
+                        loops: Animation.Infinite
+                        duration: 1000
+                    }
+                }
+
+                HusText {
+                    id: __text
+                    Layout.alignment: Qt.AlignHCenter
+                    text: control.text
+                    font: control.font
+                    lineHeight: HusTheme.HusButton.fontLineHeight
+                    color: control.colorText
+                    elide: Text.ElideRight
+                    visible: text !== ''
+
+                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+                }
             }
         }
     }
