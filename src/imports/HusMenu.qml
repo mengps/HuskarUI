@@ -1,31 +1,46 @@
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
 Item {
     id: control
 
+    enum CompactMode {
+        Mode_Relaxed = 0,
+        Mode_Standard = 1,
+        Mode_Compact = 2
+    }
+
     signal clickMenu(deep: int, key: string, keyPath: var, data: var)
 
     property bool animationEnabled: HusTheme.animationEnabled
     property bool showEdge: false
-    property bool tooltipVisible: false
-    property bool compactMode: false
-    property int compactWidth: 50
+    property bool showToolTip: false
+    property int compactMode: HusMenu.Mode_Relaxed
+    property int compactWidth: {
+        switch (compactMode) {
+        case HusMenu.Mode_Relaxed: return 0;
+        case HusMenu.Mode_Standard: return 80;
+        case HusMenu.Mode_Compact: return 52;
+        }
+    }
     property bool popupMode: false
     property int popupWidth: 200
     property int popupOffset: 4
     property int popupMaxHeight: control.height
-    property int defaultMenuIconSize: HusTheme.HusMenu.fontSize
+    property int defaultMenuIconSize: parseInt(HusTheme.HusMenu.fontSize)
     property int defaultMenuIconSpacing: 8
     property int defaultMenuWidth: 300
-    property int defaultMenuHeight: 40
+    property int defaultMenuTopPadding: 10
+    property int defaultMenuBottomPadding: 10
     property int defaultMenuSpacing: 4
     property var defaultSelectedKey: []
     property var initModel: []
     property alias scrollBar: __menuScrollBar
     property HusRadius radiusMenuBg: HusRadius { all: HusTheme.HusMenu.radiusMenuBg }
     property HusRadius radiusPopupBg: HusRadius { all: HusTheme.HusMenu.radiusPopupBg }
+    readonly property real implicitMenuHeight: __listView.contentHeight + __listView.anchors.topMargin + __listView.anchors.bottomMargin
     property string contentDescription: ''
 
     property Component menuIconDelegate: HusIconText {
@@ -63,35 +78,71 @@ Item {
     }
     property Component menuContentDelegate: Item {
         id: __menuContentItem
-        property var __menuButton: menuButton
 
-        Loader {
-            id: __iconLoader
-            x: menuButton.iconStart
+        property var __menuButton: menuButton
+        property bool isVertical: control.compactMode === HusMenu.Mode_Standard && menuButton.menuDeep === 0
+
+        implicitHeight: isVertical ? __columnLayout.implicitHeight : __rowLayout.implicitHeight
+
+        ColumnLayout {
+            id: __columnLayout
+            visible: __menuContentItem.isVertical
             anchors.verticalCenter: parent.verticalCenter
-            sourceComponent: menuButton.iconDelegate
-            property var model: __menuButton.model
-            property alias menuButton: __menuContentItem.__menuButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: menuButton.iconSpacing
+
+            Loader {
+                active: __menuContentItem.isVertical
+                visible: active
+                Layout.alignment: Qt.AlignHCenter
+                sourceComponent: menuButton.iconDelegate
+                property var model: __menuButton.model
+                property alias menuButton: __menuContentItem.__menuButton
+            }
+
+            Loader {
+                active: __menuContentItem.isVertical
+                visible: active
+                Layout.alignment: Qt.AlignHCenter
+                sourceComponent: menuButton.labelDelegate
+                property var model: __menuButton.model
+                property alias menuButton: __menuContentItem.__menuButton
+            }
         }
 
-        Loader {
-            id: __labelLoader
-            anchors.left: __iconLoader.right
-            anchors.leftMargin: menuButton.iconSpacing
+        RowLayout {
+            id: __rowLayout
+            visible: !__menuContentItem.isVertical
+            anchors.left: parent.left
             anchors.right: menuButton.expandedVisible ? __expandedIcon.left : parent.right
-            anchors.rightMargin: menuButton.iconSpacing
             anchors.verticalCenter: parent.verticalCenter
-            sourceComponent: menuButton.labelDelegate
-            property var model: __menuButton.model
-            property alias menuButton: __menuContentItem.__menuButton
+            spacing: menuButton.iconSpacing
+
+            Loader {
+                active: !__menuContentItem.isVertical
+                visible: active
+                sourceComponent: menuButton.iconDelegate
+                property var model: __menuButton.model
+                property alias menuButton: __menuContentItem.__menuButton
+            }
+
+            Loader {
+                active: !__menuContentItem.isVertical
+                visible: active
+                Layout.alignment: Qt.AlignVCenter
+                Layout.fillWidth: true
+                sourceComponent: menuButton.labelDelegate
+                property var model: __menuButton.model
+                property alias menuButton: __menuContentItem.__menuButton
+            }
         }
 
         HusIconText {
             id: __expandedIcon
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
-            visible: menuButton.expandedVisible
-            iconSource: (control.compactMode || control.popupMode) ? HusIcon.RightOutlined : HusIcon.DownOutlined
+            visible: menuButton.showExpanded
+            iconSource: (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? HusIcon.RightOutlined : HusIcon.DownOutlined
             colorIcon: menuButton.colorText
             transform: Rotation {
                 origin {
@@ -103,7 +154,7 @@ Item {
                     y: 0
                     z: 0
                 }
-                angle: (control.compactMode || control.popupMode) ? 0 : (menuButton.expanded ? 180 : 0)
+                angle: (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 0 : (menuButton.expanded ? 180 : 0)
                 Behavior on angle { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationMid } }
             }
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
@@ -244,31 +295,31 @@ Item {
         id: __menuButtonImpl
 
         property var iconSource: 0 ?? ''
-        property int iconSize: HusTheme.HusMenu.fontSize
+        property int iconSize: parseInt(HusTheme.HusMenu.fontSize)
         property int iconSpacing: 5
-        property int iconStart: 0
         property bool expanded: false
-        property bool expandedVisible: false
+        property bool showExpanded: false
         property bool isCurrent: false
         property bool isGroup: false
         property var model: undefined
+        property int menuDeep: -1
         property var iconDelegate: null
         property var labelDelegate: null
         property var contentDelegate: null
         property var backgroundDelegate: null
 
         onClicked: {
-            if (expandedVisible)
+            if (showExpanded)
                 expanded = !expanded;
         }
-        hoverCursorShape: (isGroup && !control.compactMode) ? Qt.ArrowCursor : Qt.PointingHandCursor
+        hoverCursorShape: (isGroup && !control.compactMode !== HusMenu.Mode_Relaxed) ? Qt.ArrowCursor : Qt.PointingHandCursor
         animationEnabled: control.animationEnabled
         effectEnabled: false
         colorBorder: 'transparent'
         colorText: {
             if (enabled) {
                 if (isGroup) {
-                    return (isCurrent && control.compactMode) ? HusTheme.HusMenu.colorTextActive : HusTheme.HusMenu.colorTextDisabled;
+                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? HusTheme.HusMenu.colorTextActive : HusTheme.HusMenu.colorTextDisabled;
                 } else {
                     return isCurrent ? HusTheme.HusMenu.colorTextActive : HusTheme.HusMenu.colorText;
                 }
@@ -279,7 +330,7 @@ Item {
         colorBg: {
             if (enabled) {
                 if (isGroup)
-                    return (isCurrent && control.compactMode) ? HusTheme.HusMenu.colorBgActive : HusTheme.HusMenu.colorBgDisabled;
+                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? HusTheme.HusMenu.colorBgActive : HusTheme.HusMenu.colorBgDisabled;
                 else if (isCurrent)
                     return HusTheme.HusMenu.colorBgActive;
                 else if (hovered) {
@@ -363,8 +414,8 @@ Item {
             property string menuType: model.type || 'item'
             property bool menuEnabled: model.enabled === undefined ? true : model.enabled
             property string menuLabel: model.label || ''
-            property int menuHeight: model.height || defaultMenuHeight
-            property int menuIconSize: model.iconSize || defaultMenuIconSize
+            property string menuShortLabel: model.shortLabel || menuLabel
+            property int menuIconSize: model.iconSize || control.defaultMenuIconSize
             property var menuIconSource: model.iconSource || 0
             property int menuIconSpacing: model.iconSpacing || defaultMenuIconSpacing
             property var menuChildren: model.menuChildren || []
@@ -385,7 +436,7 @@ Item {
             }
 
             function expandMenu() {
-                if (__menuButton.expandedVisible) {
+                if (__menuButton.showExpanded) {
                     __menuButton.expanded = true;
                 }
                 __rootItem.clickMenu();
@@ -479,36 +530,44 @@ Item {
             Rectangle {
                 id: __layout
                 width: parent.width
-                height: __menuButton.height + ((control.compactMode || control.popupMode) ? 0 : __childrenListView.height)
+                height: control.defaultMenuSpacing + __menuButton.height + ((control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 0 : __childrenListView.height)
                 anchors.top: parent.top
-                color: (view.menuDeep === 0 || control.compactMode || control.popupMode) ? 'transparent' : HusTheme.HusMenu.colorChildBg
-                visible: menuType == 'item' || menuType == 'group'
+                color: (__rootItem.view.menuDeep === 0 || control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 'transparent' : HusTheme.HusMenu.colorChildBg
+                visible: __rootItem.menuType == 'item' || __rootItem.menuType == 'group'
 
                 MenuButton {
                     id: __menuButton
                     width: parent.width
-                    height: __rootItem.menuHeight + control.defaultMenuSpacing
-                    topInset: control.defaultMenuSpacing * 0.5
-                    leftPadding: 15 + (control.compactMode || control.popupMode ? 0 : iconSize * __rootItem.view.menuDeep)
-                    bottomInset: control.defaultMenuSpacing * 0.5
+                    height: control.defaultMenuSpacing + implicitContentHeight + topPadding + bottomPadding
+                    anchors.top: parent.top
+                    anchors.topMargin: control.defaultMenuSpacing
+                    topPadding: control.defaultMenuTopPadding
+                    bottomPadding: control.defaultMenuBottomPadding
+                    leftPadding: 12 + (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode ? 0 : iconSize * __rootItem.view.menuDeep)
                     enabled: __rootItem.menuEnabled
                     radiusBg: control.radiusMenuBg
-                    text: (control.compactMode && __rootItem.view.menuDeep === 0) ? '' : __rootItem.menuLabel
+                    text: {
+                        switch (control.compactMode) {
+                        case HusMenu.Mode_Relaxed: return __rootItem.menuLabel;
+                        case HusMenu.Mode_Standard: return __rootItem.view.menuDeep === 0 ? __rootItem.menuShortLabel : __rootItem.menuLabel;
+                        case HusMenu.Mode_Compact: return __rootItem.view.menuDeep === 0 ? '' : __rootItem.menuLabel;
+                        }
+                    }
                     checkable: true
                     iconSize: __rootItem.menuIconSize
                     iconSource: __rootItem.menuIconSource
                     iconSpacing: __rootItem.menuIconSpacing
-                    iconStart: (control.compactMode && __rootItem.view.menuDeep === 0) ? (width - iconSize - leftPadding - rightPadding) * 0.5 : 0
-                    expandedVisible: {
+                    showExpanded: {
                         if (__rootItem.menuType == 'group' ||
-                                (control.compactMode && __rootItem.view.menuDeep === 0))
+                                (control.compactMode !== HusMenu.Mode_Relaxed && __rootItem.view.menuDeep === 0))
                             return false;
                         else
-                            return __rootItem.menuChildrenLength > 0
+                            return __rootItem.menuChildrenLength > 0;
                     }
                     isCurrent: __rootItem.isCurrent
-                    isGroup: __rootItem.menuType == 'group'
+                    isGroup: __rootItem.menuType === 'group'
                     model: __rootItem.model
+                    menuDeep: __rootItem.view.menuDeep
                     iconDelegate: __rootItem.menuIconDelegate
                     labelDelegate: __rootItem.menuLabelDelegate
                     contentDelegate: __rootItem.menuContentDelegate
@@ -518,10 +577,10 @@ Item {
                         if (__rootItem.menuChildrenLength == 0) {
                             __private.selectedItem = __rootItem;
                             __rootItem.selectedCurrentParentMenu();
-                            if (control.compactMode || control.popupMode)
+                            if (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode)
                                 __rootItem.layerPopup.closeWithParent();
                         } else {
-                            if (control.compactMode || control.popupMode) {
+                            if (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) {
                                 const h = __rootItem.layerPopup.topPadding +
                                         __rootItem.layerPopup.bottomPadding +
                                         __childrenListView.realHeight + 6;
@@ -539,9 +598,9 @@ Item {
                     }
 
                     HusToolTip {
-                        visible: control.tooltipVisible ? parent.hovered : false
+                        visible: control.showToolTip ? parent.hovered : false
                         animationEnabled: control.animationEnabled
-                        position: control.compactMode || control.popupMode ? HusToolTip.Position_Right : HusToolTip.Position_Bottom
+                        position: control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode ? HusToolTip.Position_Right : HusToolTip.Position_Bottom
                         text: __rootItem.menuLabel
                         delay: 500
                     }
@@ -574,7 +633,7 @@ Item {
                     onContentHeightChanged: cacheBuffer = contentHeight;
                     T.ScrollBar.vertical: HusScrollBar {
                         id: childrenScrollBar
-                        visible: (control.compactMode || control.popupMode) && childrenScrollBar.size !== 1
+                        visible: (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) && childrenScrollBar.size !== 1
                         animationEnabled: control.animationEnabled
                     }
                     clip: true

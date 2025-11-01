@@ -11,18 +11,12 @@ Flickable {
     Component {
         id: myContentDelegate
 
-        Item {
-            HusText {
-                id: __text
-                anchors.left: parent.left
-                anchors.right: __tag.left
-                anchors.rightMargin: 5
-                anchors.verticalCenter: parent.verticalCenter
-                text: menuButton.text
-                font: menuButton.font
-                color: menuButton.colorText
-                elide: Text.ElideRight
-            }
+        HusText {
+            id: __text
+            text: menuButton.text
+            font: menuButton.font
+            color: menuButton.colorText
+            elide: Text.ElideRight
 
             HusTag {
                 id: __tag
@@ -65,9 +59,9 @@ Flickable {
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 contentDescription | string | '' | 内容描述(提高可用性)
 showEdge | bool | false | 是否显示边线
-tooltipVisible | bool | false | 是否显示工具提示
-compactMode | bool | false | 是否为紧凑模式
-compactWidth | int | 50 | 紧凑模式宽度
+showToolTip | bool | false | 是否显示工具提示
+compactMode | enum | HusMenu.Mode_Relaxed | 紧凑模式
+compactWidth | int | - | 紧凑模式宽度
 popupMode | bool | false | 是否为弹出模式
 popupWidth | int | 200 | 弹窗宽度
 popupOffset | int | 4 | 弹窗之间的偏移
@@ -75,21 +69,23 @@ popupMaxHeight | int | - | 弹窗最大高度
 defaultMenuIconSize | int | - | 默认菜单图标大小
 defaultMenuIconSpacing | int | 8 | 默认菜单图标间隔
 defaultMenuWidth | int | 300 | 默认菜单宽度
-defaultMenuHieght | int | 40 | 默认菜单高度
+defaultMenuTopPadding | int | 10 | 默认菜单上边距
+defaultMenuBottomPadding | int | 10 | 默认菜单下边距
 defaultMenuSpacing | int | 4 | 默认菜单间隔
 defaultSelectedKey | list | [] | 初始选中的菜单项 key 数组
 initModel | list | [] | 初始菜单模型
 scrollBar | HusScrollBar | - | 菜单滚动条
 radiusMenuBg | [HusRadius](internal://HusRadius) | - | 菜单项背景圆角
 radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角
+implicitMenuHeight | real(readonly) | - | 内部菜单隐式高度
 \n<br/>
 \n### 模型支持的属性：\n
 属性名 | 类型 | 可选/必选 | 描述
 ------ | --- | :---: | ---
 key | string | 可选 | 菜单键(最好唯一)
 label | sting | 必选 | 菜单标签
+shortLabel | sting | 可选 | 菜单短标签(compactMode == HusMenu.Mode_Standard 时使用, 没有则为label)
 type | sting | 可选 | 菜单项类型
-height | int | 可选 | 本菜单项高度
 enabled | bool | 可选 | 是否启用(false则禁用本菜单项)
 iconSize | int | 可选 | 图标大小
 iconSource | int | 可选 | 图标源
@@ -103,10 +99,10 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
 - **model: var** 模型数据(访问错误则使用 \`parent.model\`)\n
 - **menuButton: HusButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，可访问的属性：\n
   - model: var 本菜单模型\n
+  - menuDeep: int 本菜单深度\n
   - iconSource: int 图标源\n
   - iconSize: int 图标大小\n
   - iconSpacing: int 图标间隔\n
-  - iconStart: int 图标起始坐标\n
   - expanded: int 是否展开\n
   - isCurrent: int 是否为当前选择菜单\n
   - isGroup: int 是否为组菜单\n
@@ -158,8 +154,8 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
 通过 \`initModel\` 属性设置初始菜单模型{需为list}，菜单项支持的属性有：\n
 - { key: 菜单键(最好唯一) }\n
 - { label: 标题 }\n
+- { shortLabel: 短标题 }\n
 - { type: 类型 }\n
-- { height: 本菜单项高度 }\n
 - { enabled: 是否启用(false则禁用该菜单项) }\n
 - { iconSize: 图标大小 }\n
 - { iconSource: 图标源 }\n
@@ -170,7 +166,7 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
 - 'item' { 普通菜单项(默认) }\n
 - 'group' { 组菜单项 }\n
 - 'divider' { 此菜单项为分隔器 }\n
-点击任意菜单项将发出 \`clickMenu(deep, menuKey, menuData)\` 信号。
+点击任意菜单项将发出 \`clickMenu(deep, key, keyPath, data)\` 信号。
                        `)
             code: `
                 import QtQuick
@@ -425,11 +421,14 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
             width: parent.width
             descTitle: qsTr('紧凑模式')
             desc: qsTr(`
-通过 \`compactMode\` 属性设置菜单是否为紧凑模式。\n
-通过 \`compactWidth\` 属性设置紧凑模式的宽度。\n
+通过 \`compactMode\` 属性设置菜单的紧凑模式，支持的模式：\n
+- 宽松模式(默认){ HusMenu.Mode_Relaxed }\n
+- 标准模式{ HusMenu.Mode_Standard }\n
+- 紧凑模式{ HusMenu.Mode_Compact }\n
+通过 \`compactWidth\` 属性设置紧凑模式的宽度(默认无需设置)。\n
 通过 \`popupWidth\` 属性设置弹窗的宽度。\n
 通过 \`popupMaxHeight\` 属性设置弹窗的最大高度(最小高度是自动计算的)。\n
-**注意** 设置为紧凑模式则不需要设置弹出模式。\n
+**注意** 设置非宽松模式则自动变为弹出模式。\n
 **注意** 使用 \`defaultMenuWidth\` 来设置宽度。\n
                        `)
             code: `
@@ -444,8 +443,9 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
                         id: compactModeRadio
                         initCheckedIndex: 0
                         model: [
-                            { label: qsTr('默认模式'), value: false },
-                            { label: qsTr('紧凑模式'), value: true }
+                            { label: qsTr('宽松模式'), value: HusMenu.Mode_Relaxed },
+                            { label: qsTr('标准模式'), value: HusMenu.Mode_Standard },
+                            { label: qsTr('紧凑模式'), value: HusMenu.Mode_Compact }
                         ]
                     }
 
@@ -456,10 +456,12 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
                         initModel: [
                             {
                                 label: qsTr('首页1'),
+                                shortLabel: qsTr('1'),
                                 iconSource: HusIcon.HomeOutlined
                             },
                             {
                                 label: qsTr('首页2'),
+                                shortLabel: qsTr('2'),
                                 iconSource: HusIcon.HomeOutlined,
                                 menuChildren: [
                                     {
@@ -486,6 +488,7 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
                             },
                             {
                                 label: qsTr('首页3'),
+                                shortLabel: qsTr('3'),
                                 iconSource: HusIcon.HomeOutlined,
                                 menuChildren: [
                                     {
@@ -511,8 +514,9 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
                     id: compactModeRadio
                     initCheckedIndex: 0
                     model: [
-                        { label: qsTr('默认模式'), value: false },
-                        { label: qsTr('紧凑模式'), value: true }
+                        { label: qsTr('宽松模式'), value: HusMenu.Mode_Relaxed },
+                        { label: qsTr('标准模式'), value: HusMenu.Mode_Standard },
+                        { label: qsTr('紧凑模式'), value: HusMenu.Mode_Compact }
                     ]
                 }
 
@@ -523,10 +527,12 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
                     initModel: [
                         {
                             label: qsTr('首页1'),
+                            shortLabel: qsTr('1'),
                             iconSource: HusIcon.HomeOutlined
                         },
                         {
                             label: qsTr('首页2'),
+                            shortLabel: qsTr('2'),
                             iconSource: HusIcon.HomeOutlined,
                             menuChildren: [
                                 {
@@ -553,6 +559,7 @@ backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgr
                         },
                         {
                             label: qsTr('首页3'),
+                            shortLabel: qsTr('3'),
                             iconSource: HusIcon.HomeOutlined,
                             menuChildren: [
                                 {
