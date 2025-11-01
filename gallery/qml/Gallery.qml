@@ -19,8 +19,8 @@ HusWindow {
     captionBar.visible: Qt.platform.os === 'windows' || Qt.platform.os === 'linux' || Qt.platform.os === 'osx'
     captionBar.height: captionBar.visible ? 30 : 0
     captionBar.color: HusTheme.Primary.colorFillTertiary
-    captionBar.themeButtonVisible: true
-    captionBar.topButtonVisible: true
+    captionBar.showThemeButton: true
+    captionBar.showTopButton: true
     captionBar.winIconWidth: 22
     captionBar.winIconHeight: 22
     captionBar.winIconDelegate: Item {
@@ -37,6 +37,77 @@ HusWindow {
     captionBar.topCallback: (checked) => {
         HusApi.setWindowStaysOnTopHint(galleryWindow, checked);
     }
+    captionBar.winPresetButtonsDelegate: Row {
+        Connections {
+            target: captionBar
+            function onWindowAgentChanged() {
+                captionBar.addInteractionItem(wikiButton);
+                captionBar.addInteractionItem(themeButton);
+                captionBar.addInteractionItem(topButton);
+            }
+        }
+
+        HusCaptionButton {
+            id: wikiButton
+            height: parent.height
+            noDisabledState: true
+            text: qsTr('在线 Wiki (AI)')
+            colorText: HusTheme.Primary.colorTextBase
+            iconSize: 14
+            iconSource: HusIcon.BookOutlined
+            background: Item {
+                ShaderEffect {
+                    anchors.fill: parent
+                    vertexShader: 'qrc:/Gallery/shaders/effect2.vert.qsb'
+                    fragmentShader: 'qrc:/Gallery/shaders/effect2.frag.qsb'
+                    opacity: wikiButton.hovered ? 0.4 : 0.25
+
+                    property vector3d iResolution: Qt.vector3d(width, height, 0)
+                    property real iTime: 0
+
+                    Timer {
+                        running: true
+                        repeat: true
+                        interval: 10
+                        onTriggered: parent.iTime += 0.03;
+                    }
+                }
+            }
+            onClicked: {
+                Qt.openUrlExternally('https://deepwiki.com/mengps/HuskarUI');
+            }
+
+            HusToolTip {
+                visible: parent.hovered
+                showArrow: true
+                position: HusToolTip.Position_Bottom
+                text: qsTr('在线 Wiki (AI), 可进行 HuskarUI 相关的 AI 问答')
+            }
+        }
+
+        HusCaptionButton {
+            id: themeButton
+            height: parent.height
+            noDisabledState: true
+            iconSource: HusTheme.isDark ? HusIcon.MoonOutlined : HusIcon.SunOutlined
+            iconSize: 14
+            contentDescription: qsTr('明暗主题切换')
+            onClicked: captionBar.themeCallback();
+        }
+
+        HusCaptionButton {
+            id: topButton
+            height: parent.height
+            noDisabledState: true
+            iconSource: HusIcon.PushpinOutlined
+            iconSize: 14
+            checkable: true
+            checked: captionBar.topButtonChecked
+            contentDescription: qsTr('置顶')
+            onClicked: captionBar.topCallback(checked);
+        }
+    }
+
     Component.onCompleted: {
         if (Qt.platform.os === 'windows') {
             if (setSpecialEffect(HusWindow.Win_MicaAlt)) return;
@@ -46,9 +117,6 @@ HusWindow {
         } else if (Qt.platform.os === 'osx') {
             if (setSpecialEffect(HusWindow.Mac_BlurEffect)) return;
         }
-    }
-    onWidthChanged: {
-        galleryMenu.compactMode = width < 1100;
     }
 
     property var galleryGlobal: Global { }
@@ -133,7 +201,7 @@ HusWindow {
             anchors.topMargin: 5
             radius: HusTheme.Primary.radiusPrimary
             color: hovered ? HusTheme.isDark ? '#10ffffff' : '#10000000' : 'transparent'
-            visible: !galleryMenu.compactMode
+            visible: galleryMenu.compactMode === HusMenu.Mode_Relaxed
             clip: true
 
             property bool hovered: authorCardHover.hovered
@@ -201,17 +269,17 @@ HusWindow {
             property bool expanded: false
             z: 10
             clip: true
-            width: (!galleryMenu.compactMode || expanded) ? (galleryMenu.defaultMenuWidth - 20) : 0
+            width: (galleryMenu.compactMode === HusMenu.Mode_Relaxed || expanded) ? (galleryMenu.defaultMenuWidth - 20) : 0
             anchors.top: authorCard.bottom
-            anchors.left: !galleryMenu.compactMode ? galleryMenu.left : galleryMenu.right
+            anchors.left: galleryMenu.compactMode === HusMenu.Mode_Relaxed ? galleryMenu.left : galleryMenu.right
             anchors.margins: 10
             topPadding: 6
             bottomPadding: 6
             rightPadding: 50
-            tooltipVisible: true
+            showToolTip: true
             placeholderText: qsTr('搜索组件')
             iconSource: HusIcon.SearchOutlined
-            colorBg: galleryMenu.compactMode ? HusTheme.HusInput.colorBg : 'transparent'
+            colorBg: !galleryMenu.compactMode === HusMenu.Mode_Relaxed ? HusTheme.HusInput.colorBg : 'transparent'
             options: galleryGlobal.options
             filterOption: function(input, option) {
                 return option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1;
@@ -253,14 +321,14 @@ HusWindow {
             }
 
             Behavior on width {
-                enabled: galleryMenu.compactMode && galleryMenu.width === galleryMenu.compactWidth
+                enabled: !galleryMenu.compactMode === HusMenu.Mode_Relaxed && galleryMenu.width === galleryMenu.compactWidth
                 NumberAnimation { duration: HusTheme.Primary.durationFast }
             }
         }
 
         HusIconButton {
             id: searchCollapse
-            visible: galleryMenu.compactMode
+            visible: !galleryMenu.compactMode === HusMenu.Mode_Relaxed
             anchors.top: parent.top
             anchors.left: galleryMenu.left
             anchors.right: galleryMenu.right
@@ -287,31 +355,23 @@ HusWindow {
             id: galleryMenu
             anchors.left: parent.left
             anchors.top: searchComponent.bottom
-            anchors.bottom: creatorButton.top
+            anchors.bottom: buttonsColumn.top
             showEdge: true
-            tooltipVisible: true
+            showToolTip: true
             defaultMenuWidth: 300
             defaultSelectedKey: ['HomePage']
             initModel: galleryGlobal.menus
-            menuLabelDelegate: Item {
+            menuLabelDelegate: HusText {
+                text: menuButton.text
+                font: menuButton.font
+                color: menuButton.colorText
+                elide: Text.ElideRight
+
                 property var model: parent.model
                 property var menuButton: parent.menuButton
                 property string tagState: model.state ?? ''
 
-                HusText {
-                    anchors.left: parent.left
-                    anchors.leftMargin: menuButton.iconSpacing
-                    anchors.right: __tag.left
-                    anchors.rightMargin: 5
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: menuButton.text
-                    font: menuButton.font
-                    color: menuButton.colorText
-                    elide: Text.ElideRight
-                }
-
                 HusTag {
-                    id: __tag
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     text: parent.tagState
@@ -361,7 +421,7 @@ HusWindow {
         HusDivider {
             width: galleryMenu.width
             height: 1
-            anchors.bottom: creatorButton.top
+            anchors.bottom: buttonsColumn.top
         }
 
         Loader {
@@ -385,57 +445,78 @@ HusWindow {
             sourceComponent: SettingsPage { visible: settingsLoader.visible }
         }
 
-        HusIconButton {
-            id: creatorButton
+        Column {
+            id: buttonsColumn
             width: galleryMenu.width
-            height: 40
-            anchors.bottom: aboutButton.top
-            type: HusButton.Type_Text
-            radiusBg.all: 0
-            text: galleryMenu.compactMode ? '' : qsTr('创建')
-            colorText: HusTheme.Primary.colorTextBase
-            iconSize: galleryMenu.defaultMenuIconSize
-            iconSource: HusIcon.PlusCircleOutlined
-            onClicked: {
-                if (!creatorLoader.active)
-                    creatorLoader.active = true;
-                creatorLoader.visible = !creatorLoader.visible;
-            }
-        }
-
-        HusIconButton {
-            id: aboutButton
-            width: galleryMenu.width
-            height: 40
-            anchors.bottom: setttingsButton.top
-            type: HusButton.Type_Text
-            radiusBg.all: 0
-            text: galleryMenu.compactMode ? '' : qsTr('关于')
-            colorText: HusTheme.Primary.colorTextBase
-            iconSize: galleryMenu.defaultMenuIconSize
-            iconSource: HusIcon.UserOutlined
-            onClicked: {
-                if (!aboutLoader.active)
-                    aboutLoader.active = true;
-                aboutLoader.visible = !aboutLoader.visible;
-            }
-        }
-
-        HusIconButton {
-            id: setttingsButton
-            width: galleryMenu.width
-            height: 40
             anchors.bottom: parent.bottom
-            type: HusButton.Type_Text
-            radiusBg.all: 0
-            text: galleryMenu.compactMode ? '' : qsTr('设置')
-            colorText: HusTheme.Primary.colorTextBase
-            iconSize: galleryMenu.defaultMenuIconSize
-            iconSource: HusIcon.SettingOutlined
-            onClicked: {
-                if (!settingsLoader.active)
-                    settingsLoader.active = true;
-                settingsLoader.visible = !settingsLoader.visible;
+
+            HusIconButton {
+                id: creatorButton
+                width: parent.width
+                height: 40
+                type: HusButton.Type_Text
+                radiusBg.all: 0
+                text: galleryMenu.compactMode !== HusMenu.Mode_Relaxed ? '' : qsTr('创建')
+                colorText: HusTheme.Primary.colorTextBase
+                iconSize: galleryMenu.defaultMenuIconSize
+                iconSource: HusIcon.PlusCircleOutlined
+                onClicked: {
+                    if (!creatorLoader.active)
+                        creatorLoader.active = true;
+                    creatorLoader.visible = !creatorLoader.visible;
+                }
+
+                HusToolTip {
+                    visible: parent.hovered
+                    showArrow: true
+                    text: qsTr('创建新项目')
+                }
+            }
+
+            HusIconButton {
+                id: aboutButton
+                width: parent.width
+                height: 40
+                type: HusButton.Type_Text
+                radiusBg.all: 0
+                text: galleryMenu.compactMode !== HusMenu.Mode_Relaxed ? '' : qsTr('关于')
+                colorText: HusTheme.Primary.colorTextBase
+                iconSize: galleryMenu.defaultMenuIconSize
+                iconSource: HusIcon.UserOutlined
+                onClicked: {
+                    if (!aboutLoader.active)
+                        aboutLoader.active = true;
+                    aboutLoader.visible = !aboutLoader.visible;
+                }
+
+                HusToolTip {
+                    visible: parent.hovered
+                    showArrow: true
+                    text: qsTr('关于')
+                }
+            }
+
+            HusIconButton {
+                id: setttingsButton
+                width: parent.width
+                height: 40
+                type: HusButton.Type_Text
+                radiusBg.all: 0
+                text: galleryMenu.compactMode !== HusMenu.Mode_Relaxed ? '' : qsTr('设置')
+                colorText: HusTheme.Primary.colorTextBase
+                iconSize: galleryMenu.defaultMenuIconSize
+                iconSource: HusIcon.SettingOutlined
+                onClicked: {
+                    if (!settingsLoader.active)
+                        settingsLoader.active = true;
+                    settingsLoader.visible = !settingsLoader.visible;
+                }
+
+                HusToolTip {
+                    visible: parent.hovered
+                    showArrow: true
+                    text: qsTr('设置')
+                }
             }
         }
 

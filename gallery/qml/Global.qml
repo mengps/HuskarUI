@@ -44,7 +44,8 @@ QtObject {
                     key: 'HusIconButton',
                     label: qsTr('HusIconButton 图标按钮'),
                     source: './Examples/General/ExpIconButton.qml',
-                    desc: qsTr('带图标的按钮。')
+                    updateVersion: '0.4.9.1',
+                    desc: qsTr('新增 orientation 方向。')
                 },
                 {
                     key: 'HusCaptionButton',
@@ -138,8 +139,8 @@ QtObject {
                     key: 'HusMenu',
                     label: qsTr('HusMenu 菜单'),
                     source: './Examples/Navigation/ExpMenu.qml',
-                    updateVersion: '0.4.8.1',
-                    desc: qsTr('新增 setData() 函数。\n新增 setDataProperty() 函数。')
+                    updateVersion: '0.4.9.1',
+                    desc: qsTr('重做 compactMode 模式。\n移除 defaultMenuHeight 属性。\n新增 defaultMenu[Top/Bottom]Padding 默认菜单上/下边距属性。')
                 },
                 {
                     key: 'HusScrollBar',
@@ -157,7 +158,8 @@ QtObject {
                     key: 'HusContextMenu',
                     label: qsTr('HusContextMenu 上下文菜单'),
                     source: './Examples/Navigation/ExpContextMenu.qml',
-                    desc: qsTr('上下文菜单，通常作为右键单击后显示的菜单。')
+                    updateVersion: '0.4.9.1',
+                    desc: qsTr('移除 defaultMenuHeight 属性。\n新增 defaultMenu[Top/Bottom]Padding 默认菜单上/下边距属性。')
                 },
                 {
                     key: 'HusBreadcrumb',
@@ -293,7 +295,8 @@ QtObject {
                     key: 'HusTabView',
                     label: qsTr('HusTabView 标签页'),
                     source: './Examples/DataDisplay/ExpTabView.qml',
-                    desc: qsTr('HusTabView 是通过选项卡标签切换内容的组件。')
+                    updateVersion: '0.4.*.1',
+                    desc: qsTr('新增 closeTabCallback() 关闭标签回调。')
                 },
                 {
                     key: 'HusCollapse',

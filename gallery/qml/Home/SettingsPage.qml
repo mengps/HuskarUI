@@ -10,8 +10,8 @@ HusWindow {
     height: 600
     minimumWidth: 550
     minimumHeight: 600
-    captionBar.minimizeButtonVisible: false
-    captionBar.maximizeButtonVisible: false
+    captionBar.showMinimizeButton: false
+    captionBar.showMaximizeButton: false
     captionBar.winTitle: qsTr('设置')
     captionBar.winIconDelegate: Item {
         Image {
@@ -69,7 +69,7 @@ HusWindow {
 
             property alias label: __label
             property alias slider: __slider
-            property bool scaleVisible: false
+            property bool showScale: false
 
             HusText {
                 id: __label
@@ -84,7 +84,7 @@ HusWindow {
 
                 Loader {
                     width: parent.width
-                    active: scaleVisible
+                    active: showScale
                     sourceComponent: Item {
                         Row {
                             anchors.top: parent.top
@@ -194,7 +194,7 @@ HusWindow {
                                 HusTheme.installThemePrimaryAnimationBase(base, base * 2, base * 3);
                             }
                             slider.handleToolTipDelegate: HusToolTip {
-                                arrowVisible: true
+                                showArrow: true
                                 delay: 100
                                 text: themeSpeed.slider.currentValue
                                 visible: handlePressed || handleHovered
@@ -215,7 +215,7 @@ HusWindow {
                                 gallerySwitchEffect.duration = slider.currentValue;
                             }
                             slider.handleToolTipDelegate: HusToolTip {
-                                arrowVisible: true
+                                showArrow: true
                                 delay: 100
                                 text: effectSpeed.slider.currentValue
                                 visible: handlePressed || handleHovered
@@ -231,7 +231,7 @@ HusWindow {
                                 galleryBackground.opacity = slider.currentValue;
                             }
                             slider.handleToolTipDelegate: HusToolTip {
-                                arrowVisible: true
+                                showArrow: true
                                 delay: 100
                                 text: bgOpacitySlider.slider.currentValue.toFixed(1)
                                 visible: handlePressed || handleHovered
@@ -248,7 +248,7 @@ HusWindow {
                             slider.onFirstReleased: {
                                 HusTheme.installThemePrimaryFontSizeBase(slider.currentValue);
                             }
-                            scaleVisible: true
+                            showScale: true
                         }
 
                         MySlider {
@@ -261,7 +261,7 @@ HusWindow {
                             slider.onFirstReleased: {
                                 HusTheme.installThemePrimaryRadiusBase(slider.currentValue);
                             }
-                            scaleVisible: true
+                            showScale: true
                         }
                     }
                 }
@@ -417,21 +417,22 @@ HusWindow {
                     itemDelegate: HusRadioBlock {
                         id: navMode
                         model: [
-                            { label: qsTr('默认'), value: false },
-                            { label: qsTr('紧凑'), value: true }
+                            { label: qsTr('宽松'), value: HusMenu.Mode_Relaxed },
+                            { label: qsTr('标准'), value: HusMenu.Mode_Standard },
+                            { label: qsTr('紧凑'), value: HusMenu.Mode_Compact }
                         ]
                         onClicked:
                             (index, radioData) => {
                                 galleryMenu.compactMode = radioData.value;
                             }
                         Component.onCompleted: {
-                            currentCheckedIndex = galleryMenu.compactMode ? 1 : 0;
+                            currentCheckedIndex = galleryMenu.compactMode;
                         }
 
                         Connections {
                             target: galleryMenu
                             function onCompactModeChanged() {
-                                navMode.currentCheckedIndex = galleryMenu.compactMode ? 1 : 0;
+                                navMode.currentCheckedIndex = galleryMenu.compactMode;
                             }
                         }
                     }
