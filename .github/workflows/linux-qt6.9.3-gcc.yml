@@ -1,6 +1,6 @@
 # This starter workflow is for a CMake project running on multiple platforms. There is a different starter workflow if you just want a single platform.
 # See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-single-platform.yml
-name: CMake on Linux - Qt6.8.3
+name: CMake on Linux - Qt6.9.3
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
         c_compiler: [gcc]
         cxx_compiler: [g++]
         include:
-          - qt_ver: 6.8.3  
+          - qt_ver: 6.9.3
             qt_arch: linux_gcc_64
 
     env:
