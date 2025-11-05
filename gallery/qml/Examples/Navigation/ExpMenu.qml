@@ -74,7 +74,7 @@ defaultMenuBottomPadding | int | 10 | 默认菜单下边距
 defaultMenuSpacing | int | 4 | 默认菜单间隔
 defaultSelectedKey | list | [] | 初始选中的菜单项 key 数组
 initModel | list | [] | 初始菜单模型
-scrollBar | HusScrollBar | - | 菜单滚动条
+scrollBar | [HusScrollBar](internal://HusScrollBar) | - | 菜单滚动条
 radiusMenuBg | [HusRadius](internal://HusRadius) | - | 菜单项背景圆角
 radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角
 implicitMenuHeight | real(readonly) | - | 内部菜单隐式高度

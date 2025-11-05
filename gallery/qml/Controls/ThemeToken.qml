@@ -184,9 +184,9 @@ Item {
         UpdateDesc { }
 
         HusText {
+            width: parent.width
             visible: root.source != ''
             text: qsTr('主题变量（Design Token）')
-            width: parent.width
             font {
                 pixelSize: HusTheme.Primary.fontPrimarySizeHeading3
                 weight: Font.DemiBold
@@ -197,6 +197,7 @@ Item {
             id: tableLoader
             width: parent.width
             height: Math.min(400, 40 * ((galleryGlobal.componentTokens[root.source]?.length ?? 0) + 1))
+            visible: root.source != ''
             active: root.source != ''
             asynchronous: true
             sourceComponent: HusTableView {

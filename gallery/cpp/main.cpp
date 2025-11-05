@@ -15,11 +15,11 @@ int main(int argc, char *argv[])
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
     QQuickWindow::setDefaultAlphaBuffer(true);
 
-    const QGuiApplication app(argc, argv);
-    QGuiApplication::setOrganizationName("MenPenS");
-    QGuiApplication::setApplicationName("HuskarUI");
-    QGuiApplication::setApplicationDisplayName("HuskarUI Gallery");
-    QGuiApplication::setApplicationVersion(HusApp::libVersion());
+    QGuiApplication app(argc, argv);
+    app.setOrganizationName("MenPenS");
+    app.setApplicationName("HuskarUI");
+    app.setApplicationDisplayName("HuskarUI Gallery");
+    app.setApplicationVersion(HusApp::libVersion());
 
     QQmlApplicationEngine engine;
 
@@ -34,5 +34,5 @@ int main(int argc, char *argv[])
         }, Qt::QueuedConnection);
     engine.load(url);
 
-    return QGuiApplication::exec();
+    return app.exec();
 }
