@@ -162,7 +162,7 @@ Item {
     }
 
     objectName: '__HusMenu__'
-    implicitWidth: compactMode ? compactWidth : defaultMenuWidth
+    implicitWidth: compactMode !== HusMenu.Mode_Relaxed ? compactWidth : defaultMenuWidth
     implicitHeight: __listView.contentHeight + __listView.anchors.topMargin + __listView.anchors.bottomMargin
     clip: true
     onInitModelChanged: {
