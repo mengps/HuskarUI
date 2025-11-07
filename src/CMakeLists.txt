@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.9.1)
+set(HUSKARUI_VERSION_MAJOR 0)
+set(HUSKARUI_VERSION_MINOR 4)
+set(HUSKARUI_VERSION_PATCH 9)
+set(HUSKARUI_VERSION_TWEAK 1)
+set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
 
 message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
 
@@ -17,37 +21,34 @@ qt_standard_project_setup(REQUIRES 6.5)
 
 #Set header output dir.
 if(NOT HUSKARUI_HEADER_OUTPUT_DIRECTORY)
-    if(BUILD_HUSKARUI_IN_DEFAULT_LOCATION)
-        set(HUSKARUI_HEADER_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../include/HuskarUI)
-    else()
-        set(HUSKARUI_HEADER_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/HuskarUI/include)
-    endif()
+    set(HUSKARUI_HEADER_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/HuskarUI/include)
 endif()
 
 #Set library output dir.
 if(NOT HUSKARUI_LIBRARY_OUTPUT_DIRECTORY)
-    if(BUILD_HUSKARUI_IN_DEFAULT_LOCATION)
-        set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
-        if(BUILD_HUSKARUI_STATIC_LIBRARY)
-            set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../)
-        endif()
-    else()
-        set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/HuskarUI/lib)
-    endif()
+    set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/HuskarUI)
 endif()
 
 #Set plugin output dir.
 if(NOT HUSKARUI_PLUGIN_OUTPUT_DIRECTORY)
+    set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/HuskarUI/qml/HuskarUI/Basic)
+endif()
+
+#Set install dir.
+if(NOT HUSKARUI_INSTALL_DIRECTORY)
     if(BUILD_HUSKARUI_IN_DEFAULT_LOCATION)
-        set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY ${Qt6_DIR}/../../../qml/HuskarUI/Basic)
+        set(HUSKARUI_INSTALL_DIRECTORY ${Qt6_DIR}/../../../)
     else()
-        set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/HuskarUI/plugins/HuskarUI/Basic)
+        set(HUSKARUI_INSTALL_DIRECTORY ${CMAKE_INSTALL_PREFIX}/HuskarUI)
     endif()
 endif()
 
+
+
 message(STATUS "The HuskarUI header output dir: ${HUSKARUI_HEADER_OUTPUT_DIRECTORY}")
-message(STATUS "The HuskarUI library output dir: ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}")
+message(STATUS "The HuskarUI library output dir: ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}/bin|lib")
 message(STATUS "The HuskarUI plugin output dir: ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}")
+message(STATUS "The HuskarUI install dir: ${HUSKARUI_INSTALL_DIRECTORY}")
 
 if(BUILD_HUSKARUI_STATIC_LIBRARY)
     set(PLUGIN_NAME HuskarUIBasicPlugin)
@@ -278,24 +279,147 @@ if(HUSKARUI_HEADER_OUTPUT_DIRECTORY)
          PATTERN "*_p.h" EXCLUDE)
 endif()
 
+# 生成 CMake 配置文件
+set(HUSKARUI_CMAKE_CONFIG_DIR ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}/lib/cmake)
+file(MAKE_DIRECTORY ${HUSKARUI_CMAKE_CONFIG_DIR})
+
+# 配置 HuskarUIConfig.cmake
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUIConfig.cmake.in
+    ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUIConfig.cmake
+    @ONLY
+)
+
+# 配置 HuskarUIConfigVersion.cmake
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUIConfigVersion.cmake.in
+    ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUIConfigVersion.cmake
+    @ONLY
+)
+
+# 配置 HuskarUITargets.cmake
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUITargets.cmake.in
+    ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets.cmake
+    @ONLY
+)
+
+# 生成 HuskarUITargets-*.cmake 文件（用于不同配置）
+if(CMAKE_CONFIGURATION_TYPES)
+    # 多配置生成器（如 Visual Studio）
+    foreach(config ${CMAKE_CONFIGURATION_TYPES})
+        string(TOUPPER ${config} config_upper)
+        configure_file(
+            ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUITargets.cmake.in
+            ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-${config}.cmake
+            @ONLY
+        )
+    endforeach()
+else()
+    # 单配置生成器
+    if(CMAKE_BUILD_TYPE)
+        configure_file(
+            ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUITargets.cmake.in
+            ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-${CMAKE_BUILD_TYPE}.cmake
+            @ONLY
+        )
+    else()
+        configure_file(
+            ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUITargets.cmake.in
+            ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-Release.cmake
+            @ONLY
+        )
+    endif()
+endif()
+
 install(TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/HuskarUI/bin
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/HuskarUI/lib
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/HuskarUI/lib
+    RUNTIME DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/bin
+    ARCHIVE DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/lib
+    LIBRARY DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/lib
 )
 
 install(
     FILES cpp/husglobal.h cpp/husapp.h cpp/husdefinitions.h
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/HuskarUI/include
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/include
 )
 
 install(
     DIRECTORY cpp/controls cpp/theme cpp/utils
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/HuskarUI/include
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/include
     FILES_MATCHING PATTERN "*.h"
     PATTERN "*_p.h" EXCLUDE
 )
 
 install(
-    DIRECTORY ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/HuskarUI/imports/HuskarUI
+    DIRECTORY ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/imports 
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
 )
+
+install(
+    FILES ${HUSKARUI_RC_FILE}
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/imports/HuskarUI/Basic
+)
+
+install(
+    FILES 
+        ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/qmldir
+        ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/plugins.qmltypes
+        ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/HuskarUIBasic_qml_module_dir_map.qrc 
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+)
+
+
+# Release 版本
+install(
+    FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/Release/huskaruibasicplugin.lib
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+    CONFIGURATIONS Release
+)
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/Release/huskaruibasicplugin.dll
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+    CONFIGURATIONS Release
+)
+
+# Debug 版本
+install(
+    FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/Debug/huskaruibasicplugin.lib
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+    CONFIGURATIONS Debug
+)
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/huskaruibasicplugin.dll
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+    CONFIGURATIONS Debug
+    RENAME huskaruibasicplugind.dll
+)
+
+# 安装 CMake 配置文件
+install(
+    FILES ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUIConfig.cmake
+          ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUIConfigVersion.cmake
+          ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets.cmake
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/lib/cmake/HuskarUI
+)
+
+# 安装不同配置的 HuskarUITargets-*.cmake 文件
+if(CMAKE_CONFIGURATION_TYPES)
+    foreach(config ${CMAKE_CONFIGURATION_TYPES})
+        install(
+            FILES ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-${config}.cmake
+            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/lib/cmake/HuskarUI
+        )
+    endforeach()
+else()
+    if(CMAKE_BUILD_TYPE)
+        install(
+            FILES ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-${CMAKE_BUILD_TYPE}.cmake
+            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/lib/cmake/HuskarUI
+        )
+    else()
+        install(
+            FILES ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-Release.cmake
+            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/lib/cmake/HuskarUI
+        )
+    endif()
+endif()

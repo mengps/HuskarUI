@@ -11,6 +11,8 @@ option(BUILD_HUSKARUI_IN_DEFAULT_LOCATION "Build HuskarUI in default location[Qt
 set(HUSKARUI_HEADER_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI header output dir.")
 set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI library output dir.")
 set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir (Must end with [HuskarUI/Basic]).")
+set(HUSKARUI_INSTALL_DIRECTORY "" CACHE PATH "HuskarUI install dir.")
+
 
 set(MACOS FALSE)
 if(APPLE)
@@ -36,7 +38,11 @@ if(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
     add_subdirectory(3rdparty/qwindowkit)
 endif()
 
-set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR})
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    message(STATUS "CMAKE_INSTALL_PREFIX : ${CMAKE_INSTALL_PREFIX}")
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "" FORCE)
+endif()
+message(STATUS "CMAKE_INSTALL_PREFIX : ${CMAKE_INSTALL_PREFIX}")
 add_subdirectory(src)
 
 if(BUILD_HUSKARUI_GALLERY)
