@@ -185,7 +185,7 @@ T.Button {
             width: realWidth
             height: realHeight
             anchors.centerIn: parent
-            radius: control.radiusBg.all
+            radius: control.radiusBg?.all ?? 0
             topLeftRadius: control.shape == HusButton.Shape_Default ? control.radiusBg.topLeft : height * 0.5
             topRightRadius: control.shape == HusButton.Shape_Default ? control.radiusBg.topRight : height * 0.5
             bottomLeftRadius: control.shape == HusButton.Shape_Default ? control.radiusBg.bottomLeft : height * 0.5
