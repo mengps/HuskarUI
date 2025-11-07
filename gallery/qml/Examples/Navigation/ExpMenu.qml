@@ -46,7 +46,7 @@ Flickable {
 - **menuLabelDelegate: Component** 菜单标签代理，代理可访问属性：\n
   - \`model: var\` 本菜单数据(访问错误则使用 \`parent.model\`)\n
   - \`menuButton: var\` 菜单按钮(访问错误则使用 \`parent.menuButton\`)\n
-- **menuBackgroundDelegate: Component** 菜单背景代理，代理可访问属性：\n
+- **menuBgDelegate: Component** 菜单背景代理，代理可访问属性：\n
   - \`model: var\` 本菜单数据(访问错误则使用 \`parent.model\`)\n
   - \`menuButton: var\` 菜单按钮(访问错误则使用 \`parent.menuButton\`)\n
 - **menuContentDelegate: Component** 菜单内容代理，代理可访问属性：\n
@@ -94,8 +94,8 @@ menuChildren | list | 可选 | 子菜单(支持无限嵌套)
 iconDelegate | var | 可选 | 本菜单项图标代理(将覆盖menuIconDelegate)
 labelDelegate | var | 可选 | 本菜单项标签代理(将覆盖menuLabelDelegate)
 contentDelegate | var | 可选 | 本菜单项内容代理(将覆盖menuContentDelegate)
-backgroundDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBackgroundDelegate)
-\n \`iconDelegate\` | \`labelDelegate\` | \`contentDelegate\` | \`backgroundDelegate\` 可访问属性：\n
+bgDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBgDelegate)
+\n \`iconDelegate\` | \`labelDelegate\` | \`contentDelegate\` | \`bgDelegate\` 可访问属性：\n
 - **model: var** 模型数据(访问错误则使用 \`parent.model\`)\n
 - **menuButton: HusButton** 自身菜单按钮(访问错误则使用 \`parent.menuButton\`)，可访问的属性：\n
   - model: var 本菜单模型\n

@@ -63,7 +63,7 @@ Item {
 
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
     }
-    property Component menuBackgroundDelegate: HusRectangleInternal {
+    property Component menuBgDelegate: HusRectangleInternal {
         radius: control.radiusMenuBg.all
         topLeftRadius: control.radiusMenuBg.topLeft
         topRightRadius: control.radiusMenuBg.topRight
@@ -306,7 +306,7 @@ Item {
         property var iconDelegate: null
         property var labelDelegate: null
         property var contentDelegate: null
-        property var backgroundDelegate: null
+        property var bgDelegate: null
 
         onClicked: {
             if (showExpanded)
@@ -319,7 +319,8 @@ Item {
         colorText: {
             if (enabled) {
                 if (isGroup) {
-                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? HusTheme.HusMenu.colorTextActive : HusTheme.HusMenu.colorTextDisabled;
+                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? HusTheme.HusMenu.colorTextActive :
+                                                                                         HusTheme.HusMenu.colorTextDisabled;
                 } else {
                     return isCurrent ? HusTheme.HusMenu.colorTextActive : HusTheme.HusMenu.colorText;
                 }
@@ -330,7 +331,8 @@ Item {
         colorBg: {
             if (enabled) {
                 if (isGroup)
-                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? HusTheme.HusMenu.colorBgActive : HusTheme.HusMenu.colorBgDisabled;
+                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? HusTheme.HusMenu.colorBgActive :
+                                                                                         HusTheme.HusMenu.colorBgDisabled;
                 else if (isCurrent)
                     return HusTheme.HusMenu.colorBgActive;
                 else if (hovered) {
@@ -348,7 +350,7 @@ Item {
             property alias menuButton: __menuButtonImpl
         }
         background: Loader {
-            sourceComponent: __menuButtonImpl.backgroundDelegate
+            sourceComponent: __menuButtonImpl.bgDelegate
             property alias model: __menuButtonImpl.model
             property alias menuButton: __menuButtonImpl
         }
@@ -420,11 +422,10 @@ Item {
             property int menuIconSpacing: model.iconSpacing || defaultMenuIconSpacing
             property var menuChildren: model.menuChildren || []
             property int menuChildrenLength: menuChildren ? menuChildren.length : 0
-            property var menuIconDelegate: model.iconDelegate ?? control.menuIconDelegate
-            property var menuLabelDelegate: model.labelDelegate ?? control.menuLabelDelegate
-            property var menuContentDelegate: model.contentDelegate ?? control.menuContentDelegate
-            property var menuBackgroundDelegate: model.backgroundDelegate ?? control.menuBackgroundDelegate
-
+            property var menuIconDelegate: model.hasOwnProperty('iconDelegate') ? model.iconDelegate : control.menuIconDelegate
+            property var menuLabelDelegate: model.hasOwnProperty('labelDelegate') ? model.labelDelegate : control.menuLabelDelegate
+            property var menuContentDelegate: model.hasOwnProperty('contentDelegate') ? model.contentDelegate : control.menuContentDelegate
+            property var menuBgDelegate: model.hasOwnProperty('bgDelegate') ? model.bgDelegate : control.menuBgDelegate
             property var parentMenu: view.menuDeep === 0 ? null : view.parentMenu
             property var keyPath: parentMenu ? [...parentMenu.keyPath, menuKey] : [menuKey]
             property bool isCurrent: __private.selectedItem === __rootItem || isCurrentParent
@@ -530,15 +531,18 @@ Item {
             Rectangle {
                 id: __layout
                 width: parent.width
-                height: control.defaultMenuSpacing + __menuButton.height + ((control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 0 : __childrenListView.height)
+                height: control.defaultMenuSpacing + __menuButton.height
+                        + ((control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 0 : __childrenListView.height)
                 anchors.top: parent.top
-                color: (__rootItem.view.menuDeep === 0 || control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 'transparent' : HusTheme.HusMenu.colorChildBg
+                color: (__rootItem.view.menuDeep === 0 ||
+                        control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 'transparent' : HusTheme.HusMenu.colorChildBg
                 visible: __rootItem.menuType == 'item' || __rootItem.menuType == 'group'
 
                 MenuButton {
                     id: __menuButton
-                    width: parent.width
-                    height: control.defaultMenuSpacing + implicitContentHeight + topPadding + bottomPadding
+                    implicitWidth: parent.width
+                    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                                             implicitContentHeight + topPadding + bottomPadding) + control.defaultMenuSpacing
                     anchors.top: parent.top
                     anchors.topMargin: control.defaultMenuSpacing
                     topPadding: control.defaultMenuTopPadding
@@ -571,7 +575,7 @@ Item {
                     iconDelegate: __rootItem.menuIconDelegate
                     labelDelegate: __rootItem.menuLabelDelegate
                     contentDelegate: __rootItem.menuContentDelegate
-                    backgroundDelegate: __rootItem.menuBackgroundDelegate
+                    bgDelegate: __rootItem.menuBgDelegate
                     onClicked: {
                         __rootItem.clickMenu();
                         if (__rootItem.menuChildrenLength == 0) {
@@ -600,7 +604,8 @@ Item {
                     HusToolTip {
                         visible: control.showToolTip ? parent.hovered : false
                         animationEnabled: control.animationEnabled
-                        position: control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode ? HusToolTip.Position_Right : HusToolTip.Position_Bottom
+                        position: control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode ? HusToolTip.Position_Right :
+                                                                                                      HusToolTip.Position_Bottom
                         text: __rootItem.menuLabel
                         delay: 500
                     }

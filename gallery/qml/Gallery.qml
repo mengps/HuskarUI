@@ -379,7 +379,7 @@ HusWindow {
                     visible: parent.tagState !== ''
                 }
             }
-            menuBackgroundDelegate: Rectangle {
+            menuBgDelegate: Rectangle {
                 radius: menuButton.radiusBg.all
                 color: menuButton.colorBg
                 border.color: menuButton.colorBorder

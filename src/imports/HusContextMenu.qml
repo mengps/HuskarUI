@@ -137,7 +137,7 @@ HusPopup {
                 Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
             }
         }
-        menuBackgroundDelegate: HusRectangleInternal {
+        menuBgDelegate: HusRectangleInternal {
             radius: control.radiusMenuBg.all
             topLeftRadius: control.radiusMenuBg.topLeft
             topRightRadius: control.radiusMenuBg.topRight
