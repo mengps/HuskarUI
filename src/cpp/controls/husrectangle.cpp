@@ -432,24 +432,24 @@ void HusRectangle::paint(QPainter *painter)
     }
 
     const auto maxRadius = height() * 0.5;
-    const auto topLeftRadius = std::min(d->m_topLeftRadius, maxRadius);
-    const auto topRightRadius = std::min(d->m_topRightRadius, maxRadius);
-    const auto bottomLeftRadius = std::min(d->m_bottomLeftRadius, maxRadius);
-    const auto bottomRightRadius = std::min(d->m_bottomRightRadius, maxRadius);
+    const auto tl = std::min(topLeftRadius(), maxRadius);
+    const auto tr = std::min(topRightRadius(), maxRadius);
+    const auto bl = std::min(bottomLeftRadius(), maxRadius);
+    const auto br = std::min(bottomRightRadius(), maxRadius);
 
     QPainterPath path;
-    path.moveTo(rect.bottomRight() - QPointF(0, bottomRightRadius));
-    path.lineTo(rect.topRight() + QPointF(0, topRightRadius));
-    path.arcTo(QRectF(QPointF(rect.topRight() - QPointF(topRightRadius * 2, 0)),
-                      QSize(topRightRadius * 2, topRightRadius * 2)), 0, 90);
-    path.lineTo(rect.topLeft() + QPointF(topLeftRadius, 0));
-    path.arcTo(QRectF(QPointF(rect.topLeft()), QSize(topLeftRadius * 2, topLeftRadius * 2)), 90, 90);
-    path.lineTo(rect.bottomLeft() - QPointF(0, bottomLeftRadius));
-    path.arcTo(QRectF(QPointF(rect.bottomLeft().x(), rect.bottomLeft().y() - bottomLeftRadius * 2),
-                      QSize(bottomLeftRadius * 2, bottomLeftRadius * 2)), 180, 90);
-    path.lineTo(rect.bottomRight() - QPointF(bottomRightRadius, 0));
-    path.arcTo(QRectF(QPointF(rect.bottomRight() - QPointF(bottomRightRadius * 2, bottomRightRadius * 2)),
-                      QSize(bottomRightRadius * 2, bottomRightRadius * 2)), 270, 90);
+    path.moveTo(rect.bottomRight() - QPointF(0, br));
+    path.lineTo(rect.topRight() + QPointF(0, tr));
+    path.arcTo(QRectF(QPointF(rect.topRight() - QPointF(tr * 2, 0)),
+                      QSize(tr * 2, tr * 2)), 0, 90);
+    path.lineTo(rect.topLeft() + QPointF(tl, 0));
+    path.arcTo(QRectF(QPointF(rect.topLeft()), QSize(tl * 2, tl * 2)), 90, 90);
+    path.lineTo(rect.bottomLeft() - QPointF(0, bl));
+    path.arcTo(QRectF(QPointF(rect.bottomLeft().x(), rect.bottomLeft().y() - bl * 2),
+                      QSize(bl * 2, bl * 2)), 180, 90);
+    path.lineTo(rect.bottomRight() - QPointF(br, 0));
+    path.arcTo(QRectF(QPointF(rect.bottomRight() - QPointF(br * 2, br * 2)),
+                      QSize(br * 2, br * 2)), 270, 90);
 
     /*! 绘制渐变 */
     QGradientStops stops;
