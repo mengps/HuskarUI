@@ -285,21 +285,21 @@ file(MAKE_DIRECTORY ${HUSKARUI_CMAKE_CONFIG_DIR})
 
 # 配置 HuskarUIConfig.cmake
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUIConfig.cmake.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUIConfig.cmake.in
     ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUIConfig.cmake
     @ONLY
 )
 
 # 配置 HuskarUIConfigVersion.cmake
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUIConfigVersion.cmake.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUIConfigVersion.cmake.in
     ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUIConfigVersion.cmake
     @ONLY
 )
 
 # 配置 HuskarUITargets.cmake
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUITargets.cmake.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUITargets.cmake.in
     ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets.cmake
     @ONLY
 )
@@ -310,7 +310,7 @@ if(CMAKE_CONFIGURATION_TYPES)
     foreach(config ${CMAKE_CONFIGURATION_TYPES})
         string(TOUPPER ${config} config_upper)
         configure_file(
-            ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUITargets.cmake.in
+            ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUITargets.cmake.in
             ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-${config}.cmake
             @ONLY
         )
@@ -319,13 +319,13 @@ else()
     # 单配置生成器
     if(CMAKE_BUILD_TYPE)
         configure_file(
-            ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUITargets.cmake.in
+            ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUITargets.cmake.in
             ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-${CMAKE_BUILD_TYPE}.cmake
             @ONLY
         )
     else()
         configure_file(
-            ${CMAKE_CURRENT_SOURCE_DIR}/HuskarUITargets.cmake.in
+            ${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUITargets.cmake.in
             ${HUSKARUI_CMAKE_CONFIG_DIR}/HuskarUITargets-Release.cmake
             @ONLY
         )
