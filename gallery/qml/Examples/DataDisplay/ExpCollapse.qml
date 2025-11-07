@@ -217,6 +217,118 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
         CodeBox {
             width: parent.width
             async: false
+            descTitle: qsTr('高级定制')
+            desc: qsTr(`
+通过 \`contentDelegate\` 属性设置自定义内容代理，可以单独定制每个面板的内容。\n
+                       `)
+            code: `
+                import QtQuick
+                import HuskarUI.Basic
+
+                Column {
+                    width: parent.width
+                    spacing: 10
+
+                    Component {
+                        id: contentDelegate1
+                        Rectangle { color: '#80ff0000' }
+                    }
+
+                    Component {
+                        id: contentDelegate2
+                        Rectangle { color: '#8000ff00' }
+                    }
+
+                    Component {
+                        id: contentDelegate3
+                        Rectangle { color: '#800000ff' }
+                    }
+
+                    HusCollapse {
+                        width: parent.width
+                        radiusBg.all: 0
+                        initModel: [
+                            {
+                                key: '1',
+                                title: 'This is panel header 1',
+                                contentDelegate: contentDelegate1
+                            },
+                            {
+                                key: '1',
+                                title: 'This is panel header 2',
+                                contentDelegate: contentDelegate2
+                            },
+                            {
+                                key: '1',
+                                title: 'This is panel header 3',
+                                contentDelegate: contentDelegate3
+                            },
+                        ]
+                        contentDelegate: Item {
+                            height: 100
+
+                            Loader {
+                                anchors.fill: parent
+                                sourceComponent: model.contentDelegate
+                            }
+                        }
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                Component {
+                    id: contentDelegate1
+                    Rectangle { color: '#80ff0000' }
+                }
+
+                Component {
+                    id: contentDelegate2
+                    Rectangle { color: '#8000ff00' }
+                }
+
+                Component {
+                    id: contentDelegate3
+                    Rectangle { color: '#800000ff' }
+                }
+
+                HusCollapse {
+                    width: parent.width
+                    radiusBg.all: 0
+                    initModel: [
+                        {
+                            key: '1',
+                            title: 'This is panel header 1',
+                            contentDelegate: contentDelegate1
+                        },
+                        {
+                            key: '1',
+                            title: 'This is panel header 2',
+                            contentDelegate: contentDelegate2
+                        },
+                        {
+                            key: '1',
+                            title: 'This is panel header 3',
+                            contentDelegate: contentDelegate3
+                        },
+                    ]
+                    contentDelegate: Item {
+                        height: 100
+
+                        Loader {
+                            anchors.fill: parent
+                            sourceComponent: model.contentDelegate
+                        }
+                    }
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            async: false
+            descTitle: qsTr('高级定制')
             desc: qsTr(`
 通过 \`contentDelegate\` 属性设置自定义内容代理，可以实现嵌套折叠面板。\n
                        `)
@@ -232,38 +344,36 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
                         id: collapse
                         width: parent.width
                         contentDelegate: Item {
-                            Component.onCompleted: {
-                                if (model.children) {
-                                    childrenCollapse.visible = true;
-                                    for (let i = 0; i < model.children.count; i++) {
-                                        childrenCollapse.append(model.children.get(i));
-                                    }
-                                    height= Qt.binding(() => childrenCollapse.height + 20);
-                                } else {
-                                    defaultContent.visible = true;
-                                    height = defaultContent.height;
+                            height: hasChildren ? childrenLoader.implicitHeight + 20 : defaultLoader.implicitHeight
+
+                            property var __model: model
+                            property var __children: model?.children?.initModel
+                            property bool hasChildren: __children !== undefined
+
+                            Loader {
+                                id: defaultLoader
+                                active: !hasChildren
+                                width: parent.width
+                                sourceComponent: HusCopyableText {
+                                    padding: 16
+                                    topPadding: 8
+                                    bottomPadding: 8
+                                    text: __model.content
+                                    font: collapse.contentFont
+                                    wrapMode: Text.WordWrap
+                                    color: collapse.colorContent
                                 }
                             }
 
-                            HusCopyableText {
-                                id: defaultContent
-                                width: parent.width
-                                padding: 16
-                                topPadding: 8
-                                bottomPadding: 8
-                                text: model.content
-                                font: collapse.contentFont
-                                wrapMode: Text.WordWrap
-                                color: collapse.colorContent
-                                visible: false
-                            }
-
-                            HusCollapse {
-                                id: childrenCollapse
+                            Loader {
+                                id: childrenLoader
+                                active: hasChildren
                                 width: parent.width - 20
                                 anchors.centerIn: parent
-                                defaultActiveKey: ['1-1']
-                                visible: false
+                                sourceComponent: HusCollapse {
+                                    initModel: __children
+                                    defaultActiveKey: ['1-1']
+                                }
                             }
                         }
                         initModel: [
@@ -271,13 +381,15 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
                                 key: '1',
                                 title: 'This is panel header 1',
                                 content: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.',
-                                children: [
-                                    {
-                                        key: '1-1',
-                                        title: 'This is panel header 1-1',
-                                        content: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-                                    }
-                                ]
+                                children: {
+                                    initModel: [
+                                        {
+                                            key: '1-1',
+                                            title: 'This is panel header 1-1',
+                                            content: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
+                                        }
+                                    ]
+                                }
                             },
                             {
                                 key: '2',
@@ -300,38 +412,36 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
                     id: collapse
                     width: parent.width
                     contentDelegate: Item {
-                        Component.onCompleted: {
-                            if (model.children) {
-                                childrenCollapse.visible = true;
-                                for (let i = 0; i < model.children.count; i++) {
-                                    childrenCollapse.append(model.children.get(i));
-                                }
-                                height= Qt.binding(() => childrenCollapse.height + 20);
-                            } else {
-                                defaultContent.visible = true;
-                                height = defaultContent.height;
+                        height: hasChildren ? childrenLoader.implicitHeight + 20 : defaultLoader.implicitHeight
+
+                        property var __model: model
+                        property var __children: model?.children?.initModel
+                        property bool hasChildren: __children !== undefined
+
+                        Loader {
+                            id: defaultLoader
+                            active: !hasChildren
+                            width: parent.width
+                            sourceComponent: HusCopyableText {
+                                padding: 16
+                                topPadding: 8
+                                bottomPadding: 8
+                                text: __model.content
+                                font: collapse.contentFont
+                                wrapMode: Text.WordWrap
+                                color: collapse.colorContent
                             }
                         }
 
-                        HusCopyableText {
-                            id: defaultContent
-                            width: parent.width
-                            padding: 16
-                            topPadding: 8
-                            bottomPadding: 8
-                            text: model.content
-                            font: collapse.contentFont
-                            wrapMode: Text.WordWrap
-                            color: collapse.colorContent
-                            visible: false
-                        }
-
-                        HusCollapse {
-                            id: childrenCollapse
+                        Loader {
+                            id: childrenLoader
+                            active: hasChildren
                             width: parent.width - 20
                             anchors.centerIn: parent
-                            defaultActiveKey: ['1-1']
-                            visible: false
+                            sourceComponent: HusCollapse {
+                                initModel: __children
+                                defaultActiveKey: ['1-1']
+                            }
                         }
                     }
                     initModel: [
@@ -339,13 +449,15 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
                             key: '1',
                             title: 'This is panel header 1',
                             content: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.',
-                            children: [
-                                {
-                                    key: '1-1',
-                                    title: 'This is panel header 1-1',
-                                    content: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-                                }
-                            ]
+                            children: {
+                                initModel: [
+                                    {
+                                        key: '1-1',
+                                        title: 'This is panel header 1-1',
+                                        content: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
+                                    }
+                                ]
+                            }
                         },
                         {
                             key: '2',

@@ -239,7 +239,7 @@ Item {
                         id: __contentLoader
                         width: parent.width
                         anchors.centerIn: parent
-                        sourceComponent: contentDelegate
+                        sourceComponent: control.contentDelegate
                         property alias model: __rootItem.model
                         property alias index: __rootItem.index
                         property alias isActive: __rootItem.active
