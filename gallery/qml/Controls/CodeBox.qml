@@ -20,6 +20,16 @@ Rectangle {
     property Component exampleDelegate: Item { }
     property alias code: codeText.text
 
+    HusMessage {
+        id: message
+        z: 999
+        parent: galleryWindow.captionBar
+        width: parent.width
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.bottom
+        showCloseButton: true
+    }
+
     Column {
         id: column
         width: parent.width - 20
@@ -154,6 +164,22 @@ Rectangle {
                         showArrow: false
                         visible: parent ? parent.hovered : false
                         text: qsTr('运行代码')
+                    }
+                }
+                HusIconButton {
+                    padding: 4
+                    topPadding: 4
+                    bottomPadding: 4
+                    iconSize: HusTheme.Primary.fontPrimarySizeHeading4
+                    iconSource: HusIcon.CopyOutlined
+                    onClicked: {
+                        HusApi.setClipbordText(codeText.text);
+                        message.success(qsTr('代码复制成功'))
+                    }
+                    HusToolTip {
+                        showArrow: false
+                        visible: parent ? parent.hovered : false
+                        text: qsTr('复制代码')
                     }
                 }
             }
