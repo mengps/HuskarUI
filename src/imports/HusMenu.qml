@@ -70,8 +70,6 @@ Item {
         bottomLeftRadius: control.radiusMenuBg.bottomLeft
         bottomRightRadius: control.radiusMenuBg.bottomRight
         color: menuButton.colorBg
-        border.color: menuButton.colorBorder
-        border.width: 1
 
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
         Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
