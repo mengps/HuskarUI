@@ -139,8 +139,9 @@ defaultColumnHeaderHeight | int | 40 | 默认列头高度
 defaultRowHeaderWidth | int | 40 | 默认行头宽度
 showColumnGrid | bool | false | 是否显示列网格线
 showRowGrid | bool | false | 是否显示行网格线
+rowHeightProvider | function(row, key) | minimumRowHeight | 行高提供函数
 minimumRowHeight | int | 40 | 最小行高
-maximumRowHeight | int | Number.NaN | 最大行高
+maximumRowHeight | int | Number.MAX_VALUE | 最大行高
 initModel | list | [] | 表格初始数据模型
 rowCount | int | 0 | 当前模型行数
 columns | list | [] | 列描述对象数组

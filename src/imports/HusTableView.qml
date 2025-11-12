@@ -11,10 +11,11 @@ HusRectangle {
     property bool alternatingRow: false
     property int defaultColumnHeaderHeight: 40
     property int defaultRowHeaderWidth: 40
+    property var rowHeightProvider: (row, key) => minimumRowHeight
     property bool showColumnGrid: false
     property bool showRowGrid: false
     property real minimumRowHeight: 40
-    property real maximumRowHeight: Number.NaN
+    property real maximumRowHeight: Number.MAX_VALUE
     property var initModel: []
     readonly property int rowCount: __cellModel.rowCount
     property var columns: []
@@ -590,6 +591,7 @@ HusRectangle {
 
     QtObject {
         id: __private
+
         property var model: []
         property int parentCheckState: Qt.Unchecked
         property var checkedKeysMap: new Map
@@ -676,6 +678,7 @@ HusRectangle {
             model: TableModel {
                 id: __columnHeaderModel
             }
+            columnWidthProvider: (column) => control.columns[column].width
             delegate: Item {
                 id: __columnHeaderItem
                 implicitWidth: display.width ?? 100
@@ -690,7 +693,7 @@ HusRectangle {
                 property bool editable: display.editable ?? false
                 property var sorter: display.sorter
                 property real minimumWidth: display.minimumWidth ?? 40
-                property real maximumWidth: display.maximumWidth ?? Number.NaN
+                property real maximumWidth: display.maximumWidth ?? Number.MAX_VALUE
 
                 TableView.onReused: {
                     if (selectionType == 'checkbox')
@@ -843,7 +846,8 @@ HusRectangle {
             delegate: Rectangle {
                 id: __rootItem
                 implicitWidth: control.columns[column].width
-                implicitHeight: control.minimumRowHeight
+                implicitHeight: Math.max(control.minimumRowHeight, Math.min(control.rowHeightProvider(row, key), control.maximumRowHeight))
+                visible: implicitHeight >= 0
                 clip: true
                 color: {
                     if (__private.checkedKeysMap.has(key)) {
