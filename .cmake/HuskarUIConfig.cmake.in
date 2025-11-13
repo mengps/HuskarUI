@@ -1,0 +1,120 @@
+# HuskarUI 目标配置文件
+# 此文件定义 HuskarUI 库的 CMake 目标
+
+# 导入常见变量
+include(CMakeFindDependencyMacro)
+
+# 查找 Qt6 依赖
+find_dependency(Qt6 REQUIRED COMPONENTS Core Quick)
+
+# 定义 HuskarUI::Basic 目标
+if(NOT TARGET HuskarUI::Basic)
+    # 创建导入目标
+    add_library(HuskarUI::Basic SHARED IMPORTED)
+    
+    # 设置目标属性
+    set_target_properties(HuskarUI::Basic PROPERTIES
+        IMPORTED_LOCATION "${_HuskarUI_INSTALL_PREFIX}/bin/HuskarUIBasic$<$<CONFIG:Debug>:d>.dll"
+        IMPORTED_IMPLIB "${_HuskarUI_INSTALL_PREFIX}/lib/HuskarUIBasic$<$<CONFIG:Debug>:d>.lib"
+        INTERFACE_INCLUDE_DIRECTORIES "${_HuskarUI_INSTALL_PREFIX}/include"
+        INTERFACE_COMPILE_DEFINITIONS "HUSKARUI_LIBRARY"
+        INTERFACE_COMPILE_FEATURES "cxx_std_17"
+    )
+    
+    # 链接 Qt6 依赖
+    target_link_libraries(HuskarUI::Basic INTERFACE 
+        Qt6::Core
+        Qt6::Quick
+    )
+    
+    # 设置调试和发布配置
+    if(EXISTS "${_HuskarUI_INSTALL_PREFIX}/lib/HuskarUIBasicd.lib")
+        set_target_properties(HuskarUI::Basic PROPERTIES
+            IMPORTED_LOCATION_DEBUG "${_HuskarUI_INSTALL_PREFIX}/bin/HuskarUIBasicd.dll"
+            IMPORTED_IMPLIB_DEBUG "${_HuskarUI_INSTALL_PREFIX}/lib/HuskarUIBasicd.lib"
+        )
+    endif()
+    
+    if(EXISTS "${_HuskarUI_INSTALL_PREFIX}/lib/HuskarUIBasic.lib")
+        set_target_properties(HuskarUI::Basic PROPERTIES
+            IMPORTED_LOCATION_RELEASE "${_HuskarUI_INSTALL_PREFIX}/bin/HuskarUIBasic.dll"
+            IMPORTED_IMPLIB_RELEASE "${_HuskarUI_INSTALL_PREFIX}/lib/HuskarUIBasic.lib"
+        )
+    endif()
+    
+    # 定义使用宏
+    macro(huskarui_setup_qml_imports target)
+        if(TARGET ${target})
+            # 设置 QML 导入路径
+            set_property(TARGET ${target} PROPERTY 
+                QT_QML_IMPORT_PATH "${_HuskarUI_INSTALL_PREFIX}/qml"
+            )
+            
+            # 添加 QML 模块路径
+            target_compile_definitions(${target} PRIVATE 
+                -DQML_IMPORT_PATH="${_HuskarUI_INSTALL_PREFIX}/qml"
+            )
+        endif()
+    endmacro()
+    
+    # 定义便捷函数
+    function(huskarui_initialize target)
+        if(TARGET ${target})
+            # 添加初始化代码
+            target_compile_definitions(${target} PRIVATE 
+                -DHUSKARUI_AUTO_INITIALIZE
+            )
+            
+            # 添加包含路径
+            target_include_directories(${target} PRIVATE 
+                "${_HuskarUI_INSTALL_PREFIX}/include"
+            )
+            
+            message(STATUS "HuskarUI initialized for target ${target}")
+        endif()
+    endfunction()
+    
+    # 添加 huskaruibasicplugin 导入操作
+    function(_huskarui_import_plugin_internal target)
+        if(TARGET ${target})
+            # 设置 QML 插件导入路径
+            set_property(TARGET ${target} PROPERTY 
+                QT_QML_IMPORT_PATH "${_HuskarUI_INSTALL_PREFIX}/qml"
+            )
+            
+            # 添加 huskaruibasicplugin 导入定义
+            target_compile_definitions(${target} PRIVATE 
+                -DHUSKARUI_BASIC_PLUGIN_IMPORTED
+                -DQML_IMPORT_HUSKARUI_BASIC="${_HuskarUI_INSTALL_PREFIX}/qml/HuskarUI/Basic"
+            )
+            
+            # 添加 huskaruibasicplugin 的运行时依赖
+            if(WIN32)
+                # 在 Windows 上添加 DLL 依赖
+                add_custom_command(TARGET ${target} POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                        "${_HuskarUI_INSTALL_PREFIX}/qml/HuskarUI/Basic/huskaruibasicplugin$<$<CONFIG:Debug>:d>.dll"
+                        $<TARGET_FILE_DIR:${target}>
+                    COMMENT "Copying huskaruibasicplugin DLL to target directory"
+                )
+            endif()
+            
+            message(STATUS "HuskarUI Basic plugin imported for target ${target}")
+        endif()
+    endfunction()
+    
+    message(STATUS "HuskarUI::Basic target created")
+endif()
+
+# 定义便捷的查找函数
+function(find_huskarui)
+    if(NOT HuskarUI_FOUND)
+        find_package(HuskarUI ${ARGV} QUIET)
+    endif()
+    
+    if(HuskarUI_FOUND)
+        message(STATUS "HuskarUI library found")
+    else()
+        message(STATUS "HuskarUI library not found")
+    endif()
+endfunction()

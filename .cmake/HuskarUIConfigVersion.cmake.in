@@ -1,0 +1,27 @@
+# HuskarUI 版本配置文件
+# 此文件用于检查 HuskarUI 库的版本兼容性
+
+set(PACKAGE_VERSION "@HUSKARUI_VERSION@")
+
+# 检查版本是否兼容
+if("${PACKAGE_FIND_VERSION}" VERSION_EQUAL "@HUSKARUI_VERSION@")
+    set(PACKAGE_VERSION_COMPATIBLE TRUE)
+    set(PACKAGE_VERSION_EXACT TRUE)
+elseif("${PACKAGE_FIND_VERSION}" VERSION_LESS "@HUSKARUI_VERSION@")
+    set(PACKAGE_VERSION_COMPATIBLE TRUE)
+    set(PACKAGE_VERSION_EXACT FALSE)
+else()
+    set(PACKAGE_VERSION_COMPATIBLE FALSE)
+    set(PACKAGE_VERSION_EXACT FALSE)
+endif()
+
+# 输出调试信息
+if(PACKAGE_VERSION_COMPATIBLE)
+    if(PACKAGE_VERSION_EXACT)
+        message(STATUS "HuskarUI version exact match: ${PACKAGE_FIND_VERSION}")
+    else()
+        message(STATUS "HuskarUI version compatible: requested ${PACKAGE_FIND_VERSION}, found ${PACKAGE_VERSION}")
+    endif()
+else()
+    message(STATUS "HuskarUI version incompatible: requested ${PACKAGE_FIND_VERSION}, found ${PACKAGE_VERSION}")
+endif()
