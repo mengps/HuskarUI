@@ -13,6 +13,7 @@ set(HUSKARUI_LIBRARY_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI library output dir
 set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir (Must end with [HuskarUI/Basic]).")
 set(HUSKARUI_INSTALL_DIRECTORY "" CACHE PATH "HuskarUI install dir.")
 
+set(QT_SILENCE_MISSING_DEPENDENCY_TARGET_WARNING ON)
 
 set(MACOS FALSE)
 if(APPLE)
