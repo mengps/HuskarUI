@@ -191,6 +191,11 @@ HusWindow {
                 visible: containMethod.currentCheckedIndex != 0
                 text: qsTr('HuskarUI 动态库')
                 checked: true
+                onCheckedChanged: {
+                    if (!checked && visible) {
+                        containMethod.currentCheckedIndex = 1;
+                    }
+                }
 
                 HusIconText {
                     anchors.left: parent.right
@@ -201,7 +206,7 @@ HusWindow {
                     colorIcon: HusTheme.Primary.colorPrimary
 
                     HusToolTip {
-                        text: qsTr('如果 HuskarUI 构建为动态库请勾选，静态库则不要勾选')
+                        text: qsTr('如果 HuskarUI 构建为动态库请勾选。\n静态库不要勾选并且只能选择源码包含。')
                         visible: isShareLibrarynHover.hovered
                     }
 
