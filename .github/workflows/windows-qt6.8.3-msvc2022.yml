@@ -107,7 +107,7 @@ jobs:
           $excludeList = @("*.qmlc", "*.ilk", "*.exp", "*.lib", "*.pdb")
           Remove-Item -Path dist -Include $excludeList -Recurse -Force
           # 拷贝 HuskarUIBasic.dll
-          Copy-Item ${{ env.Qt6_DIR }}\bin\HuskarUIBasic.dll dist\
+          Copy-Item ${{ steps.strings.outputs.build-output-dir }}\HuskarUI\bin\HuskarUIBasic.dll dist\
           # 拷贝vcRedist dll
           $redistDll="{0}{1}\*.CRT\*.dll" -f $env:vcToolsRedistDir.Trim(),$env:msvcArch
           Copy-Item $redistDll dist\
@@ -117,7 +117,7 @@ jobs:
           # 打包zip
           Compress-Archive -Path dist\* -DestinationPath "${env:archiveName}.zip"
           # 打包lib
-          Compress-Archive -Path HuskarUI -DestinationPath "${env:buildlibName}.zip"
+          Compress-Archive -Path ${{ steps.strings.outputs.build-output-dir }}\HuskarUI -DestinationPath "${env:buildlibName}.zip"
           # 记录 packageName libraryName 给后续 step
           $archiveName = ${env:archiveName}
           $buildName = ${env:buildlibName}

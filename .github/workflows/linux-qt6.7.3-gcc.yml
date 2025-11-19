@@ -1,5 +1,3 @@
-# This starter workflow is for a CMake project running on multiple platforms. There is a different starter workflow if you just want a single platform.
-# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-single-platform.yml
 name: CMake on Linux - Qt6.7.3
 
 on:
@@ -35,7 +33,7 @@ jobs:
         with:
           version: ${{ matrix.qt_ver }}
           arch: ${{ matrix.qt_arch }}
-          modules: 'qt5compat qtshadertools'
+          modules: 'qtshadertools'
       
       - name: Setup Ninja
         uses: seanmiddleditch/gha-setup-ninja@v3
@@ -105,6 +103,8 @@ jobs:
 
       - name: Zip Library
         run: |
+          mkdir HuskarUI
+          cp -r ${{ steps.strings.outputs.build-output-dir }}/HuskarUI/* HuskarUI
           zip -r ${{ env.buildlibName }}.zip HuskarUI
           
       - name: Upload Library
