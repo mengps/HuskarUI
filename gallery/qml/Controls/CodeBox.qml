@@ -10,7 +10,7 @@ Rectangle {
     height: column.height + 40
     radius: 5
     color: 'transparent'
-    border.color: HusThemeFunctions.alpha(HusTheme.Primary.colorTextBase, 0.1)
+    border.color: HusTheme.Primary.colorFillPrimary
     clip: true
 
     property alias expTitle: expDivider.title

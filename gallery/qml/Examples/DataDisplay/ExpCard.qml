@@ -279,8 +279,8 @@ colorBodyDescription | color | - | 主体部分描述颜色
                 component Area: Rectangle {
                     width: 300
                     height: 60
-                    color: hovered ? HusThemeFunctions.alpha(HusTheme.Primary.colorTextBase, 0.1) : HusTheme.Primary.colorBgBase
-                    border.color: HusThemeFunctions.alpha(HusTheme.Primary.colorTextBase, 0.1)
+                    color: hovered ? HusTheme.Primary.colorFillPrimary : HusTheme.Primary.colorBgBase
+                    border.color: HusTheme.Primary.colorFillPrimary
 
                     property alias text: areaText.text
                     property alias hovered: hoverHandler.hovered

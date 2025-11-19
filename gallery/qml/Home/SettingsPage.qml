@@ -145,7 +145,7 @@ HusWindow {
                     height: itemLoader.height + 40
                     radius: 6
                     color: HusThemeFunctions.alpha(HusTheme.Primary.colorBgBase, 0.6)
-                    border.color: HusThemeFunctions.alpha(HusTheme.Primary.colorTextBase, 0.1)
+                    border.color: HusTheme.Primary.colorFillPrimary
 
                     Loader {
                         id: itemLoader
