@@ -18,7 +18,7 @@ Flickable {
 # HusRectangle 圆角矩形\n
 在需要任意方向圆角的矩形时使用。\n
 **注意** Qt6.7 以后则可以直接使用 Rectangle。\n
-* **继承自 { QQuickPaintedItem }**\n
+* **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n
