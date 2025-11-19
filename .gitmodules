@@ -1,3 +1,6 @@
 [submodule "3rdparty/qwindowkit"]
 	path = 3rdparty/qwindowkit
 	url = https://github.com/stdware/qwindowkit.git
+[submodule "3rdparty/QR-Code-generator"]
+	path = 3rdparty/QR-Code-generator
+	url = https://github.com/nayuki/QR-Code-generator.git
