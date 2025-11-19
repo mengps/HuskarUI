@@ -23,7 +23,6 @@ public:
     QString m_text;
     QUrl m_image;
     QNetworkReply *m_imageReply = nullptr;
-    QNetworkAccessManager *m_manager = nullptr;
     QImage m_cachedImage;
     bool m_isSetMarkSize { false };
     QSize m_markSize;
@@ -43,33 +42,33 @@ void HusWatermarkPrivate::updateImage()
         updateMarkSize();
         q->update();
     } else {
+        if (!m_cachedImage.isNull())
+            m_cachedImage = QImage();
+
         if (m_imageReply) {
             m_imageReply->abort();
             m_imageReply = nullptr;
         }
 
-        if (!m_manager) {
-            if (qmlEngine(q)) {
-                m_manager = qmlEngine(q)->networkAccessManager();
+        if (qmlEngine(q)) {
+            const auto manager = qmlEngine(q)->networkAccessManager();
+            if (manager) {
+                m_imageReply = manager->get(QNetworkRequest(m_image));
+                QObject::connect(m_imageReply, &QNetworkReply::finished, q, [this]{
+                    Q_Q(HusWatermark);
+                    if (m_imageReply->error() == QNetworkReply::NoError) {
+                        m_cachedImage = QImage::fromData(m_imageReply->readAll());
+                        updateMarkSize();
+                        q->update();
+                    } else {
+                        qCWarning(lcHusWatermark) << "Request image error:" << m_imageReply->errorString();
+                    }
+                    m_imageReply->deleteLater();
+                    m_imageReply = nullptr;
+                });
             } else {
                 qCWarning(lcHusWatermark) << "HusWatermark without QmlEngine, we cannot get QNetworkAccessManager!";
             }
-        }
-
-        if (m_manager) {
-            m_imageReply = m_manager->get(QNetworkRequest(m_image));
-            QObject::connect(m_imageReply, &QNetworkReply::finished, q, [this]{
-                Q_Q(HusWatermark);
-                if (m_imageReply->error() == QNetworkReply::NoError) {
-                    m_cachedImage = QImage::fromData(m_imageReply->readAll());
-                    updateMarkSize();
-                    q->update();
-                } else {
-                    qCWarning(lcHusWatermark) << "Request image error:" << m_imageReply->errorString();
-                }
-                m_imageReply->deleteLater();
-                m_imageReply = nullptr;
-            });
         }
     }
 }
