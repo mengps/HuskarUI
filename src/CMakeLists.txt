@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
 
 set(HUSKARUI_VERSION_MAJOR 0)
-set(HUSKARUI_VERSION_MINOR 4)
-set(HUSKARUI_VERSION_PATCH 9)
-set(HUSKARUI_VERSION_TWEAK 1)
+set(HUSKARUI_VERSION_MINOR 5)
+set(HUSKARUI_VERSION_PATCH 0)
+set(HUSKARUI_VERSION_TWEAK 0)
 set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
 
-message(STATUS "Configuring HuskarUIBasic Version: ${HUSKARUI_VERSION}")
+message(STATUS "Configuring HuskarUI::Basic Version: ${HUSKARUI_VERSION}")
 
 project(HuskarUIBasic VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -36,7 +36,7 @@ endif()
 
 #Set install dir.
 if(NOT HUSKARUI_INSTALL_DIRECTORY)
-    if(BUILD_HUSKARUI_IN_DEFAULT_LOCATION)
+    if(INSTALL_HUSKARUI_IN_DEFAULT_LOCATION)
         set(HUSKARUI_INSTALL_DIRECTORY ${Qt6_DIR}/../../../)
     else()
         set(HUSKARUI_INSTALL_DIRECTORY ${CMAKE_INSTALL_PREFIX})
@@ -164,6 +164,10 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/controls/husiconfont.h cpp/controls/husiconfont.cpp
         cpp/controls/husrectangle.h cpp/controls/husrectangle.cpp
         cpp/controls/huswatermark.h cpp/controls/huswatermark.cpp
+        cpp/controls/husqrcode.h cpp/controls/husqrcode.cpp
+        # QR-Code-generator
+        ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/QR-Code-generator/cpp/qrcodegen.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/QR-Code-generator/cpp/qrcodegen.cpp
 )
 
 qt_add_resources(${PROJECT_NAME} "theme"
@@ -238,7 +242,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if(MINGW)
-    set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+    set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "d")
     target_compile_options(${PROJECT_NAME} PRIVATE -Wa,-mbig-obj)
 elseif(MSVC)
     set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
@@ -272,9 +276,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 #Gen HuskarUI/include
 if(HUSKARUI_HEADER_OUTPUT_DIRECTORY)
     file(COPY cpp/husglobal.h cpp/husapp.h cpp/husdefinitions.h cpp/controls cpp/theme cpp/utils
-         DESTINATION ${HUSKARUI_HEADER_OUTPUT_DIRECTORY}
-         FILES_MATCHING PATTERN "*.h"
-         PATTERN "*_p.h" EXCLUDE)
+        DESTINATION ${HUSKARUI_HEADER_OUTPUT_DIRECTORY}/HuskarUI
+        FILES_MATCHING PATTERN "*.h"
+        PATTERN "*_p.h" EXCLUDE
+    )
 endif()
 
 # 生成 CMake 配置文件
@@ -338,89 +343,86 @@ install(TARGETS ${PROJECT_NAME}
 
 install(
     FILES cpp/husglobal.h cpp/husapp.h cpp/husdefinitions.h
-    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/include
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/include/HuskarUI
 )
 
 install(
     DIRECTORY cpp/controls cpp/theme cpp/utils
-    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/include
+    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/include/HuskarUI
     FILES_MATCHING PATTERN "*.h"
     PATTERN "*_p.h" EXCLUDE
 )
 
 install(
-    DIRECTORY ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/imports 
+    DIRECTORY ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/imports
     DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
 )
 
 install(
-    FILES ${HUSKARUI_RC_FILE}
-    DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/imports/HuskarUI/Basic
-)
-
-install(
-    FILES 
+    FILES
         ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/qmldir
         ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/plugins.qmltypes
-        ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/HuskarUIBasic_qml_module_dir_map.qrc 
+        ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/HuskarUIBasic_qml_module_dir_map.qrc
     DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
 )
 
-if(CMAKE_GENERATOR MATCHES "Visual Studio [0-9]+ [0-9]+")
-    if(MSVC)
-        install(
-            FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/Release/huskaruibasicplugin.lib
-            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
-            CONFIGURATIONS Release
-        )
+if(WIN32)
+    if(CMAKE_GENERATOR MATCHES "Visual Studio [0-9]+ [0-9]+")
+        if(MSVC)
+            install(
+                FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/Release/huskaruibasicplugin.lib
+                DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+                CONFIGURATIONS Release
+            )
 
-        install(
-            FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/Debug/huskaruibasicplugin.lib
-            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
-            CONFIGURATIONS Debug
-        )
-    endif()
-    if(NOT BUILD_HUSKARUI_STATIC_LIBRARY)
-        install(
-            FILES ${CMAKE_CURRENT_BINARY_DIR}/Release/huskaruibasicplugin.dll
-            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
-            CONFIGURATIONS Release
-        )
+            install(
+                FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/Debug/huskaruibasicplugin.lib
+                DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+                CONFIGURATIONS Debug
+            )
+        endif()
+        if(NOT BUILD_HUSKARUI_STATIC_LIBRARY)
+            install(
+                FILES ${CMAKE_CURRENT_BINARY_DIR}/Release/huskaruibasicplugin.dll
+                DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+                CONFIGURATIONS Release
+            )
 
-        install(
-            FILES ${CMAKE_CURRENT_BINARY_DIR}/huskaruibasicplugin.dll
-            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
-            CONFIGURATIONS Debug
-            RENAME huskaruibasicplugind.dll
-        )
-    endif()
-else()
-    if(MSVC)
-        install(
-            FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/huskaruibasicplugin.lib
-            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
-            CONFIGURATIONS Release
-        )
+            install(
+                FILES ${CMAKE_CURRENT_BINARY_DIR}/huskaruibasicplugin.dll
+                DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+                CONFIGURATIONS Debug
+                RENAME huskaruibasicplugind.dll
+            )
+        endif()
+    else()
+        if(MSVC)
+            install(
+                FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/huskaruibasicplugin.lib
+                DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+                CONFIGURATIONS Release
+            )
 
-        install(
-            FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/huskaruibasicplugin.lib
-            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
-            CONFIGURATIONS Debug
-        )
-    endif()
-    if(NOT BUILD_HUSKARUI_STATIC_LIBRARY)
-        install(
-            FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/huskaruibasicplugin.dll
-            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
-            CONFIGURATIONS Release
-        )
+            install(
+                FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/huskaruibasicplugin.lib
+                DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+                CONFIGURATIONS Debug
+            )
+        endif()
+        if(NOT BUILD_HUSKARUI_STATIC_LIBRARY)
+            install(
+                FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/huskaruibasicplugin.dll
+                DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+                CONFIGURATIONS Release
+            )
 
-        install(
-            FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/huskaruibasicplugin.dll
-            DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
-            CONFIGURATIONS Debug
-            RENAME huskaruibasicplugind.dll
-        )
+            install(
+                FILES ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}/huskaruibasicplugin.dll
+                DESTINATION ${HUSKARUI_INSTALL_DIRECTORY}/qml/HuskarUI/Basic
+                CONFIGURATIONS Debug
+                RENAME huskaruibasicplugind.dll
+            )
+        endif()
     endif()
 endif()
 
