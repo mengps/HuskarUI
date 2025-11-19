@@ -1,0 +1,97 @@
+name: CMake on MacOS - Qt6.8.3
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-14]
+        build_types: [Release]
+        c_compiler: [clang]
+        cxx_compiler: [clang++]
+        include:
+          - qt_ver: 6.8.3
+            qt_arch: clang_64
+
+    env:
+      targetName: Gallery
+      buildlibName: HuskarUI_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.qt_ver }}
+          arch: ${{ matrix.qt_arch }}
+          modules: 'qtshadertools'
+
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v3
+        with:
+          version: 1.10.2
+
+      - name: Set reusable strings
+        # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+        id: strings
+        shell: bash
+        run: |
+          echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        id: build
+        run: |
+          ninja --version
+          cmake --version
+          cmake -B ${{ steps.strings.outputs.build-output-dir }} -S ${{ github.workspace }} \
+            -DCMAKE_MESSAGE_LOG_LEVEL=STATUS \
+            -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
+            -DCMAKE_CXX_COMPILER=${{ matrix.cxx_compiler }} \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_types }} \
+            -DCMAKE_PREFIX_PATH=${{ env.Qt6_DIR }} \
+            -GNinja
+          cd ${{ steps.strings.outputs.build-output-dir }}
+          cmake --build . --config ${{ matrix.build_types }} --parallel --target all --
+          cmake --install .
+
+      - name: Package
+        run: |
+          macdeployqt --qmldir=. \
+              --no-opengl-sw \
+              --no-widgets \
+              --no-quickcontrols2windowsstyleimpl \
+              --no-quickcontrols2fusion \
+              --no-quickcontrols2fusionstyleimpl \
+              --no-quickcontrols2material \
+              --no-quickcontrols2materialstyleimpl \
+              --no-quickcontrols2universal \
+              --no-quickcontrols2universalstyleimpl \
+              --no-quickcontrols2imagine \
+              --no-quickcontrols2imaginestyleimpl \
+              --no-translations \
+              dist\${{ env.targetName }}.app
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.targetName }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
+          path: ${{ env.targetName }}.app
+
+      - name: Upload Release
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.targetName }}.app
+          asset_name: ${{ env.targetName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
