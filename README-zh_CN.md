@@ -5,6 +5,8 @@
 
 Qt Qml 的 Ant 设计组件库
 
+如果你需要 Python 实现 [HuskarUI for PySide6](https://github.com/mengps/PyHuskarUI)
+
 如果你需要 Qt5 实现 [HuskarUI for Qt5](https://github.com/mengps/HuskarUI_Qt5)
 
 </div>
@@ -79,60 +81,67 @@ Qt Qml 的 Ant 设计组件库
 ```auto
 git clone --recursive https://github.com/mengps/HuskarUI.git
 ```
-- 构建
-```cmake
-cd HuskarUI
-cmake -S . -B build
-cmake --build build --config Release --target all --parallel
-```
+- 构建 & 安装
+  - Windows - Visual Studio
+  ```sh
+  cd HuskarUI
+  cmake -DCMAKE_PREFIX_PATH=<QT_DIR> -G "Visual Studio <version>" -B build -S . 
+  cmake --build build --config Release --target ALL_BUILD INSTALL --parallel
+  ```
+  - All - Ninja
+  ```sh
+  cd HuskarUI
+  cmake -DCMAKE_PREFIX_PATH=<QT_DIR> -G "Ninja" -B build -S . 
+  cmake --build build --config Release --target all install --parallel
+  ```
 
-- 使用 MinGW 构建
-```cmake
-cmake -S . -B build -G "Ninja"
-or
-cmake -S . -B build -G "MinGW Makefiles"
-```
 > [!IMPORTANT]
-> 默认情况下，`BUILD_HUSKARUI_IN_DEFAULT_LOCATION=ON`:
-> - `headers` 将构建在 `[QtDir]/[QtVersion]/[Kit]/include/HuskarUI` 目录中。
-> - `*.dll/*.so` 将构建在 `[QtDir]/[QtVersion]/[Kit]/bin` 目录中。
-> - `*.lib` 将构建在 `[QtDir]/[QtVersion]/[Kit]/lib` 目录中。
-> - `plugin` 将构建在 `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` 目录中。
+> 默认情况下, `INSTALL_HUSKARUI_IN_DEFAULT_LOCATION=ON`:
+> - `headers` 将安装在  `[QtDir]/[QtVersion]/[Kit]/include/HuskarUI` 目录中.
+> - `*.dll/*.so` 将安装在  `[QtDir]/[QtVersion]/[Kit]/bin` 目录中.
+> - `*.lib` 将安装在  `[QtDir]/[QtVersion]/[Kit]/lib` 目录中.
+> - `qmlplugin` 将安装在 `[QtDir]/[QtVersion]/[Kit]/qml` 目录中.
+> 
+> 如果您想改变安装目录, 请将 `INSTALL_HUSKARUI_IN_DEFAULT_LOCATION` 设置为 `OFF` 并在 cmake 中设置 `HUSKARUI_INSTALL_DIRECTORY`.
+> ```sh
+> cmake -DCMAKE_PREFIX_PATH=<QT_DIR> \
+>   -DINSTALL_HUSKARUI_IN_DEFAULT_LOCATION=OFF \
+>   -DHUSKARUI_INSTALL_DIRECTORY=<install_dir> \
+>   -G "Ninja" -B build -S .
+> ```
 
-- 安装
-```cmake
-cmake --install --prefix <install_dir>
-```
 安装目录结构
 ```auto
 ──<install_dir>
     ├─include
-    │   *.h
+    │   └─HuskarUI/*.h
     ├─bin
     │   *.dll
     ├─lib
     │   *.lib/so
-    └─imports
+    │   └─cmake/*.cmake
+    └─qml
         └─HuskarUI/Basic
 ```
-- 使用
-  - 链接 `<install_dir>/lib`.
-  - 包含 `<install_dir>/include`.
-  - 复制 `<install_dir>/bin/HuskarUIBasic.[dll/so]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
-  - 复制 `<install_dir>/imports/HuskarUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
+- 用法
+  - 使用 cmake
+    添加下面的 cmake 命令到您项目的 `CMakeLists.txt` 中
+    ```cmake
+    find_package(HuskarUI REQUIRED)
+    target_link_libraries(<your_target> HuskarUI::Basic)
+    ```
+  - 直接使用库
+    - 链接`<install_dir>/lib`.
+    - 包含 `<install_dir>/include`.
+    - [可选] 复制 `<install_dir>/bin/HuskarUIBasic.[dll/so]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
+    - 复制 `<install_dir>/qml/HuskarUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 📦 上手
 
  - 创建 QtQuick 应用 `QtVersion >= 6.7`
- - 添加下面的 cmake 命令到您的项目 `CMakeLists.txt` 中
- ```cmake
-  target_include_directories(<your_target> PRIVATE HuskarUI/include)
-  target_link_directories(<your_target> PRIVATE HuskarUI/lib)
-  target_link_libraries(<your_target> PRIVATE HuskarUIBasic)
- ```
  - 添加下面的代码到您的 `main.cpp` 中
  ```cpp
-  #include "husapp.h"
+  #include "HuskarUI/husapp.h"
 
   int main(int argc, char *argv[])
   {

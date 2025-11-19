@@ -5,6 +5,8 @@
 
 Ant Design component library for Qt Qml
 
+If you need Python impl [HuskarUI for PySide6](https://github.com/mengps/PyHuskarUI)
+
 If you need Qt5 impl [HuskarUI for Qt5](https://github.com/mengps/HuskarUI_Qt5)
 
 </div>
@@ -79,60 +81,67 @@ Please visit [Release](https://github.com/mengps/HuskarUI/releases) to download.
 ```auto
 git clone --recursive https://github.com/mengps/HuskarUI.git
 ```
-- Build
-```cmake
-cd HuskarUI
-cmake -S . -B build
-cmake --build build --config Release --target all --parallel
-```
+- Build & Install
+  - Windows - Visual Studio
+  ```sh
+  cd HuskarUI
+  cmake -DCMAKE_PREFIX_PATH=<QT_DIR> -G "Visual Studio <version>" -B build -S . 
+  cmake --build build --config Release --target ALL_BUILD INSTALL --parallel
+  ```
+  - All - Ninja
+  ```sh
+  cd HuskarUI
+  cmake -DCMAKE_PREFIX_PATH=<QT_DIR> -G "Ninja" -B build -S . 
+  cmake --build build --config Release --target all install --parallel
+  ```
 
-- Build with MinGW
-```cmake
-cmake -S . -B build -G "Ninja"
-or
-cmake -S . -B build -G "MinGW Makefiles"
-```
 > [!IMPORTANT]
-> By default, `BUILD_HUSKARUI_IN_DEFAULT_LOCATION=ON`:
-> - the `headers` will be built in the `[QtDir]/[QtVersion]/[Kit]/include/HuskarUI` directory.
-> - the `*.dll/*.so` will be built in the `[QtDir]/[QtVersion]/[Kit]/bin` directory.
-> - the `*.lib` will be built in the `[QtDir]/[QtVersion]/[Kit]/lib` directory.
-> - the `qmlplugin` will be built in the `[QtDir]/[QtVersion]/[Kit]/qml/HuskarUI` directory.
+> By default, `INSTALL_HUSKARUI_IN_DEFAULT_LOCATION=ON`:
+> - the `headers` will be install in the `[QtDir]/[QtVersion]/[Kit]/include/HuskarUI` directory.
+> - the `*.dll/*.so` will be install in the `[QtDir]/[QtVersion]/[Kit]/bin` directory.
+> - the `*.lib` will be install in the `[QtDir]/[QtVersion]/[Kit]/lib` directory.
+> - the `qmlplugin` will be install in the `[QtDir]/[QtVersion]/[Kit]/qml` directory.
+> 
+> If you want to change the installation directory, please modify the `INSTALL_HUSKARUI_IN_DEFAULT_LOCATION` to `OFF` and set the `HUSKARUI_INSTALL_DIRECTORY` in the cmake.
+> ```sh
+> cmake -DCMAKE_PREFIX_PATH=<QT_DIR> \
+>   -DINSTALL_HUSKARUI_IN_DEFAULT_LOCATION=OFF \
+>   -DHUSKARUI_INSTALL_DIRECTORY=<install_dir> \
+>   -G "Ninja" -B build -S .
+> ```
 
-- Install
-```cmake
-cmake --install --prefix <install_dir>
-```
 The installation directory structure
 ```auto
 ──<install_dir>
     ├─include
-    │   *.h
+    │   └─HuskarUI/*.h
     ├─bin
     │   *.dll
     ├─lib
     │   *.lib/so
-    └─imports
+    │   └─cmake/*.cmake
+    └─qml
         └─HuskarUI/Basic
 ```
 - Usage
-  - Link the `<install_dir>/lib`.
-  - Include the `<install_dir>/include`.
-  - Copy the `<install_dir>/bin/HuskarUIBasic.[dll/so]` to `[QtDir]/[QtVersion]/[Kit]/bin`.
-  - Copy the `<install_dir>/imports/HuskarUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
+  - Using cmake
+    Add the following cmake command to your project `CMakeLists.txt`
+    ```cmake
+    find_package(HuskarUI REQUIRED)
+    target_link_libraries(<your_target> HuskarUI::Basic)
+    ```
+  - Directly using the library
+    - Link the `<install_dir>/lib`.
+    - Include the `<install_dir>/include`.
+    - [Optional] Copy the `<install_dir>/bin/HuskarUIBasic.[dll/so]` to `[QtDir]/[QtVersion]/[Kit]/bin`.
+    - Copy the `<install_dir>/qml/HuskarUI` to `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 📦 Get started 
 
  - Create QtQuick application `QtVersion >= 6.7`
- - Add the following cmake command to your project `CMakeLists.txt`
- ```cmake
-  target_include_directories(<your_target> PRIVATE HuskarUI/include)
-  target_link_directories(<your_target> PRIVATE HuskarUI/lib)
-  target_link_libraries(<your_target> PRIVATE HuskarUIBasic)
- ```
  - Add the following code to your `main.cpp`
  ```cpp
-  #include "huspp.h"
+  #include "HuskarUI/husapp.h"
 
   int main(int argc, char *argv[])
   {
