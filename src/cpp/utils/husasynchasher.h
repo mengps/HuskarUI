@@ -57,8 +57,6 @@ public:
     bool operator==(const HusAsyncHasher &hasher);
     bool operator!=(const HusAsyncHasher &hasher);
 
-    QFuture<QByteArray> static hash(const QByteArray &data, QCryptographicHash::Algorithm algorithm);
-
 signals:
     void algorithmChanged();
     void asynchronousChanged();
