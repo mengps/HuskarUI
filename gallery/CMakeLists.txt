@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.4.9.1)
+set(HUSKARUI_VERSION 0.5.0.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -80,6 +80,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataDisplay/ExpImage.qml
         qml/Examples/DataDisplay/ExpImagePreview.qml
         qml/Examples/DataDisplay/ExpEmpty.qml
+        qml/Examples/DataDisplay/ExpQrCode.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Navigation/ExpContextMenu.qml
         qml/Examples/Navigation/ExpScrollBar.qml
@@ -207,6 +208,7 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
     if(WIN32)
         find_program(QT_DEPLOY_QT NAMES windeployqt)
         set(QT_DEPLOY_ARGS
+            ${CMAKE_CURRENT_SOURCE_DIR}/../package/${PROJECT_NAME}.exe
             --qmldir=${CMAKE_CURRENT_SOURCE_DIR}
             --plugindir=${CMAKE_CURRENT_SOURCE_DIR}/../package/plugins
             --no-opengl-sw
@@ -224,7 +226,6 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
             --no-quickcontrols2imaginestyleimpl
             --no-translations
             --compiler-runtime
-            ${CMAKE_CURRENT_SOURCE_DIR}/../package/${PROJECT_NAME}.exe
         )
         add_custom_target(Script-DeployRelease
                 COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_CURRENT_SOURCE_DIR}/../package
