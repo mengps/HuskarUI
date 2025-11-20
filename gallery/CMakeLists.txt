@@ -31,6 +31,11 @@ if(WIN32)
 endif()
 
 qt_add_executable(${PROJECT_NAME})
+
+if(QT_KNOWN_POLICY_QTP0004)
+    qt_policy(SET QTP0004 NEW)
+endif()
+
 qt_add_qml_module(${PROJECT_NAME}
     URI Gallery
     VERSION 1.0
