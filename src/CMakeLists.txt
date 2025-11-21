@@ -89,6 +89,7 @@ qt_add_qml_module(${PROJECT_NAME}
     VERSION 1.0
     DESIGNER_SUPPORTED
     PLUGIN_TARGET ${PLUGIN_NAME}
+    OUTPUT_TARGETS HUSKARUI_QML_OUTPUT_TARGETS #Export for static lib
     #NO_GENERATE_PLUGIN_SOURCE
     RESOURCE_PREFIX "/"
     TYPEINFO "plugins.qmltypes"
@@ -174,6 +175,7 @@ qt_add_qml_module(${PROJECT_NAME}
 
 qt_add_resources(${PROJECT_NAME} "theme"
     PREFIX "/HuskarUI"
+    OUTPUT_TARGETS HUSKARUI_THEME_OUTPUT_TARGETS #Export for static lib
     FILES
         theme/Index.json
         theme/HusButton.json
@@ -219,6 +221,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
 
 qt_add_resources(${PROJECT_NAME} "resources"
     PREFIX "/HuskarUI"
+    OUTPUT_TARGETS HUSKARUI_RES_OUTPUT_TARGETS #Export for static lib
     FILES
         resources/images/empty-default.svg
         resources/images/empty-simple.svg
@@ -232,6 +235,7 @@ qt_add_resources(${PROJECT_NAME} "resources"
 
 qt_add_shaders(${PROJECT_NAME} "shaders"
     PREFIX "/HuskarUI"
+    OUTPUT_TARGETS HUSKARUI_SHADERS_OUTPUT_TARGETS #Export for static lib
     FILES
         shaders/husrate.frag
 )
@@ -239,6 +243,8 @@ qt_add_shaders(${PROJECT_NAME} "shaders"
 # HuskarUI library output dir
 set_target_properties(${PROJECT_NAME} PROPERTIES
     EXPORT_NAME "Basic"
+    VERSION ${HUSKARUI_VERSION}
+    SOVERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}
     RUNTIME_OUTPUT_DIRECTORY ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}/bin
     LIBRARY_OUTPUT_DIRECTORY ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}/lib
     ARCHIVE_OUTPUT_DIRECTORY ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}/lib
@@ -319,19 +325,30 @@ write_basic_package_version_file(
     COMPATIBILITY SameMinorVersion #Require target lib must has same Major and Minor version
 )
 
-install(TARGETS ${PROJECT_NAME}
-    EXPORT HuskarUITargets
-    RUNTIME DESTINATION ${BIN_INSTALL_DIR}
-    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
-    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
-)
-
-install(TARGETS ${PLUGIN_NAME}
-    EXPORT HuskarUITargets
-    RUNTIME DESTINATION ${HUSKARUI_QML_INSTALL_DIR}/Basic
-    ARCHIVE DESTINATION ${HUSKARUI_QML_INSTALL_DIR}/Basic
-    LIBRARY DESTINATION ${HUSKARUI_QML_INSTALL_DIR}/Basic
-)
+if(BUILD_HUSKARUI_STATIC_LIBRARY)
+    install(
+        TARGETS ${PROJECT_NAME} ${PLUGIN_NAME}
+                ${HUSKARUI_QML_OUTPUT_TARGETS} ${HUSKARUI_THEME_OUTPUT_TARGETS}
+                ${HUSKARUI_RES_OUTPUT_TARGETS} ${HUSKARUI_SHADERS_OUTPUT_TARGETS}
+        EXPORT HuskarUITargets
+        RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+        ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+        LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+    )
+else()
+    install(TARGETS ${PROJECT_NAME}
+        EXPORT HuskarUITargets
+        RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+        ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
+        LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+    )
+    install(TARGETS ${PLUGIN_NAME}
+        EXPORT HuskarUITargets
+        RUNTIME DESTINATION ${HUSKARUI_QML_INSTALL_DIR}/Basic
+        ARCHIVE DESTINATION ${HUSKARUI_QML_INSTALL_DIR}/Basic
+        LIBRARY DESTINATION ${HUSKARUI_QML_INSTALL_DIR}/Basic
+    )
+endif()
 
 install(
     DIRECTORY ${HUSKARUI_HEADER_OUTPUT_DIRECTORY}/HuskarUI
