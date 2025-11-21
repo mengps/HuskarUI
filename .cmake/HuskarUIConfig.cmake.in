@@ -15,6 +15,10 @@ set_and_check(HuskarUI_QML_IMPORT_PATH "@PACKAGE_QML_INSTALL_DIR@")
 # 导入目标文件
 include("${CMAKE_CURRENT_LIST_DIR}/HuskarUITargets.cmake")
 
+# 检查必要的依赖
+include(CMakeFindDependencyMacro)
+find_dependency(Qt6 REQUIRED COMPONENTS Core Quick QuickTemplates2)
+
 # 设置QML引擎的导入路径
 if(DEFINED QML_IMPORT_PATH)
     list(FIND QML_IMPORT_PATH "${HuskarUI_QML_IMPORT_PATH}" _found_index)
