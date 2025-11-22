@@ -65,26 +65,15 @@ jobs:
 
       - name: Package
         run: |
-          macdeployqt --qmldir=. \
-              --no-opengl-sw \
-              --no-widgets \
-              --no-quickcontrols2windowsstyleimpl \
-              --no-quickcontrols2fusion \
-              --no-quickcontrols2fusionstyleimpl \
-              --no-quickcontrols2material \
-              --no-quickcontrols2materialstyleimpl \
-              --no-quickcontrols2universal \
-              --no-quickcontrols2universalstyleimpl \
-              --no-quickcontrols2imagine \
-              --no-quickcontrols2imaginestyleimpl \
-              --no-translations \
-              dist\${{ env.targetName }}.app
+          macdeployqt ./bin/Release/${{ env.targetName }}.app -qmldir=.
+          mkdir -p dist
+          cp -R ./bin/Release/${{ env.targetName }}.app ./dist/${{ env.targetName }}.app
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.targetName }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
-          path: ${{ env.targetName }}.app
+          path: dist
 
       - name: Upload Release
         if: startsWith(github.event.ref, 'refs/tags/')
@@ -92,6 +81,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ env.targetName }}.app
-          asset_name: ${{ env.targetName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.AppImage
+          asset_name: ${{ env.targetName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.app
           tag: ${{ github.ref }}
           overwrite: true

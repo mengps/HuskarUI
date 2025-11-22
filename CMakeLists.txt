@@ -5,7 +5,7 @@ project(HuskarUI_Solution)
 option(BUILD_HUSKARUI_GALLERY "Build HuskarUI Gallery." ON)
 option(BUILD_HUSKARUI_STATIC_LIBRARY "Build HuskarUI as a static library." OFF)
 option(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM "Build HuskarUI on desktop platform (mobile platform set OFF)." ON)
-option(INSTALL_HUSKARUI_IN_DEFAULT_LOCATION "Intall HuskarUI in default location[QtSDK Dir]." ON)
+option(INSTALL_HUSKARUI_IN_DEFAULT_LOCATION "Install HuskarUI in default location[QtSDK Dir]." ON)
 
 #Set HuskarUI output dir
 set(HUSKARUI_HEADER_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI header output dir.")
@@ -14,10 +14,6 @@ set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir (
 set(HUSKARUI_INSTALL_DIRECTORY "" CACHE PATH "HuskarUI install dir.")
 
 set(QT_SILENCE_MISSING_DEPENDENCY_TARGET_WARNING ON)
-
-if(POLICY CMP0177)
-    cmake_policy(SET CMP0177 NEW)
-endif()
 
 set(MACOS FALSE)
 if(APPLE)
@@ -44,10 +40,8 @@ if(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
 endif()
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    message(STATUS "CMAKE_INSTALL_PREFIX : ${CMAKE_INSTALL_PREFIX}")
     set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/HuskarUI" CACHE PATH "" FORCE)
 endif()
-message(STATUS "CMAKE_INSTALL_PREFIX : ${CMAKE_INSTALL_PREFIX}")
 add_subdirectory(src)
 
 if(BUILD_HUSKARUI_GALLERY)
