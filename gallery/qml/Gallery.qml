@@ -134,7 +134,7 @@ HusWindow {
     Rectangle {
         id: galleryBackground
         anchors.fill: content
-        color: '#f5f5f5'
+        color: HusTheme.isDark ? '#181818' : '#f5f5f5'
         opacity: 0.2
     }
 
@@ -148,7 +148,6 @@ HusWindow {
             target: galleryWindow.contentItem
             isDark: HusTheme.isDark
             onSwitchStarted: {
-                galleryBackground.color = HusTheme.isDark ? '#f5f5f5' : '#181818';
                 themeSwitchLoader.changeDark();
             }
             onAnimationFinished: {
@@ -180,7 +179,6 @@ HusWindow {
             function onIsDarkChanged() {
                 if (HusTheme.darkMode == HusTheme.System) {
                     galleryWindow.setWindowMode(HusTheme.isDark);
-                    galleryBackground.color = HusTheme.isDark ? '#181818' : '#f5f5f5';
                 }
             }
         }
@@ -279,7 +277,7 @@ HusWindow {
             showToolTip: true
             placeholderText: qsTr('搜索组件')
             iconSource: HusIcon.SearchOutlined
-            colorBg: !galleryMenu.compactMode === HusMenu.Mode_Relaxed ? HusTheme.HusInput.colorBg : 'transparent'
+            colorBg: !(galleryMenu.compactMode === HusMenu.Mode_Relaxed) ? HusTheme.HusInput.colorBg : 'transparent'
             options: galleryGlobal.options
             filterOption: function(input, option) {
                 return option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1;
@@ -321,14 +319,15 @@ HusWindow {
             }
 
             Behavior on width {
-                enabled: !galleryMenu.compactMode === HusMenu.Mode_Relaxed && galleryMenu.width === galleryMenu.compactWidth
+                enabled: !(galleryMenu.compactMode === HusMenu.Mode_Relaxed) &&
+                         galleryMenu.width === galleryMenu.compactWidth
                 NumberAnimation { duration: HusTheme.Primary.durationFast }
             }
         }
 
         HusIconButton {
             id: searchCollapse
-            visible: !galleryMenu.compactMode === HusMenu.Mode_Relaxed
+            visible: !(galleryMenu.compactMode === HusMenu.Mode_Relaxed)
             anchors.top: parent.top
             anchors.left: galleryMenu.left
             anchors.right: galleryMenu.right

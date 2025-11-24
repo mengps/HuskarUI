@@ -168,7 +168,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     cpp
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE 
+target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     HuskarUIBasic
     $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIBasicPlugin>
