@@ -186,10 +186,10 @@ T.Button {
             height: realHeight
             anchors.centerIn: parent
             radius: control.radiusBg?.all ?? 0
-            topLeftRadius: control.shape == HusButton.Shape_Default ? control.radiusBg.topLeft : height * 0.5
-            topRightRadius: control.shape == HusButton.Shape_Default ? control.radiusBg.topRight : height * 0.5
-            bottomLeftRadius: control.shape == HusButton.Shape_Default ? control.radiusBg.bottomLeft : height * 0.5
-            bottomRightRadius: control.shape == HusButton.Shape_Default ? control.radiusBg.bottomRight : height * 0.5
+            topLeftRadius: control.shape == HusButton.Shape_Default ? control.radiusBg?.topLeft ?? 0 : height * 0.5
+            topRightRadius: control.shape == HusButton.Shape_Default ? control.radiusBg?.topRight ?? 0 : height * 0.5
+            bottomLeftRadius: control.shape == HusButton.Shape_Default ? control.radiusBg?.bottomLeft ?? 0 : height * 0.5
+            bottomRightRadius: control.shape == HusButton.Shape_Default ? control.radiusBg?.bottomRight ?? 0 : height * 0.5
             color: control.colorBg
             border.width: (control.type == HusButton.Type_Filled || control.type == HusButton.Type_Text) ? 0 : 1
             border.color: control.enabled ? control.colorBorder : 'transparent'
