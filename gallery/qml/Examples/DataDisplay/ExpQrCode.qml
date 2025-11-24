@@ -181,8 +181,8 @@ colorBg | color | 'transparent' | 背景颜色
                     HusButtonBlock {
                         id: sizeBlock
                         model: [
-                            { label: 'Smaller' },
-                            { label: 'Larger' },
+                            { iconSource: HusIcon.MinusOutlined, autoRepeat: true, label: 'Smaller' },
+                            { iconSource: HusIcon.PlusOutlined, autoRepeat: true, label: 'Larger' },
                         ]
                         onClicked:
                             (index) => {
@@ -215,8 +215,8 @@ colorBg | color | 'transparent' | 背景颜色
                 HusButtonBlock {
                     id: sizeBlock
                     model: [
-                        { label: 'Smaller' },
-                        { label: 'Larger' },
+                        { iconSource: HusIcon.MinusOutlined, autoRepeat: true, label: 'Smaller' },
+                        { iconSource: HusIcon.PlusOutlined, autoRepeat: true, label: 'Larger' },
                     ]
                     onClicked:
                         (index) => {
@@ -312,7 +312,6 @@ colorBg | color | 'transparent' | 背景颜色
                             width: 160
                             visible: parent.hovered || parent.down
                             closePolicy: HusPopover.NoAutoClose
-                            title: 'Hover details'
                             contentDelegate: HusQrCode {
                                 text: 'https://github.com/mengps/HuskarUI'
                                 color: HusTheme.Primary.colorTextBase
@@ -334,7 +333,6 @@ colorBg | color | 'transparent' | 背景颜色
                         width: 160
                         visible: parent.hovered || parent.down
                         closePolicy: HusPopover.NoAutoClose
-                        title: 'Hover details'
                         contentDelegate: HusQrCode {
                             text: 'https://github.com/mengps/HuskarUI'
                             color: HusTheme.Primary.colorTextBase
