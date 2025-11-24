@@ -131,7 +131,7 @@ public:
 
     Q_DECLARE_PUBLIC(HusTheme);
 
-    HusTheme *q_ptr = nullptr;
+    HusTheme *q_ptr { nullptr };
     HusTheme::DarkMode m_darkMode = HusTheme::DarkMode::Light;
     HusTheme::TextRenderType m_textRenderType = HusTheme::TextRenderType::QtRendering;
     HusSystemThemeHelper *m_helper { nullptr };
