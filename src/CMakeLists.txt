@@ -10,14 +10,29 @@ message(STATUS "Configuring HuskarUI::Basic Version: ${HUSKARUI_VERSION}")
 
 project(HuskarUIBasic VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
-#Add HuskarUIHelper
-include(${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUIHelper.cmake)
-
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
+#Add HuskarUIHelper
+include(${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUIHelper.cmake)
+
 find_package(Qt6 6.5 COMPONENTS Quick QuickTemplates2 ShaderTools REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
+
+#Determine if there is a private module present
+set(QT_HAS_PRIVATE_MODULES FALSE)
+if(Qt6_VERSION VERSION_GREATER "6.10.0")
+    find_package(Qt6 6.10 COMPONENTS QuickPrivate QuickTemplates2Private REQUIRED)
+    if(Qt6QuickPrivate_FOUND AND Qt6QuickTemplates2Private_FOUND)
+        set(QT_HAS_PRIVATE_MODULES TRUE)
+    endif()
+else()
+    get_target_property(QT_HAS_QUICK_PRIVATE Qt6::Quick _qt_module_has_private_headers)
+    get_target_property(QT_HAS_QUICKTEMPLATES_PRIVATE Qt6::QuickTemplates2 _qt_module_has_private_headers)
+    if(QT_HAS_QUICK_PRIVATE AND QT_HAS_QUICKTEMPLATES_PRIVATE)
+        set(QT_HAS_PRIVATE_MODULES TRUE)
+    endif()
+endif()
 
 #Set header output dir.
 if(NOT HUSKARUI_HEADER_OUTPUT_DIRECTORY)
@@ -41,6 +56,7 @@ elseif(HUSKARUI_INSTALL_DIRECTORY)
     set(CMAKE_INSTALL_PREFIX "${HUSKARUI_INSTALL_DIRECTORY}" CACHE PATH "" FORCE)
 endif()
 
+message(STATUS "The Qt has private module: ${QT_HAS_PRIVATE_MODULES}")
 message(STATUS "The HuskarUI header output dir: ${HUSKARUI_HEADER_OUTPUT_DIRECTORY}")
 message(STATUS "The HuskarUI library output dir: ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}/bin|lib")
 message(STATUS "The HuskarUI plugin output dir: ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}")
@@ -328,6 +344,7 @@ install(TARGETS ${PROJECT_NAME}
     ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
     LIBRARY DESTINATION ${LIB_INSTALL_DIR}
 )
+
 install(TARGETS ${PLUGIN_NAME}
     EXPORT HuskarUITargets
     RUNTIME DESTINATION ${HUSKARUI_QML_INSTALL_DIR}/Basic
