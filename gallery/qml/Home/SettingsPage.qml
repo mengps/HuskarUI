@@ -382,22 +382,6 @@ HusWindow {
                                 ButtonGroup.group: themeGroup
                                 onClicked: {
                                     HusTheme.darkMode = modelData.value;
-                                   /* if (modelData.value === HusTheme.System) {
-                                        HusTheme.darkMode = HusTheme.System;
-                                    } else if (modelData.value === HusTheme.Dark) {
-                                        if (HusTheme.isDark) {
-                                            HusTheme.darkMode = HusTheme.Dark;
-                                        } else {
-                                            HusTheme.darkMode = HusTheme.Light;
-                                            //galleryWindow.captionBar.themeCallback();
-                                        }
-                                    } else if (modelData.value === HusTheme.Light && HusTheme.isDark) {
-                                        if (HusTheme.isDark) {
-                                            //galleryWindow.captionBar.themeCallback();
-                                        } else {
-                                            HusTheme.darkMode = HusTheme.Light;
-                                        }
-                                    }*/
                                 }
                                 Component.onCompleted: {
                                     checked = HusTheme.darkMode === modelData.value;
