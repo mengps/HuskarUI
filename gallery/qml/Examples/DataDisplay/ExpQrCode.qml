@@ -28,8 +28,8 @@ text | string | '' | 要编码的内容
 margin | int | 4 | 边距
 errorLevel | enum | HusQrCode.Medium | 纠错等级(来自 HusQrCode)
 icon.url | url | '' | 图标链接
-icon.width | int | - | 图标宽度
-icon.height | int | 12 | 图高度标
+icon.width | int | 40 | 图标宽度
+icon.height | int | 40 | 图高度标
 color | color | 'black' | 二维码颜色
 colorMargin | color | 'transparent' | 边距颜色
 colorBg | color | 'transparent' | 背景颜色
