@@ -90,6 +90,14 @@ Item {
     Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
+    function scrollToBeginning() {
+        __textArea.cursorPosition = 0;
+    }
+
+    function scrollToEnd() {
+        __textArea.cursorPosition = __textArea.length;
+    }
+
     T.ScrollView {
         id: __scrollView
         focus: true
