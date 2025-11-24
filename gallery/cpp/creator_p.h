@@ -16,7 +16,7 @@ if(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
     set(QWINDOWKIT_BUILD_WIDGETS OFF)
     set(QWINDOWKIT_BUILD_QUICK ON)
     set(QWINDOWKIT_INSTALL OFF)
-    add_subdirectory(3rdparty/qwindowkit)
+    add_subdirectory(3rdparty/3rdparty/qwindowkit)
 endif()
 
 #Build HuskarUI
@@ -37,7 +37,7 @@ option(BUILD_HUSKARUI_STATIC_LIBRARY "HuskarUI is static library." %2)
 add_subdirectory(src)
 )";
 
-static auto g_cmake_project =R"(
+static auto g_cmake_project = R"(
 cmake_minimum_required(VERSION 3.16)
 
 project(%1 VERSION 0.1 LANGUAGES CXX)
@@ -119,20 +119,6 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
         set(QT_DEPLOY_ARGS
             ${CMAKE_SOURCE_DIR}/package/${PROJECT_NAME}.app
             --qmldir=${CMAKE_CURRENT_LIST_DIR}
-            --no-opengl-sw
-            --no-widgets
-            --no-virtualkeyboard
-            --no-quick3dutils
-            --no-quickcontrols2windowsstyleimpl
-            --no-quickcontrols2fusion
-            --no-quickcontrols2fusionstyleimpl
-            --no-quickcontrols2material
-            --no-quickcontrols2materialstyleimpl
-            --no-quickcontrols2universal
-            --no-quickcontrols2universalstyleimpl
-            --no-quickcontrols2imagine
-            --no-quickcontrols2imaginestyleimpl
-            --no-translations
         )
         add_custom_target(Script-DeployRelease
                 COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/package

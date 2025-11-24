@@ -118,7 +118,7 @@ HusWindow {
 
             HusCheckBox {
                 id: defaultCheckBox
-                text: qsTr('默认构建位置')
+                text: qsTr('默认安装位置')
                 checked: true
                 visible: containMethod.currentCheckedIndex == 2
                 onCheckedChanged: {
@@ -140,7 +140,7 @@ HusWindow {
                     colorIcon: HusTheme.Primary.colorPrimary
 
                     HusToolTip {
-                        text: qsTr('如果 HuskarUI 是默认构建的，库将生成在 QtSDK 目录\n如果使用 Intall 生成库则可不勾选')
+                        text: qsTr('如果 HuskarUI 是默认安装的，库将安装在 QtSDK 目录\n如果自定义安装位置则不勾选')
                         visible: buildLocationHover.hovered
                     }
 

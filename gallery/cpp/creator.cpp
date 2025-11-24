@@ -109,7 +109,7 @@ void Creator::createProject(const QVariant &projectParams)
             genFileAndCode(projectDir.path() + "/src/main.cpp", QString(g_main_cpp_file).arg(projectName));
             genFileAndCode(projectDir.path() + "/src/Main.qml", QString(g_main_qml_file).arg(projectName));
 
-            copyDirectory(sourceLocation + "/3rdparty", projectDir.path() + "/3rdparty");
+            copyDirectory(sourceLocation + "/3rdparty", projectDir.path() + "/3rdparty/3rdparty");
             copyDirectory(sourceLocation + "/.cmake", projectDir.path() + "/3rdparty/.cmake");
             copyDirectory(sourceLocation + "/src", projectDir.path() + "/3rdparty/HuskarUI");
 
