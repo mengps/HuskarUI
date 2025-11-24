@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 # HusRadioBlock 单选块(HusRadio变种) \n
 用于在多个备选项中选中单个状态。\n
-* **继承自 { Control }**\n
+* **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **toolTipDelegate: Component** 文字提示代理，代理可访问属性：\n

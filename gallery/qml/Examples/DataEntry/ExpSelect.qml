@@ -28,7 +28,7 @@ Flickable {
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 active | bool(readonly) | - | 是否处于激活状态
 hoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
-clearEnabled | bool | false | 是否启用清除按钮
+clearEnabled | bool | true | 是否启用清除按钮
 clearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接
 showToolTip | bool | false | 是否显示文字提示
 loading | bool | false | 是否在加载中
