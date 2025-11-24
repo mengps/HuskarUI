@@ -5,7 +5,6 @@
 #include <QtCore/QLoggingCategory>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkAccessManager>
-#include <QtGui/QPainter>
 #include <QtQml/QQmlEngine>
 #include <QtQuick/QSGImageNode>
 
