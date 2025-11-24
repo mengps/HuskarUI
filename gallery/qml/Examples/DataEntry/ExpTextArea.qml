@@ -57,6 +57,10 @@ textArea | TextArea | - | 访问内部文本区域
 verScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部垂直滚动条
 horScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部水平滚动条
 \n **注意** 其他原生 \`TextArea\` 属性请通过 \`textArea\` 访问/更改
+\n<br/>
+\n### 支持的函数：\n
+- \`scrollToBeginning()\` 将光标滚动到起始位置\n
+- \`scrollToEnd()\` 将光标滚动到结束位置\n
                        `)
         }
 

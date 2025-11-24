@@ -261,8 +261,8 @@ QtObject {
                     key: 'HusTextArea',
                     label: qsTr('HusTextArea 文本域'),
                     source: './Examples/DataEntry/ExpTextArea.qml',
-                    addVersion: '0.4.8',
-                    desc: qsTr('用于替代 TextArea，提供多行文本输入。')
+                    addVersion: '0.5.0',
+                    desc: qsTr('新增 scrollToBeginning() / scrollToEnd()。')
                 }
             ]
         },
