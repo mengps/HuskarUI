@@ -192,7 +192,7 @@ Item {
 
         function drawCircle(ctx, centerX, centerY, radius) {
             /*! 确保绘制不会超出边界 */
-            radius = Math.min(radius, Math.min(width, height) * 0.5 - control.barThickness);
+            radius = Math.max(0, Math.min(radius, Math.min(width, height) * 0.5 - control.barThickness));
             const color = getCurrentColor(ctx);
             if (control.steps > 0) {
                 /*! 计算每个步骤的弧长，考虑圆角影响 */
@@ -235,7 +235,7 @@ Item {
         }
 
         function drawDashboard(ctx, centerX, centerY, radius) {
-            radius = Math.min(radius, Math.min(width, height) * 0.5 - control.barThickness);
+            radius = Math.max(0,Math.min(radius, Math.min(width, height) * 0.5 - control.barThickness));
             /* ! 计算开始和结束角度 */
             const gapRad = Math.min(Math.max(control.gapDegree, 0), 295) * Math.PI / 180;
             const startAngle = Math.PI * 0.5 + gapRad * 0.5;
@@ -281,9 +281,9 @@ Item {
         onPaint: {
             let ctx = getContext('2d');
 
-            let centerX = width / 2;
-            let centerY = height / 2;
-            let radius = Math.min(width, height) / 2 - control.barThickness;
+            let centerX = width * 0.5;
+            let centerY = height * 0.5;
+            let radius = Math.max(0, Math.min(width, height) * 0.5 - control.barThickness);
 
             /*! 清除画布 */
             ctx.clearRect(0, 0, width, height);
