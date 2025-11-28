@@ -98,8 +98,8 @@ git clone --recursive https://github.com/mengps/HuskarUI.git
 > [!IMPORTANT]
 > 默认情况下, `INSTALL_HUSKARUI_IN_DEFAULT_LOCATION=ON`:
 > - `headers` 将安装在  `[QtDir]/[QtVersion]/[Kit]/include/HuskarUI` 目录中.
-> - `*.dll/*.so` 将安装在  `[QtDir]/[QtVersion]/[Kit]/bin` 目录中.
-> - `*.lib` 将安装在  `[QtDir]/[QtVersion]/[Kit]/lib` 目录中.
+> - `*.dll` 将安装在  `[QtDir]/[QtVersion]/[Kit]/bin` 目录中.
+> - `*.lib/*.so/*.dylib` 将安装在  `[QtDir]/[QtVersion]/[Kit]/lib` 目录中.
 > - `qmlplugin` 将安装在 `[QtDir]/[QtVersion]/[Kit]/qml` 目录中.
 > 
 > 如果您想改变安装目录, 请将 `INSTALL_HUSKARUI_IN_DEFAULT_LOCATION` 设置为 `OFF` 并在 cmake 中设置 `HUSKARUI_INSTALL_DIRECTORY`.
@@ -118,7 +118,7 @@ git clone --recursive https://github.com/mengps/HuskarUI.git
     ├─bin
     │   *.dll
     ├─lib
-    │   *.lib/so
+    │   *.lib/*.so/*.dylib
     │   └─cmake/*.cmake
     └─qml
         └─HuskarUI/Basic
@@ -133,7 +133,8 @@ git clone --recursive https://github.com/mengps/HuskarUI.git
   - 直接使用库
     - 链接`<install_dir>/lib`.
     - 包含 `<install_dir>/include`.
-    - [可选] 复制 `<install_dir>/bin/HuskarUIBasic.[dll/so]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
+    - [可选] 复制 `<install_dir>/bin/HuskarUIBasic.[dll]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
+    - [可选] 复制 `<install_dir>/lib/HuskarUIBasic.[so/dylib]` 到 `[QtDir]/[QtVersion]/[Kit]/bin`.
     - 复制 `<install_dir>/qml/HuskarUI` 到 `[QtDir]/[QtVersion]/[Kit]/qml`.
 
 ## 📦 上手
