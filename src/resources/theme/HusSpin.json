@@ -1,0 +1,9 @@
+{
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorTip": "@colorPrimary",
+        "colorIndicator": "@colorPrimary",
+        "colorProgressBar": "@colorPrimary"
+    }
+}
