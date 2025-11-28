@@ -88,7 +88,7 @@ HusWindow {
                     pixelSize: HusTheme.Primary.fontPrimarySizeHeading3
                     bold: true
                 }
-                text: 'HuskarUI Gallery'
+                text: `${HusApp.libName()} Gallery`
             }
 
             HusCopyableText {
@@ -121,7 +121,7 @@ HusWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: HusCopyableText.WordWrap
                 horizontalAlignment: HusCopyableText.AlignHCenter
-                text: 'Github: <a href=\'https://github.com/mengps/HuskarUI\' style=\'color:#722ED1\'>https://github.com/mengps/HuskarUI</a>'
+                text: `Github: <a href=\'https://github.com/mengps/${HusApp.libName()}\' style=\'color:#722ED1\'>https://github.com/mengps/${HusApp.libName()}</a>`
                 textFormat: HusCopyableText.RichText
                 onLinkActivated: (link) => Qt.openUrlExternally(link);
             }

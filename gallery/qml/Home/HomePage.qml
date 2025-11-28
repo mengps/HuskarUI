@@ -244,7 +244,7 @@ Rectangle {
 
                     MyText {
                         id: huskaruiTitle
-                        text: qsTr('HuskarUI')
+                        text: HusApp.libName()
                         font.pixelSize: HusTheme.Primary.fontPrimarySize + 42
                     }
 
@@ -272,9 +272,9 @@ Rectangle {
 
                 Card {
                     icon.iconSource: HusIcon.GithubOutlined
-                    title.text: qsTr('HuskarUI Github')
-                    desc.text: qsTr('HuskarUI 是遵循「Ant Design」设计体系的一个 Qml UI 库，用于构建由「Qt Quick」驱动的用户界面。')
-                    link: 'https://github.com/mengps/HuskarUI'
+                    title.text: qsTr(`${HusApp.libName()} Github`)
+                    desc.text: qsTr(`${HusApp.libName()} 是遵循「Ant Design」设计体系的一个 Qml UI 库，用于构建由「Qt Quick」驱动的用户界面。`)
+                    link: `https://github.com/mengps/${HusApp.libName()}`
                 }
             }
 
@@ -285,7 +285,7 @@ Rectangle {
             }
 
             MyText {
-                text: qsTr('HuskarUI 支持全局/组件的样式定制，内置多种接口让你定制主题更简单')
+                text: qsTr(`${HusApp.libName()} 支持全局/组件的样式定制，内置多种接口让你定制主题更简单`)
             }
 
             Card {
@@ -303,7 +303,7 @@ Rectangle {
             }
 
             MyText {
-                text: qsTr('HuskarUI 提供大量实用组件满足你的需求，基于代理的方式实现灵活定制与拓展')
+                text: qsTr(`${HusApp.libName()} 提供大量实用组件满足你的需求，基于代理的方式实现灵活定制与拓展`)
             }
 
             ListView {

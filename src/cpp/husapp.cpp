@@ -27,6 +27,11 @@ void HusApp::initialize(QQmlEngine *engine)
     QFontDatabase::addApplicationFont(":/HuskarUI/resources/font/HuskarUI-Icons.ttf");
 }
 
+QString HusApp::libName()
+{
+    return "HuskarUI";
+}
+
 QString HusApp::libVersion()
 {
     return HUSKARUI_LIBRARY_VERSION;

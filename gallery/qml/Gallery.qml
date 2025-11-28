@@ -14,7 +14,7 @@ HusWindow {
     opacity: 0
     minimumWidth: 800
     minimumHeight: 600
-    title: qsTr('HuskarUI Gallery')
+    title: qsTr(`${HusApp.libName()} Gallery`)
     followThemeSwitch: true
     captionBar.visible: Qt.platform.os === 'windows' || Qt.platform.os === 'linux' || Qt.platform.os === 'osx'
     captionBar.height: captionBar.visible ? 30 : 0
@@ -74,14 +74,14 @@ HusWindow {
                 }
             }
             onClicked: {
-                Qt.openUrlExternally('https://deepwiki.com/mengps/HuskarUI');
+                Qt.openUrlExternally(`https://deepwiki.com/mengps/${HusApp.libName()}`);
             }
 
             HusToolTip {
                 visible: parent.hovered
                 showArrow: true
                 position: HusToolTip.Position_Bottom
-                text: qsTr('在线 Wiki (AI), 可进行 HuskarUI 相关的 AI 问答')
+                text: qsTr(`在线 Wiki (AI), 可进行 ${HusApp.libName()} 相关的 AI 问答`)
             }
         }
 

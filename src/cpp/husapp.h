@@ -16,6 +16,7 @@ public:
 
     static void initialize(QQmlEngine *engine);
 
+    Q_INVOKABLE static QString libName();
     Q_INVOKABLE static QString libVersion();
 
     static HusApp *instance();
