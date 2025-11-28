@@ -65,6 +65,7 @@ enum class Component : uint16_t
     HusPopover,
     HusModal,
     HusTextArea,
+    HusSpin,
 
     Size
 };
@@ -110,6 +111,7 @@ static QHash<QString, Component> g_componentTable
     { "HusPopover",         Component::HusPopover          },
     { "HusModal",           Component::HusModal            },
     { "HusTextArea",        Component::HusTextArea         },
+    { "HusSpin",            Component::HusSpin             },
 };
 
 struct ThemeData
@@ -135,7 +137,7 @@ public:
     HusTheme::DarkMode m_darkMode = HusTheme::DarkMode::Light;
     HusTheme::TextRenderType m_textRenderType = HusTheme::TextRenderType::QtRendering;
     HusSystemThemeHelper *m_helper { nullptr };
-    QString m_themeIndexPath = ":/HuskarUI/theme/Index.json";
+    QString m_themeIndexPath = ":/HuskarUI/resources/theme/Index.json";
     QJsonObject m_indexObject;
     QMap<QString, QVariant> m_indexTokenTable;
     QMap<QString, QMap<QString, QVariant>> m_componentTokenTable;
