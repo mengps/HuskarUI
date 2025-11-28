@@ -75,7 +75,6 @@ public:
     QString m_text;
     bool m_qrCodeChange = false;
     int m_margin = 4;
-    int m_sourceSize = 0;
     QColor m_colorMargin = Qt::transparent;
     QColor m_color = Qt::black;
     QColor m_colorBg = Qt::transparent;
@@ -134,8 +133,8 @@ void HusQrCodePrivate::genQrCode()
 
     const auto qrSize = qr.getSize();
     const auto qrMargin = qrSize + m_margin;
-    m_sourceSize = qrSize + m_margin * 2;
-    m_qrCodeImage = QImage(m_sourceSize, m_sourceSize, QImage::Format_ARGB32);
+    const auto sourceSize = qrSize + m_margin * 2;
+    m_qrCodeImage = QImage(sourceSize, sourceSize, QImage::Format_ARGB32);
     m_qrCodeImage.fill(Qt::transparent);
     for (int y = -m_margin; y < qrMargin; y++) {
         for (int x = -m_margin; x < qrMargin; x++) {
