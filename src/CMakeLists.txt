@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(HUSKARUI_VERSION_MAJOR 0)
 set(HUSKARUI_VERSION_MINOR 5)
-set(HUSKARUI_VERSION_PATCH 0)
+set(HUSKARUI_VERSION_PATCH 1)
 set(HUSKARUI_VERSION_TWEAK 0)
 set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
 
@@ -154,7 +154,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusSwitchEffect.qml
         imports/HusContextMenu.qml
         imports/HusBreadcrumb.qml
-        imports/HusInputNumber.qml
+        imports/HusInputNumber.qml imports/HusInputInteger.qml
         imports/HusImage.qml
         imports/HusImagePreview.qml
         imports/HusMultiSelect.qml
@@ -165,6 +165,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusPopover.qml
         imports/HusModal.qml
         imports/HusTextArea.qml
+        imports/HusSpin.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -193,46 +194,47 @@ qt_add_resources(${PROJECT_NAME} "theme"
     PREFIX "/HuskarUI"
     OUTPUT_TARGETS HUSKARUI_THEME_OUTPUT_TARGETS #Export for static lib
     FILES
-        theme/Index.json
-        theme/HusButton.json
-        theme/HusCaptionButton.json
-        theme/HusTour.json
-        theme/HusIconText.json
-        theme/HusCopyableText.json
-        theme/HusMenu.json
-        theme/HusDivider.json
-        theme/HusEmpty.json
-        theme/HusSwitch.json
-        theme/HusScrollBar.json
-        theme/HusSlider.json
-        theme/HusTabView.json
-        theme/HusToolTip.json
-        theme/HusSelect.json
-        theme/HusMultiSelect.json
-        theme/HusInput.json
-        theme/HusRate.json
-        theme/HusRadio.json
-        theme/HusCheckBox.json
-        theme/HusDrawer.json
-        theme/HusCollapse.json
-        theme/HusCard.json
-        theme/HusPagination.json
-        theme/HusPopup.json
-        theme/HusTimeline.json
-        theme/HusTag.json
-        theme/HusTableView.json
-        theme/HusMessage.json
-        theme/HusAutoComplete.json
-        theme/HusProgress.json
-        theme/HusCarousel.json
-        theme/HusBreadcrumb.json
-        theme/HusImage.json
-        theme/HusDateTimePicker.json
-        theme/HusNotification.json
-        theme/HusPopconfirm.json
-        theme/HusPopover.json
-        theme/HusModal.json
-        theme/HusTextArea.json
+        resources/theme/Index.json
+        resources/theme/HusButton.json
+        resources/theme/HusCaptionButton.json
+        resources/theme/HusTour.json
+        resources/theme/HusIconText.json
+        resources/theme/HusCopyableText.json
+        resources/theme/HusMenu.json
+        resources/theme/HusDivider.json
+        resources/theme/HusEmpty.json
+        resources/theme/HusSwitch.json
+        resources/theme/HusScrollBar.json
+        resources/theme/HusSlider.json
+        resources/theme/HusTabView.json
+        resources/theme/HusToolTip.json
+        resources/theme/HusSelect.json
+        resources/theme/HusMultiSelect.json
+        resources/theme/HusInput.json
+        resources/theme/HusRate.json
+        resources/theme/HusRadio.json
+        resources/theme/HusCheckBox.json
+        resources/theme/HusDrawer.json
+        resources/theme/HusCollapse.json
+        resources/theme/HusCard.json
+        resources/theme/HusPagination.json
+        resources/theme/HusPopup.json
+        resources/theme/HusTimeline.json
+        resources/theme/HusTag.json
+        resources/theme/HusTableView.json
+        resources/theme/HusMessage.json
+        resources/theme/HusAutoComplete.json
+        resources/theme/HusProgress.json
+        resources/theme/HusCarousel.json
+        resources/theme/HusBreadcrumb.json
+        resources/theme/HusImage.json
+        resources/theme/HusDateTimePicker.json
+        resources/theme/HusNotification.json
+        resources/theme/HusPopconfirm.json
+        resources/theme/HusPopover.json
+        resources/theme/HusModal.json
+        resources/theme/HusTextArea.json
+        resources/theme/HusSpin.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"

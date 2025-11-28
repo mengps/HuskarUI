@@ -20,7 +20,7 @@ Flickable {
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
-- **messageDelegate: Component** 消息文本代理：\n
+- **messageDelegate: Component** 消息文本代理，代理可访问属性：\n
   - \`parent.index: int\` 消息索引\n
   - \`parent.key: string\` 消息键\n
   - \`parent.message: string\` 消息文本\n

@@ -43,6 +43,7 @@ HusWindow {
                 created.destroy();
             created = Qt.createQmlObject(codeEdit.text, runnerBlock);
             created.parent = runnerBlock;
+            created.width = Qt.binding(() => runnerBlock.width);
         } catch (error) {
             errorEdit.text = error.message;
         }

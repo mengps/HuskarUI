@@ -212,7 +212,7 @@ static auto g_main_cpp_file = R"(
 Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
 #endif
 
-#include <husapp.h>
+#include <HuskarUI/husapp.h>
 
 int main(int argc, char *argv[])
 {
@@ -244,7 +244,7 @@ static auto g_main_add_import_cpp_file = R"(
 Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
 #endif
 
-#include <husapp.h>
+#include <HuskarUI/husapp.h>
 
 int main(int argc, char *argv[])
 {

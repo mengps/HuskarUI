@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.5.0.0)
+set(HUSKARUI_VERSION 0.5.1.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -66,6 +66,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpRadioBlock.qml
         qml/Examples/DataEntry/ExpCheckBox.qml
         qml/Examples/DataEntry/ExpAutoComplete.qml
+        qml/Examples/DataEntry/ExpInputInteger.qml
         qml/Examples/DataEntry/ExpInputNumber.qml
         qml/Examples/DataEntry/ExpMultiSelect.qml
         qml/Examples/DataEntry/ExpDateTimePicker.qml
@@ -103,6 +104,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Feedback/ExpPopconfirm.qml
         qml/Examples/Feedback/ExpPopover.qml
         qml/Examples/Feedback/ExpModal.qml
+        qml/Examples/Feedback/ExpSpin.qml
         qml/Examples/Utils/ExpAsyncHasher.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Controls/CodeBox.qml
@@ -129,8 +131,8 @@ qt_add_resources(${PROJECT_NAME} "images"
     PREFIX "/Gallery"
     FILES
         images/huskarui_icon.svg
-        images/swithc_effect1.jpg
-        images/swithc_effect2.jpg
+        images/switch_effect1.jpg
+        images/switch_effect2.jpg
 )
 
 qt_add_shaders(${PROJECT_NAME} "shaders"

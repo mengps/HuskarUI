@@ -1,5 +1,3 @@
-//pragma Singleton
-
 import QtQuick
 import HuskarUI.Basic
 
@@ -263,7 +261,14 @@ QtObject {
                     source: './Examples/DataEntry/ExpTextArea.qml',
                     addVersion: '0.5.0',
                     desc: qsTr('新增 scrollToBeginning() / scrollToEnd()。')
-                }
+                },
+                {
+                    key: 'HusInputInteger',
+                    label: qsTr('HusInputInteger 整数输入框'),
+                    source: './Examples/DataEntry/ExpInputInteger.qml',
+                    addVersion: '0.5.1',
+                    desc: qsTr('等同于 HusInputNumber，但只支持整数。')
+                },
             ]
         },
         {
@@ -472,6 +477,13 @@ QtObject {
                     source: './Examples/Feedback/ExpModal.qml',
                     addVersion: '0.4.7',
                     desc: qsTr('展示一个对话框，提供标题、内容区、操作区。')
+                },
+                {
+                    key: 'HusSpin',
+                    label: qsTr('HusSpin 加载中'),
+                    source: './Examples/Feedback/ExpSpin.qml',
+                    addVersion: '0.5.1',
+                    desc: qsTr('用于页面和区块的加载中状态。')
                 }
             ]
         },
@@ -499,12 +511,12 @@ QtObject {
             primaryTokens.push({ label: `@${token}` });
         }
         /*! 解析 Component.tokens */
-        const indexFile = `:/HuskarUI/theme/Index.json`;
+        const indexFile = `:/HuskarUI/resources/theme/Index.json`;
         const indexObject = JSON.parse(HusApi.readFileToString(indexFile));
         for (const source in indexObject.__component__) {
             const __style__ = {};
             const parseImport = (name) => {
-                const path = `:/HuskarUI/theme/${name}.json`;
+                const path = `:/HuskarUI/resources/theme/${name}.json`;
                 const fileContent = HusApi.readFileToString(path);
                 if (!fileContent) {
                     console.warn("Failed to read file:", path);
