@@ -19,6 +19,7 @@ Item {
     property int defaultLineWidth: 1
     property string defaultTimeFormat: 'yyyy-MM-dd'
     property int defaultContentFormat: Text.AutoText
+    property var locale: Qt.locale()
     property color colorNode: HusTheme.HusTimeline.colorNode
     property color colorNodeBg: HusTheme.HusTimeline.colorNodeBg
     property color colorLine: HusTheme.HusTimeline.colorLine
@@ -93,7 +94,7 @@ Item {
             font: control.timeFont
             text: {
                 if (!isNaN(model.time))
-                    return model.time.toLocaleString(Qt.locale(), model.timeFormat);
+                    return model.time.toLocaleString(control.locale, model.timeFormat);
                 else
                     return '';
             }

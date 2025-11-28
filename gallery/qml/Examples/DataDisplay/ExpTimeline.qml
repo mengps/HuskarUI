@@ -47,6 +47,7 @@ defaultNodeSize | int | 11 | 默认圆圈大小
 defaultLineWidth | int | 1 | 默认线条宽度
 defaultTimeFormat | string | 'yyyy-MM-dd' | 默认时间格式
 defaultContentFormat | enum | Text.AutoText | 默认内容文本格式(来自 Text)
+locale | Locale | - | 区域设置
 colorNode | color | - | 圆圈颜色
 colorNodeBg | color | - | 圆圈背景颜色
 colorLine | color | - | 线条颜色
