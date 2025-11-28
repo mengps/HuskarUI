@@ -5,6 +5,7 @@ import HuskarUI.Basic
 Item {
     id: control
 
+    signal valueModified()
     signal beforeActivated(index: int, var data)
     signal afterActivated(index: int, var data)
 
@@ -23,6 +24,11 @@ Item {
     property real max: Number.MAX_SAFE_INTEGER
     property real step: 1
     property int precision: 0
+    property var validator: DoubleValidator {
+        locale: control.locale.name
+        bottom: Math.min(control.min, control.max)
+        top: Math.max(control.min, control.max)
+    }
     property string prefix: ''
     property string suffix: ''
     property var upIcon: HusIcon.UpOutlined || ''
@@ -37,8 +43,9 @@ Item {
     property int initAfterLabelIndex: 0
     property string currentBeforeLabel: ''
     property string currentAfterLabel: ''
-    property var formatter: value => value.toFixed(precision)
-    property var parser: text => Number(text)
+    property var locale: Qt.locale()
+    property var formatter: (value, locale) => value.toFixed(precision)
+    property var parser: (text, locale) => Number(text)
     property int defaultHandlerWidth: 24
     property alias colorText: __input.colorText
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
@@ -114,13 +121,14 @@ Item {
             iconSize: parseInt(control.themeSource.fontSize) - 4
             iconSource: control.upIcon
             hoverCursorShape: control.value >= control.max ? Qt.ForbiddenCursor : Qt.PointingHandCursor
-            background: HusRectangle {
+            background: HusRectangleInternal {
                 topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
                 color: 'transparent'
                 border.color: __handlerRoot.colorBorder
             }
             onClicked: {
                 control.increase();
+                control.valueModified();
             }
 
             Behavior on height { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationFast } }
@@ -143,13 +151,14 @@ Item {
             iconSize: parseInt(control.themeSource.fontSize) - 4
             iconSource: control.downIcon
             hoverCursorShape: control.value <= control.min ? Qt.ForbiddenCursor : Qt.PointingHandCursor
-            background: HusRectangle {
+            background: HusRectangleInternal {
                 bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
                 color: 'transparent'
                 border.color: __handlerRoot.colorBorder
             }
             onClicked: {
                 control.decrease();
+                control.valueModified();
             }
 
             Behavior on height { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationFast } }
@@ -158,7 +167,7 @@ Item {
 
     objectName: '__HusInputNumber__'
     height: __row.implicitHeight
-    onValueChanged: __input.text = formatter(value);
+    onValueChanged: __input.text = formatter(value, control.locale);
     onPrefixChanged: valueChanged();
     onSuffixChanged: valueChanged();
     onCurrentAfterLabelChanged: valueChanged();
@@ -288,6 +297,7 @@ Item {
             rightPadding: (__suffixLoader.active ? __suffixLoader.implicitWidth : (rightClearIconPadding > 0 ? 5 : 10))
                           + (rightClearIconPadding > 0 ? 0 : __handlerLoader.implicitWidth)
                           + rightIconPadding + rightClearIconPadding
+            validator: control.validator
             background: HusRectangleInternal {
                 color: __input.colorBg
                 topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
@@ -322,25 +332,41 @@ Item {
                 TapHandler {
                     id: __tapHandler
                     enabled: (control.clearEnabled === 'active' || control.clearEnabled === true) && !control.readOnly
-                    onTapped: control.clear();
+                    onTapped: {
+                        control.clear();
+                        control.valueModified();
+                    }
                 }
             }
             onTextChanged: {
-                let v = control.parser(text);
+                let v = control.parser(text, control.locale);
                 if (v >= control.min && v <= control.max) control.value = v;
             }
             onEditingFinished: control.valueChanged();
 
-            Keys.onUpPressed: if (control.enabled && control.useKeyboard) control.increase();
-            Keys.onDownPressed: if (control.enabled && control.useKeyboard) control.decrease();
+            Keys.onUpPressed: {
+                if (control.enabled && control.useKeyboard) {
+                    control.increase();
+                    control.valueModified();
+                }
+            }
+            Keys.onDownPressed: {
+                if (control.enabled && control.useKeyboard) {
+                    control.decrease();
+                    control.valueModified();
+                }
+            }
 
             WheelHandler {
                 enabled: control.enabled && control.useWheel
                 onWheel: function(wheel) {
-                    if (wheel.angleDelta.y > 0)
+                    if (wheel.angleDelta.y > 0) {
                         control.increase();
-                    else
+                        control.valueModified();
+                    } else {
                         control.decrease();
+                        control.valueModified();
+                    }
                 }
             }
 

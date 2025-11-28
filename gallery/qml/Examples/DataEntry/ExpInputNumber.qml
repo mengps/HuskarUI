@@ -42,6 +42,7 @@ min | real | Number.MIN_SAFE_INTEGER | 最小值
 max | real | Number.MAX_SAFE_INTEGER | 最大值
 step | real | 1 | 增减步长
 precision | int | 0 | 精度(保留小数位)
+validator | Validator | DoubleValidator | 输入验证器
 prefix | string | '' | 前缀文本(图标)
 suffix | string | '' | 后缀文本(图标)
 upIcon | int丨string | HusIcon.UpOutlined | 增按钮图标
@@ -53,6 +54,7 @@ initBeforeLabelIndex | int | 0 | 初始前置列表索引
 initAfterLabelIndex | int | 0 | 初始后置列表索引
 currentBeforeLabel | sting | '' | 当前前置标签
 currentAfterLabel | sting | '' | 当前后置标签
+locale | Locale | - | 区域设置
 formatter | function | - | 格式化器(格式化数值为字符串)
 parser | function | - | 解析器(解析字符串为数值)
 defaultHandlerWidth | int | 24 | 默认增减按钮宽度
@@ -61,6 +63,7 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 input | [HusInput](internal://HusInput) | - | 访问内部输入框
 \n<br/>
 \n### 支持的信号：\n
+- \`valueModified(index: int, var data)\` 当用户通过触摸、鼠标、滚轮或按键交互式修改旋转框值时，会发出此信号。\n
 - \`beforeActivated(index: int, var data)\` 当前置为列表时，点击选择项发出\n
   - \`index\` 选择项索引\n
   - \`data\` 选择项数据\n
