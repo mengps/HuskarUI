@@ -51,6 +51,7 @@ visualMonth | int | - | 弹窗显示的月份(通常不需要使用)
 visualDay | int | - | 弹窗显示的天数(通常不需要使用)
 visualQuarter | int | - | 弹窗显示的季度(通常不需要使用)
 format | string | 'yyyy-MM-dd hh:mm:ss' | 日期时间格式
+locale | Locale | - | 区域设置
 radiusItemBg | [HusRadius](internal://HusRadius) | - | 选择项圆角
 radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗圆角
 \n<br/>

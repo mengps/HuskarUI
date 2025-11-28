@@ -43,6 +43,7 @@ HusInput {
     property int visualDay: control.currentDay
     property int visualQuarter: control.currentQuarter
 
+    property var locale: Qt.locale()
     property string format: 'yyyy-MM-dd hh:mm:ss'
 
     property HusRadius radiusItemBg: HusRadius { all: themeSource.radiusItemBg }
@@ -703,7 +704,7 @@ HusInput {
                             spacing: 0
                             year: control.visualYear
                             month: control.visualMonth
-                            locale: Qt.locale()
+                            locale: control.locale
                             delegate: Item {
                                 id: __dayItem
                                 width: __dayLoader.implicitWidth + 16 * control.sizeRatio
