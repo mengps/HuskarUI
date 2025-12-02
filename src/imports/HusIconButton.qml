@@ -17,6 +17,7 @@ HusButton {
     property int iconPosition: HusIconButton.Position_Start
     property int orientation: Qt.Horizontal
     property color colorIcon: colorText
+    property string iconFontFamily: ""
 
     objectName: '__HusIconButton__'
     contentItem: Item {
@@ -43,6 +44,7 @@ HusButton {
                     iconSource: control.loading ? HusIcon.LoadingOutlined : control.iconSource
                     verticalAlignment: Text.AlignVCenter
                     visible: !empty
+                    font.family: control.iconFontFamily || __icon.font.family  // 使用自定义字体或默认字体
 
                     Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
@@ -95,6 +97,7 @@ HusButton {
                     iconSource: control.loading ? HusIcon.LoadingOutlined : control.iconSource
                     verticalAlignment: Text.AlignVCenter
                     visible: !empty
+                    font.family: control.iconFontFamily || __icon.font.family  // 使用自定义字体或默认字体
 
                     Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
