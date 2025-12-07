@@ -41,12 +41,14 @@ HusPopover {
 
             Loader {
                 id: __confirmLoader
+                visible: active
                 active: control.confirmText !== ''
                 sourceComponent: control.confirmButtonDelegate
             }
 
             Loader {
                 id: __cancelLoader
+                visible: active
                 active: control.cancelText !== ''
                 sourceComponent: control.cancelButtonDelegate
             }

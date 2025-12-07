@@ -29,6 +29,7 @@ iconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接
 iconSize | int | - | 图标大小
 iconSpacing | int | 5 | 图标间隔
 iconPosition | enum | HusIconButton.Position_Start | 图标位置(来自 HusIconButton)
+loading | bool | false | 是否在加载中
 orientation | enum | Qt.Horizontal | 方向(Qt.Horizontal 或 Qt.Vertical)
 colorIcon | color | - | 图标颜色
                        `)

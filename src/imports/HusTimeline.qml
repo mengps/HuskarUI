@@ -243,7 +243,7 @@ Item {
                     if (control.reverse)
                         return __rootItem.index != 0;
                     else
-                        __rootItem.index !== (__listModel.count - 1);
+                        return __rootItem.index !== (__listModel.count - 1);
                 }
                 width: defaultLineWidth
                 height: parent.height - nodeLoader.height

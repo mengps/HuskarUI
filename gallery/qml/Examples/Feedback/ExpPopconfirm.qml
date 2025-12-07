@@ -38,6 +38,8 @@ Flickable {
 confirmText | string | '' | 确认文本
 cancelText | string | '' | 取消文本
 \n<br/>
+\n **注意** 需要显示给出弹出宽度，高度将根据内容自动计算
+\n<br/>
 \n### 支持的信号：\n
 - \`confirm()\` 点击确认按钮后发出\n
 - \`cancel()\` 点击取消按钮后发出\n

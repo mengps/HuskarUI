@@ -54,6 +54,7 @@ colorDescription | color | - | 描述文本颜色
 titleFont | font | - | 标题文本字体
 descriptionFont | font | - | 描述文本字体
 \n<br/>
+\n **注意** 需要显示给出弹出宽度，高度将根据内容自动计算
                        `)
         }
 
