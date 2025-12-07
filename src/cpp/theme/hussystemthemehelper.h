@@ -29,8 +29,8 @@ class HUSKARUI_EXPORT HusSystemThemeHelper : public QObject
 public:
     enum class ColorScheme {
         None = 0,
-        Dark = 1,
-        Light = 2
+        Light = 1,
+        Dark = 2,
     };
     Q_ENUM(ColorScheme);
 
