@@ -26,13 +26,13 @@ HusIconButton {
     colorBg: {
         if (enabled || noDisabledState) {
             if (isError) {
-                return control.down ? HusTheme.HusCaptionButton.colorErrorBgActive:
-                                      control.hovered ? HusTheme.HusCaptionButton.colorErrorBgHover :
-                                                        HusTheme.HusCaptionButton.colorErrorBg;
+                return control.active ? HusTheme.HusCaptionButton.colorErrorBgActive:
+                                        control.hovered ? HusTheme.HusCaptionButton.colorErrorBgHover :
+                                                          HusTheme.HusCaptionButton.colorErrorBg;
             } else {
-                return control.down ? HusTheme.HusCaptionButton.colorBgActive:
-                                      control.hovered ? HusTheme.HusCaptionButton.colorBgHover :
-                                                        HusTheme.HusCaptionButton.colorBg;
+                return control.active ? HusTheme.HusCaptionButton.colorBgActive:
+                                        control.hovered ? HusTheme.HusCaptionButton.colorBgHover :
+                                                          HusTheme.HusCaptionButton.colorBg;
             }
         } else {
             return HusTheme.HusCaptionButton.colorBgDisabled;
