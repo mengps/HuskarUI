@@ -1,3 +1,26 @@
+/*
+ * HuskarUI
+ *
+ * Copyright (C) mengps (MenPenS) (MIT License)
+ * https://github.com/mengps/HuskarUI
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * - The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ * - The Software is provided "as is", without warranty of any kind, express or
+ *   implied, including but not limited to the warranties of merchantability,
+ *   fitness for a particular purpose and noninfringement. In no event shall the
+ *   authors or copyright holders be liable for any claim, damages or other
+ *   liability, whether in an action of contract, tort or otherwise, arising from,
+ *   out of or in connection with the Software or the use or other dealings in the
+ *   Software.
+ */
+
 import QtQuick
 import QtQuick.Layouts
 import HuskarUI.Basic
@@ -16,7 +39,30 @@ HusButton {
     property int iconSpacing: 5 * sizeRatio
     property int iconPosition: HusIconButton.Position_Start
     property int orientation: Qt.Horizontal
+    property font iconFont: Qt.font({
+                                        family: 'HuskarUI-Icons',
+                                        pixelSize: parseInt(themeSource.fontSize)
+                                    })
     property color colorIcon: colorText
+
+    property Component iconDelegate: HusIconText {
+        font: control.iconFont
+        color: control.colorIcon
+        iconSize: control.iconSize
+        iconSource: control.loading ? HusIcon.LoadingOutlined : control.iconSource
+        verticalAlignment: Text.AlignVCenter
+        visible: !empty
+
+        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+
+        NumberAnimation on rotation {
+            running: control.loading
+            from: 0
+            to: 360
+            loops: Animation.Infinite
+            duration: 1000
+        }
+    }
 
     objectName: '__HusIconButton__'
     contentItem: Item {
@@ -34,25 +80,10 @@ HusButton {
                 spacing: control.iconSpacing
                 layoutDirection: control.iconPosition === HusIconButton.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
 
-                HusIconText {
-                    id: __icon
+                Loader {
                     Layout.minimumHeight: __text.implicitHeight
                     Layout.alignment: Qt.AlignVCenter
-                    color: control.colorIcon
-                    iconSize: control.iconSize
-                    iconSource: control.loading ? HusIcon.LoadingOutlined : control.iconSource
-                    verticalAlignment: Text.AlignVCenter
-                    visible: !empty
-
-                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-
-                    NumberAnimation on rotation {
-                        running: control.loading
-                        from: 0
-                        to: 360
-                        loops: Animation.Infinite
-                        duration: 1000
-                    }
+                    sourceComponent: control.iconDelegate
                 }
 
                 HusText {
@@ -86,25 +117,11 @@ HusButton {
                     }
                 }
 
-                HusIconText {
+                Loader {
                     id: __icon
                     Layout.minimumHeight: __text.implicitHeight
                     Layout.alignment: Qt.AlignHCenter
-                    color: control.colorIcon
-                    iconSize: control.iconSize
-                    iconSource: control.loading ? HusIcon.LoadingOutlined : control.iconSource
-                    verticalAlignment: Text.AlignVCenter
-                    visible: !empty
-
-                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-
-                    NumberAnimation on rotation {
-                        running: control.loading
-                        from: 0
-                        to: 360
-                        loops: Animation.Infinite
-                        duration: 1000
-                    }
+                    sourceComponent: control.iconDelegate
                 }
 
                 HusText {
