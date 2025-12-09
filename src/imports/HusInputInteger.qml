@@ -1,3 +1,26 @@
+/*
+ * HuskarUI
+ *
+ * Copyright (C) mengps (MenPenS) (MIT License)
+ * https://github.com/mengps/HuskarUI
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * - The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ * - The Software is provided "as is", without warranty of any kind, express or
+ *   implied, including but not limited to the warranties of merchantability,
+ *   fitness for a particular purpose and noninfringement. In no event shall the
+ *   authors or copyright holders be liable for any claim, damages or other
+ *   liability, whether in an action of contract, tort or otherwise, arising from,
+ *   out of or in connection with the Software or the use or other dealings in the
+ *   Software.
+ */
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
@@ -47,7 +70,7 @@ T.SpinBox {
 
     property Component beforeDelegate: HusRectangleInternal {
         enabled: control.enabled
-        width: Math.max(30, __beforeLoader.implicitWidth + 10)
+        width: Math.max(30, __beforeCompLoader.implicitWidth + 10)
         topLeftRadius: control.radiusBg.topLeft
         bottomLeftRadius: control.radiusBg.bottomLeft
         color: enabled ? control.themeSource.colorLabelBg : control.themeSource.colorLabelBgDisabled
@@ -56,7 +79,7 @@ T.SpinBox {
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
         Loader {
-            id: __beforeLoader
+            id: __beforeCompLoader
             anchors.centerIn: parent
             sourceComponent: typeof control.beforeLabel == 'string' ? __labelComp : __selectComp
             property bool isBefore: true
@@ -64,7 +87,7 @@ T.SpinBox {
     }
     property Component afterDelegate: HusRectangleInternal {
         enabled: control.enabled
-        width: Math.max(30, __afterLoader.implicitWidth + 10)
+        width: Math.max(30, __afterCompLoader.implicitWidth + 10)
         topRightRadius: control.radiusBg.topRight
         bottomRightRadius: control.radiusBg.bottomRight
         color: enabled ? control.themeSource.colorLabelBg : control.themeSource.colorLabelBgDisabled
@@ -73,7 +96,7 @@ T.SpinBox {
         Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
         Loader {
-            id: __afterLoader
+            id: __afterCompLoader
             anchors.centerIn: parent
             sourceComponent: typeof control.afterLabel == 'string' ? __labelComp : __selectComp
             property bool isBefore: false
@@ -207,7 +230,10 @@ T.SpinBox {
                             contentItem.implicitWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
+    leftPadding: __beforeLoader.active ? (__beforeLoader.implicitWidth - 1) : 0
+    rightPadding: __afterLoader.active ? (__afterLoader.implicitWidth - 1) : 0
     editable: true
+    live: true
     min: -2147483648
     max: 2147483647
     validator: IntValidator {
@@ -217,161 +243,164 @@ T.SpinBox {
     }
     valueFromText: parser
     textFromValue: formatter
-    contentItem: RowLayout {
-        id: __row
-        spacing: 0
-
-        Loader {
-            Layout.rightMargin: -1
-            Layout.fillHeight: true
-            active: control.beforeLabel?.length !== 0
-            sourceComponent: control.beforeDelegate
+    contentItem: HusInput {
+        id: __input
+        enabled: control.enabled
+        readOnly: !control.editable
+        animationEnabled: control.animationEnabled
+        leftPadding: (__prefixLoader.active ? __prefixLoader.implicitWidth : (leftClearIconPadding > 0 ? 5 : 10))
+                     + leftIconPadding + leftClearIconPadding
+        rightPadding: (__suffixLoader.active ? __suffixLoader.implicitWidth : (rightClearIconPadding > 0 ? 5 : 10))
+                      + (rightClearIconPadding > 0 ? 0 : __handlerLoader.implicitWidth)
+                      + rightIconPadding + rightClearIconPadding
+        text: control.displayText
+        validator: control.validator
+        inputMethodHints: control.inputMethodHints
+        background: HusRectangleInternal {
+            color: __input.colorBg
+            topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
+            topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
+            bottomLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.bottomLeft : 0
+            bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
         }
-
-        HusInput {
-            id: __input
-            z: 10
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            enabled: control.enabled
-            animationEnabled: control.animationEnabled
-            leftPadding: (__prefixLoader.active ? __prefixLoader.implicitWidth : (leftClearIconPadding > 0 ? 5 : 10))
-                         + leftIconPadding + leftClearIconPadding
-            rightPadding: (__suffixLoader.active ? __suffixLoader.implicitWidth : (rightClearIconPadding > 0 ? 5 : 10))
-                          + (rightClearIconPadding > 0 ? 0 : __handlerLoader.implicitWidth)
-                          + rightIconPadding + rightClearIconPadding
-            validator: control.validator
-            background: HusRectangleInternal {
-                color: __input.colorBg
-                topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
-                topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
-                bottomLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.bottomLeft : 0
-                bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
-            }
-            clearIconDelegate: HusIconText {
-                iconSource: control.clearIconSource
-                iconSize: control.clearIconSize
-                leftPadding: control.clearIconPosition === HusInput.Position_Left ? (control.leftIconPadding > 0 ? 5 : 10) * __input.sizeRatio : 0
-                rightPadding: control.clearIconPosition === HusInput.Position_Right ?
-                                  ((control.rightIconPadding > 0 ? 5 : 10) * __input.sizeRatio + __handlerLoader.implicitWidth) : 0
-                colorIcon: {
-                    if (control.enabled) {
-                        return __tapHandler.pressed ? control.themeSource.colorClearIconActive :
-                                                      __hoverHandler.hovered ? control.themeSource.colorClearIconHover :
-                                                                               control.themeSource.colorClearIcon;
-                    } else {
-                        return control.themeSource.colorClearIconDisabled;
-                    }
-                }
-
-                Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-
-                HoverHandler {
-                    id: __hoverHandler
-                    enabled: (control.clearEnabled === 'active' || control.clearEnabled === true) && !control.readOnly
-                    cursorShape: Qt.PointingHandCursor
-                }
-
-                TapHandler {
-                    id: __tapHandler
-                    enabled: (control.clearEnabled === 'active' || control.clearEnabled === true) && !control.readOnly
-                    onTapped: {
-                        control.clear();
-                        control.valueModified();
-                    }
+        clearIconDelegate: HusIconText {
+            iconSource: control.clearIconSource
+            iconSize: control.clearIconSize
+            leftPadding: control.clearIconPosition === HusInput.Position_Left ? (control.leftIconPadding > 0 ? 5 : 10) * __input.sizeRatio : 0
+            rightPadding: control.clearIconPosition === HusInput.Position_Right ?
+                              ((control.rightIconPadding > 0 ? 5 : 10) * __input.sizeRatio + __handlerLoader.implicitWidth) : 0
+            colorIcon: {
+                if (control.enabled) {
+                    return __tapHandler.pressed ? control.themeSource.colorClearIconActive :
+                                                  __hoverHandler.hovered ? control.themeSource.colorClearIconHover :
+                                                                           control.themeSource.colorClearIcon;
+                } else {
+                    return control.themeSource.colorClearIconDisabled;
                 }
             }
-            text: control.displayText
-            onTextEdited: control.valueChanged();
-            onEditingFinished: control.valueChanged();
 
-            Keys.onUpPressed: {
-                if (control.enabled && control.useKeyboard) {
-                    control.increase();
+            Behavior on colorIcon { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+
+            HoverHandler {
+                id: __hoverHandler
+                enabled: (control.clearEnabled === 'active' || control.clearEnabled === true) && !control.readOnly
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            TapHandler {
+                id: __tapHandler
+                enabled: (control.clearEnabled === 'active' || control.clearEnabled === true) && !control.readOnly
+                onTapped: {
+                    control.clear();
                     control.valueModified();
                 }
             }
-            Keys.onDownPressed: {
-                if (control.enabled && control.useKeyboard) {
+        }
+        onTextEdited: modified = true;
+
+        property bool modified: false
+
+        Keys.onUpPressed: {
+            if (control.enabled && control.useKeyboard) {
+                control.increase();
+                control.valueModified();
+            }
+        }
+        Keys.onDownPressed: {
+            if (control.enabled && control.useKeyboard) {
+                control.decrease();
+                control.valueModified();
+            }
+        }
+
+        WheelHandler {
+            enabled: control.enabled && control.useWheel
+            onWheel: function(wheel) {
+                if (wheel.angleDelta.y > 0) {
+                    control.increase();
+                    control.valueModified();
+                } else {
                     control.decrease();
                     control.valueModified();
                 }
             }
+        }
 
-            WheelHandler {
-                enabled: control.enabled && control.useWheel
-                onWheel: function(wheel) {
-                    if (wheel.angleDelta.y > 0) {
-                        control.increase();
-                        control.valueModified();
-                    } else {
-                        control.decrease();
-                        control.valueModified();
-                    }
-                }
-            }
-
-            Loader {
-                id: __prefixLoader
-                height: parent.height
-                active: control.prefix != ''
-                sourceComponent: HusText {
-                    leftPadding: 10
-                    rightPadding: 5
-                    text: control.prefix
-                    color: __input.colorText
-                    verticalAlignment: Text.AlignVCenter
-                }
-            }
-
-            Loader {
-                id: __suffixLoader
-                height: parent.height
-                anchors.right: __handlerLoader.left
-                active: control.suffix != ''
-                sourceComponent: HusText {
-                    leftPadding: 5
-                    rightPadding: 10
-                    text: control.suffix
-                    color: __input.colorText
-                    verticalAlignment: Text.AlignVCenter
-                }
-            }
-
-            Loader {
-                id: __handlerLoader
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                active: control.showHandler && !__input.readOnly
-                sourceComponent: control.handlerDelegate
-            }
-
-            HusRectangleInternal {
-                anchors.fill: parent
-                color: 'transparent'
-                border.color: __input.colorBorder
-                topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
-                bottomLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.bottomLeft : 0
-                topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
-                bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
+        Loader {
+            id: __prefixLoader
+            height: parent.height
+            active: control.prefix != ''
+            sourceComponent: HusText {
+                leftPadding: 10
+                rightPadding: 5
+                text: control.prefix
+                color: __input.colorText
+                verticalAlignment: Text.AlignVCenter
             }
         }
 
         Loader {
-            Layout.leftMargin: -1
-            Layout.fillHeight: true
-            active: control.afterLabel?.length !== 0
-            sourceComponent: control.afterDelegate
+            id: __suffixLoader
+            height: parent.height
+            anchors.right: __handlerLoader.left
+            active: control.suffix != ''
+            sourceComponent: HusText {
+                leftPadding: 5
+                rightPadding: 10
+                text: control.suffix
+                color: __input.colorText
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
+
+        Loader {
+            id: __handlerLoader
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            active: control.showHandler && !__input.readOnly
+            sourceComponent: control.handlerDelegate
+        }
+
+        HusRectangleInternal {
+            anchors.fill: parent
+            color: 'transparent'
+            border.color: __input.colorBorder
+            topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
+            bottomLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.bottomLeft : 0
+            topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
+            bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
         }
     }
     background: Item { }
 
+    onValueChanged: {
+        if (__input.modified) {
+            __input.modified = false;
+            control.valueModified();
+        }
+    }
     onPrefixChanged: valueChanged();
     onSuffixChanged: valueChanged();
     onCurrentAfterLabelChanged: valueChanged();
     onCurrentBeforeLabelChanged: valueChanged();
     Component.onCompleted: valueChanged();
+
+    Loader {
+        id: __beforeLoader
+        height: parent.height
+        anchors.left: parent.left
+        active: control.beforeLabel?.length !== 0
+        sourceComponent: control.beforeDelegate
+    }
+
+    Loader {
+        id: __afterLoader
+        height: parent.height
+        anchors.right: parent.right
+        active: control.afterLabel?.length !== 0
+        sourceComponent: control.afterDelegate
+    }
 
     Component {
         id: __selectComp
