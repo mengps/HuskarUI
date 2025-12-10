@@ -15,7 +15,7 @@ Flickable {
 
         Description {
             desc: qsTr(`
-# HusTextArea 输入框 \n
+# HusTextArea 文本域 \n
 通过鼠标或键盘输入内容，是最基础的表单域的包装。\n
 * **继承自 { Item }**\n
 \n<br/>
