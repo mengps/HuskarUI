@@ -35,13 +35,13 @@ HusButton {
 
     property bool loading: false
     property var iconSource: 0 ?? ''
-    property int iconSize: parseInt(HusTheme.HusButton.fontSize)
+    property int iconSize: parseInt(themeSource.fontSize)
     property int iconSpacing: 5 * sizeRatio
     property int iconPosition: HusIconButton.Position_Start
     property int orientation: Qt.Horizontal
     property font iconFont: Qt.font({
                                         family: 'HuskarUI-Icons',
-                                        pixelSize: parseInt(themeSource.fontSize)
+                                        pixelSize: iconSize
                                     })
     property color colorIcon: colorText
 

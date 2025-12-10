@@ -20,7 +20,7 @@ Flickable {
 * **继承自 { [HusButton](internal://HusButton) }**\n
 \n<br/>
 \n### 支持的代理：\n
-- 无\n
+- **iconDelegate: Component** 图标代理\n
 \n<br/>
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
@@ -31,6 +31,7 @@ iconSpacing | int | 5 | 图标间隔
 iconPosition | enum | HusIconButton.Position_Start | 图标位置(来自 HusIconButton)
 loading | bool | false | 是否在加载中
 orientation | enum | Qt.Horizontal | 方向(Qt.Horizontal 或 Qt.Vertical)
+iconFont | font | 'HuskarUI-Icons' | 图标字体
 colorIcon | color | - | 图标颜色
                        `)
         }
