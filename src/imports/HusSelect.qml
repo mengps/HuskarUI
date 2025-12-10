@@ -1,3 +1,26 @@
+/*
+ * HuskarUI
+ *
+ * Copyright (C) mengps (MenPenS) (MIT License)
+ * https://github.com/mengps/HuskarUI
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * - The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ * - The Software is provided "as is", without warranty of any kind, express or
+ *   implied, including but not limited to the warranties of merchantability,
+ *   fitness for a particular purpose and noninfringement. In no event shall the
+ *   authors or copyright holders be liable for any claim, damages or other
+ *   liability, whether in an action of contract, tort or otherwise, arising from,
+ *   out of or in connection with the Software or the use or other dealings in the
+ *   Software.
+ */
+
 import QtQuick
 import QtQuick.Templates as T
 import HuskarUI.Basic
@@ -30,7 +53,6 @@ T.ComboBox {
     property var themeSource: HusTheme.HusSelect
 
     property Component indicatorDelegate: HusIconText {
-        leftPadding: 4
         rightPadding: 8
         colorIcon: {
             if (control.enabled) {
@@ -116,13 +138,12 @@ T.ComboBox {
         sourceComponent: indicatorDelegate
     }
     contentItem: HusInput {
-        leftPadding: !control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
-        rightPadding: control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1
         topPadding: 0
         bottomPadding: 0
         text: control.editable ? control.editText : control.displayText
         readOnly: !control.editable
         autoScroll: control.editable
+        font: control.font
         inputMethodHints: control.inputMethodHints
         validator: control.validator
         selectByMouse: control.selectTextByMouse
@@ -235,8 +256,8 @@ T.ComboBox {
                     text: __popupDelegate.model[control.textRole]
                     color: __popupDelegate.enabled ? control.themeSource.colorItemText : control.themeSource.colorItemTextDisabled
                     font {
-                        family: control.themeSource.fontFamily
-                        pixelSize: parseInt(control.themeSource.fontSize)
+                        family: control.font.family
+                        pixelSize: control.font.pixelSize
                         weight: highlighted ? Font.DemiBold : Font.Normal
                     }
                     elide: Text.ElideRight
