@@ -1,3 +1,26 @@
+/*
+ * HuskarUI
+ *
+ * Copyright (C) mengps (MenPenS) (MIT License)
+ * https://github.com/mengps/HuskarUI
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * - The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ * - The Software is provided "as is", without warranty of any kind, express or
+ *   implied, including but not limited to the warranties of merchantability,
+ *   fitness for a particular purpose and noninfringement. In no event shall the
+ *   authors or copyright holders be liable for any claim, damages or other
+ *   liability, whether in an action of contract, tort or otherwise, arising from,
+ *   out of or in connection with the Software or the use or other dealings in the
+ *   Software.
+ */
+
 import QtQuick
 import QtQuick.Layouts
 import HuskarUI.Basic
@@ -97,6 +120,7 @@ Item {
         property real hoverHeight: height * 0.6
         property real noHoverHeight: height * 0.4
         property color colorBorder: enabled ? control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
+        property color colorHandlerBg: enabled ? control.themeSource.colorBg : 'transparent'
 
         Behavior on width {
             enabled: control.animationEnabled;
@@ -123,7 +147,7 @@ Item {
             hoverCursorShape: control.value >= control.max ? Qt.ForbiddenCursor : Qt.PointingHandCursor
             background: HusRectangleInternal {
                 topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
-                color: 'transparent'
+                color: __handlerRoot.colorHandlerBg
                 border.color: __handlerRoot.colorBorder
             }
             onClicked: {
@@ -153,7 +177,7 @@ Item {
             hoverCursorShape: control.value <= control.min ? Qt.ForbiddenCursor : Qt.PointingHandCursor
             background: HusRectangleInternal {
                 bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
-                color: 'transparent'
+                color: __handlerRoot.colorHandlerBg
                 border.color: __handlerRoot.colorBorder
             }
             onClicked: {
@@ -295,7 +319,6 @@ Item {
             leftPadding: (__prefixLoader.active ? __prefixLoader.implicitWidth : (leftClearIconPadding > 0 ? 5 : 10))
                          + leftIconPadding + leftClearIconPadding
             rightPadding: (__suffixLoader.active ? __suffixLoader.implicitWidth : (rightClearIconPadding > 0 ? 5 : 10))
-                          + (rightClearIconPadding > 0 ? 0 : __handlerLoader.implicitWidth)
                           + rightIconPadding + rightClearIconPadding
             validator: control.validator
             background: HusRectangleInternal {
