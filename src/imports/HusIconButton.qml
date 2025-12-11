@@ -76,27 +76,28 @@ HusButton {
             id: __horLoader
             anchors.centerIn: parent
             active: control.orientation === Qt.Horizontal
-            sourceComponent: RowLayout {
+            sourceComponent: Row {
                 spacing: control.iconSpacing
                 layoutDirection: control.iconPosition === HusIconButton.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
 
                 Loader {
-                    Layout.minimumHeight: __text.implicitHeight
-                    Layout.alignment: Qt.AlignVCenter
+                    anchors.verticalCenter: parent.verticalCenter
                     sourceComponent: control.iconDelegate
                 }
 
-                HusText {
-                    id: __text
-                    Layout.alignment: Qt.AlignVCenter
-                    text: control.text
-                    font: control.font
-                    lineHeight: HusTheme.HusButton.fontLineHeight
-                    color: control.colorText
-                    elide: Text.ElideRight
-                    visible: text !== ''
+                Loader {
+                    anchors.verticalCenter: parent.verticalCenter
+                    active: control.text !== ''
+                    visible: active
+                    sourceComponent: HusText {
+                        text: control.text
+                        font: control.font
+                        lineHeight: HusTheme.HusButton.fontLineHeight
+                        color: control.colorText
+                        elide: Text.ElideRight
 
-                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+                        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+                    }
                 }
             }
         }
@@ -105,36 +106,38 @@ HusButton {
             id: __verLoader
             active: control.orientation === Qt.Vertical
             anchors.centerIn: parent
-            sourceComponent: ColumnLayout {
+            sourceComponent: Column {
                 spacing: control.iconSpacing
                 Component.onCompleted: relayout();
 
                 function relayout() {
                     if (control.iconPosition === HusIconButton.Position_Start) {
-                        children = [__icon, __text];
+                        children = [__icon, __vText];
                     } else {
-                        children = [__text, __icon];
+                        children = [__vText, __icon];
                     }
                 }
 
                 Loader {
                     id: __icon
-                    Layout.minimumHeight: __text.implicitHeight
-                    Layout.alignment: Qt.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     sourceComponent: control.iconDelegate
                 }
 
-                HusText {
-                    id: __text
-                    Layout.alignment: Qt.AlignHCenter
-                    text: control.text
-                    font: control.font
-                    lineHeight: HusTheme.HusButton.fontLineHeight
-                    color: control.colorText
-                    elide: Text.ElideRight
-                    visible: text !== ''
+                Loader {
+                    id: __vText
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    active: control.text !== ''
+                    visible: active
+                    sourceComponent: HusText {
+                        text: control.text
+                        font: control.font
+                        lineHeight: HusTheme.HusButton.fontLineHeight
+                        color: control.colorText
+                        elide: Text.ElideRight
 
-                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+                        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+                    }
                 }
             }
         }
