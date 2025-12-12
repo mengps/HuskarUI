@@ -106,6 +106,7 @@ Rectangle {
             titleAlign: HusDivider.Align_Center
             titleDelegate: Row {
                 spacing: 10
+
                 HusIconButton {
                     padding: 4
                     topPadding: 4
@@ -113,9 +114,10 @@ Rectangle {
                     onClicked: {
                         codeText.expanded = !codeText.expanded;
                     }
-                    contentItem: Item {
+                    iconDelegate: Item {
                         implicitWidth: HusTheme.Primary.fontPrimarySizeHeading4
                         implicitHeight: implicitWidth
+
                         Row {
                             height: parent.implicitHeight
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -147,6 +149,7 @@ Rectangle {
                         text: codeText.expanded ? qsTr('收起代码') : qsTr('展开代码')
                     }
                 }
+
                 HusIconButton {
                     padding: 4
                     topPadding: 4
@@ -166,6 +169,7 @@ Rectangle {
                         text: qsTr('运行代码')
                     }
                 }
+
                 HusIconButton {
                     padding: 4
                     topPadding: 4
