@@ -81,14 +81,15 @@ HusButton {
                 layoutDirection: control.iconPosition === HusIconButton.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
 
                 Loader {
-                    height: Math.max(implicitHeight, __hText.implicitHeight)
+                    id: __hIcon
+                    height: Math.max(__hIcon.implicitHeight, __hText.implicitHeight)
                     anchors.verticalCenter: parent.verticalCenter
                     sourceComponent: control.iconDelegate
                 }
 
                 HusText {
                     id: __hText
-                    Layout.alignment: Qt.AlignVCenter
+                    anchors.verticalCenter: parent.verticalCenter
                     text: control.text
                     font: control.font
                     lineHeight: HusTheme.HusButton.fontLineHeight
@@ -111,22 +112,22 @@ HusButton {
 
                 function relayout() {
                     if (control.iconPosition === HusIconButton.Position_Start) {
-                        children = [__icon, __vText];
+                        children = [__vIcon, __vText];
                     } else {
-                        children = [__vText, __icon];
+                        children = [__vText, __vIcon];
                     }
                 }
 
                 Loader {
-                    id: __icon
-                    height: Math.max(implicitHeight, __hText.implicitHeight)
+                    id: __vIcon
+                    height: Math.max(__vIcon.implicitHeight, __vText.implicitHeight)
                     anchors.horizontalCenter: parent.horizontalCenter
                     sourceComponent: control.iconDelegate
                 }
 
                 HusText {
                     id: __vText
-                    Layout.alignment: Qt.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     text: control.text
                     font: control.font
                     lineHeight: HusTheme.HusButton.fontLineHeight
