@@ -30,7 +30,7 @@ Item {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property alias wheelEnabled: __scrollView.wheelEnabled
-    readonly property bool active: __scrollView.hovered || __scrollView.activeFocus
+    property bool active: __scrollView.hovered || __scrollView.visualFocus
     readonly property alias hovered: __scrollView.hovered
     property alias topPadding: __scrollView.topPadding
     property alias bottomPadding: __scrollView.bottomPadding

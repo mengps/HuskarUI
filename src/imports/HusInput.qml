@@ -37,7 +37,7 @@ T.TextField {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property bool darkMode: HusTheme.isDark
-    readonly property bool active: hovered || activeFocus
+    property bool active: hovered || activeFocus
     property var iconSource: 0 ?? ''
     property int iconSize: parseInt(themeSource.fontSizeIcon) * sizeRatio
     property int iconPosition: HusInput.Position_Left

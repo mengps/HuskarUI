@@ -27,7 +27,7 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 wheelEnabled | bool | - | 是否启用鼠标滚动
-active | bool(readonly) | - | 是否处于激活状态
+active | bool | - | 是否处于激活状态
 hovered | bool(readonly) | - | 鼠标是否悬浮
 topPadding | int | 6 | 上边距
 bottomPadding | int | 6 | 下边距

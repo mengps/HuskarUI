@@ -32,7 +32,7 @@ T.Control {
     signal change(color: color)
 
     property bool animationEnabled: HusTheme.animationEnabled
-    readonly property bool active: hovered || activeFocus
+    property bool active: hovered || visualFocus
     readonly property alias value: __colorPickerPanel.value
     property alias defaultValue: __colorPickerPanel.defaultValue
     property alias autoChange: __colorPickerPanel.autoChange
@@ -55,10 +55,8 @@ T.Control {
     property alias presetsLayoutDirection: __colorPickerPanel.presetsLayoutDirection
     property alias titleFont: __colorPickerPanel.titleFont
     property alias inputFont: __colorPickerPanel.inputFont
-    property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
-    property color colorBorder: enabled ?
-                                    active ? themeSource.colorBorderHover :
-                                             themeSource.colorBorder : themeSource.colorBorderDisabled
+    property alias colorBg: __colorPickerPanel.colorBg
+    property alias colorBorder: __colorPickerPanel.colorBorder
     property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     property alias colorInput: __colorPickerPanel.colorInput
     property alias colorTitle: __colorPickerPanel.colorTitle
@@ -149,9 +147,6 @@ T.Control {
         border.color: control.colorBorder
     }
 
-    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-
     HoverHandler {
         cursorShape: Qt.PointingHandCursor
     }
@@ -211,6 +206,7 @@ T.Control {
                 id: __colorPickerPanel
                 animationEnabled: control.animationEnabled
                 themeSource: control.themeSource
+                active: control.active
                 locale: control.locale
                 background: Item { }
                 onChange: color => control.change(color);

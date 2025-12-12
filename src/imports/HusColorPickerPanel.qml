@@ -32,7 +32,7 @@ T.Control {
     signal change(color: color)
 
     property bool animationEnabled: HusTheme.animationEnabled
-    readonly property bool active: hovered || activeFocus
+    property bool active: hovered || visualFocus
     readonly property color value: autoChange ? __private.value : changeValue
     property color defaultValue: '#fff'
     property bool autoChange: true
@@ -357,6 +357,7 @@ T.Control {
                 Layout.rightMargin: -5
                 leftPadding: 0
                 rightPadding: 0
+                animationEnabled: control.animationEnabled
                 font: control.inputFont
                 clearEnabled: false
                 valueRole: 'label'
@@ -382,6 +383,7 @@ T.Control {
                     padding: 4
                     topPadding: 4
                     bottomPadding: 4
+                    animationEnabled: control.animationEnabled
                     iconSource: 1
                     iconDelegate: HusText {
                         leftPadding: 12
@@ -418,6 +420,7 @@ T.Control {
                         input.padding: 2
                         input.topPadding: 4
                         input.bottomPadding: 4
+                        animationEnabled: control.animationEnabled
                         useWheel: true
                         useKeyboard: true
                         min: 0
@@ -433,6 +436,7 @@ T.Control {
                         input.padding: 2
                         input.topPadding: 4
                         input.bottomPadding: 4
+                        animationEnabled: control.animationEnabled
                         useWheel: true
                         useKeyboard: true
                         min: 0
@@ -450,6 +454,7 @@ T.Control {
                         input.padding: 2
                         input.topPadding: 4
                         input.bottomPadding: 4
+                        animationEnabled: control.animationEnabled
                         useWheel: true
                         useKeyboard: true
                         min: 0
@@ -495,6 +500,7 @@ T.Control {
                         input.padding: 2
                         input.topPadding: 4
                         input.bottomPadding: 4
+                        animationEnabled: control.animationEnabled
                         useWheel: true
                         useKeyboard: true
                         min: 0
@@ -510,6 +516,7 @@ T.Control {
                         input.padding: 2
                         input.topPadding: 4
                         input.bottomPadding: 4
+                        animationEnabled: control.animationEnabled
                         useWheel: true
                         useKeyboard: true
                         min: 0
@@ -525,6 +532,7 @@ T.Control {
                         input.padding: 2
                         input.topPadding: 4
                         input.bottomPadding: 4
+                        animationEnabled: control.animationEnabled
                         useWheel: true
                         useKeyboard: true
                         min: 0
@@ -554,6 +562,7 @@ T.Control {
                     input.padding: 4
                     input.topPadding: 4
                     input.bottomPadding: 4
+                    animationEnabled: control.animationEnabled
                     useWheel: true
                     useKeyboard: true
                     min: 0
@@ -711,7 +720,10 @@ T.Control {
                 Layout.fillHeight: true
                 active: control.presets.length > 0
                 visible: active
-                sourceComponent: HusDivider { orientation: Qt.Vertical }
+                sourceComponent: HusDivider {
+                    animationEnabled: control.animationEnabled
+                    orientation: Qt.Vertical
+                }
             }
 
             Loader {
@@ -742,7 +754,9 @@ T.Control {
                 Layout.preferredHeight: 1
                 active: control.presets.length > 0
                 visible: active
-                sourceComponent: HusDivider { }
+                sourceComponent: HusDivider {
+                    animationEnabled: control.animationEnabled
+                }
             }
 
             Loader {

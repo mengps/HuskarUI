@@ -27,6 +27,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+active | bool | - | 是否处于激活状态
 value | color | '' | 当前的颜色值(autoChange为false时等于changeValue)
 defaultValue | color | '#fff' | 默认颜色值
 autoChange | bool | true | 默认颜色值

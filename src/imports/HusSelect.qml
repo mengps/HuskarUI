@@ -31,7 +31,7 @@ T.ComboBox {
     signal clickClear()
 
     property bool animationEnabled: HusTheme.animationEnabled
-    readonly property bool active: hovered || activeFocus
+    property bool active: hovered || visualFocus
     property int hoverCursorShape: Qt.PointingHandCursor
     property bool clearEnabled: true
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
