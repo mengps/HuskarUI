@@ -206,6 +206,8 @@ filterInput | string | 单元格的过滤输入
 - \`getCellData(rowIndex: int, columnIndex: int): var\` 获取当前模型 \`(rowIndex, columnIndex)\` 处的单元数据。\n
 - \`setCellData(rowIndex: int, columnIndex: int, data: var)\` 设置当前模型 \`(rowIndex, columnIndex)\` 处的单元数据为 \`data\`, 不会更改 \`initModel\`。\n
 - \`getTableModel(): Array\` 获取当前表格模型(排序&过滤后的数据)。\n
+- \`rowCount(): int\` 获取当前模型的行数(排序&过滤后的数据)。\n
+- \`columnCount(): int\` 获取当前模型的列数(排序&过滤后的数据)。\n
                        `)
         }
 

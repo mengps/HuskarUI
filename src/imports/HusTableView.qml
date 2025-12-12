@@ -1,3 +1,26 @@
+/*
+ * HuskarUI
+ *
+ * Copyright (C) mengps (MenPenS) (MIT License)
+ * https://github.com/mengps/HuskarUI
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * - The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ * - The Software is provided "as is", without warranty of any kind, express or
+ *   implied, including but not limited to the warranties of merchantability,
+ *   fitness for a particular purpose and noninfringement. In no event shall the
+ *   authors or copyright holders be liable for any claim, damages or other
+ *   liability, whether in an action of contract, tort or otherwise, arising from,
+ *   out of or in connection with the Software or the use or other dealings in the
+ *   Software.
+ */
+
 import QtQuick
 import QtQuick.Templates as T
 import Qt.labs.qmlmodels
@@ -463,6 +486,14 @@ HusRectangle {
         return [...__private.model];
     }
 
+    function rowCount() {
+        return __cellModel.rowCount();
+    }
+
+    function columnCount() {
+        return __cellModel.columnCount();
+    }
+
     function appendRow(object: var) {
         __cellModel.appendRow(__private.toCellObject(object));
         __private.model.push(object);
@@ -485,8 +516,8 @@ HusRectangle {
     function moveRow(fromRowIndex, toRowIndex, count = 1) {
         if (fromRowIndex >= 0 && fromRowIndex < __private.model.length &&
                 toRowIndex >= 0 && toRowIndex < __private.model.length) {
-            const objects = __private.model.splice(from, count);
             __cellModel.moveRow(fromRowIndex, toRowIndex, count);
+            const objects = __private.model.splice(from, count);
             __private.model.splice(to, 0, ...objects);
             __private.updateRowHeader();
         }
