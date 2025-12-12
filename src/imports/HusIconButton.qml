@@ -81,23 +81,22 @@ HusButton {
                 layoutDirection: control.iconPosition === HusIconButton.Position_Start ? Qt.LeftToRight : Qt.RightToLeft
 
                 Loader {
+                    height: Math.max(implicitHeight, __hText.implicitHeight)
                     anchors.verticalCenter: parent.verticalCenter
                     sourceComponent: control.iconDelegate
                 }
 
-                Loader {
-                    anchors.verticalCenter: parent.verticalCenter
-                    active: control.text !== ''
-                    visible: active
-                    sourceComponent: HusText {
-                        text: control.text
-                        font: control.font
-                        lineHeight: HusTheme.HusButton.fontLineHeight
-                        color: control.colorText
-                        elide: Text.ElideRight
+                HusText {
+                    id: __hText
+                    Layout.alignment: Qt.AlignVCenter
+                    text: control.text
+                    font: control.font
+                    lineHeight: HusTheme.HusButton.fontLineHeight
+                    color: control.colorText
+                    elide: Text.ElideRight
+                    visible: text !== ''
 
-                        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-                    }
+                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
                 }
             }
         }
@@ -120,24 +119,22 @@ HusButton {
 
                 Loader {
                     id: __icon
+                    height: Math.max(implicitHeight, __hText.implicitHeight)
                     anchors.horizontalCenter: parent.horizontalCenter
                     sourceComponent: control.iconDelegate
                 }
 
-                Loader {
+                HusText {
                     id: __vText
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    active: control.text !== ''
-                    visible: active
-                    sourceComponent: HusText {
-                        text: control.text
-                        font: control.font
-                        lineHeight: HusTheme.HusButton.fontLineHeight
-                        color: control.colorText
-                        elide: Text.ElideRight
+                    Layout.alignment: Qt.AlignHCenter
+                    text: control.text
+                    font: control.font
+                    lineHeight: HusTheme.HusButton.fontLineHeight
+                    color: control.colorText
+                    elide: Text.ElideRight
+                    visible: text !== ''
 
-                        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-                    }
+                    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
                 }
             }
         }
