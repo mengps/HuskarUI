@@ -42,8 +42,8 @@ QtObject {
                     key: 'HusIconButton',
                     label: qsTr('HusIconButton 图标按钮'),
                     source: './Examples/General/ExpIconButton.qml',
-                    updateVersion: '0.4.9.1',
-                    desc: qsTr('新增 orientation 方向。')
+                    updateVersion: '0.5.2',
+                    desc: qsTr('新增 iconFont 图标字体。\n新增 iconDelegate 图标代理。')
                 },
                 {
                     key: 'HusCaptionButton',
@@ -269,6 +269,20 @@ QtObject {
                     addVersion: '0.5.1',
                     desc: qsTr('等同于 HusInputNumber，但只支持整数。')
                 },
+                {
+                    key: 'HusColorPickerPanel',
+                    label: qsTr('HusColorPickerPanel 颜色选择器面板'),
+                    source: './Examples/DataEntry/ExpColorPickerPanel.qml',
+                    addVersion: '0.5.2',
+                    desc: qsTr('用于选择颜色的面板。')
+                },
+                {
+                    key: 'HusColorPicker',
+                    label: qsTr('HusColorPicker 颜色选择器'),
+                    source: './Examples/DataEntry/ExpColorPicker.qml',
+                    addVersion: '0.5.2',
+                    desc: qsTr('用于选择颜色的弹出式窗口。')
+                },
             ]
         },
         {
@@ -379,6 +393,20 @@ QtObject {
                     source: './Examples/DataDisplay/ExpQrCode.qml',
                     addVersion: '0.5.0',
                     desc: qsTr('能够将文本转换生成二维码的组件，支持自定义配色和 Logo 配置。')
+                },
+                {
+                    key: 'HusAnimatedImage',
+                    label: qsTr('HusAnimatedImage 动态图片'),
+                    source: './Examples/DataDisplay/ExpAnimatedImage.qml',
+                    addVersion: '0.5.2',
+                    desc: qsTr('可预览的动态图片。')
+                },
+                {
+                    key: 'HusCheckerBoard',
+                    label: qsTr('HusCheckerBoard 棋盘格'),
+                    source: './Examples/DataDisplay/ExpCheckerBoard.qml',
+                    addVersion: '0.5.2',
+                    desc: qsTr('用于创建双色棋盘格。')
                 },
             ]
         },
