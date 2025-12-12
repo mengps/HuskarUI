@@ -1,3 +1,26 @@
+/*
+ * HuskarUI
+ *
+ * Copyright (C) mengps (MenPenS) (MIT License)
+ * https://github.com/mengps/HuskarUI
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * - The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ * - The Software is provided "as is", without warranty of any kind, express or
+ *   implied, including but not limited to the warranties of merchantability,
+ *   fitness for a particular purpose and noninfringement. In no event shall the
+ *   authors or copyright holders be liable for any claim, damages or other
+ *   liability, whether in an action of contract, tort or otherwise, arising from,
+ *   out of or in connection with the Software or the use or other dealings in the
+ *   Software.
+ */
+
 import QtQuick
 import QtQuick.Effects
 
@@ -293,7 +316,7 @@ Item {
             property real _yPos: Math.sin(__private.inAnimation * Math.PI * 35) * width * 0.02 * (0.5 - Math.abs(0.5 - __private.inAnimation))
 
             Image {
-                id: thunderMask
+                id: __thunderMask
                 source: control.maskSource || 'qrc:/HuskarUI/resources/images/stripes.png'
                 scale: control.maskScaleEnabled ? control.maskScale : 1
                 rotation: control.maskRotationEnabled ? control.maskRotation : 0
@@ -318,7 +341,7 @@ Item {
                 brightness: __private.inAnimation
 
                 maskEnabled: true
-                maskSource: thunderMask
+                maskSource: __thunderMask
                 maskThresholdMin: __private.inAnimation * 0.9
                 maskSpreadAtMin: 0.2
                 maskThresholdMax: 1.0
@@ -350,7 +373,7 @@ Item {
                 brightness: __private.outAnimation
 
                 maskEnabled: true
-                maskSource: thunderMask
+                maskSource: __thunderMask
                 maskThresholdMin: __private.outAnimation * 0.6
                 maskSpreadAtMin: 0.2
                 maskThresholdMax: 1.0

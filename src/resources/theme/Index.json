@@ -190,6 +190,7 @@
         "HusPopover": ":/HuskarUI/resources/theme/HusPopover.json",
         "HusModal": ":/HuskarUI/resources/theme/HusModal.json",
         "HusTextArea": ":/HuskarUI/resources/theme/HusTextArea.json",
-        "HusSpin": ":/HuskarUI/resources/theme/HusSpin.json"
+        "HusSpin": ":/HuskarUI/resources/theme/HusSpin.json",
+        "HusColorPicker": ":/HuskarUI/resources/theme/HusColorPicker.json"
     }
 }
