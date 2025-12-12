@@ -68,7 +68,7 @@ HusWindow {
                     Timer {
                         running: true
                         repeat: true
-                        interval: 10
+                        interval: 16
                         onTriggered: parent.iTime += 0.03;
                     }
                 }
@@ -459,6 +459,7 @@ HusWindow {
                 colorText: HusTheme.Primary.colorTextBase
                 iconSize: galleryMenu.defaultMenuIconSize
                 iconSource: HusIcon.PlusCircleOutlined
+                visible: HusApp.libName() === 'HuskarUI'
                 onClicked: {
                     if (!creatorLoader.active)
                         creatorLoader.active = true;

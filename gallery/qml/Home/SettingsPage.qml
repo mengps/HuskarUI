@@ -54,7 +54,7 @@ HusWindow {
                 Timer {
                     running: true
                     repeat: true
-                    interval: 10
+                    interval: 16
                     onTriggered: parent.iTime += 0.03;
                 }
             }
