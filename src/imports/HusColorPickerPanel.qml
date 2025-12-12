@@ -97,7 +97,7 @@ T.Control {
             const a =  Math.round(color.a * 100);
             return a >= 100 ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${color.a.toFixed(2)})`;
         } else {
-            return `rgb(${r}, ${g}%, ${b}%)`;
+            return `rgb(${r}, ${g}, ${b})`;
         }
     }
 
