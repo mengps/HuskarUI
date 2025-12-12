@@ -78,7 +78,7 @@ T.Control {
     }
 
     function toHsvString(color: color): string {
-        const h = Math.round(color.hsvHue * 360);
+        const h = Math.round(color.hsvHue * 359);
         const s = Math.round(color.hsvSaturation * 100);
         const v = Math.round(color.hsvValue * 100);
         if (control.alphaEnabled) {
