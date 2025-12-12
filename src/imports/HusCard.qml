@@ -89,6 +89,7 @@ Rectangle {
             width: parent.width;
             height: 1
             anchors.bottom: parent.bottom
+            animationEnabled: control.animationEnabled
             visible: control.coverSource == ''
         }
     }
