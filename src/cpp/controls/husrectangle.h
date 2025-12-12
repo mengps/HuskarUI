@@ -136,7 +136,7 @@ private:
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
-# include <private/qquickrectangle_p.h>
+# include <QtQuick/private/qquickrectangle_p.h>
 
 /*! 内部矩形, 作为高版本基础控件时在内部使用, 但无法使用 border.style */
 class HusRectangleInternal: public QQuickRectangle

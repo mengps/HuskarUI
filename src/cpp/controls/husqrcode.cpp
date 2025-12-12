@@ -31,7 +31,7 @@
 #include <QtQml/QQmlEngine>
 #include <QtQuick/QSGImageNode>
 
-#include <private/qqmlglobal_p.h>
+#include <QtQml/private/qqmlglobal_p.h>
 
 Q_LOGGING_CATEGORY(lcHusQrCode, "huskarui.basic.qrcode");
 

@@ -28,9 +28,9 @@
 #include <QtGui/QPainterPath>
 #include <QtQml/QQmlInfo>
 
-#include <private/qqmlmetatype_p.h>
-#include <private/qqmlglobal_p.h>
-#include <private/qquickrectangle_p.h>
+#include <QtQml/private/qqmlmetatype_p.h>
+#include <QtQml/private/qqmlglobal_p.h>
+#include <QtQuick/private/qquickrectangle_p.h>
 
 class HusRectanglePrivate
 {

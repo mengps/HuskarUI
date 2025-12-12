@@ -31,8 +31,8 @@
 
 /*
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0) && defined(Q_OS_WIN)
-# include <private/qguiapplication_p.h>
-# include <qpa/qplatformintegration.h>
+# include <QtGui/private/qguiapplication_p.h>
+# include <QtGui/qpa/qplatformintegration.h>
 #endif
 */
 
