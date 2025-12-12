@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(HUSKARUI_VERSION_MAJOR 0)
 set(HUSKARUI_VERSION_MINOR 5)
-set(HUSKARUI_VERSION_PATCH 1)
+set(HUSKARUI_VERSION_PATCH 2)
 set(HUSKARUI_VERSION_TWEAK 0)
 set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
 
@@ -155,8 +155,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusContextMenu.qml
         imports/HusBreadcrumb.qml
         imports/HusInputNumber.qml imports/HusInputInteger.qml
-        imports/HusImage.qml
-        imports/HusImagePreview.qml
+        imports/HusImage.qml imports/HusAnimatedImage.qml imports/HusImagePreview.qml
         imports/HusMultiSelect.qml
         imports/HusDateTimePicker.qml
         imports/HusShadow.qml
@@ -166,6 +165,8 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusModal.qml
         imports/HusTextArea.qml
         imports/HusSpin.qml
+        imports/HusCheckerBoard.qml
+        imports/HusColorPickerPanel.qml imports/HusColorPicker.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -235,6 +236,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         resources/theme/HusModal.json
         resources/theme/HusTextArea.json
         resources/theme/HusSpin.json
+        resources/theme/HusColorPicker.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
