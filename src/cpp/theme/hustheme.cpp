@@ -505,6 +505,7 @@ void HusThemePrivate::registerDefaultComponentTheme(const QString &componentName
             ADD_COMPONENT_CASE(HusModal)
             ADD_COMPONENT_CASE(HusTextArea)
             ADD_COMPONENT_CASE(HusSpin)
+            ADD_COMPONENT_CASE(HusColorPicker)
         default:
             break;
         }

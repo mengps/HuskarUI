@@ -66,6 +66,7 @@ enum class Component : uint16_t
     HusModal,
     HusTextArea,
     HusSpin,
+    HusColorPicker,
 
     Size
 };
@@ -112,6 +113,7 @@ static QHash<QString, Component> g_componentTable
     { "HusModal",           Component::HusModal            },
     { "HusTextArea",        Component::HusTextArea         },
     { "HusSpin",            Component::HusSpin             },
+    { "HusColorPicker",     Component::HusColorPicker      },
 };
 
 struct ThemeData
