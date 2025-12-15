@@ -32,6 +32,7 @@ clearEnabled | bool | true | 是否启用清除按钮
 clearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接
 showToolTip | bool | false | 是否显示文字提示
 loading | bool | false | 是否在加载中
+placeholderText | string | '' | 占位符文本
 defaultPopupMaxHeight | int | 240 | 默认弹窗最大高度
 colorText | color | - | 文本颜色
 colorBorder | color | - | 边框颜色

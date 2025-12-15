@@ -37,6 +37,7 @@ T.ComboBox {
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
     property bool showToolTip: false
     property bool loading: false
+    property string placeholderText: ''
     property int defaultPopupMaxHeight: 240
     property color colorText: enabled ?
                                   (popup.visible && !editable) ? themeSource.colorTextActive :
@@ -143,6 +144,7 @@ T.ComboBox {
         text: control.editable ? control.editText : control.displayText
         readOnly: !control.editable
         autoScroll: control.editable
+        placeholderText: control.placeholderText
         font: control.font
         inputMethodHints: control.inputMethodHints
         validator: control.validator
