@@ -216,70 +216,12 @@ Item {
         }
     }
 
-    /*
-    function getData(key) {
-        const findItemFunc = list => {
-            for (const item of list) {
-                if (item.hasOwnProperty('key') && item.key === key) {
-                    return item;
-                } else {
-                    if (item.hasOwnProperty('menuChildren')) {
-                        const data = findItemFunc(item.menuChildren);
-                        if (data !== undefined) {
-                            return data;
-                        }
-                    }
-                }
-            }
-            return undefined;
-        }
-
-        return findItemFunc(__listView.model);
-    }
-    */
-
     function setData(key, data) {
-        const setItemFunc = list => {
-            for (let i = 0; i < list.length; i++) {
-                let item = list[i];
-                if (item.hasOwnProperty('key') && item.key === key) {
-                    list[i] = data;
-                    return true;
-                } else {
-                    if (item.hasOwnProperty('menuChildren')) {
-                        if (setItemFunc(item.menuChildren)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-        if (setItemFunc(__listView.model)) {
-            __private.setData(key, data);
-        }
+        __private.setData(key, data);
     }
 
     function setDataProperty(key, propertyName, value) {
-        const setItemFunc = list => {
-            for (let i = 0; i < list.length; i++) {
-                let item = list[i];
-                if (item.hasOwnProperty('key') && item.key === key) {
-                    list[i][propertyName] = value;
-                    return true;
-                } else {
-                    if (item.hasOwnProperty('menuChildren')) {
-                        if (setItemFunc(item.menuChildren)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-        if (setItemFunc(__listView.model)) {
-            __private.setDataProperty(key, propertyName, value);
-        }
+        __private.setDataProperty(key, propertyName, value);
     }
 
     function move(from, to, count = 1) {
@@ -598,7 +540,6 @@ Item {
                     contentDelegate: __rootItem.menuContentDelegate
                     bgDelegate: __rootItem.menuBgDelegate
                     onClicked: {
-                        __rootItem.clickMenu();
                         if (__rootItem.menuChildrenLength == 0) {
                             __private.selectedItem = __rootItem;
                             __rootItem.selectedCurrentParentMenu();
@@ -620,6 +561,7 @@ Item {
                                 __rootItem.layerPopup.open();
                             }
                         }
+                        __rootItem.clickMenu();
                     }
 
                     HusToolTip {
