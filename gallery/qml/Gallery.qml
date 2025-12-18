@@ -545,10 +545,17 @@ HusWindow {
 
                 function switchToSource(source) {
                     if (container.source !== source) {
-                        container.source = source;
-                        nextLoader.source = source;
-                        containerLoader.visible = false;
-                        gallerySwitchEffect.startSwitch(containerLoader, nextLoader);
+                        if (type === HusSwitchEffect.Type_None) {
+                            nextLoader.source = '';
+                            nextLoader.visible = false;
+                            containerLoader.source = source;
+                            containerLoader.visible = true;
+                        } else {
+                            container.source = source;
+                            nextLoader.source = source;
+                            containerLoader.visible = false;
+                            gallerySwitchEffect.startSwitch(containerLoader, nextLoader);
+                        }
                     }
                 }
             }
