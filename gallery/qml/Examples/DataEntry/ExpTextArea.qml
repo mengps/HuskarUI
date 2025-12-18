@@ -42,6 +42,7 @@ lineCount | int(readonly) | 0 | 文本行数
 length | int | 0 | 文本长度
 maxLength | int | -1 | 最大文本长度
 readOnly | bool | false | 是否只读
+textFormat | enum | - | 文本格式(来自TextEdit.*)
 text | string | '' | 文本
 placeholderText | string | '' | 占位文本
 font | font | - | 字体

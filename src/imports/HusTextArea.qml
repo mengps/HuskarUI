@@ -45,6 +45,7 @@ Item {
     property alias length: __textArea.length
     property int maxLength: -1
     property alias readOnly: __textArea.readOnly
+    property alias textFormat: __textArea.textFormat
     property alias font: __scrollView.font
     property alias text: __textArea.text
     property alias placeholderText: __textArea.placeholderText
