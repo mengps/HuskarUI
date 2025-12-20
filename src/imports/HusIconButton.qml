@@ -39,6 +39,7 @@ HusButton {
     property int iconSpacing: 5 * sizeRatio
     property int iconPosition: HusIconButton.Position_Start
     property int orientation: Qt.Horizontal
+    property alias textFont: control.font
     property font iconFont: Qt.font({
                                         family: 'HuskarUI-Icons',
                                         pixelSize: iconSize

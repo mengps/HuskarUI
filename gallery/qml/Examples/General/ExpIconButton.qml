@@ -31,6 +31,7 @@ iconSpacing | int | 5 | 图标间隔
 iconPosition | enum | HusIconButton.Position_Start | 图标位置(来自 HusIconButton)
 loading | bool | false | 是否在加载中
 orientation | enum | Qt.Horizontal | 方向(Qt.Horizontal 或 Qt.Vertical)
+textFont | font | - | 文本字体
 iconFont | font | 'HuskarUI-Icons' | 图标字体
 colorIcon | color | - | 图标颜色
                        `)
