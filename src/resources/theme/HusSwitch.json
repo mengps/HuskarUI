@@ -3,6 +3,7 @@
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
         "colorText": "@colorTextBase",
+        "colorTextDisabled": "@colorPrimaryTextDisabled",
         "colorHandle": "#ffffff",
         "colorBgDisabled": "$alpha(@colorTextQuaternary, 0.15)",
         "colorBgCheckedDisabled": "$alpha(@colorPrimary, 0.65)",

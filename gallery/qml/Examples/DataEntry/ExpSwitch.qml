@@ -33,6 +33,9 @@ checkedText | string | '' | 选中文本
 uncheckedText | string | '' | 未选中文本
 checkedIconSource | int丨string | 0丨'' | 选中图标(来自 HusIcon)或图标链接
 uncheckedIconSource | int丨string | 0丨'' | 未选中图标(来自 HusIcon)或图标链接
+iconSize | int | - | 选中/未选中图标大小
+textFont | font | - | 文本字体
+colorText | color | - | 文本颜色
 colorHandle | color | - | 把手颜色
 colorBg | color | - | 背景颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景半径

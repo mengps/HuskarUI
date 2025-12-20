@@ -36,22 +36,27 @@ T.Switch {
     property string uncheckedText: ''
     property var checkedIconSource: 0 ?? ''
     property var uncheckedIconSource: 0 ?? ''
-    property color colorHandle: HusTheme.HusSwitch.colorHandle
+    property int iconSize: parseInt(themeSource.fontSize) - 2
+    property alias textFont: control.font
+    property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
+    property color colorHandle: themeSource.colorHandle
     property color colorBg: {
         if (!enabled)
-            return checked ? HusTheme.HusSwitch.colorBgCheckedDisabled : HusTheme.HusSwitch.colorBgDisabled;
+            return checked ? themeSource.colorBgCheckedDisabled : themeSource.colorBgDisabled;
 
         if (checked)
-            return control.down ? HusTheme.HusSwitch.colorBgCheckedActive :
-                                  control.hovered ? HusTheme.HusSwitch.colorBgCheckedHover :
-                                                    HusTheme.HusSwitch.colorBgChecked;
+            return control.down ? themeSource.colorBgCheckedActive :
+                                  control.hovered ? themeSource.colorBgCheckedHover :
+                                                    themeSource.colorBgChecked;
         else
-            return control.down ? HusTheme.HusSwitch.colorBgActive :
-                                  control.hovered ? HusTheme.HusSwitch.colorBgHover :
-                                                    HusTheme.HusSwitch.colorBg;
+            return control.down ? themeSource.colorBgActive :
+                                  control.hovered ? themeSource.colorBgHover :
+                                                    themeSource.colorBg;
     }
     property HusRadius radiusBg: HusRadius { all: control.implicitIndicatorHeight * 0.5 }
     property string contentDescription: ''
+    property var themeSource: HusTheme.HusSwitch
+
     property Component handleDelegate: Rectangle {
         radius: height * 0.5
         color: control.colorHandle
@@ -75,13 +80,18 @@ T.Switch {
     }
 
     objectName: '__HusSwitch__'
-    width: implicitIndicatorWidth + leftPadding + rightPadding
-    height: implicitIndicatorHeight + topPadding + bottomPadding
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding,
+                             implicitIndicatorHeight + topPadding + bottomPadding)
     font {
-        family: HusTheme.HusSwitch.fontFamily
-        pixelSize: parseInt(HusTheme.HusSwitch.fontSize) - 2
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize)
     }
     indicator: Item {
+        x: control.width - width - control.rightPadding
+        y: parent.height * 0.5 - height * 0.5
         implicitWidth: __bg.width
         implicitHeight: __bg.height
 
@@ -98,7 +108,7 @@ T.Switch {
             visible: control.effectEnabled
             color: 'transparent'
             border.width: 0
-            border.color: control.enabled ? HusTheme.HusSwitch.colorBgHover : 'transparent'
+            border.color: control.enabled ? control.themeSource.colorBgHover : 'transparent'
             opacity: 0.2
 
             ParallelAnimation {
@@ -160,7 +170,10 @@ T.Switch {
                 width: text.length === 0 ? 0 : Math.max(implicitWidth + 8, __uncheckedText.implicitWidth + 8)
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: __handle.left
-                font: control.font
+                font {
+                    family: control.font.family
+                    pixelSize: control.iconSize
+                }
                 text: control.checkedText
                 color: control.colorHandle
                 horizontalAlignment: Text.AlignHCenter
@@ -172,7 +185,10 @@ T.Switch {
                 width: text.length === 0 ? 0 : Math.max(implicitWidth + 8, __checkedText.implicitWidth + 8)
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: __handle.right
-                font: control.font
+                font {
+                    family: control.font.family
+                    pixelSize: control.iconSize
+                }
                 text: control.uncheckedText
                 color: control.colorHandle
                 horizontalAlignment: Text.AlignHCenter
@@ -185,7 +201,7 @@ T.Switch {
                 rightPadding: 4
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: __handle.left
-                iconSize: control.font.pixelSize
+                iconSize: control.iconSize
                 iconSource: control.checkedIconSource
                 colorIcon: control.colorHandle
                 horizontalAlignment: Text.AlignHCenter
@@ -198,7 +214,7 @@ T.Switch {
                 rightPadding: 4
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: __handle.right
-                iconSize: control.font.pixelSize
+                iconSize: control.iconSize
                 iconSource: control.uncheckedIconSource
                 colorIcon: control.colorHandle
                 horizontalAlignment: Text.AlignHCenter
@@ -217,6 +233,13 @@ T.Switch {
                 Behavior on x { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationMid } }
             }
         }
+    }
+    contentItem: HusText {
+        text: control.text
+        font: control.font
+        color: control.colorText
+        verticalAlignment: Text.AlignVCenter
+        rightPadding: control.indicator.width + control.spacing
     }
 
     HoverHandler {
