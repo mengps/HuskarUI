@@ -191,6 +191,7 @@
         "HusModal": ":/HuskarUI/resources/theme/HusModal.json",
         "HusTextArea": ":/HuskarUI/resources/theme/HusTextArea.json",
         "HusSpin": ":/HuskarUI/resources/theme/HusSpin.json",
-        "HusColorPicker": ":/HuskarUI/resources/theme/HusColorPicker.json"
+        "HusColorPicker": ":/HuskarUI/resources/theme/HusColorPicker.json",
+        "HusTreeView": ":/HuskarUI/resources/theme/HusTreeView.json"
     }
 }

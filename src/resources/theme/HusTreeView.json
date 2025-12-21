@@ -1,0 +1,15 @@
+{
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorTitleDisabled": "@colorPrimaryTextDisabled",
+        "colorTitle": "@colorTextBase",
+        "colorBgDisabled": "@colorPrimaryContainerBgDisabled",
+        "colorBg": "transparent",
+        "colorBgHover": "@colorFillTertiary",
+        "colorSelection": "@colorPrimaryBg",
+        "colorSelectionDark": "@colorPrimaryBase-9",
+        "colorLine": "@colorFill",
+        "radiusBg": "@radiusPrimary"
+    }
+}
