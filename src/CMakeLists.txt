@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(HUSKARUI_VERSION_MAJOR 0)
 set(HUSKARUI_VERSION_MINOR 5)
-set(HUSKARUI_VERSION_PATCH 2)
+set(HUSKARUI_VERSION_PATCH 3)
 set(HUSKARUI_VERSION_TWEAK 0)
 set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
 
@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD 17)
 #Add HuskarUIHelper
 include(${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/HuskarUIHelper.cmake)
 
-find_package(Qt6 6.5 COMPONENTS Quick QuickTemplates2 ShaderTools REQUIRED)
+find_package(Qt6 6.5 COMPONENTS Quick QuickTemplates2 LabsQmlModels ShaderTools REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
 
 #Determine if there is a private module present
@@ -28,8 +28,9 @@ if(Qt6_VERSION VERSION_GREATER "6.10.0")
     endif()
 else()
     get_target_property(QT_HAS_QUICK_PRIVATE Qt6::Quick _qt_module_has_private_headers)
-    get_target_property(QT_HAS_QUICKTEMPLATES_PRIVATE Qt6::QuickTemplates2 _qt_module_has_private_headers)
-    if(QT_HAS_QUICK_PRIVATE AND QT_HAS_QUICKTEMPLATES_PRIVATE)
+    get_target_property(QT_HAS_QUICKTEMPLATES2_PRIVATE Qt6::QuickTemplates2 _qt_module_has_private_headers)
+    get_target_property(QT_HAS_LABSQMLMODEL_PRIVATE Qt6::LabsQmlModels _qt_module_has_private_headers)
+    if(QT_HAS_QUICK_PRIVATE AND QT_HAS_QUICKTEMPLATES2_PRIVATE)
         set(QT_HAS_PRIVATE_MODULES TRUE)
     endif()
 endif()
@@ -100,6 +101,15 @@ if(QT_KNOWN_POLICY_QTP0004)
     qt_policy(SET QTP0004 NEW)
 endif()
 
+set(QT_TREEMODEL_SOURCES "")
+if(QT_HAS_LABSQMLMODEL_PRIVATE)
+    set(QT_TREEMODEL_SOURCES
+        cpp/models/qqmltreerow_p.h cpp/models/qqmltreerow.cpp
+        cpp/models/qqmltreemodel_p.h cpp/models/qqmltreemodel.cpp
+        cpp/models/qqmlabstractcolumnmodel_p.h cpp/models/qqmlabstractcolumnmodel.cpp
+    )
+endif()
+
 qt_add_qml_module(${PROJECT_NAME}
     URI "HuskarUI.Basic"
     VERSION 1.0
@@ -167,6 +177,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusSpin.qml
         imports/HusCheckerBoard.qml
         imports/HusColorPickerPanel.qml imports/HusColorPicker.qml
+        imports/HusTreeView.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -186,6 +197,8 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/controls/husrectangle.h cpp/controls/husrectangle.cpp
         cpp/controls/huswatermark.h cpp/controls/huswatermark.cpp
         cpp/controls/husqrcode.h cpp/controls/husqrcode.cpp
+        # Qt.labs.qmlmodels
+        ${QT_TREEMODEL_SOURCES}
         # QR-Code-generator
         ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/QR-Code-generator/cpp/qrcodegen.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/QR-Code-generator/cpp/qrcodegen.cpp
@@ -237,6 +250,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         resources/theme/HusTextArea.json
         resources/theme/HusSpin.json
         resources/theme/HusColorPicker.json
+        resources/theme/HusTreeView.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
@@ -290,6 +304,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::QuickPrivate
     Qt6::QuickTemplates2Private
+    Qt6::LabsQmlModelsPrivate # TreeModel
     $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKCore>
     $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKQuick>
 )
@@ -309,9 +324,21 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/theme>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/controls>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/utils>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/models>
     $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
     $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/HuskarUI>
 )
+
+# < Qt6.10 include QtLabsQmlModels/private
+if(QT_HAS_LABSQMLMODEL_PRIVATE)
+    get_target_property(_module_name Qt6::LabsQmlModels _qt_module_include_name)
+    get_target_property(_qt6_labsqmlmodels_location Qt6::LabsQmlModels LOCATION)
+    get_filename_component(_qt6_prefix "${_qt6_labsqmlmodels_location}" DIRECTORY)
+    get_filename_component(_qt6_prefix "${_qt6_prefix}" DIRECTORY) # strip "lib"
+    set(_private_include_dir "${_qt6_prefix}/include/${_module_name}/${Qt6_VERSION_MAJOR}.${Qt6_VERSION_MINOR}.${Qt6_VERSION_PATCH}/${_module_name}/private")
+    target_include_directories(${PROJECT_NAME} PRIVATE ${_private_include_dir})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE QT_FEATURE_qml_tree_model=1)
+endif()
 
 #Gen HuskarUI/include
 if(HUSKARUI_HEADER_OUTPUT_DIRECTORY)

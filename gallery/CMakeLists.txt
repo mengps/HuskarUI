@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.5.2.0)
+set(HUSKARUI_VERSION 0.5.3.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -91,6 +91,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataDisplay/ExpEmpty.qml
         qml/Examples/DataDisplay/ExpQrCode.qml
         qml/Examples/DataDisplay/ExpCheckerBoard.qml
+        qml/Examples/DataDisplay/ExpTreeView.qml
         qml/Examples/Navigation/ExpMenu.qml
         qml/Examples/Navigation/ExpContextMenu.qml
         qml/Examples/Navigation/ExpScrollBar.qml
