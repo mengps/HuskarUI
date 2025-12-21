@@ -408,6 +408,13 @@ QtObject {
                     addVersion: '0.5.2',
                     desc: qsTr('用于创建双色棋盘格。')
                 },
+                {
+                    key: 'HusTreeView',
+                    label: qsTr('HusTreeView 树视图'),
+                    source: './Examples/DataDisplay/ExpTreeView.qml',
+                    addVersion: '0.5.3',
+                    desc: qsTr('多层次的结构列表。')
+                },
             ]
         },
         {
