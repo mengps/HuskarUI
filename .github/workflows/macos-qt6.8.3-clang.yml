@@ -72,7 +72,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.targetName }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
+          name: ${{ env.targetName }}.app
           path: dist
 
       - name: Upload Release
@@ -80,7 +80,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/${{ env.targetName }}.app
+          file: ${{ env.targetName }}.app
           asset_name: ${{ env.targetName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.app
           tag: ${{ github.ref }}
           overwrite: true
