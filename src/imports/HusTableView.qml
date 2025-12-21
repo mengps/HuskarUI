@@ -65,6 +65,8 @@ HusRectangle {
     property color colorGridLine: HusTheme.HusTableView.colorGridLine
     property color colorResizeBlockBg: HusTheme.HusTableView.colorResizeBlockBg
 
+    property alias verScrollBar: __vScrollBar
+    property alias horScrollBar: __hScrollBar
     property alias tableView: __cellView
     property alias tableModel: __cellModel
 
