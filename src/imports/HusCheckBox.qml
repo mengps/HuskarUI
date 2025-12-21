@@ -125,8 +125,8 @@ T.CheckBox {
                 id: __checkedBg
                 anchors.fill: parent
                 color: control.colorIndicator
-                visible: opacity !== 0
-                opacity: control.checkState === Qt.Checked ? 1.0 : 0.0
+                visible: opacity > 0
+                opacity: enabled ? (control.checkState === Qt.Checked ? 1 : 0) : 1
                 radius: parent.radius - 1
                 topLeftRadius: Math.max(0, parent.topLeftRadius - 1)
                 topRightRadius: Math.max(0, parent.topRightRadius - 1)
@@ -145,17 +145,17 @@ T.CheckBox {
                 anchors.centerIn: parent
                 width: parent.width * 0.6
                 height: parent.height * 0.6
-                visible: opacity !== 0
+                visible: opacity > 0
                 scale: control.checkState === Qt.Checked ? 1.1 : 0.2
                 opacity: control.checkState === Qt.Checked ? 1.0 : 0.0
 
                 Behavior on scale {
-                    enabled: control.animationEnabled
+                    enabled: control.animationEnabled && __checkMark.animationEnabled
                     NumberAnimation { easing.overshoot: 2.5; easing.type: Easing.OutBack; duration: HusTheme.Primary.durationSlow }
                 }
 
                 Behavior on opacity {
-                    enabled: control.animationEnabled
+                    enabled: control.animationEnabled && __checkMark.animationEnabled
                     NumberAnimation { duration: HusTheme.Primary.durationFast }
                 }
 
@@ -164,14 +164,18 @@ T.CheckBox {
                     anchors.fill: parent
                     visible: control.checkState === Qt.Checked
 
-                    property real animationProgress: control.animationEnabled ? 0 : 1
+                    property bool animationEnabled: false
+                    property real animationProgress: animationEnabled && control.animationEnabled ? 0 : 1
                     property real lineWidth: 2
                     property color checkColor: control.enabled ? '#fff' : control.themeSource.colorIndicatorDisabled
 
                     onAnimationProgressChanged: requestPaint();
+                    onCheckColorChanged: requestPaint();
+                    onVisibleChanged: requestPaint();
+                    Component.onCompleted: animation(false);
 
                     onPaint: {
-                        let ctx = getContext('2d');
+                        const ctx = getContext('2d');
                         ctx.clearRect(0, 0, width, height);
 
                         ctx.lineWidth = lineWidth;
@@ -207,30 +211,27 @@ T.CheckBox {
                         ctx.stroke();
                     }
 
-                    SequentialAnimation {
+                    NumberAnimation on animationProgress {
                         id: __checkMarkAnimation
-                        running: control.checkState === Qt.Checked && control.animationEnabled
+                        from: 0
+                        to: 1
+                        duration: HusTheme.Primary.durationSlow
+                        easing.type: Easing.OutCubic
+                        onStarted: __checkMark.visible = true;
+                    }
 
-                        NumberAnimation {
-                            target: __checkMark
-                            property: 'animationProgress'
-                            from: 0
-                            to: 1
-                            duration: HusTheme.Primary.durationSlow
-                            easing.type: Easing.OutCubic
-                        }
-
-                        onStarted: {
-                            __checkMark.visible = true;
-                            __checkMark.requestPaint();
-                        }
-
-                        onRunningChanged: {
-                            if (!running && control.checkState !== Qt.Checked) {
-                                __checkMark.animationProgress = 0;
-                                __checkMark.visible = false;
-                            }
-                            __checkMark.requestPaint();
+                    function animation(enabled) {
+                        animationEnabled = enabled;
+                        if (control.animationEnabled && animationEnabled) {
+                            animationProgress = 0;
+                            visible = false;
+                            __checkMarkAnimation.restart();
+                        } else {
+                            /*! 不开启动画时立即显示完整勾选标记 */
+                            animationProgress = 1;
+                            visible = true;
+                            __checkMarkAnimation.complete();
+                            requestPaint();
                         }
                     }
                 }
@@ -248,7 +249,7 @@ T.CheckBox {
                 radius: parent.radius * 0.5
 
                 Behavior on opacity {
-                    enabled: control.animationEnabled
+                    enabled: control.animationEnabled && __checkMark.animationEnabled
                     NumberAnimation { duration: HusTheme.Primary.durationFast }
                 }
             }
@@ -257,30 +258,17 @@ T.CheckBox {
     contentItem: HusText {
         text: control.text
         font: control.font
-        opacity: enabled ? 1.0 : 0.3
         color: control.colorText
         verticalAlignment: Text.AlignVCenter
-        leftPadding: control.indicator.width + control.spacing
+        leftPadding: control.indicator.width + (text.length > 0 ? control.spacing : 0)
 
-        Behavior on opacity {
+        Behavior on color {
             enabled: control.animationEnabled
-            NumberAnimation { duration: HusTheme.Primary.durationMid }
+            ColorAnimation { duration: HusTheme.Primary.durationMid }
         }
     }
     background: Item { }
-
-    onCheckStateChanged: {
-        if (control.checkState === Qt.Unchecked) {
-            __checkMark.animationProgress = 0;
-            __checkMark.visible = false;
-            __checkMark.requestPaint();
-        } else if (control.checkState === Qt.Checked && !control.animationEnabled) {
-            /*! 不开启动画时立即显示完整勾选标记 */
-            __checkMark.animationProgress = 1;
-            __checkMark.visible = true;
-            __checkMark.requestPaint();
-        }
-    }
+    onCheckStateChanged: __checkMark.animation(true);
 
     HoverHandler {
         cursorShape: control.hoverCursorShape
