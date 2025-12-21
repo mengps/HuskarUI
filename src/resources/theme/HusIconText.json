@@ -1,6 +1,7 @@
 {
     "__style__": {
         "fontSize": "@fontPrimarySize",
-        "colorText": "@colorTextBase"
+        "colorText": "@colorTextBase",
+        "colorTextDisabled": "@colorPrimaryTextDisabled"
     }
 }

@@ -41,7 +41,7 @@ HusText {
         family: 'HuskarUI-Icons'
         pixelSize: parseInt(HusTheme.HusIconText.fontSize)
     }
-    color: HusTheme.HusIconText.colorText
+    color: enabled ? HusTheme.HusIconText.colorText : HusTheme.HusIconText.colorTextDisabled
 
     Loader {
         id: __iconLoader
