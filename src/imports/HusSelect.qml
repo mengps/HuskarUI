@@ -54,7 +54,6 @@ T.ComboBox {
     property var themeSource: HusTheme.HusSelect
 
     property Component indicatorDelegate: HusIconText {
-        rightPadding: 8
         colorIcon: {
             if (control.enabled) {
                 if (__clearMouseArea.active) {
@@ -123,6 +122,7 @@ T.ComboBox {
     rightPadding: padding + (control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
     topPadding: 4
     bottomPadding: 4
+    spacing: 8
     implicitWidth: implicitContentWidth + implicitIndicatorWidth + leftPadding + rightPadding
     implicitHeight: implicitContentHeight + topPadding + bottomPadding
     textRole: 'label'
@@ -134,7 +134,7 @@ T.ComboBox {
     selectTextByMouse: editable
     delegate: T.ItemDelegate { }
     indicator: Loader {
-        x: control.mirrored ? control.padding : control.width - width - control.padding
+        x: control.mirrored ? (control.padding + control.spacing) : (control.width - width - control.padding - control.spacing)
         y: control.topPadding + (control.availableHeight - height) / 2
         sourceComponent: indicatorDelegate
     }
