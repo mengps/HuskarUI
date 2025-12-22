@@ -59,7 +59,8 @@ T.Control {
     property var initModel: []
     property alias titleFont: control.font
     property color colorLine: themeSource.colorLine
-    property HusRadius radiusBg: HusRadius { all: control.themeSource.radiusBg }
+    property HusRadius radiusSwitcherBg: HusRadius { all: control.themeSource.radiusSwitcherBg }
+    property HusRadius radiusTitleBg: HusRadius { all: control.themeSource.radiusTitleBg }
     property var themeSource: HusTheme.HusTreeView
 
     property alias verScrollBar: __vScrollBar
@@ -68,11 +69,11 @@ T.Control {
     property alias treeModel: __treeModel
 
     property Component switcherDelegate: HusRectangleInternal {
-        radius: control.radiusBg.all
-        topLeftRadius: control.radiusBg.topLeft
-        topRightRadius: control.radiusBg.topRight
-        bottomLeftRadius: control.radiusBg.bottomLeft
-        bottomRightRadius: control.radiusBg.bottomRight
+        radius: control.radiusSwitcherBg.all
+        topLeftRadius: control.radiusSwitcherBg.topLeft
+        topRightRadius: control.radiusSwitcherBg.topRight
+        bottomLeftRadius: control.radiusSwitcherBg.bottomLeft
+        bottomRightRadius: control.radiusSwitcherBg.bottomRight
         color: enabled ? __expandHover.hovered ?
                              control.themeSource.colorBgHover :
                              control.themeSource.colorBg : control.themeSource.colorBgDisabled
@@ -114,11 +115,11 @@ T.Control {
 
         HusRectangleInternal {
             anchors.fill: parent
-            radius: control.radiusBg.all
-            topLeftRadius: control.radiusBg.topLeft
-            topRightRadius: control.radiusBg.topRight
-            bottomLeftRadius: control.radiusBg.bottomLeft
-            bottomRightRadius: control.radiusBg.bottomRight
+            radius: control.radiusTitleBg.all
+            topLeftRadius: control.radiusTitleBg.topLeft
+            topRightRadius: control.radiusTitleBg.topRight
+            bottomLeftRadius: control.radiusTitleBg.bottomLeft
+            bottomRightRadius: control.radiusTitleBg.bottomRight
             color: {
                 if (isSelected) {
                     return HusTheme.isDark ? control.themeSource.colorSelectionDark :
@@ -382,7 +383,7 @@ T.Control {
 
                     Loader {
                         x: -__rowLayout.spacing - 1
-                        width: 18
+                        width: 24
                         height: control.lineWidth
                         anchors.verticalCenter: parent.verticalCenter
                         active: control.showLine && !__rootItem.hasChildren && !__rootItem.isRootNode
@@ -488,25 +489,26 @@ T.Control {
             let checkedCount = 0;
             let partiallyCheckedCount = 0;
             if (node.hasOwnProperty('rows')) {
-                node.rows.forEach(function(o) {
-                    const data = o.__data;
-                    if (data.enabled && !data.checkboxDisabled) {
-                        checkableCount++
-                        /*! 计算该节点状态 */
-                        let checkState = Qt.Unchecked;
-                        if (o.hasOwnProperty('rows')) {
-                            checkState = calcTreeNodeCheckState(o);
-                        } else {
-                            checkState = data.checkState;
-                        }
-                        /*! 统计 */
-                        if (checkState === Qt.PartiallyChecked) {
-                            partiallyCheckedCount++;
-                        } else if (checkState === Qt.Checked) {
-                            checkedCount++;
-                        }
-                    }
-                });
+                node.rows.forEach(
+                            o => {
+                                const data = o.__data;
+                                if (data.enabled && !data.checkboxDisabled) {
+                                    checkableCount++
+                                    /*! 计算该节点状态 */
+                                    let checkState = Qt.Unchecked;
+                                    if (o.hasOwnProperty('rows')) {
+                                        checkState = calcTreeNodeCheckState(o);
+                                    } else {
+                                        checkState = data.checkState;
+                                    }
+                                    /*! 统计 */
+                                    if (checkState === Qt.PartiallyChecked) {
+                                        partiallyCheckedCount++;
+                                    } else if (checkState === Qt.Checked) {
+                                        checkedCount++;
+                                    }
+                                }
+                            });
             }
             /*! 汇总 */
             let checkState = Qt.Unchecked;
@@ -628,11 +630,12 @@ T.Control {
                         const hasChildren = node.hasOwnProperty('rows');
                         if (keysSet.has(data.key)) {
                             const index = __treeModel.index(data.treePath, 0);
-                            __treeView.expandToIndex(index);
                             if (hasChildren) {
                                 /*! 需要展开到子项 */
                                 const subIndex = __treeModel.index([...data.treePath, 0], 0);
                                 __treeView.expandToIndex(subIndex);
+                            } else {
+                                __treeView.expandToIndex(index);
                             }
                             /*! 更新完成移除键,确保不会有多余计算 */
                             keysSet.delete(data.key);
