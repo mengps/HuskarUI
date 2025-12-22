@@ -193,7 +193,7 @@ HusSelect {
         Loader {
             id: __suffixLoader
             anchors.right: parent.right
-            anchors.rightMargin: 0
+            anchors.rightMargin: 5
             anchors.verticalCenter: parent.verticalCenter
             sourceComponent: control.suffixDelegate
         }
