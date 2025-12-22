@@ -31,7 +31,7 @@ title | string | '' | 标题
 titleFont | font | - | 标题字体
 titleAlign | enum | HusDivider.Align_Left | 标题对齐(来自 HusDivider)
 titlePadding | int | 20 | 标题填充
-style | enum | HusDivider.SolidLine | 分割线样式(来自 HusDivider)
+lineStyle | enum | HusDivider.SolidLine | 分割线样式(来自 HusDivider)
 lineWidth | int | 1 | 分割线宽度
 dashPattern | list | [4, 2] | 分割线虚线模式
 orientation | enum | Qt.Horizontal | 方向(Qt.Horizontal 或 Qt.Vertical)
@@ -197,7 +197,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`style\` 属性改变线条风格，支持的风格：\n
+通过 \`lineStyle\` 属性改变线条风格，支持的风格：\n
 - 实线(默认){ HusDivider.SolidLine }\n
 - 虚线{ HusDivider.DashLine }
                        `)
@@ -224,7 +224,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     HusDivider {
                         width: parent.width
                         height: 30
-                        style: HusDivider.DashLine
+                        lineStyle: HusDivider.DashLine
                         title: qsTr('虚线分割线')
                     }
                 }
@@ -247,7 +247,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                 HusDivider {
                     width: parent.width
                     height: 30
-                    style: HusDivider.DashLine
+                    lineStyle: HusDivider.DashLine
                     title: qsTr('虚线分割线')
                 }
             }
