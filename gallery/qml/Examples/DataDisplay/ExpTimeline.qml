@@ -16,7 +16,7 @@ Flickable {
 
         Description {
             desc: qsTr(`
-# HusTimeline 文字提示 \n
+# HusTimeline 时间轴 \n
 垂直展示的时间流信息。\n
 * **继承自 { Item }**\n
 \n<br/>

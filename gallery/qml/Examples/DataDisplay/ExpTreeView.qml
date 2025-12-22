@@ -22,21 +22,21 @@ Flickable {
 - **switcherDelegate: Component** 切换器(展开/折叠按钮)代理，代理可访问属性：\n
   - \`row: int\` 视图行索引\n
   - \`depth: int\` 节点深度\n
-  - \`treeData: int\` 节点数据\n
-  - \`isSelected: int\` 节点是否选中\n
-  - \`isExpanded: int\` 节点是否展开\n
+  - \`treeData: var\` 节点数据\n
+  - \`isSelected: bool\` 节点是否选中\n
+  - \`isExpanded: bool\` 节点是否展开\n
 - **nodeContentDelegate: Component** 节点内容(不包含切换器和复选框)代理，代理可访问属性：\n
   - \`row: int\` 视图行索引\n
   - \`depth: int\` 节点深度\n
-  - \`treeData: int\` 节点数据\n
-  - \`isSelected: int\` 节点是否选中\n
-  - \`isExpanded: int\` 节点是否展开\n
+  - \`treeData: var\` 节点数据\n
+  - \`isSelected: bool\` 节点是否选中\n
+  - \`isExpanded: bool\` 节点是否展开\n
 - **nodeBgDelegate: Component** 节点背景(包含切换器和复选框)代理，代理可访问属性：\n
   - \`row: int\` 视图行索引\n
   - \`depth: int\` 节点深度\n
-  - \`treeData: int\` 节点数据\n
-  - \`isSelected: int\` 节点是否选中\n
-  - \`isExpanded: int\` 节点是否展开\n
+  - \`treeData: var\` 节点数据\n
+  - \`isSelected: bool\` 节点是否选中\n
+  - \`isExpanded: bool\` 节点是否展开\n
 \n<br/>
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
@@ -61,6 +61,8 @@ selectedKey | string | '' | 当前选择的键(非复选框)
 initModel | list | [] | 初始模型
 titleFont | font | - | 节点标题文本字体
 colorLine | color | - | 连接线颜色
+radiusSwitcherBg | [HusRadius](internal://HusRadius) | - | 切换器背景圆角
+radiusTitleBg | [HusRadius](internal://HusRadius) | - | 节点标题背景圆角
 verScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部垂直滚动条
 horScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部水平滚动条
 treeView | TreeView | - | 访问内部树视图
@@ -73,6 +75,7 @@ title | string | 必选 | 本节点标题
 key | string | 可选 | 本节点键
 enabled | bool | 可选 | 本节点是否启用(默认true)
 checkboxDisabled | bool | 可选 | 复选框是否禁用(默认false)
+delegateUrl | url | 可选 | 本节点代理的url(等同于Loader.source)
 children | list | 可选 | 子节点列表
 \n<br/>
 \n### 支持的函数：\n
@@ -83,10 +86,10 @@ children | list | 可选 | 子节点列表
 - \`collapseToIndex(index: QModelIndex)\` 折叠 \`index\` 到所在的节点。\n
 - \`expandAll()\` 展开所有节点。\n
 - \`collapseAll()\` 折叠所有节点。\n
-- \`index(treePath：Array)\` 由节点路径(形如[0,0,1...])创建模型索引。\n
+- \`index(treePath：Array): QModelIndex\` 由节点路径(形如[0,0,1...])创建模型索引。\n
 - \`appendNode(parentIndex: QModelIndex)\` 添加节点到 \`parentIndex\` 下。\n
 - \`removeNode(index: QModelIndex)\` 删除 \`index\` 所在的节点。\n
-- \`moveNode(fromIndex: QModelIndex, toIndex: QModelIndex)\` 将从 \`fromIndex\` 节点移动到 \`toIndex\` 位置。\n
+- \`moveNode(fromIndex: QModelIndex, toIndex: QModelIndex)\` 将 \`fromIndex\` 节点移动到 \`toIndex\` 位置。\n
 - \`setNodeData(index: QModelIndex, data: Object)\` 设置 \`index\` 处节点的数据为 \`data\`。\n
 - \`getNodeData(index: QModelIndex): Object\` 获取 \`index\` 处节点的数据。\n
                        `)

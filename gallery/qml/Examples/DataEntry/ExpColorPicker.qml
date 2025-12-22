@@ -30,9 +30,9 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 active | bool | - | 是否处于激活状态
-value | color | '' | 当前的颜色值(autoChange为false时等于changeValue)
+value | color(readonly) | '' | 当前的颜色值(autoChange为false时等于changeValue)
 defaultValue | color | '#fff' | 默认颜色值
-autoChange | bool | true | 默认颜色值
+autoChange | bool | true | 是否自动更新当前颜色值
 changeValue | color | defaultValue | 更改的颜色值
 showText | bool | false | 是否显示文本
 textFormatter | function(color): string | - | 文本格式化器

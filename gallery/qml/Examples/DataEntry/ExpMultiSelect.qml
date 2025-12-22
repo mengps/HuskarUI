@@ -15,7 +15,7 @@ Flickable {
 
         Description {
             desc: qsTr(`
-# HusMultiSelect 选择器 \n
+# HusMultiSelect 多选器 \n
 下拉多选器。\n
 * **继承自 { [HusSelect](internal://HusSelect) }**\n
 \n<br/>
