@@ -151,21 +151,22 @@ Rectangle {
         HusCaptionButton {
             id: __maximizeButton
             height: parent.height
-            topPadding: 8
-            bottomPadding: 8
-            visible: control.showMaximizeButton
             noDisabledState: true
+            iconSize: 14
             contentItem: HusIconText {
                 iconSource: HusIcon.SwitcherTwotonePath3
-                iconSize: 14
+                iconSize: __maximizeButton.iconSize
                 colorIcon: __maximizeButton.colorIcon
+                verticalAlignment: Text.AlignVCenter
                 visible: targetWindow
 
                 HusIconText {
+                    anchors.centerIn: parent
                     iconSource: HusIcon.SwitcherTwotonePath2
-                    iconSize: 14
+                    iconSize: __maximizeButton.iconSize
                     colorIcon: __maximizeButton.colorIcon
-                    visible: targetWindow.visibility === Window.Maximized
+                    verticalAlignment: Text.AlignVCenter
+                    visible: targetWindow && targetWindow.visibility === Window.Maximized
                 }
             }
             contentDescription: qsTr('最大化')
