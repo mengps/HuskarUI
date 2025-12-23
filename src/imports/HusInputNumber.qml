@@ -363,7 +363,8 @@ Item {
             }
             onTextChanged: {
                 let v = control.parser(text, control.locale);
-                if (v >= control.min && v <= control.max) control.value = v;
+                if (v >= control.min && v <= control.max && control.value !== v)
+                    control.value = v;
             }
             onEditingFinished: control.valueChanged();
 
