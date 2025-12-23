@@ -165,14 +165,14 @@ T.CheckBox {
                     visible: control.checkState === Qt.Checked
 
                     property bool animationEnabled: false
-                    property real animationProgress: animationEnabled && control.animationEnabled ? 0 : 1
+                    property real animationProgress: control.checkState === Qt.Checked ? 1 : 0
                     property real lineWidth: 2
                     property color checkColor: control.enabled ? '#fff' : control.themeSource.colorIndicatorDisabled
 
                     onAnimationProgressChanged: requestPaint();
                     onCheckColorChanged: requestPaint();
                     onVisibleChanged: requestPaint();
-                    Component.onCompleted: animation(false);
+                    Component.onCompleted: animationEnabled = true;
 
                     onPaint: {
                         const ctx = getContext('2d');
@@ -211,27 +211,11 @@ T.CheckBox {
                         ctx.stroke();
                     }
 
-                    NumberAnimation on animationProgress {
-                        id: __checkMarkAnimation
-                        from: 0
-                        to: 1
-                        duration: HusTheme.Primary.durationSlow
-                        easing.type: Easing.OutCubic
-                        onStarted: __checkMark.visible = true;
-                    }
-
-                    function animation(enabled) {
-                        animationEnabled = enabled;
-                        if (control.animationEnabled && animationEnabled) {
-                            animationProgress = 0;
-                            visible = false;
-                            __checkMarkAnimation.restart();
-                        } else {
-                            /*! 不开启动画时立即显示完整勾选标记 */
-                            animationProgress = 1;
-                            visible = true;
-                            __checkMarkAnimation.complete();
-                            requestPaint();
+                    Behavior on animationProgress {
+                        enabled: control.animationEnabled && __checkMark.animationEnabled
+                        NumberAnimation {
+                            duration: HusTheme.Primary.durationSlow
+                            easing.type: Easing.OutCubic
                         }
                     }
                 }
@@ -268,7 +252,6 @@ T.CheckBox {
         }
     }
     background: Item { }
-    onCheckStateChanged: __checkMark.animation(true);
 
     HoverHandler {
         cursorShape: control.hoverCursorShape
