@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
             if (!obj && url == objUrl)
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
+    engine.addImportPath(HUSKARUI_IMPORT_PATH);
     engine.load(url);
 
     return app.exec();
