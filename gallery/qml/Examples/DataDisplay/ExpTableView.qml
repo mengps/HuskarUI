@@ -133,6 +133,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
+reuseItems | bool | false | 是否重用项目(具体参考官方文档)
 propagateWheelEvent | bool | false | 是否传播鼠标滚轮事件
 alternatingRow | bool | false | 是否交替显示行背景
 defaultColumnHeaderHeight | int | 40 | 默认列头高度

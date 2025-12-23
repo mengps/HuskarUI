@@ -40,6 +40,7 @@ T.Control {
     }
 
     property bool animationEnabled: HusTheme.animationEnabled
+    property alias reuseItems: __treeView.reuseItems
     property bool checkable: false
     property bool blockNode: false
     property bool genDefaultKey: true
@@ -134,6 +135,7 @@ T.Control {
         RowLayout {
             id: __layout
             width: control.blockNode ? parent.width : implicitWidth
+            anchors.verticalCenter: parent.verticalCenter
 
             Loader {
                 id: __icon
@@ -151,7 +153,6 @@ T.Control {
                 Layout.fillWidth: control.blockNode
                 Layout.leftMargin: __icon.visible ? 0 : 6
                 Layout.rightMargin: 6
-                Layout.alignment: Qt.AlignVCenter
                 padding: 2
                 font: control.font
                 text: treeData?.title ?? ''
