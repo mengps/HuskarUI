@@ -304,7 +304,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::QuickPrivate
     Qt6::QuickTemplates2Private
-    Qt6::LabsQmlModelsPrivate # TreeModel
     $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKCore>
     $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKQuick>
 )
@@ -338,6 +337,7 @@ if(QT_HAS_LABSQMLMODEL_PRIVATE)
     set(_private_include_dir "${_qt6_prefix}/include/${_module_name}/${Qt6_VERSION_MAJOR}.${Qt6_VERSION_MINOR}.${Qt6_VERSION_PATCH}/${_module_name}/private")
     target_include_directories(${PROJECT_NAME} PRIVATE ${_private_include_dir})
     target_compile_definitions(${PROJECT_NAME} PRIVATE QT_FEATURE_qml_tree_model=1)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::LabsQmlModelsPrivate) # TreeModel
 endif()
 
 #Gen HuskarUI/include
