@@ -151,6 +151,7 @@ Rectangle {
         HusCaptionButton {
             id: __maximizeButton
             height: parent.height
+            visible: control.showMaximizeButton
             noDisabledState: true
             iconSize: 14
             contentItem: HusIconText {
