@@ -196,7 +196,7 @@ T.ComboBox {
         id: __popup
         y: control.height + 2
         implicitWidth: control.width
-        implicitHeight: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
+        implicitHeight: implicitContentHeight + topPadding + bottomPadding
         leftPadding: 4
         rightPadding: 4
         topPadding: 6
@@ -204,7 +204,15 @@ T.ComboBox {
         animationEnabled: control.animationEnabled
         radiusBg: control.radiusPopupBg
         colorBg: HusTheme.isDark ? control.themeSource.colorPopupBgDark : control.themeSource.colorPopupBg
+        transformOrigin: isTop ? Item.Bottom : Item.Top
         enter: Transition {
+            NumberAnimation {
+                property: 'scale'
+                from: 0.9
+                to: 1.0
+                easing.type: Easing.OutQuad
+                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+            }
             NumberAnimation {
                 property: 'opacity'
                 from: 0.0
@@ -212,14 +220,15 @@ T.ComboBox {
                 easing.type: Easing.OutQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
-            NumberAnimation {
-                property: 'height'
-                to: __popup.implicitHeight
-                easing.type: Easing.OutQuad
-                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
-            }
         }
         exit: Transition {
+            NumberAnimation {
+                property: 'scale'
+                from: 1.0
+                to: 0.9
+                easing.type: Easing.InQuad
+                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+            }
             NumberAnimation {
                 property: 'opacity'
                 from: 1.0
@@ -227,16 +236,10 @@ T.ComboBox {
                 easing.type: Easing.InQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
-            NumberAnimation {
-                property: 'height'
-                from: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
-                to: 0
-                easing.type: Easing.InQuad
-                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
-            }
         }
         contentItem: ListView {
             id: __popupListView
+            implicitHeight: Math.min(control.defaultPopupMaxHeight, contentHeight)
             clip: true
             model: control.popup.visible ? control.model : null
             currentIndex: control.highlightedIndex
@@ -310,8 +313,7 @@ T.ComboBox {
                 animationEnabled: control.animationEnabled
             }
         }
-
-        Binding on height { when: __popup.opened; value: __popup.implicitHeight }
+        property bool isTop: (y + height * 0.5) < control.height * 0.5
     }
 
     HoverHandler {

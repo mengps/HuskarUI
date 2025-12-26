@@ -86,20 +86,20 @@ HusInput {
             control.closePopup();
         } else if (event.key === Qt.Key_Up) {
             control.openPopup();
-            if (__popupListView.selectIndex > 0) {
-                __popupListView.selectIndex -= 1;
-                __popupListView.positionViewAtIndex(__popupListView.selectIndex, ListView.Contain);
+            if (__popupListView.selectedIndex > 0) {
+                __popupListView.selectedIndex -= 1;
+                __popupListView.positionViewAtIndex(__popupListView.selectedIndex, ListView.Contain);
             } else {
-                __popupListView.selectIndex = __popupListView.count - 1;
-                __popupListView.positionViewAtIndex(__popupListView.selectIndex, ListView.Contain);
+                __popupListView.selectedIndex = __popupListView.count - 1;
+                __popupListView.positionViewAtIndex(__popupListView.selectedIndex, ListView.Contain);
             }
         } else if (event.key === Qt.Key_Down) {
             control.openPopup();
-            __popupListView.selectIndex = (__popupListView.selectIndex + 1) % __popupListView.count;
-            __popupListView.positionViewAtIndex(__popupListView.selectIndex, ListView.Contain);
+            __popupListView.selectedIndex = (__popupListView.selectedIndex + 1) % __popupListView.count;
+            __popupListView.positionViewAtIndex(__popupListView.selectedIndex, ListView.Contain);
         } else if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
-            if (__popupListView.selectIndex !== -1) {
-                const modelData = __private.model[__popupListView.selectIndex];
+            if (__popupListView.selectedIndex !== -1) {
+                const modelData = __private.model[__popupListView.selectedIndex];
                 const textData = modelData[control.textRole];
                 const valueData = modelData[control.valueRole] ?? textData;
                 control.select(modelData);
@@ -113,7 +113,7 @@ HusInput {
     function clearInput() {
         control.clear();
         control.textEdited();
-        __popupListView.currentIndex = __popupListView.selectIndex = -1;
+        __popupListView.currentIndex = __popupListView.selectedIndex = -1;
     }
 
     function openPopup() {
@@ -127,7 +127,7 @@ HusInput {
 
     function filter() {
         __private.model = options.filter(option => filterOption(text, option) === true);
-        __popupListView.currentIndex = __popupListView.selectIndex = -1;
+        __popupListView.currentIndex = __popupListView.selectedIndex = -1;
     }
 
     Item {
@@ -148,15 +148,22 @@ HusInput {
         id: __popup
         y: control.height + 6
         implicitWidth: control.width
-        implicitHeight: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
+        implicitHeight: implicitContentHeight + topPadding + bottomPadding
         leftPadding: 4
         rightPadding: 4
         topPadding: 6
         bottomPadding: 6
         animationEnabled: control.animationEnabled
         closePolicy: T.Popup.NoAutoClose | T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent
-        Component.onCompleted: HusApi.setPopupAllowAutoFlip(this);
+        transformOrigin: isTop ? Item.Bottom : Item.Top
         enter: Transition {
+            NumberAnimation {
+                property: 'scale'
+                from: 0.9
+                to: 1.0
+                easing.type: Easing.OutQuad
+                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+            }
             NumberAnimation {
                 property: 'opacity'
                 from: 0.0
@@ -164,15 +171,15 @@ HusInput {
                 easing.type: Easing.OutQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
-            NumberAnimation {
-                property: 'height'
-                from: 0
-                to: __popup.implicitHeight
-                easing.type: Easing.OutQuad
-                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
-            }
         }
         exit: Transition {
+            NumberAnimation {
+                property: 'scale'
+                from: 1.0
+                to: 0.9
+                easing.type: Easing.InQuad
+                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+            }
             NumberAnimation {
                 property: 'opacity'
                 from: 1.0
@@ -180,17 +187,11 @@ HusInput {
                 easing.type: Easing.InQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
-            NumberAnimation {
-                property: 'height'
-                from: Math.min(control.defaultPopupMaxHeight, __popupListView.contentHeight) + topPadding + bottomPadding
-                to: 0
-                easing.type: Easing.InQuad
-                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
-            }
         }
         contentItem: ListView {
             id: __popupListView
-            property int selectIndex: -1
+            property int selectedIndex: -1
+            implicitHeight: Math.min(control.defaultPopupMaxHeight, contentHeight)
             clip: true
             currentIndex: -1
             model: __private.model
@@ -204,7 +205,7 @@ HusInput {
 
                 property var textData: modelData[control.textRole]
                 property var valueData: modelData[control.valueRole] ?? textData
-                property bool selected: __popupListView.selectIndex == index
+                property bool selected: __popupListView.selectedIndex === index
 
                 width: __popupListView.width
                 height: implicitContentHeight + topPadding + bottomPadding
@@ -255,7 +256,7 @@ HusInput {
             }
             T.ScrollBar.vertical: HusScrollBar { }
         }
-
-        Binding on height { when: __popup.opened; value: __popup.implicitHeight }
+        Component.onCompleted: HusApi.setPopupAllowAutoFlip(this);
+        property bool isTop: (y + height * 0.5) < control.height * 0.5
     }
 }

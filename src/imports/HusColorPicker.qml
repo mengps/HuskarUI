@@ -196,7 +196,7 @@ T.Control {
             NumberAnimation {
                 property: 'opacity'
                 from: 1.0
-                to: 0
+                to: 0.0
                 easing.type: Easing.InQuad
                 duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
             }
