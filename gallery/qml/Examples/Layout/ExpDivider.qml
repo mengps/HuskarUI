@@ -32,7 +32,7 @@ titleFont | font | - | 标题字体
 titleAlign | enum | HusDivider.Align_Left | 标题对齐(来自 HusDivider)
 titlePadding | int | 20 | 标题填充
 lineStyle | enum | HusDivider.SolidLine | 分割线样式(来自 HusDivider)
-lineWidth | int | 1 | 分割线宽度
+lineWidth | real | 1 | 分割线宽度
 dashPattern | list | [4, 2] | 分割线虚线模式
 orientation | enum | Qt.Horizontal | 方向(Qt.Horizontal 或 Qt.Vertical)
 colorText | color | - | 标题颜色

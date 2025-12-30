@@ -51,7 +51,7 @@ showIcon | bool | false | 是否显示节点图标
 defaultNodeIconSize | int | 16 | 默认节点图标大小
 showLine | bool | false | 是否显示连接线
 lineStyle | enum | HusTreeView.SolidLine | 连接线样式(来自 HusTreeView)
-lineWidth | int | 1 | 连接线宽度
+lineWidth | real | 1 | 连接线宽度
 dashPattern | list | [4, 4] | 连接线虚线模式
 switcherIconSouce | int丨string | HusIcon.CaretRightOutlined | 切换器图标源(来自 HusIcon)或图标链接
 switcherIconSize | int | 12 | 切换器图标大小

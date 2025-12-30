@@ -49,7 +49,7 @@ T.Control {
     property int defaultNodeIconSize: 16
     property bool showLine: false
     property int lineStyle: HusTreeView.SolidLine
-    property int lineWidth: 1
+    property real lineWidth: 1
     property list<real> dashPattern: [4, 4]
     property var switcherIconSouce: HusIcon.CaretRightOutlined ?? ''
     property int switcherIconSize: 12
@@ -60,8 +60,9 @@ T.Control {
     property var initModel: []
     property alias titleFont: control.font
     property color colorLine: themeSource.colorLine
-    property HusRadius radiusSwitcherBg: HusRadius { all: control.themeSource.radiusSwitcherBg }
-    property HusRadius radiusTitleBg: HusRadius { all: control.themeSource.radiusTitleBg }
+    property HusRadius radiusSwitcherBg: HusRadius { all: themeSource.radiusSwitcherBg }
+    property HusRadius radiusTitleBg: HusRadius { all: themeSource.radiusTitleBg }
+    property string contentDescription: ''
     property var themeSource: HusTheme.HusTreeView
 
     property alias verScrollBar: __vScrollBar
@@ -743,4 +744,7 @@ T.Control {
         anchors.bottom: parent.bottom
         animationEnabled: control.animationEnabled
     }
+
+    Accessible.role: Accessible.Tree
+    Accessible.description: control.contentDescription
 }

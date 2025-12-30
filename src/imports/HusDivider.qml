@@ -44,17 +44,19 @@ Item {
     property bool animationEnabled: HusTheme.animationEnabled
     property string title: ''
     property font titleFont: Qt.font({
-                                         family: HusTheme.HusDivider.fontFamily,
-                                         pixelSize: parseInt(HusTheme.HusDivider.fontSize)
+                                         family: themeSource.fontFamily,
+                                         pixelSize: parseInt(themeSource.fontSize)
                                      })
     property int titleAlign: HusDivider.Align_Left
     property int titlePadding: 20
     property int lineStyle: HusDivider.SolidLine
-    property int lineWidth: 1
+    property real lineWidth: 1
     property list<real> dashPattern: [4, 2]
     property int orientation: Qt.Horizontal
-    property color colorText: HusTheme.HusDivider.colorText
-    property color colorSplit: HusTheme.HusDivider.colorSplit
+    property color colorText: themeSource.colorText
+    property color colorSplit: themeSource.colorSplit
+    property var themeSource: HusTheme.HusDivider
+
     property Component titleDelegate: HusText {
         text: control.title
         font: control.titleFont
