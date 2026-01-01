@@ -1,0 +1,21 @@
+{
+    "__init__": {
+        "__import__": ["HusButton"]
+    },
+    "__style__": {
+        "colorText": "@colorTextBase",
+        "colorTextFilledChecked": "#fff",
+        "colorTextChecked": "@colorPrimary",
+        "colorTextDisabled": "@colorPrimaryTextDisabled",
+        "colorBg": "@colorBgBase",
+        "colorBgChecked": "@colorPrimary",
+        "colorBgHover": "@colorPrimaryContainerBgHover",
+        "colorBgActive": "@colorPrimaryContainerBgActive",
+        "colorBgCheckedDisabled": "$alpha(@colorTextBase, 0.2)",
+        "colorBgDisabled": "$alpha(@colorTextBase, 0.05)",
+        "colorBorder": "@colorBorder",
+        "colorBorderChecked": "@colorPrimaryBorderActive",
+        "colorEffectBg": "@colorPrimaryBorderHover",
+        "radiusBg": "@radiusPrimary"
+    }
+}

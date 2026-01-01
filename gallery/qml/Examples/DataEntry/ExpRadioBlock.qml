@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 # HusRadioBlock 单选块(HusRadio变种) \n
 用于在多个备选项中选中单个状态。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **toolTipDelegate: Component** 文字提示代理，代理可访问属性：\n
@@ -45,7 +45,6 @@ type | enum | HusRadioBlock.Type_Filled | 单选项类型(来自 HusRadioBlock)
 size | enum | HusRadioBlock.Size_Auto | 单选项大小(来自 HusRadioBlock)
 radioWidth | int | 120 | 单选项宽度(size == HusRadioBlock.Size_Fixed 生效)
 radioHeight | int | 30 | 单选项高度(size == HusRadioBlock.Size_Fixed 生效)
-font | font | true | 单选项字体
 radiusBg | [HusRadius](internal://HusRadius) | - | 单选项背景圆角
 contentDescription | string | '' | 内容描述(提高可用性)
 \n<br/>
@@ -79,7 +78,7 @@ toolTip.timeout | int | 可选 | 文字提示超时(ms)
         }
 
         ThemeToken {
-            source: 'HusRadio'
+            source: 'HusRadioBlock'
         }
 
         Description {

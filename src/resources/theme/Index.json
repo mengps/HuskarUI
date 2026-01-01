@@ -64,8 +64,12 @@
         "colorBgBlur": "transparent",
         "colorBgMask": "$alpha(#000, 0.45)",
 
-        "colorBorder": "$darker(@colorBgBase, 118)",
-        "colorBorderSecondary": "$darker(@colorBgBase, 109)",
+        "//colorBorder": "$brightness(@colorBgBase, 115, 126)",
+        "colorBorder": "$alpha(@colorTextBase, 0.15)",
+        "colorBorderSecondary": "$brightness(@colorBgBase, 106, 119)",
+
+        "//colorSplit": "$brightness(@colorBgBase, 106, 119)",
+        "colorSplit": "$alpha(@colorTextBase, 0.1)",
 
         "colorPrimaryBg": "@colorPrimaryBase-1",
         "colorPrimaryBgHover": "@colorPrimaryBase-2",
@@ -168,6 +172,7 @@
         "HusInput": ":/HuskarUI/resources/theme/HusInput.json",
         "HusRate": ":/HuskarUI/resources/theme/HusRate.json",
         "HusRadio": ":/HuskarUI/resources/theme/HusRadio.json",
+        "HusRadioBlock": ":/HuskarUI/resources/theme/HusRadioBlock.json",
         "HusCheckBox": ":/HuskarUI/resources/theme/HusCheckBox.json",
         "HusDrawer": ":/HuskarUI/resources/theme/HusDrawer.json",
         "HusCollapse": ":/HuskarUI/resources/theme/HusCollapse.json",
