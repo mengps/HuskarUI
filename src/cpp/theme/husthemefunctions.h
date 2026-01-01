@@ -28,6 +28,7 @@ public:
     Q_INVOKABLE static QString genFontFamily(const QString &fontFamilyBase);
     Q_INVOKABLE static QColor darker(const QColor &color, int factor = 140);
     Q_INVOKABLE static QColor lighter(const QColor &color, int factor = 140);
+    Q_INVOKABLE static QColor brightness(const QColor &color, bool light = true, int lighterFactor = 140, int darkerFactor = 140);
     Q_INVOKABLE static QColor alpha(const QColor &color, qreal alpha = 0.5);
     Q_INVOKABLE static QColor onBackground(const QColor &color, const QColor &background);
     Q_INVOKABLE static qreal multiply(qreal num1, qreal num2);

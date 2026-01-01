@@ -44,6 +44,7 @@ void HusThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &tokenN
         { "genRadius",         Function::GenRadius },
         { "darker",            Function::Darker },
         { "lighter",           Function::Lighter },
+        { "brightness",        Function::Brightness },
         { "alpha",             Function::Alpha },
         { "onBackground",      Function::OnBackground },
         { "multiply",          Function::Multiply }
@@ -154,6 +155,25 @@ void HusThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &tokenN
                     out[tokenName] = HusThemeFunctions::lighter(arg1, arg2);
                 } else {
                     qCDebug(lcHusTheme) << QString("func lighter() only accepts 1/2 parameters:(%1)").arg(args);
+                }
+            } break;
+            case Function::Brightness:
+            {
+                auto argList = args.split(',');
+                if (argList.length() == 1) {
+                    auto arg1 = colorFromIndexTable(argList.at(0));
+                    out[tokenName] = HusThemeFunctions::brightness(arg1, !q->isDark());
+                } else if (argList.length() == 2) {
+                    auto arg1 = colorFromIndexTable(argList.at(0));
+                    auto arg2 = numberFromIndexTable(argList.at(1));
+                    out[tokenName] = HusThemeFunctions::brightness(arg1, !q->isDark(), arg2);
+                } else if (argList.length() == 3) {
+                    auto arg1 = colorFromIndexTable(argList.at(0));
+                    auto arg2 = numberFromIndexTable(argList.at(1));
+                    auto arg3 = numberFromIndexTable(argList.at(2));
+                    out[tokenName] = HusThemeFunctions::brightness(arg1, !q->isDark(), arg2, arg3);
+                } else {
+                    qCDebug(lcHusTheme) << QString("func brightness() only accepts 1/2/3 parameters:(%1)").arg(args);
                 }
             } break;
             case Function::Alpha:
@@ -482,6 +502,7 @@ void HusThemePrivate::registerDefaultComponentTheme(const QString &componentName
             ADD_COMPONENT_CASE(HusInput)
             ADD_COMPONENT_CASE(HusRate)
             ADD_COMPONENT_CASE(HusRadio)
+            ADD_COMPONENT_CASE(HusRadioBlock)
             ADD_COMPONENT_CASE(HusCheckBox)
             ADD_COMPONENT_CASE(HusDrawer)
             ADD_COMPONENT_CASE(HusCollapse)

@@ -107,6 +107,15 @@ QColor HusThemeFunctions::lighter(const QColor &color, int factor)
     return color.lighter(factor);
 }
 
+QColor HusThemeFunctions::brightness(const QColor &color, bool light, int lighterFactor, int darkerFactor)
+{
+    if (light) {
+        return darker(color, lighterFactor);
+    } else {
+        return lighter(color, darkerFactor);
+    }
+}
+
 QColor HusThemeFunctions::alpha(const QColor &color, qreal alpha)
 {
     return QColor(color.red(), color.green(), color.blue(), alpha * 255);

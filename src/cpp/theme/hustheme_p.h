@@ -18,6 +18,7 @@ enum class Function : uint16_t
 
     Darker,
     Lighter,
+    Brightness,
     Alpha,
     OnBackground,
 
@@ -43,6 +44,7 @@ enum class Component : uint16_t
     HusInput,
     HusRate,
     HusRadio,
+    HusRadioBlock,
     HusCheckBox,
     HusDrawer,
     HusCollapse,
@@ -91,6 +93,7 @@ static QHash<QString, Component> g_componentTable
     { "HusInput",           Component::HusInput            },
     { "HusRate",            Component::HusRate             },
     { "HusRadio",           Component::HusRadio            },
+    { "HusRadioBlock",      Component::HusRadioBlock       },
     { "HusCheckBox",        Component::HusCheckBox         },
     { "HusDrawer",          Component::HusDrawer           },
     { "HusCollapse",        Component::HusCollapse         },
