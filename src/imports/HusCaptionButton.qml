@@ -33,6 +33,7 @@ HusIconButton {
     objectName: '__HusCaptionButton__'
     leftPadding: 12 * sizeRatio
     rightPadding: 12 * sizeRatio
+    active: down
     radiusBg.all: 0
     hoverCursorShape: Qt.ArrowCursor
     type: HusButton.Type_Text
@@ -49,13 +50,13 @@ HusIconButton {
     colorBg: {
         if (enabled || noDisabledState) {
             if (isError) {
-                return control.active ? HusTheme.HusCaptionButton.colorErrorBgActive:
-                                        control.hovered ? HusTheme.HusCaptionButton.colorErrorBgHover :
-                                                          HusTheme.HusCaptionButton.colorErrorBg;
+                return active ? HusTheme.HusCaptionButton.colorErrorBgActive:
+                                hovered ? HusTheme.HusCaptionButton.colorErrorBgHover :
+                                          HusTheme.HusCaptionButton.colorErrorBg;
             } else {
-                return control.active ? HusTheme.HusCaptionButton.colorBgActive:
-                                        control.hovered ? HusTheme.HusCaptionButton.colorBgHover :
-                                                          HusTheme.HusCaptionButton.colorBg;
+                return active ? HusTheme.HusCaptionButton.colorBgActive:
+                                hovered ? HusTheme.HusCaptionButton.colorBgHover :
+                                          HusTheme.HusCaptionButton.colorBg;
             }
         } else {
             return HusTheme.HusCaptionButton.colorBgDisabled;
