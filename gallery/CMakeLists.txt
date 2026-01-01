@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.5.3.0)
+set(HUSKARUI_VERSION 0.5.4.0)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
@@ -24,7 +24,7 @@ if(WIN32)
         DESCRIPTION ""
         VERSION "${PROJECT_VERSION}"
         COPYRIGHT "Copyright (C) 2025 mengps. All rights reserved."
-        ICONS ../resources/huskarui_icon.ico
+        ICONS ../resources/huskarui_new_square.ico
         OUTPUT_FILE "${GALLERY_RC_FILE}"
     )
 endif()
@@ -69,6 +69,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpInputNumber.qml
         qml/Examples/DataEntry/ExpMultiSelect.qml
         qml/Examples/DataEntry/ExpDateTimePicker.qml
+        qml/Examples/DataEntry/ExpDateTimePickerPanel.qml
         qml/Examples/DataEntry/ExpTextArea.qml
         qml/Examples/DataEntry/ExpColorPickerPanel.qml
         qml/Examples/DataEntry/ExpColorPicker.qml
@@ -111,6 +112,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Feedback/ExpSpin.qml
         qml/Examples/Utils/ExpAsyncHasher.qml
         qml/Examples/Theme/ExpTheme.qml
+        qml/Examples/Functions/ExpApi.qml
         qml/Controls/CodeBox.qml
         qml/Controls/Description.qml
         qml/Controls/CodeRunner.qml
@@ -134,7 +136,7 @@ qt_add_qml_module(${PROJECT_NAME}
 qt_add_resources(${PROJECT_NAME} "images"
     PREFIX "/Gallery"
     FILES
-        images/huskarui_icon.svg
+        images/huskarui_new_square.svg
         images/switch_effect1.jpg
         images/switch_effect2.jpg
 )

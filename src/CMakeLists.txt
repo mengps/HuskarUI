@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(HUSKARUI_VERSION_MAJOR 0)
 set(HUSKARUI_VERSION_MINOR 5)
-set(HUSKARUI_VERSION_PATCH 3)
+set(HUSKARUI_VERSION_PATCH 4)
 set(HUSKARUI_VERSION_TWEAK 0)
 set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
 
@@ -21,7 +21,7 @@ qt_standard_project_setup(REQUIRES 6.5)
 
 #Determine if there is a private module present
 set(QT_HAS_PRIVATE_MODULES FALSE)
-if(Qt6_VERSION VERSION_GREATER "6.10.0")
+if(Qt6_VERSION VERSION_GREATER_EQUAL "6.10.0")
     find_package(Qt6 6.10 COMPONENTS QuickPrivate QuickTemplates2Private REQUIRED)
     if(Qt6QuickPrivate_FOUND AND Qt6QuickTemplates2Private_FOUND)
         set(QT_HAS_PRIVATE_MODULES TRUE)
@@ -167,7 +167,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusInputNumber.qml imports/HusInputInteger.qml
         imports/HusImage.qml imports/HusAnimatedImage.qml imports/HusImagePreview.qml
         imports/HusMultiSelect.qml
-        imports/HusDateTimePicker.qml
+        imports/HusDateTimePicker.qml imports/HusDateTimePickerPanel.qml
         imports/HusShadow.qml
         imports/HusNotification.qml
         imports/HusPopconfirm.qml
@@ -227,6 +227,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         resources/theme/HusInput.json
         resources/theme/HusRate.json
         resources/theme/HusRadio.json
+        resources/theme/HusRadioBlock.json
         resources/theme/HusCheckBox.json
         resources/theme/HusDrawer.json
         resources/theme/HusCollapse.json
