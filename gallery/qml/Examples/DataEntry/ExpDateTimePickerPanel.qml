@@ -15,9 +15,9 @@ Flickable {
 
         Description {
             desc: qsTr(`
-# HusDateTimePicker 日期选择框 \n
-输入或选择日期时间的控件。\n
-* **继承自 { [HusInput](internal://HusInput) }**\n
+# HusDateTimePickerPanel 日期选择面板 \n
+可选择的日期时间面板。\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **dayDelegate: Component** 天项代理，代理可访问属性：\n
@@ -33,6 +33,9 @@ Flickable {
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
+animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+text | string | '' | 当前日期文本
+visualText | string | '' | 视觉日期文本
 showNow | bool | false | 显示当前日期时间的快捷选择
 showDate | bool | true | 显示日期部分
 showTime | bool | true | 显示时间部分
@@ -66,11 +69,11 @@ visualQuarter | int | - | 视觉季度(通常不需要使用)
 visualHours | int | - | 视觉小时(通常不需要使用)
 visualMinutes | int | - | 视觉分钟(通常不需要使用)
 visualSeconds | int | - | 视觉秒数(通常不需要使用)
-locale | Locale | - | 区域设置
+colorBg | color | - | 背景颜色
+colorBorder | color | - | 边框颜色
+radiusBg | [HusRadius](internal://HusRadius) | - | 弹窗圆角
 radiusItemBg | [HusRadius](internal://HusRadius) | - | 选择项圆角
-radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗圆角
-popup | [HusPopup](internal://HusPopup) | - | 访问内部弹窗
-panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问内部日期时间选择面板
+sizeHint | string | 'normal' | 尺寸提示
 \n<br/>
 \n### 支持的函数：\n
 - \`clearDateTime()\` 清空当前日期时间 \n
@@ -90,7 +93,7 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
         Description {
             title: qsTr('何时使用')
             desc: qsTr(`
-当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。\n
+当用户需要一个可以点击的日期面板进行选择时。\n
                        `)
         }
 
@@ -106,21 +109,7 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
             width: parent.width
             descTitle: qsTr('基本')
             desc: qsTr(`
-最简单的用法，在浮层中可以选择或者输入日期。\n
-通过 \`showDate\` 属性设置是否显示日期选择部分。\n
-通过 \`showTime\` 属性设置是否显示时间选择部分。\n
-通过 \`datePickerMode\` 属性设置日期选择模式，支持的模式：\n
-- 年份选择模式{ HusDateTimePicker.Mode_Year }\n
-- 季度选择模式{ HusDateTimePicker.Mode_Quarter }\n
-- 月选择模式{ HusDateTimePicker.Mode_Month }\n
-- 周选择模式{ HusDateTimePicker.Mode_Week }\n
-- 天选择模式(默认){ HusDateTimePicker.Mode_Day }\n
-通过 \`timePickerMode\` 属性设置时间选择模式，支持的模式：\n
-- 小时分钟秒{hh:mm:ss}(默认){ HusDateTimePicker.Mode_HHMMSS }\n
-- 小时分钟{hh:mm}{ HusDateTimePicker.Mode_HHMM }\n
-- 分钟秒{mm:ss}{ HusDateTimePicker.Mode_MMSS }\n
-通过 \`format\` 属性设置日期时间格式：\n
-年月日时分秒遵从一般日期格式 \`yyyy MM dd hh mm ss\`，而 \`w\` 将替换为周数，\`q\` 将替换为季度。\n
+基本用法在 [HusDateTimePicker](internal://HusDateTimePicker) 中已有示例。\n
                        `)
             code: `
                 import QtQuick
@@ -128,6 +117,24 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
 
                 Column {
                     spacing: 10
+
+                    HusSwitch {
+                        id: showNowSwitch
+                        text: 'showNow: '
+                        checked: false
+                    }
+
+                    HusSwitch {
+                        id: showDateSwitch
+                        text: 'showDate: '
+                        checked: true
+                    }
+
+                    HusSwitch {
+                        id: showTimeSwitch
+                        text: 'showTime: '
+                        checked: false
+                    }
 
                     HusRadioBlock {
                         id: sizeHintRadio
@@ -139,63 +146,35 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
                         ]
                     }
 
-                    HusDateTimePicker {
-                        placeholderText: qsTr('请选择日期时间')
+                    HusDateTimePickerPanel {
+                        showNow: showNowSwitch.checked
+                        showDate: showDateSwitch.checked
+                        showTime: showTimeSwitch.checked
                         format: qsTr('yyyy-MM-dd hh:mm:ss')
-                        sizeHint: sizeHintRadio.currentCheckedValue
-                    }
-
-                    HusDateTimePicker {
-                        placeholderText: qsTr('请选择日期')
-                        datePickerMode: HusDateTimePicker.Mode_Day
-                        showTime: false
-                        format: qsTr('yyyy-MM-dd')
-                        sizeHint: sizeHintRadio.currentCheckedValue
-                    }
-
-                    HusDateTimePicker {
-                        placeholderText: qsTr('请选择周')
-                        datePickerMode: HusDateTimePicker.Mode_Week
-                        showTime: false
-                        format: qsTr('yyyy-w周')
-                        sizeHint: sizeHintRadio.currentCheckedValue
-                    }
-
-                    HusDateTimePicker {
-                        placeholderText: qsTr('请选择月份')
-                        datePickerMode: HusDateTimePicker.Mode_Month
-                        showTime: false
-                        format: qsTr('yyyy-MM')
-                        sizeHint: sizeHintRadio.currentCheckedValue
-                    }
-
-                    HusDateTimePicker {
-                        placeholderText: qsTr('请选择季度')
-                        datePickerMode: HusDateTimePicker.Mode_Quarter
-                        showTime: false
-                        format: qsTr('yyyy-Qq')
-                        sizeHint: sizeHintRadio.currentCheckedValue
-                    }
-
-                    HusDateTimePicker {
-                        placeholderText: qsTr('请选择年份')
-                        datePickerMode: HusDateTimePicker.Mode_Year
-                        showTime: false
-                        format: qsTr('yyyy')
-                        sizeHint: sizeHintRadio.currentCheckedValue
-                    }
-
-                    HusDateTimePicker {
-                        placeholderText: qsTr('请选择时间')
-                        showDate: false
-                        timePickerMode: HusDateTimePicker.Mode_HHMMSS
-                        format: qsTr('hh:mm:ss')
                         sizeHint: sizeHintRadio.currentCheckedValue
                     }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
+
+                HusSwitch {
+                    id: showNowSwitch
+                    text: 'showNow: '
+                    checked: false
+                }
+
+                HusSwitch {
+                    id: showDateSwitch
+                    text: 'showDate: '
+                    checked: true
+                }
+
+                HusSwitch {
+                    id: showTimeSwitch
+                    text: 'showTime: '
+                    checked: false
+                }
 
                 HusRadioBlock {
                     id: sizeHintRadio
@@ -207,113 +186,12 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
                     ]
                 }
 
-                HusDateTimePicker {
-                    placeholderText: qsTr('请选择日期时间')
+                HusDateTimePickerPanel {
+                    showNow: showNowSwitch.checked
+                    showDate: showDateSwitch.checked
+                    showTime: showTimeSwitch.checked
                     format: qsTr('yyyy-MM-dd hh:mm:ss')
                     sizeHint: sizeHintRadio.currentCheckedValue
-                }
-
-                HusDateTimePicker {
-                    placeholderText: qsTr('请选择日期')
-                    datePickerMode: HusDateTimePicker.Mode_Day
-                    showTime: false
-                    format: qsTr('yyyy-MM-dd')
-                    sizeHint: sizeHintRadio.currentCheckedValue
-                }
-
-                HusDateTimePicker {
-                    placeholderText: qsTr('请选择周')
-                    datePickerMode: HusDateTimePicker.Mode_Week
-                    showTime: false
-                    format: qsTr('yyyy-w周')
-                    sizeHint: sizeHintRadio.currentCheckedValue
-                }
-
-                HusDateTimePicker {
-                    placeholderText: qsTr('请选择月份')
-                    datePickerMode: HusDateTimePicker.Mode_Month
-                    showTime: false
-                    format: qsTr('yyyy-MM')
-                    sizeHint: sizeHintRadio.currentCheckedValue
-                }
-
-                HusDateTimePicker {
-                    placeholderText: qsTr('请选择季度')
-                    datePickerMode: HusDateTimePicker.Mode_Quarter
-                    showTime: false
-                    format: qsTr('yyyy-Qq')
-                    sizeHint: sizeHintRadio.currentCheckedValue
-                }
-
-                HusDateTimePicker {
-                    placeholderText: qsTr('请选择年份')
-                    datePickerMode: HusDateTimePicker.Mode_Year
-                    showTime: false
-                    format: qsTr('yyyy')
-                    sizeHint: sizeHintRadio.currentCheckedValue
-                }
-
-                HusDateTimePicker {
-                    placeholderText: qsTr('请选择时间')
-                    showDate: false
-                    timePickerMode: HusDateTimePicker.Mode_HHMMSS
-                    format: qsTr('hh:mm:ss')
-                    sizeHint: sizeHintRadio.currentCheckedValue
-                }
-            }
-        }
-
-        CodeBox {
-            width: parent.width
-            descTitle: qsTr('任意选择时分秒部分')
-            desc: qsTr(`
-可任意选择小时分钟秒/小时分钟/分钟秒三种模式。\n
-                       `)
-            code: `
-                import QtQuick
-                import HuskarUI.Basic
-
-                Row {
-                    spacing: 10
-
-                    HusDateTimePicker {
-                        showDate: false
-                        timePickerMode: HusDateTimePicker.Mode_HHMMSS
-                        format: 'hh:mm:ss'
-                    }
-
-                    HusDateTimePicker {
-                        showDate: false
-                        timePickerMode: HusDateTimePicker.Mode_HHMM
-                        format: 'hh:mm'
-                    }
-
-                    HusDateTimePicker {
-                        showDate: false
-                        timePickerMode: HusDateTimePicker.Mode_MMSS
-                        format: 'mm:ss'
-                    }
-                }
-            `
-            exampleDelegate: Row {
-                spacing: 10
-
-                HusDateTimePicker {
-                    showDate: false
-                    timePickerMode: HusDateTimePicker.Mode_HHMMSS
-                    format: 'hh:mm:ss'
-                }
-
-                HusDateTimePicker {
-                    showDate: false
-                    timePickerMode: HusDateTimePicker.Mode_HHMM
-                    format: 'hh:mm'
-                }
-
-                HusDateTimePicker {
-                    showDate: false
-                    timePickerMode: HusDateTimePicker.Mode_MMSS
-                    format: 'mm:ss'
                 }
             }
         }
@@ -333,13 +211,17 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
                 Column {
                     spacing: 10
 
-                    HusDateTimePicker {
-                        id: customDatePicker
+                    HusDateTimePickerPanel {
+                        width: 410
+                        height: 340
                         initDateTime: new Date(2025, 4, 1)
-                        placeholderText: qsTr('请选择日期')
                         datePickerMode: HusDateTimePicker.Mode_Day
                         showTime: false
                         format: qsTr('yyyy-MM-dd')
+                        yearRowSpacing: 30
+                        yearColumnSpacing: 40
+                        monthRowSpacing: 30
+                        monthColumnSpacing: 40
                         dayDelegate: HusButton {
                             implicitWidth: 40
                             implicitHeight: 36
@@ -380,13 +262,17 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
             exampleDelegate: Column {
                 spacing: 10
 
-                HusDateTimePicker {
-                    id: customDatePicker
-                    initDateTime: new Date(2025, 4, 1)
-                    placeholderText: qsTr('请选择日期')
-                    datePickerMode: HusDateTimePicker.Mode_Day
+                HusDateTimePickerPanel {
+                    width: 410
+                    height: 340
                     showTime: false
+                    initDateTime: new Date(2025, 4, 1)
+                    datePickerMode: HusDateTimePicker.Mode_Day
                     format: qsTr('yyyy-MM-dd')
+                    yearRowSpacing: 30
+                    yearColumnSpacing: 40
+                    monthRowSpacing: 30
+                    monthColumnSpacing: 40
                     dayDelegate: HusButton {
                         implicitWidth: 40
                         implicitHeight: 36
@@ -394,7 +280,7 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
                         type: isCurrentDay || isHovered ? HusButton.Type_Primary : HusButton.Type_Link
                         text: `<span>${model.day}</span>${getHoliday()}`
                         effectEnabled: false
-                        colorText: isCurrentDay ? 'white' : HusTheme.Primary.colorTextBase
+                        colorText: isVisualMonth ? (isCurrentDay ? 'white' : HusTheme.Primary.colorTextBase) : HusTheme.Primary.colorTextQuaternary
                         Component.onCompleted: contentItem.textFormat = Text.RichText;
 
                         function getHoliday() {
