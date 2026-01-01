@@ -18,7 +18,7 @@ HusWindow {
             width: 16
             height: 16
             anchors.centerIn: parent
-            source: 'qrc:/Gallery/images/huskarui_icon.svg'
+            source: 'qrc:/Gallery/images/huskarui_new_square.svg'
         }
     }
     captionBar.closeCallback: () => aboutLoader.visible = false;
@@ -77,7 +77,7 @@ HusWindow {
                     width: parent.width
                     height: width
                     anchors.centerIn: parent
-                    source: 'qrc:/Gallery/images/huskarui_icon.svg'
+                    source: 'qrc:/Gallery/images/huskarui_new_square.svg'
                 }
             }
 

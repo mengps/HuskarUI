@@ -221,19 +221,7 @@ Rectangle {
                         width: parent.width
                         height: width
                         anchors.centerIn: parent
-                        source: 'qrc:/Gallery/images/huskarui_icon.svg'
-                    }
-
-                    DropShadow {
-                        anchors.fill: huskaruiIcon
-                        shadowHorizontalOffset: 4
-                        shadowVerticalOffset: 4
-                        color: '#C44545'
-                        source: huskaruiIcon
-                        opacity: 0.6
-
-                        Behavior on color { ColorAnimation { duration: HusTheme.Primary.durationMid } }
-                        Behavior on opacity { NumberAnimation { duration: HusTheme.Primary.durationMid } }
+                        source: 'qrc:/Gallery/images/huskarui_new_square.svg'
                     }
                 }
 
