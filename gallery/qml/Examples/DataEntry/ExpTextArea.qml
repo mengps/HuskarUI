@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusTextArea 文本域 \n
 通过鼠标或键盘输入内容，是最基础的表单域的包装。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **bgDelegate: Component** 背景代理\n
@@ -39,7 +39,6 @@ readOnly | bool | false | 是否只读
 textFormat | enum | - | 文本格式(来自TextEdit.*)
 text | string | '' | 文本
 placeholderText | string | '' | 占位文本
-font | font | - | 字体
 colorText | color | - | 文本颜色
 colorPlaceholderText | color | - | 占位文本颜色
 colorSelectedText | color | - | 选中文本颜色
