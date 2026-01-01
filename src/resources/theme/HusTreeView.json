@@ -9,7 +9,7 @@
         "colorBgHover": "@colorFillTertiary",
         "colorSelection": "@colorPrimaryBg",
         "colorSelectionDark": "@colorPrimaryBase-9",
-        "colorLine": "@colorFill",
+        "colorLine": "@colorSplit",
         "radiusSwitcherBg": "@radiusPrimary",
         "radiusTitleBg": "@radiusPrimary"
     }

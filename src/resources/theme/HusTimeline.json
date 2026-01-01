@@ -4,7 +4,7 @@
         "fontSize": "@fontPrimarySize",
         "colorNode": "@colorPrimary",
         "colorNodeBg": "@colorBgBase",
-        "colorLine": "$alpha(@colorTextBase, 0.15)",
+        "colorLine": "colorSplit",
         "colorTimeText": "@colorTextBase",
         "colorContentText": "@colorTextBase",
         "colorContentBg": "transparent",

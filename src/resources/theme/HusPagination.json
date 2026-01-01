@@ -1,5 +1,7 @@
 {
     "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
         "colorButtonText": "@colorTextBase",
         "colorButtonTextActive": "@colorPrimaryTextActive",
         "colorButtonTextDisabled": "@colorPrimaryTextDisabled",

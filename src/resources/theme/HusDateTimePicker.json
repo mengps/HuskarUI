@@ -5,6 +5,8 @@
     "__style__": {
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
+        "colorBg": "@colorBgBase",
+        "colorBorder": "@colorBorder",
         "colorWeekText": "@colorTextBase",
         "colorIcon": "@colorTextTertiary",
         "colorIconHover": "@colorTextSecondary",
@@ -22,7 +24,7 @@
         "colorPageIcon": "@colorTextTertiary",
         "colorPageTextHover": "@colorPrimary",
         "colorPageText": "@colorTextBase",
-        "colorSplitLine": "$alpha(@colorTextBase, 0.1)",
+        "colorSplit": "@colorSplit",
         "colorTimeText": "@colorTextBase",
         "colorTimeHeaderText": "@colorTextBase",
         "colorPopupBg": "@colorBgBase",

@@ -1,7 +1,7 @@
 {
     "__style__": {
         "fontFamily": "@fontPrimaryFamily",
-        "fontSize": "@fontPrimarySizeHeading5",
+        "fontSize": "@fontPrimarySize",
         "colorTextDisabled": "@colorPrimaryTextDisabled",
         "colorText": "@colorTextBase",
         "colorTextActive": "@colorPrimaryTextHover",
@@ -10,7 +10,7 @@
         "colorBgHover": "$alpha(@colorPrimaryBgActive, 0.15)",
         "colorBgActive": "$alpha(@colorPrimaryBgActive, 0.25)",
         "colorChildBg": "@colorFillQuaternary",
-        "colorEdge": "$alpha(@colorTextBase, 0.1)",
+        "colorEdge": "@colorSplit",
         "radiusMenuBg": "@radiusPrimary",
         "radiusPopupBg": "@radiusPrimary"
     }

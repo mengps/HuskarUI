@@ -13,7 +13,7 @@
         "colorInputDisabled": "@colorPrimaryTextDisabled",
         "colorBg": "@colorBgBase",
         "colorBgDisabled": "@colorPrimaryContainerBgDisabled",
-        "colorBorder": "@colorTextQuaternary",
+        "colorBorder": "@colorBorder",
         "colorBorderHover": "@colorPrimary",
         "colorBorderDisabled": "@colorTextQuaternary",
         "colorPresetIcon": "@colorTextTertiary",

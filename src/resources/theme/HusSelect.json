@@ -9,7 +9,7 @@
         "colorIndicatorHover": "$onBackground(@colorTextTertiary, @colorBgBase)",
         "colorIndicatorActive": "$onBackground(@colorTextPrimary, @colorBgBase)",
         "colorIndicatorDisabled": "$onBackground(@colorTextQuaternary, @colorBgBase)",
-        "colorBorder": "@colorTextQuaternary",
+        "colorBorder": "@colorBorder",
         "colorBorderHover": "@colorPrimary",
         "colorBorderDisabled": "transparent",
         "colorBg": "@colorBgBase",

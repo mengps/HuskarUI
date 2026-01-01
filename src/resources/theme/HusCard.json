@@ -6,7 +6,6 @@
         "fontSizeBodyDescription": "@fontPrimarySize",
         "colorBg": "@colorBgBase",
         "colorBorder": "@colorBorder",
-        "colorBorderDark": "#424242",
         "colorTitle": "@colorTextBase",
         "colorBodyAvatar": "@colorTextBase",
         "colorBodyTitle": "@colorTextBase",
