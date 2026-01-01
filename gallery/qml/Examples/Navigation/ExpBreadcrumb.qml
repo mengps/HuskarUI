@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusBreadcrumb 面包屑\n
 显示当前页面在系统层级结构中的位置，并能向上返回。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **itemDelegate: Component** 路由项代理，代理可访问属性：\n
@@ -35,7 +35,6 @@ Flickable {
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 initModel | list | [] | 初始模型
 separator | string | '/' | 默认分隔符
-spacing | int | 4 | 路由项间隔
 titleFont | font | - | 路由项标题字体
 defaultIconSize | int | - | 默认图标大小
 defaultMenuWidth | int | 120 | 默认菜单宽度

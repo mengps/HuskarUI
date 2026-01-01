@@ -22,10 +22,11 @@
  */
 
 import QtQuick
+import QtQuick.Templates as T
 import QtQuick.Layouts
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     signal valueModified()
@@ -56,6 +57,7 @@ Item {
     property string suffix: ''
     property var upIcon: HusIcon.UpOutlined || ''
     property var downIcon: HusIcon.DownOutlined || ''
+    property alias inputFont: control.font
     property font labelFont: Qt.font({
                                          family: 'HuskarUI-Icons',
                                          pixelSize: parseInt(themeSource.fontSize)
@@ -66,7 +68,6 @@ Item {
     property int initAfterLabelIndex: 0
     property string currentBeforeLabel: ''
     property string currentAfterLabel: ''
-    property var locale: Qt.locale()
     property var formatter: (value, locale) => value.toFixed(precision)
     property var parser: (text, locale) => Number(text)
     property int defaultHandlerWidth: 24
@@ -189,15 +190,6 @@ Item {
         }
     }
 
-    objectName: '__HusInputNumber__'
-    height: __row.implicitHeight
-    onValueChanged: __input.text = formatter(value, control.locale);
-    onPrefixChanged: valueChanged();
-    onSuffixChanged: valueChanged();
-    onCurrentAfterLabelChanged: valueChanged();
-    onCurrentBeforeLabelChanged: valueChanged();
-    Component.onCompleted: valueChanged();
-
     function increase() {
         value = value + step > max ? max : value + step;
     }
@@ -251,55 +243,24 @@ Item {
         control.valueChanged();
     }
 
-    Component {
-        id: __selectComp
+    onValueChanged: __input.text = formatter(value, control.locale);
+    onPrefixChanged: valueChanged();
+    onSuffixChanged: valueChanged();
+    onCurrentAfterLabelChanged: valueChanged();
+    onCurrentBeforeLabelChanged: valueChanged();
+    Component.onCompleted: valueChanged();
 
-        HusSelect {
-            id: __afterText
-            rightPadding: 4
-            animationEnabled: control.animationEnabled
-            colorBg: 'transparent'
-            colorBorder: 'transparent'
-            clearEnabled: false
-            model: isBefore ? control.beforeLabel : control.afterLabel
-            currentIndex: isBefore ? control.initBeforeLabelIndex : control.initAfterLabelIndex
-            onActivated:
-                (index) => {
-                    if (isBefore) {
-                        control.beforeActivated(index, valueAt(index));
-                    } else {
-                        control.afterActivated(index, valueAt(index));
-                    }
-                }
-            onCurrentTextChanged: {
-                if (isBefore)
-                    control.currentBeforeLabel = currentText;
-                else
-                    control.currentAfterLabel = currentText;
-            }
-        }
+    objectName: '__HusInputNumber__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    font {
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize)
     }
-
-    Component {
-        id: __labelComp
-
-        HusText {
-            text: isBefore ? control.beforeLabel : control.afterLabel
-            color: __input.colorText
-            font: control.labelFont
-            Component.onCompleted: {
-                if (isBefore)
-                    control.currentBeforeLabel = control.beforeLabel;
-                else
-                    control.currentAfterLabel = control.afterLabel;
-            }
-        }
-    }
-
-    RowLayout {
+    contentItem: RowLayout {
         id: __row
-        width: parent.width
-        height: parent.height
         spacing: 0
 
         Loader {
@@ -321,6 +282,7 @@ Item {
             rightPadding: (__suffixLoader.active ? __suffixLoader.implicitWidth : (rightClearIconPadding > 0 ? 5 : 10))
                           + rightIconPadding + rightClearIconPadding
             validator: control.validator
+            font: control.font
             background: HusRectangleInternal {
                 color: __input.colorBg
                 topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
@@ -446,6 +408,51 @@ Item {
             Layout.fillHeight: true
             active: control.afterLabel?.length !== 0
             sourceComponent: control.afterDelegate
+        }
+    }
+
+    Component {
+        id: __selectComp
+
+        HusSelect {
+            id: __afterText
+            rightPadding: 4
+            animationEnabled: control.animationEnabled
+            colorBg: 'transparent'
+            colorBorder: 'transparent'
+            clearEnabled: false
+            model: isBefore ? control.beforeLabel : control.afterLabel
+            currentIndex: isBefore ? control.initBeforeLabelIndex : control.initAfterLabelIndex
+            onActivated:
+                (index) => {
+                    if (isBefore) {
+                        control.beforeActivated(index, valueAt(index));
+                    } else {
+                        control.afterActivated(index, valueAt(index));
+                    }
+                }
+            onCurrentTextChanged: {
+                if (isBefore)
+                    control.currentBeforeLabel = currentText;
+                else
+                    control.currentAfterLabel = currentText;
+            }
+        }
+    }
+
+    Component {
+        id: __labelComp
+
+        HusText {
+            text: isBefore ? control.beforeLabel : control.afterLabel
+            color: __input.colorText
+            font: control.labelFont
+            Component.onCompleted: {
+                if (isBefore)
+                    control.currentBeforeLabel = control.beforeLabel;
+                else
+                    control.currentAfterLabel = control.afterLabel;
+            }
         }
     }
 }

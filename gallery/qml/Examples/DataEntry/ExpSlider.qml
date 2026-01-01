@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusSlider 滑动输入条\n
 滑动型输入器，展示当前值和可选范围。。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **handleDelgate: Component** 滑块代理，代理可访问属性：\n
@@ -42,7 +42,6 @@ stepSize | real | 0.0 | 步长
 value | number丨[number, number] | 0丨[0, 0] | 设置滑块值, range为true时为数组[min, max]
 currentValue | (readonly)number丨[number, number] | - | 获取当前滑块值, range为true时为数组[min, max]
 range | bool | false | 是否双滑块模式
-hovered | bool | - | 是否悬浮在滑动条上
 snapMode | enum | HusSlider.NoSnap | 滑块对齐模式(来自 HusSlider)
 orientation | enum | Qt.Horizontal | 滑动条方向(Qt.Horizontal 或 Qt.Vertical)
 colorHandle | color | - | 滑块颜色

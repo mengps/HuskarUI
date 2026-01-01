@@ -77,7 +77,6 @@ HusPopup {
         }
     }
     contentItem: HusMenu {
-        implicitHeight: implicitMenuHeight
         radiusMenuBg: control.radiusMenuBg
         radiusPopupBg: control.radiusBg
         initModel: control.initModel

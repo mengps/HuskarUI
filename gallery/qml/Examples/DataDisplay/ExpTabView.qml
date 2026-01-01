@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusTabView 标签页\n
 通过选项卡标签切换内容的组件。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **addButtonDelegate: Component** 添加按钮的代理\n

@@ -96,7 +96,7 @@ T.Control {
 
     objectName: '__HusColorPicker__'
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            contentItem.implicitWidth + leftPadding + rightPadding)
+                            implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
     padding: 4

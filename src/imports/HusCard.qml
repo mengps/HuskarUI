@@ -22,42 +22,47 @@
  */
 
 import QtQuick
+import QtQuick.Templates as T
 import QtQuick.Layouts
 import HuskarUI.Basic
 
-Rectangle {
+T.Control {
     id: control
 
     property bool animationEnabled: HusTheme.animationEnabled
     property string title: ''
-    property font titleFont: Qt.font({
-                                         family: HusTheme.HusCard.fontFamily,
-                                         pixelSize: parseInt(HusTheme.HusCard.fontSizeTitle),
-                                         weight: Font.DemiBold,
-                                     })
     property string coverSource: ''
     property int coverFillMode: Image.Stretch
-
+    property real borderWidth: 1
     property int bodyAvatarSize: 40
     property var bodyAvatarIcon: 0 ?? ''
     property string bodyAvatarSource: ''
     property string bodyAvatarText: ''
     property string bodyTitle: ''
+    property string bodyDescription: ''
+    property font titleFont: Qt.font({
+                                         family: themeSource.fontFamily,
+                                         pixelSize: parseInt(themeSource.fontSizeTitle),
+                                         weight: Font.DemiBold,
+                                     })
     property font bodyTitleFont: Qt.font({
-                                             family: HusTheme.HusCard.fontFamily,
-                                             pixelSize: parseInt(HusTheme.HusCard.fontSizeBodyTitle),
+                                             family: themeSource.fontFamily,
+                                             pixelSize: parseInt(themeSource.fontSizeBodyTitle),
                                              weight: Font.DemiBold,
                                          })
-    property string bodyDescription: ''
     property font bodyDescriptionFont: Qt.font({
-                                                   family: HusTheme.HusCard.fontFamily,
-                                                   pixelSize: parseInt(HusTheme.HusCard.fontSizeBodyDescription),
+                                                   family: themeSource.fontFamily,
+                                                   pixelSize: parseInt(themeSource.fontSizeBodyDescription),
                                                })
-    property color colorTitle: HusTheme.HusCard.colorTitle
-    property color colorBodyAvatar: HusTheme.HusCard.colorBodyAvatar
+    property color colorTitle: themeSource.colorTitle
+    property color colorBg: themeSource.colorBg
+    property color colorBorder: themeSource.colorBorder
+    property color colorBodyAvatar: themeSource.colorBodyAvatar
     property color colorBodyAvatarBg: 'transparent'
-    property color colorBodyTitle: HusTheme.HusCard.colorBodyTitle
-    property color colorBodyDescription: HusTheme.HusCard.colorBodyDescription
+    property color colorBodyTitle: themeSource.colorBodyTitle
+    property color colorBodyDescription: themeSource.colorBodyDescription
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property var themeSource: HusTheme.HusCard
 
     property Component titleDelegate: Item {
         height: 60
@@ -155,34 +160,44 @@ Rectangle {
 
     objectName: '__HusCard__'
     width: 300
-    height: __column.height
-    color: HusTheme.HusCard.colorBg
-    border.color: HusTheme.isDark ? HusTheme.HusCard.colorBorderDark : HusTheme.HusCard.colorBorder
-    radius: HusTheme.HusCard.radiusBg
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
     clip: true
-
-    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-
-    Column {
-        id: __column
-        width: parent.width
-
+    contentItem: Column {
         Loader {
             width: parent.width
-            sourceComponent: titleDelegate
+            sourceComponent: control.titleDelegate
         }
+
         Loader {
-            width: parent.width - control.border.width * 2
+            width: parent.width - 2
             anchors.horizontalCenter: parent.horizontalCenter
-            sourceComponent: coverDelegate
+            sourceComponent: control.coverDelegate
         }
+
+        Loader {
+            width: parent.width - 2
+            anchors.horizontalCenter: parent.horizontalCenter
+            sourceComponent: control.bodyDelegate
+        }
+
         Loader {
             width: parent.width
-            sourceComponent: bodyDelegate
+            sourceComponent: control.actionDelegate
         }
-        Loader {
-            width: parent.width
-            sourceComponent: actionDelegate
-        }
+    }
+    background: HusRectangleInternal {
+        color: control.colorBg
+        border.color: control.colorBorder
+        border.width: control.borderWidth
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
+
+        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     }
 }

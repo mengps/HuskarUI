@@ -37,7 +37,7 @@ Flickable {
             desc: qsTr(`
 # HusMenu 菜单\n
 为页面和功能提供导航的菜单列表。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **menuIconDelegate: Component** 菜单图标代理，代理可访问属性：\n
@@ -74,10 +74,9 @@ defaultMenuBottomPadding | int | 10 | 默认菜单下边距
 defaultMenuSpacing | int | 4 | 默认菜单间隔
 defaultSelectedKey | list | [] | 初始选中的菜单项 key 数组
 initModel | list | [] | 初始菜单模型
-scrollBar | [HusScrollBar](internal://HusScrollBar) | - | 菜单滚动条
 radiusMenuBg | [HusRadius](internal://HusRadius) | - | 菜单项背景圆角
 radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角
-implicitMenuHeight | real(readonly) | - | 内部菜单隐式高度
+scrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部菜单滚动条
 \n<br/>
 \n### 模型支持的属性：\n
 属性名 | 类型 | 可选/必选 | 描述

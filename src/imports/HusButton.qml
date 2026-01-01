@@ -119,13 +119,13 @@ T.Button {
             switch(control.type)
             {
             case HusButton.Type_Default:
-                return control.active ? themeSource.colorBorderActive :
-                                        control.hovered ? themeSource.colorBorderHover :
-                                                          themeSource.colorDefaultBorder;
+                return (control.active || control.visualFocus) ? themeSource.colorBorderActive :
+                                                                 control.hovered ? themeSource.colorBorderHover :
+                                                                                   themeSource.colorDefaultBorder;
             default:
-                return control.active ? themeSource.colorBorderActive :
-                                        control.hovered ? themeSource.colorBorderHover :
-                                                          themeSource.colorBorder;
+                return (control.active || control.visualFocus) ? themeSource.colorBorderActive :
+                                                                 control.hovered ? themeSource.colorBorderHover :
+                                                                                   themeSource.colorBorder;
             }
         } else {
             return themeSource.colorBorderDisabled;

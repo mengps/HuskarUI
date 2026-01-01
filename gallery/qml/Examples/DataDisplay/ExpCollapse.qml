@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 # HusCollapse 折叠面板 \n
 可以折叠/展开的内容区域。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **titleDelegate: Component** 面板标题代理，代理可访问属性：\n

@@ -143,7 +143,7 @@ T.Switch {
 
         HusRectangleInternal {
             id: __bg
-            width: Math.max(Math.max(checkedWidth, uncheckedWidth) + __handle.width, height * 2)
+            width: Math.max(Math.max(checkedWidth, uncheckedWidth) + __handle.height, height * 2)
             height: hasContent ? Math.max(checkedHeight, uncheckedHeight, 22) : 22
             anchors.centerIn: parent
             radius: control.radiusBg.all
@@ -227,7 +227,7 @@ T.Switch {
                 width: control.pressed ? height + 6 : height
                 height: parent.height - 4
                 anchors.verticalCenter: parent.verticalCenter
-                sourceComponent: handleDelegate
+                sourceComponent: control.handleDelegate
 
                 Behavior on width { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationMid } }
                 Behavior on x { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationMid } }

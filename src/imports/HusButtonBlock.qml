@@ -25,7 +25,7 @@ import QtQuick
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     enum Size {
@@ -50,11 +50,18 @@ Item {
     property int buttonRightPadding: 10
     property int buttonTopPadding: 8
     property int buttonBottomPadding: 8
-    property font font: Qt.font({
-                                    family: HusTheme.HusButton.fontFamily,
-                                    pixelSize: parseInt(HusTheme.HusButton.fontSize)
-                                })
-    property HusRadius radiusBg: HusRadius { all: HusTheme.HusButton.radiusBg }
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property var themeSource: HusTheme.HusButton
+
+    property Component toolTipDelegate: HusToolTip {
+        animationEnabled: control.animationEnabled
+        visible: hovered
+        font: control.font
+        locale: control.locale
+        text: toolTip.text ?? ''
+        delay: toolTip.delay ?? 500
+        timeout: toolTip.timeout ?? -1
+    }
     property Component buttonDelegate: HusIconButton {
         id: __rootItem
 
@@ -80,20 +87,27 @@ Item {
                                                                   control.buttonHeight
         z: (hovered || checked) ? 1 : 0
         enabled: control.enabled && (modelData.enabled === undefined ? true : modelData.enabled)
+        themeSource: control.themeSource
+        locale: control.locale
         font: control.font
         type: modelData.type ?? HusButton.Type_Default
         iconSource: modelData.iconSource ?? 0
         text: modelData.label ?? ''
         background: Item {
-            Rectangle {
+            HusRectangleInternal {
                 id: __effect
                 width: __bg.width
                 height: __bg.height
                 anchors.centerIn: parent
                 visible: __rootItem.effectEnabled
                 color: 'transparent'
+                radius: __bg.radius
+                topLeftRadius: __bg.topLeftRadius
+                topRightRadius: __bg.topRightRadius
+                bottomLeftRadius: __bg.bottomLeftRadius
+                bottomRightRadius: __bg.bottomRightRadius
                 border.width: 0
-                border.color: __rootItem.enabled ? HusTheme.HusButton.colorBorderHover : 'transparent'
+                border.color: __rootItem.enabled ? control.themeSource.colorBorderHover : 'transparent'
                 opacity: 0.2
 
                 ParallelAnimation {
@@ -143,15 +157,28 @@ Item {
                 Behavior on border.color { enabled: __rootItem.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
             }
         }
+
+        Loader {
+            x: (parent.width - width) * 0.5
+            active: toolTip !== undefined
+            sourceComponent: control.toolTipDelegate
+            property bool pressed: __rootItem.pressed
+            property bool hovered: __rootItem.hovered
+            property var toolTip: modelData.toolTip
+        }
     }
     property string contentDescription: ''
 
     objectName: '__HusButtonBlock__'
-    implicitWidth: __loader.width
-    implicitHeight: __loader.height
-
-    Loader {
-        id: __loader
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    font {
+        family: control.themeSource.fontFamily
+        pixelSize: parseInt(control.themeSource.fontSize)
+    }
+    contentItem: Loader {
         sourceComponent: Row {
             spacing: -1
 

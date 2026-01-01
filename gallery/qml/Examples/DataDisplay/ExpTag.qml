@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 # HusTag 标签 \n
 进行标记和分类的小标签。\n
-* **继承自 { Rectangle }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n
@@ -29,18 +29,17 @@ Flickable {
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 tagState | enum | HusTag.State_Default | 标签状态(来自 HusTag)
 text | string | '' | 标签文本
-font | font | - | 标签字体
 rotating | bool | false | 旋转中
 iconSource | int丨string | 0丨'' | 图标(来自 HusIcon)或图标链接
 iconSize | int | - | 图标大小
 closeIconSource | int丨string | 0丨'' | 关闭图标(来自 HusIcon)或图标链接
 closeIconSize | int | true | 关闭图标大小
-spacing | int | 5 | 图标间隔
 presetColor | string | '' | 预设颜色
 colorText | color | - |文本颜色
 colorBg | color | - | 背景颜色
 colorBorder | color | - | 边框颜色
 colorIcon | color | - | 图标颜色
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 \n<br/>
 \n### 支持的信号：\n
 - \`close()\` 点击关闭图标(如果有)时发出\n

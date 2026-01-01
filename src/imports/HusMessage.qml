@@ -50,16 +50,16 @@ Item {
     property int bgBottomPadding: 12
     property int bgLeftPadding: 12
     property int bgRightPadding: 12
-    property color colorMessage: HusTheme.HusMessage.colorMessage
-    property color colorBg: HusTheme.isDark ? HusTheme.HusMessage.colorBgDark : HusTheme.HusMessage.colorBg
-    property color colorBgShadow: HusTheme.HusMessage.colorBgShadow
-    property HusRadius radiusBg: HusRadius { all: HusTheme.HusMessage.radiusBg }
-
+    property int messageSpacing: 8
     property font messageFont: Qt.font({
                                            family: HusTheme.HusMessage.fontFamily,
                                            pixelSize: parseInt(HusTheme.HusMessage.fontSize)
                                        })
-    property int messageSpacing: 8
+    property color colorMessage: HusTheme.HusMessage.colorMessage
+    property color colorBg: HusTheme.isDark ? HusTheme.HusMessage.colorBgDark : HusTheme.HusMessage.colorBg
+    property color colorBgShadow: HusTheme.HusMessage.colorBgShadow
+    property HusRadius radiusBg: HusRadius { all: HusTheme.HusMessage.radiusBg }
+    property var themeSource: HusTheme.HusMenu
 
     property Component messageDelegate: HusText {
         font: control.messageFont

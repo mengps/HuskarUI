@@ -25,7 +25,7 @@ import QtQuick
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     signal click(index: int, data: var)
@@ -35,11 +35,11 @@ Item {
     property var initModel: []
     readonly property int count: __listModel.count
     property string separator: '/'
-    property int spacing: 4
-    property font titleFont
-    property int defaultIconSize: HusTheme.HusBreadcrumb.fontSize + 2
+    property alias titleFont: control.font
+    property int defaultIconSize: themeSource.fontSize + 2
     property int defaultMenuWidth: 120
-    property HusRadius radiusItemBg: HusRadius { all: HusTheme.HusBreadcrumb.radiusItemBg }
+    property HusRadius radiusItemBg: HusRadius { all: themeSource.radiusItemBg }
+    property var themeSource: HusTheme.HusBreadcrumb
 
     property Component itemDelegate: HusRectangleInternal {
         id: __itemDelegate
@@ -52,8 +52,8 @@ Item {
         bottomLeftRadius: control.radiusItemBg.bottomLeft
         bottomRightRadius: control.radiusItemBg.bottomRight
 
-        color: isCurrent || !__hoverHandler.hovered ? HusTheme.HusBreadcrumb.colorBgLast :
-                                                      HusTheme.HusBreadcrumb.colorBg;
+        color: isCurrent || !__hoverHandler.hovered ? control.themeSource.colorBgLast :
+                                                      control.themeSource.colorBg;
 
         property int __index: index
         property var menu: model.menu ?? {}
@@ -70,8 +70,8 @@ Item {
             HusIconText {
                 id: __icon
                 anchors.verticalCenter: parent.verticalCenter
-                color: isCurrent || __hoverHandler.hovered ? HusTheme.HusBreadcrumb.colorIconLast :
-                                                             HusTheme.HusBreadcrumb.colorIcon;
+                color: isCurrent || __hoverHandler.hovered ? control.themeSource.colorIconLast :
+                                                             control.themeSource.colorIcon;
                 iconSize: model.iconSize
                 iconSource: model.loading ? HusIcon.LoadingOutlined : model.iconSource
                 verticalAlignment: Text.AlignVCenter
@@ -102,8 +102,8 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 active: __itemDelegate.menuItem.length > 0
                 sourceComponent: HusIconText {
-                    color: isCurrent || __hoverHandler.hovered ? HusTheme.HusBreadcrumb.colorIconLast :
-                                                                 HusTheme.HusBreadcrumb.colorIcon;
+                    color: isCurrent || __hoverHandler.hovered ? control.themeSource.colorIconLast :
+                                                                 control.themeSource.colorIcon;
                     iconSource: HusIcon.DownOutlined
                     verticalAlignment: Text.AlignVCenter
 
@@ -159,42 +159,34 @@ Item {
     }
     property Component separatorDelegate: HusText {
         text: model.separator ?? ''
-        color: HusTheme.HusBreadcrumb.colorIcon
+        color: control.themeSource.colorIcon
     }
 
-    objectName: '__HusBreadcrumb__'
-    height: 30
-    titleFont {
-        family: HusTheme.HusBreadcrumb.fontFamily
-        pixelSize: parseInt(HusTheme.HusBreadcrumb.fontSize)
-    }
-    onInitModelChanged: reset();
-
-    function get(index) {
+    function get(index: int) {
         return __listModel.get(index);
     }
 
-    function set(index, object) {
+    function set(index: int, object: var) {
         __listModel.set(index, __private.initObject(object));
     }
 
-    function setProperty(index, propertyName, value) {
+    function setProperty(index: int, propertyName: string, value: var) {
         __listModel.setProperty(index, propertyName, value);
     }
 
-    function move(from, to, count = 1) {
+    function move(from: int, to: int, count = 1) {
         __listModel.move(from, to, count);
     }
 
-    function insert(index, object) {
+    function insert(index: int, object: var) {
         __listModel.insert(index, __private.initObject(object));
     }
 
-    function append(object) {
+    function append(object: var) {
         __listModel.append(__private.initObject(object));
     }
 
-    function remove(index, count = 1) {
+    function remove(index: int, count = 1) {
         __listModel.remove(index, count);
     }
 
@@ -217,31 +209,22 @@ Item {
         return path;
     }
 
-    QtObject {
-        id: __private
-        signal hover(index: int)
-        function initObject(object) {
-            if (!object.hasOwnProperty('title')) object.title = '';
+    onInitModelChanged: reset();
 
-            if (!object.hasOwnProperty('iconSource')) object.iconSource = 0;
-            if (!object.hasOwnProperty('iconUrl')) object.iconUrl = '';
-            if (!object.hasOwnProperty('iconSize')) object.iconSize = control.defaultIconSize;
-            if (!object.hasOwnProperty('loading')) object.loading = false;
-
-            if (!object.hasOwnProperty('separator')) object.separator = control.separator;
-            if (!object.hasOwnProperty('itemDelegate')) object.itemDelegate = control.itemDelegate;
-            if (!object.hasOwnProperty('separatorDelegate')) object.separatorDelegate = control.separatorDelegate;
-
-            if (!object.hasOwnProperty('menu')) object.menu = {};
-
-            return object;
-        }
+    objectName: '__HusBreadcrumb__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    padding: 0
+    spacing: 4
+    font {
+        family: control.themeSource.fontFamily
+        pixelSize: parseInt(control.themeSource.fontSize)
     }
-
-    ListView{
+    contentItem: ListView{
         id: __listView
-        width: parent.width
-        height: parent.height
+        implicitHeight: 30
         orientation: ListView.Horizontal
         model: ListModel { id: __listModel }
         clip: true
@@ -294,6 +277,29 @@ Item {
                     property alias isCurrent: __rootItem.isCurrent
                 }
             }
+        }
+    }
+
+    QtObject {
+        id: __private
+
+        signal hover(index: int)
+
+        function initObject(object: var): var {
+            if (!object.hasOwnProperty('title')) object.title = '';
+
+            if (!object.hasOwnProperty('iconSource')) object.iconSource = 0;
+            if (!object.hasOwnProperty('iconUrl')) object.iconUrl = '';
+            if (!object.hasOwnProperty('iconSize')) object.iconSize = control.defaultIconSize;
+            if (!object.hasOwnProperty('loading')) object.loading = false;
+
+            if (!object.hasOwnProperty('separator')) object.separator = control.separator;
+            if (!object.hasOwnProperty('itemDelegate')) object.itemDelegate = control.itemDelegate;
+            if (!object.hasOwnProperty('separatorDelegate')) object.separatorDelegate = control.separatorDelegate;
+
+            if (!object.hasOwnProperty('menu')) object.menu = {};
+
+            return object;
         }
     }
 }

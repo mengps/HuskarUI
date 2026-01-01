@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusPagination 分页\n
 分页器用于分隔长列表，每次只加载一个页面。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **prevButtonDelegate: Component** 上一页按钮代理\n

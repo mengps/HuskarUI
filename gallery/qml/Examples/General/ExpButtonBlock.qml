@@ -18,9 +18,13 @@ Flickable {
             desc: qsTr(`
 # HusButtonBlock 按钮块(HusIconButton变种) \n
 用于将多个按钮组织成块，类似 HusRadioBlock。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
+- **toolTipDelegate: Component** 文字提示代理，代理可访问属性：\n
+  - \`pressed: int\` 是否按下\n
+  - \`hovered: int\` 是否悬浮\n
+  - \`toolTip: var\` 文字提示数据\n
 - **buttonDelegate: Component** 按钮项代理，代理可访问属性：\n
   - \`index: int\` 按钮项索引\n
   - \`modelData: var\` 按钮项数据\n
@@ -40,7 +44,6 @@ buttonLeftPadding | int | 10 | 按钮项左填充
 buttonRightPadding | int | 10 | 按钮项右填充
 buttonTopPadding | int | 8 | 按钮项上填充
 buttonBottomPadding | int | 8 | 按钮项下填充
-font | font | - | 按钮项字体
 radiusBg | [HusRadius](internal://HusRadius) | - | 按钮项背景半径
 contentDescription | string | '' | 内容描述(提高可用性)
 \n<br/>
@@ -53,6 +56,10 @@ enabled | bool | 可选 | 本按钮是否启用
 iconSource | int丨string | 可选 | 本按钮图标(参见 HusIcon)或图标链接
 type | enum | 可选 | 本按钮类型(参见 HusButton.type)
 autoRepeat | bool | 可选 | 本按钮是否自动重复(参见 Button.autoRepeat)
+toolTip | var | 可选 | 存在时则创建文字提示
+toolTip.text | string | 可选 | 存在时则创建文字提示
+toolTip.delay | int | 可选 | 文字提示延时(ms)
+toolTip.timeout | int | 可选 | 文字提示超时(ms)
 \n<br/>
 \n### 支持的信号：\n
 - \`pressed(index: int, buttonData: var)\` 按下按钮时发出\n
@@ -62,6 +69,9 @@ autoRepeat | bool | 可选 | 本按钮是否自动重复(参见 Button.autoRepea
   - \`index\` 按钮索引\n
   - \`buttonData\` 按钮项数据\n
 - \`clicked(index: int, buttonData: var)\` 点击按钮时发出\n
+  - \`index\` 按钮索引\n
+  - \`buttonData\` 按钮项数据\n
+- \`doubleClicked(index: int, buttonData: var)\` 双击按钮时发出\n
   - \`index\` 按钮索引\n
   - \`buttonData\` 按钮项数据\n
                        `)

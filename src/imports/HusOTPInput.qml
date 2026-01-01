@@ -22,9 +22,10 @@
  */
 
 import QtQuick
+import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     signal finished(input: string)
@@ -36,29 +37,21 @@ Item {
     property string currentInput: ''
     property int itemWidth: 45
     property int itemHeight: 32
-    property alias itemSpacing: __row.spacing
+    property alias itemSpacing: control.spacing
     property var itemValidator: IntValidator { top: 9; bottom: 0 }
     property int itemInputMethodHints: Qt.ImhHiddenText
     property bool itemPassword: false
     property string itemPasswordCharacter: ''
     property var formatter: (text) => text
 
-    property color colorItemText: enabled ? HusTheme.HusInput.colorText : HusTheme.HusInput.colorTextDisabled
-    property color colorItemBorder: enabled ? HusTheme.HusInput.colorBorder : HusTheme.HusInput.colorBorderDisabled
-    property color colorItemBorderActive: enabled ? HusTheme.HusInput.colorBorderHover : HusTheme.HusInput.colorBorderDisabled
-    property color colorItemBg: enabled ? HusTheme.HusInput.colorBg : HusTheme.HusInput.colorBgDisabled
-    property HusRadius radiusBg: HusRadius { all: HusTheme.HusInput.radiusBg }
+    property color colorItemText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
+    property color colorItemBorder: enabled ? themeSource.colorBorder : themeSource.colorBorderDisabled
+    property color colorItemBorderActive: enabled ? themeSource.colorBorderHover : themeSource.colorBorderDisabled
+    property color colorItemBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property var themeSource: HusTheme.HusInput
 
     property Component dividerDelegate: Item { }
-
-    objectName: '__HusOTPInput__'
-    width: __row.width
-    height: __row.height
-    onCurrentIndexChanged: {
-        const item = __repeater.itemAt(currentIndex << 1);
-        if (item && item.index % 2 == 0)
-            item.item.selectThis();
-    }
 
     function setInput(inputs) {
         for (let i = 0; i < inputs.length; i++) {
@@ -93,6 +86,36 @@ Item {
         return '';
     }
 
+    onCurrentIndexChanged: {
+        const item = __repeater.itemAt(currentIndex << 1);
+        if (item && item.index % 2 == 0)
+            item.item.selectThis();
+    }
+
+    objectName: '__HusOTPInput__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    font {
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize)
+    }
+    spacing: 8
+    contentItem: Row {
+        id: __row
+        spacing: control.spacing
+
+        Repeater {
+            id: __repeater
+            model: control.length * 2 - 1
+            delegate: Loader {
+                sourceComponent: index % 2 == 0 ? __inputDelegate : dividerDelegate
+                required property int index
+            }
+        }
+    }
+
     Component {
         id: __inputDelegate
 
@@ -104,6 +127,8 @@ Item {
             horizontalAlignment: HusInput.AlignHCenter
             enabled: control.enabled
             animationEnabled: control.animationEnabled
+            font: control.font
+            themeSource: control.themeSource
             colorText: control.colorItemText
             colorBorder: active ? control.colorItemBorderActive : control.colorItemBorder
             colorBg: control.colorItemBg
@@ -162,20 +187,6 @@ Item {
                     control.currentIndex = __rootItem.__index >> 1;
                     __rootItem.selectAll();
                 }
-            }
-        }
-    }
-
-    Row {
-        id: __row
-        spacing: 8
-
-        Repeater {
-            id: __repeater
-            model: control.length * 2 - 1
-            delegate: Loader {
-                sourceComponent: index % 2 == 0 ? __inputDelegate : dividerDelegate
-                required property int index
             }
         }
     }

@@ -49,6 +49,7 @@ T.SpinBox {
     property string suffix: ''
     property var upIcon: HusIcon.UpOutlined || ''
     property var downIcon: HusIcon.DownOutlined || ''
+    property alias inputFont: control.font
     property font labelFont: Qt.font({
                                          family: 'HuskarUI-Icons',
                                          pixelSize: parseInt(themeSource.fontSize)

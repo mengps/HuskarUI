@@ -22,9 +22,10 @@
  */
 
 import QtQuick
+import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Rectangle {
+T.Control {
     id: control
 
     enum State {
@@ -40,28 +41,19 @@ Rectangle {
     property bool animationEnabled: HusTheme.animationEnabled
     property int tagState: HusTag.State_Default
     property string text: ''
-    property font font: Qt.font({
-                                    family: HusTheme.HusTag.fontFamily,
-                                    pixelSize: parseInt(HusTheme.HusTag.fontSize) - 2
-                                })
     property bool rotating: false
     property var iconSource: 0 ?? ''
     property int iconSize: parseInt(HusTheme.HusButton.fontSize)
     property var closeIconSource: 0 ?? ''
     property int closeIconSize: parseInt(HusTheme.HusButton.fontSize)
-    property alias spacing: __row.spacing
     property string presetColor: ''
-    property color colorText: presetColor == '' ? HusTheme.HusTag.colorDefaultText : __private.isCustom ? '#fff' : __private.colorArray[5]
-    property color colorBg: presetColor == '' ? HusTheme.HusTag.colorDefaultBg : __private.isCustom ? presetColor : __private.colorArray[0]
-    property color colorBorder: presetColor == '' ? HusTheme.HusTag.colorDefaultBorder : __private.isCustom ? 'transparent' : __private.colorArray[2]
+    property color colorText: presetColor == '' ? control.themeSource.colorDefaultText : __private.isCustom ? '#fff' : __private.colorArray[5]
+    property color colorBg: presetColor == '' ? control.themeSource.colorDefaultBg : __private.isCustom ? presetColor : __private.colorArray[0]
+    property color colorBorder: presetColor == '' ? control.themeSource.colorDefaultBorder : __private.isCustom ? 'transparent' : __private.colorArray[2]
     property color colorIcon: colorText
+    property HusRadius radiusBg: HusRadius { all: control.themeSource.radiusBg }
+    property var themeSource: HusTheme.HusTag
 
-    objectName: '__HusTag__'
-    implicitWidth: __row.implicitWidth + 16
-    implicitHeight: Math.max(__icon.implicitHeight, __text.implicitHeight, __closeIcon.implicitHeight) + 8
-    color: colorBg
-    border.color: colorBorder
-    radius: HusTheme.HusTag.radiusBg
     onTagStateChanged: {
         switch (tagState) {
         case HusTag.State_Success: presetColor = '#52c41a'; break;
@@ -98,23 +90,23 @@ Rectangle {
         }
     }
 
-    Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-
-    HusColorGenerator {
-        id: husColorGenerator
+    objectName: '__HusTag__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    topPadding: 4
+    bottomPadding: 4
+    leftPadding: 8
+    rightPadding: 8
+    spacing: 5
+    font {
+        family: control.themeSource.fontFamily
+        pixelSize: parseInt(control.themeSource.fontSize) - 2
     }
-
-    QtObject {
-        id: __private
-        property bool isCustom: false
-        property color presetColor: '#000'
-        property var colorArray: HusThemeFunctions.genColor(presetColor, !HusTheme.isDark, HusTheme.Primary.colorBgBase)
-    }
-
-    Row {
-        id: __row
-        anchors.centerIn: parent
-        spacing: 5
+    contentItem: Row {
+        height: Math.max(__icon.implicitHeight, __text.implicitHeight, __closeIcon.implicitHeight)
+        spacing: control.spacing
 
         HusIconText {
             id: __icon
@@ -150,7 +142,7 @@ Rectangle {
         HusIconText {
             id: __closeIcon
             anchors.verticalCenter: parent.verticalCenter
-            color: hovered ? HusTheme.HusTag.colorCloseIconHover : HusTheme.HusTag.colorCloseIcon
+            color: hovered ? control.themeSource.colorCloseIconHover : control.themeSource.colorCloseIcon
             iconSize: control.closeIconSize
             iconSource: control.closeIconSource
             verticalAlignment: Text.AlignVCenter
@@ -171,5 +163,27 @@ Rectangle {
                 onTapped: control.close();
             }
         }
+    }
+    background: HusRectangleInternal {
+        color: control.colorBg
+        border.color: control.colorBorder
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
+
+        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+    }
+
+    HusColorGenerator {
+        id: husColorGenerator
+    }
+
+    QtObject {
+        id: __private
+        property bool isCustom: false
+        property color presetColor: '#000'
+        property var colorArray: HusThemeFunctions.genColor(presetColor, !HusTheme.isDark, HusTheme.Primary.colorBgBase)
     }
 }

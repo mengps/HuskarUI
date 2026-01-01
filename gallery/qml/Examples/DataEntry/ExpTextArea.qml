@@ -26,13 +26,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
-wheelEnabled | bool | - | 是否启用鼠标滚动
 active | bool | - | 是否处于激活状态
-hovered | bool(readonly) | - | 鼠标是否悬浮
-topPadding | int | 6 | 上边距
-bottomPadding | int | 6 | 下边距
-leftPadding | int | 10 | 左边距
-rightPadding | int | 10 | 右边距
 resizable | bool | false | 是否可手动改变高度
 minResizeHeight | int | 30 | 最小手动可改变高度
 autoSize | bool | false | 是否自动调整高度

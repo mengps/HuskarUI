@@ -25,17 +25,11 @@ import QtQuick
 import QtQuick.Controls.Basic as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     property bool animationEnabled: HusTheme.animationEnabled
-    property alias wheelEnabled: __scrollView.wheelEnabled
-    property bool active: __scrollView.hovered || __scrollView.visualFocus
-    readonly property alias hovered: __scrollView.hovered
-    property alias topPadding: __scrollView.topPadding
-    property alias bottomPadding: __scrollView.bottomPadding
-    property alias leftPadding: __scrollView.leftPadding
-    property alias rightPadding: __scrollView.rightPadding
+    property bool active: __textArea.hovered || __textArea.activeFocus
     property bool resizable: false
     property int minResizeHeight: 30
     property bool autoSize: false
@@ -46,7 +40,6 @@ Item {
     property int maxLength: -1
     property alias readOnly: __textArea.readOnly
     property alias textFormat: __textArea.textFormat
-    property alias font: __scrollView.font
     property alias text: __textArea.text
     property alias placeholderText: __textArea.placeholderText
     property alias colorText: __textArea.color
@@ -75,45 +68,6 @@ Item {
         bottomRightRadius: control.radiusBg.bottomRight
     }
 
-    objectName: '__HusTextArea__'
-    topPadding: 6
-    bottomPadding: 6
-    leftPadding: 10
-    rightPadding: 10
-    height: {
-        if (autoSize) {
-            if (minRows > 0 && maxRows > 0) {
-                if (lineCount < minRows)
-                    return __private.minHeight + __textArea.topPadding + __textArea.bottomPadding + topPadding + bottomPadding;
-                else if (lineCount > maxRows) {
-                    return __private.maxHeight + __textArea.topPadding + __textArea.bottomPadding + topPadding + bottomPadding;
-                } else {
-                    return lineCount * __private.lineHeight + __textArea.topPadding + __textArea.bottomPadding + topPadding + bottomPadding;
-                }
-            } else {
-                return __textArea.implicitHeight + topPadding + bottomPadding;
-            }
-        } else {
-            return minResizeHeight;
-        }
-    }
-    font {
-        family: control.themeSource.fontFamily
-        pixelSize: parseInt(control.themeSource.fontSize)
-    }
-    wheelEnabled: autoSize ? (minRows > 0 && maxRows > 0) : (__vScrollBar.visible || __vScrollBar.active)
-
-    onTextChanged: __private.removeExcess();
-    onMaxLengthChanged: __private.removeExcess();
-
-    Behavior on height { enabled: control.animationEnabled && !__resize.pressed; NumberAnimation { duration: HusTheme.Primary.durationMid } }
-
-    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorPlaceholderText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorSelectedText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-
     function scrollToBeginning() {
         __textArea.cursorPosition = 0;
     }
@@ -122,44 +76,77 @@ Item {
         __textArea.cursorPosition = __textArea.length;
     }
 
-    T.ScrollView {
-        id: __scrollView
-        focus: true
-        anchors.fill: parent
-        background: Loader {
-            sourceComponent: control.bgDelegate
-        }
-        T.ScrollBar.vertical: HusScrollBar {
-            id: __vScrollBar
-            policy: T.ScrollBar.AlwaysOn
-            animationEnabled: control.animationEnabled
-        }
-        T.ScrollBar.horizontal: HusScrollBar {
-            id: __hScrollBar
-            policy: T.ScrollBar.AlwaysOn
-            animationEnabled: control.animationEnabled
-        }
-        Component.onCompleted: {
-            contentItem.boundsBehavior = Flickable.StopAtBounds;
+    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorPlaceholderText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorSelectedText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+
+    onTextChanged: __private.removeExcess();
+    onMaxLengthChanged: __private.removeExcess();
+
+    objectName: '__HusTextArea__'
+    topPadding: 6
+    bottomPadding: 6
+    leftPadding: 10
+    rightPadding: 10
+    font {
+        family: control.themeSource.fontFamily
+        pixelSize: parseInt(control.themeSource.fontSize)
+    }
+    wheelEnabled: autoSize ? (minRows > 0 && maxRows > 0) : (__vScrollBar.visible || __vScrollBar.active)
+    contentItem: Item {
+        implicitHeight: {
+            if (control.autoSize) {
+                if (control.minRows > 0 && control.maxRows > 0) {
+                    if (control.lineCount < control.minRows)
+                        return __private.minHeight + __textArea.topPadding + __textArea.bottomPadding;
+                    else if (lineCount > maxRows) {
+                        return __private.maxHeight + __textArea.topPadding + __textArea.bottomPadding;
+                    } else {
+                        return control.lineCount * __private.lineHeight + __textArea.topPadding + __textArea.bottomPadding;
+                    }
+                } else {
+                    return __textArea.implicitHeight;
+                }
+            } else {
+                return control.minResizeHeight;
+            }
         }
 
-        T.TextArea {
-            id: __textArea
+        Behavior on implicitHeight { enabled: control.animationEnabled && !__resize.pressed; NumberAnimation { duration: HusTheme.Primary.durationMid } }
+
+        T.ScrollView {
+            id: __scrollView
             focus: true
-            topPadding: 0
-            bottomPadding: 0
-            leftPadding: 0
-            rightPadding: 0
-            wrapMode: T.TextArea.WrapAnywhere
-            renderType: HusTheme.textRenderType
-            color: control.themeSource.colorText
-            selectByMouse: true
-            selectByKeyboard: true
-            placeholderTextColor: control.themeSource.colorPlaceholderText
-            selectedTextColor: control.themeSource.colorTextSelected
-            selectionColor: control.themeSource.colorSelection
-            font: control.font
+            anchors.fill: parent
+            T.ScrollBar.vertical: __vScrollBar
+            T.ScrollBar.horizontal: __hScrollBar
+            Component.onCompleted: {
+                contentItem.boundsBehavior = Flickable.StopAtBounds;
+            }
+
+            T.TextArea {
+                id: __textArea
+                focus: true
+                topPadding: 0
+                bottomPadding: 0
+                leftPadding: 0
+                rightPadding: 0
+                wrapMode: T.TextArea.WrapAnywhere
+                renderType: HusTheme.textRenderType
+                color: control.themeSource.colorText
+                selectByMouse: true
+                selectByKeyboard: true
+                placeholderTextColor: control.themeSource.colorPlaceholderText
+                selectedTextColor: control.themeSource.colorTextSelected
+                selectionColor: control.themeSource.colorSelection
+                font: control.font
+            }
         }
+    }
+    background: Loader {
+        sourceComponent: control.bgDelegate
     }
 
     HusIconText {
@@ -200,6 +187,20 @@ Item {
                 }
             property int startY: 0
         }
+    }
+
+    HusScrollBar {
+        id: __vScrollBar
+        orientation: Qt.Vertical
+        policy: T.ScrollBar.AlwaysOn
+        animationEnabled: control.animationEnabled
+    }
+
+    HusScrollBar {
+        id: __hScrollBar
+        orientation: Qt.Horizontal
+        policy: T.ScrollBar.AlwaysOn
+        animationEnabled: control.animationEnabled
     }
 
     QtObject {

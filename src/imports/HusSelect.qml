@@ -31,7 +31,7 @@ T.ComboBox {
     signal clickClear()
 
     property bool animationEnabled: HusTheme.animationEnabled
-    property bool active: hovered || visualFocus
+    property bool active: hovered || visualFocus || contentItem.hovered || contentItem.activeFocus
     property int hoverCursorShape: Qt.PointingHandCursor
     property bool clearEnabled: true
     property var clearIconSource: HusIcon.CloseCircleFilled ?? ''
@@ -118,13 +118,13 @@ T.ComboBox {
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
     objectName: '__HusSelect__'
+    implicitWidth: implicitContentWidth + implicitIndicatorWidth + leftPadding + rightPadding
+    implicitHeight: implicitContentHeight + topPadding + bottomPadding
     leftPadding: padding + (!control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
     rightPadding: padding + (control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
     topPadding: 4
     bottomPadding: 4
     spacing: 8
-    implicitWidth: implicitContentWidth + implicitIndicatorWidth + leftPadding + rightPadding
-    implicitHeight: implicitContentHeight + topPadding + bottomPadding
     textRole: 'label'
     valueRole: 'value'
     font {
@@ -136,9 +136,10 @@ T.ComboBox {
     indicator: Loader {
         x: control.mirrored ? (control.padding + control.spacing) : (control.width - width - control.padding - control.spacing)
         y: control.topPadding + (control.availableHeight - height) / 2
-        sourceComponent: indicatorDelegate
+        sourceComponent: control.indicatorDelegate
     }
     contentItem: HusInput {
+        id: __input
         topPadding: 0
         bottomPadding: 0
         text: control.editable ? control.editText : control.displayText
@@ -153,6 +154,8 @@ T.ComboBox {
         colorText: control.colorText
         colorBg: 'transparent'
         colorBorder: 'transparent'
+
+        Keys.onEnterPressed: if (active && !control.popup.opened) control.popup.open();
 
         HoverHandler {
             cursorShape: control.editable ? Qt.IBeamCursor : control.hoverCursorShape
@@ -185,7 +188,7 @@ T.ComboBox {
     background: HusRectangleInternal {
         color: control.colorBg
         border.color: control.colorBorder
-        border.width: control.visualFocus ? 2 : 1
+        border.width: 1
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight

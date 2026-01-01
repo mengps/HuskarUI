@@ -28,7 +28,7 @@ import QtQuick.Templates as T
 import Qt.labs.qmlmodels
 import HuskarUI.Basic
 
-HusRectangle {
+HusRectangleInternal {
     id: control
 
     property bool animationEnabled: HusTheme.animationEnabled

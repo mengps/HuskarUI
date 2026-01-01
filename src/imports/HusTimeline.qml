@@ -25,7 +25,7 @@ import QtQuick
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     enum Mode {
@@ -42,7 +42,6 @@ Item {
     property int defaultLineWidth: 1
     property string defaultTimeFormat: 'yyyy-MM-dd'
     property int defaultContentFormat: Text.AutoText
-    property var locale: Qt.locale()
     property color colorNode: HusTheme.HusTimeline.colorNode
     property color colorNodeBg: HusTheme.HusTimeline.colorNodeBg
     property color colorLine: HusTheme.HusTimeline.colorLine
@@ -50,12 +49,13 @@ Item {
                                         family: HusTheme.HusTimeline.fontFamily,
                                         pixelSize: parseInt(HusTheme.HusTimeline.fontSize)
                                     })
-    property color colorTimeText: HusTheme.HusTimeline.colorTimeText
     property font contentFont: Qt.font({
                                            family: HusTheme.HusTimeline.fontFamily,
                                            pixelSize: parseInt(HusTheme.HusTimeline.fontSize)
                                        })
+    property color colorTimeText: HusTheme.HusTimeline.colorTimeText
     property color colorContentText: HusTheme.HusTimeline.colorContentText
+
     property Component nodeDelegate: Component {
         Item {
             height: __loading.active ? __loading.height : __icon.active ? __icon.height : defaultNodeSize
@@ -136,14 +136,6 @@ Item {
         }
     }
 
-    objectName: '__HusTimeline__'
-    onInitModelChanged: {
-        clear();
-        for (const object of initModel) {
-            append(object);
-        }
-    }
-
     function flick(xVelocity: real, yVelocity: real) {
         __listView.flick(xVelocity, yVelocity);
     }
@@ -201,37 +193,20 @@ Item {
         __listModel.clear();
     }
 
-    QtObject {
-        id: __private
-        property bool noTime: true
-        function initObject(object) {
-            /*! 静态角色类型下会有颜色不兼容问题, 统一转换为string即可 */
-            if (object.hasOwnProperty('colorNode')) {
-                object.colorNode = String(object.colorNode);
-            }
-
-            if (!object.hasOwnProperty('colorNode')) object.colorNode = String(control.colorNode);
-            if (!object.hasOwnProperty('iconSource')) object.iconSource = 0;
-            if (!object.hasOwnProperty('iconSize')) object.iconSize = control.defaultNodeSize;
-            if (!object.hasOwnProperty('loading')) object.loading = false;
-
-            if (!object.hasOwnProperty('time')) object.time = new Date(undefined);
-            if (!object.hasOwnProperty('timeFormat')) object.timeFormat = control.defaultTimeFormat;
-
-            if (!object.hasOwnProperty('content')) object.content = '';
-            if (!object.hasOwnProperty('contentFormat')) object.contentFormat = control.defaultContentFormat;
-
-            /*! 判断是否存在有效时间 */
-            if (__private.noTime && object.hasOwnProperty('time') && !isNaN(object.time))
-                __private.noTime = false;
-
-            return object;
+    onInitModelChanged: {
+        clear();
+        for (const object of initModel) {
+            append(object);
         }
     }
 
-    ListView {
+    objectName: '__HusTimeline__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    contentItem: ListView {
         id: __listView
-        anchors.fill: parent
         clip: true
         verticalLayoutDirection: control.reverse ? ListView.BottomToTop : ListView.TopToBottom
         model: ListModel { id: __listModel }
@@ -326,6 +301,34 @@ Item {
                     font: control.contentFont
                 }
             }
+        }
+    }
+
+    QtObject {
+        id: __private
+        property bool noTime: true
+        function initObject(object) {
+            /*! 静态角色类型下会有颜色不兼容问题, 统一转换为string即可 */
+            if (object.hasOwnProperty('colorNode')) {
+                object.colorNode = String(object.colorNode);
+            }
+
+            if (!object.hasOwnProperty('colorNode')) object.colorNode = String(control.colorNode);
+            if (!object.hasOwnProperty('iconSource')) object.iconSource = 0;
+            if (!object.hasOwnProperty('iconSize')) object.iconSize = control.defaultNodeSize;
+            if (!object.hasOwnProperty('loading')) object.loading = false;
+
+            if (!object.hasOwnProperty('time')) object.time = new Date(undefined);
+            if (!object.hasOwnProperty('timeFormat')) object.timeFormat = control.defaultTimeFormat;
+
+            if (!object.hasOwnProperty('content')) object.content = '';
+            if (!object.hasOwnProperty('contentFormat')) object.contentFormat = control.defaultContentFormat;
+
+            /*! 判断是否存在有效时间 */
+            if (__private.noTime && object.hasOwnProperty('time') && !isNaN(object.time))
+                __private.noTime = false;
+
+            return object;
         }
     }
 }

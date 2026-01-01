@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 # HusTimeline 时间轴 \n
 垂直展示的时间流信息。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **nodeDelegate: Component** 节点(圆圈)代理，代理可访问属性：\n
@@ -47,7 +47,6 @@ defaultNodeSize | int | 11 | 默认圆圈大小
 defaultLineWidth | int | 1 | 默认线条宽度
 defaultTimeFormat | string | 'yyyy-MM-dd' | 默认时间格式
 defaultContentFormat | enum | Text.AutoText | 默认内容文本格式(来自 Text)
-locale | Locale | - | 区域设置
 colorNode | color | - | 圆圈颜色
 colorNodeBg | color | - | 圆圈背景颜色
 colorLine | color | - | 线条颜色

@@ -48,17 +48,6 @@ Window {
                                      Qt.platform.os === 'osx' ||
                                      Qt.platform.os === 'linux'
 
-    visible: true
-    objectName: '__HusWindow__'
-    Component.onCompleted: {
-        initialized = true;
-        setWindowMode(HusTheme.isDark);
-        if (isDesktopPlatform)
-            __captionBar.windowAgent = __windowAgent;
-        if (followThemeSwitch)
-            __connections.onIsDarkChanged();
-    }
-
     function setMacSystemButtonsVisible(visible) {
         if (Qt.platform.os === 'osx') {
             windowAgent.setWindowAttribute('no-system-buttons', !visible);
@@ -155,6 +144,18 @@ Window {
 
         return false;
     }
+
+    Component.onCompleted: {
+        initialized = true;
+        setWindowMode(HusTheme.isDark);
+        if (isDesktopPlatform)
+            __captionBar.windowAgent = __windowAgent;
+        if (followThemeSwitch)
+            __connections.onIsDarkChanged();
+    }
+
+    objectName: '__HusWindow__'
+    visible: true
 
     Connections {
         target: HusTheme

@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 # HusRate 评分 \n
 用于对事物进行评分操作。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **fillDelegate: Component** 满星代理，代理可访问属性：\n
@@ -53,7 +53,6 @@ colorHalf | color | - | 半星颜色
 colorToolTipText | color | - | 文字提示文本颜色
 colorToolTipBg | color | - | 文字提示背景颜色
 allowHalf | bool | false | 是否允许半星
-isDone | bool | false | 是否已经完成评分
 fillIcon | int丨string | HusIcon.StarFilled丨'' | 满星图标(来自 HusIcon)或图标链接
 emptyIcon | int丨string | HusIcon.StarFilled丨'' | 空星图标(来自 HusIcon)或图标链接
 halfIcon | int丨string | HusIcon.StarFilled丨'' | 半星图标(来自 HusIcon)或图标链接

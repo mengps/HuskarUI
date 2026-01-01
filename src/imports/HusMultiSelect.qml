@@ -116,9 +116,6 @@ HusSelect {
         }
     }
 
-    Behavior on colorTagText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-    Behavior on colorTagBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-
     function findKey(key: string) {
         return __private.getData(key);
     }
@@ -170,12 +167,16 @@ HusSelect {
         filter();
     }
 
+    Behavior on colorTagText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+    Behavior on colorTagBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+
     objectName: '__HusMultiSelect__'
     themeSource: HusTheme.HusMultiSelect
     font {
         family: themeSource.fontFamily
         pixelSize: parseInt(themeSource.fontSize)
     }
+    active: hovered || visualFocus || __input.hovered || __input.activeFocus
     editable: true
     leftPadding: 2
     clearEnabled: false

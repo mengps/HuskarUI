@@ -22,10 +22,11 @@
  */
 
 import QtQuick
+import QtQuick.Templates as T
 import QtQuick.Effects
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     /* 结束 */
@@ -36,27 +37,23 @@ Item {
     property int count: 5
     property real initValue: 0
     property real value: 0
-    property alias spacing: __row.spacing
     property int iconSize: 24
-    /* 文字提示 */
-    property font toolTipFont: Qt.font({
-                                           family: HusTheme.HusRate.fontFamily,
-                                           pixelSize: parseInt(HusTheme.HusRate.fontSize)
-                                       })
     property bool showToolTip: false
+    property alias toolTipFont: control.font
     property list<string> toolTipTexts: []
-    property color colorFill: HusTheme.HusRate.colorFill
-    property color colorEmpty: HusTheme.HusRate.colorEmpty
-    property color colorHalf: HusTheme.HusRate.colorHalf
-    property color colorToolTipShadow: HusTheme.HusRate.colorToolTipShadow
-    property color colorToolTipText: HusTheme.HusRate.colorToolTipText
-    property color colorToolTipBg: HusTheme.isDark ? HusTheme.HusRate.colorToolTipBgDark : HusTheme.HusRate.colorToolTipBg
     /* 允许半星 */
     property bool allowHalf: false
-    property bool isDone: false
     property var fillIcon: HusIcon.StarFilled || ''
     property var emptyIcon: HusIcon.StarFilled || ''
     property var halfIcon: HusIcon.StarFilled || ''
+    property color colorFill: themeSource.colorFill
+    property color colorEmpty: themeSource.colorEmpty
+    property color colorHalf: themeSource.colorHalf
+    property color colorToolTipShadow: themeSource.colorToolTipShadow
+    property color colorToolTipText: themeSource.colorToolTipText
+    property color colorToolTipBg: HusTheme.isDark ? themeSource.colorToolTipBgDark : themeSource.colorToolTipBg
+    property var themeSource: HusTheme.HusRate
+
     property Component fillDelegate: HusIconText {
         colorIcon: control.colorFill
         iconSource: control.fillIcon
@@ -134,7 +131,7 @@ Item {
                 anchors.bottomMargin: -1
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: control.colorToolTipBg
-                radius: HusTheme.HusRate.radiusToolTipBg
+                radius: control.themeSource.radiusToolTipBg
 
                 HusText {
                     id: __toolTipText
@@ -171,36 +168,32 @@ Item {
         fragmentShader: 'qrc:/HuskarUI/shaders/husrate.frag.qsb'
     }
 
-    objectName: '__HusRate__'
-    implicitWidth: __mouseArea.width
-    implicitHeight: __mouseArea.height
     onInitValueChanged: {
         __private.doneValue = value = initValue;
-        isDone = true;
     }
 
-    QtObject {
-        id: __private
-        property real doneValue: 0    /* 是否支持半星动画 */
-        property bool supportsHalfAnimation: control.allowHalf &&
-                                             ((fillIcon === HusIcon.StarFilled && emptyIcon === HusIcon.StarFilled) || halfIcon !== emptyIcon)
+    objectName: '__HusRate__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    spacing: 4
+    font {
+        family: control.themeSource.fontFamily
+        pixelSize: parseInt(control.themeSource.fontSize)
     }
-
-    MouseArea {
-        id: __mouseArea
-        width: __row.width
-        height: control.iconSize
+    contentItem: MouseArea {
+        implicitWidth: __row.implicitWidth
+        implicitHeight: __row.implicitHeight
         hoverEnabled: true
         enabled: control.enabled
         onExited: {
-            if (control.isDone) {
-                control.value = __private.doneValue;
-            }
+            control.value = __private.doneValue;
         }
 
         Row {
             id: __row
-            spacing: 4
+            spacing: control.spacing
 
             Repeater {
                 id: __repeater
@@ -208,12 +201,12 @@ Item {
                 property int fillCount: Math.floor(control.value)
                 property int emptyStartIndex: Math.round(control.value)
                 property bool hasHalf: control.allowHalf && control.value - fillCount > 0
-                
+
                 Behavior on fillCount {
                     enabled: control.animationEnabled
                     NumberAnimation { duration: HusTheme.Primary.durationFast }
                 }
-                
+
                 Behavior on emptyStartIndex {
                     enabled: control.animationEnabled
                     NumberAnimation { duration: HusTheme.Primary.durationFast }
@@ -234,35 +227,41 @@ Item {
                         }
                     }
                     onExited: hovered = false;
-                    onClicked: {
-                        control.isDone = !control.isDone;
-                        if (control.isDone) {
-                            __private.doneValue = control.value;
+                    onClicked:
+                        mouse => {
+                            const newValue = getCurrentValue(mouse, index);
+                            if (__private.doneValue === newValue) {
+                                __private.doneValue = control.value = 0;
+                            } else {
+                                __private.doneValue = control.value = newValue;
+                            }
                             control.done(__private.doneValue);
                         }
-                    }
-                    onPositionChanged: function(mouse) {
-                        let newValue;
-                        if (control.allowHalf) {
-                            if (mouse.x > (width * 0.5)) {
-                                newValue = index + 1;
-                            } else {
-                                newValue = index + 0.5;
-                            }
-                        } else {
-                            newValue = index + 1;
-                        }
-                        
-                        // 只有当评分值变化时才触发动画
-                        if (newValue !== control.value) {
-                            control.value = newValue;
-                            if (control.animationEnabled && !__scaleAnim.running) {
-                                __scaleAnim.start();
+                    onPositionChanged:
+                        mouse => {
+                            const newValue = getCurrentValue(mouse, index);
+                            /*! 只有当评分值变化时才触发动画 */
+                            if (newValue !== control.value) {
+                                control.value = newValue;
+                                if (control.animationEnabled && !__scaleAnim.running) {
+                                    __scaleAnim.start();
+                                }
                             }
                         }
-                    }
                     required property int index
                     property bool hovered: false
+
+                    function getCurrentValue(mouse, index) {
+                        if (control.allowHalf) {
+                            if (mouse.x > (width * 0.5)) {
+                                return index + 1;
+                            } else {
+                                return index + 0.5;
+                            }
+                        } else {
+                            return index + 1;
+                        }
+                    }
 
                     SequentialAnimation {
                         id: __scaleAnim
@@ -288,7 +287,7 @@ Item {
                         id: __rootItemContainer
                         width: parent.width
                         height: parent.height
-                        
+
                         Loader {
                             id: fillLoader
                             anchors.fill: parent
@@ -297,7 +296,7 @@ Item {
                             sourceComponent: control.fillDelegate
                             property int index: __rootItem.index
                             property bool hovered: __rootItem.hovered
-                            
+
                             Behavior on opacity {
                                 enabled: control.animationEnabled
                                 NumberAnimation { duration: HusTheme.Primary.durationFast }
@@ -312,7 +311,7 @@ Item {
                             sourceComponent: control.halfDelegate
                             property int index: __rootItem.index
                             property bool hovered: __rootItem.hovered
-                            
+
                             Behavior on opacity {
                                 enabled: control.animationEnabled && __private.supportsHalfAnimation
                                 NumberAnimation { duration: HusTheme.Primary.durationFast }
@@ -327,7 +326,7 @@ Item {
                             sourceComponent: control.emptyDelegate
                             property int index: __rootItem.index
                             property bool hovered: __rootItem.hovered
-                            
+
                             Behavior on opacity {
                                 enabled: control.animationEnabled
                                 NumberAnimation { duration: HusTheme.Primary.durationFast }
@@ -347,5 +346,13 @@ Item {
                 }
             }
         }
+    }
+
+    QtObject {
+        id: __private
+        property real doneValue: 0
+        /* 是否支持半星动画 */
+        property bool supportsHalfAnimation: control.allowHalf &&
+                                             ((fillIcon === HusIcon.StarFilled && emptyIcon === HusIcon.StarFilled) || halfIcon !== emptyIcon)
     }
 }

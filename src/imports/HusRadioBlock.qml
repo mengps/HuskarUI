@@ -25,7 +25,7 @@ import QtQuick
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     enum Type {
@@ -52,17 +52,18 @@ Item {
     property int size: HusRadioBlock.Size_Auto
     property int radioWidth: 120
     property int radioHeight: 30
-    property font font: Qt.font({
-                                    family: HusTheme.HusRadio.fontFamily,
-                                    pixelSize: parseInt(HusTheme.HusRadio.fontSize)
-                                })
-    property HusRadius radiusBg: HusRadius { all: HusTheme.HusRadio.radiusBlockBg }
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property string contentDescription: ''
+    property var themeSource: HusTheme.HusRadioBlock
+
     property Component toolTipDelegate: HusToolTip {
+        animationEnabled: control.animationEnabled
+        visible: hovered
+        font: control.font
+        locale: control.locale
         text: toolTip.text ?? ''
         delay: toolTip.delay ?? 500
         timeout: toolTip.timeout ?? -1
-        visible: hovered
-        animationEnabled: control.animationEnabled
     }
     property Component radioDelegate: HusIconButton {
         id: __rootItem
@@ -78,60 +79,66 @@ Item {
             }
         }
 
-        animationEnabled: control.animationEnabled
-        effectEnabled: control.effectEnabled
-        hoverCursorShape: control.hoverCursorShape
         implicitWidth: control.size == HusRadioBlock.Size_Auto ? (implicitContentWidth + leftPadding + rightPadding) :
                                                                  control.radioWidth
         implicitHeight: control.size == HusRadioBlock.Size_Auto ? (implicitContentHeight + topPadding + bottomPadding) :
                                                                   control.radioHeight
         z: (hovered || checked) ? 1 : 0
+        animationEnabled: control.animationEnabled
+        effectEnabled: control.effectEnabled
+        hoverCursorShape: control.hoverCursorShape
         enabled: control.enabled && (modelData.enabled === undefined ? true : modelData.enabled)
+        themeSource: control.themeSource
+        locale: control.locale
         font: control.font
         type: HusButton.Type_Default
         iconSource: modelData.iconSource ?? 0
         text: modelData.label ?? ''
-        colorBorder: (enabled && checked) ? HusTheme.HusRadio.colorBlockBorderChecked :
-                                            HusTheme.HusRadio.colorBlockBorder;
+        colorBorder: (enabled && checked) ? control.themeSource.colorBorderChecked :
+                                            control.themeSource.colorBorder;
         colorText: {
             if (enabled) {
                 if (control.type == HusRadioBlock.Type_Filled) {
-                    return checked ? HusTheme.HusRadio.colorBlockTextFilledChecked :
-                                     hovered ? HusTheme.HusRadio.colorBlockTextChecked :
-                                               HusTheme.HusRadio.colorBlockText;
+                    return checked ? control.themeSource.colorTextFilledChecked :
+                                     hovered ? control.themeSource.colorTextChecked :
+                                               control.themeSource.colorText;
                 } else {
-                    return (checked || hovered) ? HusTheme.HusRadio.colorBlockTextChecked :
-                                                  HusTheme.HusRadio.colorBlockText;
+                    return (checked || hovered) ? control.themeSource.colorTextChecked :
+                                                  control.themeSource.colorText;
                 }
             } else {
-                return HusTheme.HusRadio.colorTextDisabled;
+                return control.themeSource.colorTextDisabled;
             }
         }
         colorBg: {
             if (enabled) {
                 if (control.type == HusRadioBlock.Type_Filled) {
-                    return down ? (checked ? HusTheme.HusRadio.colorBlockBgActive : HusTheme.HusRadio.colorBlockBg) :
-                                  hovered ? (checked ? HusTheme.HusRadio.colorBlockBgHover : HusTheme.HusRadio.colorBlockBg) :
-                                            checked ? HusTheme.HusRadio.colorBlockBgChecked :
-                                                      HusTheme.HusRadio.colorBlockBg;
+                    return down ? (checked ? control.themeSource.colorBgActive : control.themeSource.colorBg) :
+                                  hovered ? (checked ? control.themeSource.colorBgHover : control.themeSource.colorBg) :
+                                            checked ? control.themeSource.colorBgChecked :
+                                                      control.themeSource.colorBg;
                 } else {
-                    return HusTheme.HusRadio.colorBlockBg;
+                    return control.themeSource.colorBg;
                 }
             } else {
-                return checked ? HusTheme.HusRadio.colorBlockBgCheckedDisabled : HusTheme.HusRadio.colorBlockBgDisabled;
+                return checked ? control.themeSource.colorBgCheckedDisabled : control.themeSource.colorBgDisabled;
             }
         }
         checkable: true
         background: Item {
-            Rectangle {
+            HusRectangleInternal {
                 id: __effect
                 width: __bg.width
                 height: __bg.height
                 anchors.centerIn: parent
                 visible: __rootItem.effectEnabled
+                topLeftRadius: __bg.topLeftRadius
+                topRightRadius: __bg.topRightRadius
+                bottomLeftRadius: __bg.bottomLeftRadius
+                bottomRightRadius: __bg.bottomRightRadius
                 color: 'transparent'
                 border.width: 0
-                border.color: __rootItem.enabled ? HusTheme.HusRadio.colorBlockEffectBg : 'transparent'
+                border.color: __rootItem.enabled ? control.themeSource.colorEffectBg : 'transparent'
                 opacity: 0.2
 
                 ParallelAnimation {
@@ -201,14 +208,17 @@ Item {
             }
         }
     }
-    property string contentDescription: ''
 
     objectName: '__HusRadioBlock__'
-    implicitWidth: __loader.implicitWidth
-    implicitHeight: __loader.implicitHeight
-
-    Loader {
-        id: __loader
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    font {
+        family: control.themeSource.fontFamily
+        pixelSize: parseInt(control.themeSource.fontSize)
+    }
+    contentItem: Loader {
         sourceComponent: Row {
             spacing: -1
 
@@ -233,5 +243,4 @@ Item {
     Accessible.role: Accessible.RadioButton
     Accessible.name: control.contentDescription
     Accessible.description: control.contentDescription
-    Accessible.onPressAction: control.clicked();
 }

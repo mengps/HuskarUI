@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusProgress 进度条 \n
 展示操作的当前进度。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **infoDelegate: Component** 进度信息的代理\n

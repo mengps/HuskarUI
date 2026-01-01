@@ -64,13 +64,17 @@ T.CheckBox {
         implicitHeight: __bg.height
         anchors.verticalCenter: parent.verticalCenter
 
-        Rectangle {
+        HusRectangleInternal {
             id: __effect
             width: __bg.width
             height: __bg.height
-            radius: __bg.radius
             anchors.centerIn: parent
             visible: control.effectEnabled
+            radius: __bg.radius
+            topLeftRadius: __bg.topLeftRadius
+            topRightRadius: __bg.topRightRadius
+            bottomLeftRadius: __bg.bottomLeftRadius
+            bottomRightRadius: __bg.bottomRightRadius
             color: 'transparent'
             border.width: 0
             border.color: control.enabled ? control.themeSource.colorEffectBg : 'transparent'

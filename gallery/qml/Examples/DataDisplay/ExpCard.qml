@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 # HusCard 卡片 \n
 通用卡片容器。\n
-* **继承自 { Rectangle }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **titleDelegate: Component** 卡片标题代理\n
@@ -32,7 +32,6 @@ Flickable {
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 title | string | '' | 标题文本
-titleFont | font | - | 标题字体
 coverSource | url | '' | 封面图片链接
 coverFillMode | enum | Image.Stretch | 封面图片填充模式(来自 Image)
 bodyAvatarSize | int |  40 | 内容字体
@@ -40,8 +39,9 @@ bodyAvatarIcon | int | 0 | 主体部分头像图标(来自 HusIcon)
 bodyAvatarSource | url | '' | 主体部分头像链接
 bodyAvatarText | string | '' | 主体部分头像文本
 bodyTitle | string | '' | 主体部分标题文本
-bodyTitleFont | font | - | 主体部分标题字体
 bodyDescription | string | '' | 主体部分描述文本
+titleFont | font | - | 标题字体
+bodyTitleFont | font | - | 主体部分标题字体
 bodyDescriptionFont | font | - | 主体部分描述字体
 colorTitle | color | - | 标题文本颜色
 colorBodyAvatar | color | - | 主体部分头像颜色

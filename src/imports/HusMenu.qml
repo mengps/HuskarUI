@@ -26,7 +26,7 @@ import QtQuick.Layouts
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     enum CompactMode {
@@ -51,8 +51,8 @@ Item {
     property bool popupMode: false
     property int popupWidth: 200
     property int popupOffset: 4
-    property int popupMaxHeight: control.height
-    property int defaultMenuIconSize: parseInt(HusTheme.HusMenu.fontSize)
+    property int popupMaxHeight: height
+    property int defaultMenuIconSize: font.pixelSize + 2
     property int defaultMenuIconSpacing: 8
     property int defaultMenuWidth: 300
     property int defaultMenuTopPadding: 10
@@ -60,11 +60,12 @@ Item {
     property int defaultMenuSpacing: 4
     property var defaultSelectedKey: []
     property var initModel: []
-    property alias scrollBar: __menuScrollBar
-    property HusRadius radiusMenuBg: HusRadius { all: HusTheme.HusMenu.radiusMenuBg }
-    property HusRadius radiusPopupBg: HusRadius { all: HusTheme.HusMenu.radiusPopupBg }
-    readonly property real implicitMenuHeight: __listView.contentHeight + __listView.anchors.topMargin + __listView.anchors.bottomMargin
+    property HusRadius radiusMenuBg: HusRadius { all: themeSource.radiusMenuBg }
+    property HusRadius radiusPopupBg: HusRadius { all: themeSource.radiusPopupBg }
     property string contentDescription: ''
+    property var themeSource: HusTheme.HusMenu
+
+    property alias scrollBar: __menuScrollBar
 
     property Component menuIconDelegate: HusIconText {
         color: menuButton.colorText
@@ -182,14 +183,6 @@ Item {
         }
     }
 
-    objectName: '__HusMenu__'
-    implicitWidth: compactMode !== HusMenu.Mode_Relaxed ? compactWidth : defaultMenuWidth
-    implicitHeight: __listView.contentHeight + __listView.anchors.topMargin + __listView.anchors.bottomMargin
-    clip: true
-    onInitModelChanged: {
-        __listView.model = initModel;
-    }
-
     function gotoMenu(key) {
         __private.gotoMenuKey = key;
         __private.gotoMenu(key);
@@ -254,11 +247,73 @@ Item {
         __listView.model = [];
     }
 
+    onInitModelChanged: {
+        __listView.model = initModel;
+    }
+
+    objectName: '__HusMenu__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    padding: 5
+    rightPadding: 8
+    font {
+        family: control.themeSource.fontFamily
+        pixelSize: parseInt(control.themeSource.fontSize)
+    }
+    clip: true
+    wheelEnabled: true
+    contentItem: ListView {
+        id: __listView
+        implicitWidth: (control.compactMode !== HusMenu.Mode_Relaxed ? control.compactWidth : control.defaultMenuWidth) -
+                       (control.leftPadding + control.rightPadding)
+        implicitHeight: __listView.contentHeight
+        boundsBehavior: Flickable.StopAtBounds
+        model: []
+        delegate: __menuDelegate
+        onContentHeightChanged: cacheBuffer = contentHeight;
+        T.ScrollBar.vertical: HusScrollBar {
+            id: __menuScrollBar
+            anchors.rightMargin: -8
+            policy: T.ScrollBar.AsNeeded
+            animationEnabled: control.animationEnabled
+        }
+        property int menuDeep: 0
+    }
+    background: Item {
+        Loader {
+            width: 1
+            height: parent.height
+            anchors.right: parent.right
+            active: control.showEdge
+            sourceComponent: Rectangle {
+                color: control.themeSource.colorEdge
+            }
+        }
+    }
+
+    Behavior on width {
+        enabled: control.animationEnabled
+        NumberAnimation {
+            easing.type: Easing.OutCubic
+            duration: HusTheme.Primary.durationMid
+        }
+    }
+
+    Behavior on implicitWidth {
+        enabled: control.animationEnabled
+        NumberAnimation {
+            easing.type: Easing.OutCubic
+            duration: HusTheme.Primary.durationMid
+        }
+    }
+
     component MenuButton: HusButton {
         id: __menuButtonImpl
 
         property var iconSource: 0 ?? ''
-        property int iconSize: parseInt(HusTheme.HusMenu.fontSize)
+        property int iconSize: parseInt(control.themeSource.fontSize)
         property int iconSpacing: 5
         property bool expanded: false
         property bool showExpanded: false
@@ -282,29 +337,29 @@ Item {
         colorText: {
             if (enabled) {
                 if (isGroup) {
-                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? HusTheme.HusMenu.colorTextActive :
-                                                                                         HusTheme.HusMenu.colorTextDisabled;
+                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? control.themeSource.colorTextActive :
+                                                                                         control.themeSource.colorTextDisabled;
                 } else {
-                    return isCurrent ? HusTheme.HusMenu.colorTextActive : HusTheme.HusMenu.colorText;
+                    return isCurrent ? control.themeSource.colorTextActive : control.themeSource.colorText;
                 }
             } else {
-                return HusTheme.HusMenu.colorTextDisabled;
+                return control.themeSource.colorTextDisabled;
             }
         }
         colorBg: {
             if (enabled) {
                 if (isGroup)
-                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? HusTheme.HusMenu.colorBgActive :
-                                                                                         HusTheme.HusMenu.colorBgDisabled;
+                    return (isCurrent && control.compactMode !== HusMenu.Mode_Relaxed) ? control.themeSource.colorBgActive :
+                                                                                         control.themeSource.colorBgDisabled;
                 else if (isCurrent)
-                    return HusTheme.HusMenu.colorBgActive;
+                    return control.themeSource.colorBgActive;
                 else if (hovered) {
-                    return HusTheme.HusMenu.colorBgHover;
+                    return control.themeSource.colorBgHover;
                 } else {
-                    return HusTheme.HusMenu.colorBg;
+                    return control.themeSource.colorBg;
                 }
             } else {
-                return HusTheme.HusMenu.colorBgDisabled;
+                return control.themeSource.colorBgDisabled;
             }
         }
         contentItem: Loader {
@@ -316,22 +371,6 @@ Item {
             sourceComponent: __menuButtonImpl.bgDelegate
             property alias model: __menuButtonImpl.model
             property alias menuButton: __menuButtonImpl
-        }
-    }
-
-    Behavior on width {
-        enabled: control.animationEnabled
-        NumberAnimation {
-            easing.type: Easing.OutCubic
-            duration: HusTheme.Primary.durationMid
-        }
-    }
-
-    Behavior on implicitWidth {
-        enabled: control.animationEnabled
-        NumberAnimation {
-            easing.type: Easing.OutCubic
-            duration: HusTheme.Primary.durationMid
         }
     }
 
@@ -498,7 +537,7 @@ Item {
                         + ((control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 0 : __childrenListView.height)
                 anchors.top: parent.top
                 color: (__rootItem.view.menuDeep === 0 ||
-                        control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 'transparent' : HusTheme.HusMenu.colorChildBg
+                        control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 'transparent' : control.themeSource.colorChildBg
                 visible: __rootItem.menuType == 'item' || __rootItem.menuType == 'group'
 
                 MenuButton {
@@ -521,6 +560,7 @@ Item {
                         }
                     }
                     checkable: true
+                    font: control.font
                     iconSize: __rootItem.menuIconSize
                     iconSource: __rootItem.menuIconSource
                     iconSpacing: __rootItem.menuIconSpacing
@@ -658,21 +698,6 @@ Item {
         }
     }
 
-    Loader {
-        width: 1
-        height: parent.height
-        anchors.right: parent.right
-        active: control.showEdge
-        sourceComponent: Rectangle {
-            color: HusTheme.HusMenu.colorEdge
-        }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onWheel: (wheel) => wheel.accepted = true;
-    }
-
     Component {
         id: __popupComponent
 
@@ -712,27 +737,6 @@ Item {
         }
     }
 
-    ListView {
-        id: __listView
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.margins: 5
-        boundsBehavior: Flickable.StopAtBounds
-        model: []
-        delegate: __menuDelegate
-        onContentHeightChanged: cacheBuffer = contentHeight;
-        T.ScrollBar.vertical: HusScrollBar {
-            id: __menuScrollBar
-            anchors.rightMargin: -8
-            policy: T.ScrollBar.AsNeeded
-            animationEnabled: control.animationEnabled
-        }
-        property int menuDeep: 0
-    }
-
-    Accessible.role: Accessible.Tree
+    Accessible.role: Accessible.MenuBar
     Accessible.description: control.contentDescription
 }

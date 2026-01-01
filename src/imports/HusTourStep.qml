@@ -250,9 +250,6 @@ T.Popup {
         }
     }
 
-    x: 0
-    y: 0
-    objectName: '__HusTourStep__'
     onStepModelChanged: {
         resetStep();
         __private.recalcPosition();
@@ -274,6 +271,10 @@ T.Popup {
             __private.startClosing();
         }
     }
+
+    objectName: '__HusTourStep__'
+    x: 0
+    y: 0
     enter: Transition {
         NumberAnimation {
             property: 'opacity';

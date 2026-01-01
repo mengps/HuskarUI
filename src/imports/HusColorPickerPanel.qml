@@ -101,6 +101,8 @@ T.Control {
         }
     }
 
+    onDefaultValueChanged: __private.updateHSV(defaultValue);
+
     objectName: '__HusColorPickerPanel__'
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
@@ -111,7 +113,6 @@ T.Control {
         family: control.themeSource.fontFamilyTitle
         pixelSize: parseInt(control.themeSource.fontSizeTitle)
     }
-    onDefaultValueChanged: __private.updateHSV(defaultValue);
     contentItem: Loader {
         sourceComponent: control.presetsOrientation === Qt.Horizontal ? __horLayout : __verLayout
     }
@@ -778,7 +779,7 @@ T.Control {
         property real v: 1 // Value (0-1)
         property real a: 1 // Alpha (0-1)
 
-        property color value: Qt.hsva(h, s, v, alphaEnabled ? a : 1)
+        property color value: Qt.hsva(h, s, v, control.alphaEnabled ? a : 1)
 
         onValueChanged: control.change(value);
 

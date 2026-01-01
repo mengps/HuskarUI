@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusBadge 徽标数\n
 图标右上角的圆形徽标数字。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n
@@ -33,7 +33,6 @@ iconSource | int丨string | 0丨'' | 徽标展示的图标(来自 HusIcon)或图
 dot | bool | false | 不展示数字,只有一个小红点(默认 false)
 showZero | bool | false | 当数值为 0 时, 是否展示 HusBadge
 overflowCount | int | 99 | 展示封顶的数字值
-font | font | - | 文本字体
 colorBg | color | - | 背景颜色
 colorBorder | color | - | 边框颜色
 colorText | color | - | 文本颜色

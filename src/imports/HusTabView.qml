@@ -22,11 +22,12 @@
  */
 
 import QtQuick
+
 import QtQuick.Layouts
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
     clip: true
 
@@ -62,9 +63,9 @@ Item {
     property bool tabCentered: false
     property bool tabCardMovable: true
     property int defaultTabWidth: 80
-    property int defaultTabHeight: parseInt(HusTheme.HusTabView.fontSize) + 16
+    property int defaultTabHeight: parseInt(themeSource.fontSize) + 16
     property int defaultTabSpacing: 2
-    property int defaultTabBgRadius: HusTheme.HusTabView.radiusTabBg
+    property int defaultTabBgRadius: themeSource.radiusTabBg
     property int defaultHighlightWidth: __private.isHorizontal ? 30 : 20
     property var addTabCallback:
         () => {
@@ -75,14 +76,16 @@ Item {
         (index, data) => {
             remove(index);
         }
+    property var themeSource: HusTheme.HusTabView
+
     property Component addButtonDelegate: HusCaptionButton {
         id: __addButton
         animationEnabled: control.animationEnabled
-        iconSize: parseInt(HusTheme.HusTabView.fontSize)
+        iconSize: parseInt(control.themeSource.fontSize)
         iconSource: HusIcon.PlusOutlined
-        colorIcon: HusTheme.HusTabView.colorTabCloseHover
+        colorIcon: control.themeSource.colorTabCloseHover
         hoverCursorShape: Qt.PointingHandCursor
-        radiusBg: HusTheme.HusTabView.radiusButton
+        radiusBg.all: control.themeSource.radiusButton
         onClicked: addTabCallback();
     }
     property Component tabDelegate: tabType == HusTabView.Type_Default ? __defaultTabDelegate : __cardTabDelegate
@@ -149,16 +152,8 @@ Item {
             ]
             active: control.tabType === HusTabView.Type_Default
             sourceComponent: Rectangle {
-                color: HusTheme.isDark ? HusTheme.HusTabView.colorHightlightDark : HusTheme.HusTabView.colorHightlight
+                color: HusTheme.isDark ? control.themeSource.colorHightlightDark : control.themeSource.colorHightlight
             }
-        }
-    }
-
-    objectName: '__HusTabView__'
-    onInitModelChanged: {
-        clear();
-        for (const object of initModel) {
-            append(object);
         }
     }
 
@@ -219,6 +214,264 @@ Item {
         __tabModel.clear();
     }
 
+    onInitModelChanged: {
+        clear();
+        for (const object of initModel) {
+            append(object);
+        }
+    }
+
+    objectName: '__HusTabView__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    font {
+        family: control.themeSource.fontFamily
+        pixelSize: parseInt(control.themeSource.fontSize)
+    }
+    contentItem: Item {
+        id: __contentItem
+
+        MouseArea {
+            anchors.fill: __tabView
+            onWheel:
+                wheel => {
+                    if (__private.isHorizontal)
+                        __tabView.flick(wheel.angleDelta.y * 6.5, 0);
+                    else
+                        __tabView.flick(0, wheel.angleDelta.y * 6.5);
+                }
+        }
+
+        ListView {
+            id: __tabView
+            width: {
+                if (__private.isHorizontal) {
+                    const maxWidth = __contentItem.width - (__addButtonLoader.width + 5) * (control.tabCentered ? 2 : 1);
+                    return (control.tabCentered ? Math.min(contentWidth, maxWidth) : maxWidth);
+                } else {
+                    return __private.tabMaxWidth;
+                }
+            }
+            height: {
+                if (__private.isHorizontal) {
+                    return defaultTabHeight;
+                } else {
+                    const maxHeight = __contentItem.height - (__addButtonLoader.height + 5) * (control.tabCentered ? 2 : 1);
+                    return (control.tabCentered ? Math.min(contentHeight, maxHeight) : maxHeight)
+                }
+            }
+            clip: true
+            onContentWidthChanged: if (__private.isHorizontal) cacheBuffer = contentWidth;
+            onContentHeightChanged: if (!__private.isHorizontal) cacheBuffer = contentHeight;
+            spacing: defaultTabSpacing
+            move: Transition {
+                NumberAnimation { properties: 'x,y'; duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 }
+            }
+            model: ListModel { id: __tabModel }
+            delegate: tabDelegate
+            highlight: highlightDelegate
+            highlightMoveDuration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+            orientation: __private.isHorizontal ? Qt.Horizontal : Qt.Vertical
+            boundsBehavior: Flickable.StopAtBounds
+            state: control.tabCentered ? (__content.state + 'Center') : __content.state
+            states: [
+                State {
+                    name: 'top'
+                    AnchorChanges {
+                        target: __tabView
+                        anchors.top: __contentItem.top
+                        anchors.bottom: undefined
+                        anchors.left: __contentItem.left
+                        anchors.right: undefined
+                        anchors.horizontalCenter: undefined
+                        anchors.verticalCenter: undefined
+                    }
+                },
+                State {
+                    name: 'topCenter'
+                    AnchorChanges {
+                        target: __tabView
+                        anchors.top: __contentItem.top
+                        anchors.bottom: undefined
+                        anchors.left: undefined
+                        anchors.right: undefined
+                        anchors.horizontalCenter: __contentItem.horizontalCenter
+                        anchors.verticalCenter: undefined
+                    }
+                },
+                State {
+                    name: 'bottom'
+                    AnchorChanges {
+                        target: __tabView
+                        anchors.top: undefined
+                        anchors.bottom: __contentItem.bottom
+                        anchors.left: __contentItem.left
+                        anchors.right: undefined
+                        anchors.horizontalCenter: undefined
+                        anchors.verticalCenter: undefined
+                    }
+                },
+                State {
+                    name: 'bottomCenter'
+                    AnchorChanges {
+                        target: __tabView
+                        anchors.top: undefined
+                        anchors.bottom: __contentItem.bottom
+                        anchors.left: undefined
+                        anchors.right: undefined
+                        anchors.horizontalCenter: __contentItem.horizontalCenter
+                        anchors.verticalCenter: undefined
+                    }
+                },
+                State {
+                    name: 'left'
+                    AnchorChanges {
+                        target: __tabView
+                        anchors.top: __contentItem.top
+                        anchors.bottom: undefined
+                        anchors.left: __contentItem.left
+                        anchors.right: undefined
+                        anchors.horizontalCenter: undefined
+                        anchors.verticalCenter: undefined
+                    }
+                },
+                State {
+                    name: 'leftCenter'
+                    AnchorChanges {
+                        target: __tabView
+                        anchors.top: undefined
+                        anchors.bottom: undefined
+                        anchors.left: __contentItem.left
+                        anchors.right: undefined
+                        anchors.horizontalCenter: undefined
+                        anchors.verticalCenter: __contentItem.verticalCenter
+                    }
+                },
+                State {
+                    name: 'right'
+                    AnchorChanges {
+                        target: __tabView
+                        anchors.top: __contentItem.top
+                        anchors.bottom: undefined
+                        anchors.left: undefined
+                        anchors.right: __contentItem.right
+                        anchors.horizontalCenter: undefined
+                        anchors.verticalCenter: undefined
+                    }
+                },
+                State {
+                    name: 'rightCenter'
+                    AnchorChanges {
+                        target: __tabView
+                        anchors.top: undefined
+                        anchors.bottom: undefined
+                        anchors.left: undefined
+                        anchors.right: __contentItem.right
+                        anchors.horizontalCenter: undefined
+                        anchors.verticalCenter: __contentItem.verticalCenter
+                    }
+                }
+            ]
+        }
+
+        Loader {
+            id: __addButtonLoader
+            active: control.tabAddable
+            x: {
+                switch (tabPosition) {
+                case HusTabView.Position_Top:
+                case HusTabView.Position_Bottom:
+                    return Math.min(__tabView.x + __tabView.contentWidth + 5, __contentItem.width - width);
+                case HusTabView.Position_Left:
+                    return Math.max(0, __tabView.width - width);
+                case HusTabView.Position_Right:
+                    return Math.max(0, __tabView.x);
+                }
+            }
+            y: {
+                switch (tabPosition) {
+                case HusTabView.Position_Top:
+                    return Math.max(0, __tabView.y + __tabView.height - height);
+                case HusTabView.Position_Bottom:
+                    return __tabView.y;
+                case HusTabView.Position_Left:
+                case HusTabView.Position_Right:
+                    return Math.min(__tabView.y + __tabView.contentHeight + 5, __contentItem.height - height);
+                }
+            }
+            z: 10
+            sourceComponent: addButtonDelegate
+        }
+
+        Item {
+            id: __content
+            state: {
+                switch (tabPosition) {
+                case HusTabView.Position_Top: return 'top';
+                case HusTabView.Position_Bottom: return 'bottom';
+                case HusTabView.Position_Left: return 'left';
+                case HusTabView.Position_Right: return 'right';
+                }
+            }
+            states: [
+                State {
+                    name: 'top'
+                    AnchorChanges {
+                        target: __content
+                        anchors.top: __tabView.bottom
+                        anchors.bottom: __contentItem.bottom
+                        anchors.left: __contentItem.left
+                        anchors.right: __contentItem.right
+                    }
+                },
+                State {
+                    name: 'bottom'
+                    AnchorChanges {
+                        target: __content
+                        anchors.top: __contentItem.top
+                        anchors.bottom: __tabView.top
+                        anchors.left: __contentItem.left
+                        anchors.right: __contentItem.right
+                    }
+                },
+                State {
+                    name: 'left'
+                    AnchorChanges {
+                        target: __content
+                        anchors.top: __contentItem.top
+                        anchors.bottom: __contentItem.bottom
+                        anchors.left: __tabView.right
+                        anchors.right: __contentItem.right
+                    }
+                },
+                State {
+                    name: 'right'
+                    AnchorChanges {
+                        target: __content
+                        anchors.top: __contentItem.top
+                        anchors.bottom: __contentItem.bottom
+                        anchors.left: __contentItem.left
+                        anchors.right: __tabView.left
+                    }
+                }
+            ]
+
+            Repeater {
+                model: __tabModel
+                delegate: Loader {
+                    id: __contentLoader
+                    anchors.fill: parent
+                    sourceComponent: control.contentDelegate
+                    visible: __tabView.currentIndex === index
+                    required property int index
+                    required property var model
+                }
+            }
+        }
+    }
+
     Component {
         id: __defaultTabDelegate
 
@@ -237,16 +490,16 @@ Item {
             colorBorder: 'transparent'
             colorText: {
                 if (isCurrent) {
-                    return HusTheme.isDark ? HusTheme.HusTabView.colorHightlightDark : HusTheme.HusTabView.colorHightlight;
+                    return HusTheme.isDark ? control.themeSource.colorHightlightDark : control.themeSource.colorHightlight;
                 } else {
-                    return down ? HusTheme.HusTabView.colorTabActive :
-                                  hovered ? HusTheme.HusTabView.colorTabHover :
-                                            HusTheme.HusTabView.colorTab;
+                    return down ? control.themeSource.colorTabActive :
+                                  hovered ? control.themeSource.colorTabHover :
+                                            control.themeSource.colorTab;
                 }
             }
             font {
-                family: HusTheme.HusTabView.fontFamily
-                pixelSize: parseInt(HusTheme.HusTabView.fontSize)
+                family: control.themeSource.fontFamily
+                pixelSize: parseInt(control.themeSource.fontSize)
             }
             contentItem: Item {
                 implicitWidth: control.tabSize == HusTabView.Size_Auto ? (__text.width + calcIconWidth) : __tabItem.tabFixedWidth
@@ -295,7 +548,7 @@ Item {
             property bool isCurrent: __tabView.currentIndex === index
             property string tabKey: modelData.key || ''
             property var tabIcon: modelData.iconSource || 0
-            property int tabIconSize: modelData.iconSize || parseInt(HusTheme.HusTabView.fontSize)
+            property int tabIconSize: modelData.iconSize || parseInt(control.themeSource.fontSize)
             property int tabIconSpacing: modelData.iconSpacing || 5
             property string tabTitle: modelData.title || ''
             property int tabFixedWidth: modelData.tabWidth || defaultTabWidth
@@ -320,7 +573,7 @@ Item {
             property bool isCurrent: __tabView.currentIndex === index
             property string tabKey: modelData.key || ''
             property var tabIcon: modelData.iconSource || 0
-            property int tabIconSize: modelData.iconSize || parseInt(HusTheme.HusTabView.fontSize)
+            property int tabIconSize: modelData.iconSize || parseInt(control.themeSource.fontSize)
             property int tabIconSpacing: modelData.iconSpacing || 5
             property string tabTitle: modelData.title || ''
             property int tabFixedWidth: modelData.tabWidth || defaultTabWidth
@@ -344,11 +597,11 @@ Item {
                 z: __dragHandler.drag.active ? 1 : 0
                 color: {
                     if (HusTheme.isDark)
-                        return isCurrent ? HusTheme.HusTabView.colorTabCardBgCheckedDark : HusTheme.HusTabView.colorTabCardBgDark;
+                        return isCurrent ? control.themeSource.colorTabCardBgCheckedDark : control.themeSource.colorTabCardBgDark;
                     else
-                        return isCurrent ? HusTheme.HusTabView.colorTabCardBgChecked : HusTheme.HusTabView.colorTabCardBg;
+                        return isCurrent ? control.themeSource.colorTabCardBgChecked : control.themeSource.colorTabCardBg;
                 }
-                border.color: HusTheme.HusTabView.colorTabCardBorder
+                border.color: control.themeSource.colorTabCardBorder
                 topLeftRadius: control.tabPosition == HusTabView.Position_Top || control.tabPosition == HusTabView.Position_Left ? defaultTabBgRadius : 0
                 topRightRadius: control.tabPosition == HusTabView.Position_Top || control.tabPosition == HusTabView.Position_Right ? defaultTabBgRadius : 0
                 bottomLeftRadius: control.tabPosition == HusTabView.Position_Bottom || control.tabPosition == HusTabView.Position_Left ? defaultTabBgRadius : 0
@@ -363,11 +616,11 @@ Item {
                 property real calcHeight: Math.max(__icon.implicitHeight, __text.implicitHeight, __close.height)
                 property color colorText: {
                     if (isCurrent) {
-                        return HusTheme.isDark ? HusTheme.HusTabView.colorHightlightDark : HusTheme.HusTabView.colorHightlight;
+                        return HusTheme.isDark ? control.themeSource.colorHightlightDark : control.themeSource.colorHightlight;
                     } else {
-                        return down ? HusTheme.HusTabView.colorTabActive :
-                                      hovered ? HusTheme.HusTabView.colorTabHover :
-                                                HusTheme.HusTabView.colorTab;
+                        return down ? control.themeSource.colorTabActive :
+                                      hovered ? control.themeSource.colorTabHover :
+                                                control.themeSource.colorTab;
                     }
                 }
 
@@ -447,8 +700,8 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     text: tabTitle
                     font {
-                        family: HusTheme.HusTabView.fontFamily
-                        pixelSize: parseInt(HusTheme.HusTabView.fontSize)
+                        family: control.themeSource.fontFamily
+                        pixelSize: parseInt(control.themeSource.fontSize)
                     }
                     color: __tabItem.colorText
                     elide: Text.ElideRight
@@ -472,7 +725,7 @@ Item {
                     hoverCursorShape: Qt.PointingHandCursor
                     iconSize: tabIconSize
                     iconSource: HusIcon.CloseOutlined
-                    colorIcon: hovered ? HusTheme.HusTabView.colorTabCloseHover : HusTheme.HusTabView.colorTabClose
+                    colorIcon: hovered ? control.themeSource.colorTabCloseHover : control.themeSource.colorTabClose
                     onClicked: {
                         control.closeTabCallback(__tabContainer.index, __tabContainer.model);
                     }
@@ -500,242 +753,5 @@ Item {
         property bool isHorizontal: control.tabPosition == HusTabView.Position_Top || control.tabPosition == HusTabView.Position_Bottom
         property int tabMaxWidth: 0
         property bool needResetTabMaxWidth: false
-    }
-
-    MouseArea {
-        anchors.fill: __tabView
-        onWheel: function(wheel) {
-            if (__private.isHorizontal)
-                __tabView.flick(wheel.angleDelta.y * 6.5, 0);
-            else
-                __tabView.flick(0, wheel.angleDelta.y * 6.5);
-        }
-    }
-
-    ListView {
-        id: __tabView
-        width: {
-            if (__private.isHorizontal) {
-                const maxWidth = control.width - (__addButtonLoader.width + 5) * (control.tabCentered ? 2 : 1);
-                return (control.tabCentered ? Math.min(contentWidth, maxWidth) : maxWidth);
-            } else {
-                return __private.tabMaxWidth;
-            }
-        }
-        height: {
-            if (__private.isHorizontal) {
-                return defaultTabHeight;
-            } else {
-                const maxHeight = control.height - (__addButtonLoader.height + 5) * (control.tabCentered ? 2 : 1);
-                return (control.tabCentered ? Math.min(contentHeight, maxHeight) : maxHeight)
-            }
-        }
-        clip: true
-        onContentWidthChanged: if (__private.isHorizontal) cacheBuffer = contentWidth;
-        onContentHeightChanged: if (!__private.isHorizontal) cacheBuffer = contentHeight;
-        spacing: defaultTabSpacing
-        move: Transition {
-            NumberAnimation { properties: 'x,y'; duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 }
-        }
-        model: ListModel { id: __tabModel }
-        delegate: tabDelegate
-        highlight: highlightDelegate
-        highlightMoveDuration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
-        orientation: __private.isHorizontal ? Qt.Horizontal : Qt.Vertical
-        boundsBehavior: Flickable.StopAtBounds
-        state: control.tabCentered ? (__content.state + 'Center') : __content.state
-        states: [
-            State {
-                name: 'top'
-                AnchorChanges {
-                    target: __tabView
-                    anchors.top: control.top
-                    anchors.bottom: undefined
-                    anchors.left: control.left
-                    anchors.right: undefined
-                    anchors.horizontalCenter: undefined
-                    anchors.verticalCenter: undefined
-                }
-            },
-            State {
-                name: 'topCenter'
-                AnchorChanges {
-                    target: __tabView
-                    anchors.top: control.top
-                    anchors.bottom: undefined
-                    anchors.left: undefined
-                    anchors.right: undefined
-                    anchors.horizontalCenter: control.horizontalCenter
-                    anchors.verticalCenter: undefined
-                }
-            },
-            State {
-                name: 'bottom'
-                AnchorChanges {
-                    target: __tabView
-                    anchors.top: undefined
-                    anchors.bottom: control.bottom
-                    anchors.left: control.left
-                    anchors.right: undefined
-                    anchors.horizontalCenter: undefined
-                    anchors.verticalCenter: undefined
-                }
-            },
-            State {
-                name: 'bottomCenter'
-                AnchorChanges {
-                    target: __tabView
-                    anchors.top: undefined
-                    anchors.bottom: control.bottom
-                    anchors.left: undefined
-                    anchors.right: undefined
-                    anchors.horizontalCenter: control.horizontalCenter
-                    anchors.verticalCenter: undefined
-                }
-            },
-            State {
-                name: 'left'
-                AnchorChanges {
-                    target: __tabView
-                    anchors.top: control.top
-                    anchors.bottom: undefined
-                    anchors.left: control.left
-                    anchors.right: undefined
-                    anchors.horizontalCenter: undefined
-                    anchors.verticalCenter: undefined
-                }
-            },
-            State {
-                name: 'leftCenter'
-                AnchorChanges {
-                    target: __tabView
-                    anchors.top: undefined
-                    anchors.bottom: undefined
-                    anchors.left: control.left
-                    anchors.right: undefined
-                    anchors.horizontalCenter: undefined
-                    anchors.verticalCenter: control.verticalCenter
-                }
-            },
-            State {
-                name: 'right'
-                AnchorChanges {
-                    target: __tabView
-                    anchors.top: control.top
-                    anchors.bottom: undefined
-                    anchors.left: undefined
-                    anchors.right: control.right
-                    anchors.horizontalCenter: undefined
-                    anchors.verticalCenter: undefined
-                }
-            },
-            State {
-                name: 'rightCenter'
-                AnchorChanges {
-                    target: __tabView
-                    anchors.top: undefined
-                    anchors.bottom: undefined
-                    anchors.left: undefined
-                    anchors.right: control.right
-                    anchors.horizontalCenter: undefined
-                    anchors.verticalCenter: control.verticalCenter
-                }
-            }
-        ]
-    }
-
-    Loader {
-        id: __addButtonLoader
-        active: control.tabAddable
-        x: {
-            switch (tabPosition) {
-            case HusTabView.Position_Top:
-            case HusTabView.Position_Bottom:
-                return Math.min(__tabView.x + __tabView.contentWidth + 5, control.width - width);
-            case HusTabView.Position_Left:
-                return Math.max(0, __tabView.width - width);
-            case HusTabView.Position_Right:
-                return Math.max(0, __tabView.x);
-            }
-        }
-        y: {
-            switch (tabPosition) {
-            case HusTabView.Position_Top:
-                return Math.max(0, __tabView.y + __tabView.height - height);
-            case HusTabView.Position_Bottom:
-                return __tabView.y;
-            case HusTabView.Position_Left:
-            case HusTabView.Position_Right:
-                return Math.min(__tabView.y + __tabView.contentHeight + 5, control.height - height);
-            }
-        }
-        z: 10
-        sourceComponent: addButtonDelegate
-    }
-
-    Item {
-        id: __content
-        state: {
-            switch (tabPosition) {
-            case HusTabView.Position_Top: return 'top';
-            case HusTabView.Position_Bottom: return 'bottom';
-            case HusTabView.Position_Left: return 'left';
-            case HusTabView.Position_Right: return 'right';
-            }
-        }
-        states: [
-            State {
-                name: 'top'
-                AnchorChanges {
-                    target: __content
-                    anchors.top: __tabView.bottom
-                    anchors.bottom: control.bottom
-                    anchors.left: control.left
-                    anchors.right: control.right
-                }
-            },
-            State {
-                name: 'bottom'
-                AnchorChanges {
-                    target: __content
-                    anchors.top: control.top
-                    anchors.bottom: __tabView.top
-                    anchors.left: control.left
-                    anchors.right: control.right
-                }
-            },
-            State {
-                name: 'left'
-                AnchorChanges {
-                    target: __content
-                    anchors.top: control.top
-                    anchors.bottom: control.bottom
-                    anchors.left: __tabView.right
-                    anchors.right: control.right
-                }
-            },
-            State {
-                name: 'right'
-                AnchorChanges {
-                    target: __content
-                    anchors.top: control.top
-                    anchors.bottom: control.bottom
-                    anchors.left: control.left
-                    anchors.right: __tabView.left
-                }
-            }
-        ]
-
-        Repeater {
-            model: __tabModel
-            delegate: Loader {
-                id: __contentLoader
-                anchors.fill: parent
-                sourceComponent: contentDelegate
-                visible: __tabView.currentIndex === index
-                required property int index
-                required property var model
-            }
-        }
     }
 }

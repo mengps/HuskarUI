@@ -45,6 +45,7 @@ prefix | string | '' | 前缀文本(图标)
 suffix | string | '' | 后缀文本(图标)
 upIcon | int丨string | HusIcon.UpOutlined | 增按钮图标
 downIcon | int丨string  | HusIcon.DownOutlined | 减按钮图标
+inputFont | font | - | 输入框字体
 labelFont | font | 'HuskarUI-Icons' | 前置后置标签字体
 beforeLabel | sting丨list | '' | 前置标签(列表)
 afterLabel | sting丨list | '' | 后置标签(列表)

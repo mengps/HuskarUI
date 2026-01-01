@@ -25,7 +25,7 @@ import QtQuick
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     signal actived(key: string)
@@ -34,27 +34,28 @@ Item {
     property int hoverCursorShape: Qt.PointingHandCursor
     property var initModel: []
     property alias count: __listModel.count
-    property alias spacing: __listView.spacing
     property bool accordion: false
     property var activeKey: accordion ? '' : []
     property var defaultActiveKey: []
     property var expandIcon: HusIcon.RightOutlined || ''
     property font titleFont: Qt.font({
-                                         family: HusTheme.HusCollapse.fontFamily,
-                                         pixelSize: parseInt(HusTheme.HusCollapse.fontSizeTitle)
+                                         family: themeSource.fontFamily,
+                                         pixelSize: parseInt(themeSource.fontSizeTitle)
                                      })
-    property color colorBg: HusTheme.HusCollapse.colorBg
-    property color colorIcon: HusTheme.HusCollapse.colorIcon
-    property color colorTitle: HusTheme.HusCollapse.colorTitle
-    property color colorTitleBg: HusTheme.HusCollapse.colorTitleBg
     property font contentFont: Qt.font({
-                                           family: HusTheme.HusCollapse.fontFamily,
-                                           pixelSize: parseInt(HusTheme.HusCollapse.fontSizeContent)
+                                           family: themeSource.fontFamily,
+                                           pixelSize: parseInt(themeSource.fontSizeContent)
                                        })
-    property color colorContent: HusTheme.HusCollapse.colorContent
-    property color colorContentBg: HusTheme.HusCollapse.colorContentBg
-    property color colorBorder: HusTheme.isDark ? HusTheme.HusCollapse.colorBorderDark : HusTheme.HusCollapse.colorBorder
-    property HusRadius radiusBg: HusRadius { all: HusTheme.HusCollapse.radiusBg }
+    property color colorBg: themeSource.colorBg
+    property color colorIcon: themeSource.colorIcon
+    property color colorTitle: themeSource.colorTitle
+    property color colorTitleBg: themeSource.colorTitleBg
+    property color colorContent: themeSource.colorContent
+    property color colorContentBg: themeSource.colorContentBg
+    property color colorBorder: themeSource.colorBorder
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property var themeSource: HusTheme.HusCollapse
+
     property Component titleDelegate: Row {
         leftPadding: 16
         rightPadding: 16
@@ -94,15 +95,6 @@ Item {
         color: control.colorContent
     }
 
-    objectName: '__HusCollapse__'
-    height: __listView.contentHeight
-    onInitModelChanged: {
-        clear();
-        for (const object of initModel) {
-            append(object);
-        }
-    }
-
     function get(index) {
         return __listModel.get(index);
     }
@@ -135,42 +127,26 @@ Item {
         __listModel.clear();
     }
 
-    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-    Behavior on colorTitle { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-    Behavior on colorTitleBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-    Behavior on colorContent { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-    Behavior on colorContentBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
-    QtObject {
-        id: __private
-        function calcActiveKey() {
-            if (control.accordion) {
-                for (let i = 0; i < __listView.count; i++) {
-                    const item = __listView.itemAtIndex(i);
-                    if (item && item.active) {
-                        control.activeKey = item.model.key;
-                        break;
-                    }
-                }
-            } else {
-                let keys = [];
-                for (let i = 0; i < __listView.count; i++) {
-                    const item = __listView.itemAtIndex(i);
-                    if (item && item.active) {
-                        keys.push(item.model.key);
-                    }
-                }
-                control.activeKey = keys;
-            }
+    onInitModelChanged: {
+        clear();
+        for (const object of initModel) {
+            append(object);
         }
     }
 
-    ListView {
+    objectName: '__HusCollapse__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    spacing: -1
+    contentItem: ListView {
         id: __listView
         property real realHeight: 0
-        anchors.fill: parent
+        implicitHeight: contentHeight
         interactive: false
-        spacing: -1
+        spacing: control.spacing
         model: ListModel { id: __listModel }
         onContentHeightChanged: realHeight = Math.max(contentHeight, 0);
         onRealHeightChanged: cacheBuffer = realHeight;
@@ -271,10 +247,9 @@ Item {
             }
         }
     }
-
-    Loader {
-        anchors.fill: __listView
-        active: spacing === -1
+    background: Loader {
+        z: 1
+        active: control.spacing === -1
         sourceComponent: Rectangle {
             color: 'transparent'
             border.color: control.colorBorder
@@ -283,6 +258,36 @@ Item {
             topRightRadius: control.radiusBg.topRight
             bottomLeftRadius: control.radiusBg.bottomLeft
             bottomRightRadius: control.radiusBg.bottomRight
+        }
+    }
+
+    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+    Behavior on colorTitle { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+    Behavior on colorTitleBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+    Behavior on colorContent { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+    Behavior on colorContentBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+
+    QtObject {
+        id: __private
+        function calcActiveKey() {
+            if (control.accordion) {
+                for (let i = 0; i < __listView.count; i++) {
+                    const item = __listView.itemAtIndex(i);
+                    if (item && item.active) {
+                        control.activeKey = item.model.key;
+                        break;
+                    }
+                }
+            } else {
+                let keys = [];
+                for (let i = 0; i < __listView.count; i++) {
+                    const item = __listView.itemAtIndex(i);
+                    if (item && item.active) {
+                        keys.push(item.model.key);
+                    }
+                }
+                control.activeKey = keys;
+            }
         }
     }
 }

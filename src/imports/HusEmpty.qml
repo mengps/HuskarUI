@@ -22,10 +22,11 @@
  */
 
 import QtQuick
+import QtQuick.Templates as T
 import QtQuick.Layouts
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     enum ImageStyle
@@ -60,11 +61,9 @@ Item {
     property bool showDescription: true
     property string description: ''
     property int descriptionSpacing: 12
-    property font descriptionFont: Qt.font({
-                                               family: HusTheme.HusEmpty.fontFamily,
-                                               pixelSize: parseInt(HusTheme.HusEmpty.fontSize) - 1
-                                           })
-    property color colorDescription: HusTheme.HusEmpty.colorDescription
+    property alias descriptionFont: control.font
+    property color colorDescription: themeSource.colorDescription
+    property var themeSource: HusTheme.HusEmpty
 
     property Component imageDelegate: Image {
         width: control.imageWidth
@@ -80,27 +79,37 @@ Item {
     }
 
     objectName: '__HusEmpty__'
-    width: 200
-    height: 200
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    font {
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize) - 1
+    }
+    contentItem: Item {
+        implicitWidth: 200
+        implicitHeight: 200
 
-    ColumnLayout {
-        anchors.centerIn: parent
-        spacing: control.descriptionSpacing
+        ColumnLayout {
+            anchors.centerIn: parent
+            spacing: control.descriptionSpacing
 
-        Loader {
-            Layout.alignment: Qt.AlignHCenter
-            Layout.fillWidth: true
-            visible: active
-            active: control.imageSource !== '' || control.imageType !== HusEmpty.Image_None
-            sourceComponent: control.imageDelegate
-        }
+            Loader {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                visible: active
+                active: control.imageSource !== '' || control.imageType !== HusEmpty.Image_None
+                sourceComponent: control.imageDelegate
+            }
 
-        Loader {
-            Layout.alignment: Qt.AlignHCenter
-            Layout.fillWidth: true
-            visible: active
-            active: control.showDescription
-            sourceComponent: control.descriptionDelegate
+            Loader {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
+                visible: active
+                active: control.showDescription
+                sourceComponent: control.descriptionDelegate
+            }
         }
     }
 }

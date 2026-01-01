@@ -18,7 +18,7 @@ Flickable {
             desc: qsTr(`
 # HusAvatar 头像 \n
 用来代表用户或事物，支持图片、图标或字符展示。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n

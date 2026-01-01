@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusInputNumber 数字输入框 \n
 通过鼠标或键盘，输入范围内的数值。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **beforeDelegate: Component** 前置标签代理\n
@@ -47,6 +47,7 @@ prefix | string | '' | 前缀文本(图标)
 suffix | string | '' | 后缀文本(图标)
 upIcon | int丨string | HusIcon.UpOutlined | 增按钮图标
 downIcon | int丨string  | HusIcon.DownOutlined | 减按钮图标
+inputFont | font | - | 输入框字体
 labelFont | font | 'HuskarUI-Icons' | 前置后置标签字体
 beforeLabel | sting丨list | '' | 前置标签(列表)
 afterLabel | sting丨list | '' | 后置标签(列表)
@@ -54,7 +55,6 @@ initBeforeLabelIndex | int | 0 | 初始前置列表索引
 initAfterLabelIndex | int | 0 | 初始后置列表索引
 currentBeforeLabel | sting | '' | 当前前置标签
 currentAfterLabel | sting | '' | 当前后置标签
-locale | Locale | - | 区域设置
 formatter | function | - | 格式化器(格式化数值为字符串)
 parser | function | - | 解析器(解析字符串为数值)
 defaultHandlerWidth | int | 24 | 默认增减按钮宽度

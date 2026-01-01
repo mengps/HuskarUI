@@ -17,7 +17,7 @@ Flickable {
             desc: qsTr(`
 # HusCarousel 走马灯\n
 一组轮播的区域。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **contentDelegate: Component** 内容代理，代理可访问属性：\n

@@ -22,9 +22,10 @@
  */
 
 import QtQuick
+import QtQuick.Templates as T
 import HuskarUI.Basic
 
-Item {
+T.Control {
     id: control
 
     enum Position
@@ -47,6 +48,7 @@ Item {
     property bool showIndicator: true
     property int indicatorSpacing: 6
     property bool showArrow: false
+
     property Component contentDelegate: Item { }
     property Component indicatorDelegate: Rectangle {
         width: isHorizontal ? __width : __height
@@ -97,10 +99,6 @@ Item {
         onClicked: control.swithToNext();
     }
 
-    objectName: '__HusCarousel__'
-    onInfiniteChanged: __private.updateModel();
-    onInitModelChanged: __private.updateModel();
-
     function swithTo(index, animated = true) {
         if (animated)
             __listView.currentIndex = infinite ? index + 1 : index;
@@ -137,75 +135,16 @@ Item {
         return indicatorWidth;
     }
 
-    QtObject {
-        id: __private
-        property bool isHorizontal: control.position === HusCarousel.Position_Top || control.position === HusCarousel.Position_Bottom
-        property int indicatorWidth: control.getSuitableIndicatorWidth(__listView.width)
+    onInfiniteChanged: __private.updateModel();
+    onInitModelChanged: __private.updateModel();
 
-        function updateModel() {
-            if (control.initModel.length > 0) {
-                const model = control.infinite ? [control.initModel[control.initModel.length - 1], ...control.initModel, control.initModel[0]] :
-                                                 [...control.initModel];
-                __listModel.clear();
-                for (const item of model) {
-                    __listModel.append(item);
-                }
-                __resetTimer.restart();
-            } else {
-                __listModel.clear();
-            }
-        }
-
-        function getVirtualModelIndex(index) {
-            if (control.infinite) {
-                if (index === 0) {
-                    return 1;
-                } else if (index === (__listModel.count - 2)) {
-                    return __listModel.count - 1;
-                } else {
-                    return index + 1;
-                }
-            } else {
-                return index;
-            }
-        }
-
-        function getRealModelIndex(index) {
-            if (control.infinite) {
-                if (index === 0) {
-                    return __listModel.count - 3;
-                } else if ((index) === (__listModel.count - 1)) {
-                    return 0;
-                } else {
-                    return index - 1;
-                }
-            } else {
-                return index;
-            }
-        }
-    }
-
-    Timer {
-        id: __resetTimer
-        interval: 33
-        onTriggered: {
-            __listView.positionViewAtIndex(control.infinite ? 1 : 0, ListView.SnapPosition);
-        }
-    }
-
-    Timer {
-        id: __autoplayTimer
-        repeat: true
-        interval: control.autoplaySpeed
-        running: control.autoplay
-        onTriggered: {
-            control.swithToNext();
-        }
-    }
-
-    ListView {
+    objectName: '__HusCarousel__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+    contentItem: ListView {
         id: __listView
-        anchors.fill: parent
         clip: true
         interactive: control.draggable
         orientation: __private.isHorizontal ? Qt.Horizontal : Qt.Vertical
@@ -323,6 +262,72 @@ Item {
             anchors.right: __private.isHorizontal ? parent.right : undefined
             sourceComponent: control.nextDelegate
             property bool showNext: control.infinite ? true : (control.currentIndex !== __listModel.count - 1)
+        }
+    }
+
+    QtObject {
+        id: __private
+        property bool isHorizontal: control.position === HusCarousel.Position_Top || control.position === HusCarousel.Position_Bottom
+        property int indicatorWidth: control.getSuitableIndicatorWidth(__listView.width)
+
+        function updateModel() {
+            if (control.initModel.length > 0) {
+                const model = control.infinite ? [control.initModel[control.initModel.length - 1], ...control.initModel, control.initModel[0]] :
+                                                 [...control.initModel];
+                __listModel.clear();
+                for (const item of model) {
+                    __listModel.append(item);
+                }
+                __resetTimer.restart();
+            } else {
+                __listModel.clear();
+            }
+        }
+
+        function getVirtualModelIndex(index) {
+            if (control.infinite) {
+                if (index === 0) {
+                    return 1;
+                } else if (index === (__listModel.count - 2)) {
+                    return __listModel.count - 1;
+                } else {
+                    return index + 1;
+                }
+            } else {
+                return index;
+            }
+        }
+
+        function getRealModelIndex(index) {
+            if (control.infinite) {
+                if (index === 0) {
+                    return __listModel.count - 3;
+                } else if ((index) === (__listModel.count - 1)) {
+                    return 0;
+                } else {
+                    return index - 1;
+                }
+            } else {
+                return index;
+            }
+        }
+    }
+
+    Timer {
+        id: __resetTimer
+        interval: 33
+        onTriggered: {
+            __listView.positionViewAtIndex(control.infinite ? 1 : 0, ListView.SnapPosition);
+        }
+    }
+
+    Timer {
+        id: __autoplayTimer
+        repeat: true
+        interval: control.autoplaySpeed
+        running: control.autoplay
+        onTriggered: {
+            control.swithToNext();
         }
     }
 }

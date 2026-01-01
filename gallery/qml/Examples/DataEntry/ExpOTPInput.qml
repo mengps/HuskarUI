@@ -16,7 +16,7 @@ Flickable {
             desc: qsTr(`
 # HusOTPInput 一次性口令输入框 \n
 用于接收和验证一次性口令的输入框组合，通常用于验证码或密码。\n
-* **继承自 { Item }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **dividerDelegate: Component** 分隔器代理\n
