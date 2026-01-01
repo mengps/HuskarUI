@@ -9,8 +9,8 @@ import './Home'
 
 HusWindow {
     id: galleryWindow
-    width: 1300
-    height: 850
+    width: 1400
+    height: 900
     opacity: 0
     minimumWidth: 800
     minimumHeight: 600
@@ -28,7 +28,7 @@ HusWindow {
             width: 16
             height: 16
             anchors.centerIn: parent
-            source: 'qrc:/Gallery/images/huskarui_icon.svg'
+            source: 'qrc:/Gallery/images/huskarui_new_square.svg'
         }
     }
     captionBar.themeCallback: () => {
@@ -419,7 +419,7 @@ HusWindow {
 
         HusDivider {
             width: galleryMenu.width
-            height: 1
+            height: 5
             anchors.bottom: buttonsColumn.top
         }
 

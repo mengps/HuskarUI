@@ -209,14 +209,14 @@ Item {
                         dataIndex: 'tokenName',
                         key: 'tokenName',
                         delegate: tagDelegate,
-                        width: 250
+                        width: 300
                     },
                     {
                         title: qsTr('Token 值'),
                         key: 'tokenValue',
                         dataIndex: 'tokenValue',
                         delegate: editDelegate,
-                        width: 400
+                        width: 450
                     },
                     {
                         title: qsTr('Token 计算值'),

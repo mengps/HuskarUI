@@ -208,7 +208,8 @@ QtObject {
                     key: 'HusRate',
                     label: qsTr('HusRate 评分'),
                     source: './Examples/DataEntry/ExpRate.qml',
-                    desc: qsTr('新增 toolTipDelegate 星星上方的文字提示代理。')
+                    updateVersion: '0.5.4',
+                    desc: qsTr('移除 isDone 属性。')
                 },
                 {
                     key: 'HusRadio',
@@ -283,6 +284,13 @@ QtObject {
                     addVersion: '0.5.2',
                     desc: qsTr('用于选择颜色的弹出式窗口。')
                 },
+                {
+                    key: 'HusDateTimePickerPanel',
+                    label: qsTr('HusDateTimePickerPanel 日期时间选择面板'),
+                    source: './Examples/DataEntry/ExpDateTimePickerPanel.qml',
+                    addVersion: '0.5.4',
+                    desc: qsTr('非弹出式的日期时间选择面板。')
+                },
             ]
         },
         {
@@ -314,7 +322,7 @@ QtObject {
                     key: 'HusTabView',
                     label: qsTr('HusTabView 标签页'),
                     source: './Examples/DataDisplay/ExpTabView.qml',
-                    updateVersion: '0.4.*.1',
+                    updateVersion: '0.4.9.1',
                     desc: qsTr('新增 closeTabCallback() 关闭标签回调。')
                 },
                 {
@@ -535,6 +543,21 @@ QtObject {
                     key: 'HusTheme',
                     label: qsTr('HusTheme 主题定制'),
                     source: './Examples/Theme/ExpTheme.qml',
+                }
+            ]
+        },
+        {
+            key: 'Api',
+            label: qsTr('内置API'),
+            iconSource: HusIcon.StarOutlined,
+            type: 'group',
+            menuChildren: [
+                {
+                    key: 'HusApi',
+                    label: qsTr('HusApi 内置API'),
+                    source: './Examples/Functions/ExpApi.qml',
+                    addVersion: '0.5.4',
+                    desc: qsTr('提供一系列实用接口。')
                 }
             ]
         }
