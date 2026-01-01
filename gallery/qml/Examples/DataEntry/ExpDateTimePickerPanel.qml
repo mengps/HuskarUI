@@ -71,7 +71,7 @@ visualMinutes | int | - | 视觉分钟(通常不需要使用)
 visualSeconds | int | - | 视觉秒数(通常不需要使用)
 colorBg | color | - | 背景颜色
 colorBorder | color | - | 边框颜色
-radiusBg | [HusRadius](internal://HusRadius) | - | 弹窗圆角
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 radiusItemBg | [HusRadius](internal://HusRadius) | - | 选择项圆角
 sizeHint | string | 'normal' | 尺寸提示
 \n<br/>
