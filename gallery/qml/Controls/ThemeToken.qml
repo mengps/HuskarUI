@@ -99,8 +99,8 @@ Item {
                 HusIconButton {
                     anchors.verticalCenter: parent.verticalCenter
                     iconSource: HusIcon.EditOutlined
-                    topPadding: 4
-                    bottomPadding: 4
+                    topPadding: 2
+                    bottomPadding: 2
                     leftPadding: 4
                     rightPadding: 4
                     onClicked: {
