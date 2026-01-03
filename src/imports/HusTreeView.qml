@@ -656,7 +656,7 @@ T.Control {
             }
         }
 
-        function initRows(rows, treePath = []) {
+        function initRows(rows: var, treePath = []) {
             const newRows = [];
             for (let i = 0; i < rows.length; i++) {
                 const object = rows[i];
@@ -665,7 +665,7 @@ T.Control {
             return newRows;
         }
 
-        function initObject(object, treePath) {
+        function initObject(object: var, treePath: var): var {
             const newObject = {
                 __data: object?.__data ?? {},
             };

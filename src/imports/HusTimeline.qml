@@ -42,19 +42,17 @@ T.Control {
     property int defaultLineWidth: 1
     property string defaultTimeFormat: 'yyyy-MM-dd'
     property int defaultContentFormat: Text.AutoText
-    property color colorNode: HusTheme.HusTimeline.colorNode
-    property color colorNodeBg: HusTheme.HusTimeline.colorNodeBg
-    property color colorLine: HusTheme.HusTimeline.colorLine
     property font timeFont: Qt.font({
-                                        family: HusTheme.HusTimeline.fontFamily,
-                                        pixelSize: parseInt(HusTheme.HusTimeline.fontSize)
+                                        family: themeSource.fontFamily,
+                                        pixelSize: parseInt(themeSource.fontSize)
                                     })
-    property font contentFont: Qt.font({
-                                           family: HusTheme.HusTimeline.fontFamily,
-                                           pixelSize: parseInt(HusTheme.HusTimeline.fontSize)
-                                       })
-    property color colorTimeText: HusTheme.HusTimeline.colorTimeText
-    property color colorContentText: HusTheme.HusTimeline.colorContentText
+    property alias contentFont: control.font
+    property color colorNode: themeSource.colorNode
+    property color colorNodeBg: themeSource.colorNodeBg
+    property color colorLine: themeSource.colorLine
+    property color colorTimeText: themeSource.colorTimeText
+    property color colorContentText: themeSource.colorContentText
+    property var themeSource: HusTheme.HusTimeline
 
     property Component nodeDelegate: Component {
         Item {
@@ -205,6 +203,10 @@ T.Control {
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
+    font {
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize)
+    }
     contentItem: ListView {
         id: __listView
         clip: true
@@ -222,7 +224,7 @@ T.Control {
         delegate: Item {
             id: __rootItem
             width: __listView.width
-            height: contentLoader.height + 25
+            height: __contentLoader.height + 25
 
             required property var model
             required property int index
@@ -236,7 +238,6 @@ T.Control {
             }
 
             Loader {
-                id: lineLoader
                 active: {
                     if (control.reverse)
                         return __rootItem.index != 0;
@@ -244,16 +245,16 @@ T.Control {
                         return __rootItem.index !== (__listModel.count - 1);
                 }
                 width: defaultLineWidth
-                height: parent.height - nodeLoader.height
-                anchors.horizontalCenter: nodeLoader.horizontalCenter
-                anchors.top: nodeLoader.bottom
+                height: parent.height - __nodeLoader.height
+                anchors.horizontalCenter: __nodeLoader.horizontalCenter
+                anchors.top: __nodeLoader.bottom
                 sourceComponent: lineDelegate
                 property alias model: __rootItem.model
                 property alias index: __rootItem.index
             }
 
             Loader {
-                id: nodeLoader
+                id: __nodeLoader
                 x: {
                     if (__private.noTime && control.mode != HusTimeline.Mode_Alternate)
                         return control.mode == HusTimeline.Mode_Left ? 0 : parent.width - width;
@@ -267,11 +268,10 @@ T.Control {
             }
 
             Loader {
-                id: timeLoader
-                y: (nodeLoader.height - __timeFontMetrics.height) * 0.5
-                anchors.left: __rootItem.timeOnLeft ? parent.left : nodeLoader.right
+                y: (__nodeLoader.height - __timeFontMetrics.height) * 0.5
+                anchors.left: __rootItem.timeOnLeft ? parent.left : __nodeLoader.right
                 anchors.leftMargin: __rootItem.timeOnLeft ? 0 : 5
-                anchors.right: __rootItem.timeOnLeft ? nodeLoader.left : parent.right
+                anchors.right: __rootItem.timeOnLeft ? __nodeLoader.left : parent.right
                 anchors.rightMargin: __rootItem.timeOnLeft ? 5 : 0
                 sourceComponent: timeDelegate
                 property alias model: __rootItem.model
@@ -285,11 +285,11 @@ T.Control {
             }
 
             Loader {
-                id: contentLoader
-                y: (nodeLoader.height - __contentFontMetrics.height) * 0.5
-                anchors.left: !__rootItem.timeOnLeft ? parent.left : nodeLoader.right
+                id: __contentLoader
+                y: (__nodeLoader.height - __contentFontMetrics.height) * 0.5
+                anchors.left: !__rootItem.timeOnLeft ? parent.left : __nodeLoader.right
                 anchors.leftMargin: !__rootItem.timeOnLeft ? 0 : 5
-                anchors.right: !__rootItem.timeOnLeft ? nodeLoader.left : parent.right
+                anchors.right: !__rootItem.timeOnLeft ? __nodeLoader.left : parent.right
                 anchors.rightMargin: !__rootItem.timeOnLeft ? 5 : 0
                 sourceComponent: contentDelegate
                 property alias model: __rootItem.model
