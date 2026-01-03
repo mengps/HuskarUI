@@ -27,7 +27,7 @@ Flickable {
 rows | int | 0 | 行数
 columns | int | 0 | 列数
 colorWhite | color | 'transparent' | 白格子颜色
-colorBlack | colorBlack | - | 黑格子颜色
+colorBlack | color | - | 黑格子颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 \n<br/>
                        `)
