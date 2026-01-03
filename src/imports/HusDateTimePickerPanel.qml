@@ -95,11 +95,13 @@ T.Control {
         colorBorder: model.today ? control.themeSource.colorDayBorderToday : 'transparent'
         colorText: {
             if (control.datePickerMode == HusDateTimePicker.Mode_Week) {
-                return isCurrentWeek || isHoveredWeek ? 'white' : isVisualMonth ? control.themeSource.colorDayText :
-                                                                                         control.themeSource.colorDayTextNone;
+                return isCurrentWeek || isHoveredWeek ? control.themeSource.colorDayTextCurrent :
+                                                        isVisualMonth ? control.themeSource.colorDayText :
+                                                                        control.themeSource.colorDayTextNone;
             } else {
-                return isVisualDay ? 'white' : isVisualMonth ? control.themeSource.colorDayText :
-                                                                       control.themeSource.colorDayTextNone;
+                return isVisualDay ? control.themeSource.colorDayTextCurrent :
+                                     isVisualMonth ? control.themeSource.colorDayText :
+                                                     control.themeSource.colorDayTextNone;
             }
         }
         colorBg: {
@@ -963,7 +965,7 @@ T.Control {
         colorBg: checked ? control.themeSource.colorDayBgCurrent :
                            hovered ? control.themeSource.colorDayBgHover :
                                      control.themeSource.colorDayBg
-        colorText: checked ? 'white' : control.themeSource.colorDayText
+        colorText: checked ? control.themeSource.colorDayTextCurrent : control.themeSource.colorDayText
         font {
             family: control.themeSource.fontFamily
             pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
