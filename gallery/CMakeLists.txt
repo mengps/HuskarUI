@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.5.4.0)
+set(HUSKARUI_VERSION 0.5.4.1)
 
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
