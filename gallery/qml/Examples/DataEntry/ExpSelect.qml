@@ -18,6 +18,7 @@ Flickable {
 # HusSelect 选择器 \n
 下拉选择器。\n
 * **继承自 { ComboBox }**\n
+* **继承此 { [HusMultiSelect](internal://HusMultiSelect) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **indicatorDelegate: Component** 右侧指示器代理\n
@@ -40,6 +41,7 @@ colorBg | color | - | 背景颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 radiusItemBg | [HusRadius](internal://HusRadius) | - | 选项背景圆角
 radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角
+sizeHint | string | 'normal' | 尺寸提示
 contentDescription | string | '' | 内容描述(提高可用性)
 \n<br/>
 \n### 支持的信号：\n
@@ -94,12 +96,21 @@ contentDescription | string | '' | 内容描述(提高可用性)
                         ]
                     }
 
+                    HusRadioBlock {
+                        id: editableRadio
+                        initCheckedIndex: 0
+                        model: [
+                            { label: 'Noeditable', value: false },
+                            { label: 'Editable', value: true },
+                        ]
+                    }
+
                     Row {
                         spacing: 10
 
                         HusSelect {
                             width: 120
-                            height: 30
+                            sizeHint: sizeHintRadio.currentCheckedValue
                             editable: editableRadio.currentCheckedValue
                             showToolTip: true
                             model: [
@@ -112,7 +123,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
                         HusSelect {
                             width: 120
-                            height: 30
+                            sizeHint: sizeHintRadio.currentCheckedValue
                             editable: editableRadio.currentCheckedValue
                             enabled: false
                             model: [
@@ -125,7 +136,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
                         HusSelect {
                             width: 120
-                            height: 30
+                            sizeHint: sizeHintRadio.currentCheckedValue
                             editable: editableRadio.currentCheckedValue
                             loading: true
                             model: [
@@ -150,12 +161,22 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     ]
                 }
 
+                HusRadioBlock {
+                    id: sizeHintRadio
+                    initCheckedIndex: 1
+                    model: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Normal', value: 'normal' },
+                        { label: 'Large', value: 'large' },
+                    ]
+                }
+
                 Row {
                     spacing: 10
 
                     HusSelect {
                         width: 120
-                        height: 30
+                        sizeHint: sizeHintRadio.currentCheckedValue
                         editable: editableRadio.currentCheckedValue
                         showToolTip: true
                         model: [
@@ -168,7 +189,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
                     HusSelect {
                         width: 120
-                        height: 30
+                        sizeHint: sizeHintRadio.currentCheckedValue
                         editable: editableRadio.currentCheckedValue
                         enabled: false
                         model: [
@@ -181,7 +202,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
                     HusSelect {
                         width: 120
-                        height: 30
+                        sizeHint: sizeHintRadio.currentCheckedValue
                         editable: editableRadio.currentCheckedValue
                         loading: true
                         model: [

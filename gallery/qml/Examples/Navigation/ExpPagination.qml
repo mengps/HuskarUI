@@ -40,6 +40,7 @@ pageSize | int | 10 | 每页数量
 pageSizeModel | list | [] | 每页数量模型
 prevButtonTooltip | string | '上一页' | 上一页按钮的提示文本(为空不显示)
 nextButtonTooltip | string | '下一页' | 下一页按钮的提示文本(为空不显示)
+sizeHint | string | 'normal' | 尺寸提示
 \n<br/>
 \n### 支持的函数：\n
 - \`gotoPageIndex(index: int)\` 跳转到\`index\` 处的页 \n
@@ -169,7 +170,18 @@ nextButtonTooltip | string | '下一页' | 下一页按钮的提示文本(为空
                 Column {
                     spacing: 10
 
+                    HusRadioBlock {
+                        id: sizeHintRadio
+                        initCheckedIndex: 1
+                        model: [
+                            { label: 'Small', value: 'small' },
+                            { label: 'Normal', value: 'normal' },
+                            { label: 'Large', value: 'large' },
+                        ]
+                    }
+
                     HusPagination {
+                        sizeHint: sizeHintRadio.currentCheckedValue
                         currentPageIndex: 6
                         total: 500
                         showQuickJumper: true
@@ -182,6 +194,7 @@ nextButtonTooltip | string | '下一页' | 下一页按钮的提示文本(为空
                     }
 
                     HusPagination {
+                        sizeHint: sizeHintRadio.currentCheckedValue
                         enabled: false
                         currentPageIndex: 6
                         total: 500
@@ -198,7 +211,18 @@ nextButtonTooltip | string | '下一页' | 下一页按钮的提示文本(为空
             exampleDelegate: Column {
                 spacing: 10
 
+                HusRadioBlock {
+                    id: sizeHintRadio
+                    initCheckedIndex: 1
+                    model: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Normal', value: 'normal' },
+                        { label: 'Large', value: 'large' },
+                    ]
+                }
+
                 HusPagination {
+                    sizeHint: sizeHintRadio.currentCheckedValue
                     currentPageIndex: 6
                     total: 500
                     showQuickJumper: true
@@ -211,6 +235,7 @@ nextButtonTooltip | string | '下一页' | 下一页按钮的提示文本(为空
                 }
 
                 HusPagination {
+                    sizeHint: sizeHintRadio.currentCheckedValue
                     enabled: false
                     currentPageIndex: 6
                     total: 500

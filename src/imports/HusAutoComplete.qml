@@ -36,7 +36,7 @@ HusInput {
     property string textRole: 'label'
     property string valueRole: 'value'
     property bool showToolTip: false
-    property int defaultPopupMaxHeight: 240
+    property int defaultPopupMaxHeight: 240 * control.sizeRatio
     property int defaultOptionSpacing: 0
 
     property Component labelDelegate: HusText {
@@ -149,10 +149,10 @@ HusInput {
         y: control.height + 6
         implicitWidth: control.width
         implicitHeight: implicitContentHeight + topPadding + bottomPadding
-        leftPadding: 4
-        rightPadding: 4
-        topPadding: 6
-        bottomPadding: 6
+        leftPadding: 4 * control.sizeRatio
+        rightPadding: 4 * control.sizeRatio
+        topPadding: 6 * control.sizeRatio
+        bottomPadding: 6 * control.sizeRatio
         animationEnabled: control.animationEnabled
         closePolicy: T.Popup.NoAutoClose | T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent
         transformOrigin: isTop ? Item.Bottom : Item.Top
@@ -209,10 +209,10 @@ HusInput {
 
                 width: __popupListView.width
                 height: implicitContentHeight + topPadding + bottomPadding
-                leftPadding: 8
-                rightPadding: 8
-                topPadding: 5
-                bottomPadding: 5
+                leftPadding: 8 * control.sizeRatio
+                rightPadding: 8 * control.sizeRatio
+                topPadding: 5 * control.sizeRatio
+                bottomPadding: 5 * control.sizeRatio
                 highlighted: control.text === valueData
                 contentItem: Loader {
                     sourceComponent: control.labelDelegate

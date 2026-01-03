@@ -42,6 +42,7 @@ colorItemBorder | color | - | 输入项边框颜色
 colorItemBorderActive | color | - | 输入项边框激活时颜色
 colorItemBg | color | - | 输入项背景颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 输入项背景圆角
+sizeHint | string | 'normal' | 尺寸提示
 \n<br/>
 \n### 支持的函数：\n
 - \`setInput(inputs: list)\` 通过 \`inputs\` 设置每项的输入文本\n
@@ -84,36 +85,62 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 输入项背景圆角
                 Column {
                     spacing: 10
 
+                    HusRadioBlock {
+                        id: sizeHintRadio
+                        initCheckedIndex: 1
+                        model: [
+                            { label: 'Small', value: 'small' },
+                            { label: 'Normal', value: 'normal' },
+                            { label: 'Large', value: 'large' },
+                        ]
+                    }
+
                     HusOTPInput {
                         length: 6
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusOTPInput {
                         length: 6
                         enabled: false
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusOTPInput {
                         length: 6
                         itemValidator: RegularExpressionValidator { regularExpression: /[a-zA-Z]?/ }
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
 
+                HusRadioBlock {
+                    id: sizeHintRadio
+                    initCheckedIndex: 1
+                    model: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Normal', value: 'normal' },
+                        { label: 'Large', value: 'large' },
+                    ]
+                }
+
                 HusOTPInput {
                     length: 6
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusOTPInput {
                     length: 6
                     enabled: false
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusOTPInput {
                     length: 6
                     itemValidator: RegularExpressionValidator { regularExpression: /[a-zA-Z]?/ }
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
             }
         }

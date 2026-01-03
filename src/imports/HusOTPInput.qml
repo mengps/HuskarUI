@@ -35,8 +35,8 @@ T.Control {
     property int characterLength: 1
     property int currentIndex: 0
     property string currentInput: ''
-    property int itemWidth: 45
-    property int itemHeight: 32
+    property int itemWidth: 45 * sizeRatio
+    property int itemHeight: 32 * sizeRatio
     property alias itemSpacing: control.spacing
     property var itemValidator: IntValidator { top: 9; bottom: 0 }
     property int itemInputMethodHints: Qt.ImhHiddenText
@@ -49,6 +49,8 @@ T.Control {
     property color colorItemBorderActive: enabled ? themeSource.colorBorderHover : themeSource.colorBorderDisabled
     property color colorItemBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property string sizeHint: 'normal'
+    property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property var themeSource: HusTheme.HusInput
 
     property Component dividerDelegate: Item { }
@@ -99,9 +101,9 @@ T.Control {
                              implicitContentHeight + topPadding + bottomPadding)
     font {
         family: themeSource.fontFamily
-        pixelSize: parseInt(themeSource.fontSize)
+        pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
-    spacing: 8
+    spacing: 8 * sizeRatio
     contentItem: Row {
         id: __row
         spacing: control.spacing
@@ -127,8 +129,9 @@ T.Control {
             horizontalAlignment: HusInput.AlignHCenter
             enabled: control.enabled
             animationEnabled: control.animationEnabled
-            font: control.font
+            sizeRatio: control.sizeRatio
             themeSource: control.themeSource
+            font: control.font
             colorText: control.colorItemText
             colorBorder: active ? control.colorItemBorderActive : control.colorItemBorder
             colorBg: control.colorItemBg

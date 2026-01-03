@@ -38,7 +38,7 @@ T.ComboBox {
     property bool showToolTip: false
     property bool loading: false
     property string placeholderText: ''
-    property int defaultPopupMaxHeight: 240
+    property int defaultPopupMaxHeight: 240 * sizeRatio
     property color colorText: enabled ?
                                   (popup.visible && !editable) ? themeSource.colorTextActive :
                                                                  themeSource.colorText : themeSource.colorTextDisabled
@@ -50,6 +50,8 @@ T.ComboBox {
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property HusRadius radiusItemBg: HusRadius { all: themeSource.radiusItemBg }
     property HusRadius radiusPopupBg: HusRadius { all: themeSource.radiusPopupBg }
+    property string sizeHint: 'normal'
+    property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property string contentDescription: ''
     property var themeSource: HusTheme.HusSelect
 
@@ -67,7 +69,7 @@ T.ComboBox {
                 return control.themeSource.colorIndicatorDisabled;
             }
         }
-        iconSize: parseInt(control.themeSource.fontSize)
+        iconSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
         iconSource: {
             if (control.enabled && control.clearEnabled && __clearMouseArea.active)
                 return control.clearIconSource;
@@ -122,14 +124,14 @@ T.ComboBox {
     implicitHeight: implicitContentHeight + topPadding + bottomPadding
     leftPadding: padding + (!control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
     rightPadding: padding + (control.mirrored || !indicator || !indicator.visible ? 0 : indicator.width + spacing)
-    topPadding: 4
-    bottomPadding: 4
-    spacing: 8
+    topPadding: 6 * sizeRatio
+    bottomPadding: 6 * sizeRatio
+    spacing: 8 * sizeRatio
     textRole: 'label'
     valueRole: 'value'
     font {
-        family: control.themeSource.fontFamily
-        pixelSize: parseInt(control.themeSource.fontSize)
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
     selectTextByMouse: editable
     delegate: T.ItemDelegate { }
@@ -142,6 +144,7 @@ T.ComboBox {
         id: __input
         topPadding: 0
         bottomPadding: 0
+        sizeRatio: control.sizeRatio
         text: control.editable ? control.editText : control.displayText
         readOnly: !control.editable
         autoScroll: control.editable
@@ -200,10 +203,10 @@ T.ComboBox {
         y: control.height + 2
         implicitWidth: control.width
         implicitHeight: implicitContentHeight + topPadding + bottomPadding
-        leftPadding: 4
-        rightPadding: 4
-        topPadding: 6
-        bottomPadding: 6
+        leftPadding: 4 * control.sizeRatio
+        rightPadding: 4 * control.sizeRatio
+        topPadding: 6 * control.sizeRatio
+        bottomPadding: 6 * control.sizeRatio
         animationEnabled: control.animationEnabled
         radiusBg: control.radiusPopupBg
         colorBg: HusTheme.isDark ? control.themeSource.colorPopupBgDark : control.themeSource.colorPopupBg
@@ -255,10 +258,10 @@ T.ComboBox {
 
                 width: __popupListView.width
                 height: implicitContentHeight + topPadding + bottomPadding
-                leftPadding: 8
-                rightPadding: 8
-                topPadding: 5
-                bottomPadding: 5
+                leftPadding: 8 * control.sizeRatio
+                rightPadding: 8 * control.sizeRatio
+                topPadding: 5 * control.sizeRatio
+                bottomPadding: 5 * control.sizeRatio
                 enabled: model.enabled ?? true
                 contentItem: HusText {
                     text: __popupDelegate.model[control.textRole]

@@ -94,12 +94,23 @@ radiusTagBg | [HusRadius](internal://HusRadius) | - | 标签圆角
                 import QtQuick
                 import HuskarUI.Basic
 
-                Row {
+                Column {
                     width: parent.width
                     spacing: 10
 
+                    HusRadioBlock {
+                        id: sizeHintRadio
+                        initCheckedIndex: 1
+                        model: [
+                            { label: 'Small', value: 'small' },
+                            { label: 'Normal', value: 'normal' },
+                            { label: 'Large', value: 'large' },
+                        ]
+                    }
+
                     HusMultiSelect {
                         width: 200
+                        sizeHint: sizeHintRadio.currentCheckedValue
                         filterOption: (input, option) => option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1
                         Component.onCompleted: {
                             const list = [];
@@ -114,11 +125,22 @@ radiusTagBg | [HusRadius](internal://HusRadius) | - | 标签圆角
                     }
                 }
             `
-            exampleDelegate: Row {
+            exampleDelegate: Column {
                 spacing: 10
+
+                HusRadioBlock {
+                    id: sizeHintRadio
+                    initCheckedIndex: 1
+                    model: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Normal', value: 'normal' },
+                        { label: 'Large', value: 'large' },
+                    ]
+                }
 
                 HusMultiSelect {
                     width: 200
+                    sizeHint: sizeHintRadio.currentCheckedValue
                     filterOption: (input, option) => option.label.toUpperCase().indexOf(input.toUpperCase()) !== -1
                     Component.onCompleted: {
                         const list = [];

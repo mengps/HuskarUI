@@ -42,7 +42,7 @@ HusSelect {
     property alias searchEnabled: control.editable
     readonly property alias tagCount: __tagListModel.count
     property int maxTagCount: -1
-    property int tagSpacing: 5
+    property int tagSpacing: 5 * sizeRatio
     property color colorTagText: themeSource.colorTagText
     property color colorTagBg: themeSource.colorTagBg
     property HusRadius radiusTagBg: HusRadius { all: themeSource.radiusTagBg }
@@ -63,8 +63,8 @@ HusSelect {
         required property int index
         required property var tagData
 
-        implicitWidth: __row.implicitWidth + 16
-        implicitHeight: Math.max(__text.implicitHeight, __closeIcon.implicitHeight) + 4
+        implicitWidth: __row.implicitWidth + 16 * sizeRatio
+        implicitHeight: Math.max(__text.implicitHeight, __closeIcon.implicitHeight) + 4 * sizeRatio
         radius: control.radiusTagBg.all
         topLeftRadius: control.radiusTagBg.topLeft
         topRightRadius: control.radiusTagBg.topRight
@@ -79,7 +79,7 @@ HusSelect {
         Row {
             id: __row
             anchors.centerIn: parent
-            spacing: 5
+            spacing: 5 * sizeRatio
 
             HusText {
                 id: __text
@@ -95,7 +95,7 @@ HusSelect {
                 id: __closeIcon
                 anchors.verticalCenter: parent.verticalCenter
                 colorIcon: __hoverHander.hovered ? control.themeSource.colorTagCloseHover : control.themeSource.colorTagClose
-                iconSize: parseInt(control.themeSource.fontSize) - 2
+                iconSize: (parseInt(control.themeSource.fontSize) - 2) * sizeRatio
                 iconSource: HusIcon.CloseOutlined
                 verticalAlignment: Text.AlignVCenter
 
@@ -174,19 +174,21 @@ HusSelect {
     themeSource: HusTheme.HusMultiSelect
     font {
         family: themeSource.fontFamily
-        pixelSize: parseInt(themeSource.fontSize)
+        pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
     active: hovered || visualFocus || __input.hovered || __input.activeFocus
     editable: true
-    leftPadding: 2
+    topPadding: 4 * sizeRatio
+    bottomPadding: 4 * sizeRatio
+    leftPadding: 2 * sizeRatio
     clearEnabled: false
     contentItem: Item {
-        implicitHeight: Math.max(__flow.implicitHeight, 22)
+        implicitHeight: Math.max(__flow.implicitHeight, 22 * control.sizeRatio)
 
         Loader {
             id: __prefixLoader
             anchors.left: parent.left
-            anchors.leftMargin: 5
+            anchors.leftMargin: 5 * control.sizeRatio
             anchors.verticalCenter: parent.verticalCenter
             sourceComponent: control.prefixDelegate
         }
@@ -194,7 +196,7 @@ HusSelect {
         Loader {
             id: __suffixLoader
             anchors.right: parent.right
-            anchors.rightMargin: 5
+            anchors.rightMargin: 5 * control.sizeRatio
             anchors.verticalCenter: parent.verticalCenter
             sourceComponent: control.suffixDelegate
         }
@@ -208,10 +210,11 @@ HusSelect {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.left: __flow.left
-            anchors.leftMargin: 2
+            anchors.leftMargin: 2 * control.sizeRatio
             anchors.right: __flow.right
             background: Item { }
             animationEnabled: control.animationEnabled
+            sizeRatio: control.sizeRatio
             colorText: control.themeSource.colorText
             placeholderTextColor: control.themeSource.colorTextDisabled
             placeholderText: (__tagListModel.count > 0 || length > 0) ? '' : control.placeholderText
@@ -247,14 +250,14 @@ HusSelect {
         Flow {
             id: __flow
             anchors.left: __prefixLoader.right
-            anchors.leftMargin: 4
+            anchors.leftMargin: 4 * control.sizeRatio
             anchors.right: __suffixLoader.left
-            anchors.rightMargin: 4
+            anchors.rightMargin: 4 * control.sizeRatio
             anchors.verticalCenter: parent.verticalCenter
             spacing: control.tagSpacing
             onPositioningComplete: {
                 const item = __tagRepeater.itemAt(__tagListModel.count - 1);
-                __input.leftPadding = item ? (item.x + item.width + 5) : 0;
+                __input.leftPadding = item ? (item.x + item.width + 5 * control.sizeRatio) : 0;
                 __input.topPadding = item ? item.y : 0;
             }
 
@@ -270,10 +273,10 @@ HusSelect {
         y: control.height + 2
         implicitWidth: control.width
         implicitHeight: implicitContentHeight + topPadding + bottomPadding
-        leftPadding: 4
-        rightPadding: 4
-        topPadding: 6
-        bottomPadding: 6
+        leftPadding: 4 * control.sizeRatio
+        rightPadding: 4 * control.sizeRatio
+        topPadding: 6 * control.sizeRatio
+        bottomPadding: 6 * control.sizeRatio
         animationEnabled: control.animationEnabled
         radiusBg: control.radiusPopupBg
         colorBg: HusTheme.isDark ? control.themeSource.colorPopupBgDark : control.themeSource.colorPopupBg
@@ -327,10 +330,10 @@ HusSelect {
 
                 width: __popupListView.width
                 height: implicitContentHeight + topPadding + bottomPadding
-                leftPadding: 8
-                rightPadding: 8
-                topPadding: 5
-                bottomPadding: 5
+                leftPadding: 8 * control.sizeRatio
+                rightPadding: 8 * control.sizeRatio
+                topPadding: 5 * control.sizeRatio
+                bottomPadding: 5 * control.sizeRatio
                 enabled: (model.enabled ?? true) && ((!selected && control.maxTagCount >= 0) ? (__tagListModel.count < control.maxTagCount) : true)
                 contentItem: HusText {
                     text: __popupDelegate.model[control.textRole]
@@ -338,7 +341,7 @@ HusSelect {
                                                      control.themeSource.colorItemTextDisabled
                     font {
                         family: control.themeSource.fontFamily
-                        pixelSize: parseInt(control.themeSource.fontSize)
+                        pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
                         weight: selected ? Font.DemiBold : Font.Normal
                     }
                     elide: Text.ElideRight
@@ -348,7 +351,7 @@ HusSelect {
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
                         colorIcon: control.themeSource.colorIconSelect
-                        iconSize: 16
+                        iconSize: 16 * control.sizeRatio
                         iconSource: HusIcon.CheckOutlined
                         visible: __popupDelegate.enabled && selected
                     }
@@ -359,7 +362,6 @@ HusSelect {
                     topRightRadius: control.radiusItemBg.topRight
                     bottomLeftRadius: control.radiusItemBg.bottomLeft
                     bottomRightRadius: control.radiusItemBg.bottomRight
-
                     color: {
                         if (__popupDelegate.selected) {
                             return control.themeSource.colorItemBgActive;
