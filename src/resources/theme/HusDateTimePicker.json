@@ -12,6 +12,7 @@
         "colorIconHover": "@colorTextSecondary",
         "colorIconDisabled": "@colorTextQuaternary",
         "colorDayText": "@colorTextBase",
+        "colorDayTextCurrent": "#fff",
         "colorDayTextNone": "@colorTextQuaternary",
         "colorDayItemBgCurrent": "@colorPrimary",
         "colorDayItemBgHover": "$alpha(@colorPrimary, 0.6)",

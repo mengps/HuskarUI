@@ -382,11 +382,11 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
 
                 HusDateTimePicker {
                     id: customDatePicker
+                    format: qsTr('yyyy-MM-dd')
                     initDateTime: new Date(2025, 4, 1)
                     placeholderText: qsTr('请选择日期')
                     datePickerMode: HusDateTimePicker.Mode_Day
                     showTime: false
-                    format: qsTr('yyyy-MM-dd')
                     dayDelegate: HusButton {
                         implicitWidth: 40
                         implicitHeight: 36
