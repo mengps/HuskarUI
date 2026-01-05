@@ -15,7 +15,7 @@
 // We mean it.
 //
 
-#include "qqmltablemodelcolumn_p.h"
+#include <QtLabsQmlModels/private/qqmltablemodelcolumn_p.h>
 
 #include <QtCore/qabstractitemmodel.h>
 #include <QtCore/qvariant.h>
