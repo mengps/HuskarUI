@@ -12,7 +12,9 @@ Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
 
 int main(int argc, char *argv[])
 {
+#ifndef Q_OS_MAC
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+#endif
     QQuickWindow::setDefaultAlphaBuffer(true);
 
     QGuiApplication app(argc, argv);
