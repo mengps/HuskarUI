@@ -197,7 +197,7 @@ T.Control {
     }
 
     function appendNode(parentIndex: var, data: var) {
-        if (parentIndex.vaild) {
+        if (parentIndex.valid) {
             const parentData = __treeModel.getRow(parentIndex);
             let newRowIndex = 0;
             if (parentData.hasOwnProperty('rows'))
@@ -211,7 +211,7 @@ T.Control {
     }
 
     function removeNode(index: var) {
-        if (index.vaild) {
+        if (index.valid) {
             __treeModel.removeRow(index);
         }
     }
@@ -223,13 +223,13 @@ T.Control {
     }
 
     function setNodeData(index: var, data: var) {
-        if (index.vaild) {
+        if (index.valid) {
             __treeModel.setData(index, data, 'display');
         }
     }
 
     function getNodeData(index: var): var {
-        if (index.vaild) {
+        if (index.valid) {
             return __treeModel.data(index, 'display');
         } else {
             return undefined;
