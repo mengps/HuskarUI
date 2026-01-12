@@ -4,6 +4,7 @@
 
 #ifdef BUILD_HUSKARUI_STATIC_LIBRARY
 #include <QtQml/qqmlextensionplugin.h>
+Q_IMPORT_QML_PLUGIN(HuskarUI_ImplPlugin)
 Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
 #endif
 
@@ -25,7 +26,6 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    HusApp::initialize(&engine);
     CustomTheme::instance()->registerAll();
 
     const QUrl url = QUrl(QStringLiteral("qrc:/Gallery/qml/Gallery.qml"));
