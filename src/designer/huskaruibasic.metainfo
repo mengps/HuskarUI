@@ -1,0 +1,733 @@
+MetaInfo {
+    // DataDisplay
+    Type {
+        name: "HuskarUI.Basic.HusAnimatedImage"
+        ItemLibraryEntry {
+            name: "AnimatedImage"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 32 }
+            Property { name: "height"; type: "int"; value: 32 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusAvatar"
+        ItemLibraryEntry {
+            name: "Avatar"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 32 }
+            Property { name: "height"; type: "int"; value: 32 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusBadge"
+        ItemLibraryEntry {
+            name: "Badge"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusCard"
+        ItemLibraryEntry {
+            name: "Card"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 200 }
+            Property { name: "height"; type: "int"; value: 150 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusCarousel"
+        ItemLibraryEntry {
+            name: "Carousel"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 200 }
+            Property { name: "height"; type: "int"; value: 100 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusCheckerBoard"
+        ItemLibraryEntry {
+            name: "CheckerBoard"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 50 }
+            Property { name: "height"; type: "int"; value: 50 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusCollapse"
+        ItemLibraryEntry {
+            name: "Collapse"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusEmpty"
+        ItemLibraryEntry {
+            name: "Empty"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusImage"
+        ItemLibraryEntry {
+            name: "Image"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusImagePreview"
+        ItemLibraryEntry {
+            name: "ImagePreview"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusQrCode"
+        ItemLibraryEntry {
+            name: "QrCode"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusTableView"
+        ItemLibraryEntry {
+            name: "TableView"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusTabView"
+        ItemLibraryEntry {
+            name: "TabView"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusTag"
+        ItemLibraryEntry {
+            name: "Tag"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusTimeline"
+        ItemLibraryEntry {
+            name: "Timeline"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusToolTip"
+        ItemLibraryEntry {
+            name: "ToolTip"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusTourFocus"
+        ItemLibraryEntry {
+            name: "TourFocus"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusTourStep"
+        ItemLibraryEntry {
+            name: "TourStep"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusTreeView"
+        ItemLibraryEntry {
+            name: "TreeView"
+            category: "DataDisplay"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    // DataEntry
+    Type {
+        name: "HuskarUI.Basic.HusAutoComplete"
+        ItemLibraryEntry {
+            name: "AutoComplete"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusCheckBox"
+        ItemLibraryEntry {
+            name: "CheckBox"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "text"; type: "string"; value: "CheckBox" }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusColorPicker"
+        ItemLibraryEntry {
+            name: "ColorPicker"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusColorPickerPanel"
+        ItemLibraryEntry {
+            name: "ColorPickerPanel"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusDateTimePicker"
+        ItemLibraryEntry {
+            name: "DateTimePicker"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusDateTimePickerPanel"
+        ItemLibraryEntry {
+            name: "DateTimePickerPanel"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusInput"
+        ItemLibraryEntry {
+            name: "Input"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "text"; type: "string"; value: "Input text" }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusInputInteger"
+        ItemLibraryEntry {
+            name: "InputInteger"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusInputNumber"
+        ItemLibraryEntry {
+            name: "InputNumber"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusMultiSelect"
+        ItemLibraryEntry {
+            name: "MultiSelect"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusOTPInput"
+        ItemLibraryEntry {
+            name: "OTPInput"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusRadio"
+        ItemLibraryEntry {
+            name: "Radio"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "text"; type: "string"; value: "Radio" }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusRadioBlock"
+        ItemLibraryEntry {
+            name: "RadioBlock"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusRate"
+        ItemLibraryEntry {
+            name: "Rate"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusSelect"
+        ItemLibraryEntry {
+            name: "Select"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusSlider"
+        ItemLibraryEntry {
+            name: "Slider"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 200 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusSwitch"
+        ItemLibraryEntry {
+            name: "Switch"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusTextArea"
+        ItemLibraryEntry {
+            name: "TextArea"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 100 }
+            Property { name: "height"; type: "int"; value: 100 }
+        }
+    }
+
+    // Effect
+    Type {
+        name: "HuskarUI.Basic.HusAcrylic"
+        ItemLibraryEntry {
+            name: "Acrylic"
+            category: "Effect"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 100 }
+            Property { name: "height"; type: "int"; value: 100 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusShadow"
+        ItemLibraryEntry {
+            name: "Shadow"
+            category: "Effect"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 100 }
+            Property { name: "height"; type: "int"; value: 100 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusSwitchEffect"
+        ItemLibraryEntry {
+            name: "SwitchEffect"
+            category: "Effect"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 100 }
+            Property { name: "height"; type: "int"; value: 100 }
+        }
+    }
+
+    // Feedback
+    Type {
+        name: "HuskarUI.Basic.HusDrawer"
+        ItemLibraryEntry {
+            name: "Drawer"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusMessage"
+        ItemLibraryEntry {
+            name: "Message"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusModal"
+        ItemLibraryEntry {
+            name: "Modal"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusNotification"
+        ItemLibraryEntry {
+            name: "Notification"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusPopconfirm"
+        ItemLibraryEntry {
+            name: "Popconfirm"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusPopover"
+        ItemLibraryEntry {
+            name: "Popover"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusProgress"
+        ItemLibraryEntry {
+            name: "Progress"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 100 }
+            Property { name: "height"; type: "int"; value: 30 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusSpin"
+        ItemLibraryEntry {
+            name: "Spin"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusWatermark"
+        ItemLibraryEntry {
+            name: "Watermark"
+            category: "Feedback"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 100 }
+            Property { name: "height"; type: "int"; value: 100 }
+        }
+    }
+
+    // General
+    Type {
+        name: "HuskarUI.Basic.HusButton"
+        ItemLibraryEntry {
+            name: "Button"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "text"; type: "string"; value: "Button" }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusButtonBlock"
+        ItemLibraryEntry {
+            name: "ButtonBlock"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusCaptionBar"
+        ItemLibraryEntry {
+            name: "CaptionBar"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusCaptionButton"
+        ItemLibraryEntry {
+            name: "CaptionButton"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusCopyableText"
+        ItemLibraryEntry {
+            name: "CopyableText"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "text"; type: "string"; value: "Copyable text" }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusIconButton"
+        ItemLibraryEntry {
+            name: "IconButton"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "text"; type: "string"; value: "Button" }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusIconText"
+        ItemLibraryEntry {
+            name: "IconText"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 32 }
+            Property { name: "height"; type: "int"; value: 32 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusMoveMouseArea"
+        ItemLibraryEntry {
+            name: "MoveMouseArea"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusPopup"
+        ItemLibraryEntry {
+            name: "Popup"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusRectangle"
+        ItemLibraryEntry {
+            name: "Rectangle"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 100 }
+            Property { name: "height"; type: "int"; value: 100 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusResizeMouseArea"
+        ItemLibraryEntry {
+            name: "ResizeMouseArea"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusText"
+        ItemLibraryEntry {
+            name: "Text"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "text"; type: "string"; value: "Text" }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusWindow"
+        ItemLibraryEntry {
+            name: "Window"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    // Utils
+    Type {
+        name: "HuskarUI.Basic.HusAsyncHasher"
+        ItemLibraryEntry {
+            name: "AsyncHasher"
+            category: "Utils"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusRouter"
+        ItemLibraryEntry {
+            name: "Router"
+            category: "Utils"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    // Navigation
+    Type {
+        name: "HuskarUI.Basic.HusBreadcrumb"
+        ItemLibraryEntry {
+            name: "Breadcrumb"
+            category: "Navigation"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusContextMenu"
+        ItemLibraryEntry {
+            name: "ContextMenu"
+            category: "Navigation"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusMenu"
+        ItemLibraryEntry {
+            name: "Menu"
+            category: "Navigation"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusPagination"
+        ItemLibraryEntry {
+            name: "Pagination"
+            category: "Navigation"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "total"; type: "int"; value: 10 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusScrollBar"
+        ItemLibraryEntry {
+            name: "ScrollBar"
+            category: "Navigation"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+}
