@@ -46,6 +46,7 @@ English | [中文](./README-zh_CN.md)
 <img width=800 height=500 src="preview/light.png">
 <img width=800 height=500 src="preview/dark.png">
 <img width=800 height=500 src="preview/doc.png">
+<img width=800 height=500 src="preview/designer.png">
 
 </div>
 
@@ -122,6 +123,7 @@ The installation directory structure
     │   └─cmake/*.cmake
     └─qml
         └─HuskarUI/Basic
+        └─HuskarUI/Impl
 ```
 - Usage
   - Using cmake
@@ -153,6 +155,7 @@ The installation directory structure
       ...
       QGuiApplication app(argc, argv);
       QQmlApplicationEngine engine;
+      /*! Not necessary, it will be automatically invoked internally */
       HusApp::initialize(&engine);
       ...
   }

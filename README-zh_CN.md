@@ -46,6 +46,7 @@ Qt Qml 的 Ant 设计组件库
 <img width=800 height=500 src="preview/light.png">
 <img width=800 height=500 src="preview/dark.png">
 <img width=800 height=500 src="preview/doc.png">
+<img width=800 height=500 src="preview/designer.png">
 
 </div>
 
@@ -122,6 +123,7 @@ git clone --recursive https://github.com/mengps/HuskarUI.git
     │   └─cmake/*.cmake
     └─qml
         └─HuskarUI/Basic
+        └─HuskarUI/Impl
 ```
 - 用法
   - 使用 cmake
@@ -153,6 +155,7 @@ git clone --recursive https://github.com/mengps/HuskarUI.git
       ...
       QGuiApplication app(argc, argv);
       QQmlApplicationEngine engine;
+      /*! 非必要, 内部会自动调用 */
       HusApp::initialize(&engine);
       ...
   }
