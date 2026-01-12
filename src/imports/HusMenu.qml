@@ -59,6 +59,7 @@ T.Control {
     property int defaultMenuBottomPadding: 10
     property int defaultMenuSpacing: 4
     property var defaultSelectedKey: []
+    property string selectedKey: ''
     property var initModel: []
     property HusRadius radiusMenuBg: HusRadius { all: themeSource.radiusMenuBg }
     property HusRadius radiusPopupBg: HusRadius { all: themeSource.radiusPopupBg }
@@ -581,10 +582,14 @@ T.Control {
                     bgDelegate: __rootItem.menuBgDelegate
                     onClicked: {
                         if (__rootItem.menuChildrenLength == 0) {
-                            __private.selectedItem = __rootItem;
-                            __rootItem.selectedCurrentParentMenu();
-                            if (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode)
-                                __rootItem.layerPopup.closeWithParent();
+                            if (__private.selectedItem != __rootItem) {
+                                __private.selectedItem = __rootItem;
+                                control.selectedKey = __rootItem.menuKey;
+                                __rootItem.selectedCurrentParentMenu();
+                                if (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode)
+                                    __rootItem.layerPopup.closeWithParent();
+                                __rootItem.clickMenu();
+                            }
                         } else {
                             if (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) {
                                 const h = __rootItem.layerPopup.topPadding +
@@ -600,8 +605,8 @@ T.Control {
                                 __rootItem.layerPopup.current = __childrenListView;
                                 __rootItem.layerPopup.open();
                             }
+                            __rootItem.clickMenu();
                         }
-                        __rootItem.clickMenu();
                     }
 
                     HusToolTip {
