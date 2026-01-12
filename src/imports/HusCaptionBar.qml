@@ -23,6 +23,7 @@
 
 import QtQuick
 import QtQuick.Layouts
+import HuskarUI.Impl
 import HuskarUI.Basic
 
 Rectangle {
@@ -33,6 +34,7 @@ Rectangle {
 
     property alias layoutDirection: __row.layoutDirection
 
+    property bool mirrored: false
     property string winIcon: ''
     property alias winIconWidth: __winIconLoader.width
     property alias winIconHeight: __winIconLoader.height
@@ -80,6 +82,17 @@ Rectangle {
         }
     property string contentDescription: winTitle
 
+    property Component winNavButtonsDelegate: Row {
+        HusCaptionButton {
+            id: __returnButton
+            noDisabledState: true
+            iconSource: HusIcon.ArrowLeftOutlined
+            iconSize: parseInt(HusTheme.HusCaptionButton.fontSize) + 2
+            visible: control.showReturnButton
+            onClicked: control.returnCallback();
+            contentDescription: qsTr('返回')
+        }
+    }
     property Component winIconDelegate: Image {
         source: control.winIcon
         sourceSize.width: width
@@ -87,9 +100,9 @@ Rectangle {
         mipmap: true
     }
     property Component winTitleDelegate: HusText {
-        text: winTitle
-        color: winTitleColor
-        font: winTitleFont
+        text: control.winTitle
+        color: control.winTitleColor
+        font: control.winTitleFont
     }
     property Component winPresetButtonsDelegate: Row {
         Connections {
@@ -204,16 +217,12 @@ Rectangle {
         id: __row
         anchors.fill: parent
         spacing: 0
+        layoutDirection: control.mirrored ? Qt.RightToLeft : Qt.LeftToRight
 
-        HusCaptionButton {
-            id: __returnButton
+        Loader {
+            Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
-            noDisabledState: true
-            iconSource: HusIcon.ArrowLeftOutlined
-            iconSize: parseInt(HusTheme.HusCaptionButton.fontSize) + 2
-            visible: control.showReturnButton
-            onClicked: control.returnCallback();
-            contentDescription: qsTr('返回')
+            sourceComponent: control.winNavButtonsDelegate
         }
 
         Item {
@@ -221,8 +230,8 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Component.onCompleted: {
-                if (windowAgent)
-                    windowAgent.setTitleBar(__title);
+                if (control.windowAgent)
+                    control.windowAgent.setTitleBar(__title);
             }
 
             Row {
@@ -238,13 +247,13 @@ Rectangle {
                     width: 20
                     height: 20
                     anchors.verticalCenter: parent.verticalCenter
-                    sourceComponent: winIconDelegate
+                    sourceComponent: control.winIconDelegate
                 }
 
                 Loader {
                     id: __winTitleLoader
                     anchors.verticalCenter: parent.verticalCenter
-                    sourceComponent: winTitleDelegate
+                    sourceComponent: control.winTitleDelegate
                 }
             }
         }
@@ -252,19 +261,19 @@ Rectangle {
         Loader {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
-            sourceComponent: winPresetButtonsDelegate
+            sourceComponent: control.winPresetButtonsDelegate
         }
 
         Loader {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
-            sourceComponent: winExtraButtonsDelegate
+            sourceComponent: control.winExtraButtonsDelegate
         }
 
         Loader {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
-            sourceComponent: winButtonsDelegate
+            sourceComponent: control.winButtonsDelegate
         }
     }
 
