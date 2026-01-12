@@ -45,8 +45,10 @@ T.Popup {
     property var themeSource: HusTheme.HusPopup
 
     objectName: '__HusPopup__'
-    implicitWidth: implicitContentWidth + leftPadding + rightPadding
-    implicitHeight: implicitContentHeight + topPadding + bottomPadding
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
     enter: Transition {
         NumberAnimation {
             property: 'opacity'

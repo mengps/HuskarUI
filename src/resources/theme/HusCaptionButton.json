@@ -1,4 +1,7 @@
 {
+    "__init__": {
+        "__import__": ["HusButton"]
+    },
     "__style__": {
         "fontSize": "14",
         "colorIconDisabled": "@colorPrimaryTextDisabled",

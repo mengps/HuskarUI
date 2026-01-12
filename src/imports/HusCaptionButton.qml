@@ -30,6 +30,8 @@ HusIconButton {
     property bool isError: false
     property bool noDisabledState: false
 
+    themeSource: HusTheme.HusCaptionButton
+
     objectName: '__HusCaptionButton__'
     leftPadding: 12 * sizeRatio
     rightPadding: 12 * sizeRatio
@@ -37,29 +39,29 @@ HusIconButton {
     radiusBg.all: 0
     hoverCursorShape: Qt.ArrowCursor
     type: HusButton.Type_Text
-    iconSize: parseInt(HusTheme.HusCaptionButton.fontSize)
+    iconSize: parseInt(themeSource.fontSize)
     effectEnabled: false
     colorIcon: {
         if (enabled || noDisabledState) {
-            return checked ? HusTheme.HusCaptionButton.colorIconChecked :
-                             HusTheme.HusCaptionButton.colorIcon;
+            return checked ? themeSource.colorIconChecked :
+                             themeSource.colorIcon;
         } else {
-            return HusTheme.HusCaptionButton.colorIconDisabled;
+            return themeSource.colorIconDisabled;
         }
     }
     colorBg: {
         if (enabled || noDisabledState) {
             if (isError) {
-                return active ? HusTheme.HusCaptionButton.colorErrorBgActive:
-                                hovered ? HusTheme.HusCaptionButton.colorErrorBgHover :
-                                          HusTheme.HusCaptionButton.colorErrorBg;
+                return active ? themeSource.colorErrorBgActive:
+                                hovered ? themeSource.colorErrorBgHover :
+                                          themeSource.colorErrorBg;
             } else {
-                return active ? HusTheme.HusCaptionButton.colorBgActive:
-                                hovered ? HusTheme.HusCaptionButton.colorBgHover :
-                                          HusTheme.HusCaptionButton.colorBg;
+                return active ? themeSource.colorBgActive:
+                                hovered ? themeSource.colorBgHover :
+                                          themeSource.colorBg;
             }
         } else {
-            return HusTheme.HusCaptionButton.colorBgDisabled;
+            return themeSource.colorBgDisabled;
         }
     }
 }

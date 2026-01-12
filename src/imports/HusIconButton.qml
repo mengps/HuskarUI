@@ -93,7 +93,7 @@ HusButton {
                     anchors.verticalCenter: parent.verticalCenter
                     text: control.text
                     font: control.font
-                    lineHeight: HusTheme.HusButton.fontLineHeight
+                    lineHeight: control.themeSource.fontLineHeight
                     color: control.colorText
                     elide: Text.ElideRight
                     visible: text !== ''
@@ -131,7 +131,7 @@ HusButton {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: control.text
                     font: control.font
-                    lineHeight: HusTheme.HusButton.fontLineHeight
+                    lineHeight: control.themeSource.fontLineHeight
                     color: control.colorText
                     elide: Text.ElideRight
                     visible: text !== ''

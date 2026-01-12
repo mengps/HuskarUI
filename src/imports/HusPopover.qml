@@ -80,7 +80,6 @@ HusPopup {
         wrapMode: Text.WrapAnywhere
     }
     property Component descriptionDelegate: HusText {
-        width: parent.width
         font: control.descriptionFont
         color: control.colorDescription
         text: control.description
