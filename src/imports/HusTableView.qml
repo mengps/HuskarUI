@@ -428,16 +428,16 @@ HusRectangleInternal {
 
     function filter() {
         /*! 先过滤 */
-        let changed = false;
+        let change = false;
         let model = [...initModel];
         columns.forEach(
                     object => {
                         if (object.hasOwnProperty('onFilter') && object.hasOwnProperty('filterInput')) {
                             model = model.filter((record, index) => object.onFilter(object.filterInput, record));
-                            changed = true;
+                            change = true;
                         }
                     });
-        if (changed)
+        if (change)
             __private.model = model;
 
         /*! 根据 activeSorter 列排序 */
