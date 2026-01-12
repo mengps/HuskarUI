@@ -97,11 +97,12 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     }
 
                     HusRadioBlock {
-                        id: editableRadio
-                        initCheckedIndex: 0
+                        id: sizeHintRadio
+                        initCheckedIndex: 1
                         model: [
-                            { label: 'Noeditable', value: false },
-                            { label: 'Editable', value: true },
+                            { label: 'Small', value: 'small' },
+                            { label: 'Normal', value: 'normal' },
+                            { label: 'Large', value: 'large' },
                         ]
                     }
 
