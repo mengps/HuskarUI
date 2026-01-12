@@ -88,6 +88,7 @@ static auto g_cmake_only_link_huskarui = R"(
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     HuskarUIBasic
+    $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIImplPlugin>
     $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIBasicPlugin>
 )
 )";
@@ -98,6 +99,7 @@ target_link_directories(${PROJECT_NAME} PRIVATE %2)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     HuskarUIBasic
+    $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIImplPlugin>
     $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIBasicPlugin>
 )
 )";
@@ -209,6 +211,7 @@ static auto g_main_cpp_file = R"(
 
 #ifdef BUILD_HUSKARUI_STATIC_LIBRARY
 #include <QtQml/qqmlextensionplugin.h>
+Q_IMPORT_QML_PLUGIN(HuskarUI_ImplPlugin)
 Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
 #endif
 
@@ -241,6 +244,7 @@ static auto g_main_add_import_cpp_file = R"(
 
 #ifdef BUILD_HUSKARUI_STATIC_LIBRARY
 #include <QtQml/qqmlextensionplugin.h>
+Q_IMPORT_QML_PLUGIN(HuskarUI_ImplPlugin)
 Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
 #endif
 
