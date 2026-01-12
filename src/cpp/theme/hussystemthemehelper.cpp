@@ -24,9 +24,8 @@
 #include "hussystemthemehelper.h"
 
 #include <QtCore/QBasicTimer>
-#include <QtCore/QSettings>
 #include <QtCore/QLibrary>
-#include <QtGui/QWindow>
+#include <QtCore/QSettings>
 
 #ifdef QT_WIDGETS_LIB
 # include <QtWidgets/QWidget>
@@ -73,13 +72,13 @@ public:
 
     Q_DECLARE_PUBLIC(HusSystemThemeHelper);
 
-    void _updateThemeColor() {
+    void _updateAccentColor() {
         Q_Q(HusSystemThemeHelper);
 
-        auto nowThemeColor = q->getThemeColor();
-        if (nowThemeColor != m_themeColor) {
-            m_themeColor = nowThemeColor;
-            emit q->themeColorChanged(nowThemeColor);
+        auto nowAccentColor = q->getAccentColor();
+        if (nowAccentColor != m_accentColor) {
+            m_accentColor = nowAccentColor;
+            emit q->accentColorChanged(nowAccentColor);
         }
     }
 
@@ -94,12 +93,12 @@ public:
     }
 
     HusSystemThemeHelper *q_ptr;
-    QColor m_themeColor;
+    QColor m_accentColor;
     HusSystemThemeHelper::ColorScheme m_colorScheme = HusSystemThemeHelper::ColorScheme::None;
 
     QBasicTimer m_timer;
 #ifdef Q_OS_WIN
-    QSettings m_themeColorSettings { QSettings::UserScope, "Microsoft", "Windows\\DWM" };
+    QSettings m_accentColorSettings { QSettings::UserScope, "Microsoft", "Windows\\DWM" };
     QSettings m_colorSchemeSettings { QSettings::UserScope, "Microsoft", "Windows\\CurrentVersion\\Themes\\Personalize" };
 #endif
 };
@@ -110,7 +109,7 @@ HusSystemThemeHelper::HusSystemThemeHelper(QObject *parent)
 {
     Q_D(HusSystemThemeHelper);
 
-    d->m_themeColor = getThemeColor();
+    d->m_accentColor = getAccentColor();
     d->m_colorScheme = getColorScheme();
 
     d->m_timer.start(200, this);
@@ -131,12 +130,12 @@ HusSystemThemeHelper::~HusSystemThemeHelper()
 
 }
 
-QColor HusSystemThemeHelper::getThemeColor() const
+QColor HusSystemThemeHelper::getAccentColor() const
 {
     Q_D(const HusSystemThemeHelper);
 
 #ifdef Q_OS_WIN
-    return QColor::fromRgb(d->m_themeColorSettings.value("ColorizationColor").toUInt());
+    return QColor::fromRgb(d->m_accentColorSettings.value("ColorizationColor").toUInt());
 #else
 # if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
     return QPalette().color(QPalette::Accent);
@@ -165,13 +164,13 @@ HusSystemThemeHelper::ColorScheme HusSystemThemeHelper::getColorScheme() const
 #endif // QT_VERSION
 }
 
-QColor HusSystemThemeHelper::themeColor()
+QColor HusSystemThemeHelper::accentColor()
 {
     Q_D(HusSystemThemeHelper);
 
-    d->_updateThemeColor();
+    d->_updateAccentColor();
 
-    return d->m_themeColor;
+    return d->m_accentColor;
 }
 
 HusSystemThemeHelper::ColorScheme HusSystemThemeHelper::colorScheme()
@@ -207,7 +206,7 @@ void HusSystemThemeHelper::timerEvent(QTimerEvent *)
 {
     Q_D(HusSystemThemeHelper);
 
-    d->_updateThemeColor();
+    d->_updateAccentColor();
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 5, 0)
     d->_updateColorScheme();

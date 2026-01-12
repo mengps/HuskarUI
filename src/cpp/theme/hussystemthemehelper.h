@@ -3,12 +3,14 @@
 
 #include <QtCore/QObject>
 #include <QtGui/QColor>
+#include <QtGui/QWindow>
 #include <QtQml/qqml.h>
 
-#include "husglobal.h"
+#ifdef QT_WIDGETS_LIB
+#include <QtWidgets/QWidget>
+#endif
 
-QT_FORWARD_DECLARE_CLASS(QWindow);
-QT_FORWARD_DECLARE_CLASS(QWidget);
+#include "husglobal.h"
 
 QT_FORWARD_DECLARE_CLASS(HusSystemThemeHelperPrivate);
 
@@ -21,7 +23,7 @@ class HUSKARUI_EXPORT HusSystemThemeHelper : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QColor themeColor READ themeColor NOTIFY themeColorChanged)
+    Q_PROPERTY(QColor accentColor READ accentColor NOTIFY accentColorChanged)
     Q_PROPERTY(HusSystemThemeHelper::ColorScheme colorScheme READ colorScheme NOTIFY colorSchemeChanged)
 
     QML_NAMED_ELEMENT(HusSystemThemeHelper)
@@ -38,27 +40,28 @@ public:
     ~HusSystemThemeHelper();
 
     /**
-     * @brief getThemeColor 立即获取当前主题颜色{不可用于绑定}
+     * @brief accentColor 获取当前主题强调色{可用于绑定}
+     * @return QColor
+     */
+    QColor accentColor();
+    /**
+     * @brief colorScheme 获取当前颜色方案{可用于绑定}
+     * @return {@link HusSystemThemeHelper::ColorScheme}
+     */
+    HusSystemThemeHelper::ColorScheme colorScheme();
+
+    /**
+     * @brief getAccentColor 立即获取当前主题强调色{不可用于绑定}
      * @warning 此接口更快，但不会自动更新
      * @return QColor
      */
-    Q_INVOKABLE QColor getThemeColor() const;
+    Q_INVOKABLE QColor getAccentColor() const;
     /**
      * @brief getColorScheme 立即获取当前颜色方案{不可用于绑定}
      * @warning 此接口更快，但不会自动更新
      * @return {@link HusSystemThemeHelper::ColorScheme}
      */
     Q_INVOKABLE HusSystemThemeHelper::ColorScheme getColorScheme() const;
-    /**
-     * @brief colorScheme 获取当前主题颜色{可用于绑定}
-     * @return QColor
-     */
-    QColor themeColor();
-    /**
-     * @brief colorScheme 获取当前颜色方案{可用于绑定}
-     * @return {@link HusSystemThemeHelper::ColorScheme}
-     */
-    HusSystemThemeHelper::ColorScheme colorScheme();
 
     Q_INVOKABLE static bool setWindowTitleBarMode(QWindow *window, bool isDark);
 
@@ -67,7 +70,7 @@ public:
 #endif
 
 signals:
-    void themeColorChanged(const QColor &color);
+    void accentColorChanged(const QColor &color);
     void colorSchemeChanged(HusSystemThemeHelper::ColorScheme scheme);
 
 protected:
