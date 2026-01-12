@@ -50,6 +50,8 @@ sourceObject | QObject* | null | 目标的源指针
                        `)
         }
 
+        ThemeToken { }
+
         Description {
             title: qsTr('代码演示')
         }
