@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION 0.5.4.1)
-
 project(Gallery VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -111,6 +109,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Feedback/ExpModal.qml
         qml/Examples/Feedback/ExpSpin.qml
         qml/Examples/Utils/ExpAsyncHasher.qml
+        qml/Examples/Utils/ExpRouter.qml
         qml/Examples/Theme/ExpTheme.qml
         qml/Examples/Functions/ExpApi.qml
         qml/Controls/CodeBox.qml
@@ -179,6 +178,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     HuskarUIBasic
+    $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIImplPlugin>
     $<$<BOOL:${BUILD_HUSKARUI_STATIC_LIBRARY}>:HuskarUIBasicPlugin>
 )
 
@@ -221,8 +221,6 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
             --plugindir=${CMAKE_CURRENT_SOURCE_DIR}/../package/plugins
             --no-opengl-sw
             --no-widgets
-            --no-virtualkeyboard
-            --no-quick3dutils
             --no-quickcontrols2windowsstyleimpl
             --no-quickcontrols2fusion
             --no-quickcontrols2fusionstyleimpl
@@ -241,6 +239,7 @@ if(CMAKE_BUILD_TYPE MATCHES "Release")
                 COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_SOURCE_DIR}/../package/${PROJECT_NAME}.qmltypes"
                 COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_SOURCE_DIR}/../package/${PROJECT_NAME}_qml_module_dir_map.qrc"
                 COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_SOURCE_DIR}/../package/qmldir"
+                COMMAND ${CMAKE_COMMAND} -E copy ${Qt6_DIR}/../../../bin/HuskarUIImpl.dll ${CMAKE_CURRENT_SOURCE_DIR}/../package
                 COMMAND ${CMAKE_COMMAND} -E copy ${Qt6_DIR}/../../../bin/HuskarUIBasic.dll ${CMAKE_CURRENT_SOURCE_DIR}/../package
                 COMMAND ${QT_DEPLOY_QT} ${QT_DEPLOY_ARGS}
                 COMMENT "Windows Deploying Qt Dependencies After Build........."

@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(HUSKARUI_VERSION_MAJOR 0)
-set(HUSKARUI_VERSION_MINOR 5)
-set(HUSKARUI_VERSION_PATCH 4)
-set(HUSKARUI_VERSION_TWEAK 1)
-set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
-
-message(STATUS "Configuring HuskarUI::Basic Version: ${HUSKARUI_VERSION}")
-
 project(HuskarUIBasic VERSION ${HUSKARUI_VERSION} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -33,6 +25,14 @@ else()
     if(QT_HAS_QUICK_PRIVATE AND QT_HAS_QUICKTEMPLATES2_PRIVATE AND QT_HAS_LABSQMLMODEL_PRIVATE)
         set(QT_HAS_PRIVATE_MODULES TRUE)
     endif()
+endif()
+
+if(QT_KNOWN_POLICY_QTP0001)
+    qt_policy(SET QTP0001 NEW)
+endif()
+
+if(QT_KNOWN_POLICY_QTP0004)
+    qt_policy(SET QTP0004 NEW)
 endif()
 
 #Set header output dir.
@@ -97,10 +97,6 @@ if(WIN32)
     )
 endif()
 
-if(QT_KNOWN_POLICY_QTP0004)
-    qt_policy(SET QTP0004 NEW)
-endif()
-
 set(QT_TREEMODEL_SOURCES "")
 if(QT_HAS_LABSQMLMODEL_PRIVATE)
     set(QT_TREEMODEL_SOURCES
@@ -116,10 +112,11 @@ qt_add_qml_module(${PROJECT_NAME}
     DESIGNER_SUPPORTED
     PLUGIN_TARGET ${PLUGIN_NAME}
     OUTPUT_TARGETS HUSKARUI_QML_OUTPUT_TARGETS #Export for static lib
-    #NO_GENERATE_PLUGIN_SOURCE
     RESOURCE_PREFIX "/"
     TYPEINFO "plugins.qmltypes"
     OUTPUT_DIRECTORY ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY}
+    DEPENDENCIES
+        HuskarUI.Impl
     QML_FILES
         imports/HusButton.qml imports/HusButtonBlock.qml
         imports/HusIconButton.qml
@@ -191,8 +188,8 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/theme/husradiusgenerator.h cpp/theme/husradiusgenerator.cpp
         cpp/theme/hussystemthemehelper.h cpp/theme/hussystemthemehelper.cpp
         cpp/utils/husapi.h cpp/utils/husapi.cpp
+        cpp/utils/husrouter.h cpp/utils/husrouter.cpp
         cpp/utils/husasynchasher.h cpp/utils/husasynchasher.cpp
-        cpp/controls/huswindowagent.h cpp/controls/huswindowagent.cpp
         cpp/controls/husiconfont.h cpp/controls/husiconfont.cpp
         cpp/controls/husrectangle.h cpp/controls/husrectangle.cpp
         cpp/controls/huswatermark.h cpp/controls/huswatermark.cpp
@@ -276,8 +273,10 @@ qt_add_shaders(${PROJECT_NAME} "shaders"
 )
 
 # HuskarUI library output dir
+set_target_properties(${PLUGIN_NAME} PROPERTIES DEBUG_POSTFIX "d")
 set_target_properties(${PROJECT_NAME} PROPERTIES
     EXPORT_NAME "Basic"
+    DEBUG_POSTFIX "d"
     VERSION ${HUSKARUI_VERSION}
     SOVERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}
     RUNTIME_OUTPUT_DIRECTORY ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}/bin
@@ -286,10 +285,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if(MINGW)
-    set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "d")
     target_compile_options(${PROJECT_NAME} PRIVATE -Wa,-mbig-obj)
 elseif(MSVC)
-    set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
     target_compile_options(${PROJECT_NAME} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/utf-8;/Zi>)
 endif()
 
@@ -305,8 +302,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Quick
     Qt6::QuickPrivate
     Qt6::QuickTemplates2Private
-    $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKCore>
-    $<$<BOOL:${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM}>:QWKQuick>
 )
 
 include(GNUInstallDirs)
@@ -349,6 +344,9 @@ if(HUSKARUI_HEADER_OUTPUT_DIRECTORY)
         PATTERN "*_p.h" EXCLUDE
     )
 endif()
+
+# Copy designer dir
+file(COPY designer DESTINATION ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY})
 
 #Set CMake config output dir
 set(HUSKARUI_CMAKE_CONFIG_DIR ${HUSKARUI_LIBRARY_OUTPUT_DIRECTORY}/lib/cmake)
