@@ -59,7 +59,7 @@ QList<QString> HusThemeFunctions::genColorString(const QColor &color, bool light
 {
     QList<QString> result;
     const auto listColor = HusColorGenerator::generate(color, light, background);
-    for (const auto &color: listColor)
+    for (const auto &color : listColor)
         result.append(color.name());
 
     return result;

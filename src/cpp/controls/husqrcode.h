@@ -16,6 +16,7 @@ class HUSKARUI_EXPORT HusIconSettings : public QObject
     Q_PROPERTY(qreal height READ height WRITE setHeight NOTIFY heightChanged FINAL)
 
     QML_NAMED_ELEMENT(HusIconSettings)
+    QML_UNCREATABLE("HusIconSettings is only available via read-only properties.")
 
 public:
     HusIconSettings(QObject *parent = nullptr) : QObject{parent} { }

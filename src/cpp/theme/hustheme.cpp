@@ -404,7 +404,7 @@ bool HusThemePrivate::reloadComponentImport(QJsonObject &style, const QString &c
                 const auto __init__ = object["__init__"].toObject();
                 if (__init__.contains("__import__")) {
                     const auto __import__ = __init__["__import__"].toArray();
-                    for (const auto &v: __import__) {
+                    for (const auto &v : __import__) {
                         reloadComponentImport(style, v.toString());
                     }
                 }
@@ -729,17 +729,17 @@ void HusTheme::installSizeHintRatio(const QString &size, qreal ratio)
 {
     Q_D(HusTheme);
 
-    bool changed = false;
+    bool change = false;
     if (d->m_sizeHintMap.contains(size)) {
         auto value = d->m_sizeHintMap.value(size).toDouble();
         if (!qFuzzyCompare(value, ratio)) {
-            changed = true;
+            change = true;
         }
     } else {
-        changed = true;
+        change = true;
     }
 
-    if (changed) {
+    if (change) {
         d->m_sizeHintMap[size] = ratio;
         emit sizeHintChanged();
     }
