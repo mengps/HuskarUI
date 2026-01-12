@@ -22,6 +22,7 @@ HusWindow {
     captionBar.color: HusTheme.Primary.colorFillTertiary
     captionBar.showThemeButton: true
     captionBar.showTopButton: true
+    captionBar.showWinIcon: Qt.platform.os !== 'osx'
     captionBar.winIconWidth: 22
     captionBar.winIconHeight: 22
     captionBar.winIconDelegate: Item {
@@ -39,6 +40,7 @@ HusWindow {
         HusApi.setWindowStaysOnTopHint(galleryWindow, checked);
     }
     captionBar.winTitleDelegate: RowLayout {
+        layoutDirection: captionBar.mirrored ? Qt.RightToLeft : Qt.LeftToRight
         spacing: 0
 
         Connections {
@@ -157,7 +159,10 @@ HusWindow {
             }
         }
     }
-    captionBar.winPresetButtonsDelegate: Row {
+    captionBar.winPresetButtonsDelegate: RowLayout {
+        layoutDirection: captionBar.mirrored ? Qt.RightToLeft : Qt.LeftToRight
+        spacing: 0
+
         Connections {
             target: captionBar
             function onWindowAgentChanged() {
@@ -169,7 +174,7 @@ HusWindow {
 
         HusCaptionButton {
             id: wikiButton
-            height: parent.height
+            Layout.fillHeight: true
             noDisabledState: true
             text: qsTr('在线 Wiki (AI)')
             colorText: HusTheme.Primary.colorTextBase
@@ -207,7 +212,7 @@ HusWindow {
 
         HusCaptionButton {
             id: themeButton
-            height: parent.height
+            Layout.fillHeight: true
             noDisabledState: true
             iconSource: HusTheme.isDark ? HusIcon.MoonOutlined : HusIcon.SunOutlined
             iconSize: 14
@@ -217,7 +222,7 @@ HusWindow {
 
         HusCaptionButton {
             id: topButton
-            height: parent.height
+            Layout.fillHeight: true
             noDisabledState: true
             iconSource: HusIcon.PushpinOutlined
             iconSize: 14
