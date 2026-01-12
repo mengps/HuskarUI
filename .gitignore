@@ -60,8 +60,6 @@ CMakeLists.txt.user*
 *.opensdf
 *.vcxproj
 *vcxproj.*
-CMakePresets.json
-CMakeUserPresets.json
 
 # MinGW generated files
 *.Debug
@@ -87,6 +85,8 @@ CMakeFiles
 cmake_install.cmake
 install_manifest.txt
 Makefile
+CMakePresets.json
+CMakeUserPresets.json
 
 # VS Code
 /.vscode/
