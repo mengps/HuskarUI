@@ -23,10 +23,6 @@
 
 #include "husapp.h"
 
-#ifdef BUILD_HUSKARUI_ON_DESKTOP_PLATFORM
-#include <QWKQuick/qwkquickglobal.h>
-#endif
-
 #include <QtGui/QFontDatabase>
 
 /*
@@ -36,6 +32,8 @@
 #endif
 */
 
+Q_GLOBAL_STATIC_WITH_ARGS(bool, g_initialized, (false));
+
 HusApp::~HusApp()
 {
 
@@ -43,11 +41,9 @@ HusApp::~HusApp()
 
 void HusApp::initialize(QQmlEngine *engine)
 {
-#ifdef BUILD_HUSKARUI_ON_DESKTOP_PLATFORM
-    QWK::registerTypes(engine);
-#endif
-
     QFontDatabase::addApplicationFont(":/HuskarUI/resources/font/HuskarUI-Icons.ttf");
+
+    *g_initialized = true;
 }
 
 QString HusApp::libName()
@@ -66,10 +62,10 @@ HusApp *HusApp::instance()
     return ins;
 }
 
-HusApp *HusApp::create(QQmlEngine *, QJSEngine *)
+HusApp *HusApp::create(QQmlEngine *qmlEngine, QJSEngine *)
 {
     /*! 移除Qt窗口的暗黑模式, 但会造成`QGuiApplication::styleHints()->colorScheme()`失效, 暂时不使用 */
-/*
+    /*
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0) && defined(Q_OS_WIN)
     using QWindowsApplication = QNativeInterface::Private::QWindowsApplication;
     auto nativeWindowsApp = dynamic_cast<QWindowsApplication *>(QGuiApplicationPrivate::platformIntegration());
@@ -77,6 +73,9 @@ HusApp *HusApp::create(QQmlEngine *, QJSEngine *)
         nativeWindowsApp->setDarkModeHandling(QWindowsApplication::DarkModeStyle);
 #endif
 */
+
+    if (!*g_initialized)
+        initialize(qmlEngine);
 
     return instance();
 }
