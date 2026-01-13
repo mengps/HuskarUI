@@ -1,6 +1,8 @@
 #include "creator.h"
 #include "creator_p.h"
 
+#include <HuskarUI/husapp.h>
+
 #include <QtCore/QDir>
 #include <QtCore/QLoggingCategory>
 #include <QtGui/QDesktopServices>
@@ -104,14 +106,26 @@ void Creator::createProject(const QVariant &projectParams)
         } break;
         case ContainMethod::SourceContain:
         {
-            projectCmake.write(QString(g_cmake_src_subdirectory).arg(projectName, isShareLibrary ? "OFF" : "ON").toUtf8());
+            auto versions = HusApp::libVersion().split('.');
+            if (versions.size() <= 3) {
+                for (int i = 0; i < 4 - versions.size(); i++)
+                    versions.append("0");
+            }
+            const auto major = versions.at(0).toInt();
+            const auto minor = versions.at(1).toInt();
+            const auto patch = versions.at(2).toInt();
+            const auto tweak = versions.at(3).toInt();
+            const auto versionStr = QString(g_cmake_huskarui_version).arg(major).arg(minor).arg(patch).arg(tweak);
+
+            projectCmake.write(QString(g_cmake_src_subdirectory).arg(projectName, isShareLibrary ? "OFF" : "ON", versionStr).toUtf8());
 
             genFileAndCode(projectDir.path() + "/src/main.cpp", QString(g_main_cpp_file).arg(projectName));
             genFileAndCode(projectDir.path() + "/src/Main.qml", QString(g_main_qml_file).arg(projectName));
 
             copyDirectory(sourceLocation + "/3rdparty", projectDir.path() + "/3rdparty/3rdparty");
             copyDirectory(sourceLocation + "/.cmake", projectDir.path() + "/3rdparty/.cmake");
-            copyDirectory(sourceLocation + "/src", projectDir.path() + "/3rdparty/HuskarUI");
+            copyDirectory(sourceLocation + "/src_impl", projectDir.path() + "/3rdparty/HuskarUIImpl");
+            copyDirectory(sourceLocation + "/src", projectDir.path() + "/3rdparty/HuskarUIBasic");
 
             QString srcCmake = QString(g_cmake_project).arg(projectName) +
                                QString(g_cmake_only_link_huskarui) +

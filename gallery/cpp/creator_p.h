@@ -1,6 +1,14 @@
 #ifndef CREATOR_P_H
 #define CREATOR_P_H
 
+static auto g_cmake_huskarui_version = R"(
+set(HUSKARUI_VERSION_MAJOR %1)
+set(HUSKARUI_VERSION_MINOR %2)
+set(HUSKARUI_VERSION_PATCH %3)
+set(HUSKARUI_VERSION_TWEAK %4)
+set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
+)";
+
 static auto g_cmake_src_subdirectory = R"(
 cmake_minimum_required(VERSION 3.16)
 
@@ -19,8 +27,11 @@ if(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
     add_subdirectory(3rdparty/3rdparty/qwindowkit)
 endif()
 
+#HuskarUI Version
+%3
 #Build HuskarUI
-add_subdirectory(3rdparty/HuskarUI)
+add_subdirectory(3rdparty/HuskarUIImpl)
+add_subdirectory(3rdparty/HuskarUIBasic)
 
 #Your project
 add_subdirectory(src)
@@ -215,8 +226,6 @@ Q_IMPORT_QML_PLUGIN(HuskarUI_ImplPlugin)
 Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
 #endif
 
-#include <HuskarUI/husapp.h>
-
 int main(int argc, char *argv[])
 {
     QQuickWindow::setDefaultAlphaBuffer(true);
@@ -224,13 +233,13 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    HusApp::initialize(&engine);
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
+    engine.singletonInstance<QJSValue>("HuskarUI.Basic", "HusApp");
     engine.loadFromModule("%1", "Main");
 
     return app.exec();
@@ -248,8 +257,6 @@ Q_IMPORT_QML_PLUGIN(HuskarUI_ImplPlugin)
 Q_IMPORT_QML_PLUGIN(HuskarUI_BasicPlugin)
 #endif
 
-#include <HuskarUI/husapp.h>
-
 int main(int argc, char *argv[])
 {
     QQuickWindow::setDefaultAlphaBuffer(true);
@@ -257,7 +264,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    HusApp::initialize(&engine);
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,
@@ -265,6 +271,7 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.addImportPath(HUSKARUI_IMPORT_PATH);
+    engine.singletonInstance<QJSValue>("HuskarUI.Basic", "HusApp");
     engine.loadFromModule("%1", "Main");
 
     return app.exec();
