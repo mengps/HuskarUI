@@ -1,7 +1,6 @@
 #include "creator.h"
 #include "creator_p.h"
-
-#include <HuskarUI/husapp.h>
+#include "husapp.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QLoggingCategory>
