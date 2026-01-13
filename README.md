@@ -144,7 +144,6 @@ The installation directory structure
  - Create QtQuick application `QtVersion >= 6.7`
  - Add the following code to your `main.cpp`
  ```cpp
-  #include "HuskarUI/husapp.h"
 
   int main(int argc, char *argv[])
   {
@@ -155,8 +154,7 @@ The installation directory structure
       ...
       QGuiApplication app(argc, argv);
       QQmlApplicationEngine engine;
-      /*! Not necessary, it will be automatically invoked internally */
-      HusApp::initialize(&engine);
+      engine.singletonInstance<QJSValue>("HuskarUI.Basic", "HusApp");
       ...
   }
  ```

@@ -155,8 +155,7 @@ git clone --recursive https://github.com/mengps/HuskarUI.git
       ...
       QGuiApplication app(argc, argv);
       QQmlApplicationEngine engine;
-      /*! 非必要, 内部会自动调用 */
-      HusApp::initialize(&engine);
+      engine.singletonInstance<QJSValue>("HuskarUI.Basic", "HusApp");
       ...
   }
  ```
