@@ -187,6 +187,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
             width: parent.width
             desc: qsTr(`
 通过 \`sizeHint\` 属性设置尺寸。\n
+通过 \`echoMode\` 属性实现密码框。\n
                        `)
             code: `
                 import QtQuick
@@ -212,6 +213,31 @@ contentDescription | string | '' | 内容描述(提高可用性)
                         placeholderText: 'Username'
                         sizeHint: sizeHintRadio.currentCheckedValue
                     }
+
+                    HusInput {
+                        id: passwordInput
+                        width: 150
+                        iconPosition: HusInput.Position_Right
+                        iconSource: echoMode === HusInput.Password ? HusIcon.EyeInvisibleOutlined :
+                                                                     HusIcon.EyeOutlined
+                        iconDelegate: HusIconButton {
+                            padding: 0
+                            rightPadding: 10 * passwordInput.sizeRatio
+                            effectEnabled: false
+                            type: HusButton.Type_Link
+                            iconSize: passwordInput.iconSize
+                            iconSource: passwordInput.iconSource
+                            onClicked: {
+                                if (passwordInput.echoMode === HusInput.Password) {
+                                    passwordInput.echoMode = HusInput.Normal;
+                                } else {
+                                    passwordInput.echoMode = HusInput.Password;
+                                }
+                            }
+                        }
+                        placeholderText: 'Password'
+                        sizeHint: sizeHintRadio.currentCheckedValue
+                    }
                 }
             `
             exampleDelegate: Column {
@@ -232,6 +258,31 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     iconPosition: HusInput.Position_Left
                     iconSource: HusIcon.UserOutlined
                     placeholderText: 'Username'
+                    sizeHint: sizeHintRadio.currentCheckedValue
+                }
+
+                HusInput {
+                    id: passwordInput
+                    width: 150
+                    iconPosition: HusInput.Position_Right
+                    iconSource: echoMode === HusInput.Password ? HusIcon.EyeInvisibleOutlined :
+                                                                 HusIcon.EyeOutlined
+                    iconDelegate: HusIconButton {
+                        padding: 0
+                        rightPadding: 10 * passwordInput.sizeRatio
+                        effectEnabled: false
+                        type: HusButton.Type_Link
+                        iconSize: passwordInput.iconSize
+                        iconSource: passwordInput.iconSource
+                        onClicked: {
+                            if (passwordInput.echoMode === HusInput.Password) {
+                                passwordInput.echoMode = HusInput.Normal;
+                            } else {
+                                passwordInput.echoMode = HusInput.Password;
+                            }
+                        }
+                    }
+                    placeholderText: 'Password'
                     sizeHint: sizeHintRadio.currentCheckedValue
                 }
             }
