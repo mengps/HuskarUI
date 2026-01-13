@@ -107,7 +107,7 @@ HusWindow {
                 }
             }
             contentDescription: qsTr('前进')
-            onClicked:galleryRouter.goForward();
+            onClicked: galleryRouter.goForward();
 
             HusToolTip {
                 visible: parent.hovered
