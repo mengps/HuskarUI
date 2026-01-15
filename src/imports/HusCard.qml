@@ -30,6 +30,8 @@ T.Control {
     id: control
 
     property bool animationEnabled: HusTheme.animationEnabled
+    property bool hoverable: false
+    property bool showShadow: hoverable
     property string title: ''
     property string coverSource: ''
     property int coverFillMode: Image.Stretch
@@ -57,6 +59,7 @@ T.Control {
     property color colorTitle: themeSource.colorTitle
     property color colorBg: themeSource.colorBg
     property color colorBorder: themeSource.colorBorder
+    property color colorShadow: themeSource.colorShadow
     property color colorBodyAvatar: themeSource.colorBodyAvatar
     property color colorBodyAvatarBg: 'transparent'
     property color colorBodyTitle: themeSource.colorBodyTitle
@@ -65,7 +68,7 @@ T.Control {
     property var themeSource: HusTheme.HusCard
 
     property Component titleDelegate: Item {
-        height: 60
+        implicitHeight: 60
 
         RowLayout {
             anchors.fill: parent
@@ -105,7 +108,7 @@ T.Control {
         fillMode: control.coverFillMode
     }
     property Component bodyDelegate: Item {
-        height: 100
+        implicitHeight: 100
 
         RowLayout {
             anchors.fill: parent
@@ -157,14 +160,25 @@ T.Control {
         }
     }
     property Component actionDelegate: Item { }
+    property Component bgDelegate: HusRectangleInternal {
+        color: control.colorBg
+        border.color: control.colorBorder
+        border.width: control.borderWidth
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
+
+        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    }
 
     objectName: '__HusCard__'
-    width: 300
+    z: (hoverable && hovered) ? 1 : 0
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
-    clip: true
     contentItem: Column {
         Loader {
             width: parent.width
@@ -188,16 +202,36 @@ T.Control {
             sourceComponent: control.actionDelegate
         }
     }
-    background: HusRectangleInternal {
-        color: control.colorBg
-        border.color: control.colorBorder
-        border.width: control.borderWidth
-        radius: control.radiusBg.all
-        topLeftRadius: control.radiusBg.topLeft
-        topRightRadius: control.radiusBg.topRight
-        bottomLeftRadius: control.radiusBg.bottomLeft
-        bottomRightRadius: control.radiusBg.bottomRight
+    background: Item {
+        implicitWidth: 300
 
-        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+        Loader {
+            anchors.fill: __bgLoader
+            active: control.hoverable || control.showShadow
+            sourceComponent: HusShadow {
+                source: __bgLoader
+                scale: control.hoverable ? (control.hovered ? 1.01 : 1.0) : 1.0
+                shadowOpacity: control.hoverable ? (control.hovered ? 0.3 : 0) : 0.3
+                shadowScale: 1.02
+                shadowColor: control.colorShadow
+
+                Behavior on scale {
+                    enabled: control.animationEnabled
+                    NumberAnimation { duration: HusTheme.Primary.durationFast }
+                }
+
+                Behavior on shadowOpacity {
+                    enabled: control.animationEnabled
+                    NumberAnimation { duration: HusTheme.Primary.durationFast }
+                }
+            }
+        }
+
+        Loader {
+            id: __bgLoader
+            anchors.fill: parent
+            visible: !(control.hoverable || control.showShadow)
+            sourceComponent: control.bgDelegate
+        }
     }
 }

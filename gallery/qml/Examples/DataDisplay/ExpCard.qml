@@ -31,6 +31,8 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+hoverable | bool | false | 鼠标移过时可浮起
+showShadow | bool | hoverable | 是否显示阴影
 title | string | '' | 标题文本
 coverSource | url | '' | 封面图片链接
 coverFillMode | enum | Image.Stretch | 封面图片填充模式(来自 Image)
@@ -44,6 +46,9 @@ titleFont | font | - | 标题字体
 bodyTitleFont | font | - | 主体部分标题字体
 bodyDescriptionFont | font | - | 主体部分描述字体
 colorTitle | color | - | 标题文本颜色
+colorBg | color | - | 背景颜色
+colorBorder | color | - | 边框颜色
+colorShadow | color | - | 阴影颜色
 colorBodyAvatar | color | - | 主体部分头像颜色
 colorBodyAvatarBg | color | - | 主体部分头像背景颜色
 colorBodyTitle | color | - | 主体部分标题颜色
@@ -81,9 +86,9 @@ colorBodyDescription | color | - | 主体部分描述颜色
                     spacing: 10
 
                     HusCard {
-                        title: qsTr('Card title')
-                        extraDelegate: HusButton { type: HusButton.Type_Link; text: qsTr('More') }
-                        bodyDescription: qsTr('Card content\\nCard content\\nCard content')
+                        title: 'Card title'
+                        extraDelegate: HusButton { type: HusButton.Type_Link; text: 'More' }
+                        bodyDescription: 'Card content\\nCard content\\nCard content'
                     }
                 }
             `
@@ -91,9 +96,97 @@ colorBodyDescription | color | - | 主体部分描述颜色
                 spacing: 10
 
                 HusCard {
-                    title: qsTr('Card title')
-                    extraDelegate: HusButton { type: HusButton.Type_Link; text: qsTr('More') }
-                    bodyDescription: qsTr('Card content\nCard content\nCard content')
+                    title: 'Card title'
+                    extraDelegate: HusButton { type: HusButton.Type_Link; text: 'More' }
+                    bodyDescription: 'Card content\nCard content\nCard content'
+                }
+            }
+        }
+
+        CodeBox {
+            width: parent.width
+            descTitle: qsTr('悬浮效果')
+            desc: qsTr(`
+通过 \`hoverable\` 属性设置鼠标移过时可浮起。\n
+通过 \`colorShadow\` 属性设置阴影颜色。\n
+                       `)
+            code: `
+                import QtQuick
+                import HuskarUI.Basic
+
+                Column {
+                    spacing: 10
+
+                    Row {
+                        spacing: 5
+
+                        HusText {
+                            text: 'ShadowColor: '
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+
+                        HusColorPicker {
+                            id: colorPicker
+                            autoChange: false
+                            changeValue: HusTheme.Primary.colorTextBase
+                            onChange: (color) => changeValue = color;
+                        }
+                    }
+
+                    Grid {
+                        rows: 2
+                        columns: 3
+                        spacing: -1
+
+                        Repeater {
+                            model: 6
+
+                            HusCard {
+                                hoverable: true
+                                title: 'Title'
+                                bodyDelegate: null
+                                radiusBg.all: 0
+                                colorShadow: colorPicker.value
+                            }
+                        }
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 10
+
+                Row {
+                    spacing: 5
+
+                    HusText {
+                        text: 'ShadowColor: '
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    HusColorPicker {
+                        id: colorPicker
+                        autoChange: false
+                        changeValue: HusTheme.Primary.colorTextBase
+                        onChange: (color) => changeValue = color;
+                    }
+                }
+
+                Grid {
+                    rows: 2
+                    columns: 3
+                    spacing: -1
+
+                    Repeater {
+                        model: 6
+
+                        HusCard {
+                            hoverable: true
+                            title: 'Title'
+                            bodyDelegate: null
+                            radiusBg.all: 0
+                            colorShadow: colorPicker.value
+                        }
+                    }
                 }
             }
         }
@@ -120,8 +213,8 @@ colorBodyDescription | color | - | 主体部分描述颜色
 
                     HusCard {
                         id: card
-                        title: qsTr('Card title')
-                        extraDelegate: HusButton { type: HusButton.Type_Link; text: qsTr('More') }
+                        title: 'Card title'
+                        extraDelegate: HusButton { type: HusButton.Type_Link; text: 'More' }
                         coverSource: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
                         bodyAvatarIcon: HusIcon.AccountBookOutlined
                         bodyTitle: 'Card Meta title'
@@ -194,12 +287,12 @@ colorBodyDescription | color | - | 主体部分描述颜色
 
                 HusCard {
                     id: card
-                    title: qsTr('Card title')
-                    extraDelegate: HusButton { type: HusButton.Type_Link; text: qsTr('More') }
+                    title: 'Card title'
+                    extraDelegate: HusButton { type: HusButton.Type_Link; text: 'More' }
                     coverSource: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
                     bodyAvatarIcon: HusIcon.AccountBookOutlined
-                    bodyTitle: qsTr('Card Meta title')
-                    bodyDescription: qsTr('This is the description')
+                    bodyTitle: 'Card Meta title'
+                    bodyDescription: 'This is the description'
                     actionDelegate: Item {
                         height: 45
 
