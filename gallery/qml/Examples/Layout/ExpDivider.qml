@@ -60,7 +60,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
         CodeBox {
             width: parent.width
             desc: qsTr(`
-通过 \`title\` 属性改变标题文字\n
+通过 \`title\` 属性改变标题文字。\n
 通过 \`titleAlign\` 属性改变标题对齐，支持的对齐：\n
 - 居左(默认){ HusDivider.Align_Left }\n
 - 居中{ HusDivider.Align_Center }\n
@@ -76,7 +76,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
                     HusText {
                         width: parent.width
-                        text: qsTr('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.')
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.'
                         wrapMode: Text.WrapAnywhere
                     }
 
@@ -107,7 +107,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
                 HusText {
                     width: parent.width
-                    text: qsTr('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.')
+                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.'
                     wrapMode: Text.WrapAnywhere
                 }
 

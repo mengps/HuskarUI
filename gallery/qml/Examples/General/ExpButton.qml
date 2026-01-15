@@ -34,7 +34,7 @@ shape | enum | HusButton.Shape_Default | 按钮形状(来自 HusButton)
 colorText | color | - | 文本颜色
 colorBg | color | - | 背景颜色
 colorBorder | color | - | 边框颜色
-radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角半径
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 sizeHint | string | 'normal' | 尺寸提示
 contentDescription | string | '' | 内容描述(提高可用性)
                        `)
