@@ -31,21 +31,22 @@ T.RadioButton {
     property bool animationEnabled: HusTheme.animationEnabled
     property bool effectEnabled: true
     property int hoverCursorShape: Qt.PointingHandCursor
-    property color colorText: enabled ? HusTheme.HusRadio.colorText : HusTheme.HusRadio.colorTextDisabled
+    property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     property color colorIndicator: enabled ?
-                                       checked ? HusTheme.HusRadio.colorIndicatorChecked :
-                                                 HusTheme.HusRadio.colorIndicator : HusTheme.HusRadio.colorIndicatorDisabled
-    property color colorIndicatorBorder: (enabled && (hovered || checked)) ? HusTheme.HusRadio.colorIndicatorBorderChecked :
-                                                                             HusTheme.HusRadio.colorIndicatorBorder
-    property HusRadius radiusIndicator: HusRadius { all: HusTheme.HusRadio.radiusIndicator }
+                                       checked ? themeSource.colorIndicatorChecked :
+                                                 themeSource.colorIndicator : themeSource.colorIndicatorDisabled
+    property color colorIndicatorBorder: (enabled && (hovered || checked)) ? themeSource.colorIndicatorBorderChecked :
+                                                                             themeSource.colorIndicatorBorder
+    property HusRadius radiusIndicator: HusRadius { all: themeSource.radiusIndicator }
     property string contentDescription: ''
+    property var themeSource: HusTheme.HusRadio
 
     objectName: '__HusRadio__'
     implicitWidth: implicitContentWidth + leftPadding + rightPadding
     implicitHeight: Math.max(implicitContentHeight, implicitIndicatorHeight) + topPadding + bottomPadding
     font {
-        family: HusTheme.HusRadio.fontFamily
-        pixelSize: parseInt(HusTheme.HusRadio.fontSize)
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize)
     }
     spacing: 8
     indicator: Item {
@@ -63,7 +64,7 @@ T.RadioButton {
             visible: control.effectEnabled
             color: 'transparent'
             border.width: 0
-            border.color: control.enabled ? HusTheme.HusRadio.colorEffectBg : 'transparent'
+            border.color: control.enabled ? control.themeSource.colorEffectBg : 'transparent'
             opacity: 0.2
 
             ParallelAnimation {
@@ -120,12 +121,12 @@ T.RadioButton {
         }
     }
     contentItem: HusText {
+        leftPadding: control.indicator.width + control.spacing
         text: control.text
         font: control.font
         opacity: enabled ? 1.0 : 0.3
         color: control.colorText
         verticalAlignment: Text.AlignVCenter
-        leftPadding: control.indicator.width + control.spacing
     }
 
     HoverHandler {
