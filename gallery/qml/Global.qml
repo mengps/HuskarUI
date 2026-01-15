@@ -343,7 +343,8 @@ QtObject {
                     key: 'HusCard',
                     label: qsTr('HusCard 卡片'),
                     source: './Examples/DataDisplay/ExpCard.qml',
-                    desc: qsTr('最基础的卡片容器，可承载文字、列表、图片、段落。')
+                    updateVersion: '0.5.5.1',
+                    desc: qsTr('新增 hoverable 悬浮效果\n新增 showShadow 是否显示阴影。')
                 },
                 {
                     key: 'HusTimeline',
