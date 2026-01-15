@@ -29,7 +29,7 @@ import HuskarUI.Basic
 T.Control {
     id: control
 
-    enum TextSiz {
+    enum TextSize {
         Size_Fixed = 0,
         Size_Auto = 1
     }
