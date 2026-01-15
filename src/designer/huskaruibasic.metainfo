@@ -218,7 +218,7 @@ MetaInfo {
             category: "DataEntry"
             version: "1.0"
             requiredImport: "HuskarUI.Basic"
-            Property { name: "text"; type: "string"; value: "CheckBox" }
+            Property { name: "text"; type: "binding"; value: "qsTr(\"CheckBox\")" }
         }
     }
 
@@ -269,7 +269,7 @@ MetaInfo {
             category: "DataEntry"
             version: "1.0"
             requiredImport: "HuskarUI.Basic"
-            Property { name: "text"; type: "string"; value: "Input text" }
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Input text\")" }
         }
     }
 
@@ -320,7 +320,7 @@ MetaInfo {
             category: "DataEntry"
             version: "1.0"
             requiredImport: "HuskarUI.Basic"
-            Property { name: "text"; type: "string"; value: "Radio" }
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Radio\")" }
         }
     }
 
@@ -527,7 +527,7 @@ MetaInfo {
             category: "General"
             version: "1.0"
             requiredImport: "HuskarUI.Basic"
-            Property { name: "text"; type: "string"; value: "Button" }
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Button\")" }
         }
     }
 
@@ -568,7 +568,7 @@ MetaInfo {
             category: "General"
             version: "1.0"
             requiredImport: "HuskarUI.Basic"
-            Property { name: "text"; type: "string"; value: "Copyable text" }
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Copyable text\")" }
         }
     }
 
@@ -579,7 +579,7 @@ MetaInfo {
             category: "General"
             version: "1.0"
             requiredImport: "HuskarUI.Basic"
-            Property { name: "text"; type: "string"; value: "Button" }
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Button\")" }
         }
     }
 
@@ -644,7 +644,7 @@ MetaInfo {
             category: "General"
             version: "1.0"
             requiredImport: "HuskarUI.Basic"
-            Property { name: "text"; type: "string"; value: "Text" }
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Text\")" }
         }
     }
 
