@@ -36,6 +36,7 @@ defaultMenuBottomPadding | int | 5 | 默认菜单下边距
 defaultMenuSpacing | int | 4 | 默认菜单间隔
 subMenuOffset | int | -4 | 子菜单偏移
 radiusMenuBg | [HusRadius](internal://HusRadius) | - | 菜单项背景圆角
+menu | [HusMenu](internal://HusMenu) | - | 访问内部菜单
 \n<br/>
 \n### 支持的信号：\n
 - \`clickMenu(deep: int, key: string, keyPath: var, data: var)\` 点击任意菜单项时发出\n
