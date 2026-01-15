@@ -101,7 +101,10 @@ T.Control {
         }
     }
 
-    onDefaultValueChanged: __private.updateHSV(defaultValue);
+    Component.onCompleted: {
+        __private.updateHSV(defaultValue);
+        __private.initialized = true;
+    }
 
     objectName: '__HusColorPickerPanel__'
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -775,15 +778,20 @@ T.Control {
         signal updateInput()
 
         property real h: 0 // Hue (0-1)
-        property real s: 1 // Saturation (0-1)
+        property real s: 0 // Saturation (0-1)
         property real v: 1 // Value (0-1)
         property real a: 1 // Alpha (0-1)
+        property bool initialized: false
 
         property color value: Qt.hsva(h, s, v, control.alphaEnabled ? a : 1)
 
-        onValueChanged: control.change(value);
+        onValueChanged: {
+            if (initialized) {
+                control.change(value);
+            }
+        }
 
-        function updateHSV(color) {
+        function updateHSV(color: color) {
             if (color.valid) {
                 h = Math.max(0, color.hsvHue);
                 s = Math.max(0, color.hsvSaturation);
@@ -795,11 +803,11 @@ T.Control {
             }
         }
 
-        function floatToHex(value) {
+        function floatToHex(value: real): string {
             return Math.round(value).toString(16).padStart(2, '0').toUpperCase();
         }
 
-        function toHex(color) {
+        function toHex(color: color): color {
             const hexRed = floatToHex(color.r * 255);
             const hexGreen = floatToHex(color.g * 255);
             const hexBlue = floatToHex(color.b * 255);
