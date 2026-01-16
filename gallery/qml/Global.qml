@@ -35,8 +35,8 @@ QtObject {
                     key: 'HusButton',
                     label: qsTr('HusButton 按钮'),
                     source: './Examples/General/ExpButton.qml',
-                    updateVersion: '0.4.9.0',
-                    desc: qsTr('新增 sizeHint 尺寸提示。')
+                    updateVersion: '0.5.5.1',
+                    desc: qsTr('新增 Type_Dashed 类型。')
                 },
                 {
                     key: 'HusIconButton',
@@ -112,7 +112,7 @@ QtObject {
                     source: './Examples/General/ExpRadius.qml',
                     addVersion: '0.4.9.0',
                     desc: qsTr('提供四方向的圆角半径类型。')
-                }
+                },
             ]
         },
         {

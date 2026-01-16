@@ -31,10 +31,11 @@ T.Button {
     enum Type {
         Type_Default = 0,
         Type_Outlined = 1,
-        Type_Primary = 2,
-        Type_Filled = 3,
-        Type_Text = 4,
-        Type_Link = 5
+        Type_Dashed = 2,
+        Type_Primary = 3,
+        Type_Filled = 4,
+        Type_Text = 5,
+        Type_Link = 6
     }
 
     enum Shape {
@@ -57,6 +58,7 @@ T.Button {
                                         control.hovered ? themeSource.colorTextHover :
                                                           themeSource.colorTextDefault;
             case HusButton.Type_Outlined:
+            case HusButton.Type_Dashed:
                 return control.active ? themeSource.colorTextActive :
                                         control.hovered ? themeSource.colorTextHover :
                                                           themeSource.colorText;
@@ -80,6 +82,7 @@ T.Button {
             {
             case HusButton.Type_Default:
             case HusButton.Type_Outlined:
+            case HusButton.Type_Dashed:
                 return control.active ? themeSource.colorBgActive :
                                         control.hovered ? themeSource.colorBgHover :
                                                           themeSource.colorBg;
@@ -163,11 +166,11 @@ T.Button {
             id: __effect
             width: __bg.width
             height: __bg.height
-            radius: __bg.radius
-            topLeftRadius: __bg.topLeftRadius
-            topRightRadius: __bg.topRightRadius
-            bottomLeftRadius: __bg.bottomLeftRadius
-            bottomRightRadius: __bg.bottomRightRadius
+            radius: __bg.r
+            topLeftRadius: __bg.tl
+            topRightRadius: __bg.tr
+            bottomLeftRadius: __bg.bl
+            bottomRightRadius: __bg.br
             anchors.centerIn: parent
             visible: control.effectEnabled && control.type != HusButton.Type_Link
             color: 'transparent'
@@ -204,25 +207,58 @@ T.Button {
                 }
             }
         }
-        HusRectangleInternal {
+
+        Loader {
             id: __bg
             width: realWidth
             height: realHeight
             anchors.centerIn: parent
-            radius: control.radiusBg?.all ?? 0
-            topLeftRadius: control.shape == HusButton.Shape_Default ? control.radiusBg?.topLeft ?? 0 : height * 0.5
-            topRightRadius: control.shape == HusButton.Shape_Default ? control.radiusBg?.topRight ?? 0 : height * 0.5
-            bottomLeftRadius: control.shape == HusButton.Shape_Default ? control.radiusBg?.bottomLeft ?? 0 : height * 0.5
-            bottomRightRadius: control.shape == HusButton.Shape_Default ? control.radiusBg?.bottomRight ?? 0 : height * 0.5
-            color: control.colorBg
-            border.width: (control.type == HusButton.Type_Filled || control.type == HusButton.Type_Text) ? 0 : 1
-            border.color: control.enabled ? control.colorBorder : 'transparent'
+            sourceComponent: control.type === HusButton.Type_Dashed ? __dashedBgComponent : __bgComponent
 
+            property real r: control.radiusBg?.all ?? 0
+            property real tl: control.shape == HusButton.Shape_Default ? control.radiusBg?.topLeft ?? 0 : height * 0.5
+            property real tr: control.shape == HusButton.Shape_Default ? control.radiusBg?.topRight ?? 0 : height * 0.5
+            property real bl: control.shape == HusButton.Shape_Default ? control.radiusBg?.bottomLeft ?? 0 : height * 0.5
+            property real br: control.shape == HusButton.Shape_Default ? control.radiusBg?.bottomRight ?? 0 : height * 0.5
             property real realWidth: control.shape == HusButton.Shape_Default ? parent.width : parent.height
             property real realHeight: control.shape == HusButton.Shape_Default ? parent.height : parent.height
+        }
 
-            Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-            Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+        Component {
+            id: __bgComponent
+
+            HusRectangleInternal {
+                color: control.colorBg
+                border.width: (control.type == HusButton.Type_Filled || control.type == HusButton.Type_Text) ? 0 : 1
+                border.color: control.enabled ? control.colorBorder : 'transparent'
+                radius: r
+                topLeftRadius: tl
+                topRightRadius: tr
+                bottomLeftRadius: bl
+                bottomRightRadius: br
+
+                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+                Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+            }
+        }
+
+        Component {
+            id: __dashedBgComponent
+
+            HusRectangle {
+                color: control.colorBg
+                border.width: (control.type == HusButton.Type_Filled || control.type == HusButton.Type_Text) ? 0 : 1
+                border.color: control.enabled ? control.colorBorder : 'transparent'
+                border.style: Qt.DashLine
+                radius: r
+                topLeftRadius: tl
+                topRightRadius: tr
+                bottomLeftRadius: bl
+                bottomRightRadius: br
+
+                Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+                Behavior on border.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+            }
         }
     }
 
