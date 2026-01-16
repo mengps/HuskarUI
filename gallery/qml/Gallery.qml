@@ -318,7 +318,7 @@ HusWindow {
         Connections {
             target: HusTheme
             function onIsDarkChanged() {
-                if (HusTheme.darkMode == HusTheme.System) {
+                if (HusTheme.darkMode === HusTheme.System) {
                     galleryWindow.setWindowMode(HusTheme.isDark);
                 }
             }
