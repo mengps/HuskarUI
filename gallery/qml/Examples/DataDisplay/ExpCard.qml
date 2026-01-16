@@ -82,21 +82,35 @@ colorBodyDescription | color | - | 主体部分描述颜色
                 import QtQuick
                 import HuskarUI.Basic
 
-                Row {
-                    spacing: 10
+                Column {
+                    spacing: 15
+
+                    HusSwitch {
+                        id: shadowSwitch
+                        checked: true
+                        text: 'Show shadow: '
+                    }
 
                     HusCard {
                         title: 'Card title'
+                        showShadow: shadowSwitch.checked
                         extraDelegate: HusButton { type: HusButton.Type_Link; text: 'More' }
-                        bodyDescription: 'Card content\\nCard content\\nCard content'
+                        bodyDescription: 'Card content\nCard content\nCard content'
                     }
                 }
             `
-            exampleDelegate: Row {
-                spacing: 10
+            exampleDelegate: Column {
+                spacing: 15
+
+                HusSwitch {
+                    id: shadowSwitch
+                    checked: true
+                    text: 'Show shadow: '
+                }
 
                 HusCard {
                     title: 'Card title'
+                    showShadow: shadowSwitch.checked
                     extraDelegate: HusButton { type: HusButton.Type_Link; text: 'More' }
                     bodyDescription: 'Card content\nCard content\nCard content'
                 }
@@ -115,7 +129,7 @@ colorBodyDescription | color | - | 主体部分描述颜色
                 import HuskarUI.Basic
 
                 Column {
-                    spacing: 10
+                    spacing: 15
 
                     Row {
                         spacing: 5
@@ -153,7 +167,7 @@ colorBodyDescription | color | - | 主体部分描述颜色
                 }
             `
             exampleDelegate: Column {
-                spacing: 10
+                spacing: 15
 
                 Row {
                     spacing: 5
