@@ -39,6 +39,7 @@ Flickable {
 ------ | --- | :---: | ---
 options | list | [] | 选项模型列表
 filterOption | function(input, option) | - | 输入项将使用该函数进行筛选
+count | int(readonly) | - | 当前options模型的项目数
 textRole | string | 'label' | 弹出框文本的模型角色。
 valueRole | string | 'value' | 弹出框值的模型角色。
 showToolTip | bool | false | 是否显示文字提示
