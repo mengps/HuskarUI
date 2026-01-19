@@ -54,84 +54,76 @@ T.Control {
     property color colorContentText: themeSource.colorContentText
     property var themeSource: HusTheme.HusTimeline
 
-    property Component nodeDelegate: Component {
-        Item {
-            height: __loading.active ? __loading.height : __icon.active ? __icon.height : defaultNodeSize
+    property Component nodeDelegate: Item {
+        height: __loading.active ? __loading.height : __icon.active ? __icon.height : defaultNodeSize
 
-            Loader {
-                id: __dot
-                width: parent.height
-                height: parent.height
-                anchors.horizontalCenter: parent.horizontalCenter
-                active: !__icon.active && !__loading.active
-                sourceComponent: Rectangle {
-                    radius: width >> 1
-                    color: control.colorNodeBg
-                    border.color: model.colorNode
-                    border.width: radius * 0.5
-                }
+        Loader {
+            id: __dot
+            width: parent.height
+            height: parent.height
+            anchors.horizontalCenter: parent.horizontalCenter
+            active: !__icon.active && !__loading.active
+            sourceComponent: Rectangle {
+                radius: width >> 1
+                color: control.colorNodeBg
+                border.color: model.colorNode
+                border.width: radius * 0.5
             }
+        }
 
-            Loader {
-                id: __icon
-                anchors.horizontalCenter: parent.horizontalCenter
-                active: !__loading.active && model.iconSource !== 0 && model.iconSource !== ''
-                sourceComponent: HusIconText {
-                    iconSource: model.iconSource
-                    iconSize: model.iconSize
-                    colorIcon: model.colorNode
-                }
+        Loader {
+            id: __icon
+            anchors.horizontalCenter: parent.horizontalCenter
+            active: !__loading.active && model.iconSource !== 0 && model.iconSource !== ''
+            sourceComponent: HusIconText {
+                iconSource: model.iconSource
+                iconSize: model.iconSize
+                colorIcon: model.colorNode
             }
+        }
 
-            Loader {
-                id: __loading
-                anchors.horizontalCenter: parent.horizontalCenter
-                active: model.loading
-                sourceComponent: HusIconText {
-                    iconSize: model.iconSize
-                    iconSource: HusIcon.LoadingOutlined
-                    colorIcon: model.colorNode
+        Loader {
+            id: __loading
+            anchors.horizontalCenter: parent.horizontalCenter
+            active: model.loading
+            sourceComponent: HusIconText {
+                iconSize: model.iconSize
+                iconSource: HusIcon.LoadingOutlined
+                colorIcon: model.colorNode
 
-                    NumberAnimation on rotation {
-                        running: model.loading
-                        from: 0
-                        to: 360
-                        loops: Animation.Infinite
-                        duration: 1000
-                    }
+                NumberAnimation on rotation {
+                    running: model.loading
+                    from: 0
+                    to: 360
+                    loops: Animation.Infinite
+                    duration: 1000
                 }
             }
         }
     }
-    property Component lineDelegate: Component {
-        Rectangle {
-            color: control.colorLine
-        }
+    property Component lineDelegate: Rectangle {
+        color: control.colorLine
     }
-    property Component timeDelegate: Component {
-        HusText {
-            id: __timeText
-            color: control.colorTimeText
-            font: control.timeFont
-            text: {
-                if (!isNaN(model.time))
-                    return model.time.toLocaleString(control.locale, model.timeFormat);
-                else
-                    return '';
-            }
-            horizontalAlignment: onLeft ? Text.AlignRight : Text.AlignLeft
+    property Component timeDelegate: HusText {
+        id: __timeText
+        color: control.colorTimeText
+        font: control.timeFont
+        text: {
+            if (!isNaN(model.time))
+                return model.time.toLocaleString(control.locale, model.timeFormat);
+            else
+                return '';
         }
+        horizontalAlignment: onLeft ? Text.AlignRight : Text.AlignLeft
     }
-    property Component contentDelegate: Component {
-        HusText {
-            id: __contentText
-            color: control.colorContentText
-            font: control.contentFont
-            text: model.content
-            textFormat: model.contentFormat
-            wrapMode: Text.WrapAnywhere
-            horizontalAlignment: onLeft ? Text.AlignRight : Text.AlignLeft
-        }
+    property Component contentDelegate: HusText {
+        id: __contentText
+        color: control.colorContentText
+        font: control.contentFont
+        text: model.content
+        textFormat: model.contentFormat
+        wrapMode: Text.WrapAnywhere
+        horizontalAlignment: onLeft ? Text.AlignRight : Text.AlignLeft
     }
 
     function flick(xVelocity: real, yVelocity: real) {
@@ -154,25 +146,25 @@ T.Control {
         return __listModel.get(index);
     }
 
-    function set(index, object) {
+    function set(index: int, object: var) {
         __listModel.set(index, __private.initObject(object));
     }
 
-    function setProperty(index, propertyName, value) {
+    function setProperty(index: int, propertyName: string, value: var) {
         if (propertyName === 'time')
             __private.noTime = false;
         __listModel.setProperty(index, propertyName, value);
     }
 
-    function move(from, to, count = 1) {
+    function move(from: int, to: int, count = 1) {
         __listModel.move(from, to, count);
     }
 
-    function insert(index, object) {
+    function insert(index: int, object: var) {
         __listModel.insert(index, __private.initObject(object));
     }
 
-    function remove(index, count = 1) {
+    function remove(index: int, count = 1) {
         __listModel.remove(index, count);
         for (let i = 0; i < __listModel.count; i++) {
             if (__listModel.get(i).hasOwnProperty('time')) {
@@ -182,7 +174,7 @@ T.Control {
         }
     }
 
-    function append(object) {
+    function append(object: var) {
         __listModel.append(__private.initObject(object));
     }
 
@@ -209,12 +201,14 @@ T.Control {
     }
     contentItem: ListView {
         id: __listView
+        implicitHeight: contentHeight
         clip: true
         verticalLayoutDirection: control.reverse ? ListView.BottomToTop : ListView.TopToBottom
         model: ListModel { id: __listModel }
         T.ScrollBar.vertical: HusScrollBar {
             animationEnabled: control.animationEnabled
         }
+        onContentHeightChanged: cacheBuffer = contentHeight;
         add: Transition {
             NumberAnimation { property: 'opacity'; from: 0; to: 1; duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 }
         }
@@ -224,10 +218,11 @@ T.Control {
         delegate: Item {
             id: __rootItem
             width: __listView.width
-            height: __contentLoader.height + 25
+            height: __contentLoader.height + ((__listModel.count > 1 && !isLast) ? 25 : 0)
 
             required property var model
             required property int index
+            property bool isLast: index === (control.reverse ? 0 : __listModel.count - 1)
             property bool timeOnLeft: {
                 if (control.mode == HusTimeline.Mode_Right)
                     return false;
@@ -248,7 +243,7 @@ T.Control {
                 height: parent.height - __nodeLoader.height
                 anchors.horizontalCenter: __nodeLoader.horizontalCenter
                 anchors.top: __nodeLoader.bottom
-                sourceComponent: lineDelegate
+                sourceComponent: control.lineDelegate
                 property alias model: __rootItem.model
                 property alias index: __rootItem.index
             }
@@ -262,7 +257,7 @@ T.Control {
                         return (__rootItem.width - width) * 0.5;
                 }
                 width: 30
-                sourceComponent: nodeDelegate
+                sourceComponent: control.nodeDelegate
                 property alias model: __rootItem.model
                 property alias index: __rootItem.index
             }
@@ -273,7 +268,7 @@ T.Control {
                 anchors.leftMargin: __rootItem.timeOnLeft ? 0 : 5
                 anchors.right: __rootItem.timeOnLeft ? __nodeLoader.left : parent.right
                 anchors.rightMargin: __rootItem.timeOnLeft ? 5 : 0
-                sourceComponent: timeDelegate
+                sourceComponent: control.timeDelegate
                 property alias model: __rootItem.model
                 property alias index: __rootItem.index
                 property bool onLeft: __rootItem.timeOnLeft
@@ -291,7 +286,7 @@ T.Control {
                 anchors.leftMargin: !__rootItem.timeOnLeft ? 0 : 5
                 anchors.right: !__rootItem.timeOnLeft ? __nodeLoader.left : parent.right
                 anchors.rightMargin: !__rootItem.timeOnLeft ? 5 : 0
-                sourceComponent: contentDelegate
+                sourceComponent: control.contentDelegate
                 property alias model: __rootItem.model
                 property alias index: __rootItem.index
                 property bool onLeft: !__rootItem.timeOnLeft
@@ -307,7 +302,7 @@ T.Control {
     QtObject {
         id: __private
         property bool noTime: true
-        function initObject(object) {
+        function initObject(object: var): var {
             /*! 静态角色类型下会有颜色不兼容问题, 统一转换为string即可 */
             if (object.hasOwnProperty('colorNode')) {
                 object.colorNode = String(object.colorNode);
