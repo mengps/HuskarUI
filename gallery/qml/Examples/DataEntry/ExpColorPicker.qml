@@ -14,11 +14,12 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusColorPicker 颜色选择器 \n
 用于选择颜色。\n
-* **继承自 { Control }**\n
+* **模块 { HuskarUI.Basic }**\n
+* **继承自 { AbstractButton }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **textDelegate: Component** 文本代理\n
@@ -52,7 +53,8 @@ colorTitle | color | - | 标题颜色
 colorInput | color | - | 输入框文本颜色
 colorPresetIcon | color | - | 预设视图图标颜色
 colorPresetText | color | - | 预设视图文本颜色
-radiusTriggerBg | [HusRadius](internal://HusRadius) | - | 触发器背景圆角
+radiusBg | [HusRadius](internal://HusRadius) | - | 触发器背景圆角
+radiusTriggerBg | [HusRadius](internal://HusRadius) | - | 触发器圆角
 radiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角
 popup | [HusPopup](internal://HusPopup) | - | 访问内部弹窗
 panel | [HusColorPickerPanel](internal://HusColorPickerPanel) | - | 访问内部颜色选择面板
@@ -84,6 +86,7 @@ expanded | bool | 可选 | 默认是否展开
 
         ThemeToken {
             source: 'HusColorPicker'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusColorPicker.qml'
         }
 
         Description {

@@ -26,13 +26,13 @@ import QtQuick.Layouts
 import QtQuick.Templates as T
 import HuskarUI.Basic
 
-T.Control {
+T.AbstractButton {
     id: control
 
     signal change(color: color)
 
     property bool animationEnabled: HusTheme.animationEnabled
-    property bool active: hovered || visualFocus
+    property bool active: hovered || visualFocus || open
     readonly property alias value: __colorPickerPanel.value
     property alias defaultValue: __colorPickerPanel.defaultValue
     property alias autoChange: __colorPickerPanel.autoChange
@@ -62,6 +62,7 @@ T.Control {
     property alias colorTitle: __colorPickerPanel.colorTitle
     property alias colorPresetIcon: __colorPickerPanel.colorPresetIcon
     property alias colorPresetText: __colorPickerPanel.colorPresetText
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property HusRadius radiusTriggerBg: HusRadius { all: themeSource.radiusTriggerBg }
     property HusRadius radiusPopupBg: HusRadius { all: themeSource.radiusPopupBg }
 
@@ -138,11 +139,11 @@ T.Control {
         }
     }
     background: HusRectangleInternal {
-        radius: control.radiusTriggerBg.all
-        topLeftRadius: control.radiusTriggerBg.topLeft
-        topRightRadius: control.radiusTriggerBg.topRight
-        bottomLeftRadius: control.radiusTriggerBg.bottomLeft
-        bottomRightRadius: control.radiusTriggerBg.bottomRight
+        radius: control.radiusBg.all
+        topLeftRadius: control.radiusBg.topLeft
+        topRightRadius: control.radiusBg.topRight
+        bottomLeftRadius: control.radiusBg.bottomLeft
+        bottomRightRadius: control.radiusBg.bottomRight
         color: control.colorBg
         border.color: control.colorBorder
     }
