@@ -175,6 +175,8 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusCheckerBoard.qml
         imports/HusColorPickerPanel.qml imports/HusColorPicker.qml
         imports/HusTreeView.qml
+        imports/HusLabel.qml
+        imports/HusSpace.qml
     SOURCES
         $<$<BOOL:${WIN32}>:${HUSKARUI_RC_FILE}>
         cpp/husglobal.h
@@ -249,6 +251,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         resources/theme/HusSpin.json
         resources/theme/HusColorPicker.json
         resources/theme/HusTreeView.json
+        resources/theme/HusLabel.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"
@@ -309,7 +312,6 @@ set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}) # include
 set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}) # lib
 set(BIN_INSTALL_DIR ${CMAKE_INSTALL_BINDIR}) # bin
 set(QML_INSTALL_DIR "qml") # qml
-set(OBJ_INSTALL_DIR "obj") # obj
 set(HUSKARUI_QML_INSTALL_DIR "${QML_INSTALL_DIR}/HuskarUI")
 set(HUSKARUI_CONFIG_INSTALL_DIR "${LIB_INSTALL_DIR}/cmake/HuskarUI")
 
@@ -345,7 +347,7 @@ if(HUSKARUI_HEADER_OUTPUT_DIRECTORY)
     )
 endif()
 
-# Copy designer dir
+#Copy designer dir
 file(COPY designer DESTINATION ${HUSKARUI_PLUGIN_OUTPUT_DIRECTORY})
 
 #Set CMake config output dir
@@ -390,7 +392,6 @@ if(BUILD_HUSKARUI_STATIC_LIBRARY)
         RUNTIME DESTINATION ${BIN_INSTALL_DIR}
         ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
         LIBRARY DESTINATION ${LIB_INSTALL_DIR}
-        OBJECTS DESTINATION ${OBJ_INSTALL_DIR}
     )
 endif()
 
