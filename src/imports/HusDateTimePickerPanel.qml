@@ -1068,7 +1068,7 @@ T.Control {
         }
 
         function getDateTimeString(): string {
-            const text = '';
+            let text = '';
             const date = getDateTime();
             const month = date.getMonth();
             const weekNumber = HusApi.getWeekNumber(date);
