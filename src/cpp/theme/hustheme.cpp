@@ -32,6 +32,63 @@
 
 Q_LOGGING_CATEGORY(lcHusTheme, "huskarui.basic.theme");
 
+void HusThemePrivate::initializeComponentPropertyHash()
+{
+#define ADD_COMPONENT_PROPERTY(ComponentName) \
+    g_componentTable->insert(#ComponentName, &q->m_##ComponentName);
+
+    Q_Q(HusTheme);
+
+    static bool initialized = false;
+    if (!initialized) {
+        initialized = true;
+        ADD_COMPONENT_PROPERTY(HusButton)
+        ADD_COMPONENT_PROPERTY(HusIconText)
+        ADD_COMPONENT_PROPERTY(HusCopyableText)
+        ADD_COMPONENT_PROPERTY(HusCaptionButton)
+        ADD_COMPONENT_PROPERTY(HusTour)
+        ADD_COMPONENT_PROPERTY(HusMenu)
+        ADD_COMPONENT_PROPERTY(HusDivider)
+        ADD_COMPONENT_PROPERTY(HusEmpty)
+        ADD_COMPONENT_PROPERTY(HusSwitch)
+        ADD_COMPONENT_PROPERTY(HusScrollBar)
+        ADD_COMPONENT_PROPERTY(HusSlider)
+        ADD_COMPONENT_PROPERTY(HusTabView)
+        ADD_COMPONENT_PROPERTY(HusToolTip)
+        ADD_COMPONENT_PROPERTY(HusSelect)
+        ADD_COMPONENT_PROPERTY(HusInput)
+        ADD_COMPONENT_PROPERTY(HusRate)
+        ADD_COMPONENT_PROPERTY(HusRadio)
+        ADD_COMPONENT_PROPERTY(HusRadioBlock)
+        ADD_COMPONENT_PROPERTY(HusCheckBox)
+        ADD_COMPONENT_PROPERTY(HusDrawer)
+        ADD_COMPONENT_PROPERTY(HusCollapse)
+        ADD_COMPONENT_PROPERTY(HusCard)
+        ADD_COMPONENT_PROPERTY(HusPagination)
+        ADD_COMPONENT_PROPERTY(HusPopup)
+        ADD_COMPONENT_PROPERTY(HusTimeline)
+        ADD_COMPONENT_PROPERTY(HusTag)
+        ADD_COMPONENT_PROPERTY(HusTableView)
+        ADD_COMPONENT_PROPERTY(HusMessage)
+        ADD_COMPONENT_PROPERTY(HusAutoComplete)
+        ADD_COMPONENT_PROPERTY(HusProgress)
+        ADD_COMPONENT_PROPERTY(HusCarousel)
+        ADD_COMPONENT_PROPERTY(HusBreadcrumb)
+        ADD_COMPONENT_PROPERTY(HusImage)
+        ADD_COMPONENT_PROPERTY(HusMultiSelect)
+        ADD_COMPONENT_PROPERTY(HusDateTimePicker)
+        ADD_COMPONENT_PROPERTY(HusNotification)
+        ADD_COMPONENT_PROPERTY(HusPopconfirm)
+        ADD_COMPONENT_PROPERTY(HusPopover)
+        ADD_COMPONENT_PROPERTY(HusModal)
+        ADD_COMPONENT_PROPERTY(HusTextArea)
+        ADD_COMPONENT_PROPERTY(HusSpin)
+        ADD_COMPONENT_PROPERTY(HusColorPicker)
+        ADD_COMPONENT_PROPERTY(HusTreeView)
+        ADD_COMPONENT_PROPERTY(HusLabel)
+    }
+}
+
 void HusThemePrivate::parse$(QMap<QString, QVariant> &out, const QString &tokenName, const QString &expr)
 {
     Q_Q(HusTheme);
@@ -479,58 +536,8 @@ void HusThemePrivate::registerDefaultComponentTheme(const QString &componentName
 {
     Q_Q(HusTheme);
 
-#define ADD_COMPONENT_CASE(ComponentName) \
-    case Component::ComponentName: \
-    registerComponentTheme(q, componentName, &q->m_##ComponentName, themePath, m_defaultTheme); break;
-
-    if (g_componentTable.contains(componentName)) {
-        switch (auto key = g_componentTable[componentName]; key) {
-            ADD_COMPONENT_CASE(HusButton)
-            ADD_COMPONENT_CASE(HusIconText)
-            ADD_COMPONENT_CASE(HusCopyableText)
-            ADD_COMPONENT_CASE(HusCaptionButton)
-            ADD_COMPONENT_CASE(HusTour)
-            ADD_COMPONENT_CASE(HusMenu)
-            ADD_COMPONENT_CASE(HusDivider)
-            ADD_COMPONENT_CASE(HusEmpty)
-            ADD_COMPONENT_CASE(HusSwitch)
-            ADD_COMPONENT_CASE(HusScrollBar)
-            ADD_COMPONENT_CASE(HusSlider)
-            ADD_COMPONENT_CASE(HusTabView)
-            ADD_COMPONENT_CASE(HusToolTip)
-            ADD_COMPONENT_CASE(HusSelect)
-            ADD_COMPONENT_CASE(HusInput)
-            ADD_COMPONENT_CASE(HusRate)
-            ADD_COMPONENT_CASE(HusRadio)
-            ADD_COMPONENT_CASE(HusRadioBlock)
-            ADD_COMPONENT_CASE(HusCheckBox)
-            ADD_COMPONENT_CASE(HusDrawer)
-            ADD_COMPONENT_CASE(HusCollapse)
-            ADD_COMPONENT_CASE(HusCard)
-            ADD_COMPONENT_CASE(HusPagination)
-            ADD_COMPONENT_CASE(HusPopup)
-            ADD_COMPONENT_CASE(HusTimeline)
-            ADD_COMPONENT_CASE(HusTag)
-            ADD_COMPONENT_CASE(HusTableView)
-            ADD_COMPONENT_CASE(HusMessage)
-            ADD_COMPONENT_CASE(HusAutoComplete)
-            ADD_COMPONENT_CASE(HusProgress)
-            ADD_COMPONENT_CASE(HusCarousel)
-            ADD_COMPONENT_CASE(HusBreadcrumb)
-            ADD_COMPONENT_CASE(HusImage)
-            ADD_COMPONENT_CASE(HusMultiSelect)
-            ADD_COMPONENT_CASE(HusDateTimePicker)
-            ADD_COMPONENT_CASE(HusNotification)
-            ADD_COMPONENT_CASE(HusPopconfirm)
-            ADD_COMPONENT_CASE(HusPopover)
-            ADD_COMPONENT_CASE(HusModal)
-            ADD_COMPONENT_CASE(HusTextArea)
-            ADD_COMPONENT_CASE(HusSpin)
-            ADD_COMPONENT_CASE(HusColorPicker)
-            ADD_COMPONENT_CASE(HusTreeView)
-        default:
-            break;
-        }
+    if (g_componentTable->contains(componentName)) {
+        registerComponentTheme(q, componentName, g_componentTable->value(componentName), themePath, m_defaultTheme);
     }
 }
 
@@ -540,7 +547,7 @@ void HusThemePrivate::registerComponentTheme(QObject *themeObject, const QString
     if (!themeObject || !themeMap) return;
 
     if (!dataMap.contains(themeObject))
-        dataMap[themeObject] = {};
+        dataMap[themeObject] = ThemeData{};
 
     if (dataMap.contains(themeObject)) {
         dataMap[themeObject].themeObject = themeObject;
@@ -817,8 +824,9 @@ HusTheme::HusTheme(QObject *parent)
 {
     Q_D(HusTheme);
 
-    d->m_helper = new HusSystemThemeHelper(this);
+    d->initializeComponentPropertyHash();
 
+    d->m_helper = new HusSystemThemeHelper(this);
     connect(d->m_helper, &HusSystemThemeHelper::colorSchemeChanged, this, [this]{
         Q_D(HusTheme);
         if (d->m_darkMode == DarkMode::System) {

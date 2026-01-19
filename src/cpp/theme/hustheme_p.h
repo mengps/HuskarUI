@@ -25,101 +25,8 @@ enum class Function : uint16_t
     Multiply
 };
 
-enum class Component : uint16_t
-{
-    HusButton,
-    HusIconText,
-    HusCopyableText,
-    HusCaptionButton,
-    HusTour,
-    HusMenu,
-    HusDivider,
-    HusEmpty,
-    HusSwitch,
-    HusScrollBar,
-    HusSlider,
-    HusTabView,
-    HusToolTip,
-    HusSelect,
-    HusInput,
-    HusRate,
-    HusRadio,
-    HusRadioBlock,
-    HusCheckBox,
-    HusDrawer,
-    HusCollapse,
-    HusCard,
-    HusPagination,
-    HusPopup,
-    HusTimeline,
-    HusTag,
-    HusTableView,
-    HusMessage,
-    HusAutoComplete,
-    HusProgress,
-    HusCarousel,
-    HusBreadcrumb,
-    HusImage,
-    HusMultiSelect,
-    HusDateTimePicker,
-    HusNotification,
-    HusPopconfirm,
-    HusPopover,
-    HusModal,
-    HusTextArea,
-    HusSpin,
-    HusColorPicker,
-    HusTreeView,
-
-    Size
-};
-
-static QHash<QString, Component> g_componentTable
-{
-    { "HusButton",          Component::HusButton           },
-    { "HusIconText",        Component::HusIconText         },
-    { "HusCopyableText",    Component::HusCopyableText     },
-    { "HusCaptionButton",   Component::HusCaptionButton    },
-    { "HusTour",            Component::HusTour             },
-    { "HusMenu",            Component::HusMenu             },
-    { "HusDivider",         Component::HusDivider          },
-    { "HusEmpty",           Component::HusEmpty            },
-    { "HusSwitch",          Component::HusSwitch           },
-    { "HusScrollBar",       Component::HusScrollBar        },
-    { "HusSlider",          Component::HusSlider           },
-    { "HusTabView",         Component::HusTabView          },
-    { "HusToolTip",         Component::HusToolTip          },
-    { "HusSelect",          Component::HusSelect           },
-    { "HusInput",           Component::HusInput            },
-    { "HusRate",            Component::HusRate             },
-    { "HusRadio",           Component::HusRadio            },
-    { "HusRadioBlock",      Component::HusRadioBlock       },
-    { "HusCheckBox",        Component::HusCheckBox         },
-    { "HusDrawer",          Component::HusDrawer           },
-    { "HusCollapse",        Component::HusCollapse         },
-    { "HusCard",            Component::HusCard             },
-    { "HusPagination",      Component::HusPagination       },
-    { "HusPopup",           Component::HusPopup            },
-    { "HusTimeline",        Component::HusTimeline         },
-    { "HusTableView",       Component::HusTableView        },
-    { "HusTag",             Component::HusTag              },
-    { "HusMessage",         Component::HusMessage          },
-    { "HusAutoComplete",    Component::HusAutoComplete     },
-    { "HusProgress",        Component::HusProgress         },
-    { "HusCarousel",        Component::HusCarousel         },
-    { "HusBreadcrumb",      Component::HusBreadcrumb       },
-    { "HusImage",           Component::HusImage            },
-    { "HusMultiSelect",     Component::HusMultiSelect      },
-    { "HusDateTimePicker",  Component::HusDateTimePicker   },
-    { "HusNotification",    Component::HusNotification     },
-    { "HusPopconfirm",      Component::HusPopconfirm       },
-    { "HusPopover",         Component::HusPopover          },
-    { "HusModal",           Component::HusModal            },
-    { "HusTextArea",        Component::HusTextArea         },
-    { "HusSpin",            Component::HusSpin             },
-    { "HusColorPicker",     Component::HusColorPicker      },
-    { "HusTreeView",        Component::HusTreeView         },
-};
+using ComponentPropertyHash = QHash<QString, QVariantMap*>;
+Q_GLOBAL_STATIC(ComponentPropertyHash, g_componentTable);
 
 struct ThemeData
 {
@@ -155,6 +62,8 @@ public:
     QVariantMap m_sizeHintMap;
 
     static HusThemePrivate *get(HusTheme *theme) { return theme->d_func(); }
+
+    void initializeComponentPropertyHash();
 
     void parse$(QMap<QString, QVariant> &out, const QString &tokenName, const QString &expr);
 
