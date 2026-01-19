@@ -1,18 +1,20 @@
 import QtQuick
+import QtQuick.Layouts
 import HuskarUI.Basic
 
 Item {
     id: root
 
     width: parent.width
-    height: visible ? column.height + 20 : 0
-    visible: containerLoader.tagState !== ''
+    height: column.height
 
-    Column {
+    ColumnLayout {
         id: column
+        width: parent.width
         spacing: 10
 
         HusText {
+            Layout.bottomMargin: 5
             text: qsTr('更新信息')
             font {
                 pixelSize: HusTheme.Primary.fontPrimarySizeHeading3

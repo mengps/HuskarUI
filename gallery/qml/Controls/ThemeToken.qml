@@ -6,9 +6,10 @@ Item {
     id: root
 
     width: parent.width
-    height: column.height
+    height: column.height + 10
 
     property string source: ''
+    property string historySource: ''
 
     HusPopup {
         id: editPopup
@@ -175,17 +176,30 @@ Item {
         }
     }
 
-    Column {
+    ColumnLayout {
         id: column
         width: parent.width - 20
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 15
 
-        UpdateDesc { }
+        Loader {
+            Layout.bottomMargin: 20
+            visible: active
+            active: containerLoader.tagState !== ''
+            sourceComponent: UpdateDesc { }
+        }
+
+        Loader {
+            Layout.bottomMargin: 20
+            Layout.preferredWidth: Math.min(600, parent.width)
+            visible: active
+            active: root.historySource !== ''
+            sourceComponent: CommitHistory { source: root.historySource }
+        }
 
         HusText {
             width: parent.width
-            visible: root.source != ''
+            visible: root.source !== ''
             text: qsTr('主题变量（Design Token）')
             font {
                 pixelSize: HusTheme.Primary.fontPrimarySizeHeading3
@@ -197,8 +211,8 @@ Item {
             id: tableLoader
             width: parent.width
             height: Math.min(400, 40 * ((galleryGlobal.componentTokens[root.source]?.length ?? 0) + 1))
-            visible: root.source != ''
-            active: root.source != ''
+            visible: root.source !== ''
+            active: root.source !== ''
             asynchronous: true
             sourceComponent: HusTableView {
                 propagateWheelEvent: false
