@@ -387,6 +387,29 @@ MetaInfo {
         }
     }
 
+    // Layout
+    Type {
+        name: "HuskarUI.Basic.HusDivider"
+        ItemLibraryEntry {
+            name: "Divider"
+            category: "Layout"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 100 }
+            Property { name: "height"; type: "int"; value: 1 }
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusSpace"
+        ItemLibraryEntry {
+            name: "Space"
+            category: "Layout"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+        }
+    }
+
     // Effect
     Type {
         name: "HuskarUI.Basic.HusAcrylic"
@@ -655,6 +678,17 @@ MetaInfo {
             category: "General"
             version: "1.0"
             requiredImport: "HuskarUI.Basic"
+        }
+    }
+
+    Type {
+        name: "HuskarUI.Basic.HusLabel"
+        ItemLibraryEntry {
+            name: "Label"
+            category: "General"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "text"; type: "binding"; value: "qsTr(\"Label\")" }
         }
     }
 
