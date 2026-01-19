@@ -214,7 +214,6 @@ T.Button {
             height: realHeight
             anchors.centerIn: parent
             sourceComponent: control.type === HusButton.Type_Dashed ? __dashedBgComponent : __bgComponent
-
             property real r: control.radiusBg?.all ?? 0
             property real tl: control.shape == HusButton.Shape_Default ? control.radiusBg?.topLeft ?? 0 : height * 0.5
             property real tr: control.shape == HusButton.Shape_Default ? control.radiusBg?.topRight ?? 0 : height * 0.5

@@ -53,6 +53,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/General/ExpMoveMouseArea.qml
         qml/Examples/General/ExpResizeMouseArea.qml
         qml/Examples/General/ExpRadius.qml
+        qml/Examples/General/ExpLabel.qml
         qml/Examples/DataEntry/ExpSwitch.qml
         qml/Examples/DataEntry/ExpSlider.qml
         qml/Examples/DataEntry/ExpSelect.qml
@@ -96,6 +97,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Navigation/ExpPagination.qml
         qml/Examples/Navigation/ExpBreadcrumb.qml
         qml/Examples/Layout/ExpDivider.qml
+        qml/Examples/Layout/ExpSpace.qml
         qml/Examples/Effect/ExpAcrylic.qml
         qml/Examples/Effect/ExpSwitchEffect.qml
         qml/Examples/Effect/ExpShadow.qml
@@ -114,9 +116,11 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Functions/ExpApi.qml
         qml/Controls/CodeBox.qml
         qml/Controls/Description.qml
+        qml/Controls/DocDescription.qml
         qml/Controls/CodeRunner.qml
         qml/Controls/ThemeToken.qml
         qml/Controls/UpdateDesc.qml
+        qml/Controls/CommitHistory.qml
         qml/Home/HomePage.qml
         qml/Home/AboutPage.qml
         qml/Home/SettingsPage.qml
