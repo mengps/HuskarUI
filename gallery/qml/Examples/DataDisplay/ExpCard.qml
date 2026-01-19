@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusCard 卡片 \n
 通用卡片容器。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -66,6 +67,7 @@ colorBodyDescription | color | - | 主体部分描述颜色
 
         ThemeToken {
             source: 'HusCard'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusCard.qml'
         }
 
         Description {

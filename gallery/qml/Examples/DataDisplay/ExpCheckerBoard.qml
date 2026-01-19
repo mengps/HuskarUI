@@ -12,10 +12,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusCheckerBoard 棋盘格 \n
 显示一个双色棋盘格。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -42,6 +43,7 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 
         ThemeToken {
             source: ''
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusCheckerBoard.qml'
         }
 
         Description {

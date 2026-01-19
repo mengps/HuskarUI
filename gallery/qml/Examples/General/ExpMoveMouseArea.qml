@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusMoveMouseArea 移动鼠标区域\n
 提供对任意 Item 进行鼠标移动操作的区域。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { MouseArea }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -38,6 +39,10 @@ maximumY | real | Number.MAX_VALUE | 可移动的最大y坐标
             desc: qsTr(`
 需要实时移动某一项时使用。
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusMoveMouseArea.qml'
         }
 
         Description {

@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusImagePreview 图片预览\n
 用于预览的图片的基本工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { [HusPopup](internal://HusPopup) }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -73,6 +74,7 @@ url | url | 必选 | 图片源
 
         ThemeToken {
             source: 'HusImage'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusImagePreview.qml'
         }
 
         Description {

@@ -12,10 +12,12 @@ Flickable {
         id: column
         width: parent.width - 15
         spacing: 30
-        Description {
+
+        DocDescription {
             desc: qsTr(`
 # HusOTPInput 一次性口令输入框 \n
 用于接收和验证一次性口令的输入框组合，通常用于验证码或密码。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -64,6 +66,7 @@ sizeHint | string | 'normal' | 尺寸提示
 
         ThemeToken {
             source: 'HusInput'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusOTPInput.qml'
         }
 
         Description {

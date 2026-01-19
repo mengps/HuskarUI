@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusRouter 路由 \n
 简单的URL路由。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { QObject }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -56,7 +57,9 @@ location | url | 本条历史地址
                        `)
         }
 
-        ThemeToken { }
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/utils/husrouter.cpp'
+        }
 
         Description {
             title: qsTr('代码演示')

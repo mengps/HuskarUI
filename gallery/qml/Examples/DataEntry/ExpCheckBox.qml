@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusCheckBox 多选框 \n
 收集用户的多项选择。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { CheckBox }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -49,6 +50,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
         ThemeToken {
             source: 'HusCheckBox'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusCheckBox.qml'
         }
 
         Description {

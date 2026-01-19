@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusModal 对话框 \n
 展示一个对话框，提供标题、内容区、操作区。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { [HusPopup](internal://HusPopup) }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -71,6 +72,7 @@ descriptionFont | font | - | 描述文本字体
 
         ThemeToken {
             source: 'HusModal'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusModal.qml'
         }
 
         Description {

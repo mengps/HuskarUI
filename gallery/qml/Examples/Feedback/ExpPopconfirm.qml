@@ -22,10 +22,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusPopconfirm 气泡确认框 \n
 点击元素，弹出气泡式的确认框。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { [HusPopover](internal://HusPopover) }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -56,6 +57,7 @@ cancelText | string | '' | 取消文本
 
         ThemeToken {
             source: 'HusPopconfirm'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusPopconfirm.qml'
         }
 
         Description {

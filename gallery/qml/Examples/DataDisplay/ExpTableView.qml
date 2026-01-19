@@ -107,10 +107,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusTableView 表格\n
 展示行列数据。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { HusRectangle }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -226,6 +227,7 @@ filterInput | string | 单元格的过滤输入
 
         ThemeToken {
             source: 'HusTableView'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusTableView.qml'
         }
 
         Description {

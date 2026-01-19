@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusApi 内置API \n
 提供一系列实用接口。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { QObject }**\n
 \n<br/>
 \n### 支持的函数：\n
@@ -48,6 +49,8 @@ Flickable {
                        `)
         }
 
-        ThemeToken { }
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/utils/husapi.cpp'
+        }
     }
 }

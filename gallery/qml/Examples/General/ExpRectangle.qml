@@ -13,11 +13,12 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusRectangle 圆角矩形\n
 在需要任意方向圆角的矩形时使用。\n
-**注意** Qt6.7 以后则可以直接使用 Rectangle。\n
+**注意** Qt6.7 以后则可以直接使用原生 Rectangle。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -45,6 +46,10 @@ border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
             desc: qsTr(`
 在用户需要任意方向圆角的矩形时使用。
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/controls/husrectangle.cpp'
         }
 
         Description {

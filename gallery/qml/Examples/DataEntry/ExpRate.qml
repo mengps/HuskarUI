@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusRate 评分 \n
 用于对事物进行评分操作。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -73,6 +74,7 @@ halfIcon | int丨string | HusIcon.StarFilled丨'' | 半星图标(来自 HusIcon)
 
         ThemeToken {
             source: 'HusRate'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusRate.qml'
         }
 
         Description {

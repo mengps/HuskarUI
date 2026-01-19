@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusScrollBar 滚动条\n
 滚动条是一个交互式栏，用于滚动某个区域或视图到特定位置。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { ScrollBar }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -42,6 +43,7 @@ colorIcon | color | - | 图标颜色(即箭头颜色)
 
         ThemeToken {
             source: 'HusScrollBar'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusScrollBar.qml'
         }
 
         Description {

@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusWatermark 水印 \n
 可给页面的任意项加上水印。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -42,6 +43,10 @@ colorText | color | - | 水印文本颜色
 - 页面需要添加水印标识版权时使用。\n
 - 适用于防止信息盗用。\n
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/controls/huswatermark.cpp'
         }
 
         Description {

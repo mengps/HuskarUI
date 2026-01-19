@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusTourFocus 漫游焦点\n
 聚焦于某个功能的焦点。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Popup }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -45,6 +46,7 @@ focusRadius | int | 2 | 焦点圆角
 
         ThemeToken {
             source: 'HusTour'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusTourFocus.qml'
         }
 
         Description {

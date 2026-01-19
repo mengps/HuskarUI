@@ -13,11 +13,12 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             id: description
             desc: qsTr(`
 # HusWindow 无边框窗口\n
 跨平台无边框窗口的最佳实现，基于 [QWindowKit](https://github.com/stdware/qwindowkit)。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Window }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -45,6 +46,10 @@ specialEffect | enum | HusWindow.None | 特殊效果(来自 HusWindow)
             desc: qsTr(`
 当用户需要自定义窗口形态时作为基础无边框窗口使用，默认提供一个 [HusCaptionBar](internal://HusCaptionBar)。
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusWindow.qml'
         }
 
         Description {

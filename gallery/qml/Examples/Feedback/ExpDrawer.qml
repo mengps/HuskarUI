@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusDrawer 抽屉 \n
 屏幕边缘滑出的浮层面板。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Drawer }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -51,6 +52,7 @@ colorOverlay | color | - | 覆盖层颜色
 
         ThemeToken {
             source: 'HusDrawer'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusDrawer.qml'
         }
 
         Description {

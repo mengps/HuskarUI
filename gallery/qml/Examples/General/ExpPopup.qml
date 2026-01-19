@@ -13,12 +13,14 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             id: description
             desc: qsTr(`
 # HusPopup 弹窗\n
 自带跟随主题切换的背景和阴影, 用来替代内置 Popup。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Popup }**\n
+* **继承此 { [HusImagePreview](internal://HusImagePreview), [HusModal](internal://HusModal), [HusPopover](internal://HusPopover), [HusContextMenu](internal://HusContextMenu) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n
@@ -52,6 +54,7 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角半径
 
         ThemeToken {
             source: 'HusPopup'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusPopup.qml'
         }
 
         Description {

@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusCaptionBar 标题栏\n
 为无边框窗口提供一个通用的标题栏。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Rectangle }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -67,6 +68,11 @@ contentDescription | string | - | 内容描述(提高可用性)
             desc: qsTr(`
 当无边框窗口需要一个通用的标题栏时使用。
                        `)
+        }
+
+        ThemeToken {
+            source: 'HusCaptionBar'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusCaptionBar.qml'
         }
 
         Description {

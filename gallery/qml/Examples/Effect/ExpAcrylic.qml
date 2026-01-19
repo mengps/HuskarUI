@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusAcrylic 亚克力 \n
 亚克力/毛玻璃效果。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -41,6 +42,10 @@ luminosity | real | 0.01 | 亮度
             desc: qsTr(`
 当用户需要实现[亚克力/毛玻璃]的效果时。
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusAcrylic.qml'
         }
 
         Description {

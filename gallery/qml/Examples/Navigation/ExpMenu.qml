@@ -33,10 +33,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusMenu 菜单\n
 为页面和功能提供导航的菜单列表。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -141,6 +142,7 @@ bgDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBgDelegate)
 
         ThemeToken {
             source: 'HusMenu'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusMenu.qml'
         }
 
         Description {

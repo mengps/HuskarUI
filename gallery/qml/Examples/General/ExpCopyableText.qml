@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusCopyableText 可复制文本\n
 在需要可复制的文本时使用(替代Text)。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { TextEdit }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -29,6 +30,10 @@ Flickable {
             desc: qsTr(`
 Qml中普通文本(Text)无法复制，因此在需要可复制的文本时建议使用。
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusCopyableText.qml'
         }
 
         Description {

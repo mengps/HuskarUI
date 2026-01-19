@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusTourStep 漫游式引导\n
 用于分步引导用户了解产品功能的气泡组件。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Popup }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -81,6 +82,7 @@ cardRadius | int | 可选 | 本步骤卡片圆角
 
         ThemeToken {
             source: 'HusTour'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusTourStep.qml'
         }
 
         Description {

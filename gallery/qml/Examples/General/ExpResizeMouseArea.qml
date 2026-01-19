@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusResizeMouseArea 改变大小鼠标区域\n
 提供对任意 Item 进行鼠标改变大小操作的区域。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -46,6 +47,10 @@ maximumY | real | Number.MAX_VALUE | 可移动的最大y坐标
             desc: qsTr(`
 需要实时对某一项调整大小时使用。
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusResizeMouseArea.qml'
         }
 
         Description {

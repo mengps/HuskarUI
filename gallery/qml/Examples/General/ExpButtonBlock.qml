@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusButtonBlock 按钮块(HusIconButton变种) \n
-用于将多个按钮组织成块，类似 HusRadioBlock。\n
+用于将多个按钮组织成块，类似 [HusRadioBlock](internal://HusRadioBlock)。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -87,6 +88,7 @@ toolTip.timeout | int | 可选 | 文字提示超时(ms)
 
         ThemeToken {
             source: 'HusButton'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusButtonBlock.qml'
         }
 
         Description {

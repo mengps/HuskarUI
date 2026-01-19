@@ -13,11 +13,13 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusButton 按钮\n
 按钮用于开始一个即时操作。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Button }**\n
+* **继承此 { [HusIconButton](internal://HusIconButton) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n
@@ -57,6 +59,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
         ThemeToken {
             source: 'HusButton'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusButton.qml'
         }
 
         Description {

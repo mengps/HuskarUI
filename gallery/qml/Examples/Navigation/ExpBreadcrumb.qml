@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusBreadcrumb 面包屑\n
 显示当前页面在系统层级结构中的位置，并能向上返回。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -95,6 +96,7 @@ items | list | 可选 | 菜单模型
 
         ThemeToken {
             source: 'HusBreadcrumb'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusBreadcrumb.qml'
         }
 
         Description {

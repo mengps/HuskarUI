@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusShadow 阴影 \n
 阴影效果。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { MultiEffect }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -32,7 +33,7 @@ Flickable {
         }
 
         ThemeToken {
-            source: ''
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusShadow.qml'
         }
 
         Description {

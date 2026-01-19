@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusAvatar 头像 \n
 用来代表用户或事物，支持图片、图标或字符展示。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -47,6 +48,10 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
             desc: qsTr(`
 当用户需要头像时使用。
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusAvatar.qml'
         }
 
         Description {

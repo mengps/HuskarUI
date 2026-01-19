@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusSwitch 开关\n
 使用开关切换两种状态之间。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Switch }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -53,6 +54,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
         ThemeToken {
             source: 'HusSwitch'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusSwitch.qml'
         }
 
         Description {

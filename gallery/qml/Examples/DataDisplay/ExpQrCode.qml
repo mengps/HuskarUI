@@ -12,10 +12,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusQrCode 二维码 \n
 能够将文本转换生成二维码的组件，支持自定义配色和 Logo 配置。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -46,6 +47,7 @@ colorBg | color | 'transparent' | 背景颜色
 
         ThemeToken {
             source: ''
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/controls/husqrcode.cpp'
         }
 
         Description {

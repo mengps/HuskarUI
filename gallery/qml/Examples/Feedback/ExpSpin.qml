@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusSpin 加载中\n
 用于页面和区块的加载中状态。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -53,6 +54,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
         ThemeToken {
             source: 'HusSpin'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusSpin.qml'
         }
 
         Description {

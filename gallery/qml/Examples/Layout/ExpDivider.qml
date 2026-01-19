@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusDivider 分割线\n
 区隔内容的分割线。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -51,6 +52,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
         ThemeToken {
             source: 'HusDivider'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusDivider.qml'
         }
 
         Description {

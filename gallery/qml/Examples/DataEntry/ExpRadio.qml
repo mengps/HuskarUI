@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusRadio 单选框 \n
 用于在多个备选项中选中单个状态。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { RadioButton }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -47,6 +48,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
         ThemeToken {
             source: 'HusRadio'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusRadio.qml'
         }
 
         Description {

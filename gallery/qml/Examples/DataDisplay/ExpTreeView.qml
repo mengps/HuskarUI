@@ -12,10 +12,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusTreeView 树视图 \n
 多层次的结构列表。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -106,6 +107,7 @@ children | list | 可选 | 子节点列表
 
         ThemeToken {
             source: 'HusTreeView'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusTreeView.qml'
         }
 
         Description {

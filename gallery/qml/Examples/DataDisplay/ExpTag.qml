@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusTag 标签 \n
 进行标记和分类的小标签。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -56,6 +57,7 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 
         ThemeToken {
             source: 'HusTag'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusTag.qml'
         }
 
         Description {

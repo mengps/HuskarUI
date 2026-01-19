@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusMultiSelect 多选器 \n
 下拉多选器。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { [HusSelect](internal://HusSelect) }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -77,6 +78,7 @@ radiusTagBg | [HusRadius](internal://HusRadius) | - | 标签圆角
 
         ThemeToken {
             source: 'HusMultiSelect'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusMultiSelect.qml'
         }
 
         Description {

@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusTabView 标签页\n
 通过选项卡标签切换内容的组件。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -91,6 +92,7 @@ editable | bool | 可选 | 本标签是否可编辑
 
         ThemeToken {
             source: 'HusTabView'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusTabView.qml'
         }
 
         Description {

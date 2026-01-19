@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusDateTimePickerPanel 日期选择面板 \n
 可选择的日期时间面板。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -99,6 +100,7 @@ sizeHint | string | 'normal' | 尺寸提示
 
         ThemeToken {
             source: 'HusDateTimePicker'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusDateTimePickerPanel.qml'
         }
 
         Description {

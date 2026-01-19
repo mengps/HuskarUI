@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusProgress 进度条 \n
 展示操作的当前进度。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -57,6 +58,7 @@ colorInfo | color | - | 进度条信息文本颜色
 
         ThemeToken {
             source: 'HusProgress'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusProgress.qml'
         }
 
         Description {

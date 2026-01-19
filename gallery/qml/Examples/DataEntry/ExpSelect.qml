@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusSelect 选择器 \n
 下拉选择器。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { ComboBox }**\n
 * **继承此 { [HusMultiSelect](internal://HusMultiSelect) }**\n
 \n<br/>
@@ -61,6 +62,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
         ThemeToken {
             source: 'HusSelect'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusSelect.qml'
         }
 
         Description {

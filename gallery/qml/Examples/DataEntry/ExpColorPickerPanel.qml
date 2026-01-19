@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusColorPickerPanel 颜色选择器面板 \n
 用于选择颜色。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -76,6 +77,7 @@ expanded | bool | 可选 | 默认是否展开
 
         ThemeToken {
             source: 'HusColorPicker'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusColorPickerPanel.qml'
         }
 
         Description {

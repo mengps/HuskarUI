@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusNotification 通知提醒框 \n
 全局/页面内展示通知提醒信息。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -99,6 +100,7 @@ colorIcon | color | 可选 | 通知图标颜色
 
         ThemeToken {
             source: 'HusNotification'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusNotification.qml'
         }
 
         Description {

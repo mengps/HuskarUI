@@ -13,11 +13,13 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusIconButton 图标按钮\n
 带图标的按钮。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { [HusButton](internal://HusButton) }**\n
+* **继承此 { [HusCaptionButton](internal://HusCaptionButton) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **iconDelegate: Component** 图标代理\n
@@ -46,6 +48,7 @@ colorIcon | color | - | 图标颜色
 
         ThemeToken {
             source: 'HusButton'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusIconButton.qml'
         }
 
         Description {

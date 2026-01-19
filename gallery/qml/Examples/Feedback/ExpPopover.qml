@@ -22,10 +22,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusPopover 气泡显示框 \n
 点击元素，弹出气泡式的显示框。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { [HusPopup](internal://HusPopup) }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -67,6 +68,7 @@ descriptionFont | font | - | 描述文本字体
 
         ThemeToken {
             source: 'HusPopover'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusPopover.qml'
         }
 
         Description {

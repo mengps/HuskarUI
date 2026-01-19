@@ -13,11 +13,13 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusText 文本\n
 提供统一字体和颜色的文本(替代Text)。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Text }**\n
+* **继承自 { [HusIconText](internal://HusIconText) }**\n
 \n<br/>
 \n### 支持的代理：\n
 - 无\n
@@ -29,6 +31,10 @@ Flickable {
             desc: qsTr(`
 需要统一字体和颜色的文本时建议使用。
                        `)
+        }
+
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusText.qml'
         }
 
         Description {

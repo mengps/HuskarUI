@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusAutoComplete 自动完成 \n
 输入框自动完成功能。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { [HusInput](internal://HusInput) }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -79,6 +80,7 @@ value | string | 可选 | 值
 
         ThemeToken {
             source: 'HusAutoComplete'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusAutoComplete.qml'
         }
 
         Description {

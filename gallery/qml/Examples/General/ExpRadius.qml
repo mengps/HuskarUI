@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusRadius 圆角半径\n
 提供四方向的圆角半径类型。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { QObject }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -40,6 +41,8 @@ bottomRight | real | -1 | 右下圆角半径
                        `)
         }
 
-        ThemeToken { }
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/controls/husrectangle.cpp'
+        }
     }
 }

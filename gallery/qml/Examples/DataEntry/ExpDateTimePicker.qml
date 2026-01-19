@@ -13,7 +13,7 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusDateTimePicker 日期选择框 \n
 输入或选择日期时间的控件。\n
@@ -96,6 +96,7 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
 
         ThemeToken {
             source: 'HusDateTimePicker'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusDateTimePicker.qml'
         }
 
         Description {
@@ -211,6 +212,7 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
                     placeholderText: qsTr('请选择日期时间')
                     format: qsTr('yyyy-MM-dd hh:mm:ss')
                     sizeHint: sizeHintRadio.currentCheckedValue
+                    onSelected: (date) => print(getDateTimeString())
                 }
 
                 HusDateTimePicker {

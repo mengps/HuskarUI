@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusCarousel 走马灯\n
 一组轮播的区域。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -68,6 +69,7 @@ showArrow | bool | false | 是否显示箭头
 
         ThemeToken {
             source: 'HusCarousel'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusCarousel.qml'
         }
 
         Description {

@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusMessage 消息提示 \n
 全局/页面内展示操作反馈信息。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Item }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -84,6 +85,7 @@ colorIcon | color | 可选 | 消息图标颜色
 
         ThemeToken {
             source: 'HusMessage'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusMessage.qml'
         }
 
         Description {

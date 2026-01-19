@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusInputNumber 数字输入框 \n
 通过鼠标或键盘，输入范围内的数值。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -97,6 +98,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         ThemeToken {
             source: 'HusInput'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusInputNumber.qml'
         }
 
         Description {

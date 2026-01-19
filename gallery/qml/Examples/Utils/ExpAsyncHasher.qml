@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusAsyncHasher 异步散列器 \n
 可对任意数据(url/text/object)生成加密哈希的异步散列器。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { QObject }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -50,7 +51,9 @@ sourceObject | QObject* | null | 目标的源指针
                        `)
         }
 
-        ThemeToken { }
+        ThemeToken {
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/utils/husasynchasher.cpp'
+        }
 
         Description {
             title: qsTr('代码演示')

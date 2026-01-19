@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusAnimatedImage 动态图片\n
 可预览的动态图片。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { AnimatedImage }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -50,6 +51,7 @@ url | url | 必选 | 图片源
 
         ThemeToken {
             source: 'HusImage'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusAnimatedImage.qml'
         }
 
         Description {

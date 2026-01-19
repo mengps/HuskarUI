@@ -12,10 +12,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusEmpty 空状态 \n
 显示一个表示空状态的图像和描述文本。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -47,6 +48,7 @@ colorDescription | color | - | 描述文本颜色
 
         ThemeToken {
             source: 'HusEmpty'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusEmpty.qml'
         }
 
         Description {

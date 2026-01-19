@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusSlider 滑动输入条\n
 滑动型输入器，展示当前值和可选范围。。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -71,6 +72,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
 
         ThemeToken {
             source: 'HusSlider'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusSlider.qml'
         }
 
         Description {

@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusCaptionButton 标题按钮\n
 一般用于窗口标题栏的按钮。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { [HusIconButton](internal://HusIconButton) }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -32,6 +33,7 @@ noDisabledState | bool | false | 无禁用状态(即被禁用时不会更改颜�
 
         ThemeToken {
             source: 'HusCaptionButton'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusCaptionButton.qml'
         }
 
         Description {

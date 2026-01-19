@@ -13,10 +13,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusPagination 分页\n
 分页器用于分隔长列表，每次只加载一个页面。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -61,6 +62,7 @@ sizeHint | string | 'normal' | 尺寸提示
 
         ThemeToken {
             source: 'HusPagination'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusPagination.qml'
         }
 
         Description {

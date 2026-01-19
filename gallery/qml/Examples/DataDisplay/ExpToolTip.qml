@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusToolTip 文字提示 \n
 单的文字提示气泡框。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { ToolTip }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -44,6 +45,7 @@ colorBg | color | - | 背景颜色
 
         ThemeToken {
             source: 'HusToolTip'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusToolTip.qml'
         }
 
         Description {

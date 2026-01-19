@@ -14,10 +14,11 @@ Flickable {
         width: parent.width - 15
         spacing: 30
 
-        Description {
+        DocDescription {
             desc: qsTr(`
 # HusTimeline 时间轴 \n
 垂直展示的时间流信息。\n
+* **模块 { HuskarUI.Basic }**\n
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
@@ -89,6 +90,7 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
         ThemeToken {
             source: 'HusTimeline'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusTimeline.qml'
         }
 
         Description {
@@ -97,6 +99,7 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
         CodeBox {
             width: parent.width
+            async: false
             descTitle: qsTr('基本用法')
             desc: qsTr(`
 通过 \`initModel\` 属性设置初始标签页的模型{需为list}，时间节点支持的属性有：\n
@@ -120,7 +123,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
                     HusTimeline {
                         width: parent.width
-                        height: 200
                         initModel: [
                             {
                                 content: 'Create a services site',
@@ -143,7 +145,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
                 HusTimeline {
                     width: parent.width
-                    height: 200
                     initModel: [
                         {
                             content: 'Create a services site',
@@ -164,6 +165,7 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
         CodeBox {
             width: parent.width
+            async: false
             descTitle: qsTr('节点颜色')
             desc: qsTr(`
 通过模型数据的 \`colorNode\` 属性设置节点的颜色\n
@@ -180,7 +182,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
                     HusTimeline {
                         width: parent.width
-                        height: 300
                         initModel: [
                             {
                                 colorNode: HusTheme.Primary.colorSuccess,
@@ -212,7 +213,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
                 HusTimeline {
                     width: parent.width
-                    height: 300
                     initModel: [
                         {
                             colorNode: HusTheme.Primary.colorSuccess,
@@ -242,6 +242,7 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
         CodeBox {
             width: parent.width
+            async: false
             descTitle: qsTr('节点加载中')
             desc: qsTr(`
 通过模型数据的 \`loading\` 属性设置节点为加载中\n
@@ -270,7 +271,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
                     HusTimeline {
                         id: loadingTimeline
                         width: parent.width
-                        height: 200
                         initModel: [
                             {
                                 content: 'Create a services site',
@@ -307,7 +307,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
                 HusTimeline {
                     id: loadingTimeline
                     width: parent.width
-                    height: 200
                     initModel: [
                         {
                             content: 'Create a services site',
@@ -329,6 +328,7 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
         CodeBox {
             width: parent.width
+            async: false
             descTitle: qsTr('排序和模式')
             desc: qsTr(`
 通过属性 \`reverse\` 控制节点排序，为 false 时按正序排列，为 true 时按倒序排列\n
@@ -369,7 +369,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
                     HusTimeline {
                         id: reverseTimeline
                         width: parent.width
-                        height: 200
                         mode: modeRadio.currentCheckedValue
                         initModel: [
                             {
@@ -417,7 +416,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
                 HusTimeline {
                     id: reverseTimeline
                     width: parent.width
-                    height: 200
                     mode: modeRadio.currentCheckedValue
                     initModel: [
                         {
@@ -444,6 +442,7 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
         CodeBox {
             width: parent.width
+            async: false
             descTitle: qsTr('内容文本格式')
             desc: qsTr(`
 通过模型数据的 \`contentFormat\` 属性设置内容的文本格式，参见 \`Text.textFormat\`\n
@@ -458,7 +457,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
                     HusTimeline {
                         width: parent.width
-                        height: 300
                         initModel: [
                             {
                                 time: new Date(2020, 2, 19),
@@ -488,7 +486,6 @@ contentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text
 
                 HusTimeline {
                     width: parent.width
-                    height: 300
                     initModel: [
                         {
                             time: new Date(2020, 2, 19),
