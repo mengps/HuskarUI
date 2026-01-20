@@ -84,7 +84,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ env.targetName }}.zip
-          asset_name: ${{ env.targetName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
+          asset_name: ${{ env.targetName }}_${{ github.ref_name }}_${{matrix.os}}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
           tag: ${{ github.ref }}
           overwrite: true
 
@@ -100,6 +100,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ env.buildlibName }}.zip
-          asset_name: $HuskarUI_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
+          asset_name: $HuskarUI_${{ github.ref_name }}_${{matrix.os}}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
           tag: ${{ github.ref }}
           overwrite: true 
