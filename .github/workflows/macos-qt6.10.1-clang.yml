@@ -80,7 +80,23 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ env.targetName }}.app
-          asset_name: ${{ env.targetName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.app
+          file: ${{ env.targetName }}.zip
+          asset_name: ${{ env.targetName }}_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
           tag: ${{ github.ref }}
           overwrite: true
+
+      - name: Zip Library
+        run: |
+          mkdir HuskarUI
+          cp -r ${{ steps.strings.outputs.build-output-dir }}/HuskarUI/* HuskarUI
+          zip -r ${{ env.buildlibName }}.zip HuskarUI
+          
+      - name: Upload Library
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.buildlibName }}.zip
+          asset_name: $HuskarUI_${{ github.ref_name }}_${{ matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true 
