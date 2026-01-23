@@ -212,7 +212,6 @@ panel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问
                     placeholderText: qsTr('请选择日期时间')
                     format: qsTr('yyyy-MM-dd hh:mm:ss')
                     sizeHint: sizeHintRadio.currentCheckedValue
-                    onSelected: (date) => print(getDateTimeString())
                 }
 
                 HusDateTimePicker {

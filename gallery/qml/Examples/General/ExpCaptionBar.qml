@@ -71,7 +71,6 @@ contentDescription | string | - | 内容描述(提高可用性)
         }
 
         ThemeToken {
-            source: 'HusCaptionBar'
             historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusCaptionBar.qml'
         }
 
