@@ -210,15 +210,15 @@ QtObject {
                     key: 'HusInput',
                     label: qsTr('HusInput 输入框'),
                     source: './Examples/DataEntry/ExpInput.qml',
-                    updateVersion: '0.4.9.0',
-                    desc: qsTr('新增 sizeHint 尺寸提示。')
+                    updateVersion: '0.5.6.1',
+                    desc: qsTr('新增 type 形态类型。\n新增 showShadow/colorShadow 阴影相关。')
                 },
                 {
                     key: 'HusOTPInput',
                     label: qsTr('HusOTPInput 一次性口令输入框'),
                     source: './Examples/DataEntry/ExpOTPInput.qml',
-                    updateVersion: '0.5.4.1',
-                    desc: qsTr('新增 sizeHint 尺寸提示。')
+                    updateVersion: '0.5.6.1',
+                    desc: qsTr('新增 type 形态类型。\n新增 showShadow/colorShadow 阴影相关。')
                 },
                 {
                     key: 'HusRate',
@@ -252,13 +252,6 @@ QtObject {
                     desc: qsTr('输入框自动完成功能。')
                 },
                 {
-                    key: 'HusInputNumber',
-                    label: qsTr('HusInputNumber 数字输入框'),
-                    source: './Examples/DataEntry/ExpInputNumber.qml',
-                    updateVersion: '0.4.8.3',
-                    desc: qsTr('新增初始化标签列表索引属性。')
-                },
-                {
                     key: 'HusMultiSelect',
                     label: qsTr('HusMultiSelect 多选器'),
                     source: './Examples/DataEntry/ExpMultiSelect.qml',
@@ -283,8 +276,15 @@ QtObject {
                     key: 'HusInputInteger',
                     label: qsTr('HusInputInteger 整数输入框'),
                     source: './Examples/DataEntry/ExpInputInteger.qml',
-                    addVersion: '0.5.1',
-                    desc: qsTr('等同于 HusInputNumber，但只支持整数。')
+                    addVersion: '0.5.6.1',
+                    desc: qsTr('新增 sizeHint 尺寸提示。\n新增 type 形态类型。\n新增 showShadow/colorShadow 阴影相关。')
+                },
+                {
+                    key: 'HusInputNumber',
+                    label: qsTr('HusInputNumber 数字输入框'),
+                    source: './Examples/DataEntry/ExpInputNumber.qml',
+                    addVersion: '0.5.6.1',
+                    desc: qsTr('新增 sizeHint 尺寸提示。\n新增 type 形态类型。\n新增 showShadow/colorShadow 阴影相关。')
                 },
                 {
                     key: 'HusColorPickerPanel',
@@ -580,8 +580,8 @@ QtObject {
                     key: 'HusApi',
                     label: qsTr('HusApi 内置API'),
                     source: './Examples/Functions/ExpApi.qml',
-                    addVersion: '0.5.4',
-                    desc: qsTr('提供一系列实用接口。')
+                    updateVersion: '0.5.6.1',
+                    desc: qsTr('新增 clamp() 接口。')
                 }
             ]
         }

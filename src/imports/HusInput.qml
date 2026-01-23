@@ -33,11 +33,21 @@ T.TextField {
         Position_Right = 1
     }
 
+    enum Type {
+        Type_Outlined = 1,
+        Type_Dashed = 2,
+        Type_Borderless = 3,
+        Type_Underlined = 4,
+        Type_Filled = 5
+    }
+
     signal clickClear()
 
     property bool animationEnabled: HusTheme.animationEnabled
     property bool darkMode: HusTheme.isDark
     property bool active: hovered || activeFocus
+    property int type: HusInput.Type_Outlined
+    property bool showShadow: false
     property var iconSource: 0 ?? ''
     property int iconSize: parseInt(themeSource.fontSizeIcon) * sizeRatio
     property int iconPosition: HusInput.Position_Left
@@ -49,12 +59,25 @@ T.TextField {
     readonly property int rightIconPadding: iconPosition === HusInput.Position_Right ? __private.iconSize : 0
     readonly property int leftClearIconPadding: clearIconPosition === HusInput.Position_Left ? __private.clearIconSize : 0
     readonly property int rightClearIconPadding: clearIconPosition === HusInput.Position_Right ? __private.clearIconSize : 0
-    property color colorIcon: enabled ? control.themeSource.colorIcon : control.themeSource.colorIconDisabled
-    property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
+    property color colorIcon: enabled ? themeSource.colorIcon : themeSource.colorIconDisabled
+    property alias colorText: control.color
     property color colorBorder: enabled ?
                                     active ? themeSource.colorBorderHover :
                                              themeSource.colorBorder : themeSource.colorBorderDisabled
-    property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
+    property color colorBg: {
+        if (enabled) {
+            if (type === HusInput.Type_Borderless || type === HusInput.Type_Underlined) {
+                return 'transparent';
+            } else if (type === HusInput.Type_Filled) {
+                return themeSource.colorBgFilled;
+            } else {
+                return themeSource.colorBg;
+            }
+        } else {
+            return themeSource.colorBgDisabled;
+        }
+    }
+    property color colorShadow: enabled ? themeSource.colorShadow : 'transparent'
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property string sizeHint: 'normal'
     property real sizeRatio: HusTheme.sizeHint[sizeHint]
@@ -100,14 +123,48 @@ T.TextField {
             }
         }
     }
-    property Component bgDelegate: HusRectangleInternal {
-        color: control.colorBg
-        border.color: control.colorBorder
-        radius: control.radiusBg.all
-        topLeftRadius: control.radiusBg.topLeft
-        topRightRadius: control.radiusBg.topRight
-        bottomLeftRadius: control.radiusBg.bottomLeft
-        bottomRightRadius: control.radiusBg.bottomRight
+    property Component bgDelegate: Item {
+        Loader {
+            anchors.fill: parent
+            visible: active
+            active: control.type === HusInput.Type_Outlined || control.type === HusInput.Type_Filled
+            sourceComponent: HusRectangleInternal {
+                color: control.colorBg
+                border.color: control.colorBorder
+                radius: control.radiusBg.all
+                topLeftRadius: control.radiusBg.topLeft
+                topRightRadius: control.radiusBg.topRight
+                bottomLeftRadius: control.radiusBg.bottomLeft
+                bottomRightRadius: control.radiusBg.bottomRight
+            }
+        }
+
+        Loader {
+            width: parent.width
+            height: 1
+            anchors.bottom: parent.bottom
+            visible: active
+            active: control.type === HusInput.Type_Underlined
+            sourceComponent: HusRectangleInternal {
+                color: control.colorBorder
+            }
+        }
+
+        Loader {
+            anchors.fill: parent
+            visible: active
+            active: control.type === HusInput.Type_Dashed
+            sourceComponent: HusRectangle {
+                color: control.colorBg
+                border.color: control.colorBorder
+                border.style: Qt.DashLine
+                radius: control.radiusBg.all
+                topLeftRadius: control.radiusBg.topLeft
+                topRightRadius: control.radiusBg.topRight
+                bottomLeftRadius: control.radiusBg.bottomLeft
+                bottomRightRadius: control.radiusBg.bottomRight
+            }
+        }
     }
 
     objectName: '__HusInput__'
@@ -115,9 +172,7 @@ T.TextField {
     padding: 6 * sizeRatio
     leftPadding: (__private.leftHasIcons ? 5 : 10) * sizeRatio + leftIconPadding + leftClearIconPadding
     rightPadding: (__private.rightHasIcons ? 5 : 10) * sizeRatio + rightIconPadding + rightClearIconPadding
-    implicitWidth: contentWidth + leftPadding + rightPadding
-    implicitHeight: contentHeight + topPadding + bottomPadding
-    color: colorText
+    color: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     placeholderTextColor: enabled ? themeSource.colorPlaceholderText : themeSource.colorPlaceholderTextDisabled
     selectedTextColor: themeSource.colorTextSelected
     selectionColor: themeSource.colorSelection
@@ -125,8 +180,24 @@ T.TextField {
         family: themeSource.fontFamily
         pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
-    background: Loader {
-        sourceComponent: control.bgDelegate
+    background: Item {
+        Loader {
+            anchors.fill: parent
+            active: control.showShadow
+            sourceComponent: HusShadow {
+                source: __bgLoader
+                shadowColor: control.colorShadow
+                shadowOpacity: control.enabled && control.active ? 0.2 : 0
+                shadowBlur: 0.3
+            }
+        }
+
+        Loader {
+            id: __bgLoader
+            anchors.fill: parent
+            visible: !control.showShadow
+            sourceComponent: control.bgDelegate
+        }
     }
 
     Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }

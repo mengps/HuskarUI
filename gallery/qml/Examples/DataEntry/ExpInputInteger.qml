@@ -24,11 +24,15 @@ Flickable {
 - **beforeDelegate: Component** 前置标签代理\n
 - **afterDelegate: Component** 后置标签代理\n
 - **handlerDelegate: Component** 增减按钮代理\n
+- **bgDelegate: Component** 背景代理\n
 \n<br/>
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | true | 是否开启动画
+active | bool | - | 是否处于激活状态
+showShadow | bool | false | 是否显示阴影
+type | enum | HusInput.Type_Outlined | 输入框形态类型(来自 HusInput)
 clearEnabled | bool丨'active' | false | 是否启用清除按钮(active-仅当激活状态下可见)
 clearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接
 clearIconSize | int | - | 清除图标大小
@@ -56,9 +60,12 @@ currentBeforeLabel | sting | '' | 当前前置标签
 currentAfterLabel | sting | '' | 当前后置标签
 formatter | function | - | 格式化器(格式化数值为字符串)
 parser | function | - | 解析器(解析字符串为数值)
-defaultHandlerWidth | int | 24 | 默认增减按钮宽度
+defaultHandlerWidth | int | 22 | 默认增减按钮宽度
 colorText | color | - | 文本颜色
+colorBg | color | - | 背景颜色
+colorShadow | color | - | 阴影颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+sizeHint | string | 'normal' | 尺寸提示
 input | [HusInput](internal://HusInput) | - | 访问内部输入框
 \n<br/>
 \n### 支持的信号：\n
@@ -114,34 +121,116 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                 Column {
                     spacing: 10
 
-                    HusInputInteger {
-                        width: 120
-                        min: 0
-                        max: 10
+                    HusSwitch {
+                        id: shadowSwitch
+                        checked: false
+                        text: 'Show shadow: '
                     }
 
                     HusInputInteger {
-                        width: 120
+                        width: 150
                         min: 0
                         max: 10
                         clearEnabled: true
+                        showShadow: shadowSwitch.checked
+                    }
+
+                    HusInputInteger {
+                        width: 150
+                        min: 0
+                        max: 10
+                        type: HusInput.Type_Outlined
+                        showShadow: shadowSwitch.checked
+                    }
+
+                    HusInputInteger {
+                        width: 150
+                        min: 0
+                        max: 10
+                        type: HusInput.Type_Dashed
+                        showShadow: shadowSwitch.checked
+                    }
+
+                    HusInputInteger {
+                        width: 150
+                        min: 0
+                        max: 10
+                        type: HusInput.Type_Borderless
+                        showShadow: shadowSwitch.checked
+                    }
+
+                    HusInputInteger {
+                        width: 150
+                        min: 0
+                        max: 10
+                        type: HusInput.Type_Underlined
+                        showShadow: shadowSwitch.checked
+                    }
+
+                    HusInputInteger {
+                        width: 150
+                        min: 0
+                        max: 10
+                        type: HusInput.Type_Filled
+                        showShadow: shadowSwitch.checked
                     }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                HusInputInteger {
-                    width: 120
-                    min: 0
-                    max: 10
+                HusSwitch {
+                    id: shadowSwitch
+                    checked: false
+                    text: 'Show shadow: '
                 }
 
                 HusInputInteger {
-                    width: 120
+                    width: 150
                     min: 0
                     max: 10
                     clearEnabled: true
+                    showShadow: shadowSwitch.checked
+                }
+
+                HusInputInteger {
+                    width: 150
+                    min: 0
+                    max: 10
+                    type: HusInput.Type_Outlined
+                    showShadow: shadowSwitch.checked
+                }
+
+                HusInputInteger {
+                    width: 150
+                    min: 0
+                    max: 10
+                    type: HusInput.Type_Dashed
+                    showShadow: shadowSwitch.checked
+                }
+
+                HusInputInteger {
+                    width: 150
+                    min: 0
+                    max: 10
+                    type: HusInput.Type_Borderless
+                    showShadow: shadowSwitch.checked
+                }
+
+                HusInputInteger {
+                    width: 150
+                    min: 0
+                    max: 10
+                    type: HusInput.Type_Underlined
+                    showShadow: shadowSwitch.checked
+                }
+
+                HusInputInteger {
+                    width: 150
+                    min: 0
+                    max: 10
+                    type: HusInput.Type_Filled
+                    showShadow: shadowSwitch.checked
                 }
             }
         }
@@ -162,11 +251,22 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                 Column {
                     spacing: 10
 
+                    HusRadioBlock {
+                         id: sizeHintRadio
+                         initCheckedIndex: 1
+                         model: [
+                             { label: 'Small', value: 'small' },
+                             { label: 'Normal', value: 'normal' },
+                             { label: 'Large', value: 'large' },
+                         ]
+                     }
+
                     HusInputInteger {
                         width: 240
                         value: 100
                         beforeLabel: '+'
                         afterLabel: '$'
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusInputInteger {
@@ -183,12 +283,14 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                             { label: '¥', value: 'CNY' },
                         ]
                         prefix: currentAfterLabel
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusInputInteger {
                         width: 240
                         value: 100
                         afterLabel: String.fromCharCode(HusIcon.SettingOutlined)
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusInputInteger {
@@ -199,6 +301,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                             { label: '+', value: 'add' },
                             { label: '-', value: 'minus' },
                         ]
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusInputInteger {
@@ -212,17 +315,29 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                         afterLabel: String.fromCharCode(HusIcon.SettingOutlined)
                         prefix: '¥'
                         suffix: 'RMB'
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
 
+                HusRadioBlock {
+                     id: sizeHintRadio
+                     initCheckedIndex: 1
+                     model: [
+                         { label: 'Small', value: 'small' },
+                         { label: 'Normal', value: 'normal' },
+                         { label: 'Large', value: 'large' },
+                     ]
+                 }
+
                 HusInputInteger {
                     width: 240
                     value: 100
                     beforeLabel: '+'
                     afterLabel: '$'
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusInputInteger {
@@ -239,12 +354,14 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                         { label: '¥', value: 'CNY' },
                     ]
                     prefix: currentAfterLabel
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusInputInteger {
                     width: 240
                     value: 100
                     afterLabel: String.fromCharCode(HusIcon.SettingOutlined)
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusInputInteger {
@@ -255,6 +372,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                         { label: '+', value: 'add' },
                         { label: '-', value: 'minus' },
                     ]
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
 
                 HusInputInteger {
@@ -268,6 +386,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
                     afterLabel: String.fromCharCode(HusIcon.SettingOutlined)
                     prefix: '¥'
                     suffix: 'RMB'
+                    sizeHint: sizeHintRadio.currentCheckedValue
                 }
             }
         }

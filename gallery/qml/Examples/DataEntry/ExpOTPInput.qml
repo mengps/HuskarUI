@@ -27,6 +27,8 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
+showShadow | bool | false | 是否显示输入框阴影
+type | enum | HusInput.Type_Outlined | 输入框形态类型(来自 HusInput)
 length | int | 6 | 口令长度(即输入项数)
 characterLength | int | 1 | 输入项的字符长度
 currentIndex | int | 0 | 当前输入项索引
@@ -43,6 +45,7 @@ colorItemText | color | - | 输入项文本颜色
 colorItemBorder | color | - | 输入项边框颜色
 colorItemBorderActive | color | - | 输入项边框激活时颜色
 colorItemBg | color | - | 输入项背景颜色
+colorShadow | color | - | 阴影颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 输入项背景圆角
 sizeHint | string | 'normal' | 尺寸提示
 \n<br/>

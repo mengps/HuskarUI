@@ -34,6 +34,9 @@ T.Control {
     signal afterActivated(index: int, var data)
 
     property bool animationEnabled: HusTheme.animationEnabled
+    property bool active: hovered || activeFocus
+    property int type: HusInput.Type_Outlined
+    property bool showShadow: false
     property alias clearEnabled: __input.clearEnabled
     property alias clearIconSource: __input.clearIconSource
     property alias clearIconSize: __input.clearIconSize
@@ -60,7 +63,7 @@ T.Control {
     property alias inputFont: control.font
     property font labelFont: Qt.font({
                                          family: 'HuskarUI-Icons',
-                                         pixelSize: parseInt(themeSource.fontSize)
+                                         pixelSize: parseInt(themeSource.fontSize) * sizeRatio
                                      })
     property var beforeLabel: '' || []
     property var afterLabel: '' || []
@@ -68,60 +71,64 @@ T.Control {
     property int initAfterLabelIndex: 0
     property string currentBeforeLabel: ''
     property string currentAfterLabel: ''
-    property var formatter: (value, locale) => value.toFixed(precision)
-    property var parser: (text, locale) => Number(text)
-    property int defaultHandlerWidth: 24
+    property var formatter: (value, locale) => value.toLocaleString(locale, 'f', precision)
+    property var parser: (text, locale) => HusApi.clamp(Number.fromLocaleString(locale, text), min, max)
+    property int defaultHandlerWidth: 22
     property alias colorText: __input.colorText
+    property alias colorBg: __input.colorBg
+    property color colorShadow: enabled ? themeSource.colorShadow : 'transparent'
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property string sizeHint: 'normal'
+    property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property var themeSource: HusTheme.HusInput
 
     property alias input: __input
 
     property Component beforeDelegate: HusRectangleInternal {
-        enabled: control.enabled
-        width: Math.max(30, __beforeLoader.implicitWidth + 10)
+        width: Math.max(30 * control.sizeRatio, __beforeCompLoader.implicitWidth + 10 * control.sizeRatio)
         topLeftRadius: control.radiusBg.topLeft
         bottomLeftRadius: control.radiusBg.bottomLeft
-        color: enabled ? control.themeSource.colorLabelBg : control.themeSource.colorLabelBgDisabled
-        border.color: enabled ? control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
-
-        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+        color: control.colorBg
+        border.color: enabled ? control.themeSource.colorBorder :
+                                control.themeSource.colorBorderDisabled
 
         Loader {
-            id: __beforeLoader
+            id: __beforeCompLoader
             anchors.centerIn: parent
             sourceComponent: typeof control.beforeLabel == 'string' ? __labelComp : __selectComp
             property bool isBefore: true
         }
     }
     property Component afterDelegate: HusRectangleInternal {
-        enabled: control.enabled
-        width: Math.max(30, __afterLoader.implicitWidth + 10)
+        width: Math.max(30 * control.sizeRatio, __afterCompLoader.implicitWidth + 10 * control.sizeRatio)
         topRightRadius: control.radiusBg.topRight
         bottomRightRadius: control.radiusBg.bottomRight
-        color: enabled ? control.themeSource.colorLabelBg : control.themeSource.colorLabelBgDisabled
-        border.color: enabled ? control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
-
-        Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+        color: control.colorBg
+        border.color: enabled ? control.themeSource.colorBorder :
+                                control.themeSource.colorBorderDisabled
 
         Loader {
-            id: __afterLoader
+            id: __afterCompLoader
             anchors.centerIn: parent
             sourceComponent: typeof control.afterLabel == 'string' ? __labelComp : __selectComp
             property bool isBefore: false
         }
     }
-    property Component handlerDelegate: Item {
+    property Component handlerDelegate: HusRectangleInternal {
         id: __handlerRoot
         clip: true
-        enabled: control.enabled
-        width: enabled && (__input.hovered || control.alwaysShowHandler) ? control.defaultHandlerWidth : 0
+        width: enabled && (control.hovered || control.alwaysShowHandler) ? control.defaultHandlerWidth : 0
+        radius: 0
+        topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
+        bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
+        color: control.colorBg
 
         property real halfHeight: height * 0.5
         property real hoverHeight: height * 0.6
         property real noHoverHeight: height * 0.4
-        property color colorBorder: enabled ? control.themeSource.colorBorder : control.themeSource.colorBorderDisabled
-        property color colorHandlerBg: enabled ? control.themeSource.colorBg : 'transparent'
+        property color colorBorder: enabled ? control.themeSource.colorBorder :
+                                              control.themeSource.colorBorderDisabled
+        property color colorHandlerBg: 'transparent'
 
         Behavior on width {
             enabled: control.animationEnabled;
@@ -133,12 +140,12 @@ T.Control {
 
         HusIconButton {
             id: __upButton
+            padding: 0
             width: parent.width
             height: hovered ? parent.hoverHeight :
                               __downButton.hovered ? parent.noHoverHeight : parent.halfHeight
-            padding: 0
-            enabled: control.enabled
             animationEnabled: control.animationEnabled
+            sizeRatio: control.sizeRatio
             autoRepeat: true
             colorIcon: control.enabled ?
                            hovered ? control.themeSource.colorBorderHover :
@@ -146,11 +153,7 @@ T.Control {
             iconSize: parseInt(control.themeSource.fontSize) - 4
             iconSource: control.upIcon
             hoverCursorShape: control.value >= control.max ? Qt.ForbiddenCursor : Qt.PointingHandCursor
-            background: HusRectangleInternal {
-                topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
-                color: __handlerRoot.colorHandlerBg
-                border.color: __handlerRoot.colorBorder
-            }
+            background: null
             onClicked: {
                 control.increase();
                 control.valueModified();
@@ -161,14 +164,14 @@ T.Control {
 
         HusIconButton {
             id: __downButton
+            padding: 0
             width: parent.width
             height: (hovered ? parent.hoverHeight :
                                __upButton.hovered ? parent.noHoverHeight : parent.halfHeight) + 1
             anchors.top: __upButton.bottom
             anchors.topMargin: -1
-            padding: 0
-            enabled: control.enabled
             animationEnabled: control.animationEnabled
+            sizeRatio: control.sizeRatio
             autoRepeat: true
             colorIcon: control.enabled ?
                            hovered ? control.themeSource.colorBorderHover :
@@ -176,11 +179,7 @@ T.Control {
             iconSize: parseInt(control.themeSource.fontSize) - 4
             iconSource: control.downIcon
             hoverCursorShape: control.value <= control.min ? Qt.ForbiddenCursor : Qt.PointingHandCursor
-            background: HusRectangleInternal {
-                bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
-                color: __handlerRoot.colorHandlerBg
-                border.color: __handlerRoot.colorBorder
-            }
+            background: null
             onClicked: {
                 control.decrease();
                 control.valueModified();
@@ -188,6 +187,24 @@ T.Control {
 
             Behavior on height { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationFast } }
         }
+
+        Rectangle {
+            width: 1
+            height: parent.height
+            anchors.left: parent.left
+            color: __handlerRoot.colorBorder
+        }
+
+        Rectangle {
+            width: parent.width
+            height: 1
+            anchors.top: __upButton.bottom
+            color: __handlerRoot.colorBorder
+        }
+    }
+
+    function getFullText(): string {
+        return __input.text;
     }
 
     function increase() {
@@ -196,10 +213,6 @@ T.Control {
 
     function decrease() {
         value = value - step < min ? min : value - step;
-    }
-
-    function getFullText() {
-        return __input.text;
     }
 
     function select(start: int, end: int) {
@@ -257,7 +270,7 @@ T.Control {
                              implicitContentHeight + topPadding + bottomPadding)
     font {
         family: themeSource.fontFamily
-        pixelSize: parseInt(themeSource.fontSize)
+        pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
     contentItem: RowLayout {
         id: __row
@@ -272,30 +285,31 @@ T.Control {
 
         HusInput {
             id: __input
-            z: 10
+            z: 1
             Layout.fillHeight: true
             Layout.fillWidth: true
-            enabled: control.enabled
-            animationEnabled: control.animationEnabled
             leftPadding: (__prefixLoader.active ? __prefixLoader.implicitWidth : (leftClearIconPadding > 0 ? 5 : 10))
                          + leftIconPadding + leftClearIconPadding
             rightPadding: (__suffixLoader.active ? __suffixLoader.implicitWidth : (rightClearIconPadding > 0 ? 5 : 10))
                           + rightIconPadding + rightClearIconPadding
+            animationEnabled: control.animationEnabled
+            sizeRatio: control.sizeRatio
+            themeSource: control.themeSource
+            type: control.type
+            showShadow: control.showShadow
             validator: control.validator
             font: control.font
-            background: HusRectangleInternal {
-                color: __input.colorBg
-                topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
-                topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
-                bottomLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.bottomLeft : 0
-                bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
-            }
+            radiusBg.all: control.radiusBg.all
+            radiusBg.topLeft: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
+            radiusBg.topRight: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
+            radiusBg.bottomLeft: control.beforeLabel?.length === 0 ? control.radiusBg.bottomLeft : 0
+            radiusBg.bottomRight: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
             clearIconDelegate: HusIconText {
                 iconSource: control.clearIconSource
                 iconSize: control.clearIconSize
-                leftPadding: control.clearIconPosition === HusInput.Position_Left ? (control.leftIconPadding > 0 ? 5 : 10) * __input.sizeRatio : 0
+                leftPadding: control.clearIconPosition === HusInput.Position_Left ? (control.leftIconPadding > 0 ? 5 : 10) * control.sizeRatio : 0
                 rightPadding: control.clearIconPosition === HusInput.Position_Right ?
-                                  ((control.rightIconPadding > 0 ? 5 : 10) * __input.sizeRatio + __handlerLoader.implicitWidth) : 0
+                                  ((control.rightIconPadding > 0 ? 5 : 10) * control.sizeRatio + __handlerLoader.implicitWidth) : 0
                 colorIcon: {
                     if (control.enabled) {
                         return __tapHandler.pressed ? control.themeSource.colorClearIconActive :
@@ -323,13 +337,23 @@ T.Control {
                     }
                 }
             }
-            onTextChanged: {
-                let v = control.parser(text, control.locale);
-                if (v >= control.min && v <= control.max && control.value !== v)
-                    control.value = v;
+            onActiveFocusChanged: {
+                if (!activeFocus) editingFinished();
             }
-            onEditingFinished: control.valueChanged();
+            onEditingFinished: {
+                if (length === 0) return;
+                let v = control.parser(text, control.locale);
+                text = control.formatter(v, control.locale);
+                control.value = v;
+                control.valueModified();
+            }
 
+            Keys.onReturnPressed: {
+                editingFinished();
+            }
+            Keys.onEnterPressed: {
+                editingFinished();
+            }
             Keys.onUpPressed: {
                 if (control.enabled && control.useKeyboard) {
                     control.increase();
@@ -359,10 +383,10 @@ T.Control {
             Loader {
                 id: __prefixLoader
                 height: parent.height
-                active: control.prefix != ''
+                active: control.prefix !== ''
                 sourceComponent: HusText {
-                    leftPadding: 10
-                    rightPadding: 5
+                    leftPadding: 10 * control.sizeRatio
+                    rightPadding: 5 * control.sizeRatio
                     text: control.prefix
                     color: __input.colorText
                     verticalAlignment: Text.AlignVCenter
@@ -373,10 +397,10 @@ T.Control {
                 id: __suffixLoader
                 height: parent.height
                 anchors.right: __handlerLoader.left
-                active: control.suffix != ''
+                active: control.suffix !== ''
                 sourceComponent: HusText {
-                    leftPadding: 5
-                    rightPadding: 10
+                    leftPadding: 5 * control.sizeRatio
+                    rightPadding: 10 * control.sizeRatio
                     text: control.suffix
                     color: __input.colorText
                     verticalAlignment: Text.AlignVCenter
@@ -388,18 +412,9 @@ T.Control {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                anchors.margins: 1
                 active: control.showHandler && !__input.readOnly
                 sourceComponent: control.handlerDelegate
-            }
-
-            HusRectangleInternal {
-                anchors.fill: parent
-                color: 'transparent'
-                border.color: __input.colorBorder
-                topLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.topLeft : 0
-                bottomLeftRadius: control.beforeLabel?.length === 0 ? control.radiusBg.bottomLeft : 0
-                topRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.topRight : 0
-                bottomRightRadius: control.afterLabel?.length === 0 ? control.radiusBg.bottomRight : 0
             }
         }
 
@@ -416,8 +431,8 @@ T.Control {
 
         HusSelect {
             id: __afterText
-            rightPadding: 4
             animationEnabled: control.animationEnabled
+            sizeRatio: control.sizeRatio
             colorBg: 'transparent'
             colorBorder: 'transparent'
             clearEnabled: false
