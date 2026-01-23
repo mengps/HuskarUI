@@ -19,6 +19,8 @@ public:
     static HusApi *instance();
     static HusApi *create(QQmlEngine *, QJSEngine *);
 
+    Q_INVOKABLE qreal clamp(qreal value, qreal min, qreal max);
+
     Q_INVOKABLE void setWindowStaysOnTopHint(QWindow *window, bool hint);
     Q_INVOKABLE void setWindowState(QWindow *window, int state);
 

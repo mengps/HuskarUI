@@ -57,6 +57,11 @@ HusApi *HusApi::create(QQmlEngine *, QJSEngine *)
     return instance();
 }
 
+qreal HusApi::clamp(qreal value, qreal min, qreal max)
+{
+    return std::clamp(value, min, max);
+}
+
 void HusApi::setWindowStaysOnTopHint(QWindow *window, bool hint)
 {
     if (window) {

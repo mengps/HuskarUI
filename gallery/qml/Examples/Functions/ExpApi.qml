@@ -21,6 +21,8 @@ Flickable {
 * **继承自 { QObject }**\n
 \n<br/>
 \n### 支持的函数：\n
+- \`clamp(value: real, min: real, max: real): real\`\n
+    将一个值限制在指定的范围内。\n
 - \`setWindowStaysOnTopHint(window: Window, hint: bool)\`\n
     将指定窗口 \`window\` 置顶。\n
 - \`setWindowState(window: Window, state: int)\`\n
