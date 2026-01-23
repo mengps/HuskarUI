@@ -198,12 +198,12 @@ T.Control {
 
     onInitDateTimeChanged: setDateTime(initDateTime);
 
-    padding: 8 * control.sizeRatio
-    leftPadding: (control.showDate ? 8 : 2) * control.sizeRatio
-    rightPadding: (control.showDate ? (control.showTime ? 2 : 8) : 2) * control.sizeRatio
+    padding: 8 * sizeRatio
+    leftPadding: (showDate ? 8 : 2) * sizeRatio
+    rightPadding: (showDate ? (showTime ? 2 : 8) : 2) * sizeRatio
     font {
-        family: control.themeSource.fontFamily
-        pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
     contentItem: ColumnLayout {
         spacing: 0
