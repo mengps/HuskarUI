@@ -566,7 +566,7 @@ T.Control {
                     iconSource: __rootItem.menuIconSource
                     iconSpacing: __rootItem.menuIconSpacing
                     showExpanded: {
-                        if (__rootItem.menuType == 'group' ||
+                        if (__rootItem.menuType === 'group' ||
                                 (control.compactMode !== HusMenu.Mode_Relaxed && __rootItem.view.menuDeep === 0))
                             return false;
                         else
