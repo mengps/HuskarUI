@@ -36,8 +36,8 @@ textFont | font | - | 文本字体(文本头像时生效)
 textSize | enum | HusAvatar.Size_Fixed | 文本大小模式(来自 HusAvatar)
 textGap | int | 4 | 文本距离两侧单位像素(文本头像时生效)
 colorBg | color | - | 背景颜色
-colorIcon | color | - | 图标颜色(图标头像时生效)
-colorText | color | - |文本颜色(文本头像时生效)
+colorIcon | color | 'white' | 图标颜色(图标头像时生效)
+colorText | color | 'white' |文本颜色(文本头像时生效)
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 \n **注意** \`[iconSource/imageSource/textSource]\`只需提供一种即可
                        `)
