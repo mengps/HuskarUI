@@ -550,8 +550,6 @@ HusWindow {
                     }
                 }
             }
-            onSelectedKeyChanged: {
-            }
         }
 
         HusDivider {

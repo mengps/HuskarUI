@@ -1,17 +1,24 @@
+#include <QtCore/qtsymbolmacros.h>
 #include <QtQml/qqmlextensionplugin.h>
 
-extern void qml_register_types_HuskarUI();
-Q_GHS_KEEP_REFERENCE(qml_register_types_HuskarUI);
+#include "husapp.h"
 
-class HuskarUIPlugin : public QQmlEngineExtensionPlugin
+QT_DECLARE_EXTERN_SYMBOL_VOID(qml_register_types_HuskarUI_Basic)
+
+class HuskarUI_BasicPlugin : public QQmlEngineExtensionPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
+    Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
+
 public:
-    HuskarUIPlugin(QObject *parent = nullptr) : QQmlEngineExtensionPlugin(parent)
+    HuskarUI_BasicPlugin(QObject *parent = nullptr) : QQmlEngineExtensionPlugin(parent)
     {
-        volatile auto registration = &qml_register_types_HuskarUI;
-        Q_UNUSED(registration);
+        QT_KEEP_SYMBOL(qml_register_types_HuskarUI_Basic)
+    }
+
+    void initializeEngine(QQmlEngine *engine, const char *) override
+    {
+        HusApp::initialize(engine);
     }
 };
 

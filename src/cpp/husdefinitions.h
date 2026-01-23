@@ -43,7 +43,7 @@ private:\
     Q_PROPERTY(type get READ get WRITE set NOTIFY get##Changed FINAL) \
 public: \
     type get() const { return m_##get; } \
-    void set(const type &t) { if (t != m_##get) { m_##get = t; emit get##Changed(); } } \
+    void set(type t) { if (t != m_##get) { m_##get = t; emit get##Changed(); } } \
 Q_SIGNAL void get##Changed(); \
 private: \
     type m_##get{init_value};
