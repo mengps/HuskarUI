@@ -35,6 +35,7 @@ Column {
                 if (xhr.status === 200) {
                     try {
                         root.tags = JSON.parse(xhr.responseText);
+                        finishedCallback();
                     } catch (e) {
                         console.error('Error parsing tags JSON:', e);
                     }
@@ -58,28 +59,29 @@ Column {
             return;
         }
 
-        fetchTags(repoInfo);
-
-        let apiUrl = `https://api.github.com/repos/${repoInfo.owner}/${repoInfo.repo}/commits?path=${repoInfo.path}`;
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                loading = false;
-                if (xhr.status === 200) {
-                    try {
-                        const data = JSON.parse(xhr.responseText);
-                        processCommits(data);
-                    } catch (e) {
-                        console.error('Error parsing JSON:', e);
-                    }
-                } else {
-                    console.error('Request failed with status:', xhr.status);
-                }
-            }
-        };
-        xhr.open('GET', apiUrl);
-        xhr.setRequestHeader('Accept', 'application/vnd.github.v3+json');
-        xhr.send();
+        fetchTags(repoInfo,
+                  () => {
+                      let apiUrl = `https://api.github.com/repos/${repoInfo.owner}/${repoInfo.repo}/commits?path=${repoInfo.path}`;
+                      let xhr = new XMLHttpRequest();
+                      xhr.onreadystatechange = () => {
+                          if (xhr.readyState === XMLHttpRequest.DONE) {
+                              loading = false;
+                              if (xhr.status === 200) {
+                                  try {
+                                      const data = JSON.parse(xhr.responseText);
+                                      processCommits(data);
+                                  } catch (e) {
+                                      console.error('Error parsing JSON:', e);
+                                  }
+                              } else {
+                                  console.error('Request failed with status:', xhr.status);
+                              }
+                          }
+                      };
+                      xhr.open('GET', apiUrl);
+                      xhr.setRequestHeader('Accept', 'application/vnd.github.v3+json');
+                      xhr.send();
+                  });
     }
 
     function processCommits(data) {
