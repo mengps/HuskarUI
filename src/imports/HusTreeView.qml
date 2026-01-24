@@ -236,6 +236,7 @@ T.Control {
         }
     }
 
+    onCheckableChanged: checkForKeys(defaultCheckedKeys);
     onDefaultCheckedKeysChanged: checkForKeys(defaultCheckedKeys);
     onInitModelChanged: {
         __private.clearCheckedKeys();
@@ -417,8 +418,8 @@ T.Control {
                         enabled: __rootItem.contentEnabled && !__rootItem.checkboxDisabled
                         checkState: __rootItem.checkState
                         onToggled: {
-                            __private.updateTreeNodeCheckState(__rootItem.treeData.treePath, checkState);
                             __rootItem.model.display.checkState = checkState;
+                            __private.updateTreeNodeCheckState(__rootItem.treeData.treePath, checkState);
                         }
                     }
                 }
@@ -534,13 +535,13 @@ T.Control {
 
         function updateTreeNodeCheckState(treePath: var, checkState: int) {
             if (control.checkable) {
+                /*! 先更新该节点下所有子节点状态 */
+                const index = __treeModel.index(treePath, 0);
+                const subTreeNode = __treeModel.getRow(index);
+                updateSubNodeCheckState(treePath, subTreeNode, checkState);
                 for (const row of __treeModel.rows) {
                     /* 仅更新本节点的根子树 */
                     if (row.__data.treePath[0] === treePath[0]) {
-                        /*! 更新该节点下所有子节点状态 */
-                        const index = __treeModel.index(treePath, 0);
-                        const subTreeNode = __treeModel.getRow(index);
-                        updateSubNodeCheckState(treePath, subTreeNode, checkState);
                         /*! 非根子树则需要更新整条链路状态 */
                         const rootPath = [treePath[0]];
                         if (!treeEqual(rootPath, treePath)) {
