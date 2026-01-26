@@ -83,7 +83,7 @@
  - [HusPagination 分页](./Navigation/HusPagination.md)
  - [HusScrollBar 滚动条](./Navigation/HusScrollBar.md)
 ## [Theme](./Theme/index.md)
- - [](./Theme/HusTheme.md)
+ - [HusTheme](./Theme/HusTheme.md)
 ## [Utils](./Utils/index.md)
  - [HusAsyncHasher 异步散列器 ](./Utils/HusAsyncHasher.md)
  - [HusRouter 路由 ](./Utils/HusRouter.md)

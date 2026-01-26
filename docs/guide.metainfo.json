@@ -1,5 +1,6 @@
 [
   {
+    "name": "HusAnimatedImage",
     "doc": "# HusAnimatedImage 动态图片\n\n可预览的动态图片。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { AnimatedImage }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\npreviewEnabled | bool | true| 是否启用预览\nhovered | bool(readonly) | - | 鼠标是否悬浮\nhoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\nfallback | url | '' | 加载失败时显示的图像占位符\nplaceholder | url | '' | 加载时显示的图像占位符\nitems | list | [] | 预览图片源\n\n<br/>\n\n### {items}支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nurl | url | 必选 | 图片源",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpAnimatedImage.qml",
     "examples": [
@@ -14,6 +15,7 @@
     ]
   },
   {
+    "name": "HusAvatar",
     "doc": "# HusAvatar 头像 \n\n用来代表用户或事物，支持图片、图标或字符展示。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nsize | int | 30 | 头像大小\niconSource | int丨string | 0 | 头像图标(来自 HusIcon)或图标链接\nimageSource | url | '' | 头像图像\nimageMipmap | bool | false | 是否开启层级映射\ntextSource | string | '' | 头像文本\ntextFont | font | - | 文本字体(文本头像时生效)\ntextSize | enum | HusAvatar.Size_Fixed | 文本大小模式(来自 HusAvatar)\ntextGap | int | 4 | 文本距离两侧单位像素(文本头像时生效)\ncolorBg | color | - | 背景颜色\ncolorIcon | color | 'white' | 图标颜色(图标头像时生效)\ncolorText | color | 'white' |文本颜色(文本头像时生效)\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\n\n **注意** `[iconSource/imageSource/textSource]`只需提供一种即可",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpAvatar.qml",
     "examples": [
@@ -38,6 +40,7 @@
     ]
   },
   {
+    "name": "HusBadge",
     "doc": "# HusBadge 徽标数\n\n图标右上角的圆形徽标数字。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nbadgeState | enum | HusBadge.State_Error | 徽标状态(来自 HusBadge)\npresetColor | color | '' | 预设颜色\ncount | int | 0 | 徽标展示的数字\niconSource | int丨string | 0丨'' | 徽标展示的图标(来自 HusIcon)或图标链接\ndot | bool | false | 不展示数字,只有一个小红点(默认 false)\nshowZero | bool | false | 当数值为 0 时, 是否展示 HusBadge\noverflowCount | int | 99 | 展示封顶的数字值\ncolorBg | color | - | 背景颜色\ncolorBorder | color | - | 边框颜色\ncolorText | color | - | 文本颜色",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpBadge.qml",
     "examples": [
@@ -82,6 +85,7 @@
     ]
   },
   {
+    "name": "HusCard",
     "doc": "# HusCard 卡片 \n\n通用卡片容器。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **titleDelegate: Component** 卡片标题代理\n\n- **extraDelegate: Component** 卡片右上角操作代理\n\n- **coverDelegate: Component** 卡片封面代理\n\n- **bodyDelegate: Component** 卡片主体代理\n\n- **actionDelegate: Component** 卡片动作代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nhoverable | bool | false | 鼠标移过时可浮起\nshowShadow | bool | hoverable | 是否显示阴影\ntitle | string | '' | 标题文本\ncoverSource | url | '' | 封面图片链接\ncoverFillMode | enum | Image.Stretch | 封面图片填充模式(来自 Image)\nbodyAvatarSize | int |  40 | 内容字体\nbodyAvatarIcon | int | 0 | 主体部分头像图标(来自 HusIcon)\nbodyAvatarSource | url | '' | 主体部分头像链接\nbodyAvatarText | string | '' | 主体部分头像文本\nbodyTitle | string | '' | 主体部分标题文本\nbodyDescription | string | '' | 主体部分描述文本\ntitleFont | font | - | 标题字体\nbodyTitleFont | font | - | 主体部分标题字体\nbodyDescriptionFont | font | - | 主体部分描述字体\ncolorTitle | color | - | 标题文本颜色\ncolorBg | color | - | 背景颜色\ncolorBorder | color | - | 边框颜色\ncolorShadow | color | - | 阴影颜色\ncolorBodyAvatar | color | - | 主体部分头像颜色\ncolorBodyAvatarBg | color | - | 主体部分头像背景颜色\ncolorBodyTitle | color | - | 主体部分标题颜色\ncolorBodyDescription | color | - | 主体部分描述颜色\n\n **注意** `[bodyAvatarIcon/bodyAvatarSource/bodyAvatarText]`只需提供一种即可",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpCard.qml",
     "examples": [
@@ -106,6 +110,7 @@
     ]
   },
   {
+    "name": "HusCarousel",
     "doc": "# HusCarousel 走马灯\n\n一组轮播的区域。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **contentDelegate: Component** 内容代理，代理可访问属性：\n\n  - `index: int` 内容项索引\n\n  - `model: var` 内容项数据\n\n- **indicatorDelegate: Component** 指示器代理，代理可访问属性：\n\n  - `index: int` 指示器索引\n\n  - `model: var` 指示器数据\n\n- **prevDelegate: Component** 向前箭头代理\n\n- **nextDelegate: Component** 向后箭头代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ninitModel | list | [] | 初始数据模型\ncurrentIndex | int | -1 | 当前索引\nposition | enum | HusCarousel.Position_Bottom | 滚动的方向和指示器的位置(来自 HusCarousel)\nspeed | int | 500 | 切换动效的时间(毫秒)\ninfinite | bool | true | 是否无限滚动\nautoplay | bool | false | 是否自动切换\nautoplaySpeed | int | 3000 | 自动切换的时间(毫秒)\ndraggable | bool | true | 是否启用拖拽切换\nshowIndicator | bool | true | 是否显示指示器\nindicatorSpacing | int | 6 | 指示器间隔\nshowArrow | bool | false | 是否显示箭头\n\n<br/>\n\n### 支持的函数：\n\n- `swithTo(index: int, animated: bool = true)` \n\n  - `index` 要切换的目标处索引\n  - `animated` 是否使用切换动效\n- `swithToPrev()` 切换到前一页 \n\n- `swithToNext()` 切换到后一页 \n\n- `int getSuitableIndicatorWidth(contentWidth: int, indicatorMaxWidth: int = 18)` 获取合适的指示器宽度 \n\n  - `contentWidth` 轮播内容的宽度\n  - `indicatorMaxWidth` 指示器最大宽度",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpCarousel.qml",
     "examples": [
@@ -135,6 +140,7 @@
     ]
   },
   {
+    "name": "HusCheckerBoard",
     "doc": "# HusCheckerBoard 棋盘格 \n\n显示一个双色棋盘格。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nrows | int | 0 | 行数\ncolumns | int | 0 | 列数\ncolorWhite | color | 'transparent' | 白格子颜色\ncolorBlack | color | - | 黑格子颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\n\n<br/>",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpCheckerBoard.qml",
     "examples": [
@@ -149,6 +155,7 @@
     ]
   },
   {
+    "name": "HusCollapse",
     "doc": "# HusCollapse 折叠面板 \n\n可以折叠/展开的内容区域。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **titleDelegate: Component** 面板标题代理，代理可访问属性：\n\n  - `index: int` 面板项索引\n\n  - `model: var` 面板项数据\n\n  - `isActive: bool` 是否激活\n\n- **contentDelegate: Component** 面板内容代理，代理可访问属性：\n\n  - `index: int` 面板项索引\n\n  - `model: var` 面板项数据\n\n  - `isActive: bool` 是否激活\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nhoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\ninitModel | list | [] | 初始面板模型\ncount | int | 0 | 模型中的数据条目数\nspacing | int | -1 | 每个面板间的间隔\naccordion | bool | false | 是否为手风琴\nactiveKey | string丨list | ''丨[] | 当前激活的键(手风琴模式为string,否则为list)\ndefaultActiveKey | list | [] | 初始激活的面板项 key 数组\nexpandIcon | int丨string | HusIcon.RightOutlined | 展开图标(来自 HusIcon)或图标链接\ntitleFont | font | - | 标题字体\ncontentFont | font | - | 内容字体\ncolorBg | color | - | 背景颜色\ncolorIcon | color | - | 展开图标颜色\ncolorTitle | color | - | 标题文本颜色\ncolorTitleBg | color | - | 标题背景颜色\ncolorContent | color | - | 内容文本颜色\ncolorContentBg | color | - | 内容背景颜色\ncolorBorder | color | - | 边框颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\n\n<br/>\n\n### 支持的函数：\n\n- `get(index: int): Object` 获取 `index` 处的模型数据 \n\n- `set(index: int, object: Object)` 设置 `index` 处的模型数据为 `object` \n\n- `setProperty(index: int, propertyName: string, value: any)` 设置 `index` 处的模型数据属性名 `propertyName` 值为 `value` \n\n- `move(from: int, to: int, count: int = 1)` 将 `count` 个模型数据从 `from` 位置移动到 `to` 位置 \n\n- `insert(index: int, object: Object)` 插入标签 `object` 到 `index` 处 \n\n- `append(object: Object)` 在末尾添加标签 `object` \n\n- `remove(index: int, count: int = 1)` 删除 `index` 处 `count` 个模型数据 \n\n- `clear()` 清空所有模型数据 \n\n\n<br/>\n\n### 支持的信号：\n\n- `actived(key: string)` 激活面板时发出\n\n  - `key` 该面板的键值\n",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpCollapse.qml",
     "examples": [
@@ -188,6 +195,7 @@
     ]
   },
   {
+    "name": "HusEmpty",
     "doc": "# HusEmpty 空状态 \n\n显示一个表示空状态的图像和描述文本。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **imageDelegate: Component** 图片代理\n\n- **descriptionDelegate: Component** 描述文本代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nimageSource | string | '' | 自定义的图片地址(优先显示此地址)\nimageStyle | int | HusEmpty.Style_Default | 预设的图片样式(来自 HusEmpty)\nimageWidth | int | - | 图片宽度\nimageHeight | int | - | 图片高度\nshowDescription | bool | true | 是否显示描述文本\ndescription | string | '' | 描述文本\ndescriptionFont | font | - | 描述文本字体\ndescriptionSpacing | int | 12 | 描述文本与图像的间距\ncolorDescription | color | - | 描述文本颜色\n\n<br/>",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpEmpty.qml",
     "examples": [
@@ -202,6 +210,7 @@
     ]
   },
   {
+    "name": "HusImage",
     "doc": "# HusImage 图片\n\n可预览的图片。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Image }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\npreviewEnabled | bool | true| 是否启用预览\nhovered | bool(readonly) | - | 鼠标是否悬浮\nhoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\nfallback | url | '' | 加载失败时显示的图像占位符\nplaceholder | url | '' | 加载时显示的图像占位符\nitems | list | [] | 预览图片源\n\n<br/>\n\n### {items}支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nurl | url | 必选 | 图片源",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpImage.qml",
     "examples": [
@@ -246,6 +255,7 @@
     ]
   },
   {
+    "name": "HusImagePreview",
     "doc": "# HusImagePreview 图片预览\n\n用于预览的图片的基本工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusPopup](internal://HusPopup) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **sourceDelegate: Component** 预览源项目代理(可以是 `Image/AnimatedImage/Video` 等)，必须提供 `sourceSize` 属性，代理可访问属性：\n\n  - `sourceUrl: url` 源url\n\n- **closeDelegate: Component** 关闭按钮代理。\n\n- **prevDelegate: Component** 前一幅按钮代理。\n\n- **nextDelegate: Component** 后一幅按钮代理。\n\n- **indicatorDelegate: Component** 索引指示器代理。\n\n- **operationDelegate: Component** 操作区域代理。\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nscaleMin | real | 1.0 | 最小缩放值\nscaleMax | real | 5.0 | 最大缩放值\nscaleStep | real | 0.5 | 缩放步长\ncurrentScale | real(readonly) | - | 当前缩放值\ncurrentRotation | real(readonly) | - | 当前旋转(角度)值\ncurrentIndex | int | - | 当前图片索引\ncount | int(readonly) | - | 当前图片数量\n\n<br/>\n\n### {items}支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nurl | url | 必选 | 图片源\n\n<br/>\n\n### 支持的函数：\n\n- `get(index: int): Object` 获取 `index` 处的模型数据 \n\n- `set(index: int, object: Object)` 设置 `index` 处的模型数据为 `object` \n\n- `setProperty(index: int, propertyName: string, value: any)` 设置 `index` 处的模型数据属性名 `propertyName` 值为 `value` \n\n- `move(from: int, to: int, count: int = 1)` 将 `count` 个模型数据从 `from` 位置移动到 `to` 位置 \n\n- `insert(index: int, object: Object)` 插入图片项 `object` 到 `index` 处 \n\n- `append(object: Object)` 在末尾添加图片项 `object` \n\n- `remove(index: int, count: int = 1)` 删除 `index` 处 `count` 个模型数据 \n\n- `zoomIn()` 中心放大 \n\n- `zoomOut()` 中心缩小 \n\n- `flipX()` 水平翻转 \n\n- `flipY()` 垂直翻转 \n\n- `rotate(angle: real)` 顺时针旋转 `angle` 度 \n\n- `resetTransform()` 重置所有变换 \n\n- `incrementCurrentIndex()` 当前索引增1 \n\n- `decrementCurrentIndex()` 当前索引减1 \n",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpImagePreview.qml",
     "examples": [
@@ -265,6 +275,7 @@
     ]
   },
   {
+    "name": "HusQrCode",
     "doc": "# HusQrCode 二维码 \n\n能够将文本转换生成二维码的组件，支持自定义配色和 Logo 配置。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\ntext | string | '' | 要编码的内容\nmargin | int | 4 | 边距\nerrorLevel | enum | HusQrCode.Medium | 纠错等级(来自 HusQrCode)\nicon.url | url | '' | 图标链接\nicon.width | int | 40 | 图标宽度\nicon.height | int | 40 | 图高度标\ncolor | color | 'black' | 二维码颜色\ncolorMargin | color | 'transparent' | 边距颜色\ncolorBg | color | 'transparent' | 背景颜色\n\n<br/>",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpQrCode.qml",
     "examples": [
@@ -300,6 +311,7 @@
     ]
   },
   {
+    "name": "HusTableView",
     "doc": "# HusTableView 表格\n\n展示行列数据。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { HusRectangle }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **columnHeaderDelegate: Component** 列头代理，代理可访问属性：\n\n  - `model: var` 列模型数据\n\n  - `headerData: var` 列描述数据(即columns[column])\n\n  - `column: int` 列索引\n\n- **rowHeaderDelegate: Component** 行头代理，代理可访问属性：\n\n  - `model: var` 行模型数据\n\n  - `row: int` 行索引\n\n- **columnHeaderSorterIconDelegate: Component** 列头搜索器图标代理，代理可访问属性：\n\n  - `sorter: var` 该列的搜索器\n\n  - `sortDirections: list` 该列的搜索方向数组\n\n  - `column: int` 列索引\n\n- **columnHeaderFilterIconDelegate: Component** 列头过滤器图标代理，代理可访问属性：\n\n  - `onFilter: var` 该列的过滤器\n\n  - `column: int` 列索引\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | true | 是否开启动画\nreuseItems | bool | false | 是否重用项目(具体参考官方文档)\npropagateWheelEvent | bool | false | 是否传播鼠标滚轮事件\nalternatingRow | bool | false | 是否交替显示行背景\ndefaultColumnHeaderHeight | int | 40 | 默认列头高度\ndefaultRowHeaderWidth | int | 40 | 默认行头宽度\nshowColumnGrid | bool | false | 是否显示列网格线\nshowRowGrid | bool | false | 是否显示行网格线\nrowHeightProvider | function(row, key) | minimumRowHeight | 行高提供函数\nminimumRowHeight | int | 40 | 最小行高\nmaximumRowHeight | int | Number.MAX_VALUE | 最大行高\ninitModel | list | [] | 表格初始数据模型\nrowCount | int | 0 | 当前模型行数\ncolumns | list | [] | 列描述对象数组\ncheckedKeys | list | [] | 选中行的键列表\ncolorGridLine | color | - | 网格线颜色\nshowColumnHeader | bool | true | 是否显示列头\ncolumnHeaderTitleFont | font | - | 列头标题字体\ncolorColumnHeaderTitle | color | - | 列头标题颜色\ncolorColumnHeaderBg | color | - |  列头背景颜色\nshowRowHeader | bool | true | 是否显示行头\nrowHeaderTitleFont | font | - | 行头标题字体\ncolorRowHeaderTitle | color | - | 行头标题颜色\ncolorRowHeaderBg | color | - | 行头背景颜色\ncolorResizeBlockBg | color | - | 调整头大小块(左上角方块)背景色\nverScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部垂直滚动条\nhorScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部水平滚动条\ntableView | TableView | - | 访问内部表格视图\ntableModel | TableModel | - | 访问内部表格模型\n\n<br/>\n\n### {columns}支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\ntitle | string | 必选 | 标题\ndataIndex | string | 必选 | 数据索引\ndelegate | var | 必选 | 该列的单元格代理\nwidth | int | 必选 | 该列初始宽度\nminimumWidth | int | 可选 | 该列最小宽度\nmaximumWidth | int | 可选 | 该列最大宽度\neditable | bool | 可选 | 列头标题是否可编辑\nalign | string | 可选 | 列头标题对齐方式, 支持 'center'丨'left'丨'right'\nselectionType | string | 可选 | 该列选择类型, 支持 'checkbox'\nsorter | var | 可选 | 该列排序器\nsortDirections | list | 可选 | 该列排序方向, 支持 'false'丨'ascend'丨'descend'\nonFilter | var | 可选 | 该列过滤器\nfilterInput | string | 可选 | 该列过滤输入\n\n<br/>\n\n### {columns.delegate}可访问属性：\n\n属性名 | 类型 | 描述\n------ | --- | ---\nrow | int | 行索引\ncolumn | int | 列索引\ncellData | var | 单元格数据\ncellIndex | int | 单元格索引\ndataIndex | string | 数据索引\nfilterInput | string | 单元格的过滤输入\n\n<br/>\n\n### 支持的函数：\n\n- `checkForRows(rows: Array)` 选中 `rows` 提供的行列表。\n\n- `checkForKeys(keys: Array)` 选中 `keys` 提供的键列表。\n\n- `Array getCheckedKeys()` 获取选中的键列表。\n\n- `clearAllCheckedKeys()` 清除所有选中的键。\n\n- `scrollToRow(row: int)` 滚动到 `row` 指定的行。\n\n- `sort(column: int)` 排序 `column` 指定的列(该列的描述对象需要具有 `sorter` 和 `sortDirections`)。\n\n- `clearSort()` 清除所有排序(即还原为初始状态)。\n\n- `filter()` 使用提供的(如果有，可以多列) `onFilter` 过滤整个模型，**注意** 此函数还会确定应用了排序的列并自动进行重排。\n\n- `clearFilter()` 清除所有过滤(即还原为初始状态)。\n\n- `clear()` 清空所有模型数据、排序和过滤。\n\n**注意** 以下函数仅作用于当前(排序&过滤后)的数据，不会更改 `initModel`，并且，为了最佳的性能，\n\n需要用户自行判断是否应该重新排序&过滤(调用 `filter()` 即可)\n。\n- `appendRow(object: var)` 在当前模型末尾添加 `object` 行, 不会更改 `initModel`。\n\n- `getRow(rowIndex: int): var` 获取当前模型 `rowIndex` 处的行数据。\n\n- `setRow(rowIndex: int, object: var)` 设置当前模型 `rowIndex` 处行数据为 `object`, 不会更改 `initModel`。\n\n- `insertRow(rowIndex: int, object: var)` 在当前模型插入行数据 `object` 到 `rowIndex` 处, 不会更改 `initModel`。\n\n- `moveRow(fromRowIndex: int, toRowIndex: int, count: int = 1)`将 `count` 个模型数据从 `from` 位置移动到 `to` 位置, 不会更改 `initModel`。\n\n- `removeRow(rowIndex: int, count: int = 1)` 删除当前模型 `rowIndex` 处的 `count` 条行数据, 不会更改 `initModel`。\n\n- `getCellData(rowIndex: int, columnIndex: int): var` 获取当前模型 `(rowIndex, columnIndex)` 处的单元数据。\n\n- `setCellData(rowIndex: int, columnIndex: int, data: var)` 设置当前模型 `(rowIndex, columnIndex)` 处的单元数据为 `data`, 不会更改 `initModel`。\n\n- `getTableModel(): Array` 获取当前表格模型(排序&过滤后的数据)。\n\n- `rowCount(): int` 获取当前模型的行数(排序&过滤后的数据)。\n\n- `columnCount(): int` 获取当前模型的列数(排序&过滤后的数据)。\n",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpTableView.qml",
     "examples": [
@@ -329,6 +341,7 @@
     ]
   },
   {
+    "name": "HusTabView",
     "doc": "# HusTabView 标签页\n\n通过选项卡标签切换内容的组件。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **addButtonDelegate: Component** 添加按钮的代理\n\n- **highlightDelegate: Component** 高亮项(当前标签背景)代理\n\n- **tabDelegate: Component** 标签代理，代理可访问属性：\n\n  - `index: int` 模型数据索引\n\n  - `model: var` 模型数据\n\n- **contentDelegate: Component** 内容代理，代理可访问属性：\n\n  - `index: int` 模型数据索引\n\n  - `model: var` 模型数据\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ninitModel | list | true | 标签页初始模型\ncount | int | true | 当前标签页数量\ncurrentIndex | int | true | 当前标签页索引(更改该值可切换页)\ntabType | enum | HusTabView.Type_Default | 标签类型(来自 HusTabView)\ntabSize | enum | HusTabView.Size_Auto | 标签大小(来自 HusTabView)\ntabPosition | enum | HusTabView.Position_Top | 标签位置(来自 HusTabView)\ntabAddable | bool | false | 标签是否可新增\ntabCentered | bool | false | 标签是否居中\ntabCardMovable | bool | true | 标签卡片是否可移动(tabType == Type_Card*生效)\ndefaultTabWidth | int | 80 | 默认标签宽度\ndefaultTabHeight | int | - | 默认标签高度\ndefaultTabSpacing | int | 2 | 默认标签间隔\ndefaultTabBgRadius | int | - | 默认标签背景半径(tabType == Type_Card*生效)\ndefaultHighlightWidth | int | 30丨20 | 默认高亮条宽度半径(tabType == Type_Default生效)\naddTabCallback | function() | - | 添加标签回调(点击+按钮时调用)\ncloseTabCallback | function(index, data) | - | 关闭标签回调(点击x按钮时调用)\n\n<br/>\n\n### 模型支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nkey | string | 可选 | 本标签页的键\ntitle | string | 可选 | 本标签的标题\niconSource | int丨string | 可选 | 本标签的图标源\niconSize | int | 可选 | 本标签的图标大小\niconSpacing | bool | 可选 | 本标签图标和文本的间隔\ntabWidth | int | 可选 | 本标签宽度\ntabHeight | int | 可选 | 本标签高度\neditable | bool | 可选 | 本标签是否可编辑\n\n<br/>\n\n### 支持的函数：\n\n- `flick(index: int)` 等同于调用 `Flickable.flick()` \n\n- `positionViewAtBeginning(index: int)` 等同于调用 `ListView.positionViewAtBeginning()` \n\n- `positionViewAtIndex(index: int, mode: int)` 等同于调用 `ListView.positionViewAtIndex()` \n\n- `positionViewAtEnd(index: int)` 等同于调用 `ListView.positionViewAtEnd()` \n\n- `Object get(index: int)` 获取 `index` 处的模型数据 \n\n- `set(index: int, object: Object)` 设置 `index` 处的模型数据为 `object` \n\n- `setProperty(index: int, propertyName: string, value: any)` 设置 `index` 处的模型数据属性名 `propertyName` 值为 `value` \n\n- `move(from: int, to: int, count: int = 1)` 将 `count` 个模型数据从 `from` 位置移动到 `to` 位置 \n\n- `insert(index: int, object: Object)` 插入标签 `object` 到 `index` 处 \n\n- `append(object: Object)` 在末尾添加标签 `object` \n\n- `remove(index: int, count: int = 1)` 删除 `index` 处 `count` 个模型数据 \n\n- `clear()`清空所有标签和内容 \n",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpTabView.qml",
     "examples": [
@@ -348,6 +361,7 @@
     ]
   },
   {
+    "name": "HusTag",
     "doc": "# HusTag 标签 \n\n进行标记和分类的小标签。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ntagState | enum | HusTag.State_Default | 标签状态(来自 HusTag)\ntext | string | '' | 标签文本\nrotating | bool | false | 旋转中\niconSource | int丨string | 0丨'' | 图标(来自 HusIcon)或图标链接\niconSize | int | - | 图标大小\ncloseIconSource | int丨string | 0丨'' | 关闭图标(来自 HusIcon)或图标链接\ncloseIconSize | int | true | 关闭图标大小\npresetColor | string | '' | 预设颜色\ncolorText | color | - |文本颜色\ncolorBg | color | - | 背景颜色\ncolorBorder | color | - | 边框颜色\ncolorIcon | color | - | 图标颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\n\n<br/>\n\n### 支持的信号：\n\n- `close()` 点击关闭图标(如果有)时发出\n",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpTag.qml",
     "examples": [
@@ -382,6 +396,7 @@
     ]
   },
   {
+    "name": "HusTimeline",
     "doc": "# HusTimeline 时间轴 \n\n垂直展示的时间流信息。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **nodeDelegate: Component** 节点(圆圈)代理，代理可访问属性：\n\n  - `index: int` 模型数据索引\n\n  - `model: var` 模型数据\n\n- **lineDelegate: Component**  线条项代理，代理可访问属性：\n\n  - `index: int` 模型数据索引\n\n  - `model: var` 模型数据\n\n- **timeDelegate: Component** 时间项代理，代理可访问属性：\n\n  - `index: int` 模型数据索引\n\n  - `model: var` 模型数据\n\n  - `onLeft: bool` 指示项是否应该在左边\n\n- **contentDelegate: Component** 内容项代理，代理可访问属性：\n\n  - `index: int` 模型数据索引\n\n  - `model: var` 模型数据\n\n  - `onLeft: bool` 指示项是否应该在左边\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ninitModel | list | [] | 初始模型数组\nmode | enum | HusTimeline.Mode_Left | 时间节点展现模式(来自 HusTimeline)\nreverse | bool | false | 文本颜色\ndefaultNodeSize | int | 11 | 默认圆圈大小\ndefaultLineWidth | int | 1 | 默认线条宽度\ndefaultTimeFormat | string | 'yyyy-MM-dd' | 默认时间格式\ndefaultContentFormat | enum | Text.AutoText | 默认内容文本格式(来自 Text)\ncolorNode | color | - | 圆圈颜色\ncolorNodeBg | color | - | 圆圈背景颜色\ncolorLine | color | - | 线条颜色\ntimeFont | font | - | 时间字体\ncolorTimeText | color | - | 时间文本颜色\ncontentFont | font | - | 内容字体\ncolorContentText | color | - | 内容文本颜色\n\n<br/>\n\n### 模型支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\ncolorNode | string | 可选 | 本时间节点的节点颜色\niconSource | int丨string | 可选 | 本时间节点的图标源\niconSize | sting | 可选 | 本时间节点的图标大小\nloading | bool | 可选 | 本时间节点是否在加载中\ntime | date | 可选 | 本时间节点的时间\ntimeFormat | string | 可选 | 本时间节点的展现格式\ncontent | string | 可选 | 本时间节点的内容\ncontentFormat | enum | 可选 | 本时间节点内容的文本格式(来自 Text)\n\n<br/>\n\n### 支持的函数：\n\n- `get(index: int): Object` 获取 `index` 处的模型数据 \n\n- `set(index: int, object: Object)` 设置 `index` 处的模型数据为 `object` \n\n- `setProperty(index: int, propertyName: string, value: any)` 设置 `index` 处的模型数据属性名 `propertyName` 值为 `value` \n\n- `move(from: int, to: int, count: int = 1)` 将 `count` 个模型数据从 `from` 位置移动到 `to` 位置 \n\n- `insert(index: int, object: Object)` 插入时间节点 `object` 到 `index` 处 \n\n- `append(object: Object)` 在末尾添加时间节点 `object` \n\n- `remove(index: int, count: int = 1)` 删除 `index` 处 `count` 个模型数据 \n\n- `clear()` 清空所有模型数据 \n",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpTimeline.qml",
     "examples": [
@@ -416,6 +431,7 @@
     ]
   },
   {
+    "name": "HusToolTip",
     "doc": "# HusToolTip 文字提示 \n\n单的文字提示气泡框。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { ToolTip }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nshowArrow | bool | false | 是否显示箭头\nposition | enum | HusToolTip.Position_Top | 文字提示的位置(来自 HusToolTip)\ncolorText | color | - | 文本颜色\ncolorBg | color | - | 背景颜色",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpToolTip.qml",
     "examples": [
@@ -430,6 +446,7 @@
     ]
   },
   {
+    "name": "HusTourFocus",
     "doc": "# HusTourFocus 漫游焦点\n\n聚焦于某个功能的焦点。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Popup }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\npenetrationEvent | bool | false | 是否可穿透事件\nmaskClosable | bool | true | 点击蒙层是否允许关闭\ntarget | Item | - | 焦点目标\noverlayColor | color | - | 覆盖层颜色\nfocusMargin | int | 5 | 焦点边距\nfocusRadius | int | 2 | 焦点圆角",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpTourFocus.qml",
     "examples": [
@@ -449,6 +466,7 @@
     ]
   },
   {
+    "name": "HusTourStep",
     "doc": "# HusTourStep 漫游式引导\n\n用于分步引导用户了解产品功能的气泡组件。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Popup }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **arrowDelegate: Component** 步骤箭头代理\n\n- **closeButtonDelegate: Component** 右上角关闭按钮代理\n\n- **stepCardDelegate: Component** 步骤卡片代理\n\n- **indicatorDelegate: Component** 步骤指示器代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\npenetrationEvent | bool | false | 是否可穿透事件\nclosable | bool | true | 是否显示右上角的关闭按钮\nmaskClosable | bool | false | 点击蒙层是否允许关闭\nstepModel | list | [] | 步骤模型\ncurrentTarget | Item | null | 当前步骤目标\ncurrentStep | int | 0 | 当前步数\noverlayColor | color | - | 覆盖层颜色\nshowArrow | bool | true |  是否显示箭头\narrowWidth | int | 16 | 箭头宽度\narrowHeight | int | 8 | 箭头高度\nfocusMargin | int | 5 | 焦点边距\nfocusRadius | int | 2 | 焦点圆角\nstepCardWidth | int | 250 | 步骤卡片宽度\nradiusStepCard | [HusRadius](internal://HusRadius) | - | 步骤默认卡片半径\ncolorStepCard | color | - | 步骤默认卡片颜色\nstepTitleFont | font | - | 步骤默认标题字体\ncolorStepTitle | color | - | 步骤默认标题颜色\nstepDescriptionFont | font | - | 步骤默认描述字体\ncolorStepDescription | color | - | 步骤默认描述颜色\nindicatorFont | font | - | 步骤默认指示器字体\ncolorIndicator | color | - | 步骤默认指示器颜色\nbuttonFont | font | - | 步骤默认按钮字体\n\n### 步骤对象支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\ntarget | Item | 必选 | 本步骤指向目标\ntitle | sting | 可选 | 本步骤标题\ntitleColor | color | 可选 | 本步骤标题颜色\ndescription | sting | 可选 | 本步骤描述内容\ndescriptionColor | color | 可选 | 本步骤描述内容文本颜色\ncardWidth | int | 可选 | 本步骤卡片宽度\ncardHeight | int | 可选 | 本步骤卡片高度\ncardColor | color | 可选 | 本步骤卡片颜色\ncardRadius | int | 可选 | 本步骤卡片圆角\n\n<br/>\n\n### 支持的函数：\n\n- `gotoStep(step: int)` 跳转步骤\n\n- `resetStep()` 重置步骤\n\n- `appendStep(object: Object)` 添加步骤\n\n  - `object` 步骤对象\n",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpTourStep.qml",
     "examples": [
@@ -468,6 +486,7 @@
     ]
   },
   {
+    "name": "HusTreeView",
     "doc": "# HusTreeView 树视图 \n\n多层次的结构列表。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **switcherDelegate: Component** 切换器(展开/折叠按钮)代理，代理可访问属性：\n\n  - `row: int` 视图行索引\n\n  - `depth: int` 节点深度\n\n  - `treeData: var` 节点数据\n\n  - `isSelected: bool` 节点是否选中\n\n  - `isExpanded: bool` 节点是否展开\n\n- **nodeContentDelegate: Component** 节点内容(不包含切换器和复选框)代理，代理可访问属性：\n\n  - `row: int` 视图行索引\n\n  - `depth: int` 节点深度\n\n  - `treeData: var` 节点数据\n\n  - `isSelected: bool` 节点是否选中\n\n  - `isExpanded: bool` 节点是否展开\n\n- **nodeBgDelegate: Component** 节点背景(包含切换器和复选框)代理，代理可访问属性：\n\n  - `row: int` 视图行索引\n\n  - `depth: int` 节点深度\n\n  - `treeData: var` 节点数据\n\n  - `isSelected: bool` 节点是否选中\n\n  - `isExpanded: bool` 节点是否展开\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nreuseItems | bool | false | 是否重用项目(具体参考官方文档)\ncheckable | bool | false | 是否添加[HusCheckbox](internal://HusCheckbox)复选框\nblockNode | bool | false | 节点内容是否填充整行\ngenDefaultKey | bool | true | 未提供key时是否生成默认键(生成键形如'0-1-2...')\nforceUpdateCheckState | bool | false | 强制更新check状态(为true时将不受enabled/checkboxDisabled约束)\nindent | real | 18 | 缩进宽度\nshowIcon | bool | false | 是否显示节点图标\ndefaultNodeIconSize | int | 16 | 默认节点图标大小\nshowLine | bool | false | 是否显示连接线\nlineStyle | enum | HusTreeView.SolidLine | 连接线样式(来自 HusTreeView)\nlineWidth | real | 1 | 连接线宽度\ndashPattern | list | [4, 4] | 连接线虚线模式\nswitcherIconSouce | int丨string | HusIcon.CaretRightOutlined | 切换器图标源(来自 HusIcon)或图标链接\nswitcherIconSize | int | 12 | 切换器图标大小\nrowSpacing | real | 4 | 节点行之间的间隔\ndefaultCheckedKeys | list | [] | 默认选中的键列表\ncheckedKeys | list | [] | 选中的键列表\nselectedKey | string | '' | 当前选择的键(非复选框)\ninitModel | list | [] | 初始模型\ntitleFont | font | - | 节点标题文本字体\nnodeIconFont | font | - | 节点图标字体\ncolorLine | color | - | 连接线颜色\ncolorNodeIcon | color | - | 节点图标颜色\nradiusSwitcherBg | [HusRadius](internal://HusRadius) | - | 切换器背景圆角\nradiusTitleBg | [HusRadius](internal://HusRadius) | - | 节点标题背景圆角\nverScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部垂直滚动条\nhorScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部水平滚动条\ntreeView | TreeView | - | 访问内部树视图\ntreeModel | TreeModel | - | 访问内部树模型\n\n<br/>\n\n### 模型支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\ntitle | string | 必选 | 本节点标题\nkey | string | 可选 | 本节点键\nenabled | bool | 可选 | 本节点是否启用(默认true)\ncheckboxDisabled | bool | 可选 | 复选框是否禁用(默认false)\ndelegateUrl | url | 可选 | 本节点代理的url(等同于Loader.source)\nchildren | list | 可选 | 子节点列表\n\n<br/>\n\n### 支持的函数：\n\n- `clear()` 清空所有模型数据(包括initModel)。\n\n- `checkForKeys(keys: Array)` 选中 `keys` 提供的键列表。\n\n- `expandForKeys(keys: Array)` 展开 `keys` 提供的键列表。\n\n- `expandToIndex(index: QModelIndex)` 展开 `index` 到所在的节点。\n\n- `collapseToIndex(index: QModelIndex)` 折叠 `index` 到所在的节点。\n\n- `expandAll()` 展开所有节点。\n\n- `collapseAll()` 折叠所有节点。\n\n- `index(treePath：Array): QModelIndex` 由节点路径(形如[0,0,1...])创建模型索引。\n\n- `appendNode(parentIndex: QModelIndex)` 添加节点到 `parentIndex` 下。\n\n- `removeNode(index: QModelIndex)` 删除 `index` 所在的节点。\n\n- `moveNode(fromIndex: QModelIndex, toIndex: QModelIndex)` 将 `fromIndex` 节点移动到 `toIndex` 位置。\n\n- `setNodeData(index: QModelIndex, data: Object)` 设置 `index` 处节点的数据为 `data`。\n\n- `getNodeData(index: QModelIndex): Object` 获取 `index` 处节点的数据。\n",
     "docPath": "gallery/qml/Examples/DataDisplay/ExpTreeView.qml",
     "examples": [
@@ -502,6 +521,7 @@
     ]
   },
   {
+    "name": "HusAutoComplete",
     "doc": "# HusAutoComplete 自动完成 \n\n输入框自动完成功能。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusInput](internal://HusInput) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **labelDelegate: Component** 弹出框标签项代理，代理可访问属性：\n\n  - `parent.textData: var` {textRole}对应的文本数据\n\n  - `parent.valueData: var` {valueRole}对应的值数据\n\n  - `parent.modelData: var` 选项模型数据\n\n  - `parent.hovered: bool` 是否悬浮\n\n  - `parent.highlighted: bool` 是否高亮\n\n- **labelBgDelegate: Component** 弹出框标签项背景代理，代理可访问属性：\n\n  - `parent.textData: var` {textRole}对应的文本数据\n\n  - `parent.valueData: var` {valueRole}对应的值数据\n\n  - `parent.modelData: var` 选项模型数据\n\n  - `parent.hovered: bool` 是否悬浮\n\n  - `parent.selected: bool` 是否选择\n\n  - `parent.highlighted: bool` 是否高亮\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\noptions | list | [] | 选项模型列表\nfilterOption | function(input, option) | - | 输入项将使用该函数进行筛选\ncount | int(readonly) | - | 当前options模型的项目数\ntextRole | string | 'label' | 弹出框文本的模型角色。\nvalueRole | string | 'value' | 弹出框值的模型角色。\nshowToolTip | bool | false | 是否显示文字提示\ndefaultPopupMaxHeight | int | 240 | 默认弹出框最大高度\ndefaultOptionSpacing | int | 0 | 默认选项间隔\n\n<br/>\n\n### 模型支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nlabel | sting | 必选 | 标签\nvalue | string | 可选 | 值\n\n<br/>\n\n### 支持的函数：\n\n- `clearInput()` 清空输入 \n\n- `openPopup()` 打开弹出框 \n\n- `closePopup()` 关闭弹出框 \n\n- `filter()` 使用 `filterOption` 过滤选项列表\n\n<br/>\n\n### 支持的信号：\n\n- `search(input: string)` 搜索补全项的时发出\n\n  - `input` 输入文本\n\n- `select(option: var)` 选择补全项时发出\n\n  - `option` 选择的选项\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpAutoComplete.qml",
     "examples": [
@@ -541,6 +561,7 @@
     ]
   },
   {
+    "name": "HusCheckBox",
     "doc": "# HusCheckBox 多选框 \n\n收集用户的多项选择。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { CheckBox }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\neffectEnabled | bool | true | 是否开启点击效果\nhoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\nindicatorSize | int | 18 | 指示器大小\ncolorText | color | - | 文本颜色\ncolorIndicator | color | - | 指示器颜色\ncolorIndicatorBorder | color | - | 指示器边框颜色\nradiusIndicator | [HusRadius](internal://HusRadius) | - | 指示器圆角\ncontentDescription | string | '' | 内容描述(提高可用性)",
     "docPath": "gallery/qml/Examples/DataEntry/ExpCheckBox.qml",
     "examples": [
@@ -560,6 +581,7 @@
     ]
   },
   {
+    "name": "HusColorPicker",
     "doc": "# HusColorPicker 颜色选择器 \n\n用于选择颜色。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { AbstractButton }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **textDelegate: Component** 文本代理\n\n- **titleDelegate: Component** 弹窗标题代理\n\n- **footerDelegate: Component** 弹窗页脚代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nactive | bool | - | 是否处于激活状态\nvalue | color(readonly) | '' | 当前的颜色值(autoChange为false时等于changeValue)\ndefaultValue | color | '#fff' | 默认颜色值\nautoChange | bool | true | 是否自动更新当前颜色值\nchangeValue | color | defaultValue | 更改的颜色值\nshowText | bool | false | 是否显示文本\ntextFormatter | function(color): string | - | 文本格式化器\ntitle | string | '' | 弹窗标题\nalphaEnabled | bool | true | 透明度是否启用\nopen | bool | false | 弹窗是否打开\nformat | string | 'hex' | 颜色格式\npresets | list | [] | 预设颜色列表\npresetsOrientation | enum | Qt.Vertical | 预设颜色视图的方向(来自 Qt.*)\npresetsLayoutDirection | enum | Qt.LeftToRight | 预设颜色视图的布局方向(来自 Qt.*)\ntitleFont | font | - | 标题字体\ninputFont | font | - | 输入框文本字体\ncolorBg | color | - | 背景颜色\ncolorBorder | color | - | 边框颜色\ncolorText | color | - | 文本颜色\ncolorTitle | color | - | 标题颜色\ncolorInput | color | - | 输入框文本颜色\ncolorPresetIcon | color | - | 预设视图图标颜色\ncolorPresetText | color | - | 预设视图文本颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 触发器背景圆角\nradiusTriggerBg | [HusRadius](internal://HusRadius) | - | 触发器圆角\nradiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角\npopup | [HusPopup](internal://HusPopup) | - | 访问内部弹窗\npanel | [HusColorPickerPanel](internal://HusColorPickerPanel) | - | 访问内部颜色选择面板\n\n<br/>\n\n### `presets` 支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nlabel | string | 必选 | 标签\ncolors | list | 必选 | 颜色列表\nexpanded | bool | 可选 | 默认是否展开\n\n<br/>\n\n### 支持的函数：\n\n- `toHexString(color: color): string` 将 `color` 转为16进制字符串\n\n- `toHsvString(color: color): string` 将 `color` 转为hsv/hsva字符串\n\n- `toRgbString(color: color): string` 将 `color` 转为rgb/rgba字符串\n\n\n<br/>\n\n### 支持的信号：\n\n- `change(color: color)` 颜色改变时发出\n\n  - `color` 当前的颜色\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpColorPicker.qml",
     "examples": [
@@ -604,6 +626,7 @@
     ]
   },
   {
+    "name": "HusColorPickerPanel",
     "doc": "# HusColorPickerPanel 颜色选择器面板 \n\n用于选择颜色。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **titleDelegate: Component** 弹窗标题代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nactive | bool | - | 是否处于激活状态\nvalue | color | '' | 当前的颜色值(autoChange为false时等于changeValue)\ndefaultValue | color | '#fff' | 默认颜色值\nautoChange | bool | true | 默认颜色值\nchangeValue | color | defaultValue | 更改的颜色值\ntitle | string | '' | 弹窗标题\nalphaEnabled | bool | true | 透明度是否启用\nopen | bool | false | 弹窗是否打开\nformat | string | 'hex' | 颜色格式\npresets | list | [] | 预设颜色列表\npresetsOrientation | enum | Qt.Vertical | 预设颜色视图的方向(来自 Qt.*)\npresetsLayoutDirection | enum | Qt.LeftToRight | 预设颜色视图的布局方向(来自 Qt.*)\ntitleFont | font | - | 标题字体\ninputFont | font | - | 输入框文本字体\ncolorBg | color | - | 背景颜色\ncolorBorder | color | - | 边框颜色\ncolorTitle | color | - | 标题颜色\ncolorInput | color | - | 输入框文本颜色\ncolorPresetIcon | color | - | 预设视图图标颜色\ncolorPresetText | color | - | 预设视图文本颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\n\n<br/>\n\n### `presets` 支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nlabel | string | 必选 | 标签\ncolors | list | 必选 | 颜色列表\nexpanded | bool | 可选 | 默认是否展开\n\n<br/>\n\n### 支持的函数：\n\n- `toHexString(color: color): string` 将 `color` 转为16进制字符串\n\n- `toHsvString(color: color): string` 将 `color` 转为hsv/hsva字符串\n\n- `toRgbString(color: color): string` 将 `color` 转为rgb/rgba字符串\n\n\n<br/>\n\n### 支持的信号：\n\n- `change(color: color)` 颜色改变时发出\n\n  - `color` 当前的颜色\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpColorPickerPanel.qml",
     "examples": [
@@ -618,6 +641,7 @@
     ]
   },
   {
+    "name": "HusDateTimePicker",
     "doc": "# HusDateTimePicker 日期选择框 \n\n输入或选择日期时间的控件。\n\n* **继承自 { [HusInput](internal://HusInput) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **dayDelegate: Component** 天项代理，代理可访问属性：\n\n  - `model: var` 天模型(参见 MonthGrid)\n\n  - `isHovered: bool` 是否悬浮在本项\n\n  - `isCurrentWeek: bool` 是否为当前周\n\n  - `isHoveredWeek: bool` 是否为悬浮周\n\n  - `isCurrentMonth: bool` 是否为当前月\n\n  - `isVisualMonth: bool` 是否为(==visualMonth)\n\n  - `isCurrentDay: bool` 是否为当前天\n\n  - `isVisualDay: bool` 是否为(==visualDay)\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nshowNow | bool | false | 显示当前日期时间的快捷选择\nshowDate | bool | true | 显示日期部分\nshowTime | bool | true | 显示时间部分\ndatePickerMode | int | HusDateTimePicker.Mode_Day | 日期选择模式(来自 HusDateTimePicker)\ntimePickerMode | int | HusDateTimePicker.Mode_HHMMSS | 时间选择模式(来自 HusDateTimePicker)\nformat | string | 'yyyy-MM-dd hh:mm:ss' | 日期时间格式\nprevIconSource | int丨string | HusIcon.LeftOutlined | 往前图标(来自 HusIcon)或图标链接\nnextIconSource | int丨string | HusIcon.RightOutlined | 往后图标(来自 HusIcon)或图标链接\nsuperPrevIconSource | int丨string | HusIcon.DoubleLeftOutlined | 加倍往前图标(来自 HusIcon)或图标链接\nsuperNextIconSource | int丨string | HusIcon.DoubleRightOutlined | 加倍往后图标(来自 HusIcon)或图标链接\nyearRowSpacing | real | 10 | 年选择项行间隔\nyearColumnSpacing | real | 15 | 年选择项列间隔\nmonthRowSpacing | real | 10 | 月选择项行间隔\nmonthColumnSpacing | real | 15 | 月选择项列间隔\nquarterSpacing | real | 10 | 季度选择项列间隔\ninitDateTime | date | undefined | 初始日期时间\ncurrentDateTime | date | - | 当前日期时间\ncurrentYear | int | - | 当前年份\ncurrentMonth | int | - | 当前月份\ncurrentDay | int | - | 当前天数\ncurrentWeekNumber | int | - | 当前周数\ncurrentQuarter | int | - | 当前季度\ncurrentHours | int | - | 当前小时数\ncurrentMinutes | int | - | 当前分钟数\ncurrentSeconds | int | - | 当前秒数\nvisualYear | int | - | 视觉年份(通常不需要使用)\nvisualMonth | int | - | 视觉月份(通常不需要使用)\nvisualDay | int | - | 视觉天数(通常不需要使用)\nvisualWeekNumber | int | - | 视觉周数(通常不需要使用)\nvisualQuarter | int | - | 视觉季度(通常不需要使用)\nvisualHours | int | - | 视觉小时(通常不需要使用)\nvisualMinutes | int | - | 视觉分钟(通常不需要使用)\nvisualSeconds | int | - | 视觉秒数(通常不需要使用)\nlocale | Locale | - | 区域设置\nradiusItemBg | [HusRadius](internal://HusRadius) | - | 选择项圆角\nradiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗圆角\npopup | [HusPopup](internal://HusPopup) | - | 访问内部弹窗\npanel | [HusDateTimePickerPanel](internal://HusDateTimePickerPanel) | - | 访问内部日期时间选择面板\n\n<br/>\n\n### 支持的函数：\n\n- `clearDateTime()` 清空当前日期时间 \n\n- `setDateTime(date: jsDate)` 设置当前日期时间为 `date` \n\n- `getDateTime(): jsDate` 获取当前的日期时间 \n\n- `setDateTimeString(dateTimeString: string)` 设置当前日期时间字符串为 `dateTimeString` \n\n- `getDateTimeString(): string` 获取当前的日期时间字符串\n- `selectNow()` 选择现在时间\n- `resetVisualStatus()` 重置所有视觉状态(即重置visual为current)\n\n<br/>\n\n### 支持的信号：\n\n- `selected(date: jsDate)` 选择日期时间时发出\n\n  -  `date` 选择的日期时间\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpDateTimePicker.qml",
     "examples": [
@@ -642,6 +666,7 @@
     ]
   },
   {
+    "name": "HusDateTimePickerPanel",
     "doc": "# HusDateTimePickerPanel 日期选择面板 \n\n可选择的日期时间面板。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **dayDelegate: Component** 天项代理，代理可访问属性：\n\n  - `model: var` 天模型(参见 MonthGrid)\n\n  - `isHovered: bool` 是否悬浮在本项\n\n  - `isCurrentWeek: bool` 是否为当前周\n\n  - `isHoveredWeek: bool` 是否为悬浮周\n\n  - `isCurrentMonth: bool` 是否为当前月\n\n  - `isVisualMonth: bool` 是否为(==visualMonth)\n\n  - `isCurrentDay: bool` 是否为当前天\n\n  - `isVisualDay: bool` 是否为(==visualDay)\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ntext | string | '' | 当前日期文本\nvisualText | string | '' | 视觉日期文本\nshowNow | bool | false | 显示当前日期时间的快捷选择\nshowDate | bool | true | 显示日期部分\nshowTime | bool | true | 显示时间部分\ndatePickerMode | int | HusDateTimePicker.Mode_Day | 日期选择模式(来自 HusDateTimePicker)\ntimePickerMode | int | HusDateTimePicker.Mode_HHMMSS | 时间选择模式(来自 HusDateTimePicker)\nformat | string | 'yyyy-MM-dd hh:mm:ss' | 日期时间格式\nprevIconSource | int丨string | HusIcon.LeftOutlined | 往前图标(来自 HusIcon)或图标链接\nnextIconSource | int丨string | HusIcon.RightOutlined | 往后图标(来自 HusIcon)或图标链接\nsuperPrevIconSource | int丨string | HusIcon.DoubleLeftOutlined | 加倍往前图标(来自 HusIcon)或图标链接\nsuperNextIconSource | int丨string | HusIcon.DoubleRightOutlined | 加倍往后图标(来自 HusIcon)或图标链接\nyearRowSpacing | real | 10 | 年选择项行间隔\nyearColumnSpacing | real | 15 | 年选择项列间隔\nmonthRowSpacing | real | 10 | 月选择项行间隔\nmonthColumnSpacing | real | 15 | 月选择项列间隔\nquarterSpacing | real | 10 | 季度选择项列间隔\ninitDateTime | date | undefined | 初始日期时间\ncurrentDateTime | date | - | 当前日期时间\ncurrentYear | int | - | 当前年份\ncurrentMonth | int | - | 当前月份\ncurrentDay | int | - | 当前天数\ncurrentWeekNumber | int | - | 当前周数\ncurrentQuarter | int | - | 当前季度\ncurrentHours | int | - | 当前小时数\ncurrentMinutes | int | - | 当前分钟数\ncurrentSeconds | int | - | 当前秒数\nvisualYear | int | - | 视觉年份(通常不需要使用)\nvisualMonth | int | - | 视觉月份(通常不需要使用)\nvisualDay | int | - | 视觉天数(通常不需要使用)\nvisualWeekNumber | int | - | 视觉周数(通常不需要使用)\nvisualQuarter | int | - | 视觉季度(通常不需要使用)\nvisualHours | int | - | 视觉小时(通常不需要使用)\nvisualMinutes | int | - | 视觉分钟(通常不需要使用)\nvisualSeconds | int | - | 视觉秒数(通常不需要使用)\ncolorBg | color | - | 背景颜色\ncolorBorder | color | - | 边框颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\nradiusItemBg | [HusRadius](internal://HusRadius) | - | 选择项圆角\nsizeHint | string | 'normal' | 尺寸提示\n\n<br/>\n\n### 支持的函数：\n\n- `clearDateTime()` 清空当前日期时间 \n\n- `setDateTime(date: jsDate)` 设置当前日期时间为 `date` \n\n- `getDateTime(): jsDate` 获取当前的日期时间 \n\n- `setDateTimeString(dateTimeString: string)` 设置当前日期时间字符串为 `dateTimeString` \n\n- `getDateTimeString(): string` 获取当前的日期时间字符串\n- `selectNow()` 选择现在时间\n- `resetVisualStatus()` 重置所有视觉状态(即重置visual为current)\n\n<br/>\n\n### 支持的信号：\n\n- `selected(date: jsDate)` 选择日期时间时发出\n\n  -  `date` 选择的日期时间\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpDateTimePickerPanel.qml",
     "examples": [
@@ -661,6 +686,7 @@
     ]
   },
   {
+    "name": "HusInput",
     "doc": "# HusInput 输入框 \n\n通过鼠标或键盘输入内容，是最基础的表单域的包装。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { TextField }**\n\n* **继承此 { [HusDateTimePicker](internal://HusDateTimePicker), [HusAutoComplete](internal://HusAutoComplete) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **iconDelegate: Component** 图标代理\n\n- **clearIconDelegate: Component** 清除图标代理\n\n- **bgDelegate: Component** 背景代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nactive | bool | - | 是否处于激活状态\nshowShadow | bool | false | 是否显示阴影\ntype | enum | HusInput.Type_Outlined | 输入框形态类型(来自 HusInput)\niconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接\niconSize | int | - | 图标大小\niconPosition | enum | HusInput.Position_Left | 图标位置(来自 HusInput)\nclearEnabled | bool丨'active' | false | 是否启用清除按钮(active-仅当激活状态下可见)\nclearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接\nclearIconSize | int | - | 清除图标大小\nclearIconPosition | enum | HusInput.Position_Right | 清除图标位置(来自 HusInput)\nleftIconPadding | int(readonly) | - | 图标在左边时的填充\nrightIconPadding | int(readonly) | - | 图标在右边时的填充\nleftClearIconPadding | int(readonly) | - | 清除图标在左边时的填充\nrightClearIconPadding | int(readonly) | - | 清除图标在右边时的填充\ncolorIcon | color | - | 图标颜色\ncolorText | color | - | 文本颜色\ncolorBorder | color | - | 边框颜色\ncolorBg | color | - | 背景颜色\ncolorShadow | color | - | 阴影颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\nsizeHint | string | 'normal' | 尺寸提示\ncontentDescription | string | '' | 内容描述(提高可用性)\n\n<br/>\n\n### 支持的信号：\n\n- `clickClear()` 点击清除图标时发出\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpInput.qml",
     "examples": [
@@ -690,6 +716,7 @@
     ]
   },
   {
+    "name": "HusInputInteger",
     "doc": "# HusInputInteger 整数输入框 \n\n通过鼠标或键盘，输入范围内的整数。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { SpinBox }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **beforeDelegate: Component** 前置标签代理\n\n- **afterDelegate: Component** 后置标签代理\n\n- **handlerDelegate: Component** 增减按钮代理\n\n- **bgDelegate: Component** 背景代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | true | 是否开启动画\nactive | bool | - | 是否处于激活状态\nshowShadow | bool | false | 是否显示阴影\ntype | enum | HusInput.Type_Outlined | 输入框形态类型(来自 HusInput)\nclearEnabled | bool丨'active' | false | 是否启用清除按钮(active-仅当激活状态下可见)\nclearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接\nclearIconSize | int | - | 清除图标大小\nclearIconPosition | enum | HusInput.Position_Right | 清除图标位置(来自 HusInput)\nreadOnly | bool | false | 输入框是否只读\nshowHandler | bool | true | 是否显示增减按钮\nalwaysShowHandler | bool | false | 是否始终显示增减按钮\nuseWheel | bool | false | 是否使用鼠标滚轮控制\nuseKeyboard | bool | true | 是否使用键盘控制\nvalue | int | 0 | 当前值\nmin | int | INT_MIN | 最小值\nmax | int | INT_MAX | 最大值\nstep | int | 1 | 增减步长\nprefix | string | '' | 前缀文本(图标)\nsuffix | string | '' | 后缀文本(图标)\nupIcon | int丨string | HusIcon.UpOutlined | 增按钮图标\ndownIcon | int丨string  | HusIcon.DownOutlined | 减按钮图标\ninputFont | font | - | 输入框字体\nlabelFont | font | 'HuskarUI-Icons' | 前置后置标签字体\nbeforeLabel | sting丨list | '' | 前置标签(列表)\nafterLabel | sting丨list | '' | 后置标签(列表)\ninitBeforeLabelIndex | int | 0 | 初始前置列表索引\ninitAfterLabelIndex | int | 0 | 初始后置列表索引\ncurrentBeforeLabel | sting | '' | 当前前置标签\ncurrentAfterLabel | sting | '' | 当前后置标签\nformatter | function | - | 格式化器(格式化数值为字符串)\nparser | function | - | 解析器(解析字符串为数值)\ndefaultHandlerWidth | int | 22 | 默认增减按钮宽度\ncolorText | color | - | 文本颜色\ncolorBg | color | - | 背景颜色\ncolorShadow | color | - | 阴影颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\nsizeHint | string | 'normal' | 尺寸提示\ninput | [HusInput](internal://HusInput) | - | 访问内部输入框\n\n<br/>\n\n### 支持的信号：\n\n- `beforeActivated(index: int, var data)` 当前置为列表时，点击选择项发出\n\n  - `index` 选择项索引\n\n  - `data` 选择项数据\n\n- `afterActivated(index: int, var data)` 当后置为列表时，点击选择项发出\n\n  - `index` 选择项索引\n\n  - `data` 选择项数据\n\n\n<br/>\n\n### 支持的函数：\n\n- `getFullText(): string` 获取完整输入文本 \n\n以下函数来自 `TextInput`，具体请查阅官方文档：\n\n- `select(start: int, end: int)` \n\n- `selectAll(start: int, end: int)` \n\n- `selectWord(start: int, end: int)` \n\n- `clear()` \n\n- `copy()` \n\n- `cut()` \n\n- `paste()` \n\n- `redo()` \n\n- `undo()` \n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpInputInteger.qml",
     "examples": [
@@ -729,6 +756,7 @@
     ]
   },
   {
+    "name": "HusInputNumber",
     "doc": "# HusInputNumber 数字输入框 \n\n通过鼠标或键盘，输入范围内的数值。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **beforeDelegate: Component** 前置标签代理\n\n- **afterDelegate: Component** 后置标签代理\n\n- **handlerDelegate: Component** 增减按钮代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | true | 是否开启动画\nactive | bool | - | 是否处于激活状态\nshowShadow | bool | false | 是否显示阴影\ntype | enum | HusInput.Type_Outlined | 输入框形态类型(来自 HusInput)\nclearEnabled | bool丨'active' | false | 是否启用清除按钮(active-仅当激活状态下可见)\nclearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接\nclearIconSize | int | - | 清除图标大小\nclearIconPosition | enum | HusInput.Position_Right | 清除图标位置(来自 HusInput)\nreadOnly | bool | false | 输入框是否只读\nshowHandler | bool | true | 是否显示增减按钮\nalwaysShowHandler | bool | false | 是否始终显示增减按钮\nuseWheel | bool | false | 是否使用鼠标滚轮控制\nuseKeyboard | bool | true | 是否使用键盘控制\nvalue | real | 0 | 当前值\nmin | real | Number.MIN_SAFE_INTEGER | 最小值\nmax | real | Number.MAX_SAFE_INTEGER | 最大值\nstep | real | 1 | 增减步长\nprecision | int | 0 | 精度(保留小数位)\nvalidator | Validator | DoubleValidator | 输入验证器\nprefix | string | '' | 前缀文本(图标)\nsuffix | string | '' | 后缀文本(图标)\nupIcon | int丨string | HusIcon.UpOutlined | 增按钮图标\ndownIcon | int丨string  | HusIcon.DownOutlined | 减按钮图标\ninputFont | font | - | 输入框字体\nlabelFont | font | 'HuskarUI-Icons' | 前置后置标签字体\nbeforeLabel | sting丨list | '' | 前置标签(列表)\nafterLabel | sting丨list | '' | 后置标签(列表)\ninitBeforeLabelIndex | int | 0 | 初始前置列表索引\ninitAfterLabelIndex | int | 0 | 初始后置列表索引\ncurrentBeforeLabel | sting | '' | 当前前置标签\ncurrentAfterLabel | sting | '' | 当前后置标签\nformatter | function | - | 格式化器(格式化数值为字符串)\nparser | function | - | 解析器(解析字符串为数值)\ndefaultHandlerWidth | int | 22 | 默认增减按钮宽度\ncolorText | color | - | 文本颜色\ncolorBg | color | - | 背景颜色\ncolorShadow | color | - | 阴影颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\nsizeHint | string | 'normal' | 尺寸提示\ninput | [HusInput](internal://HusInput) | - | 访问内部输入框\n\n<br/>\n\n### 支持的信号：\n\n- `valueModified(index: int, var data)` 当用户通过触摸、鼠标、滚轮或按键交互式修改旋转框值时，会发出此信号。\n\n- `beforeActivated(index: int, var data)` 当前置为列表时，点击选择项发出\n\n  - `index` 选择项索引\n\n  - `data` 选择项数据\n\n- `afterActivated(index: int, var data)` 当后置为列表时，点击选择项发出\n\n  - `index` 选择项索引\n\n  - `data` 选择项数据\n\n\n<br/>\n\n### 支持的函数：\n\n- `increase()` 增加数值(步长由属性 `step` 给出) \n\n- `decrease()` 减少数值(步长由属性 `step` 给出) \n\n- `getFullText(): string` 获取完整输入文本 \n\n以下函数来自 `TextInput`，具体请查阅官方文档：\n\n- `select(start: int, end: int)` \n\n- `selectAll(start: int, end: int)` \n\n- `selectWord(start: int, end: int)` \n\n- `clear()` \n\n- `copy()` \n\n- `cut()` \n\n- `paste()` \n\n- `redo()` \n\n- `undo()` \n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpInputNumber.qml",
     "examples": [
@@ -773,6 +801,7 @@
     ]
   },
   {
+    "name": "HusMultiSelect",
     "doc": "# HusMultiSelect 多选器 \n\n下拉多选器。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusSelect](internal://HusSelect) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **prefixDelegate: Component** 前缀代理\n\n- **suffixDelegate: Component** 后缀代理\n\n- **tagDelegate: Component** 标签代理，代理可访问属性：\n\n  - `index: var` 标签索引\n\n  - `tagData: var` 标签数据\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\noptions | list | [] | 选项模型列表\nfilterOption | function | - | 输入项将使用该函数进行筛选\ntext | string | '' | 当前输入文本\nprefix | string | '' | 前缀文本\nsuffix | string | '' | 后缀文本\ngenDefaultKey | bool | true | 是否生成默认键(如果没有给定key则为label)\nselectedKeys | list | [] | 选中项的键\nsearchEnabled | bool | true | 是否启用搜索\ntagCount | int(readonly) | 0 | 当前(选择)标签数量\nmaxTagCount | int | -1 | 最多显示多少个标签(-1无限制)\ntagSpacing | int | 5 | 标签间隔\ncolorTagText | color | - | 标签文本颜色\ncolorTagBg | color | - | 标签背景颜色\nradiusTagBg | [HusRadius](internal://HusRadius) | - | 标签圆角\n\n<br/>\n\n### 支持的函数：\n\n- `findKey(key: string)` 查找 `key` 处的选项数据 \n\n- `filter()` 过滤选项列表 \n\n- `removeTagAtKey(key: string)` 删除 `key` 处的标签 \n\n- `removeTagAtIndex(index: int)` 删除 `index` 处的标签 \n\n- `clearTag()` 清空标签 \n\n- `clearInput()` 清空输入 \n\n- `openPopup()` 打开弹出框 \n\n- `closePopup()` 关闭弹出框 \n\n\n<br/>\n\n### 支持的信号：\n\n- `search(input: string)` 搜索补全项的时发出\n\n  - `input` 输入文本\n\n- `select(option: var)` 选择补全项时发出\n\n  - `option` 选择的选项\n\n- `removeTag(option: var)` 删除标签项时发出\n\n  - `option` 删除的选项\n\n\n<br/>\n\n### 注意事项：\n\n`options` 列表通常需要 `key` 属性，如果未给出将使用 `label` 作为 `key`",
     "docPath": "gallery/qml/Examples/DataEntry/ExpMultiSelect.qml",
     "examples": [
@@ -817,6 +846,7 @@
     ]
   },
   {
+    "name": "HusOTPInput",
     "doc": "# HusOTPInput 一次性口令输入框 \n\n用于接收和验证一次性口令的输入框组合，通常用于验证码或密码。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **dividerDelegate: Component** 分隔器代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nshowShadow | bool | false | 是否显示输入框阴影\ntype | enum | HusInput.Type_Outlined | 输入框形态类型(来自 HusInput)\nlength | int | 6 | 口令长度(即输入项数)\ncharacterLength | int | 1 | 输入项的字符长度\ncurrentIndex | int | 0 | 当前输入项索引\ncurrentInput | string | '' | 当前所有项输入文本和\nitemWidth | int | 45 | 输入项宽度\nitemHeight | int | 32 | 输入项高度\nitemSpacing | int | 8 | 输入项间隔\nitemValidator | Validator | 6 | 输入项的验证器\nitemInputMethodHints | enum | Qt.ImhHiddenText | 输入项的输入法提示(例如: Qt.ImhHiddenText)\nitemPassword | bool | false | 输入项是否为密码(显示为: itemPasswordCharacter)\nitemPasswordCharacter | string | '' | 输入项的密码字符(itemPassword为true时启用)\nformatter | function | - | 格式化器(将为每一项调用)\ncolorItemText | color | - | 输入项文本颜色\ncolorItemBorder | color | - | 输入项边框颜色\ncolorItemBorderActive | color | - | 输入项边框激活时颜色\ncolorItemBg | color | - | 输入项背景颜色\ncolorShadow | color | - | 阴影颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 输入项背景圆角\nsizeHint | string | 'normal' | 尺寸提示\n\n<br/>\n\n### 支持的函数：\n\n- `setInput(inputs: list)` 通过 `inputs` 设置每项的输入文本\n\n- `setInputAtIndex(index: int, input: string)` 获取指定索引 `index` 处的文本为 `input`\n\n- `getInput(): string` 获取所有项输入文本和\n\n- `getInputAtIndex(index: int): string` 获取指定索引 `index` 处的文本\n\n支持的信号：\n\n- `finished(input: string)` 最后一个项输入完成时发出\n\n  - `input` 所有项输入文本和\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpOTPInput.qml",
     "examples": [
@@ -846,6 +876,7 @@
     ]
   },
   {
+    "name": "HusRadio",
     "doc": "# HusRadio 单选框 \n\n用于在多个备选项中选中单个状态。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { RadioButton }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\neffectEnabled | bool | true | 是否开启点击效果\nhoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\ncolorText | color | - | 文本颜色\ncolorIndicator | color | - | 指示器颜色\ncolorIndicatorBorder | color | - | 指示器边框颜色\nradiusIndicator | [HusRadius](internal://HusRadius) | 8 | 指示器圆角\ncontentDescription | string | '' | 内容描述(提高可用性)",
     "docPath": "gallery/qml/Examples/DataEntry/ExpRadio.qml",
     "examples": [
@@ -870,6 +901,7 @@
     ]
   },
   {
+    "name": "HusRadioBlock",
     "doc": "# HusRadioBlock 单选块(HusRadio变种) \n\n用于在多个备选项中选中单个状态。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **toolTipDelegate: Component** 文字提示代理，代理可访问属性：\n\n  - `checked: int` 是否选中\n\n  - `pressed: int` 是否按下\n\n  - `hovered: int` 是否悬浮\n\n  - `toolTip: var` 文字提示数据\n\n- **radioDelegate: Component** 单选项代理，代理可访问属性：\n\n  - `index: int` 单选项索引\n\n  - `modelData: var` 单选项数据\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\neffectEnabled | bool | true | 是否开启点击效果\nhoverCursorShape | enum |  Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\nmodel | list | [] | 单选块模型\ncount | int | model.length | 单选数量\ninitCheckedIndex | int | -1 | 初始选择的单选项索引\ncurrentCheckedIndex | int | -1 | 当前选择的单选项索引\ncurrentCheckedValue | var | undefined | 当前选择的单选项的值\ntype | enum | HusRadioBlock.Type_Filled | 单选项类型(来自 HusRadioBlock)\nsize | enum | HusRadioBlock.Size_Auto | 单选项大小(来自 HusRadioBlock)\nradioWidth | int | 120 | 单选项宽度(size == HusRadioBlock.Size_Fixed 生效)\nradioHeight | int | 30 | 单选项高度(size == HusRadioBlock.Size_Fixed 生效)\nradiusBg | [HusRadius](internal://HusRadius) | - | 单选项背景圆角\ncontentDescription | string | '' | 内容描述(提高可用性)\n\n<br/>\n\n### 模型支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nlabel | string | 必选 | 本单选项的标签\nvalue | sting | 可选 | 本单选项的值\nenabled | var | 可选 | 本单选项是否启用\niconSource | int丨string | 可选 | 本按钮图标(参见 HusIcon)或图标链接\ntoolTip | var | 可选 | 存在时则创建文字提示\ntoolTip.text | string | 可选 | 存在时则创建文字提示\ntoolTip.delay | int | 可选 | 文字提示延时(ms)\ntoolTip.timeout | int | 可选 | 文字提示超时(ms)\n\n<br/>\n\n### 支持的信号：\n\n- `clicked(index: int, radioData: var)` 点击单选项时发出\n\n  - `index` 单选项索引\n\n  - `radioData` 单选项数据\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpRadioBlock.qml",
     "examples": [
@@ -889,6 +921,7 @@
     ]
   },
   {
+    "name": "HusRate",
     "doc": "# HusRate 评分 \n\n用于对事物进行评分操作。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **fillDelegate: Component** 满星代理，代理可访问属性：\n\n  - `index: int` 当前星星索引\n\n  - `hovered: bool` 是否悬浮在当前星星上\n\n- **emptyDelegate: Component** 空星代理，代理可访问属性：\n\n  - `index: int` 当前星星索引\n\n  - `hovered: bool` 是否悬浮在当前星星上\n\n- **halfDelegate: Component** 半星代理，代理可访问属性：\n\n  - `index: int` 当前星星索引\n\n  - `hovered: bool` 是否悬浮在当前星星上\n\n- **toolTipDelegate: Component** 文字提示代理，代理可访问属性：\n\n  - `index: int` 当前星星索引\n\n  - `hovered: bool` 是否悬浮在当前星星上\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nhoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\ncount | int | 5 | 星星数量\ninitValue | int | 0 | 初始值\nvalue | int | 0 | 当前值\nspacing | int | 4 | 星星间隔\niconSize | int | 24 | 图标大小\ntoolTipFont | font | - | 文字提示字体\nshowToolTip | bool | false | 是否显示文字提示\ntoolTipTexts | list | [] | 文字提示文本列表(长度需等于count)\ncolorFill | color | - | 满星颜色\ncolorEmpty | color | - | 空星颜色\ncolorHalf | color | - | 半星颜色\ncolorToolTipText | color | - | 文字提示文本颜色\ncolorToolTipBg | color | - | 文字提示背景颜色\nallowHalf | bool | false | 是否允许半星\nfillIcon | int丨string | HusIcon.StarFilled丨'' | 满星图标(来自 HusIcon)或图标链接\nemptyIcon | int丨string | HusIcon.StarFilled丨'' | 空星图标(来自 HusIcon)或图标链接\nhalfIcon | int丨string | HusIcon.StarFilled丨'' | 半星图标(来自 HusIcon)或图标链接\n\n<br/>\n\n### 支持的信号：\n\n- `done(value: int)` 完成评分时发出\n\n**提供一个半星助手**：`halfRateHelper` 可将任意项变为半星\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpRate.qml",
     "examples": [
@@ -923,6 +956,7 @@
     ]
   },
   {
+    "name": "HusSelect",
     "doc": "# HusSelect 选择器 \n\n下拉选择器。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { ComboBox }**\n\n* **继承此 { [HusMultiSelect](internal://HusMultiSelect) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **indicatorDelegate: Component** 右侧指示器代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nactive | bool | - | 是否处于激活状态\nhoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\nclearEnabled | bool | true | 是否启用清除按钮\nclearIconSource | int丨string | HusIcon.CloseCircleFilled | 清除图标源(来自 HusIcon)或图标链接\nshowToolTip | bool | false | 是否显示文字提示\nloading | bool | false | 是否在加载中\nplaceholderText | string | '' | 占位符文本\ndefaultPopupMaxHeight | int | 240 | 默认弹窗最大高度\ncolorText | color | - | 文本颜色\ncolorBorder | color | - | 边框颜色\ncolorBg | color | - | 背景颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\nradiusItemBg | [HusRadius](internal://HusRadius) | - | 选项背景圆角\nradiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角\nsizeHint | string | 'normal' | 尺寸提示\ncontentDescription | string | '' | 内容描述(提高可用性)\n\n<br/>\n\n### 支持的信号：\n\n- `clickClear()` 点击清除图标时发出\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpSelect.qml",
     "examples": [
@@ -937,6 +971,7 @@
     ]
   },
   {
+    "name": "HusSlider",
     "doc": "# HusSlider 滑动输入条\n\n滑动型输入器，展示当前值和可选范围。。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **handleDelgate: Component** 滑块代理，代理可访问属性：\n\n  - `slider: Slider / RangeSlider` 滑动条本身\n  - `visualPosition: real` 滑块的有效视觉位置\n\n  - `pressed: bool` 当前滑块是否被按下 \n\n- **handleToolTipDelegate: Component** 滑块文字提示代理，代理可访问属性：\n\n  - `handleHovered: bool` 指示当前滑块是否有鼠标悬浮\n\n  - `handlePressed: bool` 指示当前滑块是否有鼠标按下\n\n- **bgDelegate: Component** 背景代理，代理可访问属性：\n\n  - `slider: Slider / RangeSlider` 滑动条本身\n  - `visualPosition: bool` 滑块的有效视觉位置\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nhoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\nmin | real | 0 | 最小值\nmax | real | 100 | 最大值\nstepSize | real | 0.0 | 步长\nvalue | number丨[number, number] | 0丨[0, 0] | 设置滑块值, range为true时为数组[min, max]\ncurrentValue | (readonly)number丨[number, number] | - | 获取当前滑块值, range为true时为数组[min, max]\nrange | bool | false | 是否双滑块模式\nsnapMode | enum | HusSlider.NoSnap | 滑块对齐模式(来自 HusSlider)\norientation | enum | Qt.Horizontal | 滑动条方向(Qt.Horizontal 或 Qt.Vertical)\ncolorHandle | color | - | 滑块颜色\ncolorTrack | color | - | 滑块轨道颜色\ncolorBg | color | - | 背景颜色\nradiusBg | int | - | 背景圆角\ncontentDescription | string | '' | 内容描述(提高可用性)\n\n<br/>\n\n### 支持的函数：\n\n- `decrease(frist: bool = true)` 将第 `first` 个滑块(first 为 false 则为第二个)值减小 stepSize 或 0.1\n\n- `increase(frist: bool = true)` 将第 `first` 个滑块(first 为 false 则为第二个)值增加 stepSize 或 0.1\n\n\n<br/>\n\n### 支持的信号：\n\n- `firstMoved()` 第一个滑块移动时发出\n\n- `firstReleased()` 第一个滑块释放时发出\n\n- `secondMoved()` 第二个滑块移动时发出(range为true)\n\n- `secondReleased()` 第二个滑块释放时发出(range为true)\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpSlider.qml",
     "examples": [
@@ -961,6 +996,7 @@
     ]
   },
   {
+    "name": "HusSwitch",
     "doc": "# HusSwitch 开关\n\n使用开关切换两种状态之间。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Switch }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **handleDelgate: Component** 开关把手代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\neffectEnabled | bool | true | 是否开启点击效果\nhoverCursorShape | enum | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\nloading | bool | false | 是否在加载中\ncheckedText | string | '' | 选中文本\nuncheckedText | string | '' | 未选中文本\ncheckedIconSource | int丨string | 0丨'' | 选中图标(来自 HusIcon)或图标链接\nuncheckedIconSource | int丨string | 0丨'' | 未选中图标(来自 HusIcon)或图标链接\niconSize | int | - | 选中/未选中图标大小\ntextFont | font | - | 文本字体\ncolorText | color | - | 文本颜色\ncolorHandle | color | - | 把手颜色\ncolorBg | color | - | 背景颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景半径\ncontentDescription | string | '' | 内容描述(提高可用性)",
     "docPath": "gallery/qml/Examples/DataEntry/ExpSwitch.qml",
     "examples": [
@@ -995,6 +1031,7 @@
     ]
   },
   {
+    "name": "HusTextArea",
     "doc": "# HusTextArea 文本域 \n\n通过鼠标或键盘输入内容，是最基础的表单域的包装。\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **bgDelegate: Component** 背景代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nactive | bool | - | 是否处于激活状态\nresizable | bool | false | 是否可手动改变高度\nminResizeHeight | int | 30 | 最小手动可改变高度\nautoSize | bool | false | 是否自动调整高度\nminRows | int | -1 | 最小行数\nmaxRows | int | -1 | 最大行数\nlineCount | int(readonly) | 0 | 文本行数\nlength | int | 0 | 文本长度\nmaxLength | int | -1 | 最大文本长度\nreadOnly | bool | false | 是否只读\ntextFormat | enum | - | 文本格式(来自TextEdit.*)\ntext | string | '' | 文本\nplaceholderText | string | '' | 占位文本\ncolorText | color | - | 文本颜色\ncolorPlaceholderText | color | - | 占位文本颜色\ncolorSelectedText | color | - | 选中文本颜色\ncolorSelection | color | - | 选区颜色\ncolorBorder | color | - | 边框颜色\ncolorBg | color | - | 背景颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\ncontentDescription | string | '' | 内容描述(提高可用性)\ntextArea | TextArea | - | 访问内部文本区域\nverScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部垂直滚动条\nhorScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部水平滚动条\n\n **注意** 其他原生 `TextArea` 属性请通过 `textArea` 访问/更改\n\n<br/>\n\n### 支持的函数：\n\n- `scrollToBeginning()` 将光标滚动到起始位置\n\n- `scrollToEnd()` 将光标滚动到结束位置\n",
     "docPath": "gallery/qml/Examples/DataEntry/ExpTextArea.qml",
     "examples": [
@@ -1019,6 +1056,7 @@
     ]
   },
   {
+    "name": "HusAcrylic",
     "doc": "# HusAcrylic 亚克力 \n\n亚克力/毛玻璃效果。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nsourceItem | Item | - | 源项目\nsourceRect | rect | - | 源矩形大小\nopacityNoise | real | 0.02 | 噪声图像透明度\nradiusBlur | real | 32 | 模糊半径\ncolorTint | color | '#fff' | 色调颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\nopacityTint | real | 0.65 | 色调透明度\nluminosity | real | 0.01 | 亮度",
     "docPath": "gallery/qml/Examples/Effect/ExpAcrylic.qml",
     "examples": [
@@ -1033,6 +1071,7 @@
     ]
   },
   {
+    "name": "HusShadow",
     "doc": "# HusShadow 阴影 \n\n阴影效果。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { MultiEffect }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n",
     "docPath": "gallery/qml/Examples/Effect/ExpShadow.qml",
     "examples": [
@@ -1047,6 +1086,7 @@
     ]
   },
   {
+    "name": "HusSwitchEffect",
     "doc": "# HusSwitchEffect 切换效果 \n\n两个组件之间的切换/过渡效果。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nfromItem | Item | - | 从项目\ntoItem | Item | - | 到项目\nstartCallback | function | ()=>void | 开始回调(started信号之前调用)\nendCallback | function | function() | 结束回调(finished信号之前调用)\ntype | enum | - | 特效类型(来自 HusSwitchEffect)\nduration | int | 800 | 特效持续时间(毫秒)\neasing | QEasingCurve | - | 缓动曲线\nmaskSource | string | '' | 遮罩源\nmaskScaleEnabled | bool | false | 是否启用遮罩缩放\nmaskScale | real | 1.0 | 遮罩缩放\nmaskRotationEnabled | bool | false | 是否启用遮罩旋转\nmaskRotation | real | 0 | 遮罩旋转角度\nmaskColorizationEnabled | bool | false | 是否启用遮罩源着色\nmaskColorizationColor | color | 'red' | 着色颜色\nmaskColorization | real | 0 | 着色强度(0.0~1.0)\n\n<br/>\n\n### 支持的函数：\n\n- `startSwitch(from = null, to = null)` 特效开始从 `from` 项切换到 `to`。\n\n\n<br/>\n\n### 支持的信号：\n\n- `started()` 动画开始时发出\n\n- `finished()` 动画结束时发出\n",
     "docPath": "gallery/qml/Examples/Effect/ExpSwitchEffect.qml",
     "examples": [
@@ -1061,6 +1101,7 @@
     ]
   },
   {
+    "name": "HusDrawer",
     "doc": "# HusDrawer 抽屉 \n\n屏幕边缘滑出的浮层面板。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Drawer }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **closeDelegate: Component** 关闭按钮代理\n\n- **titleDelegate: Component** 标题代理\n\n- **contentDelegate: Component** 内容代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nmaskClosable | bool | true | 点击蒙层是否允许关闭\nclosePosition | enum | HusDrawer.Position_Start | 关闭按钮的位置(来自 HusDrawer)\ndrawerSize | int | 378 | 抽屉宽度\nedge | enum | Qt.RightEdge | 抽屉打开的位置(来自 Qt.*Edge)\ntitle | string | '' | 标题文本\ntitleFont | font | - | 标题字体\ncolorTitle | color | - | 标题颜色\ncolorBg | color | - | 抽屉背景颜色\ncolorOverlay | color | - | 覆盖层颜色",
     "docPath": "gallery/qml/Examples/Feedback/ExpDrawer.qml",
     "examples": [
@@ -1080,6 +1121,7 @@
     ]
   },
   {
+    "name": "HusMessage",
     "doc": "# HusMessage 消息提示 \n\n全局/页面内展示操作反馈信息。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **messageDelegate: Component** 消息文本代理，代理可访问属性：\n\n  - `parent.index: int` 消息索引\n\n  - `parent.key: string` 消息键\n\n  - `parent.message: string` 消息文本\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ndefaultIconSize | int | 18 | 默认图标大小\nshowCloseButton | bool | false | 是否显示关闭按钮\nspacing | int | 10 | 消息之间的间隔\ntopMargin | int | 12 | 消息距离顶端的距离\nbgTopPadding | int | 12 | 背景上部填充\nbgBottomPadding | int | 12 | 背景下部填充\nbgLeftPadding | int | 12 | 背景左部填充\nbgRightPadding | int | 12 | 背景右部填充\ncolorMessage | color | - | 消息颜色\ncolorBg | color | - | 背景颜色\ncolorBgShadow | color | - | 背景阴影颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景半径\nmessageFont | font | - | 消息字体\nmessageSpacing | int | 8 | 消息和图标之间间隔\n\n<br/>\n\n### {message}支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nkey | string | 可选 | 消息键\nloading | sting | 可选 | 是否加载中\nmessage | string | 可选 | 消息文本\ntype | int | 可选 | 消息类型(来自 HusMessage)\nduration | int | 可选 | 消息持续时间(默认3000ms)\niconSize | int | 可选 | 消息图标大小\niconSource | int | 可选 | 消息图标\ncolorIcon | color | 可选 | 消息图标颜色\n\n<br/>\n\n### 支持的函数：\n\n- `info(message: string, duration = 3000)` 弹出一条 `info` 消息。\n\n- `success(message: string, duration = 3000)` 弹出一条 `success` 消息。\n\n- `error(message: string, duration = 3000)` 弹出一条 `error` 消息。\n\n- `warning(message: string, duration = 3000)` 弹出一条 `warning` 消息。\n\n- `loading(message: string, duration = 3000)` 弹出一条 `loading` 消息。\n\n- `open(object: var)` 弹出一条消息体为 `{object}` 的消息。\n\n- `close(key: string)` 关闭一条消息键为 `key` 的消息。\n\n- `clear()` 清空所有消息。\n\n- `getMessage(key: string): object` 获取消息键为 `key` 的消息对象 `object`。\n\n- `setProperty(key: string, property: string, value: var)` 设置消息键为 `key` 的属性 `property` 的值为 `value`。\n\n\n<br/>\n\n### 支持的信号：\n\n- `closed(key: string)` 消息关闭时发出\n\n  - `key` 消息键\n",
     "docPath": "gallery/qml/Examples/Feedback/ExpMessage.qml",
     "examples": [
@@ -1114,6 +1156,7 @@
     ]
   },
   {
+    "name": "HusModal",
     "doc": "# HusModal 对话框 \n\n展示一个对话框，提供标题、内容区、操作区。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusPopup](internal://HusPopup) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **iconDelegate: Component** 内容代理\n\n- **titleDelegate: Component** 标题代理\n\n- **descriptionDelegate: Component** 描述代理\n\n- **closeButtonDelegate: Component** 右上角关闭按钮代理\n\n- **confirmButtonDelegate: Component** 确认按钮代理\n\n- **cancelButtonDelegate: Component** 取消按钮代理\n\n- **footerDelegate: Component** 底部代理(包含确认/取消按钮)\n\n- **contentDelegate: Component** 内容代理\n\n- **bgDelegate: Component** 背景代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nposition | enum | HusModal.Position_Center | 弹框出现的位置(来自 HusModal)\npositionMargin | int | 120 | 弹框出现位置距离窗口边缘的距离\nclosable | bool | true | 是否显示右上角的关闭按钮\nmaskClosable | bool | true | 点击蒙层是否允许关闭\niconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接\niconSize | int | 24 | 图标大小\ntitle | string | '' | 标题文本\ndescription | string | '' | 描述文本\nconfirmText | string | '' | 确认文本\ncancelText | string | '' | 取消文本\ncolorIcon | color | - | 图标颜色\ncolorTitle | color | - | 标题文本颜色\ncolorDescription | color | - | 描述文本颜色\ntitleFont | font | - | 标题文本字体\ndescriptionFont | font | - | 描述文本字体\n\n<br/>\n\n### 支持的函数：\n\n- `openInfo()` 打开 `info` 弹框\n\n- `openSuccess()` 打开 `success` 弹框\n\n- `openError()` 打开 `error` 弹框\n\n- `openWarning()` 打开 `warning` 弹框\n\n\n<br/>\n\n### 支持的信号：\n\n- `confirm()` 点击确认按钮后发出\n\n- `cancel()` 点击取消按钮后发出\n",
     "docPath": "gallery/qml/Examples/Feedback/ExpModal.qml",
     "examples": [
@@ -1143,6 +1186,7 @@
     ]
   },
   {
+    "name": "HusNotification",
     "doc": "# HusNotification 通知提醒框 \n\n全局/页面内展示通知提醒信息。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **messageDelegate: Component** 通知消息代理：\n\n  - `parent.index: int` 通知索引\n\n  - `parent.key: string` 通知键\n\n  - `parent.message: string` 通知消息文本\n\n- **descriptionDelegate: Component** 通知描述代理：\n\n  - `parent.index: int` 通知索引\n\n  - `parent.key: string` 通知键\n\n  - `parent.description: string` 通知描述文本\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nposition | enum | HusNotification.Position_Top | 通知显示的位置(来自HusNotification)\npauseOnHover | bool | true | 是否悬浮暂停超时\nshowProgress | bool | false | 是否显示进度条\nstackMode | bool | true | 堆叠模式(超过stackThreshold自动堆叠)\nstackThreshold | int | 5 | 堆叠阈值\ndefaultIconSize | int | 20 | 默认图标大小\nmaxNotificationWidth | int | 300 | 通知框最大宽度\nspacing | int | 10 | 通知之间的间隔\nshowCloseButton | bool | false | 是否显示关闭按钮\ntopMargin | int | 12 | 通知距离顶端的距离\nbgTopPadding | int | 12 | 背景上部填充\nbgBottomPadding | int | 12 | 背景下部填充\nbgLeftPadding | int | 12 | 背景左部填充\nbgRightPadding | int | 12 | 背景右部填充\ncolorMessage | color | - | 通知消息文本颜色\ncolorDescription | color | - | 通知描述文本颜色\ncolorBg | color | - | 背景颜色\ncolorBgShadow | color | - | 背景阴影颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景半径\nmessageFont | font | - | 通知消息字体\nmessageSpacing | int | 8 | 通知文本和图标之间的间隔\ndescriptionFont | font | - | 通知描述字体\ndescriptionSpacing | int | 10 | 消息和描述之间的间隔\n\n<br/>\n\n### {notification}支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nkey | string | 可选 | 通知键\nloading | sting | 可选 | 是否加载中\nmessage | string | 可选 | 通知文本\ntype | int | 可选 | 通知类型(来自 HusNotification)\nduration | int | 可选 | 通知持续时间(默认4500ms)\niconSize | int | 可选 | 通知图标大小\niconSource | int | 可选 | 通知图标\ncolorIcon | color | 可选 | 通知图标颜色\n\n<br/>\n\n### 支持的函数：\n\n- `info(message: string, description: string, duration = 4500)` 弹出一条 `info` 通知。\n\n- `success(message: string, description: string, duration = 4500)` 弹出一条 `success` 通知。\n\n- `error(message: string, description: string, duration = 4500)` 弹出一条 `error` 通知。\n\n- `warning(message: string, description: string, duration = 4500)` 弹出一条 `warning` 通知。\n\n- `loading(message: string, description: string, duration = 4500)` 弹出一条 `loading` 通知。\n\n- `open(object: var)` 弹出一条通知体为 `{object}` 的通知。\n\n- `close(key: string)` 关闭一条通知键为 `key` 的通知。\n\n- `clear()` 清空所有通知。\n\n- `getNotification(key: string): object` 获取通知键为 `key` 的通知对象 `object`。\n\n- `setProperty(key: string, property: string, value: var)` 设置通知键为 `key` 的属性 `property` 的值为 `value`。\n\n\n<br/>\n\n### 支持的信号：\n\n- `closed(key: string)` 通知关闭时发出\n\n  - `key` 通知键\n",
     "docPath": "gallery/qml/Examples/Feedback/ExpNotification.qml",
     "examples": [
@@ -1177,6 +1221,7 @@
     ]
   },
   {
+    "name": "HusPopconfirm",
     "doc": "# HusPopconfirm 气泡确认框 \n\n点击元素，弹出气泡式的确认框。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusPopover](internal://HusPopover) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **confirmButtonDelegate: Component** 确认按钮代理\n\n- **cancelButtonDelegate: Component** 取消按钮代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nconfirmText | string | '' | 确认文本\ncancelText | string | '' | 取消文本\n\n<br/>\n\n **注意** 需要显示给出弹出宽度，高度将根据内容自动计算\n\n<br/>\n\n### 支持的信号：\n\n- `confirm()` 点击确认按钮后发出\n\n- `cancel()` 点击取消按钮后发出\n",
     "docPath": "gallery/qml/Examples/Feedback/ExpPopconfirm.qml",
     "examples": [
@@ -1201,6 +1246,7 @@
     ]
   },
   {
+    "name": "HusPopover",
     "doc": "# HusPopover 气泡显示框 \n\n点击元素，弹出气泡式的显示框。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusPopup](internal://HusPopup) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **arrowDelegate: Component** 箭头代理\n\n- **iconDelegate: Component** 图标代理\n\n- **titleDelegate: Component** 标题代理\n\n- **descriptionDelegate: Component** 描述代理\n\n- **contentDelegate: Component** 内容代理\n\n- **bgDelegate: Component** 背景代理\n\n- **footerDelegate: Component** 页脚代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\niconSource | int丨string | HusIcon.ExclamationCircleFilled丨'' | 图标源(来自 HusIcon)或图标链接\niconSize | int | 16 | 图标大小\ntitle | string | '' | 标题文本\ndescription | string | '' | 描述文本\nshowArrow | bool | true | 是否显示箭头\narrowWidth | int | 16 | 箭头宽度\narrowHeight | int | 8 | 箭头高度\ncolorIcon | color | - | 图标颜色\ncolorTitle | color | - | 标题文本颜色\ncolorDescription | color | - | 描述文本颜色\ntitleFont | font | - | 标题文本字体\ndescriptionFont | font | - | 描述文本字体\n\n<br/>\n\n **注意** 需要显示给出弹出宽度，高度将根据内容自动计算",
     "docPath": "gallery/qml/Examples/Feedback/ExpPopover.qml",
     "examples": [
@@ -1215,6 +1261,7 @@
     ]
   },
   {
+    "name": "HusProgress",
     "doc": "# HusProgress 进度条 \n\n展示操作的当前进度。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **infoDelegate: Component** 进度信息的代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ntype | enum | HusProgress.Type_Line | 进度条类型(来自 HusProgress)\nstatus | enum | HusProgress.Status_Normal | 进度条状态(来自 HusProgress)\npercent | real | 0 | 进度百分比(0.0~100.0)\nbarThickness | real | 8 | 进度条宽度\nstrokeLineCap | string | 'round' | 进度条线帽样式, 支持 'butt'丨'round'\nsteps | int | 0 | 进度条步骤总数(大于0显示为步骤形式)\ncurrentStep | int | 0 | 当前步骤数\ngap | real | 4 | 步骤间隔(步骤形式时有效)\ngapDegree | real | 60 | 间隔角度(仪表盘进度条时有效)\nuseGradient | bool | false | 是否使用渐变色\ngradientStops | object | - | 渐变色样式对象\nshowInfo | bool | true | 是否显示进度数值或状态图标\nprecision | int | 0 | 进度文本显示的小数点精度\nformatter | function | - | 信息文本格式化器\ncolorBar | color | - | 进度条颜色\ncolorTrack | color | - | 进度条轨道颜色\ncolorInfo | color | - | 进度条信息文本颜色",
     "docPath": "gallery/qml/Examples/Feedback/ExpProgress.qml",
     "examples": [
@@ -1259,6 +1306,7 @@
     ]
   },
   {
+    "name": "HusSpin",
     "doc": "# HusSpin 加载中\n\n用于页面和区块的加载中状态。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **indicatorDelegate: Component** 指示器代理\n\n- **indicatorItemDelegate: Component** 指示器子项代理，代理可访问属性：\n\n  - `index: int` 指示器索引\n\n  - `itemSize: int` 子项大小(等同于 `indicatorSize` )\n\n- **tipDelegate: Component** 提示代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nspinSize | real | 24 | 内容项大小\nindicatorSize | real | 7 | 指示器大小\nindicatorItemCount | int | 4 | 指示项数量\nspinning | bool | true | 是否为加载中状态\ntip | string | '' | 提示文本\npercent | string丨int | 'auto' | 进度百分比\ncolorTip | color | - | 提示文本颜色\ncolorIndicator | color | - | 指示器颜色\ncolorProgressBar | color | - | 进度条颜色\nsizeHint | string | 'normal' | 尺寸提示\ncontentDescription | string | '' | 内容描述(提高可用性)",
     "docPath": "gallery/qml/Examples/Feedback/ExpSpin.qml",
     "examples": [
@@ -1303,6 +1351,7 @@
     ]
   },
   {
+    "name": "HusWatermark",
     "doc": "# HusWatermark 水印 \n\n可给页面的任意项加上水印。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\ntext | string | '' | 水印文本(和图片二选一)\nimage | url | '' | 水印图片地址\nmarkSize | size | - | 水印大小\ngap | point | (100,100) | 水印间隔\noffset | point | (50,50) | 水印偏移\nrotate | real | - | 水印旋转角度(0~360)\nfont | font | - | 水印字体\ncolorText | color | - | 水印文本颜色",
     "docPath": "gallery/qml/Examples/Feedback/ExpWatermark.qml",
     "examples": [
@@ -1323,6 +1372,7 @@
     ]
   },
   {
+    "name": "HusApi",
     "doc": "# HusApi 内置API \n\n提供一系列实用接口。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { QObject }**\n\n\n<br/>\n\n### 支持的函数：\n\n- `clamp(value: real, min: real, max: real): real`\n\n    将一个值限制在指定的范围内。\n\n- `setWindowStaysOnTopHint(window: Window, hint: bool)`\n\n    将指定窗口 `window` 置顶。\n\n- `setWindowState(window: Window, state: int)`\n\n    设置 `window` 的窗口状态为 `state`。\n\n- `setPopupAllowAutoFlip(popup: Popup, allowVerticalFlip: bool = true, allowHorizontalFlip: bool = true)`\n\n    设置 `Popup` 弹窗是否允许超过窗口外时自动翻转(水平翻转/垂直翻转)。\n\n- `getClipbordText(): string`\n\n    获取当前剪切板内容。\n\n- `setClipbordText(text: string): bool`\n\n    设置当前剪切板内容为 `text`。\n\n- `readFileToString(fileName: string)`\n\n    读取 `fileName` 文件内容为字符串。\n\n- `getWeekNumber(dateTime: date): int`\n\n    获取 `dateTime` 指定的日期的周数。\n\n- `dateFromString(dateTime：date, format: string): date`\n\n    将字符串日期 `dateTime` 以 `format` 格式化并返回日期。\n\n- `openLocalUrl(local: string)`\n\n    打开本地Url `local`。\n",
     "docPath": "gallery/qml/Examples/Functions/ExpApi.qml",
     "examples": [],
@@ -1332,6 +1382,7 @@
     ]
   },
   {
+    "name": "HusButton",
     "doc": "# HusButton 按钮\n\n按钮用于开始一个即时操作。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Button }**\n\n* **继承此 { [HusIconButton](internal://HusIconButton) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\neffectEnabled | bool | true | 是否开启点击效果\nactive | bool | down丨checked | 是否处于激活状态\nhoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\ntype | enum | HusButton.Type_Default | 按钮类型(来自 HusButton)\nshape | enum | HusButton.Shape_Default | 按钮形状(来自 HusButton)\ncolorText | color | - | 文本颜色\ncolorBg | color | - | 背景颜色\ncolorBorder | color | - | 边框颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\nsizeHint | string | 'normal' | 尺寸提示\ncontentDescription | string | '' | 内容描述(提高可用性)",
     "docPath": "gallery/qml/Examples/General/ExpButton.qml",
     "examples": [
@@ -1356,6 +1407,7 @@
     ]
   },
   {
+    "name": "HusButtonBlock",
     "doc": "# HusButtonBlock 按钮块(HusIconButton变种) \n\n用于将多个按钮组织成块，类似 [HusRadioBlock](internal://HusRadioBlock)。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **toolTipDelegate: Component** 文字提示代理，代理可访问属性：\n\n  - `pressed: int` 是否按下\n\n  - `hovered: int` 是否悬浮\n\n  - `toolTip: var` 文字提示数据\n\n- **buttonDelegate: Component** 按钮项代理，代理可访问属性：\n\n  - `index: int` 按钮项索引\n\n  - `modelData: var` 按钮项数据\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | true | 是否开启动画\neffectEnabled | bool | true | 是否开启点击效果\nhoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)\nmodel | list | [] | 按钮块模型\ncount | int | - | 按钮数量\nsize | enum | HusButtonBlock.Size_Auto | 按钮项大小(来自 HusButtonBlock)\nbuttonWidth | int | 120 | 按钮项宽度(size == HusButtonBlock.Size_Fixed 生效)\nbuttonHeight | int | 30 | 按钮项高度(size == HusButtonBlock.Size_Fixed 生效)\nbuttonLeftPadding | int | 10 | 按钮项左填充\nbuttonRightPadding | int | 10 | 按钮项右填充\nbuttonTopPadding | int | 8 | 按钮项上填充\nbuttonBottomPadding | int | 8 | 按钮项下填充\nradiusBg | [HusRadius](internal://HusRadius) | - | 按钮项背景半径\ncontentDescription | string | '' | 内容描述(提高可用性)\n\n<br/>\n\n### 模型支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nlabel | string | 必选 | 本按钮的标签\nvalue | sting | 可选 | 本按钮的值\nenabled | bool | 可选 | 本按钮是否启用\niconSource | int丨string | 可选 | 本按钮图标(参见 HusIcon)或图标链接\ntype | enum | 可选 | 本按钮类型(参见 HusButton.type)\nautoRepeat | bool | 可选 | 本按钮是否自动重复(参见 Button.autoRepeat)\ntoolTip | var | 可选 | 存在时则创建文字提示\ntoolTip.text | string | 可选 | 存在时则创建文字提示\ntoolTip.delay | int | 可选 | 文字提示延时(ms)\ntoolTip.timeout | int | 可选 | 文字提示超时(ms)\n\n<br/>\n\n### 支持的信号：\n\n- `pressed(index: int, buttonData: var)` 按下按钮时发出\n\n  - `index` 按钮索引\n\n  - `buttonData` 按钮项数据\n\n- `released(index: int, buttonData: var)` 释放按钮时发出\n\n  - `index` 按钮索引\n\n  - `buttonData` 按钮项数据\n\n- `clicked(index: int, buttonData: var)` 点击按钮时发出\n\n  - `index` 按钮索引\n\n  - `buttonData` 按钮项数据\n\n- `doubleClicked(index: int, buttonData: var)` 双击按钮时发出\n\n  - `index` 按钮索引\n\n  - `buttonData` 按钮项数据\n",
     "docPath": "gallery/qml/Examples/General/ExpButtonBlock.qml",
     "examples": [
@@ -1375,6 +1427,7 @@
     ]
   },
   {
+    "name": "HusCaptionBar",
     "doc": "# HusCaptionBar 标题栏\n\n为无边框窗口提供一个通用的标题栏。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Rectangle }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **winNavButtonsDelegate: Component** 窗口导航按钮代理\n\n- **winIconDelegate: Component** 窗口图标代理\n\n- **winTitleDelegate: Component** 窗口标题代理\n\n- **winPresetButtonsDelegate: Component** 窗口预设按钮代理(默认为主题切换&置顶按钮)\n\n- **winExtraButtonsDelegate: Component** 窗口额外按钮代理(默认为空)\n\n- **winButtonsDelegate: Component** 窗口按钮代理(默认最小化&最大化&关闭按钮)\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\ntargetWindow | var | null | 目标窗口\nwindowAgent | HusWindowAgent | null | 无边框窗口代理(通常不使用)\nlayoutDirection | enum | Qt.LeftToRight | 布局方向\nwinIcon | url | '' | 窗口图标\nwinIconWidth | real | - | 窗口图标宽度\nwinIconHeight | real | - | 窗口图标高度\nshowWinIcon | bool | true | 窗口图标是否可见\nwinTitle | string | '' | 窗口标题\nwinTitleFont | font | - | 窗口标题字体\nwinTitleColor | color | - | 窗口标题颜色\nshowWinTitle | bool | true | 窗口标题是否可见\nshowReturnButton | bool | false | 返回按钮是否可见\nshowThemeButton | bool | false | 主题按钮是否可见\ntopButtonChecked | bool | false | 置顶按钮是否默认选中\nshowTopButton | bool | false | 置顶按钮是否可见\nshowMinimizeButton | bool | true | 最小化按钮是否可见\nshowMaximizeButton | bool | true | 最大化按钮是否可见\nshowCloseButton | bool | true | 关闭按钮是否可见\nreturnCallback | function | function() | 按下返回按钮时回调\nthemeCallback | function | function() | 按下主题按钮时回调\ntopCallback | function | function(checked) | 按下置顶按钮时回调\nminimizeCallback | function | function() | 按下最小化按钮时回调\nmaximizeCallback | function | function() | 按下最大化按钮时回调\ncloseCallback | function | function() | 按下关闭按钮时回调\ncontentDescription | string | - | 内容描述(提高可用性)\n\n<br/>\n\n### 支持的函数：\n\n- `addInteractionItem(item: var)` 添加交互项 `item` (当交互项覆盖标题栏时需要使用)\n\n- `removeInteractionItem(item: var)` 删除交互项 `item`\n",
     "docPath": "gallery/qml/Examples/General/ExpCaptionBar.qml",
     "examples": [],
@@ -1383,6 +1436,7 @@
     ]
   },
   {
+    "name": "HusCaptionButton",
     "doc": "# HusCaptionButton 标题按钮\n\n一般用于窗口标题栏的按钮。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusIconButton](internal://HusIconButton) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nisError | bool | false | 是否为警示按钮\nnoDisabledState | bool | false | 无禁用状态(即被禁用时不会更改颜色)",
     "docPath": "gallery/qml/Examples/General/ExpCaptionButton.qml",
     "examples": [
@@ -1397,6 +1451,7 @@
     ]
   },
   {
+    "name": "HusCopyableText",
     "doc": "# HusCopyableText 可复制文本\n\n在需要可复制的文本时使用(替代Text)。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { TextEdit }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n",
     "docPath": "gallery/qml/Examples/General/ExpCopyableText.qml",
     "examples": [
@@ -1411,6 +1466,7 @@
     ]
   },
   {
+    "name": "HusIconButton",
     "doc": "# HusIconButton 图标按钮\n\n带图标的按钮。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusButton](internal://HusButton) }**\n\n* **继承此 { [HusCaptionButton](internal://HusCaptionButton) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **iconDelegate: Component** 图标代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\niconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接\niconSize | int | - | 图标大小\niconSpacing | int | 5 | 图标间隔\niconPosition | enum | HusIconButton.Position_Start | 图标位置(来自 HusIconButton)\nloading | bool | false | 是否在加载中\norientation | enum | Qt.Horizontal | 方向(Qt.Horizontal 或 Qt.Vertical)\ntextFont | font | - | 文本字体\niconFont | font | 'HuskarUI-Icons' | 图标字体\ncolorIcon | color | - | 图标颜色",
     "docPath": "gallery/qml/Examples/General/ExpIconButton.qml",
     "examples": [
@@ -1425,6 +1481,7 @@
     ]
   },
   {
+    "name": "HusIconText",
     "doc": "# HusIconText 图标文本\n\n语义化的图标文本或图标。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusText](internal://HusText) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nempty | bool(readonly) | - | 指示图标是否为空(iconSource == 0或'')\niconSource | int丨string | 0丨'' | 图标源(来自 HusIcon)或图标链接\niconSize | int | - | 图标大小\ncolorIcon | color | - | 图标颜色\ncontentDescription | string | '' | 内容描述(提高可用性)\n\n**注意** 双色风格图标使用需要多个<Path{1~N}>图标覆盖使用\n",
     "docPath": "gallery/qml/Examples/General/ExpIconText.qml",
     "examples": [],
@@ -1433,6 +1490,7 @@
     ]
   },
   {
+    "name": "HusLabel",
     "doc": "# HusLabel 文本标签\n\n扩展了HusText(文本)的功能, 并自带背景和圆角。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Label }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nborderWidth | real | 1 | 边框宽度\ncolorText | color | - | 文本颜色\ncolorBg | color | - | 背景颜色\ncolorBorder | color | - | 边框颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角",
     "docPath": "gallery/qml/Examples/General/ExpLabel.qml",
     "examples": [
@@ -1447,6 +1505,7 @@
     ]
   },
   {
+    "name": "HusMoveMouseArea",
     "doc": "# HusMoveMouseArea 移动鼠标区域\n\n提供对任意 Item 进行鼠标移动操作的区域。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { MouseArea }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\ntarget | var | undefined | 要移动的目标\nminimumX | real | -Number.MAX_VALUE | 可移动的最小x坐标\nmaximumX | real | Number.MAX_VALUE | 可移动的最大x坐标\nminimumY | real | -Number.MAX_VALUE | 可移动的最小y坐标\nmaximumY | real | Number.MAX_VALUE | 可移动的最大y坐标",
     "docPath": "gallery/qml/Examples/General/ExpMoveMouseArea.qml",
     "examples": [
@@ -1461,6 +1520,7 @@
     ]
   },
   {
+    "name": "HusPopup",
     "doc": "# HusPopup 弹窗\n\n自带跟随主题切换的背景和阴影, 用来替代内置 Popup。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Popup }**\n\n* **继承此 { [HusImagePreview](internal://HusImagePreview), [HusModal](internal://HusModal), [HusPopover](internal://HusPopover), [HusContextMenu](internal://HusContextMenu) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nmovable | bool | false | 是否可移动\nresizable | bool | false | 是否可改变大小\nminimumX | int | Number.NaN | 可移动的最小X坐标(movable为true生效)\nmaximumX | int | Number.NaN | 可移动的最大X坐标(movable为true生效)\nminimumY | int | Number.NaN | 可移动的最小Y坐标(movable为true生效)\nmaximumY | int | Number.NaN | 可移动的最大Y坐标(movable为true生效)\nminimumWidth | int | 0 | 可改变的最小宽度(resizable为true生效)\nmaximumWidth | int | Number.NaN | 可改变的最小宽度(resizable为true生效)\nminimumHeight | int | 0 | 可改变的最小高度(resizable为true生效)\nmaximumHeight | int | Number.NaN | 可改变的最小高度(resizable为true生效)\ncolorShadow | color | - | 阴影颜色\ncolorBg | color | - | 背景颜色\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角半径",
     "docPath": "gallery/qml/Examples/General/ExpPopup.qml",
     "examples": [
@@ -1475,6 +1535,7 @@
     ]
   },
   {
+    "name": "HusRadius",
     "doc": "# HusRadius 圆角半径\n\n提供四方向的圆角半径类型。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { QObject }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nall | real | 0 | 统一设置四个圆角半径\ntopLeft | real | -1 | 左上圆角半径\ntopRight | real | -1 | 右上圆角半径\nbottomLeft | real | -1 | 左下圆角半径\nbottomRight | real | -1 | 右下圆角半径",
     "docPath": "gallery/qml/Examples/General/ExpRadius.qml",
     "examples": [],
@@ -1484,6 +1545,7 @@
     ]
   },
   {
+    "name": "HusRectangle",
     "doc": "# HusRectangle 圆角矩形\n\n在需要任意方向圆角的矩形时使用。\n\n**注意** Qt6.7 以后则可以直接使用原生 Rectangle。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nradius | real | 0 | 统一设置四个圆角半径\ntopLeftRadius | real | -1 | 左上圆角半径\ntopRightRadius | real | -1 | 右上圆角半径\nbottomLeftRadius | real | -1 | 左下圆角半径\nbottomRightRadius | real | -1 | 右下圆角半径\ncolor | color | '#fff' | 填充颜色\ngradient | Gradient | - | 填充渐变\nborder.color | color | 'transparent' | 边框线颜色\nborder.width | int | 1 | 边框线宽度\nborder.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)\n\n**注意** `border.style` 为 HusRectangle 特有。",
     "docPath": "gallery/qml/Examples/General/ExpRectangle.qml",
     "examples": [
@@ -1499,6 +1561,7 @@
     ]
   },
   {
+    "name": "HusResizeMouseArea",
     "doc": "# HusResizeMouseArea 改变大小鼠标区域\n\n提供对任意 Item 进行鼠标改变大小操作的区域。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\ntarget | var | undefined | 要移动的目标\npreventStealing | bool | false | 鼠标事件不可被盗取\nareaMarginSize | int | 8 | 改变大小区域的边缘大小\nresizable | bool | true | 是否可改变大小\nminimumWidth | real | 0 | 可改变的最小宽度\nmaximumWidth | real | Number.MAX_VALUE | 可改变的最大宽度\nminimumHeight | real | 0 | 可改变的最小高度\nmaximumHeight | real | Number.MAX_VALUE |可改变的最小高度\nmovable | bool | false | 可移动的最小x坐标\nminimumX | real | -Number.MAX_VALUE | 可移动的最小x坐标\nmaximumX | real | Number.MAX_VALUE | 可移动的最大x坐标\nminimumY | real | -Number.MAX_VALUE | 可移动的最小y坐标\nmaximumY | real | Number.MAX_VALUE | 可移动的最大y坐标",
     "docPath": "gallery/qml/Examples/General/ExpResizeMouseArea.qml",
     "examples": [
@@ -1513,6 +1576,7 @@
     ]
   },
   {
+    "name": "HusText",
     "doc": "# HusText 文本\n\n提供统一字体和颜色的文本(替代Text)。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Text }**\n\n* **继承自 { [HusIconText](internal://HusIconText) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n",
     "docPath": "gallery/qml/Examples/General/ExpText.qml",
     "examples": [
@@ -1527,6 +1591,7 @@
     ]
   },
   {
+    "name": "HusWindow",
     "doc": "# HusWindow 无边框窗口\n\n跨平台无边框窗口的最佳实现，基于 [QWindowKit](https://github.com/stdware/qwindowkit)。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Window }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\ncontentHeight | int | - | 窗口内容高度(即减去标题栏高度)\ncaptionBar | [HusCaptionBar](internal://HusCaptionBar) | - | 窗口标题栏\nwindowAgent | HusWindowAgent | - | 窗口代理\nfollowThemeSwitch | bool | true | 是否跟随系统明/暗模式自动切换\ninitialized | bool | false | 指示窗口是否已经初始化完毕\nspecialEffect | enum | HusWindow.None | 特殊效果(来自 HusWindow)\n\n<br/>\n\n### 支持的函数：\n\n- `setMacSystemButtonsVisible(visible: bool): bool` 设置是否显示系统按钮(MacOSX有效) \n\n- `setWindowMode(isDark: bool): bool` 设置窗口明/暗模式 \n\n- `setSpecialEffect(specialEffect: int): bool` 设置窗口的特殊效果 \n",
     "docPath": "gallery/qml/Examples/General/ExpWindow.qml",
     "examples": [
@@ -1541,6 +1606,7 @@
     ]
   },
   {
+    "name": "HusDivider",
     "doc": "# HusDivider 分割线\n\n区隔内容的分割线。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Item }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **titleDelegate: Component** 标题代理\n\n- **splitDelegate: Component** 分割线代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ntitle | string | '' | 标题\ntitleFont | font | - | 标题字体\ntitleAlign | enum | HusDivider.Align_Left | 标题对齐(来自 HusDivider)\ntitlePadding | int | 20 | 标题填充\nlineStyle | enum | HusDivider.SolidLine | 分割线样式(来自 HusDivider)\nlineWidth | real | 1 | 分割线宽度\ndashPattern | list | [4, 2] | 分割线虚线模式\norientation | enum | Qt.Horizontal | 方向(Qt.Horizontal 或 Qt.Vertical)\ncolorText | color | - | 标题颜色\ncolorSplit | color | - | 分割线颜色\ncontentDescription | string | '' | 内容描述(提高可用性)",
     "docPath": "gallery/qml/Examples/Layout/ExpDivider.qml",
     "examples": [
@@ -1565,6 +1631,7 @@
     ]
   },
   {
+    "name": "HusSpace",
     "doc": "# HusSpace 间距\n\n布局并设置组件之间的间距/圆角。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Loader }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\ntype | enum | HusSpace.Type_Compact | 间距类型(来自 HusSpace)\nlayout | string | '' | 布局类型\nautoCombineRadius | bool | true | 是否自动组合圆角\nradiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角\n\n其他属性来自 **Row/RowLayout/Column/ColumnLayout/Grid/GridLayout** \n\n\n**注意** 覆盖问题请使用 `z: active ? 1 : 0` 或类似的方案解决\n\n\n**注意** 自动组合圆角无法正确处理 Repeater 创建的项，此时应关闭 `autoCombineRadius` 并手动设置圆角\n",
     "docPath": "gallery/qml/Examples/Layout/ExpSpace.qml",
     "examples": [
@@ -1594,6 +1661,7 @@
     ]
   },
   {
+    "name": "HusBreadcrumb",
     "doc": "# HusBreadcrumb 面包屑\n\n显示当前页面在系统层级结构中的位置，并能向上返回。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **itemDelegate: Component** 路由项代理，代理可访问属性：\n\n  - `index: int` 当前项索引\n\n  - `model: var` 当前项数据\n\n  - `isCurrent: bool` 是否为当前路由\n\n- **separatorDelegate: Component** 分隔符代理，代理可访问属性：\n\n  - `index: int` 当前项索引\n\n  - `model: var` 当前项数据\n\n  - `isCurrent: bool` 是否为当前路由\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ninitModel | list | [] | 初始模型\nseparator | string | '/' | 默认分隔符\ntitleFont | font | - | 路由项标题字体\ndefaultIconSize | int | - | 默认图标大小\ndefaultMenuWidth | int | 120 | 默认菜单宽度\nradiusItemBg | [HusRadius](internal://HusRadius) | - | 路由项的背景圆角半径\n\n<br/>\n\n### 模型支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\ntitle | string | 必选 | 标题\nkey | string | 可选 | 路由键(最好唯一)\niconSource | int | 可选 | 本路由项图标源(来自HusIcon)\niconUrl | url | 可选 | 本路由项链接\niconSize | int | 可选 | 本路由项图标大小\nloading | bool | 可选 | 本路由项是否加载中\nseparator | string | 可选 | 本路由项分隔符\nitemDelegate | var | 可选 | 本路由项图标代理(将覆盖默认itemDelegate)\nseparatorDelegate | var | 可选 | 本路由项分隔符代理(将覆盖默separatorDelegate)\nmenu | object | 可选 | 本路由项菜单\n\n<br/>\n\n### 路由项菜单支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nwidth | string | 可选 | 菜单宽度\nitems | list | 可选 | 菜单模型\n\n<br/>\n\n### 支持的函数：\n\n- `get(index: int): Object` 获取 `index` 处的模型数据 \n\n- `set(index: int, object: Object)` 设置 `index` 处的模型数据为 `object` \n\n- `setProperty(index: int, propertyName: string, value: any)` 设置 `index` 处的模型数据属性名 `propertyName` 值为 `value` \n\n- `move(from: int, to: int, count: int = 1)` 将 `count` 个模型数据从 `from` 位置移动到 `to` 位置 \n\n- `insert(index: int, object: Object)` 插入标签 `object` 到 `index` 处 \n\n- `append(object: Object)` 在末尾添加标签 `object` \n\n- `remove(index: int, count: int = 1)` 删除 `index` 处 `count` 个模型数据 \n\n- `clear()` 清空所有模型数据 \n\n- `string getPath()` 获取当前路由路径 \n\n\n<br/>\n\n### 支持的信号：\n\n- `click(index: int, data: var)` 点击路由项时发出\n\n  - `index` 路由项索引\n\n  - `data` 路由项数据\n\n\n### 支持的信号：\n\n- `clickMenu(deep: int, key: string, keyPath: var, data: var)` 点击任意路由-菜单项时发出\n\n  - `deep` 菜单项深度\n\n  - `key` 菜单项的键\n\n  - `keyPath` 菜单项的键路径数组\n\n  - `data` 菜单项数据\n",
     "docPath": "gallery/qml/Examples/Navigation/ExpBreadcrumb.qml",
     "examples": [
@@ -1628,6 +1696,7 @@
     ]
   },
   {
+    "name": "HusContextMenu",
     "doc": "# HusContextMenu 上下文菜单\n\n上下文菜单，通常作为右键单击后显示的菜单。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { [HusPopup](internal://HusPopup) }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | true | 是否开启动画\ninitModel | list | [] | 初始菜单模型\nshowToolTip | bool | false | 是否显示工具提示\ndefaultMenuIconSize | int | - | 默认菜单图标大小\ndefaultMenuIconSpacing | int | 8 | 默认菜单图标间隔\ndefaultMenuWidth | int | 140 | 默认菜单宽度\ndefaultMenuTopPadding | int | 5 | 默认菜单上边距\ndefaultMenuBottomPadding | int | 5 | 默认菜单下边距\ndefaultMenuSpacing | int | 4 | 默认菜单间隔\nsubMenuOffset | int | -4 | 子菜单偏移\nradiusMenuBg | [HusRadius](internal://HusRadius) | - | 菜单项背景圆角\nmenu | [HusMenu](internal://HusMenu) | - | 访问内部菜单\n\n<br/>\n\n### 支持的信号：\n\n- `clickMenu(deep: int, key: string, keyPath: var, data: var)` 点击任意菜单项时发出\n\n  - `deep` 菜单项深度\n\n  - `key` 菜单项的键\n\n  - `keyPath` 菜单项的键路径数组\n\n  - `data` 菜单项数据\n",
     "docPath": "gallery/qml/Examples/Navigation/ExpContextMenu.qml",
     "examples": [
@@ -1647,6 +1716,7 @@
     ]
   },
   {
+    "name": "HusMenu",
     "doc": "# HusMenu 菜单\n\n为页面和功能提供导航的菜单列表。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **menuIconDelegate: Component** 菜单图标代理，代理可访问属性：\n\n  - `model: var` 本菜单数据(访问错误则使用 `parent.model`)\n\n  - `menuButton: var` 菜单按钮(访问错误则使用 `parent.menuButton`)\n\n- **menuLabelDelegate: Component** 菜单标签代理，代理可访问属性：\n\n  - `model: var` 本菜单数据(访问错误则使用 `parent.model`)\n\n  - `menuButton: var` 菜单按钮(访问错误则使用 `parent.menuButton`)\n\n- **menuBgDelegate: Component** 菜单背景代理，代理可访问属性：\n\n  - `model: var` 本菜单数据(访问错误则使用 `parent.model`)\n\n  - `menuButton: var` 菜单按钮(访问错误则使用 `parent.menuButton`)\n\n- **menuContentDelegate: Component** 菜单内容代理，代理可访问属性：\n\n  - `model: var` 本菜单数据(访问错误则使用 `parent.model`)\n\n  - `menuButton: var` 菜单按钮(访问错误则使用 `parent.menuButton`)\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ncontentDescription | string | '' | 内容描述(提高可用性)\nshowEdge | bool | false | 是否显示边线\nshowToolTip | bool | false | 是否显示工具提示\ncompactMode | enum | HusMenu.Mode_Relaxed | 紧凑模式\ncompactWidth | int | - | 紧凑模式宽度\npopupMode | bool | false | 是否为弹出模式\npopupWidth | int | 200 | 弹窗宽度\npopupOffset | int | 4 | 弹窗之间的偏移\npopupMaxHeight | int | - | 弹窗最大高度\ndefaultMenuIconSize | int | - | 默认菜单图标大小\ndefaultMenuIconSpacing | int | 8 | 默认菜单图标间隔\ndefaultMenuWidth | int | 300 | 默认菜单宽度\ndefaultMenuTopPadding | int | 10 | 默认菜单上边距\ndefaultMenuBottomPadding | int | 10 | 默认菜单下边距\ndefaultMenuSpacing | int | 4 | 默认菜单间隔\ndefaultSelectedKey | list | [] | 初始选中的菜单项 key 数组\nselectedKey | string | '' | 当前选中的菜单 key\ninitModel | list | [] | 初始菜单模型\nradiusMenuBg | [HusRadius](internal://HusRadius) | - | 菜单项背景圆角\nradiusPopupBg | [HusRadius](internal://HusRadius) | - | 弹窗背景圆角\nscrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部菜单滚动条\n\n<br/>\n\n### 模型支持的属性：\n\n属性名 | 类型 | 可选/必选 | 描述\n------ | --- | :---: | ---\nkey | string | 可选 | 菜单键(最好唯一)\nlabel | sting | 必选 | 菜单标签\nshortLabel | sting | 可选 | 菜单短标签(compactMode == HusMenu.Mode_Standard 时使用, 没有则为label)\ntype | sting | 可选 | 菜单项类型\nenabled | bool | 可选 | 是否启用(false则禁用本菜单项)\niconSize | int | 可选 | 图标大小\niconSource | int | 可选 | 图标源\niconSpacing | int | 可选 | 图标间隔\nmenuChildren | list | 可选 | 子菜单(支持无限嵌套)\niconDelegate | var | 可选 | 本菜单项图标代理(将覆盖menuIconDelegate)\nlabelDelegate | var | 可选 | 本菜单项标签代理(将覆盖menuLabelDelegate)\ncontentDelegate | var | 可选 | 本菜单项内容代理(将覆盖menuContentDelegate)\nbgDelegate | var | 可选 | 本菜单项背景代理(将覆盖menuBgDelegate)\n\n `iconDelegate` | `labelDelegate` | `contentDelegate` | `bgDelegate` 可访问属性：\n\n- **model: var** 模型数据(访问错误则使用 `parent.model`)\n\n- **menuButton: HusButton** 自身菜单按钮(访问错误则使用 `parent.menuButton`)，可访问的属性：\n\n  - model: var 本菜单模型\n\n  - menuDeep: int 本菜单深度\n\n  - iconSource: int 图标源\n\n  - iconSize: int 图标大小\n\n  - iconSpacing: int 图标间隔\n\n  - expanded: int 是否展开\n\n  - isCurrent: int 是否为当前选择菜单\n\n  - isGroup: int 是否为组菜单\n\n\n<br/>\n\n### 支持的函数：\n\n- `gotoMenu(key: string)` 跳转到菜单键为 `key` 处的菜单项 \n\n- `get(index: int): Object` 获取 `index` 处的模型数据 \n\n- `set(index: int, object: Object)` 设置 `index` 处的模型数据为 `object` \n\n- `setProperty(index: int, propertyName: string, value: any)` 设置 `index` 处的模型数据属性名 `propertyName` 值为 `value` \n\n- `setData(key: string, data: var)` 将菜单键为 `key` 处的菜单项数据设置为 `data` \n\n- `setDataProperty(key: string, propertyName: string, value: var)` 设置菜单键为 `key` 处的菜单项数据属性名 `propertyName` 的值为 `value` \n\n- `move(from: int, to: int, count: int = 1)` 将 `count` 个模型数据从 `from` 位置移动到 `to` 位置 \n\n- `insert(index: int, object: Object)` 插入菜单 `object` 到 `index` 处 \n\n- `append(object: Object)` 在末尾添加菜单 `object` \n\n- `remove(index: int, count: int = 1)` 删除 `index` 处 `count` 个模型数据 \n\n- `clear()` 清空所有模型数据 \n\n\n<br/>\n\n### 支持的信号：\n\n- `clickMenu(deep: int, key: string, keyPath: var, data: var)` 点击任意菜单项时发出\n\n  - `deep` 菜单项深度\n\n  - `key` 菜单项的键\n\n  - `keyPath` 菜单项的键路径数组\n\n  - `data` 菜单项数据\n",
     "docPath": "gallery/qml/Examples/Navigation/ExpMenu.qml",
     "examples": [
@@ -1671,6 +1741,7 @@
     ]
   },
   {
+    "name": "HusPagination",
     "doc": "# HusPagination 分页\n\n分页器用于分隔长列表，每次只加载一个页面。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { Control }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **prevButtonDelegate: Component** 上一页按钮代理\n\n- **nextButtonDelegate: Component** 下一页按钮代理\n\n- **quickJumperDelegate: Component** 快速跳转代理\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\ndefaultButtonWidth | int | 32 | 按钮宽度\ndefaultButtonHeight | int | 32 | 按钮高度\ndefaultButtonSpacing | int | 8 | 按钮间隔\nshowQuickJumper | bool | false | 是否显示快速跳转\ncurrentPageIndex | int | 0 | 当前页索引\ntotal | int | 0 | 数据项总数\npageTotal | int | - | 页总数\npageButtonMaxCount | int | 7 | 最大页按钮数量\npageSize | int | 10 | 每页数量\npageSizeModel | list | [] | 每页数量模型\nprevButtonTooltip | string | '上一页' | 上一页按钮的提示文本(为空不显示)\nnextButtonTooltip | string | '下一页' | 下一页按钮的提示文本(为空不显示)\nsizeHint | string | 'normal' | 尺寸提示\n\n<br/>\n\n### 支持的函数：\n\n- `gotoPageIndex(index: int)` 跳转到`index` 处的页 \n\n- `gotoPrevPage()` 跳转到前一页 \n\n- `gotoPrev5Page()` 跳转到前五页 \n\n- `gotoNextPage()` 跳转到后一页 \n\n- `gotoNext5Page()` 跳转到后五页 \n",
     "docPath": "gallery/qml/Examples/Navigation/ExpPagination.qml",
     "examples": [
@@ -1700,6 +1771,7 @@
     ]
   },
   {
+    "name": "HusScrollBar",
     "doc": "# HusScrollBar 滚动条\n\n滚动条是一个交互式栏，用于滚动某个区域或视图到特定位置。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { ScrollBar }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述 |\n------ | --- | :---: | ---\nanimationEnabled | bool | true | 是否开启动画\nminimumHandleSize | int | 24 | 滑块的最小大小\ncolorBar | color | - | 把手颜色\ncolorBg | color | - | 背景颜色\ncolorIcon | color | - | 图标颜色(即箭头颜色)",
     "docPath": "gallery/qml/Examples/Navigation/ExpScrollBar.qml",
     "examples": [
@@ -1714,6 +1786,7 @@
     ]
   },
   {
+    "name": "HusTheme",
     "doc": "",
     "docPath": "gallery/qml/Examples/Theme/ExpTheme.qml",
     "examples": [
@@ -1760,6 +1833,7 @@
     ]
   },
   {
+    "name": "HusAsyncHasher",
     "doc": "# HusAsyncHasher 异步散列器 \n\n可对任意数据(url/text/object)生成加密哈希的异步散列器。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { QObject }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nalgorithm | enum | HusAsyncHasher.Md5 | 哈希算法(来自 HusAsyncHasher)\nasynchronous | bool | true | 是否异步\nhashValue | string | '' | 目标的哈希值\nhashLength | int | - | 目标的哈希长度\nsource | url | '' | 目标的源地址\nsourceText | color | '' | 目标的源文本\nsourceData | arraybuffer | '' | 目标的源数据\nsourceObject | QObject* | null | 目标的源指针\n\n<br/>\n\n### 支持的信号：\n\n- `hashProgress(processed: int, total: int)` 散列值计算进度\n\n  - `processed` 已处理的字节数\n\n  - `total` 总字节数\n\n- `started(processed: int, total: int)` 散列值计算开始时发出\n\n- `finished(processed: int, total: int)` 散列值计算结束时发出\n",
     "docPath": "gallery/qml/Examples/Utils/ExpAsyncHasher.qml",
     "examples": [
@@ -1775,6 +1849,7 @@
     ]
   },
   {
+    "name": "HusRouter",
     "doc": "# HusRouter 路由 \n\n简单的URL路由。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { QObject }**\n\n\n<br/>\n\n### 支持的代理：\n\n- 无\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\ncurrentUrl | url(readonly) | '' | 当前URL\ncurrentPath | string(readonly) | '' | 当前URL路径\ncurrentIndex | int(readonly) | -1 | 当前URL在历史记录中的索引\nhistory | list&lt;HusRouterHistory&gt;(readonly) | - | 历史记录 |\nhistoryMaxCount | int | 100 | 历史记录最大数量\ncanGoBack | bool(readonly) | - | 是否能后退\ncanGoForward | bool(readonly) | - | 是否能前进\n\n<br/>\n\n### `HusRouterHistory` 支持的属性：\n\n属性名 | 类型 | 描述\n----- | --- | ---\nlocation | url | 本条历史地址\n\n<br/>\n\n### 支持的函数：\n\n- `push(url: url)` 导航到指定URL并将新URL添加到历史记录的顶部 \n\n- `replace(url: url)` 替换当前URL并将老的URL从历史记录中移除, 然后将新URL添加到历史记录顶部 \n\n- `clear()` 清空所有导航历史 \n\n- `goBack()` 后退到历史记录中的上一个URL \n\n- `goForward()` 前进到历史记录中的下一个URL \n\n- `getQueryParams(url: url)` 以键值对的形式返回URL中的查询字符串 \n",
     "docPath": "gallery/qml/Examples/Utils/ExpRouter.qml",
     "examples": [
