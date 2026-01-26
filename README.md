@@ -63,6 +63,10 @@ The development plan can be found here: [Component Roadmap](https://github.com/m
 
 Anyone can discuss through issues, QQ groups, or WeChat groups, and ultimately meaningful components/functions will be added to the development plan.
 
+## 🔖 Document
+
+- [Component Document](./docs/index.md)
+
 ## 🌐 Online wiki
 - [HuskarUI Online wiki (AI)](https://deepwiki.com/mengps/HuskarUI)
 
