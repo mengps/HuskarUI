@@ -1,4 +1,4 @@
-name: CMake on MacOS - Qt6.10.1
+name: CMake on MacOS - Qt6.10.2
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
         c_compiler: [clang]
         cxx_compiler: [clang++]
         include:
-          - qt_ver: 6.10.1
+          - qt_ver: 6.10.2
             qt_arch: clang_64
 
     env:
