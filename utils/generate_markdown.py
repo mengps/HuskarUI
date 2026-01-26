@@ -195,6 +195,8 @@ def generate_index_file(categories: Dict[str, List[Dict[str, Any]]]) -> None:
         for comp in comps:
             name = extract_component_name(comp["docPath"])
             doc_title = comp["doc"].split("\n")[0].replace("# ", "").replace("\\n", "")
+            if not doc_title:
+                doc_title = name
             content += f" - [{doc_title}](./{category}/{name}.md)\n"
 
     with open("docs/index.md", "w", encoding="utf-8") as f:

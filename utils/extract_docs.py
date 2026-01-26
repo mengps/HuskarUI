@@ -350,6 +350,7 @@ def extract_docs_from_qml(qml_file_path: str) -> Dict[str, Any]:
     rel_path = Path(qml_file_path).relative_to(project_root).as_posix()
 
     return {
+        "name": component_name,
         "doc": doc_description,
         "docPath": rel_path,
         "examples": code_boxes,
