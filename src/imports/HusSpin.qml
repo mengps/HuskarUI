@@ -170,16 +170,19 @@ T.Control {
                 }
             }
 
-            HusProgress {
+            Loader {
+                active: __spinner.isProgress
                 anchors.fill: parent
-                type: HusProgress.Type_Circle
-                animationEnabled: control.animationEnabled
-                showInfo: false
-                percent: visible ? control.percent : 0
-                barThickness: 4 * control.sizeRatio
-                colorBar: control.colorProgressBar
                 scale: 1.0 - __indicatorLoader.scale
                 visible: scale > 0
+                sourceComponent: HusProgress {
+                    type: HusProgress.Type_Circle
+                    animationEnabled: control.animationEnabled
+                    showInfo: false
+                    percent: control.percent
+                    barThickness: 4 * control.sizeRatio
+                    colorBar: control.colorProgressBar
+                }
             }
         }
 
