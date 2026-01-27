@@ -45,8 +45,8 @@ T.Control {
     property int presetsLayoutDirection: Qt.LeftToRight
     property alias titleFont: control.font
     property font inputFont: Qt.font({
-                                         family: control.themeSource.fontFamilyInput,
-                                         pixelSize: parseInt(control.themeSource.fontSizeInput) - 2
+                                         family: themeSource.fontFamilyInput,
+                                         pixelSize: parseInt(themeSource.fontSizeInput) - 2
                                      })
     property color colorBg: themeSource.colorBg
     property color colorBorder: enabled ?
@@ -807,7 +807,7 @@ T.Control {
             return Math.round(value).toString(16).padStart(2, '0').toUpperCase();
         }
 
-        function toHex(color: color): color {
+        function toHex(color: color): string {
             const hexRed = floatToHex(color.r * 255);
             const hexGreen = floatToHex(color.g * 255);
             const hexBlue = floatToHex(color.b * 255);
