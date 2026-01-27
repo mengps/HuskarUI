@@ -109,8 +109,8 @@ T.AbstractButton {
         spacing: 4
 
         Item {
-            Layout.preferredWidth: 24 * control.sizeRatio
-            Layout.preferredHeight: 24 * control.sizeRatio
+            Layout.preferredWidth: 22 * control.sizeRatio
+            Layout.preferredHeight: 22 * control.sizeRatio
 
             HusCheckerBoard {
                 anchors.fill: parent
