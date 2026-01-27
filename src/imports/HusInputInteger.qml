@@ -34,8 +34,8 @@ T.SpinBox {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property bool active: hovered || activeFocus
-    property int type: HusInput.Type_Outlined
-    property bool showShadow: false
+    property alias type: __input.type
+    property alias showShadow: __input.showShadow
     property alias clearEnabled: __input.clearEnabled
     property alias clearIconSource: __input.clearIconSource
     property alias clearIconSize: __input.clearIconSize
@@ -286,8 +286,6 @@ T.SpinBox {
         animationEnabled: control.animationEnabled
         sizeRatio: control.sizeRatio
         themeSource: control.themeSource
-        type: control.type
-        showShadow: control.showShadow
         text: control.displayText
         validator: control.validator
         inputMethodHints: control.inputMethodHints

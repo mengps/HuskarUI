@@ -181,7 +181,6 @@ HusInput {
 
     Item {
         id: __private
-
         property var window: Window.window
         property bool interactive: control.enabled && !control.readOnly
     }

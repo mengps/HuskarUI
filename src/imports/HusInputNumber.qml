@@ -35,8 +35,8 @@ T.Control {
 
     property bool animationEnabled: HusTheme.animationEnabled
     property bool active: hovered || activeFocus
-    property int type: HusInput.Type_Outlined
-    property bool showShadow: false
+    property alias type: __input.type
+    property alias showShadow: __input.showShadow
     property alias clearEnabled: __input.clearEnabled
     property alias clearIconSource: __input.clearIconSource
     property alias clearIconSize: __input.clearIconSize
@@ -51,11 +51,7 @@ T.Control {
     property real max: Number.MAX_SAFE_INTEGER
     property real step: 1
     property int precision: 0
-    property var validator: DoubleValidator {
-        locale: control.locale.name
-        bottom: Math.min(control.min, control.max)
-        top: Math.max(control.min, control.max)
-    }
+    property alias validator: __input.validator
     property string prefix: ''
     property string suffix: ''
     property var upIcon: HusIcon.UpOutlined || ''
@@ -268,6 +264,11 @@ T.Control {
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
+    validator: DoubleValidator {
+        locale: control.locale.name
+        bottom: Math.min(control.min, control.max)
+        top: Math.max(control.min, control.max)
+    }
     font {
         family: themeSource.fontFamily
         pixelSize: parseInt(themeSource.fontSize) * sizeRatio
@@ -279,6 +280,7 @@ T.Control {
         Loader {
             Layout.rightMargin: -1
             Layout.fillHeight: true
+            visible: active
             active: control.beforeLabel?.length !== 0
             sourceComponent: control.beforeDelegate
         }
@@ -295,8 +297,6 @@ T.Control {
             animationEnabled: control.animationEnabled
             sizeRatio: control.sizeRatio
             themeSource: control.themeSource
-            type: control.type
-            showShadow: control.showShadow
             validator: control.validator
             font: control.font
             radiusBg.all: control.radiusBg.all
@@ -383,6 +383,7 @@ T.Control {
             Loader {
                 id: __prefixLoader
                 height: parent.height
+                visible: active
                 active: control.prefix !== ''
                 sourceComponent: HusText {
                     leftPadding: 10 * control.sizeRatio
@@ -397,6 +398,7 @@ T.Control {
                 id: __suffixLoader
                 height: parent.height
                 anchors.right: __handlerLoader.left
+                visible: active
                 active: control.suffix !== ''
                 sourceComponent: HusText {
                     leftPadding: 5 * control.sizeRatio
@@ -413,6 +415,7 @@ T.Control {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.margins: 1
+                visible: active
                 active: control.showHandler && !__input.readOnly
                 sourceComponent: control.handlerDelegate
             }
@@ -421,6 +424,7 @@ T.Control {
         Loader {
             Layout.leftMargin: -1
             Layout.fillHeight: true
+            visible: active
             active: control.afterLabel?.length !== 0
             sourceComponent: control.afterDelegate
         }
