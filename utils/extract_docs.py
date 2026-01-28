@@ -123,7 +123,7 @@ sources_table = {
 }
 
 
-def extract_component_name(qml_file_path: str) -> str:
+def extract_component_name(qml_file_path: Path) -> str:
     """从QML文件路径提取组件名称
 
     Args:
@@ -132,13 +132,13 @@ def extract_component_name(qml_file_path: str) -> str:
     Returns:
         组件名称，如HusComponentName；如果无法提取则返回空字符串
     """
-    filename = Path(qml_file_path).stem
+    filename = qml_file_path.stem
     if filename.startswith("Exp"):
         return "Hus" + filename[3:]
     return ""
 
 
-def extract_docs_from_qml(qml_file_path: str) -> Dict[str, Any]:
+def extract_docs_from_qml(qml_file_path: Path, project_root: Path) -> Dict[str, Any]:
     """
     从单个 QML 文件中提取文档信息
 
@@ -346,8 +346,7 @@ def extract_docs_from_qml(qml_file_path: str) -> Dict[str, Any]:
     sources = sources_table.get(component_name, [])
 
     # 使用相对路径
-    project_root = Path(__file__).parent.parent
-    rel_path = Path(qml_file_path).relative_to(project_root).as_posix()
+    rel_path = qml_file_path.relative_to(project_root).as_posix()
 
     return {
         "name": component_name,
@@ -358,15 +357,15 @@ def extract_docs_from_qml(qml_file_path: str) -> Dict[str, Any]:
     }
 
 
-def extract_all_docs() -> List[Dict[str, Any]]:
-    """从gallery/qml/Examples目录下的所有QML文件中提取文档信息
+def extract_all_docs(examples_dir: Path, project_root: Path) -> List[Dict[str, Any]]:
+    """从examples_dir目录下的所有QML文件中提取文档信息
 
     Returns:
         包含所有文档信息的列表
     """
-    examples_dir = Path(__file__).parent.parent / "gallery/qml/Examples"
     return [
-        extract_docs_from_qml(str(qml_file)) for qml_file in examples_dir.rglob("*.qml")
+        extract_docs_from_qml(qml_file, project_root)
+        for qml_file in examples_dir.rglob("*.qml")
     ]
 
 

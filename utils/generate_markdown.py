@@ -9,12 +9,6 @@ from typing import Dict, List, Any
 from loguru import logger
 
 
-def extract_component_name(file_path: str) -> str:
-    """从文件路径中提取组件名称"""
-    filename = os.path.basename(file_path)
-    return filename[:-4].replace("Exp", "Hus")
-
-
 def extract_category(file_path: str) -> str:
     """从文件路径中提取组件分类
 
@@ -36,13 +30,13 @@ def extract_category(file_path: str) -> str:
 
 
 def process_internal_links(
-    text: str, current_category: str, component_map: Dict[str, str]
+    text: str, category: str, component_map: Dict[str, str]
 ) -> str:
     """处理内部链接，将internal://转换为markdown链接
 
     Args:
         text: 包含链接的文本
-        current_category: 当前组件所在的分类
+        category: 当前组件所在的分类
         component_map: 组件名到filePath的映射字典
 
     Returns:
@@ -66,9 +60,9 @@ def process_internal_links(
             return f"[{link_text}](./{component}.md)"
 
         target_category = extract_category(target_filepath)
-        target_filename = extract_component_name(target_filepath)
+        target_filename = component
 
-        if target_category == current_category:
+        if target_category == category:
             return f"[{link_text}](./{target_filename}.md)"
         else:
             return f"[{link_text}](../{target_category}/{target_filename}.md)"
@@ -141,18 +135,19 @@ def generate_component_file(
     Returns:
         生成的组件名称
     """
-    name = extract_component_name(component["docPath"])
+    name = component["name"]
     file_path = os.path.join(category_dir, f"{name}.md")
 
     doc = clean_escape_sequences(component["doc"])
     doc = process_internal_links(doc, current_category, component_map)
+    doc_title = doc.split("\n")[0].replace("# ", "").replace("\\n", "")
+    if not doc_title:
+        doc_title = name
+    doc_content = "\n".join(doc.split("\n")[1:])
 
     content = "[← 返回主目录](../index.md)\n\n"
     content += "[← 返回本类别目录](./index.md)\n\n"
-
-    doc_title = doc.split("\n")[0].replace("# ", "")
     content += f"# {doc_title}\n\n"
-    doc_content = "\n".join(doc.split("\n")[1:])
     content += f"{doc_content}\n\n<br/>\n\n"
 
     examples = component.get("examples", [])
@@ -193,7 +188,7 @@ def generate_index_file(categories: Dict[str, List[Dict[str, Any]]]) -> None:
     for category, comps in sorted(categories.items()):
         content += f"## [{category}](./{category}/index.md)\n"
         for comp in comps:
-            name = extract_component_name(comp["docPath"])
+            name = comp["name"]
             doc_title = comp["doc"].split("\n")[0].replace("# ", "").replace("\\n", "")
             if not doc_title:
                 doc_title = name
@@ -212,8 +207,10 @@ def generate_category_index(
     content += f"{category}分类包含以下组件：\n\n"
 
     for comp in components:
-        name = extract_component_name(comp["docPath"])
+        name = comp["name"]
         doc_title = comp["doc"].split("\n")[0].replace("# ", "").replace("\\n", "")
+        if not doc_title:
+            doc_title = name
         content += f"- [{doc_title}](./{name}.md)\n"
 
     with open(os.path.join(category_dir, "index.md"), "w", encoding="utf-8") as f:
@@ -238,10 +235,7 @@ def generate_markdown(meta_file_path: str) -> None:
         categories[category].append(comp)
 
     # 构建组件名到filePath的映射
-    component_map = {
-        extract_component_name(comp["docPath"]): comp["docPath"]
-        for comp in components
-    }
+    component_map = {comp["name"]: comp["docPath"] for comp in components}
 
     # 创建文档目录结构
     docs_dir = Path("docs")
