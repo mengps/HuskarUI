@@ -67,53 +67,89 @@ contentDescription | string | '' | 内容描述(提高可用性)
                 import QtQuick
                 import HuskarUI.Basic
 
+                Column {
+                    spacing: 15
+
+                    HusRadioBlock {
+                        id: sizeHintRadio
+                        initCheckedIndex: 1
+                        model: [
+                            { label: 'Small', value: 'small' },
+                            { label: 'Normal', value: 'normal' },
+                            { label: 'Large', value: 'large' },
+                        ]
+                    }
+
+                    Row {
+                        spacing: 10
+
+                        HusCheckBox {
+                            text: qsTr('Checkbox')
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+
+                        HusCheckBox {
+                            text: qsTr('Disabled')
+                            enabled: false
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+
+                        HusCheckBox {
+                            text: qsTr('Disabled')
+                            checkState: Qt.PartiallyChecked
+                            enabled: false
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+
+                        HusCheckBox {
+                            text: qsTr('Disabled')
+                            checkState: Qt.Checked
+                            enabled: false
+                            sizeHint: sizeHintRadio.currentCheckedValue
+                        }
+                    }
+                }
+            `
+            exampleDelegate: Column {
+                spacing: 15
+
+                HusRadioBlock {
+                    id: sizeHintRadio
+                    initCheckedIndex: 1
+                    model: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Normal', value: 'normal' },
+                        { label: 'Large', value: 'large' },
+                    ]
+                }
+
                 Row {
                     spacing: 10
 
                     HusCheckBox {
                         text: qsTr('Checkbox')
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusCheckBox {
                         text: qsTr('Disabled')
                         enabled: false
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusCheckBox {
                         text: qsTr('Disabled')
                         checkState: Qt.PartiallyChecked
                         enabled: false
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
 
                     HusCheckBox {
                         text: qsTr('Disabled')
                         checkState: Qt.Checked
                         enabled: false
+                        sizeHint: sizeHintRadio.currentCheckedValue
                     }
-                }
-            `
-            exampleDelegate: Row {
-                spacing: 10
-
-                HusCheckBox {
-                    text: qsTr('Checkbox')
-                }
-
-                HusCheckBox {
-                    text: qsTr('Disabled')
-                    enabled: false
-                }
-
-                HusCheckBox {
-                    text: qsTr('Disabled')
-                    checkState: Qt.PartiallyChecked
-                    enabled: false
-                }
-
-                HusCheckBox {
-                    text: qsTr('Disabled')
-                    checkState: Qt.Checked
-                    enabled: false
                 }
             }
         }
