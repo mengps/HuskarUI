@@ -44,6 +44,7 @@ T.Control {
     property bool checkable: false
     property bool blockNode: false
     property bool genDefaultKey: true
+    property bool forceUpdateCheckState: false
     property real indent: 18
     property bool showIcon: false
     property int defaultNodeIconSize: 16
@@ -59,7 +60,12 @@ T.Control {
     property string selectedKey: ''
     property var initModel: []
     property alias titleFont: control.font
+    property font nodeIconFont: Qt.font({
+                                            family: 'HuskarUI-Icons',
+                                            pixelSize: defaultNodeIconSize
+                                        })
     property color colorLine: themeSource.colorLine
+    property color colorNodeIcon: themeSource.colorNodeIcon
     property HusRadius radiusSwitcherBg: HusRadius { all: themeSource.radiusSwitcherBg }
     property HusRadius radiusTitleBg: HusRadius { all: themeSource.radiusTitleBg }
     property string contentDescription: ''
@@ -145,8 +151,10 @@ T.Control {
                 visible: active
                 sourceComponent: HusIconText {
                     Layout.alignment: Qt.AlignVCenter
+                    font.family: control.nodeIconFont.family
                     iconSource: treeData?.iconSource ?? 0
-                    iconSize: treeData?.iconSize ?? control.defaultNodeIconSize
+                    iconSize: treeData?.iconSize ?? control.nodeIconFont.pixelSize
+                    colorIcon: treeData?.colorNodeIcon ?? control.colorNodeIcon
                 }
             }
 
@@ -459,7 +467,7 @@ T.Control {
             const data = object.__data;
             const nodeTreePath = data.treePath;
             if (isSubNode(rootPath, nodeTreePath)) {
-                if (data.enabled && !data.checkboxDisabled) {
+                if (control.forceUpdateCheckState || (data.enabled && !data.checkboxDisabled)) {
                     /*! 更新模型 */
                     updateModelCheckState(data, nodeTreePath, checkState);
                 } else {
@@ -495,7 +503,7 @@ T.Control {
                 node.rows.forEach(
                             o => {
                                 const data = o.__data;
-                                if (data.enabled && !data.checkboxDisabled) {
+                                if (control.forceUpdateCheckState || (data.enabled && !data.checkboxDisabled)) {
                                     checkableCount++
                                     /*! 计算该节点状态 */
                                     let checkState = Qt.Unchecked;

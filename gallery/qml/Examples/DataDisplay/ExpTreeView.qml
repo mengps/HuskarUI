@@ -47,6 +47,7 @@ reuseItems | bool | false | 是否重用项目(具体参考官方文档)
 checkable | bool | false | 是否添加[HusCheckbox](internal://HusCheckbox)复选框
 blockNode | bool | false | 节点内容是否填充整行
 genDefaultKey | bool | true | 未提供key时是否生成默认键(生成键形如'0-1-2...')
+forceUpdateCheckState | bool | false | 强制更新check状态(为true时将不受enabled/checkboxDisabled约束)
 indent | real | 18 | 缩进宽度
 showIcon | bool | false | 是否显示节点图标
 defaultNodeIconSize | int | 16 | 默认节点图标大小
@@ -62,7 +63,9 @@ checkedKeys | list | [] | 选中的键列表
 selectedKey | string | '' | 当前选择的键(非复选框)
 initModel | list | [] | 初始模型
 titleFont | font | - | 节点标题文本字体
+nodeIconFont | font | - | 节点图标字体
 colorLine | color | - | 连接线颜色
+colorNodeIcon | color | - | 节点图标颜色
 radiusSwitcherBg | [HusRadius](internal://HusRadius) | - | 切换器背景圆角
 radiusTitleBg | [HusRadius](internal://HusRadius) | - | 节点标题背景圆角
 verScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部垂直滚动条
