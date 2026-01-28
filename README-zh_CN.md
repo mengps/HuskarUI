@@ -63,12 +63,12 @@ Qt Qml 的 Ant 设计组件库
 
 任何人都可以通过 issue/qq群/wx群 进行讨论, 最终有意义的组件/功能将添加到开发计划.
 
-## 🔖 文档
+## 🔖 在线文档
 
 - [组件文档](./docs/index.md)
 
-## 🌐 在线 wiki
-- [HuskarUI 在线 wiki (AI)](https://deepwiki.com/mengps/HuskarUI)
+## 🌐 在线 Wiki
+- [HuskarUI 在线 Wiki (AI)](https://deepwiki.com/mengps/HuskarUI)
 
 ## 📺 在线演示
 
