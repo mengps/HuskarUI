@@ -10,6 +10,7 @@
         "colorSelection": "@colorPrimaryBg",
         "colorSelectionDark": "@colorPrimaryBase-9",
         "colorLine": "@colorSplit",
+        "colorNodeIcon": "@colorTextBase",
         "radiusSwitcherBg": "@radiusPrimary",
         "radiusTitleBg": "@radiusPrimary"
     }

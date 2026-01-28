@@ -23,8 +23,6 @@ HusWindow {
     captionBar.showThemeButton: true
     captionBar.showTopButton: true
     captionBar.showWinIcon: Qt.platform.os !== 'osx'
-    captionBar.winIconWidth: 22
-    captionBar.winIconHeight: 22
     captionBar.winIconDelegate: Item {
         Image {
             width: 16

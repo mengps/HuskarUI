@@ -262,6 +262,8 @@ Rectangle {
 
                     Loader {
                         id: __winIconLoader
+                        width: 22
+                        height: Math.min(parent.height, 22)
                         anchors.verticalCenter: parent.verticalCenter
                         sourceComponent: control.winIconDelegate
                     }

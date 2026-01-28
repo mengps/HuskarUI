@@ -243,7 +243,8 @@ QtObject {
                     key: 'HusCheckBox',
                     label: qsTr('HusCheckBox 多选框'),
                     source: './Examples/DataEntry/ExpCheckBox.qml',
-                    desc: qsTr('收集用户的多项选择。')
+                    updateVersion: '0.5.6.2',
+                    desc: qsTr('新增 sizeHint 尺寸提示。')
                 },
                 {
                     key: 'HusAutoComplete',
@@ -269,21 +270,21 @@ QtObject {
                     key: 'HusTextArea',
                     label: qsTr('HusTextArea 文本域'),
                     source: './Examples/DataEntry/ExpTextArea.qml',
-                    addVersion: '0.5.0',
+                    updateVersion: '0.5.0',
                     desc: qsTr('新增 scrollToBeginning() / scrollToEnd()。')
                 },
                 {
                     key: 'HusInputInteger',
                     label: qsTr('HusInputInteger 整数输入框'),
                     source: './Examples/DataEntry/ExpInputInteger.qml',
-                    addVersion: '0.5.6.1',
+                    updateVersion: '0.5.6.1',
                     desc: qsTr('新增 sizeHint 尺寸提示。\n新增 type 形态类型。\n新增 showShadow/colorShadow 阴影相关。')
                 },
                 {
                     key: 'HusInputNumber',
                     label: qsTr('HusInputNumber 数字输入框'),
                     source: './Examples/DataEntry/ExpInputNumber.qml',
-                    addVersion: '0.5.6.1',
+                    updateVersion: '0.5.6.1',
                     desc: qsTr('新增 sizeHint 尺寸提示。\n新增 type 形态类型。\n新增 showShadow/colorShadow 阴影相关。')
                 },
                 {
@@ -437,8 +438,8 @@ QtObject {
                     key: 'HusTreeView',
                     label: qsTr('HusTreeView 树视图'),
                     source: './Examples/DataDisplay/ExpTreeView.qml',
-                    addVersion: '0.5.3',
-                    desc: qsTr('多层次的结构列表。')
+                    updateVersion: '0.5.6.2',
+                    desc: qsTr('新增 forceUpdateCheckState/nodeIconFont/colorNodeIcon。')
                 },
             ]
         },
