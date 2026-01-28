@@ -35,8 +35,8 @@ targetWindow | var | null | 目标窗口
 windowAgent | HusWindowAgent | null | 无边框窗口代理(通常不使用)
 layoutDirection | enum | Qt.LeftToRight | 布局方向
 winIcon | url | '' | 窗口图标
-winIconWidth | real | - | 窗口图标宽度
-winIconHeight | real | - | 窗口图标高度
+winIconWidth | real | 22 | 窗口图标宽度
+winIconHeight | real | 22 | 窗口图标高度
 showWinIcon | bool | true | 窗口图标是否可见
 winTitle | string | '' | 窗口标题
 winTitleFont | font | - | 窗口标题字体

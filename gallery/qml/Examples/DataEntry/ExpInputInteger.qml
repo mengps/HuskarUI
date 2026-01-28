@@ -109,7 +109,6 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         CodeBox {
             width: parent.width
-            async: false
             descTitle: qsTr('基本')
             desc: qsTr(`
 数字输入框。\n
@@ -237,7 +236,6 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         CodeBox {
             width: parent.width
-            async: false
             descTitle: qsTr('前置/后置标签')
             desc: qsTr(`
 用于配置一些固定组合。\n
@@ -393,7 +391,6 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         CodeBox {
             width: parent.width
-            async: false
             descTitle: qsTr('格式化展示')
             desc: qsTr(`
 通过 \`formatter\` 格式化数值为字符串，以展示具有具体含义的数据，往往需要配合 \`parser\` 一起使用。\n
@@ -447,7 +444,6 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         CodeBox {
             width: parent.width
-            async: false
             descTitle: qsTr('前缀/后缀')
             desc: qsTr(`
 通过 \`prefix\` / \`suffix\` 属性设置前缀/后缀字符串(或图标)。\n
@@ -518,7 +514,6 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         CodeBox {
             width: parent.width
-            async: false
             descTitle: qsTr('鼠标滚轮')
             desc: qsTr(`
 通过 \`useWheel\` 属性设置是否使用鼠标滚轮控制。\n
@@ -567,7 +562,6 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         CodeBox {
             width: parent.width
-            async: false
             descTitle: qsTr('键盘行为')
             desc: qsTr(`
 通过 \`useKeyboard\` 属性设置是否使用键盘控制。\n
