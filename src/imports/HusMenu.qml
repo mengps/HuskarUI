@@ -184,41 +184,41 @@ T.Control {
         }
     }
 
-    function gotoMenu(key) {
+    function gotoMenu(key: string) {
         __private.gotoMenuKey = key;
-        __private.gotoMenu(key);
+        __private.gotoMenu(key, mode);
     }
 
-    function get(index) {
+    function get(index: int): var {
         if (index >= 0 && index < __listView.model.length) {
             return __listView.model[index];
         }
         return undefined;
     }
 
-    function set(index, object) {
+    function set(index: int, object: var) {
         if (index >= 0 && index < __listView.model.length) {
             __listView.model[index] = object;
             __listView.modelChanged();
         }
     }
 
-    function setProperty(index, propertyName, value) {
+    function setProperty(index: int, propertyName: string, value: var) {
         if (index >= 0 && index < __listView.model.length) {
             __listView.model[index][propertyName] = value;
             __listView.modelChanged();
         }
     }
 
-    function setData(key, data) {
+    function setData(key: string, data: var) {
         __private.setData(key, data);
     }
 
-    function setDataProperty(key, propertyName, value) {
+    function setDataProperty(key: string, propertyName: string, value: var) {
         __private.setDataProperty(key, propertyName, value);
     }
 
-    function move(from, to, count = 1) {
+    function move(from: int, to: int, count = 1) {
         if (from >= 0 && from < __listView.model.length && to >= 0 && to < __listView.model.length) {
             const objects = __listView.model.splice(from, count);
             __listView.model.splice(to, 0, ...objects);
@@ -226,17 +226,17 @@ T.Control {
         }
     }
 
-    function insert(index, object) {
+    function insert(index: int, object: var) {
         __listView.model.splice(index, 0, object);
         __listView.modelChanged();
     }
 
-    function append(object) {
+    function append(object: var) {
         __listView.model.push(object);
         __listView.modelChanged();
     }
 
-    function remove(index, count = 1) {
+    function remove(index: int, count = 1) {
         if (index >= 0 && index < __listView.model.length) {
             __listView.model.splice(index, count);
             __listView.modelChanged();
@@ -457,6 +457,7 @@ T.Control {
                 /*! 根菜单返回自身 */
                 return __rootItem;
             }
+
             /*! 展开当前菜单的所有父菜单 */
             function expandParent() {
                 let parent = parentMenu;
@@ -469,6 +470,7 @@ T.Control {
                     parent = parent.parentMenu;
                 }
             }
+
             /*! 清除当前菜单的所有子菜单 */
             function clearIsCurrentParent() {
                 isCurrentParent = false;
@@ -478,6 +480,7 @@ T.Control {
                         item.clearIsCurrentParent();
                 }
             }
+
             /*! 选中当前菜单的所有父菜单 */
             function selectedCurrentParentMenu() {
                 for (let i = 0; i < __listView.count; i++) {
@@ -499,7 +502,7 @@ T.Control {
                 enabled: __rootItem.menuKey !== ''
                 ignoreUnknownSignals: true
 
-                function onGotoMenu(key) {
+                function onGotoMenu(key: string) {
                     if (__rootItem.menuKey === key) {
                         __rootItem.expandParent();
                         __menuButton.clicked();
