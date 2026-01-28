@@ -61,7 +61,7 @@
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 reuseItems | bool | false | 是否重用项目(具体参考官方文档)
-checkable | bool | false | 是否添加[HusCheckbox](../DataEntry/HusCheckBox.md)复选框
+checkable | bool | false | 是否添加[HusCheckbox](../DataEntry/HusCheckbox.md)复选框
 blockNode | bool | false | 节点内容是否填充整行
 genDefaultKey | bool | true | 未提供key时是否生成默认键(生成键形如'0-1-2...')
 forceUpdateCheckState | bool | false | 强制更新check状态(为true时将不受enabled/checkboxDisabled约束)

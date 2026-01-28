@@ -4,4 +4,4 @@
 
 Theme分类包含以下组件：
 
-- [](./HusTheme.md)
+- [HusTheme](./HusTheme.md)

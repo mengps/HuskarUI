@@ -106,9 +106,6 @@ items | list | 可选 | 菜单模型
 
   - `data` 路由项数据
 
-
-### 支持的信号：
-
 - `clickMenu(deep: int, key: string, keyPath: var, data: var)` 点击任意路由-菜单项时发出
 
   - `deep` 菜单项深度
