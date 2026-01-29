@@ -186,7 +186,7 @@ T.Control {
 
     function gotoMenu(key: string) {
         __private.gotoMenuKey = key;
-        __private.gotoMenu(key, mode);
+        __private.gotoMenu(key);
     }
 
     function get(index: int): var {
