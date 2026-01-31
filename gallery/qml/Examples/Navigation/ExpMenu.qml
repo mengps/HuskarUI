@@ -73,7 +73,7 @@ defaultMenuWidth | int | 300 | 默认菜单宽度
 defaultMenuTopPadding | int | 10 | 默认菜单上边距
 defaultMenuBottomPadding | int | 10 | 默认菜单下边距
 defaultMenuSpacing | int | 4 | 默认菜单间隔
-defaultSelectedKey | list | [] | 初始选中的菜单项 key 数组
+defaultSelectedKeys | list | [] | 初始选中的菜单项 key 数组
 selectedKey | string | '' | 当前选中的菜单 key
 initModel | list | [] | 初始菜单模型
 radiusMenuBg | [HusRadius](internal://HusRadius) | - | 菜单项背景圆角

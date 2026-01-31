@@ -58,7 +58,7 @@ T.Control {
     property int defaultMenuTopPadding: 10
     property int defaultMenuBottomPadding: 10
     property int defaultMenuSpacing: 4
-    property var defaultSelectedKey: []
+    property var defaultSelectedKeys: []
     property string selectedKey: ''
     property var initModel: []
     property HusRadius radiusMenuBg: HusRadius { all: themeSource.radiusMenuBg }
@@ -198,8 +198,7 @@ T.Control {
 
     function set(index: int, object: var) {
         if (index >= 0 && index < __listView.model.length) {
-            __listView.model[index] = object;
-            __listView.modelChanged();
+            __listView.model[index] = object; 
         }
     }
 
@@ -399,8 +398,8 @@ T.Control {
                     for (let i = 0; i < menuChildren.length; i++) {
                         __childrenListView.model.push(menuChildren[i]);
                     }
-                    if (control.defaultSelectedKey.length != 0) {
-                        if (control.defaultSelectedKey.indexOf(menuKey) != -1) {
+                    if (control.defaultSelectedKeys.length !== 0) {
+                        if (control.defaultSelectedKeys.indexOf(menuKey) !== -1) {
                             __rootItem.expandParent();
                             __menuButton.clicked();
                         }

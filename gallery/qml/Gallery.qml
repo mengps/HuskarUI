@@ -493,7 +493,7 @@ HusWindow {
             showEdge: true
             showToolTip: true
             defaultMenuWidth: 300
-            defaultSelectedKey: ['HomePage']
+            defaultSelectedKeys: ['HomePage']
             initModel: galleryGlobal.menus
             menuLabelDelegate: HusText {
                 text: menuButton.text
