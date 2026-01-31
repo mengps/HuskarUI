@@ -56,6 +56,7 @@ English | [中文](./README-zh_CN.md)
 - 🎨 Powerful theme customization system.
 - 💻 Based on Qml, completely cross platform.
 - 🔧 Highly flexible delegate based component customization.
+- 🤖 AI-assisted development support.
 
 ## 🗺️ Roadmap
 
@@ -63,21 +64,22 @@ The development plan can be found here: [Component Roadmap](https://github.com/m
 
 Anyone can discuss through issues, QQ groups, or WeChat groups, and ultimately meaningful components/functions will be added to the development plan.
 
+## 🤖 AI Assisted Development
+
+> [!Note]
+> HuskarUI provides the **HuskarUI Expert** skill, designed for AI coding tools like Cursor, Trae, and VS Code Copilot. It helps you:
+> - Quickly lookup component documentation and properties
+> - Generate compliant component code
+> - Get scenario-based development examples
+
+👉 See [AI Skill Guide](./ai_tools/README.md) for more details.
+
 ## 🔖 Online Document
 
 - [Component Document](./docs/index.md)
 
 ## 🌐 Online Wiki
 - [HuskarUI Online Wiki (AI)](https://deepwiki.com/mengps/HuskarUI)
-
-## 🤖 AI Assisted Development
-
-HuskarUI provides the **HuskarUI Expert** skill, designed for AI coding tools like Cursor, Trae, and VS Code Copilot. It helps you:
-- Quickly lookup component documentation and properties
-- Generate compliant component code
-- Get scenario-based development examples
-
-👉 See [AI Skill Guide](./ai_tools/README.md) for more details.
 
 ## 📺 Online Demo
 
