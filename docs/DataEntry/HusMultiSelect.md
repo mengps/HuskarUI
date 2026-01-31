@@ -40,6 +40,7 @@ text | string | '' | 当前输入文本
 prefix | string | '' | 前缀文本
 suffix | string | '' | 后缀文本
 genDefaultKey | bool | true | 是否生成默认键(如果没有给定key则为label)
+defaultSelectedKeys | list | [] | 默认选中的键数组
 selectedKeys | list | [] | 选中项的键
 searchEnabled | bool | true | 是否启用搜索
 tagCount | int(readonly) | 0 | 当前(选择)标签数量
@@ -53,9 +54,13 @@ radiusTagBg | [HusRadius](../General/HusRadius.md) | - | 标签圆角
 
 ### 支持的函数：
 
-- `findKey(key: string)` 查找 `key` 处的选项数据 
+- `findKey(key: string): var` 查找 `key` 处的选项数据 
 
 - `filter()` 过滤选项列表 
+
+- `insertTag(index: int, key: string)` 插入键为 `key` 的标签到 `index` 处(必须是 `options` 中的数据) 
+
+- `appendTag(key: string)` 在末尾添加键为 `key` 的标签(必须是 `options` 中的数据) 
 
 - `removeTagAtKey(key: string)` 删除 `key` 处的标签 
 
