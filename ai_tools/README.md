@@ -5,7 +5,7 @@ This skill provides expert knowledge and tools for the HuskarUI library, enablin
 ## Prerequisites
 
 This skill relies on the following files being present in your project:
-- `ai_tools/query_metainfo.py`: The Python script used to query metadata.
+- `ai_tools/HuskarUIExpert/query_metainfo.py`: The Python script used to query metadata.
 - `docs/guide.metainfo.json`: The metadata file containing component documentation.
 
 Ensure these files are in your project root or adjust the paths in `SKILL.md` accordingly.

@@ -22,12 +22,12 @@ Use this method if the environment supports Python.
 
 **Lookup/Search:**
 ```bash
-python ai_tools/query_metainfo.py docs/guide.metainfo.json <ComponentName_or_Keyword>
+python ai_tools/HuskarUIExpert/query_metainfo.py docs/guide.metainfo.json <ComponentName_or_Keyword>
 ```
 
 **List All:**
 ```bash
-python ai_tools/query_metainfo.py docs/guide.metainfo.json list
+python ai_tools/HuskarUIExpert/query_metainfo.py docs/guide.metainfo.json list
 ```
 
 ### Method 2: Manual Fallback (No Python)

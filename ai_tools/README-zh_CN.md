@@ -5,7 +5,7 @@
 ## 先决条件
 
 本技能依赖于项目中存在的以下文件：
-- `ai_tools/query_metainfo.py`: 用于查询元数据的 Python 脚本。
+- `ai_tools/HuskarUIExpert/query_metainfo.py`: 用于查询元数据的 Python 脚本。
 - `docs/guide.metainfo.json`: 包含组件文档的元数据文件。
 
 请确保这些文件位于项目根目录下，或者相应地调整 `SKILL.md` 中的路径。
