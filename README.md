@@ -70,6 +70,15 @@ Anyone can discuss through issues, QQ groups, or WeChat groups, and ultimately m
 ## 🌐 Online Wiki
 - [HuskarUI Online Wiki (AI)](https://deepwiki.com/mengps/HuskarUI)
 
+## 🤖 AI Assisted Development
+
+HuskarUI provides the **HuskarUI Expert** skill, designed for AI coding tools like Cursor, Trae, and VS Code Copilot. It helps you:
+- Quickly lookup component documentation and properties
+- Generate compliant component code
+- Get scenario-based development examples
+
+👉 See [AI Skill Guide](./ai_tools/README.md) for more details.
+
 ## 📺 Online Demo
 
   - [BiliBili](https://www.bilibili.com/video/BV1jodhYhE8a/?spm_id_from=333.1387.homepage.video_card.click)
