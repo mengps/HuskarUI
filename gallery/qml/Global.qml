@@ -256,8 +256,8 @@ QtObject {
                     key: 'HusMultiSelect',
                     label: qsTr('HusMultiSelect 多选器'),
                     source: './Examples/DataEntry/ExpMultiSelect.qml',
-                    addVersion: '0.4.3',
-                    desc: qsTr('多选器，可多选的下拉选择器。'),
+                    updateVersion: '0.5.6.2',
+                    desc: qsTr('新增 defaultSelectedKeys 属性。\n新增 insertTag()/appendTag() 接口。'),
                 },
                 {
                     key: 'HusDateTimePicker',

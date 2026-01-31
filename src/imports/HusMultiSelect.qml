@@ -38,6 +38,7 @@ HusSelect {
     property string prefix: ''
     property string suffix: ''
     property bool genDefaultKey: true
+    property var defaultSelectedKeys: []
     property var selectedKeys: []
     property alias searchEnabled: control.editable
     readonly property alias tagCount: __tagListModel.count
@@ -116,12 +117,26 @@ HusSelect {
         }
     }
 
-    function findKey(key: string) {
-        return __private.getData(key);
+    function findKey(key: string): var {
+        return __private.findKey(key);
     }
 
     function filter() {
         model = options.filter(option => filterOption(text, option) === true);
+    }
+
+    function insertTag(index: int, key: string) {
+        const data = findKey(key);
+        if (data !== undefined) {
+            __private.insert(index, key, data);
+        }
+    }
+
+    function appendTag(key: string) {
+        const data = findKey(key);
+        if (data !== undefined) {
+            __private.append(key, data);
+        }
     }
 
     function removeTagAtKey(key: string) {
@@ -158,6 +173,17 @@ HusSelect {
                         (item, index) => {
                             if (!item.hasOwnProperty('key')) {
                                 item.key = item.label;
+                            }
+                        });
+        }
+        if (defaultSelectedKeys.length > 0) {
+            const keysSet = new Set;
+            defaultSelectedKeys.forEach(key => keysSet.add(key));
+            options.forEach(
+                        item => {
+                            if (item.key && keysSet.has(item.key)) {
+                                __private.append(item.key, item);
+                                keysSet.delete(item.key);
                             }
                         });
         }
@@ -378,12 +404,12 @@ HusSelect {
                 }
                 onClicked: {
                     control.currentIndex = index;
-                    const data = __popupDelegate.model;
+                    const data = __popupDelegate.model.modelData;
                     const key = data.key;
                     if (__private.contains(key)) {
                         __private.remove(key);
                     } else {
-                        __private.insert(key, data);
+                        __private.append(key, data);
                     }
                 }
 
@@ -423,18 +449,29 @@ HusSelect {
         function clear() {
             selectedKeysMap.forEach((value, key) => control.removeTag(value));
             __tagListModel.clear();
-            selectedKeysMap = new Map;
+            selectedKeysMap.clear();
             selectedKeysMapChanged();
         }
 
-        function insert(key, data) {
-            __tagListModel.append({ '__related__': key, 'tagData': data });
-            selectedKeysMap.set(key, data);
-            selectedKeysMapChanged();
-            control.select(data);
+        function insert(index: int, key: string, data: va) {
+            if (!selectedKeysMap.has(key)) {
+                __tagListModel.insert(index, { '__related__': key, 'tagData': data });
+                selectedKeysMap.set(key, data);
+                selectedKeysMapChanged();
+                control.select(data);
+            }
         }
 
-        function remove(key) {
+        function append(key: string, data: var) {
+            if (!selectedKeysMap.has(key)) {
+                __tagListModel.append({ '__related__': key, 'tagData': data });
+                selectedKeysMap.set(key, data);
+                selectedKeysMapChanged();
+                control.select(data);
+            }
+        }
+
+        function remove(key: string) {
             for (let i = 0; i < __tagListModel.count; i++) {
                 if (__tagListModel.get(i).__related__ === key) {
                     const relatedKey = __tagListModel.get(i).__related__;
@@ -448,7 +485,7 @@ HusSelect {
             }
         }
 
-        function removeAtIndex(index) {
+        function removeAtIndex(index: int) {
             const relatedKey = __tagListModel.get(index).__related__;
             const data = selectedKeysMap.get(relatedKey);
             __tagListModel.remove(index);
@@ -457,11 +494,13 @@ HusSelect {
             control.removeTag(data);
         }
 
-        function getData(key) {
-            if (selectedKeysMap.has(key)) {
-                return selectedKeysMap.get(key);
+        function findKey(key: string): var {
+            const index = control.options.findIndex(item => item.key === key);
+            if (index === -1) {
+                return undefined;
+            } else {
+                return control.options[index];
             }
-            return undefined;
         }
 
         function updateSelectedKeys() {

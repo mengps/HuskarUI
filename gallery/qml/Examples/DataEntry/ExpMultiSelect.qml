@@ -37,6 +37,7 @@ text | string | '' | 当前输入文本
 prefix | string | '' | 前缀文本
 suffix | string | '' | 后缀文本
 genDefaultKey | bool | true | 是否生成默认键(如果没有给定key则为label)
+defaultSelectedKeys | list | [] | 默认选中的键数组
 selectedKeys | list | [] | 选中项的键
 searchEnabled | bool | true | 是否启用搜索
 tagCount | int(readonly) | 0 | 当前(选择)标签数量
@@ -47,8 +48,10 @@ colorTagBg | color | - | 标签背景颜色
 radiusTagBg | [HusRadius](internal://HusRadius) | - | 标签圆角
 \n<br/>
 \n### 支持的函数：\n
-- \`findKey(key: string)\` 查找 \`key\` 处的选项数据 \n
+- \`findKey(key: string): var\` 查找 \`key\` 处的选项数据 \n
 - \`filter()\` 过滤选项列表 \n
+- \`insertTag(index: int, key: string)\` 插入键为 \`key\` 的标签到 \`index\` 处(必须是 \`options\` 中的数据) \n
+- \`appendTag(key: string)\` 在末尾添加键为 \`key\` 的标签(必须是 \`options\` 中的数据) \n
 - \`removeTagAtKey(key: string)\` 删除 \`key\` 处的标签 \n
 - \`removeTagAtIndex(index: int)\` 删除 \`index\` 处的标签 \n
 - \`clearTag()\` 清空标签 \n
