@@ -34,7 +34,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
-initModel | list | [] | 初始数据模型
+initModel | array | [] | 初始数据模型
 currentIndex | int | -1 | 当前索引
 position | enum | HusCarousel.Position_Bottom | 滚动的方向和指示器的位置(来自 HusCarousel)
 speed | int | 500 | 切换动效的时间(毫秒)

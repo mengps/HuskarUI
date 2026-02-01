@@ -146,11 +146,11 @@ rowResizable | bool | true | 是否可调整行大小
 rowHeightProvider | function(row, key) | minimumRowHeight | 行高提供函数
 minimumRowHeight | int | 40 | 最小行高
 maximumRowHeight | int | Number.MAX_VALUE | 最大行高
-initModel | list | [] | 表格初始数据模型
+initModel | array | [] | 表格初始数据模型
 rowCount | int | 0 | 当前模型行数
-columns | list | [] | 列描述对象数组
-defaultCheckedKeys | list | [] | 默认选中的键列表
-checkedKeys | list | [] | 选中行的键列表
+columns | array | [] | 列描述对象数组
+defaultCheckedKeys | array | [] | 默认选中的键列表
+checkedKeys | array | [] | 选中行的键列表
 colorGridLine | color | - | 网格线颜色
 showColumnHeader | bool | true | 是否显示列头
 columnHeaderTitleFont | font | - | 列头标题字体
@@ -179,7 +179,7 @@ editable | bool | 可选 | 列头标题是否可编辑
 align | string | 可选 | 列头标题对齐方式, 支持 'center'丨'left'丨'right'
 selectionType | string | 可选 | 该列选择类型, 支持 'checkbox'
 sorter | var | 可选 | 该列排序器
-sortDirections | list | 可选 | 该列排序方向, 支持 'false'丨'ascend'丨'descend'
+sortDirections | array | 可选 | 该列排序方向, 支持 'false'丨'ascend'丨'descend'
 onFilter | var | 可选 | 该列过滤器
 filterInput | string | 可选 | 该列过滤输入
 \n<br/>

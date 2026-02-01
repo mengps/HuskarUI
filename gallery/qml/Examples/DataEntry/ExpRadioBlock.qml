@@ -37,7 +37,7 @@ Flickable {
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 effectEnabled | bool | true | 是否开启点击效果
 hoverCursorShape | enum |  Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
-model | list | [] | 单选块模型
+model | array | [] | 单选块模型
 count | int | model.length | 单选数量
 initCheckedIndex | int | -1 | 初始选择的单选项索引
 currentCheckedIndex | int | -1 | 当前选择的单选项索引

@@ -36,7 +36,7 @@ Flickable {
 animationEnabled | bool | true | 是否开启动画
 effectEnabled | bool | true | 是否开启点击效果
 hoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
-model | list | [] | 按钮块模型
+model | array | [] | 按钮块模型
 count | int | - | 按钮数量
 size | enum | HusButtonBlock.Size_Auto | 按钮项大小(来自 HusButtonBlock)
 buttonWidth | int | 120 | 按钮项宽度(size == HusButtonBlock.Size_Fixed 生效)

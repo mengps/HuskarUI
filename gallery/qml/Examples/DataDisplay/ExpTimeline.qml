@@ -41,7 +41,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
-initModel | list | [] | 初始模型数组
+initModel | array | [] | 初始模型数组
 mode | enum | HusTimeline.Mode_Left | 时间节点展现模式(来自 HusTimeline)
 reverse | bool | false | 文本颜色
 defaultNodeSize | int | 11 | 默认圆圈大小

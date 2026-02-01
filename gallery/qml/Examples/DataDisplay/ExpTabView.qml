@@ -34,7 +34,7 @@ Flickable {
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
-initModel | list | true | 标签页初始模型
+initModel | array | true | 标签页初始模型
 count | int | true | 当前标签页数量
 currentIndex | int | true | 当前标签页索引(更改该值可切换页)
 tabType | enum | HusTabView.Type_Default | 标签类型(来自 HusTabView)
