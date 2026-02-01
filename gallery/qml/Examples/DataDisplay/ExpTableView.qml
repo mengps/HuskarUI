@@ -141,12 +141,15 @@ defaultColumnHeaderHeight | int | 40 | 默认列头高度
 defaultRowHeaderWidth | int | 40 | 默认行头宽度
 showColumnGrid | bool | false | 是否显示列网格线
 showRowGrid | bool | false | 是否显示行网格线
+columnResizable | bool | true | 是否可调整列大小
+rowResizable | bool | true | 是否可调整行大小
 rowHeightProvider | function(row, key) | minimumRowHeight | 行高提供函数
 minimumRowHeight | int | 40 | 最小行高
 maximumRowHeight | int | Number.MAX_VALUE | 最大行高
 initModel | list | [] | 表格初始数据模型
 rowCount | int | 0 | 当前模型行数
 columns | list | [] | 列描述对象数组
+defaultCheckedKeys | list | [] | 默认选中的键列表
 checkedKeys | list | [] | 选中行的键列表
 colorGridLine | color | - | 网格线颜色
 showColumnHeader | bool | true | 是否显示列头

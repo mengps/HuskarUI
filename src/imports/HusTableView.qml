@@ -42,29 +42,33 @@ HusRectangleInternal {
     property bool showRowGrid: false
     property real minimumRowHeight: 40
     property real maximumRowHeight: Number.MAX_VALUE
+    property bool columnResizable: true
+    property bool rowResizable: true
     property var initModel: []
     readonly property int rowCount: __cellModel.rowCount
     property var columns: []
+    property var defaultCheckedKeys: []
     property var checkedKeys: []
 
     property bool showColumnHeader: true
     property font columnHeaderTitleFont: Qt.font({
-                                                     family: HusTheme.HusTableView.fontFamily,
-                                                     pixelSize: parseInt(HusTheme.HusTableView.fontSize)
+                                                     family: themeSource.fontFamily,
+                                                     pixelSize: parseInt(themeSource.fontSize)
                                                  })
-    property color colorColumnHeaderTitle: HusTheme.HusTableView.colorColumnTitle
-    property color colorColumnHeaderBg: HusTheme.HusTableView.colorColumnHeaderBg
+    property color colorColumnHeaderTitle: themeSource.colorColumnTitle
+    property color colorColumnHeaderBg: themeSource.colorColumnHeaderBg
 
     property bool showRowHeader: true
     property font rowHeaderTitleFont: Qt.font({
-                                                  family: HusTheme.HusTableView.fontFamily,
-                                                  pixelSize: parseInt(HusTheme.HusTableView.fontSize)
+                                                  family: themeSource.fontFamily,
+                                                  pixelSize: parseInt(themeSource.fontSize)
                                               })
-    property color colorRowHeaderTitle: HusTheme.HusTableView.colorRowTitle
-    property color colorRowHeaderBg: HusTheme.HusTableView.colorRowHeaderBg
+    property color colorRowHeaderTitle: themeSource.colorRowTitle
+    property color colorRowHeaderBg: themeSource.colorRowHeaderBg
 
-    property color colorGridLine: HusTheme.HusTableView.colorGridLine
-    property color colorResizeBlockBg: HusTheme.HusTableView.colorResizeBlockBg
+    property color colorGridLine: themeSource.colorGridLine
+    property color colorResizeBlockBg: themeSource.colorResizeBlockBg
+    property var themeSource: HusTheme.HusTableView
 
     property alias verScrollBar: __vScrollBar
     property alias horScrollBar: __hScrollBar
@@ -228,18 +232,18 @@ HusRectangleInternal {
 
             HusIconText {
                 visible: sortDirections.indexOf('ascend') !== -1
-                colorIcon: sortMode === 'ascend' ? HusTheme.HusTableView.colorIconHover :
-                                                   HusTheme.HusTableView.colorIcon
+                colorIcon: sortMode === 'ascend' ? control.themeSource.colorIconHover :
+                                                   control.themeSource.colorIcon
                 iconSource: HusIcon.CaretUpOutlined
-                iconSize: parseInt(HusTheme.HusTableView.fontSize) - 2
+                iconSize: parseInt(control.themeSource.fontSize) - 2
             }
 
             HusIconText {
                 visible: sortDirections.indexOf('descend') !== -1
-                colorIcon: sortMode === 'descend' ? HusTheme.HusTableView.colorIconHover :
-                                                    HusTheme.HusTableView.colorIcon
+                colorIcon: sortMode === 'descend' ? control.themeSource.colorIconHover :
+                                                    control.themeSource.colorIcon
                 iconSource: HusIcon.CaretDownOutlined
-                iconSize: parseInt(HusTheme.HusTableView.fontSize) - 2
+                iconSize: parseInt(control.themeSource.fontSize) - 2
             }
         }
     }
@@ -251,7 +255,7 @@ HusRectangleInternal {
             id: __headerFilterIcon
             anchors.centerIn: parent
             iconSource: HusIcon.SearchOutlined
-            colorIcon: hovered ? HusTheme.HusTableView.colorIconHover : HusTheme.HusTableView.colorIcon
+            colorIcon: hovered ? control.themeSource.colorIconHover : control.themeSource.colorIcon
             onClicked: {
                 __filterPopup.open();
             }
@@ -328,9 +332,9 @@ HusRectangleInternal {
 
     objectName: '__HusTableView__'
     clip: true
-    color: HusTheme.HusTableView.colorBg
-    topLeftRadius: HusTheme.HusTableView.radiusBg
-    topRightRadius: HusTheme.HusTableView.radiusBg
+    color: themeSource.colorBg
+    topLeftRadius: themeSource.radiusBg
+    topRightRadius: themeSource.radiusBg
     onColumnsChanged: {
         let headerColumns = [];
         let headerRow = {};
@@ -356,8 +360,11 @@ HusRectangleInternal {
         __cellModel.columns = cellColumns;
     }
     onInitModelChanged: {
+        clearAllCheckedKeys();
         clearSort();
         filter();
+
+        checkForKeys(defaultCheckedKeys);
     }
 
     function checkForRows(rows: var) {
@@ -376,7 +383,7 @@ HusRectangleInternal {
         __private.checkedKeysSetChanged();
     }
 
-    function getCheckedKeys() {
+    function getCheckedKeys(): var {
         return [...__private.checkedKeysSet.keys()];
     }
 
@@ -387,12 +394,12 @@ HusRectangleInternal {
         __private.parentCheckStateChanged();
     }
 
-    function scrollToRow(row) {
-        __cellView.positionViewAtRow(row, TableView.AlignVCenter);
+    function scrollToRow(row: int, mode = TableView.AlignVCenter) {
+        __cellView.positionViewAtRow(row, mode);
         __private.updateParentCheckBox();
     }
 
-    function sort(column) {
+    function sort(column: int) {
         /*! 仅需设置排序相关属性, 真正的排序在 filter() 中完成 */
         if (columns[column].hasOwnProperty('sorter')) {
             columns.forEach(
@@ -623,6 +630,7 @@ HusRectangleInternal {
     }
 
     Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorGridLine { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
     QtObject {
         id: __private
@@ -688,7 +696,10 @@ HusRectangleInternal {
             updateParentCheckBox();
         }
         onParentCheckStateChanged: updateCheckedKeys();
-        onCheckedKeysSetChanged: updateCheckedKeys();
+        onCheckedKeysSetChanged: {
+            updateCheckedKeys();
+            updateParentCheckBox();
+        }
     }
 
     HusRectangleInternal {
@@ -696,8 +707,8 @@ HusRectangleInternal {
         height: control.defaultColumnHeaderHeight
         anchors.left: control.showRowHeader ? __rowHeaderViewBg.right : parent.left
         anchors.right: parent.right
-        topLeftRadius: control.showRowHeader ? 0 : HusTheme.HusTableView.radiusBg
-        topRightRadius: HusTheme.HusTableView.radiusBg
+        topLeftRadius: control.showRowHeader ? 0 : control.themeSource.radiusBg
+        topRightRadius: control.themeSource.radiusBg
         color: control.colorColumnHeaderBg
         visible: control.showColumnHeader
 
@@ -760,10 +771,11 @@ HusRectangleInternal {
                 Rectangle {
                     z: 2
                     width: 1
-                    color: control.colorGridLine
                     height: parent.height * 0.5
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    color: control.colorGridLine
+                    visible: control.columnResizable
                 }
 
                 ResizeArea {
@@ -773,6 +785,8 @@ HusRectangleInternal {
                     maximumWidth: __columnHeaderItem.maximumWidth
                     anchors.right: parent.right
                     anchors.rightMargin: -width * 0.5
+                    visible: control.columnResizable
+                    enabled: visible
                     target: __columnHeaderItem
                     isHorizontal: true
                     resizeCallback: result => __columnHeaderView.setColumnWidth(__columnHeaderItem.column, result);
@@ -828,10 +842,11 @@ HusRectangleInternal {
                 Rectangle {
                     z: 2
                     width: parent.width * 0.5
-                    color: control.colorGridLine
                     height: 1
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
+                    color: control.colorGridLine
+                    visible: control.rowResizable
                 }
 
                 ResizeArea {
@@ -841,6 +856,8 @@ HusRectangleInternal {
                     maximumHeight: control.maximumRowHeight
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: -height * 0.5
+                    visible: control.rowResizable
+                    enabled: visible
                     target: __rowHeaderItem
                     isHorizontal: false
                     resizeCallback: result => __rowHeaderView.setRowHeight(__rowHeaderItem.row, result);
@@ -886,15 +903,15 @@ HusRectangleInternal {
                 color: {
                     if (__private.checkedKeysSet.has(key)) {
                         if (row == __cellView.currentHoverRow)
-                            return HusTheme.isDark ? HusTheme.HusTableView.colorCellBgDarkHoverChecked :
-                                                     HusTheme.HusTableView.colorCellBgHoverChecked;
+                            return HusTheme.isDark ? control.themeSource.colorCellBgDarkHoverChecked :
+                                                     control.themeSource.colorCellBgHoverChecked;
                         else
-                            return HusTheme.isDark ? HusTheme.HusTableView.colorCellBgDarkChecked :
-                                                     HusTheme.HusTableView.colorCellBgChecked;
+                            return HusTheme.isDark ? control.themeSource.colorCellBgDarkChecked :
+                                                     control.themeSource.colorCellBgChecked;
                     } else {
-                        return row == __cellView.currentHoverRow ? HusTheme.HusTableView.colorCellBgHover :
+                        return row == __cellView.currentHoverRow ? control.themeSource.colorCellBgHover :
                                                                    control.alternatingRow && __rootItem.row % 2 !== 0 ?
-                                                                       HusTheme.HusTableView.colorCellBgHover : HusTheme.HusTableView.colorCellBg;
+                                                                       control.themeSource.colorCellBgHover : control.themeSource.colorCellBg;
                     }
                 }
 
@@ -938,13 +955,14 @@ HusRectangleInternal {
                             animationEnabled: control.animationEnabled
                             checked: __rootItem.checked
                             onToggled: {
-                                if (checkState == Qt.Checked) {
+                                if (checkState === Qt.Checked) {
                                     __private.checkedKeysSet.add(__rootItem.key);
                                     __rootItem.checked = true;
                                 } else {
                                     __private.checkedKeysSet.delete(__rootItem.key);
                                     __rootItem.checked = false;
                                 }
+                                __private.updateCheckedKeys();
                                 __private.updateParentCheckBox();
                                 __cellView.currentHoverRowChanged();
                             }
@@ -1008,7 +1026,7 @@ HusRectangleInternal {
         active: control.showRowHeader && control.showColumnHeader
         sourceComponent: HusRectangleInternal {
             color: control.colorResizeBlockBg
-            topLeftRadius: HusTheme.HusTableView.radiusBg
+            topLeftRadius: control.themeSource.radiusBg
 
             ResizeArea {
                 width: parent.width
