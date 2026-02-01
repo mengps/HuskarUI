@@ -36,7 +36,7 @@ T.Control {
         Style_Simple = 2
     }
 
-    property int imageStyle: HusEmpty.Image_Default
+    property int imageStyle: HusEmpty.Style_Default
     property string imageSource: {
         switch (imageStyle) {
         case HusEmpty.Style_None: return '';
@@ -99,7 +99,7 @@ T.Control {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
                 visible: active
-                active: control.imageSource !== '' || control.imageType !== HusEmpty.Image_None
+                active: control.imageSource !== '' || control.imageStyle !== HusEmpty.Style_None
                 sourceComponent: control.imageDelegate
             }
 
