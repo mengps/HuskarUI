@@ -80,6 +80,7 @@ HusRectangleInternal {
 
         property var model: parent.model
         property var headerData: parent.headerData
+        property int column: parent?.model?.column ?? -1
         property bool editable: headerData?.editable ?? false
         property string align: headerData?.align ?? 'center'
         property string selectionType: headerData?.selectionType ?? ''
@@ -87,7 +88,7 @@ HusRectangleInternal {
         property var sortDirections: headerData?.sortDirections ?? []
         property var onFilter: headerData?.onFilter
 
-        HusText {
+        Loader {
             anchors {
                 left: __checkBoxLoader.active ? __checkBoxLoader.right : parent.left
                 leftMargin: __checkBoxLoader.active ? 0 : 10
@@ -98,18 +99,10 @@ HusRectangleInternal {
                 bottom: parent.bottom
                 bottomMargin: 4
             }
-            font: control.columnHeaderTitleFont
-            text: headerData?.title ?? ''
-            color: control.colorColumnHeaderTitle
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: {
-                if (__columnHeaderDelegate.align == 'left')
-                    return Text.AlignLeft;
-                else if (__columnHeaderDelegate.align == 'right')
-                    return Text.AlignRight;
-                else
-                    return Text.AlignHCenter;
-            }
+            sourceComponent: control.columnHeaderTitleDelegate
+            property alias column: __columnHeaderDelegate.column
+            property alias headerData: __columnHeaderDelegate.headerData
+            property alias align: __columnHeaderDelegate.align
         }
 
         MouseArea {
@@ -131,7 +124,7 @@ HusRectangleInternal {
             anchors.left: parent.left
             anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            active: __columnHeaderDelegate.selectionType == 'checkbox'
+            active: __columnHeaderDelegate.selectionType === 'checkbox'
             sourceComponent: HusCheckBox {
                 id: __parentBox
                 animationEnabled: control.animationEnabled
@@ -139,15 +132,19 @@ HusRectangleInternal {
                 onToggled: {
                     if (checkState == Qt.Unchecked) {
                         __private.model.forEach(
-                                    object => {
-                                        __private.checkedKeysSet.delete(object.key);
-                                    });
+                            object => {
+                                if (object?.enabled ?? true) {
+                                    __private.checkedKeysSet.delete(object.key);
+                                }
+                            });
                         __private.checkedKeysSetChanged();
                     } else {
                         __private.model.forEach(
-                                    object => {
-                                        __private.checkedKeysSet.add(object.key);
-                                    });
+                            object => {
+                                if (object?.enabled ?? true) {
+                                    __private.checkedKeysSet.add(object.key);
+                                }
+                            });
                         __private.checkedKeysSetChanged();
                     }
                     __private.updateParentCheckBox();
@@ -168,7 +165,7 @@ HusRectangleInternal {
             anchors.rightMargin: 8
             anchors.verticalCenter: parent.verticalCenter
             active: sorter !== undefined
-            sourceComponent: columnHeaderSorterIconDelegate
+            sourceComponent: control.columnHeaderSorterIconDelegate
             onLoaded: {
                 if (sortDirections.length === 0) return;
 
@@ -184,7 +181,7 @@ HusRectangleInternal {
                 }
                 sortMode = ref.sortMode;
             }
-            property int column: __columnHeaderDelegate?.model?.column ?? -1
+            property alias column: __columnHeaderDelegate.column
             property alias sorter: __columnHeaderDelegate.sorter
             property alias sortDirections: __columnHeaderDelegate.sortDirections
             property string sortMode: 'false'
@@ -196,8 +193,8 @@ HusRectangleInternal {
             anchors.rightMargin: 8
             anchors.verticalCenter: parent.verticalCenter
             active: onFilter !== undefined
-            sourceComponent: columnHeaderFilterIconDelegate
-            property int column: __columnHeaderDelegate?.model?.column ?? -1
+            sourceComponent: control.columnHeaderFilterIconDelegate
+            property alias column: __columnHeaderDelegate.column
             property alias onFilter: __columnHeaderDelegate.onFilter
         }
     }
@@ -218,6 +215,20 @@ HusRectangleInternal {
             color: control.colorRowHeaderTitle
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
+        }
+    }
+    property Component columnHeaderTitleDelegate: HusText {
+        font: control.columnHeaderTitleFont
+        text: headerData?.title ?? ''
+        color: control.colorColumnHeaderTitle
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: {
+            if (align === 'left')
+            return Text.AlignLeft;
+            else if (align === 'right')
+            return Text.AlignRight;
+            else
+            return Text.AlignHCenter;
         }
     }
     property Component columnHeaderSorterIconDelegate: Item {
@@ -298,7 +309,7 @@ HusRectangleInternal {
                         type: HusButton.Type_Primary
                         onClicked: {
                             if (__searchInput.text.length === 0)
-                                __filterPopup.close();
+                            __filterPopup.close();
                             control.columns[column].filterInput = __searchInput.text;
                             control.filter();
                         }
@@ -309,7 +320,7 @@ HusRectangleInternal {
                         text: qsTr('Reset')
                         onClicked: {
                             if (__searchInput.text.length === 0)
-                                __filterPopup.close();
+                            __filterPopup.close();
                             __searchInput.clear();
                             control.columns[column].filterInput = '';
                             control.filter();
@@ -594,39 +605,39 @@ HusRectangleInternal {
         onEntered: cursorShape = isHorizontal ? Qt.SplitHCursor : Qt.SplitVCursor;
         onPressed:
             (mouse) => {
-                if (target) {
-                    startPos = Qt.point(mouseX, mouseY);
-                }
+            if (target) {
+                startPos = Qt.point(mouseX, mouseY);
             }
+        }
         onPositionChanged:
             (mouse) => {
-                if (pressed && target) {
-                    if (isHorizontal) {
-                        let resultWidth = 0;
-                        let offsetX = mouse.x - startPos.x;
-                        if (maximumWidth != Number.NaN && (target.width + offsetX) > maximumWidth) {
-                            resultWidth = maximumWidth;
-                        } else if ((target.width + offsetX) < minimumWidth) {
-                            resultWidth = minimumWidth;
-                        } else {
-                            resultWidth = target.width + offsetX;
-                        }
-                        resizeCallback(resultWidth);
+            if (pressed && target) {
+                if (isHorizontal) {
+                    let resultWidth = 0;
+                    let offsetX = mouse.x - startPos.x;
+                    if (maximumWidth != Number.NaN && (target.width + offsetX) > maximumWidth) {
+                        resultWidth = maximumWidth;
+                    } else if ((target.width + offsetX) < minimumWidth) {
+                        resultWidth = minimumWidth;
                     } else {
-                        let resultHeight = 0;
-                        let offsetY = mouse.y - startPos.y;
-                        if (maximumHeight != Number.NaN && (target.height + offsetY) > maximumHeight) {
-                            resultHeight = maximumHeight;
-                        } else if ((target.height + offsetY) < minimumHeight) {
-                            resultHeight = minimumHeight;
-                        } else {
-                            resultHeight = target.height + offsetY;
-                        }
-                        resizeCallback(resultHeight);
+                        resultWidth = target.width + offsetX;
                     }
-                    mouse.accepted = true;
+                    resizeCallback(resultWidth);
+                } else {
+                    let resultHeight = 0;
+                    let offsetY = mouse.y - startPos.y;
+                    if (maximumHeight != Number.NaN && (target.height + offsetY) > maximumHeight) {
+                        resultHeight = maximumHeight;
+                    } else if ((target.height + offsetY) < minimumHeight) {
+                        resultHeight = minimumHeight;
+                    } else {
+                        resultHeight = target.height + offsetY;
+                    }
+                    resizeCallback(resultHeight);
                 }
+                mouse.accepted = true;
             }
+        }
     }
 
     Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
@@ -641,13 +652,17 @@ HusRectangleInternal {
 
         function updateParentCheckBox() {
             let checkCount = 0;
+            let checkableCount = 0;
             model.forEach(
                         object => {
-                            if (checkedKeysSet.has(object.key)) {
-                                checkCount++;
+                            if (object?.enabled ?? true) {
+                                checkableCount++;
+                                if (checkedKeysSet.has(object.key)) {
+                                    checkCount++;
+                                }
                             }
                         });
-            parentCheckState = checkCount == 0 ? Qt.Unchecked : checkCount == model.length ? Qt.Checked : Qt.PartiallyChecked;
+            parentCheckState = checkCount === 0 ? Qt.Unchecked : checkCount === checkableCount ? Qt.Checked : Qt.PartiallyChecked;
         }
 
         function updateCheckedKeys() {
@@ -677,18 +692,18 @@ HusRectangleInternal {
 
             let cellRows = [];
             model.forEach(
-                        (object, index) => {
-                            let data = {};
-                            for (let i = 0; i < columns.length; i++) {
-                                const dataIndex = columns[i].dataIndex ?? '';
-                                if (object.hasOwnProperty(dataIndex)) {
-                                    data[`__data${i}`] = object[dataIndex];
-                                } else {
-                                    data[`__data${i}`] = null;
-                                }
-                            }
-                            cellRows.push(data);
-                        });
+                (object, index) => {
+                    let data = {};
+                    for (let i = 0; i < columns.length; i++) {
+                        const dataIndex = columns[i].dataIndex ?? '';
+                        if (object.hasOwnProperty(dataIndex)) {
+                            data[`__data${i}`] = object[dataIndex];
+                        } else {
+                            data[`__data${i}`] = null;
+                        }
+                    }
+                    cellRows.push(data);
+                });
             __cellModel.rows = cellRows;
 
             __rowHeaderModel.rows = model;
@@ -742,7 +757,7 @@ HusRectangleInternal {
 
                 TableView.onReused: {
                     if (selectionType == 'checkbox')
-                        __private.updateParentCheckBox();
+                    __private.updateParentCheckBox();
                 }
 
                 TableView.editDelegate: HusInput {
@@ -899,15 +914,16 @@ HusRectangleInternal {
                 implicitWidth: control.columns[column].width
                 implicitHeight: Math.max(control.minimumRowHeight, Math.min(control.rowHeightProvider(row, key), control.maximumRowHeight))
                 visible: implicitHeight >= 0
+                enabled: isEnabled
                 clip: true
                 color: {
                     if (__private.checkedKeysSet.has(key)) {
                         if (row == __cellView.currentHoverRow)
-                            return HusTheme.isDark ? control.themeSource.colorCellBgDarkHoverChecked :
-                                                     control.themeSource.colorCellBgHoverChecked;
+                        return HusTheme.isDark ? control.themeSource.colorCellBgDarkHoverChecked :
+                                                 control.themeSource.colorCellBgHoverChecked;
                         else
-                            return HusTheme.isDark ? control.themeSource.colorCellBgDarkChecked :
-                                                     control.themeSource.colorCellBgChecked;
+                        return HusTheme.isDark ? control.themeSource.colorCellBgDarkChecked :
+                                                 control.themeSource.colorCellBgChecked;
                     } else {
                         return row == __cellView.currentHoverRow ? control.themeSource.colorCellBgHover :
                                                                    control.alternatingRow && __rootItem.row % 2 !== 0 ?
@@ -932,6 +948,7 @@ HusRectangleInternal {
                 required property bool current
                 required property bool selected
 
+                property bool isEnabled: __private.model[row]?.enabled ?? true
                 property string key: __private.model[row]?.key ?? ''
                 property string selectionType: control.columns[column].selectionType ?? ''
                 property string dataIndex: control.columns[column].dataIndex ?? ''

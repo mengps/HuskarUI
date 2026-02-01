@@ -122,6 +122,10 @@ Flickable {
 - **rowHeaderDelegate: Component** 行头代理，代理可访问属性：\n
   - \`model: var\` 行模型数据\n
   - \`row: int\` 行索引\n
+- **columnHeaderTitleDelegate: Component** 列头标题代理，代理可访问属性：\n
+  - \`align: string\` 该列标题的对齐\n
+  - \`headerData: var\` 列描述数据(即columns[column])\n
+  - \`column: int\` 列索引\n
 - **columnHeaderSorterIconDelegate: Component** 列头搜索器图标代理，代理可访问属性：\n
   - \`sorter: var\` 该列的搜索器\n
   - \`sortDirections: list\` 该列的搜索方向数组\n
