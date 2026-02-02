@@ -22,3 +22,4 @@ DataEntry分类包含以下组件：
 - [HusSlider 滑动输入条](./HusSlider.md)
 - [HusSwitch 开关](./HusSwitch.md)
 - [HusTextArea 文本域 ](./HusTextArea.md)
+- [HusTransfer 穿梭框 ](./HusTransfer.md)

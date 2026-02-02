@@ -49,7 +49,7 @@
 
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-options | list | [] | 选项模型列表
+options | array | [] | 选项模型列表
 filterOption | function(input, option) | - | 输入项将使用该函数进行筛选
 count | int(readonly) | - | 当前options模型的项目数
 textRole | string | 'label' | 弹出框文本的模型角色。

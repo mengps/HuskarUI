@@ -34,14 +34,14 @@
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
-options | list | [] | 选项模型列表
+options | array | [] | 选项模型列表
 filterOption | function | - | 输入项将使用该函数进行筛选
 text | string | '' | 当前输入文本
 prefix | string | '' | 前缀文本
 suffix | string | '' | 后缀文本
 genDefaultKey | bool | true | 是否生成默认键(如果没有给定key则为label)
-defaultSelectedKeys | list | [] | 默认选中的键数组
-selectedKeys | list | [] | 选中项的键
+defaultSelectedKeys | array | [] | 默认选中的键数组
+selectedKeys | array | [] | 选中项的键
 searchEnabled | bool | true | 是否启用搜索
 tagCount | int(readonly) | 0 | 当前(选择)标签数量
 maxTagCount | int | -1 | 最多显示多少个标签(-1无限制)

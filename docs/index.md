@@ -41,6 +41,7 @@
  - [HusSlider 滑动输入条](./DataEntry/HusSlider.md)
  - [HusSwitch 开关](./DataEntry/HusSwitch.md)
  - [HusTextArea 文本域 ](./DataEntry/HusTextArea.md)
+ - [HusTransfer 穿梭框 ](./DataEntry/HusTransfer.md)
 ## [Effect](./Effect/index.md)
  - [HusAcrylic 亚克力 ](./Effect/HusAcrylic.md)
  - [HusShadow 阴影 ](./Effect/HusShadow.md)

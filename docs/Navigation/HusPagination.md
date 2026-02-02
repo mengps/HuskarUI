@@ -39,7 +39,7 @@ total | int | 0 | 数据项总数
 pageTotal | int | - | 页总数
 pageButtonMaxCount | int | 7 | 最大页按钮数量
 pageSize | int | 10 | 每页数量
-pageSizeModel | list | [] | 每页数量模型
+pageSizeModel | array | [] | 每页数量模型
 prevButtonTooltip | string | '上一页' | 上一页按钮的提示文本(为空不显示)
 nextButtonTooltip | string | '下一页' | 下一页按钮的提示文本(为空不显示)
 sizeHint | string | 'normal' | 尺寸提示

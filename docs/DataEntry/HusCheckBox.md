@@ -29,6 +29,7 @@ animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
 effectEnabled | bool | true | 是否开启点击效果
 hoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
 indicatorSize | int | 18 | 指示器大小
+elide | enum | Text.ElideNone | 设置文本的elide属性(参考Text文档)
 colorText | color | - | 文本颜色
 colorIndicator | color | - | 指示器颜色
 colorIndicatorBorder | color | - | 指示器边框颜色

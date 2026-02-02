@@ -63,9 +63,9 @@ defaultMenuWidth | int | 300 | 默认菜单宽度
 defaultMenuTopPadding | int | 10 | 默认菜单上边距
 defaultMenuBottomPadding | int | 10 | 默认菜单下边距
 defaultMenuSpacing | int | 4 | 默认菜单间隔
-defaultSelectedKeys | list | [] | 初始选中的菜单项 key 数组
+defaultSelectedKeys | array | [] | 初始选中的菜单项 key 数组
 selectedKey | string | '' | 当前选中的菜单 key
-initModel | list | [] | 初始菜单模型
+initModel | array | [] | 初始菜单模型
 radiusMenuBg | [HusRadius](../General/HusRadius.md) | - | 菜单项背景圆角
 radiusPopupBg | [HusRadius](../General/HusRadius.md) | - | 弹窗背景圆角
 scrollBar | [HusScrollBar](./HusScrollBar.md) | - | 访问内部菜单滚动条
@@ -84,7 +84,7 @@ enabled | bool | 可选 | 是否启用(false则禁用本菜单项)
 iconSize | int | 可选 | 图标大小
 iconSource | int | 可选 | 图标源
 iconSpacing | int | 可选 | 图标间隔
-menuChildren | list | 可选 | 子菜单(支持无限嵌套)
+menuChildren | array | 可选 | 子菜单(支持无限嵌套)
 iconDelegate | var | 可选 | 本菜单项图标代理(将覆盖menuIconDelegate)
 labelDelegate | var | 可选 | 本菜单项标签代理(将覆盖menuLabelDelegate)
 contentDelegate | var | 可选 | 本菜单项内容代理(将覆盖menuContentDelegate)

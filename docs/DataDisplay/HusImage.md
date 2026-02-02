@@ -31,7 +31,7 @@ hovered | bool(readonly) | - | 鼠标是否悬浮
 hoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
 fallback | url | '' | 加载失败时显示的图像占位符
 placeholder | url | '' | 加载时显示的图像占位符
-items | list | [] | 预览图片源
+items | array | [] | 预览图片源
 
 <br/>
 

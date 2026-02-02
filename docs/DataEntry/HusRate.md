@@ -56,7 +56,7 @@ spacing | int | 4 | 星星间隔
 iconSize | int | 24 | 图标大小
 toolTipFont | font | - | 文字提示字体
 showToolTip | bool | false | 是否显示文字提示
-toolTipTexts | list | [] | 文字提示文本列表(长度需等于count)
+toolTipTexts | array | [] | 文字提示文本列表(长度需等于count)
 colorFill | color | - | 满星颜色
 colorEmpty | color | - | 空星颜色
 colorHalf | color | - | 半星颜色

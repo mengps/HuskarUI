@@ -35,7 +35,7 @@ title | string | '' | 弹窗标题
 alphaEnabled | bool | true | 透明度是否启用
 open | bool | false | 弹窗是否打开
 format | string | 'hex' | 颜色格式
-presets | list | [] | 预设颜色列表
+presets | array | [] | 预设颜色列表
 presetsOrientation | enum | Qt.Vertical | 预设颜色视图的方向(来自 Qt.*)
 presetsLayoutDirection | enum | Qt.LeftToRight | 预设颜色视图的布局方向(来自 Qt.*)
 titleFont | font | - | 标题字体
@@ -55,7 +55,7 @@ radiusBg | [HusRadius](../General/HusRadius.md) | - | 背景圆角
 属性名 | 类型 | 可选/必选 | 描述
 ------ | --- | :---: | ---
 label | string | 必选 | 标签
-colors | list | 必选 | 颜色列表
+colors | array | 必选 | 颜色列表
 expanded | bool | 可选 | 默认是否展开
 
 <br/>
