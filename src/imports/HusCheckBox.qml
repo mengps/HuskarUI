@@ -32,6 +32,7 @@ T.CheckBox {
     property bool effectEnabled: true
     property int hoverCursorShape: Qt.PointingHandCursor
     property int indicatorSize: 18 * sizeRatio
+    property int elide: Text.ElideNone
     property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     property color colorIndicator: {
         if (enabled) {
@@ -248,11 +249,14 @@ T.CheckBox {
         }
     }
     contentItem: HusText {
+        leftPadding: control.indicator && !control.mirrored ? control.indicator.width + spacing : 0
+        rightPadding: control.indicator && control.mirrored ? control.indicator.width + spacing : 0
         text: control.text
         font: control.font
         color: control.colorText
         verticalAlignment: Text.AlignVCenter
-        leftPadding: control.indicator.width + (text.length > 0 ? control.spacing : 0)
+        elide: control.elide
+        property real spacing: (text.length > 0 ? control.spacing : 0)
 
         Behavior on color {
             enabled: control.animationEnabled
