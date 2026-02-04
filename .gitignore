@@ -88,6 +88,9 @@ Makefile
 CMakePresets.json
 CMakeUserPresets.json
 
+# Trae
+*.trae
+
 # VS Code
 /.vscode/
 .qmlls.ini
