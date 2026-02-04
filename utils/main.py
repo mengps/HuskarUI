@@ -4,7 +4,6 @@
 import sys
 import os
 from pathlib import Path
-from loguru import logger
 from shutil import rmtree
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -19,10 +18,10 @@ def gen_docs() -> None:
     if docs_dir.exists():
         rmtree(docs_dir)
     examples_dir = cwd / "gallery/qml/Examples"
-    output_meta_path = cwd / "docs/guide.metainfo.json"
+    output_meta_path = cwd / "ai_tools/HuskarUIExpert/guide.metainfo.json"
     docs = extract_all_docs(examples_dir, cwd)
     save_docs_to_json(docs, output_meta_path)
-    generate_markdown(str(output_meta_path))
+    generate_markdown(output_meta_path)
 
 
 if __name__ == "__main__":

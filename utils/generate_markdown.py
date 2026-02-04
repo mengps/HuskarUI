@@ -217,7 +217,7 @@ def generate_category_index(
         f.write(content)
 
 
-def generate_markdown(meta_file_path: str) -> None:
+def generate_markdown(meta_file_path: Path) -> None:
     """生成完整的文档结构
 
     Args:
