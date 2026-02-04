@@ -1,0 +1,15 @@
+{
+    "__init__": {
+        "__import__": ["HusTableView"]
+    },
+    "__style__": {
+        "fontFamilyTitle": "@fontPrimaryFamily",
+        "fontSizeTitle": "@fontPrimarySize",
+        "colorBgDisabled": "transparent",
+        "colorText": "@colorTextBase",
+        "colorTextDisabled": "@colorPrimaryTextDisabled",
+        "colorBorder": "@colorBorder",
+        "radiusTransferBg": "@radiusPrimary",
+        "radiusItemBg": "@radiusPrimary"
+    }
+}
