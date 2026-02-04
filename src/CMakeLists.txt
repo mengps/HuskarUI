@@ -152,6 +152,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusTimeline.qml
         imports/HusTag.qml
         imports/HusTableView.qml
+        imports/HusTransfer.qml
         imports/HusMessage.qml
         imports/HusAutoComplete.qml
         imports/HusText.qml
@@ -252,6 +253,7 @@ qt_add_resources(${PROJECT_NAME} "theme"
         resources/theme/HusColorPicker.json
         resources/theme/HusTreeView.json
         resources/theme/HusLabel.json
+        resources/theme/HusTransfer.json
 )
 
 qt_add_resources(${PROJECT_NAME} "resources"

@@ -72,6 +72,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataEntry/ExpTextArea.qml
         qml/Examples/DataEntry/ExpColorPickerPanel.qml
         qml/Examples/DataEntry/ExpColorPicker.qml
+        qml/Examples/DataEntry/ExpTransfer.qml
         qml/Examples/DataDisplay/ExpToolTip.qml
         qml/Examples/DataDisplay/ExpTourFocus.qml
         qml/Examples/DataDisplay/ExpTourStep.qml
