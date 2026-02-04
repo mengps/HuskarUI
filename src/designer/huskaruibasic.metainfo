@@ -376,6 +376,18 @@ MetaInfo {
     }
 
     Type {
+        name: "HuskarUI.Basic.HusTransfer"
+        ItemLibraryEntry {
+            name: "Transfer"
+            category: "DataEntry"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 400 }
+            Property { name: "height"; type: "int"; value: 200 }
+        }
+    }
+
+    Type {
         name: "HuskarUI.Basic.HusTextArea"
         ItemLibraryEntry {
             name: "TextArea"
