@@ -2,8 +2,9 @@ import json
 import argparse
 import sys
 import os
+from typing import List, Dict, Any, Optional
 
-def load_metainfo(file_path):
+def load_metainfo(file_path: str) -> List[Dict[str, Any]]:
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -11,13 +12,13 @@ def load_metainfo(file_path):
         print(f"Error reading file {file_path}: {e}")
         sys.exit(1)
 
-def find_component(data, name):
+def find_component(data: List[Dict[str, Any]], name: str) -> Optional[Dict[str, Any]]:
     for component in data:
         if component.get('name') == name:
             return component
     return None
 
-def search_components(data, keyword):
+def search_components(data: List[Dict[str, Any]], keyword: str) -> List[str]:
     results = []
     keyword = keyword.lower()
     for component in data:
@@ -27,7 +28,7 @@ def search_components(data, keyword):
             results.append(component['name'])
     return results
 
-def format_component(component):
+def format_component(component: Dict[str, Any]) -> str:
     output = []
     output.append(f"# {component.get('name')}")
     output.append(component.get('doc', 'No documentation available.'))
@@ -44,7 +45,7 @@ def format_component(component):
     
     return "\n".join(output)
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Query component metadata.")
     parser.add_argument('file', help="Path to the metainfo.json file")
     parser.add_argument('query', help="Component name, 'list', or search keyword")
