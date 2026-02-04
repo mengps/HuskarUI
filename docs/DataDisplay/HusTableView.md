@@ -94,6 +94,15 @@ tableModel | TableModel | - | 访问内部表格模型
 
 <br/>
 
+### {initModel}支持的属性：
+
+属性名 | 类型 | 可选/必选 | 描述
+------ | --- | :---: | ---
+key | string | 可选 | 本行数据键
+enabled | bool | 可选 | 本行是否禁用
+
+<br/>
+
 ### {columns}支持的属性：
 
 属性名 | 类型 | 可选/必选 | 描述
@@ -132,6 +141,10 @@ filterInput | string | 单元格的过滤输入
 - `checkForRows(rows: Array)` 选中 `rows` 提供的行列表。
 
 - `checkForKeys(keys: Array)` 选中 `keys` 提供的键列表。
+
+- `toggleForRows(rows: Array)` 切换 `rows` 提供的行列表的选中状态。
+
+- `toggleForKeys(keys: Array)` 切换 `keys` 提供的键列表的选中状态。
 
 - `Array getCheckedKeys()` 获取选中的键列表。
 
