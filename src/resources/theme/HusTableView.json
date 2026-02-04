@@ -3,6 +3,7 @@
         "fontFamily": "@fontPrimaryFamily",
         "fontSize": "@fontPrimarySize",
         "colorBg": "@colorBgBase",
+        "colorBgDisabled": "@colorFillTertiary",
         "colorGridLine": "$onBackground(@colorFillTertiary, @colorBgBase)",
         "colorColumnTitle": "@colorTextBase",
         "colorColumnHeaderBg": "$onBackground(@colorFillSecondary, @colorBgBase)",
