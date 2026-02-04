@@ -6,7 +6,7 @@
 
 本技能依赖于项目中存在的以下文件：
 - `ai_tools/HuskarUIExpert/query_metainfo.py`: 用于查询元数据的 Python 脚本。
-- `docs/guide.metainfo.json`: 包含组件文档的元数据文件。
+- `ai_tools/HuskarUIExpert/guide.metainfo.json`: 包含组件文档的元数据文件。
 
 请确保这些文件位于项目根目录下，或者相应地调整 `SKILL.md` 中的路径。
 
@@ -88,4 +88,4 @@ Claude Code 也使用 Agent Skills 标准。
 *   **实现特定交互**
     > “如何使用 HuskarUI 实现一个带有确认对话框的删除按钮？请给出完整代码。”
 
-AI 将自动使用配置的 Python 工具（或 `grep` 回退方案）从 `docs/guide.metainfo.json` 中检索准确信息，并结合上下文生成符合规范的代码。
+AI 将自动使用配置的 Python 工具（或 `grep` 回退方案）从 `ai_tools/HuskarUIExpert/guide.metainfo.json` 中检索准确信息，并结合上下文生成符合规范的代码。

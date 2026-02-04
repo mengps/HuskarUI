@@ -6,7 +6,7 @@ This skill provides expert knowledge and tools for the HuskarUI library, enablin
 
 This skill relies on the following files being present in your project:
 - `ai_tools/HuskarUIExpert/query_metainfo.py`: The Python script used to query metadata.
-- `docs/guide.metainfo.json`: The metadata file containing component documentation.
+- `ai_tools/HuskarUIExpert/guide.metainfo.json`: The metadata file containing component documentation.
 
 Ensure these files are in your project root or adjust the paths in `SKILL.md` accordingly.
 
@@ -88,4 +88,4 @@ You can combine specific development scenarios and ask the AI for complete code 
 *   **Implement Interactions**
     > "How do I implement a delete button with a confirmation dialog using HuskarUI? Please provide the full code."
 
-The AI will automatically use the configured Python tool (or `grep` fallback) to retrieve accurate information from `docs/guide.metainfo.json` and generate code that follows the project's standards.
+The AI will automatically use the configured Python tool (or `grep` fallback) to retrieve accurate information from `ai_tools/HuskarUIExpert/guide.metainfo.json` and generate code that follows the project's standards.
