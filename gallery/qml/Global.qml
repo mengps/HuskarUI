@@ -308,6 +308,13 @@ QtObject {
                     addVersion: '0.5.4',
                     desc: qsTr('非弹出式的日期时间选择面板。')
                 },
+                {
+                    key: 'HusTransfer',
+                    label: qsTr('HusTransfer 穿梭框'),
+                    source: './Examples/DataEntry/ExpTransfer.qml',
+                    addVersion: '0.5.7',
+                    desc: qsTr('双栏穿梭选择框。')
+                },
             ]
         },
         {

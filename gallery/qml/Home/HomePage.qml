@@ -60,6 +60,7 @@ Rectangle {
             property alias linkIcon: __linkIcon
             property string link: ''
             property string tagState: ''
+            property string version: ''
 
             Behavior on scale { NumberAnimation { duration: HusTheme.Primary.durationFast } }
 
@@ -146,37 +147,49 @@ Rectangle {
 
             Rectangle {
                 id: __new
-                width: __row.width + 12
-                height: __row.height + 6
+                width: __column.width + 12
+                height: __column.height + 6
                 anchors.right: parent.right
                 anchors.rightMargin: -width * 0.2
                 anchors.top: parent.top
                 anchors.topMargin: 5
                 radius: 2
-                visible: __cardComp.tagState != ''
+                visible: __cardComp.tagState !== ''
                 color: {
-                    if (__cardComp.tagState == 'New')
+                    if (__cardComp.tagState === 'New')
                         return HusTheme.Primary.colorError;
-                    else if (__cardComp.tagState == 'Update')
+                    else if (__cardComp.tagState === 'Update')
                         HusTheme.Primary.colorSuccess;
                     else
                         return 'transparent';
                 }
 
-                Row {
-                    id: __row
+                Column {
+                    id: __column
                     anchors.centerIn: parent
 
-                    HusIconText {
-                        anchors.verticalCenter: parent.verticalCenter
-                        iconSize: HusTheme.Primary.fontPrimarySize
-                        iconSource: HusIcon.FireFilled
-                        color: 'white'
+                    Row {
+                        HusIconText {
+                            anchors.verticalCenter: parent.verticalCenter
+                            iconSize: HusTheme.Primary.fontPrimarySize
+                            iconSource: HusIcon.FireFilled
+                            color: 'white'
+                        }
+
+                        HusText {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: __cardComp.tagState.toUpperCase()
+                            font {
+                                family: HusTheme.Primary.fontPrimaryFamily
+                                pixelSize: HusTheme.Primary.fontPrimarySize
+                            }
+                            color: 'white'
+                        }
                     }
 
                     HusText {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: __cardComp.tagState.toUpperCase()
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: 'v' + __cardComp.version
                         font {
                             family: HusTheme.Primary.fontPrimaryFamily
                             pixelSize: HusTheme.Primary.fontPrimarySize
@@ -311,6 +324,7 @@ Rectangle {
                     required property string tagState
                     required property string name
                     required property string desc
+                    required property string version
 
                     property bool preventFlicker: false
 
@@ -360,6 +374,7 @@ Rectangle {
                         height: parent.height
                         anchors.centerIn: parent
                         tagState: __rootItem.tagState
+                        version: __rootItem.version
                         title.text: __rootItem.name
                         desc.text: __rootItem.desc
                         transform: Rotation {
