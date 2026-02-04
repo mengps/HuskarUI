@@ -341,43 +341,6 @@ HusRectangleInternal {
         }
     }
 
-    objectName: '__HusTableView__'
-    clip: true
-    color: themeSource.colorBg
-    topLeftRadius: themeSource.radiusBg
-    topRightRadius: themeSource.radiusBg
-    onColumnsChanged: {
-        let headerColumns = [];
-        let headerRow = {};
-        for (const object of columns) {
-            let column = Qt.createQmlObject('import Qt.labs.qmlmodels; TableModelColumn {}', __columnHeaderModel);
-            column.display = object.dataIndex;
-            headerColumns.push(column);
-            headerRow[object.dataIndex] = object;
-        }
-
-        __columnHeaderModel.clear();
-        if (showColumnHeader) {
-            __columnHeaderModel.columns = headerColumns;
-            __columnHeaderModel.rows = [headerRow];
-        }
-
-        let cellColumns = [];
-        for (let i = 0; i < columns.length; i++) {
-            let column = Qt.createQmlObject('import Qt.labs.qmlmodels; TableModelColumn {}', __cellModel);
-            column.display = `__data${i}`;
-            cellColumns.push(column);
-        }
-        __cellModel.columns = cellColumns;
-    }
-    onInitModelChanged: {
-        clearAllCheckedKeys();
-        clearSort();
-        filter();
-
-        checkForKeys(defaultCheckedKeys);
-    }
-
     function checkForRows(rows: var) {
         rows.forEach(
                     row => {
@@ -391,6 +354,31 @@ HusRectangleInternal {
 
     function checkForKeys(keys: var) {
         keys.forEach(key => __private.checkedKeysSet.add(key));
+        __private.checkedKeysSetChanged();
+    }
+
+    function toggleForRows(rows: var) {
+        rows.forEach(row => {
+                         if (row >= 0 && row < __private.model.length) {
+                             const key = __private.model[row].key;
+                             if (__private.checkedKeysSet.has(key)) {
+                                 __private.checkedKeysSet.delete(key);
+                             } else {
+                                 __private.checkedKeysSet.add(key);
+                             }
+                         }
+                     });
+        __private.checkedKeysSetChanged();
+    }
+
+    function toggleForKeys(Keys: var) {
+        keys.forEach(key => {
+                         if (__private.checkedKeysSet.has(key)) {
+                             __private.checkedKeysSet.delete(key);
+                         } else {
+                             __private.checkedKeysSet.add(key);
+                         }
+                     });
         __private.checkedKeysSetChanged();
     }
 
@@ -489,6 +477,7 @@ HusRectangleInternal {
     }
 
     function clear() {
+        clearAllCheckedKeys();
         __private.model = initModel = [];
         __cellModel.clear();
         columns.forEach(
@@ -575,6 +564,44 @@ HusRectangleInternal {
             __cellModel.setData(__cellModel.index(rowIndex, columnIndex), 'display', data);
         }
     }
+
+    onColumnsChanged: {
+        let headerColumns = [];
+        let headerRow = {};
+        for (const object of columns) {
+            let column = Qt.createQmlObject('import Qt.labs.qmlmodels; TableModelColumn {}', __columnHeaderModel);
+            column.display = object.dataIndex;
+            headerColumns.push(column);
+            headerRow[object.dataIndex] = object;
+        }
+
+        __columnHeaderModel.clear();
+        if (showColumnHeader) {
+            __columnHeaderModel.columns = headerColumns;
+            __columnHeaderModel.rows = [headerRow];
+        }
+
+        let cellColumns = [];
+        for (let i = 0; i < columns.length; i++) {
+            let column = Qt.createQmlObject('import Qt.labs.qmlmodels; TableModelColumn {}', __cellModel);
+            column.display = `__data${i}`;
+            cellColumns.push(column);
+        }
+        __cellModel.columns = cellColumns;
+    }
+    onInitModelChanged: {
+        clearSort();
+        filter();
+    }
+    Component.onCompleted: {
+        checkForKeys(defaultCheckedKeys);
+    }
+
+    objectName: '__HusTableView__'
+    clip: true
+    color: themeSource.colorBg
+    topLeftRadius: themeSource.radiusBg
+    topRightRadius: themeSource.radiusBg
 
     component HoverIcon: HusIconText {
         signal clicked()
@@ -917,6 +944,7 @@ HusRectangleInternal {
                 enabled: isEnabled
                 clip: true
                 color: {
+                    if (!enabled) return control.themeSource.colorBgDisabled;
                     if (__private.checkedKeysSet.has(key)) {
                         if (row == __cellView.currentHoverRow)
                         return HusTheme.isDark ? control.themeSource.colorCellBgDarkHoverChecked :
@@ -963,7 +991,7 @@ HusRectangleInternal {
 
                     Loader {
                         id: __childCheckBoxLoader
-                        active: selectionType == 'checkbox'
+                        active: __rootItem.selectionType === 'checkbox'
                         anchors.left: parent.left
                         anchors.leftMargin: 10
                         anchors.verticalCenter: parent.verticalCenter
@@ -991,7 +1019,6 @@ HusRectangleInternal {
                                 }
                             }
                         }
-                        property alias key: __rootItem.key
                     }
 
                     Loader {
