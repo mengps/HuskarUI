@@ -259,8 +259,8 @@ T.Control {
     padding: 4
     spacing: 4
     font {
-        family: control.themeSource.fontFamily
-        pixelSize: parseInt(control.themeSource.fontSize)
+        family: themeSource.fontFamily
+        pixelSize: parseInt(themeSource.fontSize)
     }
     background: Item { }
     contentItem: TreeView {
