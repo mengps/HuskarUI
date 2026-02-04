@@ -35,7 +35,7 @@ defaultButtonSpacing | int | 8 | 按钮间隔
 showQuickJumper | bool | false | 是否显示快速跳转
 currentPageIndex | int | 0 | 当前页索引
 total | int | 0 | 数据项总数
-pageTotal | int | - | 页总数
+pageTotal | int(readonly) | - | 页总数(自动计算)
 pageButtonMaxCount | int | 7 | 最大页按钮数量
 pageSize | int | 10 | 每页数量
 pageSizeModel | array | [] | 每页数量模型

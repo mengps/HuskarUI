@@ -35,7 +35,7 @@ T.Control {
     property bool showQuickJumper: false
     property int currentPageIndex: 0
     property int total: 0
-    property int pageTotal: pageSize > 0 ? Math.ceil(total / pageSize) : 0
+    readonly property int pageTotal: pageSize > 0 ? Math.ceil(total / pageSize) : 0
     property int pageButtonMaxCount: 7
     property int pageSize: 10
     property var pageSizeModel: []
@@ -123,6 +123,11 @@ T.Control {
             currentPageIndex = pageTotal - 1;
     }
 
+    onPageTotalChanged: {
+        if (currentPageIndex > pageTotal) {
+            currentPageIndex = pageTotal - 1;
+        }
+    }
     onPageSizeChanged: {
         const __pageTotal = (pageSize > 0 ? Math.ceil(total / pageSize) : 0);
         if (currentPageIndex > __pageTotal) {
