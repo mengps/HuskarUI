@@ -21,7 +21,7 @@ if(WIN32)
         COMPANY "HuskarUI"
         DESCRIPTION ""
         VERSION "${PROJECT_VERSION}"
-        COPYRIGHT "Copyright (C) 2025 mengps. All rights reserved."
+        COPYRIGHT "Copyright (C) 2026 mengps. All rights reserved."
         ICONS ../resources/huskarui_new_square.ico
         OUTPUT_FILE "${GALLERY_RC_FILE}"
     )

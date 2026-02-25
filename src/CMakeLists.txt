@@ -92,7 +92,7 @@ if(WIN32)
         COMPANY "HuskarUI"
         DESCRIPTION "https://github.com/mengps/HuskarUI"
         VERSION "${PROJECT_VERSION}"
-        COPYRIGHT "Copyright (C) 2025 mengps. All rights reserved."
+        COPYRIGHT "Copyright (C) 2026 mengps. All rights reserved."
         OUTPUT_FILE "${HUSKARUI_RC_FILE}"
     )
 endif()
