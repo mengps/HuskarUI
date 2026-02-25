@@ -32,11 +32,11 @@
 
     设置 `Popup` 弹窗是否允许超过窗口外时自动翻转(水平翻转/垂直翻转)。
 
-- `getClipbordText(): string`
+- `setClipboardText(): string`
 
     获取当前剪切板内容。
 
-- `setClipbordText(text: string): bool`
+- `setClipboardText(text: string): bool`
 
     设置当前剪切板内容为 `text`。
 

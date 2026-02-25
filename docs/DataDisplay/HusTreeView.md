@@ -72,7 +72,7 @@ showLine | bool | false | 是否显示连接线
 lineStyle | enum | HusTreeView.SolidLine | 连接线样式(来自 HusTreeView)
 lineWidth | real | 1 | 连接线宽度
 dashPattern | array | [4, 4] | 连接线虚线模式
-switcherIconSouce | int丨string | HusIcon.CaretRightOutlined | 切换器图标源(来自 HusIcon)或图标链接
+switcherIconSource | int丨string | HusIcon.CaretRightOutlined | 切换器图标源(来自 HusIcon)或图标链接
 switcherIconSize | int | 12 | 切换器图标大小
 rowSpacing | real | 4 | 节点行之间的间隔
 defaultCheckedKeys | array | [] | 默认选中的键列表
@@ -278,7 +278,7 @@ Column {
 
 ### 示例 3 - 自定义展开/折叠图标
 
-通过 `switcherIconSouce` 设置展开/折叠图标。
+通过 `switcherIconSource` 设置展开/折叠图标。
 
 
 ```qml
@@ -290,7 +290,7 @@ Column {
 
     HusTreeView {
         showLine: true
-        switcherIconSouce: HusIcon.DownOutlined
+        switcherIconSource: HusIcon.DownOutlined
         Component.onCompleted: expandForKeys(['0-0-0']);
         initModel: [
             {

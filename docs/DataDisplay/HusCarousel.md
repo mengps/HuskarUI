@@ -56,13 +56,13 @@ showArrow | bool | false | 是否显示箭头
 
 ### 支持的函数：
 
-- `swithTo(index: int, animated: bool = true)` 
+- `switchTo(index: int, animated: bool = true)` 
 
   - `index` 要切换的目标处索引
   - `animated` 是否使用切换动效
-- `swithToPrev()` 切换到前一页 
+- `switchToPrev()` 切换到前一页 
 
-- `swithToNext()` 切换到后一页 
+- `switchToNext()` 切换到后一页 
 
 - `int getSuitableIndicatorWidth(contentWidth: int, indicatorMaxWidth: int = 18)` 获取合适的指示器宽度 
 
