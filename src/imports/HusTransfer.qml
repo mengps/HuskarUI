@@ -348,7 +348,7 @@ T.Control {
                 clip: true
                 visible: typeof control.pagination === 'object'
                 sizeHint: 'small'
-                total: filteredData.length
+                total: __transferListRoot.filteredData.length
                 pageSize: control.pagination?.pageSize ?? 10
                 pageButtonMaxCount: control.pagination?.pageButtonMaxCount ?? 7
                 showQuickJumper: control.pagination?.showQuickJumper ?? false
