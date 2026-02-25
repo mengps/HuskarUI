@@ -112,7 +112,7 @@ T.Control {
     }
 
     function gotoNextPage() {
-        if (currentPageIndex < pageTotal)
+        if (currentPageIndex < pageTotal - 1)
             currentPageIndex++;
     }
 
