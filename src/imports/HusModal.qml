@@ -44,7 +44,7 @@ HusPopup {
     property int positionMargin: 120
     property bool closable: true
     property bool maskClosable: true
-    property var iconSource: 0 || ''
+    property var iconSource: 0 ?? ''
     property int iconSize: 24
     property string title: ''
     property string description: ''
