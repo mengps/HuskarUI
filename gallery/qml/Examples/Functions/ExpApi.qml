@@ -29,9 +29,9 @@ Flickable {
     设置 \`window\` 的窗口状态为 \`state\`。\n
 - \`setPopupAllowAutoFlip(popup: Popup, allowVerticalFlip: bool = true, allowHorizontalFlip: bool = true)\`\n
     设置 \`Popup\` 弹窗是否允许超过窗口外时自动翻转(水平翻转/垂直翻转)。\n
-- \`getClipbordText(): string\`\n
+- \`setClipboardText(): string\`\n
     获取当前剪切板内容。\n
-- \`setClipbordText(text: string): bool\`\n
+- \`setClipboardText(text: string): bool\`\n
     设置当前剪切板内容为 \`text\`。\n
 - \`readFileToString(fileName: string)\`\n
     读取 \`fileName\` 文件内容为字符串。\n

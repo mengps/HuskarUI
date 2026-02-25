@@ -52,7 +52,7 @@ T.Control {
     property int lineStyle: HusTreeView.SolidLine
     property real lineWidth: 1 / Screen.devicePixelRatio
     property list<real> dashPattern: [4, 4]
-    property var switcherIconSouce: HusIcon.CaretRightOutlined ?? ''
+    property var switcherIconSource: HusIcon.CaretRightOutlined ?? ''
     property int switcherIconSize: 12
     property alias rowSpacing: __treeView.rowSpacing
     property var defaultCheckedKeys: []
@@ -90,7 +90,7 @@ T.Control {
 
         HusIconText {
             anchors.centerIn: parent
-            iconSource: control.switcherIconSouce
+            iconSource: control.switcherIconSource
             iconSize: control.switcherIconSize
             verticalAlignment: Text.AlignVCenter
             rotation: isExpanded ? 90 : 0

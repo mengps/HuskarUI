@@ -124,13 +124,13 @@ T.Control {
     }
 
     onPageTotalChanged: {
-        if (currentPageIndex > pageTotal) {
+        if (currentPageIndex >= pageTotal) {
             currentPageIndex = pageTotal - 1;
         }
     }
     onPageSizeChanged: {
         const __pageTotal = (pageSize > 0 ? Math.ceil(total / pageSize) : 0);
-        if (currentPageIndex > __pageTotal) {
+        if (currentPageIndex >= __pageTotal) {
             currentPageIndex = __pageTotal - 1;
         }
     }

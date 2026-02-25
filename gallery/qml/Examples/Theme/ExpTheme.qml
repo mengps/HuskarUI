@@ -228,7 +228,7 @@ Flickable {
                                 onEntered: parent.hovered = true;
                                 onExited: parent.hovered = false;
                                 onClicked: {
-                                    HusApi.setClipbordText(parent.colorString);
+                                    HusApi.setClipboardText(parent.colorString);
                                     message.success(`${parent.colorString} copied 🎉`);
                                 }
                             }

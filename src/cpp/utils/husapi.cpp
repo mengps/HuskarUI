@@ -110,7 +110,7 @@ void HusApi::setPopupAllowAutoFlip(QObject *popup, bool allowVerticalFlip, bool 
     }
 }
 
-QString HusApi::getClipbordText() const
+QString HusApi::getClipboardText() const
 {
     if (auto clipboard = QGuiApplication::clipboard()) {
         return clipboard->text();
@@ -119,7 +119,7 @@ QString HusApi::getClipbordText() const
     return QString();
 }
 
-bool HusApi::setClipbordText(const QString &text)
+bool HusApi::setClipboardText(const QString &text)
 {
     if (auto clipboard = QGuiApplication::clipboard()) {
         clipboard->setText(text);

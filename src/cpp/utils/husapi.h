@@ -26,8 +26,8 @@ public:
 
     Q_INVOKABLE void setPopupAllowAutoFlip(QObject *popup, bool allowVerticalFlip = true, bool allowHorizontalFlip = true);
 
-    Q_INVOKABLE QString getClipbordText() const;
-    Q_INVOKABLE bool setClipbordText(const QString &text);
+    Q_INVOKABLE QString getClipboardText() const;
+    Q_INVOKABLE bool setClipboardText(const QString &text);
 
     Q_INVOKABLE QString readFileToString(const QString &fileName);
 

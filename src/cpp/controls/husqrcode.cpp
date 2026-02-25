@@ -183,8 +183,8 @@ void HusQrCodePrivate::genQrCode()
         const auto startY = (m_qrCodeImage.height() - iconHeight) * 0.5;
         const auto rangeX = m_qrCodeImage.width() - startX;
         const auto rangeY = m_qrCodeImage.height() - startY;
-        for (int y = startX; y < rangeX; y++) {
-            for (int x = startY; x < rangeY; x++) {
+        for (int x = startX; x < rangeX; x++) {
+            for (int y = startY; y < rangeY; y++) {
                 m_qrCodeImage.setPixelColor(x, y, icon.pixelColor(x - startX, y - startY));
             }
         }

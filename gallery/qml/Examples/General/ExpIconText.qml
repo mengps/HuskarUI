@@ -153,7 +153,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
                             onEntered: hovered = true;
                             onExited: hovered = false;
                             onClicked: {
-                                HusApi.setClipbordText(`HusIcon.${rootItem.iconName}`);
+                                HusApi.setClipboardText(`HusIcon.${rootItem.iconName}`);
                                 message.success(`HusIcon.${rootItem.iconName} copied 🎉`);
                             }
                             property bool hovered: false
