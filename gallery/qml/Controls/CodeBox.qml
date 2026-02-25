@@ -177,7 +177,7 @@ Rectangle {
                     iconSize: HusTheme.Primary.fontPrimarySizeHeading4
                     iconSource: HusIcon.CopyOutlined
                     onClicked: {
-                        HusApi.setClipbordText(codeText.text);
+                        HusApi.setClipboardText(codeText.text);
                         message.success(qsTr('代码复制成功'))
                     }
                     HusToolTip {
