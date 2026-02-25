@@ -89,9 +89,11 @@ T.Switch {
         family: themeSource.fontFamily
         pixelSize: parseInt(themeSource.fontSize)
     }
+    spacing: 5
     indicator: Item {
-        x: control.width - width - control.rightPadding
-        y: parent.height * 0.5 - height * 0.5
+        x: control.text ? (!control.mirrored ? control.width - width - control.rightPadding : control.leftPadding) :
+                          control.leftPadding + (control.availableWidth - width) / 2
+        y: control.topPadding + (control.availableHeight - height) / 2
         implicitWidth: __bg.width
         implicitHeight: __bg.height
 
@@ -235,11 +237,12 @@ T.Switch {
         }
     }
     contentItem: HusText {
+        leftPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
+        rightPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing : 0
         text: control.text
         font: control.font
         color: control.colorText
         verticalAlignment: Text.AlignVCenter
-        rightPadding: control.indicator.width + control.spacing
     }
 
     HoverHandler {
