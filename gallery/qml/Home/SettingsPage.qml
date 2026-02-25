@@ -331,12 +331,15 @@ HusWindow {
 
                         Repeater {
                             delegate: HusRadio {
+                                property int effectValue: modelData.value
                                 text: modelData.label
                                 ButtonGroup.group: specialEffectGroup
                                 onClicked: {
-                                    let oldEffect = galleryWindow.specialEffect;
                                     if (!galleryWindow.setSpecialEffect(modelData.value)) {
-                                        galleryWindow.setSpecialEffect(oldEffect);
+                                        for (let i = 0; i < specialEffectGroup.buttons.length; i++) {
+                                            specialEffectGroup.buttons[i].checked =
+                                                specialEffectGroup.buttons[i].effectValue === galleryWindow.specialEffect;
+                                        }
                                     }
                                 }
                                 Component.onCompleted: {
