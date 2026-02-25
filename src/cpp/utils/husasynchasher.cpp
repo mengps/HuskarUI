@@ -195,7 +195,6 @@ void HusAsyncHasher::setSource(const QUrl &source)
                     connect(d->m_runnable, &AsyncRunnable::finished, this, &HusAsyncHasher::setHashValue, Qt::QueuedConnection);
                     connect(d->m_runnable, &AsyncRunnable::progress, this, &HusAsyncHasher::hashProgress, Qt::QueuedConnection);
                     QThreadPool::globalInstance()->start(d->m_runnable);
-                    emit started();
                 } else {
                     QCryptographicHash hash(d->m_algorithm);
                     hash.addData(file);
