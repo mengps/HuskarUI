@@ -119,6 +119,7 @@ sources_table = {
     "HusTourFocus": ["src/imports/HusTourFocus.qml"],
     "HusTourStep": ["src/imports/HusTourStep.qml"],
     "HusTreeView": ["src/imports/HusTreeView.qml"],
+    "HusTransfer": ["src/imports/HusTransfer.qml"],
     "HusWindow": ["src/imports/HusWindow.qml"],
 }
 
