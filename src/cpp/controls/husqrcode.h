@@ -30,7 +30,7 @@ public:
     qreal height() const;
     void setHeight(qreal height);
 
-    bool isVaild() const;
+    bool isValid() const;
 
 signals:
     void urlChanged();

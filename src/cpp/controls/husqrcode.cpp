@@ -76,7 +76,7 @@ void HusIconSettings::setHeight(qreal height)
     }
 }
 
-bool HusIconSettings::isVaild() const
+bool HusIconSettings::isValid() const
 {
     return m_url.isValid() && m_width > 0 && m_height > 0;
 }
@@ -111,7 +111,7 @@ void HusQrCodePrivate::reqIcon()
 {
     Q_Q(HusQrCode);
 
-    if (m_icon && m_icon->isVaild()) {
+    if (m_icon && m_icon->isValid()) {
         const auto url = m_icon->url();
         if (url.isLocalFile()) {
             m_cachedIcon = QImage(m_icon->url().toLocalFile());
@@ -175,7 +175,7 @@ void HusQrCodePrivate::genQrCode()
 
     m_qrCodeImage = m_qrCodeImage.scaled(q->width(), q->height());
 
-    if (m_icon && m_icon->isVaild() && !m_cachedIcon.isNull()) {
+    if (m_icon && m_icon->isValid() && !m_cachedIcon.isNull()) {
         const auto iconWidth = std::min(m_qrCodeImage.width(), int(m_icon->width()));
         const auto iconHeight = std::min(m_qrCodeImage.height(), int(m_icon->height()));
         const auto icon = m_cachedIcon.scaled(iconWidth, iconHeight);
