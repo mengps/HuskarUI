@@ -436,6 +436,18 @@ MetaInfo {
     }
 
     Type {
+        name: "HuskarUI.Basic.HusLiquidGlass"
+        ItemLibraryEntry {
+            name: "LiquidGlass"
+            category: "Effect"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 200 }
+            Property { name: "height"; type: "int"; value: 200 }
+        }
+    }
+
+    Type {
         name: "HuskarUI.Basic.HusShadow"
         ItemLibraryEntry {
             name: "Shadow"

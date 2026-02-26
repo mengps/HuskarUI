@@ -100,6 +100,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Layout/ExpDivider.qml
         qml/Examples/Layout/ExpSpace.qml
         qml/Examples/Effect/ExpAcrylic.qml
+        qml/Examples/Effect/ExpLiquidGlass.qml
         qml/Examples/Effect/ExpSwitchEffect.qml
         qml/Examples/Effect/ExpShadow.qml
         qml/Examples/Feedback/ExpWatermark.qml
