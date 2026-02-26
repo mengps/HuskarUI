@@ -82,7 +82,7 @@ void main() {
     vec4 refrCol;
 
     if (frost > 0.0) {
-        float blurRadius = frost * 4.0;
+        float blurRadius = frost * 4.0 * (1.0 - edge);
         vec4 sum = vec4(0.0);
         const int SAMPLES = 16;
         for (int i = 0; i < SAMPLES; i++) {
