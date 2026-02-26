@@ -94,11 +94,11 @@ magnify | real | 1.0 | 放大倍数
                     HusSlider {
                         id: bevelDepthSlider
                         width: 200; height: 30
-                        min: 0.0; max: 0.2; stepSize: 0.01; value: 0.2
+                        min: 0.0; max: 0.5; stepSize: 0.01; value: 0.1
                         HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right; anchors.leftMargin: 10
-                            text: qsTr('斜面深度: ') + parent.currentValue.toFixed(3)
+                            text: qsTr('斜面深度: ') + parent.currentValue.toFixed(2)
                         }
                     }
 
@@ -233,11 +233,11 @@ magnify | real | 1.0 | 放大倍数
                 HusSlider {
                     id: bevelDepthSlider
                     width: 200; height: 30
-                    min: 0.0; max: 0.2; stepSize: 0.01; value: 0.2
+                    min: 0.0; max: 0.5; stepSize: 0.01; value: 0.1
                     HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right; anchors.leftMargin: 10
-                        text: qsTr('斜面深度: ') + parent.currentValue.toFixed(3)
+                        text: qsTr('斜面深度: ') + parent.currentValue.toFixed(2)
                     }
                 }
 
