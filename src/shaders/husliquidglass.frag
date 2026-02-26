@@ -22,8 +22,9 @@ layout(std140, binding = 0) uniform buf {
 
 layout(binding = 1) uniform sampler2D source;
 
-float udRoundBox(vec2 p, vec2 b, float r) {
-    return length(max(abs(p) - b + r, 0.0)) - r;
+float sdRoundBox(vec2 p, vec2 b, float r) {
+    vec2 q = abs(p) - b + r;
+    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
 }
 
 float random(vec2 st) {
@@ -33,7 +34,7 @@ float random(vec2 st) {
 float edgeFactor(vec2 uv, float radius_px) {
     vec2 p_px = (uv - 0.5) * resolution;
     vec2 b_px = 0.5 * resolution;
-    float d = -udRoundBox(p_px, b_px, radius_px);   // inside = positive
+    float d = -sdRoundBox(p_px, b_px, radius_px);   // inside = positive
     float bevel_px = bevelWidth * min(resolution.x, resolution.y);
     return 1.0 - smoothstep(0.0, bevel_px, d);
 }
@@ -46,7 +47,7 @@ void main() {
 
     vec2 p_px = (uv - 0.5) * resolution;
     vec2 b_px = 0.5 * resolution;
-    float dmask = udRoundBox(p_px, b_px, radius);
+    float dmask = sdRoundBox(p_px, b_px, radius);
 
     float inShape = 1.0 - smoothstep(-1.0, 1.0, dmask);
 
