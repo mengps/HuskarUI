@@ -5,5 +5,6 @@
 Effect分类包含以下组件：
 
 - [HusAcrylic 亚克力 ](./HusAcrylic.md)
+- [HusLiquidGlass 液态玻璃 ](./HusLiquidGlass.md)
 - [HusShadow 阴影 ](./HusShadow.md)
 - [HusSwitchEffect 切换效果 ](./HusSwitchEffect.md)

@@ -462,6 +462,13 @@ QtObject {
                     desc: qsTr('使用 HusAcrylic 可以轻松实现亚克力/毛玻璃效果。')
                 },
                 {
+                    key: 'HusLiquidGlass',
+                    label: qsTr('HusLiquidGlass 液态玻璃效果'),
+                    source: './Examples/Effect/ExpLiquidGlass.qml',
+                    addVersion: '0.5.7',
+                    desc: qsTr('液态玻璃/折射效果，支持折射、磨砂、斜面深度、镜面高光等参数。')
+                },
+                {
                     key: 'HusSwitchEffect',
                     label: qsTr('HusSwitchEffect 切换特效'),
                     source: './Examples/Effect/ExpSwitchEffect.qml',

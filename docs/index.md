@@ -44,6 +44,7 @@
  - [HusTransfer 穿梭框 ](./DataEntry/HusTransfer.md)
 ## [Effect](./Effect/index.md)
  - [HusAcrylic 亚克力 ](./Effect/HusAcrylic.md)
+ - [HusLiquidGlass 液态玻璃 ](./Effect/HusLiquidGlass.md)
  - [HusShadow 阴影 ](./Effect/HusShadow.md)
  - [HusSwitchEffect 切换效果 ](./Effect/HusSwitchEffect.md)
 ## [Feedback](./Feedback/index.md)

@@ -134,6 +134,7 @@ qt_add_qml_module(${PROJECT_NAME}
         imports/HusResizeMouseArea.qml
         imports/HusMoveMouseArea.qml
         imports/HusAcrylic.qml
+        imports/HusLiquidGlass.qml
         imports/HusSlider.qml
         imports/HusTabView.qml
         imports/HusToolTip.qml
@@ -275,6 +276,8 @@ qt_add_shaders(${PROJECT_NAME} "shaders"
     OUTPUT_TARGETS HUSKARUI_SHADERS_OUTPUT_TARGETS #Export for static lib
     FILES
         shaders/husrate.frag
+        shaders/husliquidglass.vert
+        shaders/husliquidglass.frag
 )
 
 # HuskarUI library output dir
