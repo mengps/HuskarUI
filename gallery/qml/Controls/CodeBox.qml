@@ -163,8 +163,8 @@ Rectangle {
                             win.createQmlObject(code);
                         }
                     }
+
                     HusToolTip {
-                        showArrow: false
                         visible: parent ? parent.hovered : false
                         text: qsTr('运行代码')
                     }
@@ -180,8 +180,8 @@ Rectangle {
                         HusApi.setClipboardText(codeText.text);
                         message.success(qsTr('代码复制成功'))
                     }
+
                     HusToolTip {
-                        showArrow: false
                         visible: parent ? parent.hovered : false
                         text: qsTr('复制代码')
                     }
