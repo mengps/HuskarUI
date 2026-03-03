@@ -465,7 +465,7 @@ QtObject {
                     key: 'HusLiquidGlass',
                     label: qsTr('HusLiquidGlass 液态玻璃效果'),
                     source: './Examples/Effect/ExpLiquidGlass.qml',
-                    addVersion: '0.5.7',
+                    addVersion: '0.5.8',
                     desc: qsTr('液态玻璃/折射效果，支持折射、磨砂、斜面深度、镜面高光等参数。')
                 },
                 {

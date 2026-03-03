@@ -30,11 +30,11 @@ bevelDepth | real | 0.119 | 斜面深度
 bevelWidth | real | 0.057 | 斜面宽度
 animated | bool | true | 是否启用动态高光
 frost | real | 0.0 | 磨砂程度
-radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 specularIntensity | real | 1.0 | 高光强度
 tiltX | real | 0.0 | 水平倾斜角度
 tiltY | real | 0.0 | 垂直倾斜角度
 magnify | real | 1.0 | 放大倍数
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
                        `)
         }
 
@@ -83,7 +83,7 @@ magnify | real | 1.0 | 放大倍数
                     HusSlider {
                         id: frostSlider
                         width: 200; height: 30
-                        min: 0.0; max: 10.0; stepSize: 0.1; value: 1.0
+                        min: 0.0; max: 10.0; stepSize: 0.1; value: 0.2
                         HusCopyableText {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.right; anchors.leftMargin: 10
@@ -169,14 +169,14 @@ magnify | real | 1.0 | 放大倍数
                     }
 
                     Rectangle {
-                        width: 400; height: 400
+                        width: 600; height: 400
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: 'transparent'
                         border.color: HusTheme.Primary.colorTextBase
 
                         Image {
                             id: source
-                            width: 400; height: 400
+                            anchors.fill: parent
                             source: 'qrc:/Gallery/images/switch_effect1.jpg'
                             fillMode: Image.PreserveAspectCrop
                         }
@@ -184,7 +184,7 @@ magnify | real | 1.0 | 放大倍数
                         HusLiquidGlass {
                             x: (source.width - width) * 0.5
                             y: (source.height - height) * 0.5
-                            width: 200; height: width
+                            width: 200; height: 200
                             sourceItem: source
                             refraction: refractionSlider.currentValue
                             frost: frostSlider.currentValue
@@ -195,12 +195,16 @@ magnify | real | 1.0 | 放大倍数
                             tiltY: tiltYSlider.currentValue
                             magnify: magnifySlider.currentValue
 
-                            DragHandler {
+                            HusResizeMouseArea {
                                 target: parent
-                                xAxis.minimum: source.x
-                                xAxis.maximum: source.x + source.width - parent.width
-                                yAxis.minimum: source.y
-                                yAxis.maximum: source.y + source.height - parent.height
+                                movable: true
+                                preventStealing: true
+                                minimumWidth: 100
+                                minimumHeight: 30
+                                minimumX: source.x
+                                maximumX: source.x + source.width - parent.width
+                                minimumY: source.y
+                                maximumY: source.y + source.height - parent.height
                             }
                         }
                     }
@@ -222,7 +226,7 @@ magnify | real | 1.0 | 放大倍数
                 HusSlider {
                     id: frostSlider
                     width: 200; height: 30
-                    min: 0.0; max: 10.0; stepSize: 0.1; value: 1.0
+                    min: 0.0; max: 10.0; stepSize: 0.1; value: 0.2
                     HusCopyableText {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.right; anchors.leftMargin: 10
@@ -308,14 +312,14 @@ magnify | real | 1.0 | 放大倍数
                 }
 
                 Rectangle {
-                    width: 400; height: 400
+                    width: 600; height: 400
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: 'transparent'
                     border.color: HusTheme.Primary.colorTextBase
 
                     Image {
                         id: source
-                        width: 400; height: 400
+                        anchors.fill: parent
                         source: 'qrc:/Gallery/images/switch_effect1.jpg'
                         fillMode: Image.PreserveAspectCrop
                     }
@@ -323,7 +327,7 @@ magnify | real | 1.0 | 放大倍数
                     HusLiquidGlass {
                         x: (source.width - width) * 0.5
                         y: (source.height - height) * 0.5
-                        width: 200; height: width
+                        width: 200; height: 200
                         sourceItem: source
                         refraction: refractionSlider.currentValue
                         frost: frostSlider.currentValue
@@ -335,12 +339,16 @@ magnify | real | 1.0 | 放大倍数
                         tiltY: tiltYSlider.currentValue
                         magnify: magnifySlider.currentValue
 
-                        DragHandler {
+                        HusResizeMouseArea {
                             target: parent
-                            xAxis.minimum: source.x
-                            xAxis.maximum: source.x + source.width - parent.width
-                            yAxis.minimum: source.y
-                            yAxis.maximum: source.y + source.height - parent.height
+                            movable: true
+                            preventStealing: true
+                            minimumWidth: 100
+                            minimumHeight: 30
+                            minimumX: source.x
+                            maximumX: source.x + source.width - parent.width
+                            minimumY: source.y
+                            maximumY: source.y + source.height - parent.height
                         }
                     }
                 }
