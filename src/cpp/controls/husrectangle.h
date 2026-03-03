@@ -135,7 +135,7 @@ private:
     QSharedPointer<HusRectanglePrivate> d_ptr;
 };
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0) && __has_include(<QtQuick/private/qquickrectangle_p.h>)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
 # include <QtQuick/private/qquickrectangle_p.h>
 
 /*! 内部矩形, 作为高版本基础控件时在内部使用, 但无法使用 border.style */
