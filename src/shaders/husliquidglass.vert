@@ -7,18 +7,6 @@ layout(location = 0) out vec2 qt_TexCoord0;
 layout(std140, binding = 0) uniform buf {
     mat4 qt_Matrix;
     float qt_Opacity;
-    // custom uniforms
-    vec2 resolution;
-    float refraction;
-    float bevelDepth;
-    float bevelWidth;
-    float frost;
-    float radius;
-    float specularIntensity;
-    float tiltX;
-    float tiltY;
-    float magnify;
-    float iTime;
 };
 
 void main() {

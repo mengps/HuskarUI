@@ -22,6 +22,7 @@
  */
 
 import QtQuick
+import HuskarUI.Basic
 
 Item {
     id: control
@@ -32,18 +33,18 @@ Item {
     property real bevelDepth: 0.119
     property real bevelWidth: 0.057
     property real frost: 0.0
-    property HusRadius radiusBg: HusRadius { all: 0 }
     property bool animated: true
     property real specularIntensity: 1.0
     property real tiltX: 0.0
     property real tiltY: 0.0
     property real magnify: 1.0
+    property HusRadius radiusBg: HusRadius { all: 0 }
 
     objectName: '__HusLiquidGlass__'
 
     readonly property real __srcScale: {
-        var magnifyPad = Math.max(1.0 / Math.max(control.magnify, 0.001), 1.0);
-        var refrPad = 1.0 + 2.0 * (control.refraction + control.bevelDepth);
+        const magnifyPad = Math.max(1.0 / Math.max(control.magnify, 0.001), 1.0);
+        const refrPad = 1.0 + 2.0 * (control.refraction + control.bevelDepth);
         return Math.max(magnifyPad, refrPad, 1.1);
     }
 
