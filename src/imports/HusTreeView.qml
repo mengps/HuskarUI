@@ -225,8 +225,7 @@ T.Control {
     }
 
     function moveNode(fromIndex: var, toIndex: var) {
-        const row = __treeModel.getRow(fromIndex);
-        appendNode(toIndex);
+        appendNode(toIndex, __treeModel.getRow(fromIndex));
         removeNode(fromIndex);
     }
 
