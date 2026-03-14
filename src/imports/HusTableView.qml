@@ -68,6 +68,10 @@ HusRectangleInternal {
 
     property color colorGridLine: themeSource.colorGridLine
     property color colorResizeBlockBg: themeSource.colorResizeBlockBg
+    property HusRadius radiusBg: HusRadius {
+        topLeft: themeSource.radiusBg
+        topRight: themeSource.radiusBg
+    }
     property var themeSource: HusTheme.HusTableView
 
     property alias verScrollBar: __vScrollBar
@@ -600,8 +604,8 @@ HusRectangleInternal {
     objectName: '__HusTableView__'
     clip: true
     color: themeSource.colorBg
-    topLeftRadius: themeSource.radiusBg
-    topRightRadius: themeSource.radiusBg
+    topLeftRadius: radiusBg.topLeft
+    topRightRadius: radiusBg.topRight
 
     component HoverIcon: HusIconText {
         signal clicked()
@@ -750,7 +754,7 @@ HusRectangleInternal {
         anchors.left: control.showRowHeader ? __rowHeaderViewBg.right : parent.left
         anchors.right: parent.right
         topLeftRadius: control.showRowHeader ? 0 : control.themeSource.radiusBg
-        topRightRadius: control.themeSource.radiusBg
+        topRightRadius: control.radiusBg.topRight
         color: control.colorColumnHeaderBg
         visible: control.showColumnHeader
 
@@ -946,16 +950,17 @@ HusRectangleInternal {
                 color: {
                     if (!enabled) return control.themeSource.colorBgDisabled;
                     if (__private.checkedKeysSet.has(key)) {
-                        if (row == __cellView.currentHoverRow)
-                        return HusTheme.isDark ? control.themeSource.colorCellBgDarkHoverChecked :
-                                                 control.themeSource.colorCellBgHoverChecked;
-                        else
-                        return HusTheme.isDark ? control.themeSource.colorCellBgDarkChecked :
-                                                 control.themeSource.colorCellBgChecked;
+                        if (row == __cellView.currentHoverRow) {
+                            return HusTheme.isDark ? control.themeSource.colorCellBgDarkHoverChecked :
+                                                     control.themeSource.colorCellBgHoverChecked;
+                        } else {
+                            return HusTheme.isDark ? control.themeSource.colorCellBgDarkChecked :
+                                                     control.themeSource.colorCellBgChecked;
+                        }
                     } else {
                         return row == __cellView.currentHoverRow ? control.themeSource.colorCellBgHover :
                                                                    control.alternatingRow && __rootItem.row % 2 !== 0 ?
-                                                                       control.themeSource.colorCellBgHover : control.themeSource.colorCellBg;
+                                                                       control.themeSource.colorCellOddBg : control.themeSource.colorCellBg;
                     }
                 }
 
@@ -1070,7 +1075,7 @@ HusRectangleInternal {
         active: control.showRowHeader && control.showColumnHeader
         sourceComponent: HusRectangleInternal {
             color: control.colorResizeBlockBg
-            topLeftRadius: control.themeSource.radiusBg
+            topLeftRadius: control.radiusBg.topLeft
 
             ResizeArea {
                 width: parent.width

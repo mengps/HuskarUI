@@ -13,6 +13,7 @@
         "colorRowHeaderBg": "$onBackground(@colorFillSecondary, @colorBgBase)",
         "colorResizeBlockBg": "$onBackground(@colorFillTertiary, @colorBgBase)",
         "colorCellBg": "@colorBgBase",
+        "colorCellOddBg": "$onBackground(@colorFillTertiary, @colorBgBase)",
         "colorCellBgHover": "$onBackground(@colorFillSecondary, @colorBgBase)",
         "colorCellBgHoverChecked": "@colorPrimaryBgHover",
         "colorCellBgChecked": "@colorPrimaryBg",
