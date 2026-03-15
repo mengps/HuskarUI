@@ -87,6 +87,7 @@ rowHeaderTitleFont | font | - | 行头标题字体
 colorRowHeaderTitle | color | - | 行头标题颜色
 colorRowHeaderBg | color | - | 行头背景颜色
 colorResizeBlockBg | color | - | 调整头大小块(左上角方块)背景色
+radiusBg | [HusRadius](../General/HusRadius.md) | - | 背景圆角
 verScrollBar | [HusScrollBar](../Navigation/HusScrollBar.md) | - | 访问内部垂直滚动条
 horScrollBar | [HusScrollBar](../Navigation/HusScrollBar.md) | - | 访问内部水平滚动条
 tableView | TableView | - | 访问内部表格视图
@@ -115,7 +116,7 @@ minimumWidth | int | 可选 | 该列最小宽度
 maximumWidth | int | 可选 | 该列最大宽度
 editable | bool | 可选 | 列头标题是否可编辑
 align | string | 可选 | 列头标题对齐方式, 支持 'center'丨'left'丨'right'
-selectionType | string | 可选 | 该列选择类型, 支持 'checkbox'
+selectionType | string | 可选 | 该列选择类型, 支持 'checkbox'丨'radio'
 sorter | var | 可选 | 该列排序器
 sortDirections | array | 可选 | 该列排序方向, 支持 'false'丨'ascend'丨'descend'
 onFilter | var | 可选 | 该列过滤器
@@ -272,7 +273,7 @@ Column {
 
 ### 示例 2 - 自定义选择项
 
-通过 `columns` 对应列中的 `selectionType` 设置选择类型，目前支持 'checkbox' 多选框。
+通过 `columns` 对应列中的 `selectionType` 设置选择类型，目前支持 'checkbox' 多选框 / 'radio' 单选框。
 
 **注意** 设置多列 `selectionType` 行为未定义。
 
@@ -326,9 +327,9 @@ Column {
         }
 
         HusCheckBox {
+            id: alternatingRowCheckBox
             anchors.verticalCenter: parent.verticalCenter
             text: qsTr('Switch alternatingRow')
-            onClicked: tableView.alternatingRow = checked;
         }
     }
 
@@ -336,6 +337,7 @@ Column {
         id: tableView
         width: parent.width
         height: 400
+        alternatingRow: alternatingRowCheckBox.checked
         columns: [
             {
                 title: 'Name',
@@ -383,6 +385,70 @@ Column {
         onCurrentPageIndexChanged: {
             /*! 生成一些数据 */
             tableView.initModel = Array.from({ length: pageSize }).map(
+                        (_, i) => {
+                            return {
+                                key: String(i + currentPageIndex * pageSize),
+                                name: `Edward King \${i + currentPageIndex * pageSize}`,
+                                age: i % 30 + 30,
+                                address: `London, Park Lane no. \${i + currentPageIndex * pageSize}`,
+                                tags: ['nice', 'cool', 'loser', 'teacher', 'developer'].splice(0, i % 5 + 1),
+                            }
+                        });
+        }
+    }
+
+    HusTableView {
+        id: tableView2
+        width: parent.width
+        height: 400
+        alternatingRow: alternatingRowCheckBox.checked
+        columns: [
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                delegate: textDelegate,
+                width: 200,
+                minimumWidth: 100,
+                maximumWidth: 400,
+                align: 'center',
+                selectionType: 'radio',
+            },
+            {
+                title: 'Age',
+                dataIndex: 'age',
+                delegate: textDelegate,
+                width: 100,
+                editable: true,
+            },
+            {
+                title: 'Address',
+                dataIndex: 'address',
+                delegate: textDelegate,
+                width: 300
+            },
+            {
+                title: 'Tags',
+                dataIndex: 'tags',
+                delegate: tagsDelegate,
+                width: 350,
+            },
+            {
+                title: 'Action',
+                dataIndex: 'action',
+                delegate: actionDelegate,
+                width: 200
+            }
+        ]
+    }
+
+    HusPagination {
+        anchors.horizontalCenter: parent.horizontalCenter
+        total: 1000
+        pageSize: 100
+        showQuickJumper: true
+        onCurrentPageIndexChanged: {
+            /*! 生成一些数据 */
+            tableView2.initModel = Array.from({ length: pageSize }).map(
                         (_, i) => {
                             return {
                                 key: String(i + currentPageIndex * pageSize),
