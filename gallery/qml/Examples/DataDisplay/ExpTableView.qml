@@ -913,8 +913,8 @@ filterInput | string | 单元格的过滤输入
         int age;
         QVariantMap toVariant() {
             QVariantMap var;
-            var["name"] = myData.name;
-            var["age"] = myData.age;
+            var["name"] = name;
+            var["age"] = age;
             return var;
         }
     };
@@ -929,7 +929,7 @@ filterInput | string | 单元格的过滤输入
     }
 \`\`\`\n
 3. 在 Qml 中直接访问该数据集并赋值给 HusTableView.initModel。\n
-\`\`\`auto
+\`\`\`qml
     HusTableView {
         Component.onCompleted: {
             initModel = getMyDataList();
