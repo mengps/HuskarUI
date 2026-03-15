@@ -29,7 +29,8 @@ Text {
 
     objectName: '__HusText__'
     renderType: HusTheme.textRenderType
-    color: enabled ? HusTheme.Primary.colorTextBase : HusTheme.Primary.colorPrimaryTextDisabled
+    color: enabled ? HusTheme.Primary.colorTextBase :
+                     HusTheme.Primary.colorPrimaryTextDisabled
     font {
         family: HusTheme.Primary.fontPrimaryFamily
         pixelSize: parseInt(HusTheme.Primary.fontPrimarySize)
