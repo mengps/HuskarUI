@@ -20,7 +20,7 @@ Item {
     Flickable {
         id: flickable
         width: parent.width
-        height: 400
+        height: 360
         contentHeight: column.height
         clip: true
         ScrollBar.vertical: HusScrollBar { }
@@ -67,61 +67,48 @@ contentDescription | string | '' | 内容描述(提高可用性)
     }
 
     HusTabView {
+        id: tabView
         anchors.top: flickable.bottom
         anchors.topMargin: 5
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        addButtonDelegate: Item {}
-        tabCentered: true
         defaultTabWidth: 120
-        initModel: [
-            {
-                key: '1',
-                title: qsTr('线框风格图标'),
-                styleFilter: 'Outlined'
-            },
-            {
-                key: '2',
-                title: qsTr('填充风格图标'),
-                styleFilter: 'Filled'
-            },
-            {
-                key: '3',
-                title: qsTr('双色风格图标'),
-                styleFilter: 'Path1,Path2,Path3,Path4'
-            },
-            {
-                key: '4',
-                title: qsTr('IcoMoon图标'),
-                styleFilter: 'IcoMoon'
-            }
-        ]
-        contentDelegate: Item {
-            id: contentItem
+        tabCentered: true
+        contentDelegate: ColumnLayout {
+            spacing: 6
 
-            Component.onCompleted: {
-                const map = HusIcon.allIconNames();
-                const filter = model.styleFilter.split(',');
-                for (const key in map) {
-                    let has = false;
-                    filter.forEach((filterKey) => {
-                                       if (key.indexOf(filterKey) !== -1) {
-                                           has = true;
-                                       }
-                                   });
-                    if (has) {
-                        listModel.append({
-                                             iconName: key,
-                                             iconSource: map[key]
-                                         });
+            HusInput {
+                id: searchInput
+                Layout.preferredWidth: 260
+                Layout.topMargin: 6
+                Layout.alignment: Qt.AlignHCenter
+                type: HusInput.Type_Dashed
+                clearEnabled: true
+                iconSource: HusIcon.SearchOutlined
+                onTextChanged: {
+                    listModel.clear();
+                    const filtered = model.iconObject.icons.filter(option => filterOption(text, option) === true);
+                    filtered.forEach(object => listModel.append(object));
+                }
+                Component.onCompleted: textChanged();
+
+                function filterOption(input: string, option: var): bool {
+                    return option.iconName.toUpperCase().indexOf(input.toUpperCase()) !== -1;
+                }
+
+                Connections {
+                    target: tabView
+                    function onCurrentIndexChanged() {
+                        searchInput.clear();
                     }
                 }
             }
 
             GridView {
                 id: gridView
-                anchors.fill: parent
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 cellWidth: Math.floor(width / 8)
                 cellHeight: 110
                 clip: true
@@ -138,9 +125,9 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     Rectangle {
                         anchors.fill: parent
                         anchors.margins: 10
-                        color: mouseArea.pressed ? HusThemeFunctions.darker(HusTheme.Primary.colorPrimaryBorder) :
-                                                  mouseArea.hovered ? HusThemeFunctions.lighter(HusTheme.Primary.colorPrimaryBorder)  :
-                                                                     HusThemeFunctions.alpha(HusTheme.Primary.colorPrimaryBorder, 0);
+                        color: mouseArea.pressed ? HusThemeFunctions.darker(HusTheme.Primary.colorPrimaryBorder, 105) :
+                                                  mouseArea.hovered ? HusThemeFunctions.lighter(HusTheme.Primary.colorPrimaryBorder, 105)  :
+                                                                     HusThemeFunctions.alpha(HusTheme.Primary.colorPrimaryBorder, 0)
                         radius: 5
 
                         Behavior on color { enabled: HusTheme.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
@@ -188,6 +175,54 @@ contentDescription | string | '' | 内容描述(提高可用性)
                     }
                 }
             }
+        }
+        Component.onCompleted: {
+            const model = [
+                            {
+                                key: '1',
+                                title: qsTr('线框风格图标'),
+                                styleFilter: 'Outlined',
+                                iconObject: { icons: [] }
+                            },
+                            {
+                                key: '2',
+                                title: qsTr('填充风格图标'),
+                                styleFilter: 'Filled',
+                                iconObject: { icons: [] }
+                            },
+                            {
+                                key: '3',
+                                title: qsTr('双色风格图标'),
+                                styleFilter: 'Path1,Path2,Path3,Path4',
+                                iconObject: { icons: [] }
+                            },
+                            {
+                                key: '4',
+                                title: qsTr('IcoMoon图标'),
+                                styleFilter: 'IcoMoon',
+                                iconObject: { icons: [] }
+                            }
+                        ];
+            const map = HusIcon.allIconNames();
+            for (const modelData of model) {
+                const filter = modelData.styleFilter.split(',');
+                for (const key in map) {
+                    let has = false;
+                    filter.forEach((filterKey) => {
+                                       if (key.indexOf(filterKey) !== -1) {
+                                           has = true;
+                                       }
+                                   });
+                    if (has) {
+                        modelData.iconObject.icons.push({
+                                                            iconName: key,
+                                                            iconSource: map[key]
+                                                        });
+                    }
+                }
+            }
+
+            initModel = model;
         }
     }
 }
