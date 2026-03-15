@@ -384,8 +384,8 @@ QtObject {
                     key: 'HusTableView',
                     label: qsTr('HusTableView 表格'),
                     source: './Examples/DataDisplay/ExpTableView.qml',
-                    updateVersion: '0.5.6.2',
-                    desc: qsTr('新增 columnResizable/rowResizable/defaultCheckedKeys 属性。')
+                    updateVersion: '0.5.8.1',
+                    desc: qsTr('新增 selectionType(radio 单选框)支持。')
                 },
                 {
                     key: 'HusBadge',
