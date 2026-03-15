@@ -48,13 +48,13 @@ T.Control {
     property Component prevButtonDelegate: ActionButton {
         iconSource: HusIcon.LeftOutlined
         tooltipText: control.prevButtonTooltip
-        disabled: control.currentPageIndex == 0
+        disabled: control.currentPageIndex === 0
         onClicked: control.gotoPrevPage();
     }
     property Component nextButtonDelegate: ActionButton {
         iconSource: HusIcon.RightOutlined
         tooltipText: control.nextButtonTooltip
-        disabled: control.currentPageIndex == (control.pageTotal - 1)
+        disabled: control.currentPageIndex === (control.pageTotal - 1)
         onClicked: control.gotoNextPage();
     }
     property Component quickJumperDelegate: Row {
@@ -125,13 +125,13 @@ T.Control {
 
     onPageTotalChanged: {
         if (currentPageIndex >= pageTotal) {
-            currentPageIndex = pageTotal - 1;
+            currentPageIndex = pageTotal === 0 ? 0 : (pageTotal - 1);
         }
     }
     onPageSizeChanged: {
         const __pageTotal = (pageSize > 0 ? Math.ceil(total / pageSize) : 0);
         if (currentPageIndex >= __pageTotal) {
-            currentPageIndex = __pageTotal - 1;
+            currentPageIndex = __pageTotal === 0 ? 0 : (__pageTotal - 1);
         }
     }
     Component.onCompleted: currentPageIndexChanged();
