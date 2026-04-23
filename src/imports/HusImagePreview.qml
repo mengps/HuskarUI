@@ -338,6 +338,7 @@ HusPopup {
         signal toCenter()
 
         property bool visible: false
+        property bool instantTransform: false
         property real scale: 1.0
         property real scaleOriginX: 0.0
         property real scaleOriginY: 0.0
@@ -353,7 +354,7 @@ HusPopup {
         }
 
         Behavior on scale {
-            enabled: control.animationEnabled
+            enabled: control.animationEnabled && !__private.instantTransform
             NumberAnimation {
                 duration: HusTheme.Primary.durationMid
                 easing.type: Easing.OutCubic
@@ -468,102 +469,116 @@ HusPopup {
 
                         property real minViewHeight: __rootItem.height - 200
                         property real aspectRatio: sourceSize.width / sourceSize.height
-                        property size realSize: Qt.size(width * __private.scale, height * __private.scale)
-                        property point mapTopLeft: mapToItem(parent, 0, 0)
-                        property point mapBottomRight: mapToItem(parent, width, height)
+                        property rect mappedRect: Qt.rect(x, y, width, height)
+                        property size mappedSize: Qt.size(mappedRect.width, mappedRect.height)
+
+                        function shouldAutoCenter() {
+                            return __private.isCenterScale && __private.scale === 1.0 &&
+                                   __private.rotation === 0 && !__private.flipX && !__private.flipY;
+                        }
+
+                        function scheduleCenter() {
+                            __centerTimer.restart();
+                        }
 
                         sourceComponent: control.sourceDelegate
-                        onRealSizeChanged: {
-                            if (realSize.width < __rootItem.width || realSize.height < __rootItem.height)
+                        onSourceSizeChanged: {
+                            if (shouldAutoCenter())
+                                scheduleCenter();
+                        }
+                        onMappedSizeChanged: {
+                            if (mappedSize.width < __rootItem.width || mappedSize.height < __rootItem.height)
                                 __adjustTimer.restart();
                         }
 
                         function calcMapRect() {
-                            mapTopLeft = mapToItem(parent, 0, 0);
-                            mapBottomRight = mapToItem(parent, width, height);
+                            const topLeft = mapToItem(parent, 0, 0);
+                            const topRight = mapToItem(parent, width, 0);
+                            const bottomLeft = mapToItem(parent, 0, height);
+                            const bottomRight = mapToItem(parent, width, height);
+                            const left = Math.min(topLeft.x, topRight.x, bottomLeft.x, bottomRight.x);
+                            const right = Math.max(topLeft.x, topRight.x, bottomLeft.x, bottomRight.x);
+                            const top = Math.min(topLeft.y, topRight.y, bottomLeft.y, bottomRight.y);
+                            const bottom = Math.max(topLeft.y, topRight.y, bottomLeft.y, bottomRight.y);
+                            mappedRect = Qt.rect(left, top, right - left, bottom - top);
                         }
 
                         function toCenterX() {
-                            const centerX = __rootItem.width * 0.5 - width * 0.5;
-                            const originScaleX = (__scale.origin.x - width * 0.5) * (__private.scale - 1.0);
-                            x = centerX - originScaleX * (__private.flipX ? 1 : -1);
+                            calcMapRect();
+                            x += __rootItem.width * 0.5 - (mappedRect.x + mappedRect.width * 0.5);
                         }
 
                         function toCenterY() {
-                            const centerY = __rootItem.height * 0.5 - height * 0.5;
-                            const originScaleY = (__scale.origin.y - height * 0.5) * (__private.scale - 1.0);
-                            y = centerY - originScaleY * (__private.flipY ? 1 : -1);
+                            calcMapRect();
+                            y += __rootItem.height * 0.5 - (mappedRect.y + mappedRect.height * 0.5);
                         }
 
                         function adjustPosition() {
-                            const r = parseInt(__private.rotation) % 360;
-                            if (realSize.width > __rootItem.width) {
-                                if (__private.flipX) {
-                                    if (r == 0 || r == -90 || r == 270) {
-                                        if (mapTopLeft.x < __rootItem.width) {
-                                            x += (__rootItem.width - mapTopLeft.x);
-                                        } else if (mapBottomRight.x > 0) {
-                                            x += -mapBottomRight.x;
-                                        }
-                                    } else {
-                                        if (mapBottomRight.x < __rootItem.width) {
-                                            x += (__rootItem.width - mapBottomRight.x);
-                                        } else if (mapTopLeft.x > 0) {
-                                            x += -mapTopLeft.x;
-                                        }
-                                    }
-                                } else {
-                                    if (r == 0 || r == -90 || r == 270) {
-                                        if (mapBottomRight.x < __rootItem.width) {
-                                            x += (__rootItem.width - mapBottomRight.x);
-                                        } else if (mapTopLeft.x > 0) {
-                                            x += -mapTopLeft.x;
-                                        }
-
-                                    } else {
-                                        if (mapTopLeft.x < __rootItem.width) {
-                                            x += (__rootItem.width - mapTopLeft.x);
-                                        } else if (mapBottomRight.x > 0) {
-                                            x += -mapBottomRight.x;
-                                        }
-                                    }
+                            calcMapRect();
+                            if (mappedRect.width > __rootItem.width) {
+                                const right = mappedRect.x + mappedRect.width;
+                                if (mappedRect.x > 0) {
+                                    x += -mappedRect.x;
+                                } else if (right < __rootItem.width) {
+                                    x += __rootItem.width - right;
                                 }
                             } else {
                                 toCenterX();
                             }
-                            if (realSize.height > __rootItem.height) {
-                                if (__private.flipY) {
-                                    if (r == 0 || r == -270 || r == 90) {
-                                        if (mapTopLeft.y < __rootItem.height) {
-                                            y += __rootItem.height - mapTopLeft.y;
-                                        } else if (mapBottomRight.y > 0) {
-                                            y += -mapBottomRight.y;
-                                        }
-                                    } else {
-                                        if (mapBottomRight.y < __rootItem.height) {
-                                            y += __rootItem.height - mapBottomRight.y;
-                                        } else if (mapTopLeft.y > 0) {
-                                            y += -mapTopLeft.y;
-                                        }
-                                    }
-                                } else {
-                                    if (r == 0 || r == -270 || r == 90) {
-                                        if (mapBottomRight.y < __rootItem.height) {
-                                            y += __rootItem.height - mapBottomRight.y;
-                                        } else if (mapTopLeft.y > 0) {
-                                            y += -mapTopLeft.y;
-                                        }
-                                    } else {
-                                        if (mapTopLeft.y < __rootItem.height) {
-                                            y += __rootItem.height - mapTopLeft.y;
-                                        } else if (mapBottomRight.y > 0) {
-                                            y += -mapBottomRight.y;
-                                        }
-                                    }
+
+                            calcMapRect();
+                            if (mappedRect.height > __rootItem.height) {
+                                const bottom = mappedRect.y + mappedRect.height;
+                                if (mappedRect.y > 0) {
+                                    y += -mappedRect.y;
+                                } else if (bottom < __rootItem.height) {
+                                    y += __rootItem.height - bottom;
                                 }
                             } else {
                                 toCenterY();
                             }
+                        }
+
+                        function scaleTo(pointX, pointY, nextScale) {
+                            const clampedScale = Math.max(control.scaleMin, Math.min(control.scaleMax, nextScale));
+                            if (clampedScale === __private.scale)
+                                return;
+
+                            const startX = x;
+                            const startY = y;
+                            const startScale = __private.scale;
+                            const mappedBeforeOrigin = mapToItem(parent, pointX, pointY);
+                            __private.instantTransform = true;
+                            __private.isCenterScale = false;
+                            __private.scaleOriginX = pointX;
+                            __private.scaleOriginY = pointY;
+
+                            const mappedAfterOrigin = mapToItem(parent, pointX, pointY);
+                            const baseX = startX + mappedBeforeOrigin.x - mappedAfterOrigin.x;
+                            const baseY = startY + mappedBeforeOrigin.y - mappedAfterOrigin.y;
+                            x = baseX;
+                            y = baseY;
+
+                            const mappedBeforeScale = mapToItem(parent, pointX, pointY);
+                            __private.scale = clampedScale;
+                            calcMapRect();
+
+                            const mappedAfterScale = mapToItem(parent, pointX, pointY);
+                            const targetX = baseX + mappedBeforeScale.x - mappedAfterScale.x;
+                            const targetY = baseY + mappedBeforeScale.y - mappedAfterScale.y;
+
+                            __private.scale = startScale;
+                            x = baseX;
+                            y = baseY;
+                            calcMapRect();
+
+                            Qt.callLater(() => {
+                                __private.scale = clampedScale;
+                                x = targetX;
+                                y = targetY;
+                                __adjustTimer.restart();
+                            });
+                            __private.instantTransform = false;
                         }
 
                         onXChanged: calcMapRect();
@@ -581,12 +596,15 @@ HusPopup {
                                 xScale: __private.scale
                                 yScale: __private.scale
                                 onXScaleChanged: __image.calcMapRect();
+                                onYScaleChanged: __image.calcMapRect();
                             },
                             Rotation {
+                                id: __rotationZ
                                 origin.x: __image.width * 0.5
                                 origin.y: __image.height * 0.5
                                 axis { x: 0; y: 0; z: 1 }
                                 angle: __rootItem.isCurrent ? __private.rotation : 0
+                                onAngleChanged: __image.calcMapRect();
 
                                 Behavior on angle {
                                     enabled: control.animationEnabled
@@ -597,10 +615,12 @@ HusPopup {
                                 }
                             },
                             Rotation {
+                                id: __rotationY
                                 origin.x: __image.width * 0.5
                                 origin.y: __image.height * 0.5
                                 axis { x: 0; y: 1; z: 0 }
                                 angle: __rootItem.isCurrent ? (__private.flipX ? 180 : 0) : 0
+                                onAngleChanged: __image.calcMapRect();
 
                                 Behavior on angle {
                                     enabled: control.animationEnabled
@@ -627,8 +647,19 @@ HusPopup {
                             }
                         ]
 
+                        onWidthChanged: {
+                            calcMapRect();
+                            if (shouldAutoCenter())
+                                scheduleCenter();
+                        }
+                        onHeightChanged: {
+                            calcMapRect();
+                            if (shouldAutoCenter())
+                                scheduleCenter();
+                        }
+
                         Behavior on x {
-                            enabled: control.animationEnabled
+                            enabled: control.animationEnabled && !__private.instantTransform
                             NumberAnimation {
                                 duration: HusTheme.Primary.durationMid
                                 easing.type: Easing.OutCubic
@@ -636,10 +667,30 @@ HusPopup {
                         }
 
                         Behavior on y {
-                            enabled: control.animationEnabled
+                            enabled: control.animationEnabled && !__private.instantTransform
                             NumberAnimation {
                                 duration: HusTheme.Primary.durationMid
                                 easing.type: Easing.OutCubic
+                            }
+                        }
+
+                        Timer {
+                            id: __centerTimer
+                            interval: 0
+                            onTriggered: {
+                                if (!__image.sourceSize.width || !__image.sourceSize.height || width <= 0 || height <= 0)
+                                    return;
+
+                                if (__image.shouldAutoCenter()) {
+                                    __private.instantTransform = true;
+                                    __image.x = (__rootItem.width - __image.width) * 0.5;
+                                    __image.y = (__rootItem.height - __image.height) * 0.5;
+                                    __image.calcMapRect();
+                                    __private.instantTransform = false;
+                                } else {
+                                    __image.toCenterX();
+                                    __image.toCenterY();
+                                }
                             }
                         }
 
@@ -654,8 +705,7 @@ HusPopup {
                             target: __private
                             function onToCenter() {
                                 __private.isCenterScale = true;
-                                __image.toCenterX();
-                                __image.toCenterY();
+                                __image.scheduleCenter();
                             }
                         }
 
@@ -668,17 +718,7 @@ HusPopup {
                             onWheel:
                                 (wheel) => {
                                     const step = wheel.angleDelta.y / 120 * control.scaleStep;
-                                    const nextScale = __private.scale + step;
-                                    __private.isCenterScale = false;
-                                    __private.scaleOriginX = wheel.x;
-                                    __private.scaleOriginY = wheel.y;
-                                    if (nextScale < control.scaleMin) {
-                                        __private.scale = control.scaleMin;
-                                    } else if (nextScale > control.scaleMax) {
-                                        __private.scale = control.scaleMax;
-                                    } else {
-                                        __private.scale = nextScale;
-                                    }
+                                    __image.scaleTo(wheel.x, wheel.y, __private.scale + step);
                                 }
                         }
                     }
