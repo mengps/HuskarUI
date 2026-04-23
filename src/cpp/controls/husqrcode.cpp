@@ -125,8 +125,8 @@ void HusQrCodePrivate::reqIcon()
                 m_iconReply = nullptr;
             }
 
-            if (qmlEngine(q)) {
-                const auto manager = qmlEngine(q)->networkAccessManager();
+            if (const auto engine = qmlEngine(q); engine) {
+                const auto manager = engine->networkAccessManager();
                 if (manager) {
                     m_iconReply = manager->get(QNetworkRequest(url));
                     QObject::connect(m_iconReply, &QNetworkReply::finished, q, [this]{

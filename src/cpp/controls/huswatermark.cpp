@@ -73,8 +73,8 @@ void HusWatermarkPrivate::updateImage()
             m_imageReply = nullptr;
         }
 
-        if (qmlEngine(q)) {
-            const auto manager = qmlEngine(q)->networkAccessManager();
+        if (const auto engine = qmlEngine(q); engine) {
+            const auto manager = engine->networkAccessManager();
             if (manager) {
                 m_imageReply = manager->get(QNetworkRequest(m_image));
                 QObject::connect(m_imageReply, &QNetworkReply::finished, q, [this]{

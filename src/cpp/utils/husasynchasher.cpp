@@ -210,8 +210,8 @@ void HusAsyncHasher::setSource(const QUrl &source)
                 d->m_reply->abort();
             emit started();
             if (!d->m_manager) {
-                if (qmlEngine(this)) {
-                    d->m_manager = qmlEngine(this)->networkAccessManager();
+                if (const auto engine = qmlEngine(this); engine) {
+                    d->m_manager = engine->networkAccessManager();
                 } else {
                     qCWarning(lcHusAsyncHasher) << "HusAsyncHasher without QmlEngine, we cannot get QNetworkAccessManager!";
                 }
