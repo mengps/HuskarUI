@@ -32,7 +32,7 @@ T.Label {
     property alias colorText: control.color
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
     property color colorBorder: themeSource.colorBorder
-    property HusRadius radiusBg: HusRadius { all: 0 }
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property var themeSource: HusTheme.HusLabel
 
     objectName: '__HusLabel__'

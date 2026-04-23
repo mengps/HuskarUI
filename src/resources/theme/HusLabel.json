@@ -7,6 +7,7 @@
         "colorLinkText": "@colorPrimaryText",
         "colorBg": "@colorBgBase",
         "colorBgDisabled": "@colorPrimaryContainerBgDisabled",
-        "colorBorder": "@colorBorder"
+        "colorBorder": "@colorBorder",
+        "radiusBg": "@radiusPrimary"
     }
 }
