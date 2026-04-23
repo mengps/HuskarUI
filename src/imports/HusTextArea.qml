@@ -46,11 +46,11 @@ T.Control {
     property alias colorPlaceholderText: __textArea.placeholderTextColor
     property alias colorSelectedText: __textArea.selectedTextColor
     property alias colorSelection: __textArea.selectionColor
-    property color colorBorder: enabled ?
-                                    active ? themeSource.colorBorderHover :
-                                             themeSource.colorBorder : themeSource.colorBorderDisabled
+    property color colorBorder: enabled ? active ? themeSource.colorBorderHover : themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
-    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusRadius radiusBg: HusRadius {
+        all: themeSource.radiusBg
+    }
     property string contentDescription: ''
     property var themeSource: HusTheme.HusTextArea
 
@@ -76,14 +76,39 @@ T.Control {
         __textArea.cursorPosition = __textArea.length;
     }
 
-    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorPlaceholderText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorSelectedText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorText {
+        enabled: control.animationEnabled
+        ColorAnimation {
+            duration: HusTheme.Primary.durationMid
+        }
+    }
+    Behavior on colorPlaceholderText {
+        enabled: control.animationEnabled
+        ColorAnimation {
+            duration: HusTheme.Primary.durationMid
+        }
+    }
+    Behavior on colorSelectedText {
+        enabled: control.animationEnabled
+        ColorAnimation {
+            duration: HusTheme.Primary.durationMid
+        }
+    }
+    Behavior on colorBorder {
+        enabled: control.animationEnabled
+        ColorAnimation {
+            duration: HusTheme.Primary.durationMid
+        }
+    }
+    Behavior on colorBg {
+        enabled: control.animationEnabled
+        ColorAnimation {
+            duration: HusTheme.Primary.durationMid
+        }
+    }
 
-    onTextChanged: __private.removeExcess();
-    onMaxLengthChanged: __private.removeExcess();
+    onTextChanged: __private.removeExcess()
+    onMaxLengthChanged: __private.removeExcess()
 
     objectName: '__HusTextArea__'
     topPadding: 6
@@ -114,14 +139,39 @@ T.Control {
             }
         }
 
-        Behavior on implicitHeight { enabled: control.animationEnabled && !__resize.pressed; NumberAnimation { duration: HusTheme.Primary.durationMid } }
+        Behavior on implicitHeight {
+            enabled: control.animationEnabled && !__resize.pressed
+            NumberAnimation {
+                duration: HusTheme.Primary.durationMid
+            }
+        }
 
         T.ScrollView {
             id: __scrollView
             focus: true
             anchors.fill: parent
-            T.ScrollBar.vertical: __vScrollBar
-            T.ScrollBar.horizontal: __hScrollBar
+            T.ScrollBar.vertical: HusScrollBar {
+                id: __vScrollBar
+                parent: __scrollView
+                x: __scrollView.mirrored ? 0 : __scrollView.width - width
+                y: __scrollView.topPadding
+                height: __scrollView.availableHeight
+                orientation: Qt.Vertical
+                policy: T.ScrollBar.AlwaysOn
+                animationEnabled: control.animationEnabled
+                active: __scrollView.T.ScrollBar.horizontal.active
+            }
+            T.ScrollBar.horizontal: HusScrollBar {
+                id: __hScrollBar
+                parent: __scrollView
+                x: __scrollView.leftPadding
+                y: __scrollView.height - height
+                width: __scrollView.availableWidth
+                orientation: Qt.Horizontal
+                policy: T.ScrollBar.AlwaysOn
+                animationEnabled: control.animationEnabled
+                active: __scrollView.T.ScrollBar.vertical.active
+            }
             Component.onCompleted: {
                 contentItem.boundsBehavior = Flickable.StopAtBounds;
             }
@@ -169,38 +219,22 @@ T.Control {
             anchors.fill: parent
             hoverEnabled: true
             preventStealing: true
-            onEntered: cursorShape = Qt.SizeVerCursor;
-            onExited: cursorShape = Qt.ArrowCursor;
-            onPressed:
-                mouse => {
-                    startY =  mouseY;
+            onEntered: cursorShape = Qt.SizeVerCursor
+            onExited: cursorShape = Qt.ArrowCursor
+            onPressed: mouse => {
+                startY = mouseY;
+                mouse.accepted = true;
+            }
+            onReleased: mouse => mouse.accepted = true
+            onPositionChanged: mouse => {
+                if (pressed) {
+                    const offsetY = mouse.y - startY;
+                    control.height = Math.max(control.height + offsetY, control.minResizeHeight);
                     mouse.accepted = true;
                 }
-            onReleased: mouse => mouse.accepted = true;
-            onPositionChanged:
-                mouse => {
-                    if (pressed) {
-                        const offsetY = mouse.y - startY;
-                        control.height = Math.max(control.height + offsetY, control.minResizeHeight);
-                        mouse.accepted = true;
-                    }
-                }
+            }
             property int startY: 0
         }
-    }
-
-    HusScrollBar {
-        id: __vScrollBar
-        orientation: Qt.Vertical
-        policy: T.ScrollBar.AlwaysOn
-        animationEnabled: control.animationEnabled
-    }
-
-    HusScrollBar {
-        id: __hScrollBar
-        orientation: Qt.Horizontal
-        policy: T.ScrollBar.AlwaysOn
-        animationEnabled: control.animationEnabled
     }
 
     QtObject {
