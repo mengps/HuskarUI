@@ -46,11 +46,10 @@ T.Control {
     property alias colorPlaceholderText: __textArea.placeholderTextColor
     property alias colorSelectedText: __textArea.selectedTextColor
     property alias colorSelection: __textArea.selectionColor
-    property color colorBorder: enabled ? active ? themeSource.colorBorderHover : themeSource.colorBorder : themeSource.colorBorderDisabled
+    property color colorBorder: enabled ? active ? themeSource.colorBorderHover :
+                                                   themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
-    property HusRadius radiusBg: HusRadius {
-        all: themeSource.radiusBg
-    }
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property string contentDescription: ''
     property var themeSource: HusTheme.HusTextArea
 
@@ -76,39 +75,14 @@ T.Control {
         __textArea.cursorPosition = __textArea.length;
     }
 
-    Behavior on colorText {
-        enabled: control.animationEnabled
-        ColorAnimation {
-            duration: HusTheme.Primary.durationMid
-        }
-    }
-    Behavior on colorPlaceholderText {
-        enabled: control.animationEnabled
-        ColorAnimation {
-            duration: HusTheme.Primary.durationMid
-        }
-    }
-    Behavior on colorSelectedText {
-        enabled: control.animationEnabled
-        ColorAnimation {
-            duration: HusTheme.Primary.durationMid
-        }
-    }
-    Behavior on colorBorder {
-        enabled: control.animationEnabled
-        ColorAnimation {
-            duration: HusTheme.Primary.durationMid
-        }
-    }
-    Behavior on colorBg {
-        enabled: control.animationEnabled
-        ColorAnimation {
-            duration: HusTheme.Primary.durationMid
-        }
-    }
+    Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorPlaceholderText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorSelectedText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
-    onTextChanged: __private.removeExcess()
-    onMaxLengthChanged: __private.removeExcess()
+    onTextChanged: __private.removeExcess();
+    onMaxLengthChanged: __private.removeExcess();
 
     objectName: '__HusTextArea__'
     topPadding: 6
@@ -219,13 +193,13 @@ T.Control {
             anchors.fill: parent
             hoverEnabled: true
             preventStealing: true
-            onEntered: cursorShape = Qt.SizeVerCursor
-            onExited: cursorShape = Qt.ArrowCursor
+            onEntered: cursorShape = Qt.SizeVerCursor;
+            onExited: cursorShape = Qt.ArrowCursor;
             onPressed: mouse => {
                 startY = mouseY;
                 mouse.accepted = true;
             }
-            onReleased: mouse => mouse.accepted = true
+            onReleased: mouse => mouse.accepted = true;
             onPositionChanged: mouse => {
                 if (pressed) {
                     const offsetY = mouse.y - startY;
