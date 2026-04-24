@@ -126,7 +126,8 @@ $process = $null
 $captureSucceeded = $false
 
 try {
-    $process = Start-Process -FilePath $QmlScenePath -ArgumentList @($QmlFilePath, '--maximized') -PassThru
+    $qmlImportPath = Join-Path (Split-Path -Parent $QmlScenePath) '..\qml'
+    $process = Start-Process -FilePath $QmlScenePath -ArgumentList @('--maximized', '-I', $qmlImportPath, $QmlFilePath) -PassThru
 
     Start-Sleep -Milliseconds $StartupDelayMs
 
