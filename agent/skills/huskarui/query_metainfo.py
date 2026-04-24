@@ -12,9 +12,13 @@ def load_metainfo(file_path: str) -> List[Dict[str, Any]]:
         print(f"Error reading file {file_path}: {e}")
         sys.exit(1)
 
-def find_component(data: List[Dict[str, Any]], title: str) -> Optional[Dict[str, Any]]:
+def find_component(data: List[Dict[str, Any]], query: str) -> Optional[Dict[str, Any]]:
     for component in data:
-        if component.get('title') == title:
+        name = component.get('name', '')
+        title = component.get('title', '')
+        title_prefix = title.split(maxsplit=1)[0] if title else ''
+
+        if query in {name, title, title_prefix}:
             return component
     return None
 
