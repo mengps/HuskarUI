@@ -159,10 +159,10 @@ T.Control {
                 rightPadding: 0
                 wrapMode: T.TextArea.WrapAnywhere
                 renderType: HusTheme.textRenderType
-                color: control.themeSource.colorText
                 selectByMouse: true
                 selectByKeyboard: true
-                placeholderTextColor: control.themeSource.colorPlaceholderText
+                color: enabled ? control.themeSource.colorText : control.themeSource.colorTextDisabled
+                placeholderTextColor: enabled ? themeSource.colorPlaceholderText : themeSource.colorPlaceholderTextDisabled
                 selectedTextColor: control.themeSource.colorTextSelected
                 selectionColor: control.themeSource.colorSelection
                 font: control.font
