@@ -18,6 +18,12 @@ QtObject {
             source: './Home/HomePage.qml'
         },
         {
+            key: 'OverviewPage',
+            label: qsTr('全览'),
+            iconSource: HusIcon.ShopOutlined,
+            source: './Home/OverviewPage.qml'
+        },
+        {
             type: 'divider'
         },
         {

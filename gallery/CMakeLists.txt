@@ -133,6 +133,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Home/AboutPage.qml
         qml/Home/SettingsPage.qml
         qml/Home/CreatorPage.qml
+        qml/Home/OverviewPage.qml
         qml/Global.qml
         qml/Gallery.qml
     SOURCES
