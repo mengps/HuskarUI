@@ -88,6 +88,7 @@ Rectangle {
 
         HusCaptionButton {
             id: __returnButton
+            height: parent.height
             noDisabledState: true
             iconSource: HusIcon.ArrowLeftOutlined
             iconSize: parseInt(control.themeSource.fontSize) + 2
