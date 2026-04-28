@@ -65,7 +65,7 @@ T.Drawer {
     }
 
     property Component titleDelegate: Item {
-        height: 56
+        implicitHeight: 56
 
         RowLayout {
             anchors.fill: parent
