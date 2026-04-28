@@ -89,6 +89,7 @@ Item {
 
                 Loader {
                     anchors.fill: parent
+                    asynchronous: true
                     sourceComponent: control.previewComponentFor(componentData.key)
                 }
             }
@@ -2739,13 +2740,13 @@ Item {
                     HusButton {
                         text: '/overview'
                         type: HusButton.Type_Outlined
-                        onClicked: router.currentUrl = '/overview'
+                        onClicked: router.push('/overview');
                     }
 
                     HusButton {
                         text: '/gallery'
                         type: HusButton.Type_Primary
-                        onClicked: router.currentUrl = '/gallery'
+                        onClicked: router.push('/gallery');
                     }
                 }
 
@@ -2826,8 +2827,7 @@ Item {
                     HusDrawer {
                         id: drawer
                         title: 'Basic Drawer'
-                        drawerSize: 280
-                        edge: drawerEdgeRadio.currentCheckedValue === undefined ? Qt.RightEdge : drawerEdgeRadio.currentCheckedValue
+                        edge: drawerEdgeRadio.currentCheckedValue ?? Qt.RightEdge
                         contentDelegate: HusCopyableText {
                             leftPadding: 15
                             text: 'Some contents...\nSome contents...\nSome contents...'
@@ -3430,26 +3430,44 @@ Item {
     }
 
     HusFrame {
+        z: 100
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.rightMargin: 16
         anchors.bottomMargin: 16
-        z: 100
         padding: 12
-        colorBg: HusThemeFunctions.alpha(HusTheme.Primary.colorBgBase, 0.96)
+        colorBg: HusThemeFunctions.alpha(HusTheme.Primary.colorBgBase, 0.8)
         colorBorder: HusTheme.Primary.colorBorderSecondary
 
-        Column {
-            spacing: 8
+        RowLayout {
+
+            HusCheckBox {
+                text: qsTr('Enabled')
+                checked: true
+                onToggled: {
+                    sceneViewportItem.enabled = checked;
+                }
+            }
 
             HusText {
-                text: qsTr(`缩放 ${Math.round(control.zoom * 100)}% (25% ~ 400%)`)
+                Layout.alignment: Qt.AlignVCenter
+                text: qsTr(`${Math.round(control.zoom * 100)}%`)
+            }
+
+            HusIconButton {
+                Layout.preferredWidth: 20
+                Layout.preferredHeight: 20
+                Layout.alignment: Qt.AlignVCenter
+                padding: 4
+                iconSource: HusIcon.MinusOutlined
+                onClicked: control.zoomBy(1 / 1.1);
             }
 
             HusSlider {
                 id: zoomSlider
-                width: 180
-                height: 20
+                Layout.preferredWidth: 180
+                Layout.preferredHeight: 20
+                Layout.alignment: Qt.AlignVCenter
                 min: control.minZoom * 100
                 max: control.maxZoom * 100
                 stepSize: 1
@@ -3458,25 +3476,34 @@ Item {
                 onFirstReleased: control.setZoomTo(currentValue / 100);
             }
 
-            Row {
-                spacing: 8
+            HusIconButton {
+                Layout.preferredWidth: 20
+                Layout.preferredHeight: 20
+                Layout.alignment: Qt.AlignVCenter
+                padding: 4
+                iconSource: HusIcon.PlusOutlined
+                onClicked: control.zoomBy(1.1);
+            }
 
-                HusIconButton {
-                    iconSource: HusIcon.MinusOutlined
-                    onClicked: control.zoomBy(1 / 1.1);
+            HusIconButton {
+                Layout.preferredWidth: 20
+                Layout.preferredHeight: 20
+                Layout.alignment: Qt.AlignVCenter
+                padding: 4
+                iconSource: HusIcon.BorderInnerOutlined
+                onClicked: {
+                    control.fitScene();
+                    control.setZoomTo(1);
                 }
+            }
 
-                HusIconButton {
-                    iconSource: HusIcon.PlusOutlined
-                    type: HusButton.Type_Primary
-                    onClicked: control.zoomBy(1.1);
-                }
-
-                HusButton {
-                    text: 'Fit'
-                    type: HusButton.Type_Outlined
-                    onClicked: control.fitScene();
-                }
+            HusIconButton {
+                Layout.preferredWidth: 20
+                Layout.preferredHeight: 20
+                Layout.alignment: Qt.AlignVCenter
+                padding: 4
+                iconSource: HusIcon.CompressOutlined
+                onClicked: control.fitScene();
             }
         }
     }
