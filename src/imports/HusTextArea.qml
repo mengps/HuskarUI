@@ -28,6 +28,8 @@ import HuskarUI.Basic
 T.Control {
     id: control
 
+    signal editingFinished()
+
     property bool animationEnabled: HusTheme.animationEnabled
     property bool active: __textArea.hovered || __textArea.activeFocus
     property bool resizable: false
@@ -166,6 +168,7 @@ T.Control {
                 selectedTextColor: control.themeSource.colorTextSelected
                 selectionColor: control.themeSource.colorSelection
                 font: control.font
+                onEditingFinished: control.editingFinished()
             }
         }
     }
