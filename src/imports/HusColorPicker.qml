@@ -109,6 +109,7 @@ T.AbstractButton {
         spacing: 4
 
         Item {
+            Layout.fillWidth: true
             Layout.preferredWidth: 22 * control.sizeRatio
             Layout.preferredHeight: 22 * control.sizeRatio
 
