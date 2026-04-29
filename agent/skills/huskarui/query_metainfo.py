@@ -28,7 +28,8 @@ def search_components(data: List[Dict[str, Any]], keyword: str) -> List[str]:
     for component in data:
         title = component.get('title', '').lower()
         doc = component.get('doc', '').lower()
-        if keyword in title or keyword in doc:
+        category = component.get('category', '').lower()
+        if keyword in title or keyword in doc or keyword in category:
             results.append(component['title'])
     return results
 
