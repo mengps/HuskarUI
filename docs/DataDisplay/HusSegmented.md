@@ -258,28 +258,7 @@ Column {
 
 ---
 
-### 示例 5 - 填充整行
-
-通过 `block` 属性使其填充父元素宽度。
-
-
-```qml
-import QtQuick
-import HuskarUI.Basic
-
-Column {
-    spacing: 10
-
-    HusSegmented {
-        block: true
-        options: [123, 456, 'longtext-longtext-longtext-longtext']
-    }
-}
-```
-
----
-
-### 示例 6 - 胶囊形状
+### 示例 5 - 胶囊形状
 
 胶囊型的 HusSegmented。
 
