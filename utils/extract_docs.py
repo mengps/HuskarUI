@@ -145,6 +145,26 @@ def extract_component_name(qml_file_path: Path) -> str:
     return ""
 
 
+def extract_category(file_path: str) -> str:
+    """从文件路径中提取组件分类
+
+    Args:
+        file_path: 文件路径，格式为 gallery/qml/Examples/Category/ExpComponent.qml
+
+    Returns:
+        分类名称，如DataDisplay、Feedback等
+    """
+    for separator in ["/", "\\"]:
+        parts = file_path.split(separator)
+        try:
+            examples_idx = parts.index("Examples")
+            if examples_idx + 1 < len(parts):
+                return parts[examples_idx + 1]
+        except ValueError:
+            continue
+    return "Unknown"
+
+
 def extract_docs_from_qml(qml_file_path: Path, project_root: Path) -> Dict[str, Any]:
     """
     从单个 QML 文件中提取文档信息
@@ -359,6 +379,7 @@ def extract_docs_from_qml(qml_file_path: Path, project_root: Path) -> Dict[str, 
         "name": component_name,
         "doc": doc_description,
         "docPath": rel_path,
+        "category": extract_category(rel_path),
         "examples": code_boxes,
         "sources": sources,
     }
