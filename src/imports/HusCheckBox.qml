@@ -125,7 +125,7 @@ T.CheckBox {
             topRightRadius: control.radiusIndicator.topRight
             bottomLeftRadius: control.radiusIndicator.bottomLeft
             bottomRightRadius: control.radiusIndicator.bottomRight
-            color: enabled ? control.colorIndicator : 'transparent'
+            color: 'transparent'
             border.color: control.colorIndicatorBorder
             border.width: 1
             anchors.centerIn: parent
