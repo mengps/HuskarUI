@@ -22,8 +22,8 @@
  */
 
 import QtQuick
-import QtQuick.Templates as T
 import QtQuick.Layouts
+import QtQuick.Templates as T
 import HuskarUI.Basic
 
 T.Control {
