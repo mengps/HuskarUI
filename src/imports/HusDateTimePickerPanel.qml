@@ -116,6 +116,8 @@ T.Control {
     }
 
     function clearDateTime() {
+        visualText = text = '';
+
         if (initDateTime) {
             setDateTime(initDateTime);
         } else {
@@ -134,16 +136,16 @@ T.Control {
         __secondListView.clearCheck();
     }
 
-    function setDateTime(date: var) {
-        __private.selectDateTime(date);
+    function setDateTime(date: var, emitSelected = false) {
+        __private.selectDateTime(date, emitSelected);
     }
 
     function getDateTime(): var {
         return __private.getDateTime();
     }
 
-    function setDateTimeString(dateTimeString: string) {
-        __private.setDateTimeString(dateTimeString);
+    function setDateTimeString(dateTimeString: string, emitSelected = false) {
+        __private.setDateTimeString(dateTimeString, emitSelected);
     }
 
     function getDateTimeString(): string {
@@ -979,7 +981,7 @@ T.Control {
         property int hoveredWeekNumber: control.currentWeekNumber
         property int hoveredDay: control.currentDay
 
-        function selectDateTime(date: var) {
+        function selectDateTime(date: var, emitSelected = true) {
             if (isValidDate(date)) {
                 const month = date.getMonth();
                 const weekNumber = HusApi.getWeekNumber(date);
@@ -1010,7 +1012,9 @@ T.Control {
                 control.visualMinutes = control.currentMinutes = date.getMinutes();
                 control.visualSeconds = control.currentSeconds = date.getSeconds();
 
-                control.selected(date);
+                if (emitSelected) {
+                    control.selected(date);
+                }
             }
         }
 
@@ -1063,8 +1067,8 @@ T.Control {
                             control.visualSeconds);
         }
 
-        function setDateTimeString(dateTimeString: string) {
-            selectDateTime(HusApi.dateFromString(dateTimeString, control.format));
+        function setDateTimeString(dateTimeString: string, emitSelected = true) {
+            selectDateTime(HusApi.dateFromString(dateTimeString, control.format), emitSelected);
         }
 
         function getDateTimeString(): string {

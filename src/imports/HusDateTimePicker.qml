@@ -98,16 +98,16 @@ HusInput {
         __dateTimePickerPanel.clearDateTime();
     }
 
-    function setDateTime(date: var) {
-        __dateTimePickerPanel.setDateTime(date);
+    function setDateTime(date: var, emitSelected = false) {
+        __dateTimePickerPanel.setDateTime(date, emitSelected);
     }
 
     function getDateTime(): var {
         return __dateTimePickerPanel.getDateTime();
     }
 
-    function setDateTimeString(dateTimeString: string) {
-        __dateTimePickerPanel.setDateTimeString(dateTimeString);
+    function setDateTimeString(dateTimeString: string, emitSelected = false) {
+        __dateTimePickerPanel.setDateTimeString(dateTimeString, emitSelected);
     }
 
     function getDateTimeString(): string {
