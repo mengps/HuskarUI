@@ -25,6 +25,11 @@ Item {
                                         : 'all'
     property var componentItems: buildComponentItems()
     property var filteredComponentItems: buildFilteredComponentItems()
+    property int componentCardWidth: 236
+    property int componentCardMinWidth: 150
+    property int componentCardHeight: 248
+    property int componentGridSpacing: 24
+    property int componentPreferredColumns: 4
 
     function currentMinorVersionPrefix() {
         const parts = `${HusApp.libVersion()}`.split('.');
@@ -139,6 +144,20 @@ Item {
         if (key && key.length > 0) {
             galleryMenu.gotoMenu(key);
         }
+    }
+
+    function resolveComponentGridColumns(availableWidth) {
+        const maxColumns = Math.max(1, componentPreferredColumns);
+        if (availableWidth >= 720) {
+            return Math.min(4, maxColumns);
+        }
+        if (availableWidth >= 520) {
+            return Math.min(3, maxColumns);
+        }
+        if (availableWidth >= 340) {
+            return Math.min(2, maxColumns);
+        }
+        return 1;
     }
 
     component DropShadow: MultiEffect {
@@ -703,34 +722,35 @@ Item {
                 }
             }
 
-            Flickable {
-                width: parent.width + 40
+            GridView {
+                id: componentGrid
+                width: parent.width - 40
                 height: 540
                 anchors.horizontalCenter: parent.horizontalCenter
                 topMargin: 10
                 bottomMargin: 10
-                contentHeight: componentFlow.height
                 clip: true
+                model: root.filteredComponentItems
+                reuseItems: true
+                cacheBuffer: height
+                boundsBehavior: Flickable.StopAtBounds
+                flickableDirection: Flickable.VerticalFlick
                 ScrollBar.vertical: HusScrollBar { }
-
-                GridLayout {
-                    id: componentFlow
-                    width: parent.width - 40
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    columns: 4
-                    columnSpacing: 24
-                    rowSpacing: 24
-
-                    Repeater {
-                        model: root.filteredComponentItems
-
-                        delegate: ComponentCard {
-                            Layout.fillWidth: true
-                            itemData: modelData
-                            accentColor: root.accentPalette[index % root.accentPalette.length]
-                        }
-                    }
+                leftMargin: sidePadding
+                rightMargin: sidePadding
+                cellWidth: cellContentWidth
+                cellHeight: root.componentCardHeight + root.componentGridSpacing
+                delegate: ComponentCard {
+                    width: componentGrid.delegateWidth
+                    height: root.componentCardHeight
+                    itemData: modelData
+                    accentColor: root.accentPalette[index % root.accentPalette.length]
                 }
+                readonly property int sidePadding: 10
+                readonly property int availableWidth: Math.max(root.componentCardMinWidth, width - sidePadding * 2)
+                property int columnCount: root.resolveComponentGridColumns(availableWidth)
+                readonly property int cellContentWidth: Math.floor(availableWidth / columnCount)
+                readonly property int delegateWidth: Math.min(root.componentCardWidth, Math.max(root.componentCardMinWidth, cellContentWidth - root.componentGridSpacing))
             }
 
             Rectangle {
