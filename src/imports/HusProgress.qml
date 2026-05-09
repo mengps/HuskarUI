@@ -132,8 +132,8 @@ T.Control {
             id: __canvas
             height: parent.height
             anchors.left: parent.left
-            anchors.right: control.type === HusProgress.Type_Line ? __infoLoader.left : parent.right
-            anchors.rightMargin: control.type === HusProgress.Type_Line ? 5 : 0
+            anchors.right: control.type === HusProgress.Type_Line ? (control.showInfo ? __infoLoader.left : parent.right) : parent.right
+            anchors.rightMargin: control.type === HusProgress.Type_Line && control.showInfo ? 5 : 0
             antialiasing: true
             onWidthChanged: requestPaint();
             onHeightChanged: requestPaint();
@@ -339,6 +339,7 @@ T.Control {
         Loader {
             id: __infoLoader
             active: control.showInfo
+            visible: active
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: control.type === HusProgress.Type_Line ? undefined : parent.horizontalCenter
             anchors.right: control.type === HusProgress.Type_Line ? parent.right : undefined
