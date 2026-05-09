@@ -22,7 +22,8 @@
  */
 
 import QtQuick
-import QtQuick.Controls.Basic as T
+import QtQuick.Controls.impl
+import QtQuick.Templates as T
 import HuskarUI.Basic
 
 T.Control {
@@ -77,6 +78,10 @@ T.Control {
         __textArea.cursorPosition = __textArea.length;
     }
 
+    function clear() {
+        __textArea.clear();
+    }
+
     Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     Behavior on colorPlaceholderText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     Behavior on colorSelectedText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
@@ -122,7 +127,14 @@ T.Control {
             }
         }
 
-        T.ScrollView {
+        /*! [QtBug] 必须先创建一遍 ScrollBar */
+        component SV: T.ScrollView {
+            id: __control
+            T.ScrollBar.vertical: T.ScrollBar { }
+            T.ScrollBar.horizontal: T.ScrollBar { }
+        }
+
+        SV {
             id: __scrollView
             focus: true
             anchors.fill: parent
@@ -133,9 +145,9 @@ T.Control {
                 y: __scrollView.topPadding
                 height: __scrollView.availableHeight
                 orientation: Qt.Vertical
-                policy: T.ScrollBar.AlwaysOn
+                policy: HusScrollBar.AlwaysOn
                 animationEnabled: control.animationEnabled
-                active: __scrollView.T.ScrollBar.horizontal.active
+                active: __scrollView.HusScrollBar.horizontal.active
             }
             T.ScrollBar.horizontal: HusScrollBar {
                 id: __hScrollBar
@@ -155,6 +167,12 @@ T.Control {
             T.TextArea {
                 id: __textArea
                 focus: true
+                implicitWidth: Math.max(contentWidth + leftPadding + rightPadding,
+                                        implicitBackgroundWidth + leftInset + rightInset,
+                                        __placeholder.implicitWidth + leftPadding + rightPadding)
+                implicitHeight: Math.max(contentHeight + topPadding + bottomPadding,
+                                         implicitBackgroundHeight + topInset + bottomInset,
+                                         __placeholder.implicitHeight + topPadding + bottomPadding)
                 topPadding: 0
                 bottomPadding: 0
                 leftPadding: 0
@@ -168,7 +186,23 @@ T.Control {
                 selectedTextColor: control.themeSource.colorTextSelected
                 selectionColor: control.themeSource.colorSelection
                 font: control.font
-                onEditingFinished: control.editingFinished()
+                onEditingFinished: control.editingFinished();
+
+                PlaceholderText {
+                    id: __placeholder
+                    x: parent.leftPadding
+                    y: parent.topPadding
+                    width: parent.width - (parent.leftPadding + parent.rightPadding)
+                    height: parent.height - (parent.topPadding + parent.bottomPadding)
+
+                    text: parent.placeholderText
+                    font: parent.font
+                    color: parent.placeholderTextColor
+                    verticalAlignment: parent.verticalAlignment
+                    visible: !parent.length && !parent.preeditText && (!parent.activeFocus || parent.horizontalAlignment !== Qt.AlignHCenter)
+                    elide: Text.ElideRight
+                    renderType: parent.renderType
+                }
             }
         }
     }
