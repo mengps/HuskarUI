@@ -49,6 +49,27 @@ Window {
                                      Qt.platform.os === 'osx' ||
                                      Qt.platform.os === 'linux'
 
+    function setWindowState(winState: string): bool {
+        switch (winState) {
+        case 'normal':
+            showNormal();
+            break;
+        case 'minimized':
+            /*! fix QtWindow 无边框最小化问题 */
+            HusApi.setWindowState(this, Qt.WindowMinimized);
+            break;
+        case 'maximized':
+            showMaximized();
+            break;
+        case 'fullscreen':
+            showFullScreen();
+            break;
+        default:
+            HusApi.setWindowState(this, Qt.WindowNoState);
+            break;
+        }
+    }
+
     function setMacSystemButtonsVisible(visible: bool): bool {
         if (Qt.platform.os === 'osx') {
             return windowAgent.setWindowAttribute('no-system-buttons', !visible);
