@@ -41,8 +41,8 @@ QtObject {
                     key: 'HusButton',
                     label: qsTr('HusButton 按钮'),
                     source: './Examples/General/ExpButton.qml',
-                    updateVersion: '0.5.5.1',
-                    desc: qsTr('新增 Type_Dashed 类型。')
+                    updateVersion: '0.6.1.0',
+                    desc: qsTr('新增 borderWidth 边框宽度。')
                 },
                 {
                     key: 'HusIconButton',
@@ -270,8 +270,8 @@ QtObject {
                     key: 'HusCheckBox',
                     label: qsTr('HusCheckBox 多选框'),
                     source: './Examples/DataEntry/ExpCheckBox.qml',
-                    updateVersion: '0.5.6.2',
-                    desc: qsTr('新增 sizeHint 尺寸提示。')
+                    updateVersion: '0.6.1.0',
+                    desc: qsTr('新增 readOnly 只读。')
                 },
                 {
                     key: 'HusAutoComplete',
@@ -387,8 +387,8 @@ QtObject {
                     key: 'HusCollapse',
                     label: qsTr('HusCollapse 折叠面板'),
                     source: './Examples/DataDisplay/ExpCollapse.qml',
-                    updateVersion: '0.5.9.0',
-                    desc: qsTr('新增 initModel.contentDelegate 模型内容代理。')
+                    updateVersion: '0.6.1.0',
+                    desc: qsTr('信号 actived() 更改为 activated()。')
                 },
                 {
                     key: 'HusAvatar',
