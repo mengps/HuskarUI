@@ -274,6 +274,7 @@ HusPopup {
     }
     exit: null
     background: Item {
+        implicitWidth: 520
         implicitHeight: __bgLoader.height
 
         HusShadow {

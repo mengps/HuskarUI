@@ -105,7 +105,6 @@ descriptionFont | font | - | 描述文本字体
 
                         HusModal {
                             id: modal1
-                            width: 500
                             modal: modalSwitch.checked
                             position: parseInt(positionRadio.currentCheckedValue)
                             closable: closableRadio.currentCheckedValue
@@ -164,7 +163,6 @@ descriptionFont | font | - | 描述文本字体
 
                     HusModal {
                         id: modal1
-                        width: 500
                         modal: modalSwitch.checked
                         position: parseInt(positionRadio.currentCheckedValue)
                         closable: closableRadio.currentCheckedValue
@@ -236,7 +234,6 @@ descriptionFont | font | - | 描述文本字体
 
                         HusModal {
                             id: modal2
-                            width: 500
                             title: 'Title'
                             description: 'Some contents...\\nSome contents...\\nSome contents...\\nSome contents...\\nSome contents...'
                             footerDelegate: Item {
@@ -291,7 +288,6 @@ descriptionFont | font | - | 描述文本字体
 
                     HusModal {
                         id: modal2
-                        width: 500
                         title: 'Title'
                         description: 'Some contents...\nSome contents...\nSome contents...\nSome contents...\nSome contents...'
                         footerDelegate: Item {
@@ -372,7 +368,6 @@ descriptionFont | font | - | 描述文本字体
 
                     HusModal {
                         id: modal3
-                        width: 500
                         title: 'Title'
                         description: 'Reachable: Light!\\nUnreachable: null!'
                         confirmText: 'Yes'
@@ -407,7 +402,6 @@ descriptionFont | font | - | 描述文本字体
 
                 HusModal {
                     id: modal3
-                    width: 500
                     title: 'Title'
                     description: 'Reachable: Light!\nUnreachable: null!'
                     confirmText: 'Yes'
@@ -437,7 +431,6 @@ descriptionFont | font | - | 描述文本字体
 
                         HusModal {
                             id: modal4
-                            width: 500
                             title: 'Draggable Modal'
                             movable: true
                             description: 'Just dont learn physics at school and your life will be full of magic and miracles. \\n\\nDay before yesterday I saw a rabbit, and yesterday a deer, and today, you.'
@@ -458,7 +451,6 @@ descriptionFont | font | - | 描述文本字体
 
                     HusModal {
                         id: modal4
-                        width: 500
                         title: 'Draggable Modal'
                         movable: true
                         description: 'Just dont learn physics at school and your life will be full of magic and miracles. \n\nDay before yesterday I saw a rabbit, and yesterday a deer, and today, you.'
