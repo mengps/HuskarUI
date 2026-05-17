@@ -31,6 +31,7 @@ T.CheckBox {
     property bool animationEnabled: HusTheme.animationEnabled
     property bool effectEnabled: true
     property int hoverCursorShape: Qt.PointingHandCursor
+    property bool readOnly: false
     property int indicatorSize: 18 * sizeRatio
     property int elide: Text.ElideNone
     property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
@@ -63,6 +64,7 @@ T.CheckBox {
         pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
     spacing: 6 * sizeRatio
+    checkable: !readOnly
     indicator: Item {
         x: control.text ? (control.mirrored ? control.width - width - control.rightPadding : control.leftPadding) :
                           control.leftPadding + (control.availableWidth - width) / 2
@@ -75,7 +77,7 @@ T.CheckBox {
             width: __bg.width
             height: __bg.height
             anchors.centerIn: parent
-            visible: control.effectEnabled
+            visible: control.effectEnabled && !control.readOnly
             radius: __bg.radius
             topLeftRadius: __bg.topLeftRadius
             topRightRadius: __bg.topRightRadius
@@ -108,7 +110,7 @@ T.CheckBox {
             Connections {
                 target: control
                 function onReleased() {
-                    if (control.animationEnabled && control.effectEnabled) {
+                    if (control.animationEnabled && control.effectEnabled && !control.readOnly) {
                         __effect.border.width = 6;
                         __animation.restart();
                     }
