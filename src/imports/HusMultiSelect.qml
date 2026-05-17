@@ -441,7 +441,7 @@ HusSelect {
 
         property var selectedKeysMap: new Map
 
-        function contains(key) {
+        function contains(key: string) {
             return selectedKeysMap.has(key);
         }
 
