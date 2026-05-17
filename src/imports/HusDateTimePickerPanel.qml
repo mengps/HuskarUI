@@ -23,7 +23,7 @@
 
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls.Basic as T
+import QtQuick.Templates as T
 import HuskarUI.Basic
 
 T.Control {
@@ -200,6 +200,10 @@ T.Control {
 
     onInitDateTimeChanged: setDateTime(initDateTime);
 
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
     padding: 8 * sizeRatio
     leftPadding: (showDate ? 8 : 2) * sizeRatio
     rightPadding: (showDate ? (showTime ? 2 : 8) : 2) * sizeRatio
@@ -236,10 +240,16 @@ T.Control {
                               control.datePickerMode == HusDateTimePicker.Mode_Week) &&
                              !__pickerHeader.isPickYear && !__pickerHeader.isPickMonth
 
-                    T.DayOfWeekRow {
+                    T.AbstractDayOfWeekRow {
                         id: __dayOfWeekRow
+                        implicitWidth: Math.max(background ? background.implicitWidth : 0,
+                                                contentItem.implicitWidth + leftPadding + rightPadding)
+                        implicitHeight: Math.max(background ? background.implicitHeight : 0,
+                                                 contentItem.implicitHeight + topPadding + bottomPadding)
+                        spacing: 6 * control.sizeRatio
+                        topPadding: 6 * control.sizeRatio
+                        bottomPadding: 6 * control.sizeRatio
                         locale: __monthGrid.locale
-                        spacing: 10 * control.sizeRatio
                         delegate: HusText {
                             width: __dayOfWeekRow.itemWidth
                             text: shortName
@@ -250,11 +260,22 @@ T.Control {
 
                             required property string shortName
                         }
+                        contentItem: Row {
+                            spacing: __dayOfWeekRow.spacing
+                            Repeater {
+                                model: __dayOfWeekRow.source
+                                delegate: __dayOfWeekRow.delegate
+                            }
+                        }
                         property real itemWidth: (__monthGrid.implicitWidth - 6 * spacing) / 7
                     }
 
-                    T.MonthGrid {
+                    T.AbstractMonthGrid {
                         id: __monthGrid
+                        implicitWidth: Math.max(background ? background.implicitWidth : 0,
+                                                contentItem.implicitWidth + leftPadding + rightPadding)
+                        implicitHeight: Math.max(background ? background.implicitHeight : 0,
+                                                 contentItem.implicitHeight + topPadding + bottomPadding)
                         padding: 0
                         spacing: 0
                         year: control.visualYear
