@@ -535,16 +535,16 @@ HusRectangleInternal {
                     });
     }
 
-    function getTableModel() {
+    function getTableModel(): var {
         return [...__private.model];
     }
 
-    function rowCount() {
-        return __cellModel.rowCount();
+    function rowCount(): int {
+        return __cellModel.rowCount;
     }
 
-    function columnCount() {
-        return __cellModel.columnCount();
+    function columnCount(): int {
+        return __cellModel.columnCount;
     }
 
     function appendRow(object: var) {
@@ -553,11 +553,26 @@ HusRectangleInternal {
         __private.updateRowHeader();
     }
 
-    function getRow(rowIndex: int) {
-        if (rowIndex >= 0 && rowIndex < __private.model.length) {
-            return __private.model[rowIndex];
+    function getRow(rowIndex: int): var {
+        if (rowIndex >= 0 && rowIndex < __cellModel.rowCount) {
+            const row = __cellModel.getRow(rowIndex);
+            const newRow = {};
+            for (const key in row) {
+                if (__private.dataIndexMap.has(key)) {
+                    newRow[__private.dataIndexMap.get(key)] = row[key];
+                }
+            }
+            return newRow;
         }
         return undefined;
+    }
+
+    function setRow(rowIndex: int, object: var) {
+        if (rowIndex >= 0 && rowIndex < __cellModel.rowCount) {
+            __cellModel.setRow(rowIndex, __private.toCellObject(object));
+            __private.model[rowIndex] = object;
+            __private.updateRowHeader();
+        }
     }
 
     function insertRow(rowIndex: int, object: var) {
@@ -567,8 +582,8 @@ HusRectangleInternal {
     }
 
     function moveRow(fromRowIndex: int, toRowIndex: int, count = 1) {
-        if (fromRowIndex >= 0 && fromRowIndex < __private.model.length &&
-                toRowIndex >= 0 && toRowIndex < __private.model.length) {
+        if (fromRowIndex >= 0 && fromRowIndex < __cellModel.rowCount &&
+                toRowIndex >= 0 && toRowIndex < __cellModel.rowCount) {
             __cellModel.moveRow(fromRowIndex, toRowIndex, count);
             const objects = __private.model.splice(from, count);
             __private.model.splice(to, 0, ...objects);
@@ -577,23 +592,15 @@ HusRectangleInternal {
     }
 
     function removeRow(rowIndex: int, count = 1) {
-        if (rowIndex >= 0 && rowIndex < __private.model.length) {
+        if (rowIndex >= 0 && rowIndex < __cellModel.rowCount) {
             __cellModel.removeRow(rowIndex, count);
             __private.model.splice(rowIndex, count);
             __private.updateRowHeader();
         }
     }
 
-    function setRow(rowIndex: int, object: var) {
-        if (rowIndex >= 0 && rowIndex < __private.model.length) {
-            __cellModel.setRow(rowIndex, __private.toCellObject(object));
-            __private.model[rowIndex] = object;
-            __private.updateRowHeader();
-        }
-    }
-
-    function getCellData(rowIndex: int, columnIndex: int) {
-        if (rowIndex >= 0 && rowIndex < __private.model.length
+    function getCellData(rowIndex: int, columnIndex: int): var {
+        if (rowIndex >= 0 && rowIndex < __cellModel.rowCount
                 && columnIndex >= 0 && columnIndex < columns.length) {
             return __cellModel.data(__cellModel.index(rowIndex, columnIndex), 'display');
         }
@@ -601,7 +608,7 @@ HusRectangleInternal {
     }
 
     function setCellData(rowIndex: int, columnIndex: int, data: var) {
-        if (rowIndex >= 0 && rowIndex < __private.model.length
+        if (rowIndex >= 0 && rowIndex < __cellModel.rowCount
                 && columnIndex >= 0 && columnIndex < columns.length) {
             __cellModel.setData(__cellModel.index(rowIndex, columnIndex), 'display', data);
         }
@@ -625,10 +632,12 @@ HusRectangleInternal {
         }
 
         let cellColumns = [];
+        __private.dataIndexMap.clear();
         for (let i = 0; i < columns.length; i++) {
             let column = Qt.createQmlObject('import Qt.labs.qmlmodels; TableModelColumn {}', __cellModel);
             column.display = `__data${i}`;
             cellColumns.push(column);
+            __private.dataIndexMap.set(`__data${i}`, columns[i].dataIndex);
         }
         __cellModel.columns = cellColumns;
     }
@@ -721,6 +730,7 @@ HusRectangleInternal {
         property var model: []
         property int parentCheckState: Qt.Unchecked
         property var checkedKeysSet: new Set
+        property var dataIndexMap: new Map
         property string selectionType: 'none'
 
         function updateParentCheckBox() {
