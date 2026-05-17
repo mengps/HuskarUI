@@ -2,9 +2,16 @@ cmake_minimum_required(VERSION 3.16)
 
 project(HuskarUI_Solution)
 
+# Only infer the default value when the user has not set this option explicitly.
+if(WIN32 OR MACOS OR LINUX)
+    set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM_DEFAULT ON)
+else()
+    set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM_DEFAULT OFF)
+endif()
+
 option(BUILD_HUSKARUI_GALLERY "Build HuskarUI Gallery." ON)
 option(BUILD_HUSKARUI_STATIC_LIBRARY "Build HuskarUI as a static library." OFF)
-option(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM "Build HuskarUI on desktop platform (mobile platform set OFF)." ON)
+option(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM "Build HuskarUI on desktop platform (mobile platform set OFF)." ${BUILD_HUSKARUI_ON_DESKTOP_PLATFORM_DEFAULT})
 option(INSTALL_HUSKARUI_IN_DEFAULT_LOCATION "Install HuskarUI in default location[QtSDK Dir]." ON)
 
 #Set HuskarUI output dir
@@ -24,12 +31,6 @@ if(APPLE)
     endif()
 endif()
 
-if(WIN32 OR MACOS OR LINUX)
-    set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM ON)
-else()
-    set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM OFF)
-endif()
-
 #Build QWindowKit
 if(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
     set(QWINDOWKIT_BUILD_STATIC ON)
@@ -41,7 +42,7 @@ endif()
 
 set(HUSKARUI_VERSION_MAJOR 0)
 set(HUSKARUI_VERSION_MINOR 6)
-set(HUSKARUI_VERSION_PATCH 0)
+set(HUSKARUI_VERSION_PATCH 1)
 set(HUSKARUI_VERSION_TWEAK 0)
 set(HUSKARUI_VERSION ${HUSKARUI_VERSION_MAJOR}.${HUSKARUI_VERSION_MINOR}.${HUSKARUI_VERSION_PATCH}.${HUSKARUI_VERSION_TWEAK})
 
