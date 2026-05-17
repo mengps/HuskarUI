@@ -178,15 +178,13 @@ T.Control {
         family: control.themeSource.fontFamily
         pixelSize: parseInt(control.themeSource.fontSize)
     }
-    contentItem: Loader {
-        sourceComponent: Row {
-            spacing: -1
+    contentItem: Row {
+        spacing: -1
 
-            Repeater {
-                id: __repeater
-                model: control.model
-                delegate: buttonDelegate
-            }
+        Repeater {
+            id: __repeater
+            model: control.model
+            delegate: buttonDelegate
         }
     }
 

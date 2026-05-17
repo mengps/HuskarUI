@@ -218,16 +218,8 @@ T.Control {
         family: control.themeSource.fontFamily
         pixelSize: parseInt(control.themeSource.fontSize)
     }
-    contentItem: Loader {
-        sourceComponent: Row {
-            spacing: -1
-
-            Repeater {
-                id: __repeater
-                model: control.model
-                delegate: radioDelegate
-            }
-        }
+    contentItem: Row {
+        spacing: -1
 
         T.ButtonGroup {
             id: __buttonGroup
@@ -237,6 +229,12 @@ T.Control {
                     control.currentCheckedValue = button.modelData.value;
                     control.clicked(button.index, button.modelData);
                 }
+        }
+
+        Repeater {
+            id: __repeater
+            model: control.model
+            delegate: radioDelegate
         }
     }
 
