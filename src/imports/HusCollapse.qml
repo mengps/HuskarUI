@@ -28,7 +28,7 @@ import HuskarUI.Basic
 T.Control {
     id: control
 
-    signal actived(key: string)
+    signal activated(key: string, index: int)
 
     property bool animationEnabled: HusTheme.animationEnabled
     property int hoverCursorShape: Qt.PointingHandCursor
@@ -223,8 +223,9 @@ T.Control {
                                 } else {
                                     __rootItem.active = !__rootItem.active;
                                 }
-                                if (__rootItem.active)
-                                    control.actived(__rootItem.model.key);
+                                if (__rootItem.active) {
+                                    control.activated(__rootItem.model.key, __rootItem.index);
+                                }
                                 __private.calcActiveKey();
                             }
                         }

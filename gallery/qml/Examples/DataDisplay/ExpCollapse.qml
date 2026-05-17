@@ -73,8 +73,9 @@ contentDelegate | var | 可选 | 本面板内容代理(将覆盖contentDelegate)
 - \`clear()\` 清空所有模型数据 \n
 \n<br/>
 \n### 支持的信号：\n
-- \`actived(key: string)\` 激活面板时发出\n
+- \`activated(key: string, index: int)\` 激活面板时发出\n
   - \`key\` 该面板的键值\n
+  - \`index\` 该面板的索引\n
                        `)
         }
 
