@@ -3,6 +3,14 @@ cmake_minimum_required(VERSION 3.16)
 project(HuskarUI_Solution)
 
 # Only infer the default value when the user has not set this option explicitly.
+set(MACOS FALSE)
+if(APPLE)
+    if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+        set(MACOS TRUE)
+    else()
+        set(MACOS FALSE)
+    endif()
+endif()
 if(WIN32 OR MACOS OR LINUX)
     set(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM_DEFAULT ON)
 else()
@@ -21,15 +29,6 @@ set(HUSKARUI_PLUGIN_OUTPUT_DIRECTORY "" CACHE PATH "HuskarUI plugin output dir (
 set(HUSKARUI_INSTALL_DIRECTORY "" CACHE PATH "HuskarUI install dir.")
 
 set(QT_SILENCE_MISSING_DEPENDENCY_TARGET_WARNING ON)
-
-set(MACOS FALSE)
-if(APPLE)
-    if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-        set(MACOS TRUE)
-    else()
-        set(MACOS FALSE)
-    endif()
-endif()
 
 #Build QWindowKit
 if(BUILD_HUSKARUI_ON_DESKTOP_PLATFORM)
