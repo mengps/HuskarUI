@@ -87,6 +87,7 @@ T.Control {
             anchors.horizontalCenter: parent.horizontalCenter
             active: model.loading
             sourceComponent: HusIconText {
+                id: __loadingIcon
                 iconSize: model.iconSize
                 iconSource: HusIcon.LoadingOutlined
                 colorIcon: model.colorNode
@@ -97,6 +98,11 @@ T.Control {
                     to: 360
                     loops: Animation.Infinite
                     duration: 1000
+                    onRunningChanged: {
+                        if (!running) {
+                            __loadingIcon.rotation = 0;
+                        }
+                    }
                 }
             }
         }

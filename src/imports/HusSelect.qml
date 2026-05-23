@@ -56,6 +56,7 @@ T.ComboBox {
     property var themeSource: HusTheme.HusSelect
 
     property Component indicatorDelegate: HusIconText {
+        id: __indicatorIcon
         colorIcon: {
             if (control.enabled) {
                 if (__clearMouseArea.active) {
@@ -85,6 +86,11 @@ T.ComboBox {
             to: 360
             loops: Animation.Infinite
             duration: 1000
+            onRunningChanged: {
+                if (!running) {
+                    __indicatorIcon.rotation = 0;
+                }
+            }
         }
 
         MouseArea {

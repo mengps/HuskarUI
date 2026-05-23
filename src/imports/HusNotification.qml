@@ -357,6 +357,7 @@ Item {
                         spacing: control.messageSpacing
 
                         HusIconText {
+                            id: __loadingIcon
                             Layout.alignment: Qt.AlignTop
                             Layout.topMargin: 5
                             iconSize: __rootItem.iconSize
@@ -389,6 +390,11 @@ Item {
                                 to: 360
                                 loops: Animation.Infinite
                                 duration: 1000
+                                onRunningChanged: {
+                                    if (!running) {
+                                        __loadingIcon.rotation = 0;
+                                    }
+                                }
                             }
                         }
 
