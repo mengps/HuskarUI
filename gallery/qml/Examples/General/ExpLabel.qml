@@ -31,6 +31,7 @@ colorText | color | - | 文本颜色
 colorBg | color | - | 背景颜色
 colorBorder | color | - | 边框颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+sizeHint | string | 'normal' | 尺寸提示
                        `)
         }
 
@@ -84,7 +85,6 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
                     }
 
                     HusLabel {
-                        padding: 20
                         enabled: enabledSwitch.checked
                         text: qsTr('HusLabel文本')
                         radiusBg.all: radiusSlider.currentValue
@@ -116,7 +116,6 @@ radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
                 }
 
                 HusLabel {
-                    padding: 20
                     enabled: enabledSwitch.checked
                     text: qsTr('HusLabel文本')
                     radiusBg.all: radiusSlider.currentValue

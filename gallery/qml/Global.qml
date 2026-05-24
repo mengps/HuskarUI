@@ -123,8 +123,8 @@ QtObject {
                     key: 'HusLabel',
                     label: qsTr('HusLabel 文本标签'),
                     source: './Examples/General/ExpLabel.qml',
-                    addVersion: '0.5.6.0',
-                    desc: qsTr('自带背景和圆角的文本。')
+                    addVersion: '0.6.1.0',
+                    desc: qsTr('新增 sizeHint 尺寸提示。')
                 },
                 {
                     key: 'HusFrame',

@@ -33,15 +33,20 @@ T.Label {
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
     property color colorBorder: themeSource.colorBorder
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property string sizeHint: 'normal'
+    property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property var themeSource: HusTheme.HusLabel
 
     objectName: '__HusLabel__'
+    padding: 5 * sizeRatio
+    leftPadding: 8 * sizeRatio
+    rightPadding: 8 * sizeRatio
     renderType: HusTheme.textRenderType
     color: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     linkColor: enabled ? themeSource.colorLinkText : themeSource.colorTextDisabled
     font {
         family: themeSource.fontFamily
-        pixelSize: parseInt(themeSource.fontSize)
+        pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
     background: HusRectangleInternal {
         color: control.colorBg
