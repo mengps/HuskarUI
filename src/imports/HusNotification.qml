@@ -257,6 +257,19 @@ Item {
                 Layout.rightMargin: __private.isRight ? (-__content.width - 20) : 0
                 Layout.topMargin: index == 0 ? 0 : (__repeater.collapsed ? collapseTopMargin : control.spacing)
                 Layout.alignment: __private.isLeft ? Qt.AlignLeft : Qt.AlignRight
+                transform: Scale {
+                    origin.x: __rootItem.width * 0.5
+                    origin.y: __rootItem.height * 0.5
+                    xScale: __repeater.collapsed ? Math.max(0.8, 1.0 - __rootItem.index * 0.015) : 1
+
+                    Behavior on xScale {
+                        enabled: control.animationEnabled
+                        NumberAnimation {
+                            easing.type: Easing.OutQuad
+                            duration: HusTheme.Primary.durationMid
+                        }
+                    }
+                }
 
                 required property int index
                 required property string key
@@ -286,10 +299,17 @@ Item {
                 NumberAnimation on Layout.rightMargin {
                     running: control.animationEnabled && __private.isRight
                     to: 0
+                    easing.type: Easing.OutQuad
                     duration: HusTheme.Primary.durationMid
                 }
 
-                Behavior on Layout.topMargin { enabled: control.animationEnabled; NumberAnimation { duration: HusTheme.Primary.durationMid } }
+                Behavior on Layout.topMargin {
+                    enabled: control.animationEnabled
+                    NumberAnimation {
+                        easing.type: Easing.OutQuad
+                        duration: HusTheme.Primary.durationMid
+                    }
+                }
 
                 Timer {
                     id: __timer
