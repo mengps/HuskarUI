@@ -95,9 +95,11 @@ contentDelegate | var | 可选 | 本面板内容代理(将覆盖contentDelegate)
 
 ### 支持的信号：
 
-- `actived(key: string)` 激活面板时发出
+- `activated(key: string, index: int)` 激活面板时发出
 
   - `key` 该面板的键值
+
+  - `index` 该面板的索引
 
 
 <br/>

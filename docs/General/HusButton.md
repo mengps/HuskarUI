@@ -33,6 +33,7 @@ active | bool | down丨checked | 是否处于激活状态
 hoverCursorShape | int | Qt.PointingHandCursor | 悬浮时鼠标形状(来自 Qt.*Cursor)
 type | enum | HusButton.Type_Default | 按钮类型(来自 HusButton)
 shape | enum | HusButton.Shape_Default | 按钮形状(来自 HusButton)
+borderWidth | real | 1 | 边框宽度
 colorText | color | - | 文本颜色
 colorBg | color | - | 背景颜色
 colorBorder | color | - | 边框颜色

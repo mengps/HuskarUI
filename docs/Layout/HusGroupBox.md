@@ -84,3 +84,46 @@ Column {
 }
 ```
 
+---
+
+### 示例 2
+
+自定义 `label`。
+
+```qml
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls.Basic
+import HuskarUI.Basic
+
+Column {
+    spacing: 15
+
+    HusGroupBox {
+        padding: 20
+        title: 'CheckGroup'
+        label: HusCheckBox {
+            id: parentBox
+            x: parent.leftPadding
+            text: parent.title
+            checkState: childGroup.checkState
+        }
+
+        ButtonGroup {
+            id: childGroup
+            exclusive: false
+            checkState: parentBox.checkState
+        }
+
+        HusSpace {
+            layout: 'ColumnLayout'
+            spacing: 10
+
+            HusCheckBox { ButtonGroup.group: childGroup; text: 'E-mail ' }
+            HusCheckBox { ButtonGroup.group: childGroup; text: 'Calendar' }
+            HusCheckBox { ButtonGroup.group: childGroup; text: 'Contacts' }
+        }
+    }
+}
+```
+

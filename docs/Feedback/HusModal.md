@@ -20,17 +20,17 @@
 
 - **titleDelegate: Component** 标题代理
 
-- **descriptionDelegate: Component** 描述代理
-
 - **closeButtonDelegate: Component** 右上角关闭按钮代理
 
 - **confirmButtonDelegate: Component** 确认按钮代理
 
 - **cancelButtonDelegate: Component** 取消按钮代理
 
+- **bodyDelegate: Component** 内容代理
+
 - **footerDelegate: Component** 底部代理(包含确认/取消按钮)
 
-- **contentDelegate: Component** 内容代理
+- **contentDelegate: Component** 容器内容代理(包含以上全部代理)
 
 - **bgDelegate: Component** 背景代理
 
@@ -115,7 +115,6 @@ Column {
 
         HusModal {
             id: modal1
-            width: 500
             modal: modalSwitch.checked
             position: parseInt(positionRadio.currentCheckedValue)
             closable: closableRadio.currentCheckedValue
@@ -190,7 +189,6 @@ Column {
 
         HusModal {
             id: modal2
-            width: 500
             title: 'Title'
             description: 'Some contents...\nSome contents...\nSome contents...\nSome contents...\nSome contents...'
             footerDelegate: Item {
@@ -272,7 +270,6 @@ Row {
 
     HusModal {
         id: modal3
-        width: 500
         title: 'Title'
         description: 'Reachable: Light!\nUnreachable: null!'
         confirmText: 'Yes'
@@ -303,7 +300,6 @@ Row {
 
         HusModal {
             id: modal4
-            width: 500
             title: 'Draggable Modal'
             movable: true
             description: 'Just dont learn physics at school and your life will be full of magic and miracles. \n\nDay before yesterday I saw a rabbit, and yesterday a deer, and today, you.'
