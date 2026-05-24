@@ -408,6 +408,7 @@ T.Control {
             }
 
             required property var modelData
+            required property int index
             property alias model: __rootItem.modelData
             property var view: ListView.view
             property string menuKey: model.key || ''
@@ -532,7 +533,7 @@ T.Control {
             Rectangle {
                 id: __layout
                 width: parent.width
-                height: control.defaultMenuSpacing + __menuButton.height
+                height: __menuButton.spacing + __menuButton.height
                         + ((control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode) ? 0 : __childrenListView.height)
                 anchors.top: parent.top
                 color: (__rootItem.view.menuDeep === 0 ||
@@ -543,9 +544,9 @@ T.Control {
                     id: __menuButton
                     implicitWidth: parent.width
                     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                                             implicitContentHeight + topPadding + bottomPadding) + control.defaultMenuSpacing
+                                             implicitContentHeight + topPadding + bottomPadding) + (__rootItem.index === 0 ? 0 : control.defaultMenuSpacing)
                     anchors.top: parent.top
-                    anchors.topMargin: control.defaultMenuSpacing
+                    anchors.topMargin: spacing
                     topPadding: control.defaultMenuTopPadding
                     bottomPadding: control.defaultMenuBottomPadding
                     leftPadding: 12 + (control.compactMode !== HusMenu.Mode_Relaxed || control.popupMode ? 0 : iconSize * __rootItem.view.menuDeep)
@@ -578,6 +579,7 @@ T.Control {
                     labelDelegate: __rootItem.menuLabelDelegate
                     contentDelegate: __rootItem.menuContentDelegate
                     bgDelegate: __rootItem.menuBgDelegate
+                    spacing: menuDeep === 0 && __rootItem.index === 0 ? 0 : control.defaultMenuSpacing
                     onClicked: {
                         if (showExpanded) {
                             expanded = !expanded;
