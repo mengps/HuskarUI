@@ -23,12 +23,12 @@ Flickable {
 \n### 支持的代理：\n
 - **iconDelegate: Component** 内容代理\n
 - **titleDelegate: Component** 标题代理\n
-- **descriptionDelegate: Component** 描述代理\n
 - **closeButtonDelegate: Component** 右上角关闭按钮代理\n
 - **confirmButtonDelegate: Component** 确认按钮代理\n
 - **cancelButtonDelegate: Component** 取消按钮代理\n
+- **bodyDelegate: Component** 内容代理\n
 - **footerDelegate: Component** 底部代理(包含确认/取消按钮)\n
-- **contentDelegate: Component** 内容代理\n
+- **contentDelegate: Component** 容器内容代理(包含以上全部代理)\n
 - **bgDelegate: Component** 背景代理\n
 \n<br/>
 \n### 支持的属性：\n

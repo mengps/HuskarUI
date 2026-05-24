@@ -68,23 +68,6 @@ HusPopup {
         iconSource: control.iconSource
         iconSize: control.iconSize
     }
-    property Component titleDelegate: HusText {
-        height: control.title == '' ? 0 : implicitHeight
-        font: control.titleFont
-        color: control.colorTitle
-        text: control.title
-        horizontalAlignment: Text.AlignLeft
-        wrapMode: Text.WrapAnywhere
-    }
-    property Component descriptionDelegate: HusText {
-        height: control.description == '' ? 0 : implicitHeight
-        font: control.descriptionFont
-        color: control.colorDescription
-        text: control.description
-        lineHeight: control.themeSource.fontLineHeightDescription
-        horizontalAlignment: Text.AlignLeft
-        wrapMode: Text.WrapAnywhere
-    }
     property Component confirmButtonDelegate: HusButton {
         animationEnabled: control.animationEnabled
         text: control.confirmText
@@ -108,24 +91,22 @@ HusPopup {
         radiusBg.all: control.themeSource.radiusCloseBg
         onClicked: control.close();
     }
-    property Component footerDelegate: Item {
-        height: __footer.height
-
-        Row {
-            id: __footer
-            anchors.right: parent.right
-            spacing: 10
-
-            Loader {
-                active: control.confirmText !== ''
-                sourceComponent: control.confirmButtonDelegate
-            }
-
-            Loader {
-                active: control.cancelText !== ''
-                sourceComponent: control.cancelButtonDelegate
-            }
-        }
+    property Component titleDelegate: HusText {
+        height: control.title == '' ? 0 : implicitHeight
+        font: control.titleFont
+        color: control.colorTitle
+        text: control.title
+        horizontalAlignment: Text.AlignLeft
+        wrapMode: Text.WrapAnywhere
+    }
+    property Component bodyDelegate: HusText {
+        height: control.description == '' ? 0 : implicitHeight
+        font: control.descriptionFont
+        color: control.colorDescription
+        text: control.description
+        lineHeight: control.themeSource.fontLineHeightDescription
+        horizontalAlignment: Text.AlignLeft
+        wrapMode: Text.WrapAnywhere
     }
     property Component contentDelegate: Item {
         height: __columnLayout.implicitHeight + 40
@@ -157,11 +138,10 @@ HusPopup {
             }
 
             Loader {
-                width : parent.width
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: __iconLoader.active ? (__iconLoader.width + 10) : 0
-                sourceComponent: control.descriptionDelegate
+                sourceComponent: control.bodyDelegate
             }
 
             Loader {
@@ -186,6 +166,25 @@ HusPopup {
         topRightRadius: control.radiusBg.topRight
         bottomLeftRadius: control.radiusBg.bottomLeft
         bottomRightRadius: control.radiusBg.bottomRight
+    }
+    property Component footerDelegate: Item {
+        height: __footer.height
+
+        Row {
+            id: __footer
+            anchors.right: parent.right
+            spacing: 10
+
+            Loader {
+                active: control.confirmText !== ''
+                sourceComponent: control.confirmButtonDelegate
+            }
+
+            Loader {
+                active: control.cancelText !== ''
+                sourceComponent: control.cancelButtonDelegate
+            }
+        }
     }
 
     function openInfo() {
@@ -252,7 +251,6 @@ HusPopup {
             return (parent.height - height) * 0.5;
         }
     }
-    implicitHeight: implicitBackgroundHeight + topInset + bottomInset
     modal: true
     focus: true
     closePolicy: maskClosable ? T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside : T.Popup.NoAutoClose
@@ -273,10 +271,17 @@ HusPopup {
         }
     }
     exit: null
-    background: Item {
-        implicitWidth: 520
-        implicitHeight: __bgLoader.height
+    contentItem: Item {
+        implicitWidth: 500
+        implicitHeight: __contentLoader.height
 
+        Loader {
+            id: __contentLoader
+            width: parent.width
+            sourceComponent: control.contentDelegate
+        }
+    }
+    background: Item {
         HusShadow {
             anchors.fill: __bgLoader
             source: __bgLoader
@@ -303,15 +308,8 @@ HusPopup {
 
         Loader {
             id: __bgLoader
-            width: parent.width
-            height: __contentLoader.height
+            anchors.fill: parent
             sourceComponent: control.bgDelegate
-        }
-
-        Loader {
-            id: __contentLoader
-            width: parent.width
-            sourceComponent: control.contentDelegate
         }
     }
     onAboutToHide: {

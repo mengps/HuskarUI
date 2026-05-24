@@ -599,8 +599,8 @@ QtObject {
                     key: 'HusModal',
                     label: qsTr('HusModal 对话框'),
                     source: './Examples/Feedback/ExpModal.qml',
-                    addVersion: '0.4.7',
-                    desc: qsTr('展示一个对话框，提供标题、内容区、操作区。')
+                    addVersion: '0.6.1.0',
+                    desc: qsTr('代理 descriptionDelegate() 更改为 bodyDelegate()。。')
                 },
                 {
                     key: 'HusSpin',
