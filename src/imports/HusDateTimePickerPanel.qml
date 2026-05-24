@@ -40,6 +40,8 @@ T.Control {
     property int datePickerMode: HusDateTimePicker.Mode_Day
     property int timePickerMode: HusDateTimePicker.Mode_HHMMSS
     property string format: 'yyyy-MM-dd hh:mm:ss'
+    property string visualYearTitle: visualYear + qsTr('年')
+    property string visualMonthTitle: (visualMonth + 1) + qsTr('月')
 
     property var prevIconSource: HusIcon.LeftOutlined ?? ''
     property var nextIconSource: HusIcon.RightOutlined ?? ''
@@ -914,8 +916,9 @@ T.Control {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 PageButton {
-                    text: control.visualYear + qsTr('年')
-                    colorText: hovered ? control.themeSource.colorPageTextHover : control.themeSource.colorPageText
+                    text: control.visualYearTitle
+                    colorText: hovered ? control.themeSource.colorPageTextHover :
+                                         control.themeSource.colorPageText
                     font.bold: true
                     onClicked: {
                         __pickerHeaderComp.isPickYear = true;
@@ -929,8 +932,9 @@ T.Control {
                              control.datePickerMode !== HusDateTimePicker.Mode_Quarter &&
                              !__pickerHeaderComp.isPickQuarter &&
                              !__pickerHeaderComp.isPickYear
-                    text: (control.visualMonth + 1) + qsTr('月')
-                    colorText: hovered ? control.themeSource.colorPageTextHover : control.themeSource.colorPageText
+                    text: control.visualMonthTitle
+                    colorText: hovered ? control.themeSource.colorPageTextHover :
+                                         control.themeSource.colorPageText
                     font.bold: true
                     onClicked: {
                         __pickerHeaderComp.isPickYear = false;

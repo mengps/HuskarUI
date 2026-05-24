@@ -287,13 +287,6 @@ QtObject {
                     desc: qsTr('新增 defaultSelectedKeys 属性。\n新增 insertTag()/appendTag() 接口。'),
                 },
                 {
-                    key: 'HusDateTimePicker',
-                    label: qsTr('HusDateTimePicker 日期时间选择框'),
-                    source: './Examples/DataEntry/ExpDateTimePicker.qml',
-                    addVersion: '0.4.4',
-                    desc: qsTr('日期时间选择框，输入或选择日期的控件。')
-                },
-                {
                     key: 'HusTextArea',
                     label: qsTr('HusTextArea 文本域'),
                     source: './Examples/DataEntry/ExpTextArea.qml',
@@ -329,11 +322,18 @@ QtObject {
                     desc: qsTr('用于选择颜色的弹出式窗口。')
                 },
                 {
+                    key: 'HusDateTimePicker',
+                    label: qsTr('HusDateTimePicker 日期时间选择框'),
+                    source: './Examples/DataEntry/ExpDateTimePicker.qml',
+                    addVersion: '0.6.1.0',
+                    desc: qsTr('新增 visual[Year/Month]Title 属性。')
+                },
+                {
                     key: 'HusDateTimePickerPanel',
                     label: qsTr('HusDateTimePickerPanel 日期时间选择面板'),
                     source: './Examples/DataEntry/ExpDateTimePickerPanel.qml',
-                    addVersion: '0.5.4',
-                    desc: qsTr('非弹出式的日期时间选择面板。')
+                    addVersion: '0.6.1.0',
+                    desc: qsTr('新增 visual[Year/Month]Title 属性。')
                 },
                 {
                     key: 'HusTransfer',
