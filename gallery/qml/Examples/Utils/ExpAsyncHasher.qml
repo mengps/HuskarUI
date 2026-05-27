@@ -39,8 +39,8 @@ sourceObject | QObject* | null | 目标的源指针
 - \`hashProgress(processed: int, total: int)\` 散列值计算进度\n
   - \`processed\` 已处理的字节数\n
   - \`total\` 总字节数\n
-- \`started(processed: int, total: int)\` 散列值计算开始时发出\n
-- \`finished(processed: int, total: int)\` 散列值计算结束时发出\n
+- \`started()\` 散列值计算开始时发出\n
+- \`finished()\` 散列值计算结束时发出\n
                        `)
         }
 
