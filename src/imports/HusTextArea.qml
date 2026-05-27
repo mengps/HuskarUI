@@ -24,6 +24,7 @@
 import QtQuick
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
+import QtQuick.Controls.Basic as B
 import HuskarUI.Basic
 
 T.Control {
@@ -92,6 +93,10 @@ T.Control {
     onMaxLengthChanged: __private.removeExcess();
 
     objectName: '__HusTextArea__'
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
     topPadding: 6
     bottomPadding: 6
     leftPadding: 10
@@ -233,17 +238,17 @@ T.Control {
             onEntered: cursorShape = Qt.SizeVerCursor;
             onExited: cursorShape = Qt.ArrowCursor;
             onPressed: mouse => {
-                startY = mouseY;
-                mouse.accepted = true;
-            }
+                           startY = mouseY;
+                           mouse.accepted = true;
+                       }
             onReleased: mouse => mouse.accepted = true;
             onPositionChanged: mouse => {
-                if (pressed) {
-                    const offsetY = mouse.y - startY;
-                    control.height = Math.max(control.height + offsetY, control.minResizeHeight);
-                    mouse.accepted = true;
-                }
-            }
+                                   if (pressed) {
+                                       const offsetY = mouse.y - startY;
+                                       control.height = Math.max(control.height + offsetY, control.minResizeHeight);
+                                       mouse.accepted = true;
+                                   }
+                               }
             property int startY: 0
         }
     }
