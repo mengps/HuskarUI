@@ -41,7 +41,7 @@ model | array | [] | 单选块模型
 count | int | model.length | 单选数量
 initCheckedIndex | int | -1 | 初始选择的单选项索引
 currentCheckedIndex | int | -1 | 当前选择的单选项索引
-currentCheckedValue | var | undefined | 当前选择的单选项的值
+currentCheckedValue | var | null | 当前选择的单选项的值
 type | enum | HusRadioBlock.Type_Filled | 单选项类型(来自 HusRadioBlock)
 size | enum | HusRadioBlock.Size_Auto | 单选项大小(来自 HusRadioBlock)
 radioWidth | int | 120 | 单选项宽度(size == HusRadioBlock.Size_Fixed 生效)
@@ -61,6 +61,8 @@ toolTip.text | string | 可选 | 存在时则创建文字提示
 toolTip.delay | int | 可选 | 文字提示延时(ms)
 toolTip.timeout | int | 可选 | 文字提示超时(ms)
 \n<br/>
+\n### 支持的函数：\n
+- \`setCurrentIndex(index: int)\` 设置当前的索引为 \`index\`\n
 \n### 支持的信号：\n
 - \`clicked(index: int, radioData: var)\` 点击单选项时发出\n
   - \`index\` 单选项索引\n
@@ -151,6 +153,7 @@ toolTip.timeout | int | 可选 | 文字提示超时(ms)
                 spacing: 10
 
                 HusRadioBlock {
+                    id: test1
                     initCheckedIndex: 0
                     model: [
                         { label: 'Apple', value: 'Apple' },
