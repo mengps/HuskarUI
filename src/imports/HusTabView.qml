@@ -172,6 +172,10 @@ T.Control {
         }
     }
 
+    function setCurrentIndex(index: int) {
+        currentIndex = index;
+    }
+
     function flick(xVelocity: real, yVelocity: real) {
         __tabView.flick(xVelocity, yVelocity);
     }

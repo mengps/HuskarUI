@@ -73,6 +73,7 @@ editable | bool | 可选 | 本标签是否可编辑
 contentDelegate | var | 可选 | 本菜单项内容代理(将覆盖contentDelegate)
 \n<br/>
 \n### 支持的函数：\n
+- \`setCurrentIndex(index: int)\` 设置当前的索引为 \`index\`\n
 - \`flick(index: int)\` 等同于调用 \`Flickable.flick()\` \n
 - \`positionViewAtBeginning(index: int)\` 等同于调用 \`ListView.positionViewAtBeginning()\` \n
 - \`positionViewAtIndex(index: int, mode: int)\` 等同于调用 \`ListView.positionViewAtIndex()\` \n
