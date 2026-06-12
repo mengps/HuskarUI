@@ -60,6 +60,7 @@ class HUSKARUI_EXPORT HusTheme : public QObject
     HUS_PROPERTY_READONLY(QVariantMap, HusSelect)
     HUS_PROPERTY_READONLY(QVariantMap, HusSlider)
     HUS_PROPERTY_READONLY(QVariantMap, HusSpin)
+    HUS_PROPERTY_READONLY(QVariantMap, HusSplitView)
     HUS_PROPERTY_READONLY(QVariantMap, HusSwitch)
     HUS_PROPERTY_READONLY(QVariantMap, HusTabView)
     HUS_PROPERTY_READONLY(QVariantMap, HusTableView)

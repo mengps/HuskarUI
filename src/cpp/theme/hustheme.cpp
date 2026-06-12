@@ -77,8 +77,10 @@ void HusThemePrivate::initializeComponentPropertyHash()
         ADD_COMPONENT_PROPERTY(HusRate)
         ADD_COMPONENT_PROPERTY(HusScrollBar)
         ADD_COMPONENT_PROPERTY(HusSelect)
+        ADD_COMPONENT_PROPERTY(HusSegmented)
         ADD_COMPONENT_PROPERTY(HusSlider)
         ADD_COMPONENT_PROPERTY(HusSpin)
+        ADD_COMPONENT_PROPERTY(HusSplitView)
         ADD_COMPONENT_PROPERTY(HusSwitch)
         ADD_COMPONENT_PROPERTY(HusTabView)
         ADD_COMPONENT_PROPERTY(HusTableView)
@@ -89,7 +91,6 @@ void HusThemePrivate::initializeComponentPropertyHash()
         ADD_COMPONENT_PROPERTY(HusTour)
         ADD_COMPONENT_PROPERTY(HusTransfer)
         ADD_COMPONENT_PROPERTY(HusTreeView)
-        ADD_COMPONENT_PROPERTY(HusSegmented)
     }
 }
 
