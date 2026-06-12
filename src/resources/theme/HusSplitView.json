@@ -1,0 +1,13 @@
+{
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorText": "@colorTextBase",
+        "colorTextDisabled": "$onBackground(@colorTextDisabled, @colorBgBase)",
+        "colorHandle": "@colorFillQuaternary",
+        "colorHandleActive": "@colorPrimaryBgActive",
+        "colorHandleHover": "@colorPrimaryBgHover",
+        "colorPointer": "@colorFill",
+        "radiusBg": "@radiusPrimary"
+    }
+}

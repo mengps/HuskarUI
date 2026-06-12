@@ -195,6 +195,7 @@
         "HusSpin": ":/HuskarUI/resources/theme/HusSpin.json",
         "HusSwitch": ":/HuskarUI/resources/theme/HusSwitch.json",
         "HusSegmented": ":/HuskarUI/resources/theme/HusSegmented.json",
+        "HusSplitView": ":/HuskarUI/resources/theme/HusSplitView.json",
         "HusTabView": ":/HuskarUI/resources/theme/HusTabView.json",
         "HusTableView": ":/HuskarUI/resources/theme/HusTableView.json",
         "HusTag": ":/HuskarUI/resources/theme/HusTag.json",
