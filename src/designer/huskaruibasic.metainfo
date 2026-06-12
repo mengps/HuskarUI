@@ -454,6 +454,18 @@ MetaInfo {
         }
     }
 
+    Type {
+        name: "HuskarUI.Basic.HusSplitView"
+        ItemLibraryEntry {
+            name: "SplitView"
+            category: "Layout"
+            version: "1.0"
+            requiredImport: "HuskarUI.Basic"
+            Property { name: "width"; type: "int"; value: 200 }
+            Property { name: "height"; type: "int"; value: 100 }
+        }
+    }
+
     // Effect
     Type {
         name: "HuskarUI.Basic.HusAcrylic"
