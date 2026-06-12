@@ -44,9 +44,9 @@ sourceObject | QObject* | null | 目标的源指针
 
   - `total` 总字节数
 
-- `started(processed: int, total: int)` 散列值计算开始时发出
+- `started()` 散列值计算开始时发出
 
-- `finished(processed: int, total: int)` 散列值计算结束时发出
+- `finished()` 散列值计算结束时发出
 
 
 <br/>

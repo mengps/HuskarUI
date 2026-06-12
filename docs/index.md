@@ -83,6 +83,7 @@
  - [HusDivider 分割线](./Layout/HusDivider.md)
  - [HusGroupBox 分组框 ](./Layout/HusGroupBox.md)
  - [HusSpace 间距](./Layout/HusSpace.md)
+ - [HusSplitView 分隔视图 ](./Layout/HusSplitView.md)
 ## [Navigation](./Navigation/index.md)
  - [HusBreadcrumb 面包屑](./Navigation/HusBreadcrumb.md)
  - [HusContextMenu 上下文菜单](./Navigation/HusContextMenu.md)

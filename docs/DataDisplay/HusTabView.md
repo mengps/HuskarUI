@@ -85,6 +85,8 @@ contentDelegate | var | 可选 | 本菜单项内容代理(将覆盖contentDelega
 
 ### 支持的函数：
 
+- `setCurrentIndex(index: int)` 设置当前的索引为 `index`
+
 - `flick(index: int)` 等同于调用 `Flickable.flick()` 
 
 - `positionViewAtBeginning(index: int)` 等同于调用 `ListView.positionViewAtBeginning()` 
