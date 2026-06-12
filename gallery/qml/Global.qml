@@ -167,6 +167,13 @@ QtObject {
                     addVersion: '0.6.0',
                     desc: qsTr('在一个有标题的视觉框架内将一组逻辑控件布局在一起。')
                 },
+                {
+                    key: 'HusSplitView',
+                    label: qsTr('HusSplitView 分隔视图'),
+                    source: './Examples/Layout/ExpSplitView.qml',
+                    addVersion: '0.6.1',
+                    desc: qsTr('用于水平或垂直布局项目，并在每个项目之间都有一个可拖动的拆分器。')
+                },
             ]
         },
         {
@@ -264,7 +271,8 @@ QtObject {
                     key: 'HusRadioBlock',
                     label: qsTr('HusRadioBlock 单选块'),
                     source: './Examples/DataEntry/ExpRadioBlock.qml',
-                    desc: qsTr('新增支持图标。')
+                    updateVersion: '0.6.1.0',
+                    desc: qsTr('新增 setCurrentIndex() 接口。')
                 },
                 {
                     key: 'HusCheckBox',

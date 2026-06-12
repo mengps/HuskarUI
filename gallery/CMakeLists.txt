@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../bin/${CMAKE_BUILD_TYPE})
 find_package(Qt6 6.5 COMPONENTS Quick REQUIRED)
+
 qt_standard_project_setup(REQUIRES 6.5)
 
 #Add HuskarUIHelper
@@ -104,6 +105,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/Layout/ExpDivider.qml
         qml/Examples/Layout/ExpSpace.qml
         qml/Examples/Layout/ExpGroupBox.qml
+        qml/Examples/Layout/ExpSplitView.qml
         qml/Examples/Effect/ExpAcrylic.qml
         qml/Examples/Effect/ExpLiquidGlass.qml
         qml/Examples/Effect/ExpSwitchEffect.qml
