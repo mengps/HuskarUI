@@ -33,6 +33,7 @@ T.SplitView {
     property var showCollapsibleIcon: false ?? ''
     property real handleSize: 2
     property real handleTriggerSize: 6
+    property HusRadius radiusCollapseBar: HusRadius { all: parseInt(themeSource.radiusCollapseBar) - 2 }
     property var themeSource: HusTheme.HusSplitView
 
     property Component collapseBarStart: HusIconButton {
@@ -47,7 +48,7 @@ T.SplitView {
         colorBg: pressed ? control.themeSource.colorHandleActive :
                            hovered ? control.themeSource.colorHandleHover :
                                      control.themeSource.colorHandle
-        radiusBg.all: 2
+        radiusBg: control.radiusCollapseBar
         onClicked: {
             const selfState = __private.getState(index);
             if (selfState.state === 'normal') {
@@ -71,7 +72,7 @@ T.SplitView {
         colorBg: pressed ? control.themeSource.colorHandleActive :
                            hovered ? control.themeSource.colorHandleHover :
                                      control.themeSource.colorHandle
-        radiusBg.all: 2
+        radiusBg: control.radiusCollapseBar
         onClicked: {
             const selfState = __private.getState(index);
             if (selfState.state === 'collapse') {

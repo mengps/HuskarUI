@@ -35,6 +35,7 @@ resizable | bool | true | 是否开启拖拽伸缩
 showCollapsibleIcon | string丨bool | false | 是否显示快速折叠图标(为'auto'时自动显示)
 handleSize | real | 2 | 拖拽把手大小
 handleTriggerSize | real | 6 | 拖拽触发区域大小
+radiusCollapseBar | [HusRadius](internal://HusRadius) | - | 折叠按钮圆角
 \n<br/>
                        `)
         }
@@ -422,7 +423,6 @@ handleTriggerSize | real | 6 | 拖拽触发区域大小
                     width: parent.width
                     height: 300
                     showCollapsibleIcon: 'auto'
-                    orientation: Qt.Vertical
 
                     Rectangle {
                         HusSplitView.preferredWidth: parent.width * 0.2

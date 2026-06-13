@@ -8,6 +8,6 @@
         "colorHandleActive": "@colorPrimaryBgActive",
         "colorHandleHover": "@colorPrimaryBgHover",
         "colorPointer": "@colorFill",
-        "radiusBg": "@radiusPrimary"
+        "radiusCollapseBar": "@radiusPrimaryOuter"
     }
 }
