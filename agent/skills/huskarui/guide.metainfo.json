@@ -1990,7 +1990,7 @@
   },
   {
     "name": "HusSplitView",
-    "doc": "# HusSplitView 分隔视图 \n\n用于水平或垂直布局项目，并在每个项目之间都有一个可拖动的拆分器。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { SplitView }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **collapseBarStart: Component** (左侧/上侧)折叠按钮\n\n  - `index: int` 把手索引\n\n  - `collapseBarHovered: bool` 是否悬浮\n\n- **collapseBarEnd: Component** (右侧/下侧)折叠按钮\n\n  - `index: int` 把手索引\n\n  - `collapseBarHovered: bool` 是否悬浮\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nresizable | bool | true | 是否开启拖拽伸缩\nshowCollapsibleIcon | string丨bool | false | 是否显示快速折叠图标(为'auto'时自动显示)\nhandleSize | real | 2 | 拖拽把手大小\nhandleTriggerSize | real | 6 | 拖拽触发区域大小\n\n<br/>",
+    "doc": "# HusSplitView 分隔视图 \n\n用于水平或垂直布局项目，并在每个项目之间都有一个可拖动的拆分器。\n\n* **模块 { HuskarUI.Basic }**\n\n* **继承自 { SplitView }**\n\n\n<br/>\n\n### 支持的代理：\n\n- **collapseBarStart: Component** (左侧/上侧)折叠按钮\n\n  - `index: int` 把手索引\n\n  - `collapseBarHovered: bool` 是否悬浮\n\n- **collapseBarEnd: Component** (右侧/下侧)折叠按钮\n\n  - `index: int` 把手索引\n\n  - `collapseBarHovered: bool` 是否悬浮\n\n\n<br/>\n\n### 支持的属性：\n\n属性名 | 类型 | 默认值 | 描述\n------ | --- | :---: | ---\nanimationEnabled | bool | HusTheme.animationEnabled | 是否开启动画\nresizable | bool | true | 是否开启拖拽伸缩\nshowCollapsibleIcon | string丨bool | false | 是否显示快速折叠图标(为'auto'时自动显示)\nhandleSize | real | 2 | 拖拽把手大小\nhandleTriggerSize | real | 6 | 拖拽触发区域大小\nradiusCollapseBar | [HusRadius](internal://HusRadius) | - | 折叠按钮圆角\n\n<br/>",
     "docPath": "gallery/qml/Examples/Layout/ExpSplitView.qml",
     "category": "Layout",
     "examples": [
