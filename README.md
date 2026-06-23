@@ -19,6 +19,8 @@ If you need Qt5 impl [HuskarUI for Qt5](https://github.com/mengps/HuskarUI_Qt5)
 
 [![QQGroup][qqgroup-image]][qqgroup-url]
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mengps/HuskarUI)
+
 English | [中文](./README-zh_CN.md)
 
 </div>
