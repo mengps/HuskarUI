@@ -244,6 +244,11 @@ T.Control {
         __private.clearCheckedKeys();
         __treeModel.rows = __private.initRows(initModel);
     }
+    Component.onCompleted: {
+        if (checkable) {
+            checkForKeys(defaultCheckedKeys);
+        }
+    }
 
     objectName: '__HusTreeView__'
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
