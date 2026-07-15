@@ -1,11 +1,11 @@
 #ifndef HUSASYNCHASHER_H
 #define HUSASYNCHASHER_H
 
+#include "husglobal.h"
+
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QFuture>
 #include <QtQml/qqml.h>
-
-#include "husglobal.h"
 
 QT_FORWARD_DECLARE_CLASS(QNetworkAccessManager);
 

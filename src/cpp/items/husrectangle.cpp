@@ -22,6 +22,7 @@
  */
 
 #include "husrectangle.h"
+#include "husborder.h"
 
 #include <QtGui/QLinearGradient>
 #include <QtGui/QPainter>
@@ -48,7 +49,7 @@ public:
     }
 
     QColor m_color = { 0xffffff };
-    HusPen *m_pen = nullptr;
+    HusBorder *m_border = nullptr;
     QJSValue m_gradient;
     qreal m_radius = 0;
     qreal m_topLeftRadius = -1.;
@@ -60,117 +61,6 @@ public:
 };
 
 int HusRectanglePrivate::doUpdateSlotIdx = -1;
-
-qreal HusRadius::all() const
-{
-    return m_all;
-}
-
-void HusRadius::setAll(qreal all)
-{
-    if (m_all == all)
-        return;
-
-    m_all = all;
-    emit allChanged();
-
-    if (m_topLeft < 0.)
-        emit topLeftChanged();
-    if (m_topRight < 0.)
-        emit topRightChanged();
-    if (m_bottomLeft < 0.)
-        emit bottomLeftChanged();
-    if (m_bottomRight < 0.)
-        emit bottomRightChanged();
-}
-
-qreal HusRadius::topLeft() const
-{
-    if (m_topLeft >= 0.)
-        return m_topLeft;
-
-    return m_all;
-}
-
-void HusRadius::setTopLeft(qreal topLeft)
-{
-    if (m_topLeft == topLeft)
-        return;
-
-    if (topLeft < 0) {
-        qmlWarning(this) << "topLeftRadius (" << topLeft << ") cannot be less than 0.";
-        return;
-    }
-
-    m_topLeft = topLeft;
-    emit topLeftChanged();
-}
-
-qreal HusRadius::topRight() const
-{
-    if (m_topRight >= 0.)
-        return m_topRight;
-
-    return m_all;
-}
-
-void HusRadius::setTopRight(qreal topRight)
-{
-    if (m_topRight == topRight)
-        return;
-
-    if (topRight < 0) {
-        qmlWarning(this) << "topRightRadius (" << topRight << ") cannot be less than 0.";
-        return;
-    }
-
-    m_topRight = topRight;
-    emit topRightChanged();
-}
-
-qreal HusRadius::bottomLeft() const
-{
-    if (m_bottomLeft >= 0.)
-        return m_bottomLeft;
-
-    return m_all;
-}
-
-void HusRadius::setBottomLeft(qreal bottomLeft)
-{
-    if (m_bottomLeft == bottomLeft)
-        return;
-
-    if (bottomLeft < 0) {
-        qmlWarning(this) << "bottomLeftRadius (" << bottomLeft << ") cannot be less than 0.";
-        return;
-    }
-
-    m_bottomLeft = bottomLeft;
-    emit bottomLeftChanged();
-}
-
-qreal HusRadius::bottomRight() const
-{
-    if (m_bottomRight >= 0.)
-        return m_bottomRight;
-
-    return m_all;
-}
-
-void HusRadius::setBottomRight(qreal bottomRight)
-{
-    if (m_bottomRight == bottomRight)
-        return;
-
-    if (bottomRight < 0) {
-        qmlWarning(this) << "bottomRightRadius (" << bottomRight << ") cannot be less than 0.";
-        return;
-    }
-
-    m_bottomRight = bottomRight;
-    emit bottomRightChanged();
-}
 
 HusRectangle::HusRectangle(QQuickItem *parent)
     : QQuickPaintedItem{parent}
@@ -202,20 +92,20 @@ void HusRectangle::setColor(QColor color)
     }
 }
 
-HusPen *HusRectangle::border()
+HusBorder *HusRectangle::border()
 {
     Q_D(HusRectangle);
 
-    if (!d->m_pen) {
-        d->m_pen = new HusPen;
-        QQml_setParent_noEvent(d->m_pen, this);
-        connect(d->m_pen, &HusPen::colorChanged, this, [this]{ update(); });
-        connect(d->m_pen, &HusPen::widthChanged, this, [this]{ update(); });
-        connect(d->m_pen, &HusPen::styleChanged, this, [this]{ update(); });
+    if (!d->m_border) {
+        d->m_border = new HusBorder;
+        QQml_setParent_noEvent(d->m_border, this);
+        connect(d->m_border, &HusBorder::colorChanged, this, [this]{ update(); });
+        connect(d->m_border, &HusBorder::widthChanged, this, [this]{ update(); });
+        connect(d->m_border, &HusBorder::styleChanged, this, [this]{ update(); });
         update();
     }
 
-    return d->m_pen;
+    return d->m_border;
 }
 
 QJSValue HusRectangle::gradient() const
@@ -440,16 +330,16 @@ void HusRectangle::paint(QPainter *painter)
         painter->setRenderHint(QPainter::Antialiasing);
 
     auto rect = boundingRect();
-    if (d->m_pen && d->m_pen->isValid()) {
-        if (rect.width() > d->m_pen->width() * 2) {
-            auto dx = d->m_pen->width() * 0.5;
+    if (d->m_border && d->m_border->isValid()) {
+        if (rect.width() > d->m_border->width() * 2) {
+            auto dx = d->m_border->width() * 0.5;
             rect.adjust(dx, 0, -dx, 0);
         }
-        if (rect.height() > d->m_pen->width() * 2) {
-            auto dy = d->m_pen->width() * 0.5;
+        if (rect.height() > d->m_border->width() * 2) {
+            auto dy = d->m_border->width() * 0.5;
             rect.adjust(0, dy, 0, -dy);
         }
-        painter->setPen(QPen(d->m_pen->color(), d->m_pen->width(), Qt::PenStyle(d->m_pen->style()), Qt::FlatCap, Qt::SvgMiterJoin));
+        painter->setPen(QPen(d->m_border->color(), d->m_border->width(), Qt::PenStyle(d->m_border->style()), Qt::FlatCap, Qt::SvgMiterJoin));
     } else {
         painter->setPen(QPen(Qt::transparent));
     }

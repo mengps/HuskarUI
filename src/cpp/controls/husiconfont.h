@@ -1,10 +1,10 @@
 #ifndef HUSICONFONT_H
 #define HUSICONFONT_H
 
+#include "husglobal.h"
+
 #include <QtCore/QObject>
 #include <QtQml/qqml.h>
-
-#include "husglobal.h"
 
 class HUSKARUI_EXPORT HusIcon : public QObject
 {

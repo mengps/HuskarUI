@@ -244,7 +244,7 @@ HusInput {
             themeSource: control.themeSource
             sizeRatio: control.sizeRatio
             showNow: true
-            colorBorder: 'transparent'
+            borderBg.color: 'transparent'
             background: null
             onSelected:
                 date => {

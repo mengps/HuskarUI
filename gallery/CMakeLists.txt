@@ -23,7 +23,7 @@ if(WIN32)
         DESCRIPTION ""
         VERSION "${PROJECT_VERSION}"
         COPYRIGHT "Copyright (C) 2026 mengps. All rights reserved."
-        ICONS ../resources/huskarui_new_square.ico
+        ICONS ../resources/v2/huskarui_new_square.ico
         OUTPUT_FILE "${GALLERY_RC_FILE}"
     )
 endif()
@@ -57,6 +57,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/General/ExpLabel.qml
         qml/Examples/General/ExpFrame.qml
         qml/Examples/General/ExpPage.qml
+        qml/Examples/General/ExpBorder.qml
         qml/Examples/DataEntry/ExpSwitch.qml
         qml/Examples/DataEntry/ExpSlider.qml
         qml/Examples/DataEntry/ExpSelect.qml
@@ -92,6 +93,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Examples/DataDisplay/ExpImage.qml
         qml/Examples/DataDisplay/ExpAnimatedImage.qml
         qml/Examples/DataDisplay/ExpImagePreview.qml
+        qml/Examples/DataDisplay/ExpImagePreviewPanel.qml
         qml/Examples/DataDisplay/ExpEmpty.qml
         qml/Examples/DataDisplay/ExpQrCode.qml
         qml/Examples/DataDisplay/ExpCheckerBoard.qml

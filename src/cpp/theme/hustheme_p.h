@@ -1,12 +1,12 @@
 #ifndef HUSTHEME_P_H
 #define HUSTHEME_P_H
 
+#include "hustheme.h"
+#include "hussystemthemehelper.h"
+
 #include <QtCore/QHash>
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
-
-#include "hustheme.h"
-#include "hussystemthemehelper.h"
 
 enum class Function : uint16_t
 {

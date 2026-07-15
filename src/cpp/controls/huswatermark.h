@@ -1,9 +1,9 @@
 #ifndef HUSWATERMARK_H
 #define HUSWATERMARK_H
 
-#include <QtQuick/QQuickPaintedItem>
-
 #include "husglobal.h"
+
+#include <QtQuick/QQuickPaintedItem>
 
 QT_FORWARD_DECLARE_CLASS(HusWatermarkPrivate);
 

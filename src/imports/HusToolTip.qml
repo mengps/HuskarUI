@@ -43,6 +43,7 @@ T.ToolTip {
     property color colorText: HusTheme.HusToolTip.colorText
     property color colorBg: HusTheme.isDark ? HusTheme.HusToolTip.colorBgDark : HusTheme.HusToolTip.colorBg
     property HusRadius radiusBg: HusRadius { all: HusTheme.HusToolTip.radiusBg }
+    property HusBorder borderBg: HusBorder { }
 
     component Arrow: Canvas {
         onWidthChanged: requestPaint();
@@ -94,9 +95,9 @@ T.ToolTip {
     y: {
         switch (position) {
         case HusToolTip.Position_Top:
-            return -implicitHeight - 4;
+            return -implicitHeight - 4 - (showArrow ? __private.arrowSize.height : 0);
         case HusToolTip.Position_Bottom:
-            return __private.controlParentHeight + 4;
+            return __private.controlParentHeight + 4 + (showArrow ? __private.arrowSize.height : 0);
         case HusToolTip.Position_Left:
         case HusToolTip.Position_Right:
             return (__private.controlParentHeight - implicitHeight) * 0.5;
@@ -104,10 +105,12 @@ T.ToolTip {
     }
 
     objectName: '__HusToolTip__'
-    implicitWidth: implicitContentWidth
-    implicitHeight: implicitContentHeight
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            contentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             contentHeight + topPadding + bottomPadding)
     delay: 500
-    padding: 0
+    padding: 6
     font {
         family: HusTheme.HusToolTip.fontFamily
         pixelSize: parseInt(HusTheme.HusToolTip.fontSize)
@@ -119,9 +122,14 @@ T.ToolTip {
         NumberAnimation { property: 'opacity'; from: 1.0; to: 0.0; duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0 }
     }
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
-    contentItem: Item {
-        implicitWidth: __bg.width + (__private.isHorizontal ? 0 : __arrow.width)
-        implicitHeight: __bg.height + (__private.isHorizontal ? __arrow.height : 0)
+    contentItem: HusText {
+        text: control.text
+        font: control.font
+        color: control.colorText
+        wrapMode: Text.Wrap
+    }
+    background: Item {
+        id: __bg
 
         HusShadow {
             anchors.fill: __item
@@ -131,7 +139,8 @@ T.ToolTip {
 
         Item {
             id: __item
-            anchors.fill: parent
+            width: parent.width + (__private.isHorizontal ? 0 : __arrow.width)
+            height: parent.height + (__private.isHorizontal ? __arrow.height : 0)
 
             Arrow {
                 id: __arrow
@@ -153,37 +162,24 @@ T.ToolTip {
             }
 
             HusRectangleInternal {
-                id: __bg
-                width: __text.implicitWidth + 14
-                height: __text.implicitHeight + 12
-                anchors.top: control.position == HusToolTip.Position_Top ? parent.top : undefined
-                anchors.bottom: control.position == HusToolTip.Position_Bottom ? parent.bottom : undefined
-                anchors.left: control.position == HusToolTip.Position_Left ? parent.left : undefined
-                anchors.right: control.position == HusToolTip.Position_Right ? parent.right : undefined
-                anchors.margins: 1
+                width: __bg.width
+                height: __bg.height
+                color: control.colorBg
+                border.width: control.borderBg.width
+                border.color: control.borderBg.color
+                border.pixelAligned: control.borderBg.pixelAligned
                 radius: control.radiusBg.all
                 topLeftRadius: control.radiusBg.topLeft
                 topRightRadius: control.radiusBg.topRight
                 bottomLeftRadius: control.radiusBg.bottomLeft
                 bottomRightRadius: control.radiusBg.bottomRight
-                color: control.colorBg
-
-                HusText {
-                    id: __text
-                    text: control.text
-                    font: control.font
-                    color: control.colorText
-                    wrapMode: Text.Wrap
-                    anchors.centerIn: parent
-                }
             }
         }
     }
-    background: Item { }
 
     QtObject {
         id: __private
-        property bool isHorizontal: control.position == HusToolTip.Position_Top || control.position == HusToolTip.Position_Bottom
+        property bool isHorizontal: control.position === HusToolTip.Position_Top || control.position === HusToolTip.Position_Bottom
         property size arrowSize: control.showArrow ? (isHorizontal ? Qt.size(12, 6) : Qt.size(6, 12)) : Qt.size(0, 0)
         property real controlParentWidth: control.parent ? control.parent.width : 0
         property real controlParentHeight: control.parent ? control.parent.height : 0

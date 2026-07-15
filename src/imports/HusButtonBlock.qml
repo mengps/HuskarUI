@@ -146,12 +146,13 @@ T.Control {
                 height: parent.height
                 anchors.centerIn: parent
                 color: __rootItem.colorBg
+                border.width: __rootItem.borderBg.width
+                border.color: __rootItem.borderBg.color
+                border.pixelAligned: __rootItem.borderBg.pixelAligned
                 topLeftRadius: index == 0 ? control.radiusBg.topLeft : 0
                 topRightRadius: index === (count - 1) ? control.radiusBg.topRight : 0
                 bottomLeftRadius: index == 0 ? control.radiusBg.bottomLeft : 0
                 bottomRightRadius: index === (count - 1) ? control.radiusBg.bottomRight : 0
-                border.width: 1
-                border.color: __rootItem.colorBorder
 
                 Behavior on color { enabled: __rootItem.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
                 Behavior on border.color { enabled: __rootItem.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }

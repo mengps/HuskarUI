@@ -1,12 +1,12 @@
 #ifndef HUSROUTER_H
 #define HUSROUTER_H
 
+#include "husglobal.h"
+
 #include <QtCore/QUrl>
 #include <QtCore/QUrlQuery>
 #include <QtCore/QVariantMap>
 #include <QtQml/qqml.h>
-
-#include "husglobal.h"
 
 QT_FORWARD_DECLARE_CLASS(HusRouterPrivate);
 

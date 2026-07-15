@@ -1,0 +1,18 @@
+{
+    "__style__": {
+        "fontFamily": "@fontPrimaryFamily",
+        "fontSize": "@fontPrimarySize",
+        "colorText": "#fff",
+        "colorBg": "@colorBgMask",
+        "colorBgDisabled": "@colorPrimaryContainerBgDisabled",
+        "colorBorder": "@colorBorder",
+        "colorIndicatorText": "#ccc",
+        "colorButtonTextDisabled": "#888",
+        "colorButtonText": "#ccc",
+        "colorButtonTextHover": "#fff",
+        "colorButtonBg": "@colorFillPrimary",
+        "colorButtonBgHover": "@colorTextQuaternary",
+        "colorOperationBg": "@colorFillPrimary",
+        "radiusBg": "@radiusPrimary"
+    }
+}

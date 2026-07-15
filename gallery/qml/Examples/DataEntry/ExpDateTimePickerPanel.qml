@@ -73,9 +73,9 @@ visualHours | int | - | 视觉小时(通常不需要使用)
 visualMinutes | int | - | 视觉分钟(通常不需要使用)
 visualSeconds | int | - | 视觉秒数(通常不需要使用)
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 边框颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
 radiusItemBg | [HusRadius](internal://HusRadius) | - | 选择项圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 sizeHint | string | 'normal' | 尺寸提示
 \n<br/>
 \n### 支持的函数：\n

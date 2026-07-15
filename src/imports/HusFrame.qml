@@ -28,10 +28,10 @@ import HuskarUI.Basic
 T.Frame {
     id: control
 
-    property real borderWidth: 1
     property color colorBg: 'transparent'
     property color colorBorder: HusTheme.Primary.colorSplit
     property HusRadius radiusBg: HusRadius { all: HusTheme.Primary.radiusPrimary }
+    property HusBorder borderBg: HusBorder { color: HusTheme.Primary.colorSplit }
 
     objectName: '__HusFrame__'
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -44,13 +44,14 @@ T.Frame {
         pixelSize: parseInt(HusTheme.Primary.fontPrimarySize)
     }
     background: HusRectangleInternal {
+        color: control.colorBg
+        border.width: control.borderBg.width
+        border.color: control.borderBg.color
+        border.pixelAligned: control.borderBg.pixelAligned
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight
         bottomLeftRadius: control.radiusBg.bottomLeft
         bottomRightRadius: control.radiusBg.bottomRight
-        color: control.colorBg
-        border.color: control.colorBorder
-        border.width: control.borderWidth
     }
 }

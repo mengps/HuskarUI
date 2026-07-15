@@ -1,10 +1,10 @@
 #ifndef HUSTHEME_H
 #define HUSTHEME_H
 
-#include <QtQml/qqml.h>
-
 #include "husglobal.h"
 #include "husdefinitions.h"
+
+#include <QtQml/qqml.h>
 
 QT_FORWARD_DECLARE_CLASS(HusThemePrivate)
 
@@ -40,6 +40,8 @@ class HUSKARUI_EXPORT HusTheme : public QObject
     HUS_PROPERTY_READONLY(QVariantMap, HusGroupBox)
     HUS_PROPERTY_READONLY(QVariantMap, HusIconText)
     HUS_PROPERTY_READONLY(QVariantMap, HusImage)
+    HUS_PROPERTY_READONLY(QVariantMap, HusImagePreview)
+    HUS_PROPERTY_READONLY(QVariantMap, HusImagePreviewPanel)
     HUS_PROPERTY_READONLY(QVariantMap, HusInput)
     HUS_PROPERTY_READONLY(QVariantMap, HusLabel)
     HUS_PROPERTY_READONLY(QVariantMap, HusMenu)

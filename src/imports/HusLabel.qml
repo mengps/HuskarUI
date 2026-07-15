@@ -28,11 +28,11 @@ import HuskarUI.Basic
 T.Label {
     id: control
 
-    property real borderWidth: 1
     property alias colorText: control.color
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
     property color colorBorder: themeSource.colorBorder
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder { color: themeSource.colorBorder }
     property string sizeHint: 'normal'
     property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property var themeSource: HusTheme.HusLabel
@@ -50,8 +50,9 @@ T.Label {
     }
     background: HusRectangleInternal {
         color: control.colorBg
-        border.color: control.colorBorder
-        border.width: control.borderWidth
+        border.width: control.borderBg.width
+        border.color: control.borderBg.color
+        border.pixelAligned: control.borderBg.pixelAligned
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight

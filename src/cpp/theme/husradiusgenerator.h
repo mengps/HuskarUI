@@ -1,10 +1,10 @@
 #ifndef HUSRADIUSGENERATOR_H
 #define HUSRADIUSGENERATOR_H
 
+#include "husglobal.h"
+
 #include <QtCore/QObject>
 #include <QtQml/qqml.h>
-
-#include "husglobal.h"
 
 class HUSKARUI_EXPORT HusRadiusGenerator : public QObject
 {

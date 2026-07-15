@@ -1,11 +1,11 @@
 #ifndef HUSAPI_H
 #define HUSAPI_H
 
+#include "husglobal.h"
+
 #include <QtCore/QDate>
 #include <QtQml/qqml.h>
 #include <QtGui/QWindow>
-
-#include "husglobal.h"
 
 class HUSKARUI_EXPORT HusApi : public QObject
 {

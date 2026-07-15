@@ -1,76 +1,12 @@
 #ifndef HUSRECTANGLE_H
 #define HUSRECTANGLE_H
 
+#include "husglobal.h"
+
 #include <QtQuick/QQuickPaintedItem>
 
-#include "husglobal.h"
-#include "husdefinitions.h"
-
+QT_FORWARD_DECLARE_CLASS(HusBorder)
 QT_FORWARD_DECLARE_CLASS(HusRectanglePrivate)
-
-class HUSKARUI_EXPORT HusRadius: public QObject
-{
-    Q_OBJECT
-
-    Q_PROPERTY(qreal all READ all WRITE setAll NOTIFY allChanged FINAL)
-    Q_PROPERTY(qreal topLeft READ topLeft WRITE setTopLeft NOTIFY topLeftChanged FINAL)
-    Q_PROPERTY(qreal topRight READ topRight WRITE setTopRight NOTIFY topRightChanged FINAL)
-    Q_PROPERTY(qreal bottomLeft READ bottomLeft WRITE setBottomLeft NOTIFY bottomLeftChanged FINAL)
-    Q_PROPERTY(qreal bottomRight READ bottomRight WRITE setBottomRight NOTIFY bottomRightChanged FINAL)
-
-    QML_NAMED_ELEMENT(HusRadius)
-
-public:
-    HusRadius(QObject *parent = nullptr) : QObject{parent} { }
-    ~HusRadius() { }
-
-    qreal all() const;
-    void setAll(qreal all);
-
-    qreal topLeft() const;
-    void setTopLeft(qreal topLeft);
-
-    qreal topRight() const;
-    void setTopRight(qreal topRight);
-
-    qreal bottomLeft() const;
-    void setBottomLeft(qreal bottomLeft);
-
-    qreal bottomRight() const;
-    void setBottomRight(qreal bottomRight);
-
-signals:
-    void allChanged();
-    void topLeftChanged();
-    void topRightChanged();
-    void bottomLeftChanged();
-    void bottomRightChanged();
-
-private:
-    qreal m_all = 0.;
-    qreal m_topLeft = -1.;
-    qreal m_topRight = -1.;
-    qreal m_bottomLeft = -1.;
-    qreal m_bottomRight = -1.;
-};
-
-class HUSKARUI_EXPORT HusPen: public QObject
-{
-    Q_OBJECT
-
-    HUS_PROPERTY_INIT(qreal, width, setWidth, 1)
-    HUS_PROPERTY_INIT(QColor, color, setColor, Qt::transparent)
-    HUS_PROPERTY_INIT(int, style, setStyle, Qt::SolidLine)
-
-    QML_NAMED_ELEMENT(HusPen)
-
-public:
-    HusPen(QObject *parent = nullptr) : QObject{parent} { }
-
-    bool isValid() const {
-        return m_width > 0 && m_color.isValid() && m_color.alpha() > 0;
-    }
-};
 
 class HUSKARUI_EXPORT HusRectangle: public QQuickPaintedItem
 {
@@ -78,7 +14,7 @@ class HUSKARUI_EXPORT HusRectangle: public QQuickPaintedItem
 
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged FINAL)
     Q_PROPERTY(QJSValue gradient READ gradient WRITE setGradient RESET resetGradient)
-    Q_PROPERTY(HusPen* border READ border CONSTANT)
+    Q_PROPERTY(HusBorder* border READ border CONSTANT)
 
     Q_PROPERTY(qreal radius READ radius WRITE setRadius NOTIFY radiusChanged FINAL)
     Q_PROPERTY(qreal topLeftRadius READ topLeftRadius WRITE setTopLeftRadius NOTIFY topLeftRadiusChanged FINAL)
@@ -95,7 +31,7 @@ public:
     QColor color() const;
     void setColor(QColor color);
 
-    HusPen *border();
+    HusBorder *border();
 
     QJSValue gradient() const;
     void setGradient(const QJSValue &gradient);

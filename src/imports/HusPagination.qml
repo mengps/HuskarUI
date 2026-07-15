@@ -264,7 +264,7 @@ T.Control {
                 return checked ? control.themeSource.colorButtonBgDisabled : 'transparent';
             }
         }
-        colorBorder: checked ? control.themeSource.colorBorderActive : 'transparent'
+        borderBg.color: checked ? control.themeSource.colorBorderActive : 'transparent'
         onClicked: {
             control.currentPageIndex = pageIndex;
         }
@@ -272,7 +272,7 @@ T.Control {
 
         Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
         Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-        Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+        Behavior on borderBg.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
         HusToolTip {
             visible: parent.hovered && parent.enabled
@@ -292,7 +292,7 @@ T.Control {
         enabled: control.enabled
         sizeRatio: control.sizeRatio
         colorBg: 'transparent'
-        colorBorder: 'transparent'
+        borderBg.color: 'transparent'
         text: '•••'
 
         property bool showIcon: (enabled && (down || hovered))
@@ -352,7 +352,7 @@ T.Control {
             effectEnabled: false
             sizeRatio: control.sizeRatio
             iconSize: control.font.pixelSize
-            colorBorder: 'transparent'
+            borderBg.color: 'transparent'
             colorBg: enabled ? (down ? control.themeSource.colorActionBgActive :
                                        hovered ? control.themeSource.colorActionBgHover :
                                                  control.themeSource.colorActionBg) : control.themeSource.colorActionBg

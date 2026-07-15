@@ -139,7 +139,14 @@ QtObject {
                     source: './Examples/General/ExpPage.qml',
                     addVersion: '0.5.9.0',
                     desc: qsTr('自导页眉和页脚项的基础页面。')
-                }
+                },
+                {
+                    key: 'HusBorder',
+                    label: qsTr('HusBorder 边框'),
+                    source: './Examples/General/ExpBorder.qml',
+                    addVersion: '0.7.0.0',
+                    desc: qsTr('提供统一的边框类型。')
+                },
             ]
         },
         {
@@ -450,11 +457,25 @@ QtObject {
                     desc: qsTr('可预览的图片。')
                 },
                 {
+                    key: 'HusAnimatedImage',
+                    label: qsTr('HusAnimatedImage 动态图片'),
+                    source: './Examples/DataDisplay/ExpAnimatedImage.qml',
+                    addVersion: '0.5.2',
+                    desc: qsTr('可预览的动态图片。')
+                },
+                {
                     key: 'HusImagePreview',
-                    label: qsTr('HusImagePreview 图片预览'),
+                    label: qsTr('HusImagePreview 图片预览弹窗'),
                     source: './Examples/DataDisplay/ExpImagePreview.qml',
                     addVersion: '0.4.2',
-                    desc: qsTr('用于预览的图片的基本工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。')
+                    desc: qsTr('用于预览的图片的弹窗，提供常用的图片变换(平移/缩放/翻转/旋转)操作。')
+                },
+                {
+                    key: 'HusImagePreviewPanel',
+                    label: qsTr('HusImagePreviewPanel 图片预览面板'),
+                    source: './Examples/DataDisplay/ExpImagePreviewPanel.qml',
+                    addVersion: '0.7.0.0',
+                    desc: qsTr('用于预览的图片的面板，提供常用的图片变换(平移/缩放/翻转/旋转)操作。')
                 },
                 {
                     key: 'HusEmpty',
@@ -469,13 +490,6 @@ QtObject {
                     source: './Examples/DataDisplay/ExpQrCode.qml',
                     addVersion: '0.5.0',
                     desc: qsTr('能够将文本转换生成二维码的组件，支持自定义配色和 Logo 配置。')
-                },
-                {
-                    key: 'HusAnimatedImage',
-                    label: qsTr('HusAnimatedImage 动态图片'),
-                    source: './Examples/DataDisplay/ExpAnimatedImage.qml',
-                    addVersion: '0.5.2',
-                    desc: qsTr('可预览的动态图片。')
                 },
                 {
                     key: 'HusCheckerBoard',

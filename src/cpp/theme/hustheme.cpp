@@ -59,6 +59,8 @@ void HusThemePrivate::initializeComponentPropertyHash()
         ADD_COMPONENT_PROPERTY(HusGroupBox)
         ADD_COMPONENT_PROPERTY(HusIconText)
         ADD_COMPONENT_PROPERTY(HusImage)
+        ADD_COMPONENT_PROPERTY(HusImagePreview)
+        ADD_COMPONENT_PROPERTY(HusImagePreviewPanel)
         ADD_COMPONENT_PROPERTY(HusInput)
         ADD_COMPONENT_PROPERTY(HusLabel)
         ADD_COMPONENT_PROPERTY(HusMenu)
@@ -847,6 +849,8 @@ HusTheme::HusTheme(QObject *parent)
     d->m_sizeHintMap["large"] = 1.25;
 
     reloadTheme();
+
+    qDebug() << d->m_sizeHintMap;
 }
 
 HusTheme::~HusTheme()

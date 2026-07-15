@@ -137,9 +137,11 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/utils/husrouter.h cpp/utils/husrouter.cpp
         cpp/utils/husasynchasher.h cpp/utils/husasynchasher.cpp
         cpp/controls/husiconfont.h cpp/controls/husiconfont.cpp
-        cpp/controls/husrectangle.h cpp/controls/husrectangle.cpp
         cpp/controls/huswatermark.h cpp/controls/huswatermark.cpp
         cpp/controls/husqrcode.h cpp/controls/husqrcode.cpp
+        cpp/items/husborder.h cpp/items/husborder.cpp
+        cpp/items/husradius.h cpp/items/husradius.cpp
+        cpp/items/husrectangle.h cpp/items/husrectangle.cpp
         # Qt.labs.qmlmodels
         ${QT_TREEMODEL_SOURCES}
         # QR-Code-generator
@@ -226,6 +228,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/theme>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/items>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/controls>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/utils>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/models>

@@ -1,9 +1,9 @@
 #ifndef HUSAPP_H
 #define HUSAPP_H
 
-#include <QtQml/qqml.h>
-
 #include "husglobal.h"
+
+#include <QtQml/qqml.h>
 
 class HUSKARUI_EXPORT HusApp : public QObject
 {

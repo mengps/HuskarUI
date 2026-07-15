@@ -15,15 +15,14 @@ Flickable {
 
         DocDescription {
             desc: qsTr(`
-# HusImagePreview 图片预览\n
-用于预览的图片的基本弹出式工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。\n
+# HusImagePreviewPanel 图片预览面板\n
+用于预览的图片的基本面板，提供常用的图片变换(平移/缩放/翻转/旋转)操作。\n
 * **模块 { HuskarUI.Basic }**\n
-* **继承自 { [HusPopup](internal://HusPopup) }**\n
+* **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **sourceDelegate: Component** 预览源项目代理(可以是 \`Image/AnimatedImage/Video\` 等)，必须提供 \`sourceSize\` 属性，代理可访问属性：\n
   - \`sourceUrl: url\` 源url\n
-- **closeDelegate: Component** 关闭按钮代理。\n
 - **prevDelegate: Component** 前一幅按钮代理。\n
 - **nextDelegate: Component** 后一幅按钮代理。\n
 - **indicatorDelegate: Component** 索引指示器代理。\n
@@ -40,7 +39,10 @@ currentScale | real(readonly) | - | 当前缩放值
 currentRotation | real(readonly) | - | 当前旋转(角度)值
 currentIndex | int | - | 当前图片索引
 count | int(readonly) | - | 当前图片数量
-panel | [HusImagePreviewPanel](internal://HusImagePreviewPanel) | - | 访问内部日期时间选择面板
+minViewHeight | real | height | 最小视图高度
+colorBg | color | - | 背景颜色
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 \n<br/>
 \n### {items}支持的属性：\n
 属性名 | 类型 | 可选/必选 | 描述
@@ -64,19 +66,25 @@ url | url | 必选 | 图片源
 - \`resetTransform()\` 重置所有变换 \n
 - \`incrementCurrentIndex()\` 当前索引增1 \n
 - \`decrementCurrentIndex()\` 当前索引减1 \n
+\n<br/>
+\n### 支持的信号：\n
+- \`clicked(inImage: bool)\` 点击时发出\n
+  - \`inImage\` 指针坐标是否在图像内\n
+- \`doubleClicked(inImage: bool)\` 双击时发出\n
+  - \`inImage\` 点击坐标是否在图像内\n
                        `)
         }
 
         Description {
             title: qsTr('何时使用')
             desc: qsTr(`
-- 需要预览一系列图片和用户常用变换的弹窗时使用。\n
+- 需要预览一系列图片和用户常用变换时使用。\n
                        `)
         }
 
         ThemeToken {
-            source: 'HusImagePreview'
-            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusImagePreview.qml'
+            source: 'HusImagePreviewPanel'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusImagePreviewPanel.qml'
         }
 
         Description {
@@ -96,16 +104,10 @@ url | url | 必选 | 图片源
                 Column {
                     spacing: 10
 
-                    HusButton {
-                        text: 'Show image preview'
-                        type: HusButton.Type_Primary
-                        onClicked: {
-                            imagePreview.open();
-                        }
-                    }
-
-                    HusImagePreview {
+                    HusImagePreviewPanel {
                         id: imagePreview
+                        width: parent.width
+                        height: 500
                         items: [
                             { url: 'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp' },
                             { url: 'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp' },
@@ -117,16 +119,10 @@ url | url | 必选 | 图片源
             exampleDelegate: Column {
                 spacing: 10
 
-                HusButton {
-                    text: 'Show image preview'
-                    type: HusButton.Type_Primary
-                    onClicked: {
-                        imagePreview.open();
-                    }
-                }
-
-                HusImagePreview {
+                HusImagePreviewPanel {
                     id: imagePreview
+                    width: parent.width
+                    height: 500
                     items: [
                         { url: 'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp' },
                         { url: 'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp' },
@@ -149,22 +145,16 @@ url | url | 必选 | 图片源
                 Column {
                     spacing: 10
 
-                    HusButton {
-                        text: 'Show gif image preview'
-                        type: HusButton.Type_Primary
-                        onClicked: {
-                            gifPreview.open();
-                        }
-                    }
-
-                    HusImagePreview {
-                        id: gifPreview
+                    HusImagePreviewPanel {
+                        id: gifPreviewPanel
+                        width: parent.width
+                        height: 500
                         sourceDelegate: AnimatedImage {
                             source: sourceUrl
                             fillMode: Image.PreserveAspectFit
                             onStatusChanged: {
                                 if (status == Image.Ready)
-                                    gifPreview.resetTransform();
+                                    gifPreviewPanel.resetTransform();
                             }
                         }
                         items: [
@@ -178,22 +168,16 @@ url | url | 必选 | 图片源
             exampleDelegate: Column {
                 spacing: 10
 
-                HusButton {
-                    text: 'Show gif image preview'
-                    type: HusButton.Type_Primary
-                    onClicked: {
-                        gifPreview.open();
-                    }
-                }
-
-                HusImagePreview {
-                    id: gifPreview
+                HusImagePreviewPanel {
+                    id: gifPreviewPanel
+                    width: parent.width
+                    height: 500
                     sourceDelegate: AnimatedImage {
                         source: sourceUrl
                         fillMode: Image.PreserveAspectFit
                         onStatusChanged: {
                             if (status == Image.Ready)
-                                gifPreview.resetTransform();
+                                gifPreviewPanel.resetTransform();
                         }
                     }
                     items: [

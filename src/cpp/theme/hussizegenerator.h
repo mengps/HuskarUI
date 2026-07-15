@@ -1,10 +1,10 @@
 #ifndef HUSSIZEGENERATOR_H
 #define HUSSIZEGENERATOR_H
 
+#include "husglobal.h"
+
 #include <QtCore/QObject>
 #include <QtQml/qqml.h>
-
-#include "husglobal.h"
 
 class HUSKARUI_EXPORT HusSizeGenerator : public QObject
 {

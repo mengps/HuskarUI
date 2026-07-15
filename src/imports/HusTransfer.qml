@@ -57,8 +57,8 @@ T.Control {
     property color colorTitle: themeSource.colorColumnTitle
     property color colorText: themeSource.colorText
     property color colorBg: themeSource.colorBg
-    property color colorBorder: themeSource.colorBorder
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder { color: themeSource.colorBorder }
     property var themeSource: HusTheme.HusTransfer
 
     property alias sourceTableView: __sourceList.view
@@ -362,7 +362,9 @@ T.Control {
         }
         background: HusRectangleInternal {
             color: control.colorBg
-            border.color: control.colorBorder
+            border.width: control.borderBg.width
+            border.color: control.borderBg.color
+            border.pixelAligned: control.borderBg.pixelAligned
             radius: control.radiusBg.all
             topLeftRadius: control.radiusBg.topLeft
             topRightRadius: control.radiusBg.topRight

@@ -44,10 +44,10 @@ T.SplitView {
         iconSource: control.orientation === Qt.Horizontal ? HusIcon.LeftOutlined : HusIcon.UpOutlined
         leftPadding: 0
         rightPadding: 0
-        colorBorder: 'transparent'
         colorBg: pressed ? control.themeSource.colorHandleActive :
                            hovered ? control.themeSource.colorHandleHover :
                                      control.themeSource.colorHandle
+        borderBg.color: 'transparent'
         radiusBg: control.radiusCollapseBar
         onClicked: {
             const selfState = __private.getState(index);
@@ -68,10 +68,10 @@ T.SplitView {
         iconSource: control.orientation === Qt.Horizontal ? HusIcon.RightOutlined : HusIcon.DownOutlined
         leftPadding: 0
         rightPadding: 0
-        colorBorder: 'transparent'
         colorBg: pressed ? control.themeSource.colorHandleActive :
                            hovered ? control.themeSource.colorHandleHover :
                                      control.themeSource.colorHandle
+        borderBg.color: 'transparent'
         radiusBg: control.radiusCollapseBar
         onClicked: {
             const selfState = __private.getState(index);
