@@ -329,7 +329,7 @@ T.Control {
         hoverCursorShape: (isGroup && !control.compactMode !== HusMenu.Mode_Relaxed) ? Qt.ArrowCursor : Qt.PointingHandCursor
         animationEnabled: control.animationEnabled
         effectEnabled: false
-        colorBorder: 'transparent'
+        borderBg.color: 'transparent'
         colorText: {
             if (enabled) {
                 if (isGroup) {

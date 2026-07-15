@@ -47,7 +47,7 @@ T.Control {
     readonly property int count: model.length
     property int initCheckedIndex: -1
     property int currentCheckedIndex: -1
-    property var currentCheckedValue: null
+    readonly property var currentCheckedValue: currentCheckedIndex >= 0 && currentCheckedIndex < count ? model[currentCheckedIndex].value : undefined
     property int type: HusRadioBlock.Type_Filled
     property int size: HusRadioBlock.Size_Auto
     property int radioWidth: 120
@@ -86,6 +86,7 @@ T.Control {
         animationEnabled: control.animationEnabled
         effectEnabled: control.effectEnabled
         hoverCursorShape: control.hoverCursorShape
+        checked: control.currentCheckedIndex === index
         enabled: control.enabled && (model.enabled === undefined ? true : model.enabled)
         themeSource: control.themeSource
         locale: control.locale
@@ -93,8 +94,8 @@ T.Control {
         type: HusButton.Type_Default
         iconSource: model.iconSource ?? 0
         text: model.label ?? ''
-        colorBorder: (enabled && checked) ? control.themeSource.colorBorderChecked :
-                                            control.themeSource.colorBorder;
+        borderBg.color: (enabled && checked) ? control.themeSource.colorBorderChecked :
+                                               control.themeSource.colorBorder;
         colorText: {
             if (enabled) {
                 if (control.type == HusRadioBlock.Type_Filled) {
@@ -176,12 +177,13 @@ T.Control {
                 height: parent.height
                 anchors.centerIn: parent
                 color: __rootItem.colorBg
+                border.width: __rootItem.borderBg.width
+                border.color: __rootItem.borderBg.color
+                border.pixelAligned: __rootItem.borderBg.pixelAligned
                 topLeftRadius: index == 0 ? control.radiusBg.topLeft : 0
                 topRightRadius: index === (count - 1) ? control.radiusBg.topRight : 0
                 bottomLeftRadius: index == 0 ? control.radiusBg.bottomLeft : 0
                 bottomRightRadius: index === (count - 1) ? control.radiusBg.bottomRight : 0
-                border.width: 1
-                border.color: __rootItem.colorBorder
 
                 Behavior on color { enabled: __rootItem.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
                 Behavior on border.color { enabled: __rootItem.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
@@ -197,25 +199,13 @@ T.Control {
             property bool hovered: __rootItem.hovered
             property var toolTip: model.toolTip
         }
-
-        Connections {
-            target: control
-            function onCurrentCheckedIndexChanged() {
-                if (__rootItem.index === control.currentCheckedIndex) {
-                    __rootItem.checked = true;
-                    control.currentCheckedValue = __rootItem.model.value;
-                }
-            }
-        }
     }
 
     function setCurrentIndex(index: int) {
-        if (index >= 0 && index < __repeater.count) {
-            const item = __repeater.itemAt(index);
-            item.checked = true;
-            control.currentCheckedValue = item.model.value;
-        }
+        currentCheckedIndex = index;
     }
+
+    onInitCheckedIndexChanged: currentCheckedIndex = initCheckedIndex;
 
     objectName: '__HusRadioBlock__'
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -234,7 +224,6 @@ T.Control {
             onClicked:
                 button => {
                     control.currentCheckedIndex = button.index;
-                    control.currentCheckedValue = button.model.value;
                     control.clicked(button.index, button.model);
                 }
         }

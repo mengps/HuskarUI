@@ -34,9 +34,7 @@ bottomLeftRadius | real | -1 | 左下圆角半径
 bottomRightRadius | real | -1 | 右下圆角半径
 color | color | '#fff' | 填充颜色
 gradient | Gradient | - | 填充渐变
-border.color | color | 'transparent' | 边框线颜色
-border.width | int | 1 | 边框线宽度
-border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
+border | [HusBorder](internal://HusBorder) | - | 边框
 \n**注意** \`border.style\` 为 HusRectangle 特有。
                        `)
         }
@@ -49,7 +47,7 @@ border.style | int | Qt.SolidLine | 边框线样式(来自 Qt.*)
         }
 
         ThemeToken {
-            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/controls/husrectangle.cpp'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/cpp/items/husrectangle.cpp'
         }
 
         Description {

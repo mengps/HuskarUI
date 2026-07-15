@@ -49,7 +49,6 @@ T.Button {
     property int hoverCursorShape: Qt.PointingHandCursor
     property int type: HusButton.Type_Default
     property int shape: HusButton.Shape_Default
-    property real borderWidth: 1
     property color colorText: {
         if (enabled) {
             switch(control.type)
@@ -117,25 +116,27 @@ T.Button {
             return themeSource.colorBgDisabled;
         }
     }
-    property color colorBorder: {
-        if (type == HusButton.Type_Link) return 'transparent';
-        if (enabled) {
-            switch(control.type)
-            {
-            case HusButton.Type_Default:
-                return (control.active || control.visualFocus) ? themeSource.colorBorderActive :
-                                                                 control.hovered ? themeSource.colorBorderHover :
-                                                                                   themeSource.colorDefaultBorder;
-            default:
-                return (control.active || control.visualFocus) ? themeSource.colorBorderActive :
-                                                                 control.hovered ? themeSource.colorBorderHover :
-                                                                                   themeSource.colorBorder;
+    property HusRadius radiusBg: HusRadius { all: control.themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder {
+        color: {
+            if (type == HusButton.Type_Link) return 'transparent';
+            if (enabled) {
+                switch(control.type)
+                {
+                case HusButton.Type_Default:
+                    return (control.active || control.visualFocus) ? themeSource.colorBorderActive :
+                                                                     control.hovered ? themeSource.colorBorderHover :
+                                                                                       themeSource.colorDefaultBorder;
+                default:
+                    return (control.active || control.visualFocus) ? themeSource.colorBorderActive :
+                                                                     control.hovered ? themeSource.colorBorderHover :
+                                                                                       themeSource.colorBorder;
+                }
+            } else {
+                return themeSource.colorBorderDisabled;
             }
-        } else {
-            return themeSource.colorBorderDisabled;
         }
     }
-    property HusRadius radiusBg: HusRadius { all: control.themeSource.radiusBg }
     property string sizeHint: 'normal'
     property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property string contentDescription: text
@@ -229,8 +230,8 @@ T.Button {
 
             HusRectangleInternal {
                 color: control.colorBg
-                border.width: (control.type == HusButton.Type_Filled || control.type == HusButton.Type_Text) ? 0 : control.borderWidth
-                border.color: control.enabled ? control.colorBorder : 'transparent'
+                border.width: (control.type == HusButton.Type_Filled || control.type == HusButton.Type_Text) ? 0 : control.borderBg.width
+                border.color: control.enabled ? control.borderBg.color : 'transparent'
                 radius: r
                 topLeftRadius: tl
                 topRightRadius: tr
@@ -247,8 +248,8 @@ T.Button {
 
             HusRectangle {
                 color: control.colorBg
-                border.width: (control.type == HusButton.Type_Filled || control.type == HusButton.Type_Text) ? 0 : control.borderWidth
-                border.color: control.enabled ? control.colorBorder : 'transparent'
+                border.width: (control.type == HusButton.Type_Filled || control.type == HusButton.Type_Text) ? 0 : control.borderBg.width
+                border.color: control.enabled ? control.borderBg.color : 'transparent'
                 border.style: Qt.DashLine
                 radius: r
                 topLeftRadius: tl

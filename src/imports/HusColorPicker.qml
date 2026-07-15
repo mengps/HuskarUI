@@ -56,12 +56,12 @@ T.AbstractButton {
     property alias titleFont: __colorPickerPanel.titleFont
     property alias inputFont: __colorPickerPanel.inputFont
     property alias colorBg: __colorPickerPanel.colorBg
-    property alias colorBorder: __colorPickerPanel.colorBorder
     property color colorText: enabled ? themeSource.colorText : themeSource.colorTextDisabled
     property alias colorInput: __colorPickerPanel.colorInput
     property alias colorTitle: __colorPickerPanel.colorTitle
     property alias colorPresetIcon: __colorPickerPanel.colorPresetIcon
     property alias colorPresetText: __colorPickerPanel.colorPresetText
+    property alias borderBg: __colorPickerPanel.borderBg
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property HusRadius radiusTriggerBg: HusRadius { all: themeSource.radiusTriggerBg }
     property HusRadius radiusPopupBg: HusRadius { all: themeSource.radiusPopupBg }
@@ -146,7 +146,9 @@ T.AbstractButton {
         bottomLeftRadius: control.radiusBg.bottomLeft
         bottomRightRadius: control.radiusBg.bottomRight
         color: control.colorBg
-        border.color: control.colorBorder
+        border.width: control.borderBg.width
+        border.color: control.borderBg.color
+        border.pixelAligned: control.borderBg.pixelAligned
     }
 
     HoverHandler {

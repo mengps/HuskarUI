@@ -516,7 +516,7 @@ T.Control {
             animationEnabled: control.animationEnabled
             effectEnabled: false
             colorBg: 'transparent'
-            colorBorder: 'transparent'
+            borderBg.color: 'transparent'
             colorText: {
                 if (isCurrent) {
                     return HusTheme.isDark ? control.themeSource.colorHightlightDark : control.themeSource.colorHightlight;

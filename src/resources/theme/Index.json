@@ -173,6 +173,8 @@
         "HusGroupBox": ":/HuskarUI/resources/theme/HusGroupBox.json",
         "HusIconText": ":/HuskarUI/resources/theme/HusIconText.json",
         "HusImage": ":/HuskarUI/resources/theme/HusImage.json",
+        "HusImagePreview": ":/HuskarUI/resources/theme/HusImagePreview.json",
+        "HusImagePreviewPanel": ":/HuskarUI/resources/theme/HusImagePreviewPanel.json",
         "HusInput": ":/HuskarUI/resources/theme/HusInput.json",
         "HusLabel": ":/HuskarUI/resources/theme/HusLabel.json",
         "HusMenu": ":/HuskarUI/resources/theme/HusMenu.json",

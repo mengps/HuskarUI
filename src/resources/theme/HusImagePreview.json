@@ -1,0 +1,8 @@
+{
+    "__init__": {
+        "__import__": ["HusPopup", "HusImagePreviewPanel"]
+    },
+    "__style__": {
+        "colorOverlay": "@colorBgMask"
+    }
+}

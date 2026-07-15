@@ -52,8 +52,8 @@ titleFont | font | - | 标题文本
 colorTitle | color | - | 标题颜色
 colorText | color | - | 项文本颜色
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 背景边框色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 sourceTableView | [HusTableView](internal://HusTableView) | - | 访问内部左侧表格视图
 targetTableView | [HusTableView](internal://HusTableView) | - | 访问内部右侧表格视图
 \n<br/>

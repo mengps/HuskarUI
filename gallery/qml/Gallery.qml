@@ -146,7 +146,7 @@ HusWindow {
                         width: ListView.view.width
                         effectEnabled: false
                         text: urlData.label
-                        colorBorder: 'transparent'
+                        borderBg.color: 'transparent'
                         radiusBg.all: 0
                         onClicked: galleryRouter.gotoUrl(modelData.location);
                         required property var modelData
@@ -504,7 +504,7 @@ HusWindow {
             menuBgDelegate: Rectangle {
                 radius: menuButton.radiusBg.all
                 color: menuButton.colorBg
-                border.color: menuButton.colorBorder
+                border.color: menuButton.borderBg.color
                 border.width: 1
 
                 property var model: parent.model

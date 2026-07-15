@@ -661,7 +661,7 @@ children | array | 可选 | 子节点列表
                         padding: 0
                         leftPadding: 0
                         rightPadding: 0
-                        colorBorder: 'transparent'
+                        borderBg.color: 'transparent'
                         iconSource: isExpanded ? HusIcon.MinusSquareOutlined : HusIcon.PlusSquareOutlined
                         onClicked: {
                             showLineTreeView.treeView.toggleExpanded(row);

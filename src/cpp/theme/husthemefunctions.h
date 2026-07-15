@@ -1,11 +1,11 @@
 #ifndef HUSTHEMEFUNCTIONS_H
 #define HUSTHEMEFUNCTIONS_H
 
+#include "husglobal.h"
+
 #include <QtCore/QObject>
 #include <QtGui/QColor>
 #include <QtQml/qqml.h>
-
-#include "husglobal.h"
 
 class HUSKARUI_EXPORT HusThemeFunctions : public QObject
 {

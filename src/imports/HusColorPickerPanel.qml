@@ -49,14 +49,16 @@ T.Control {
                                          pixelSize: parseInt(themeSource.fontSizeInput) - 2
                                      })
     property color colorBg: themeSource.colorBg
-    property color colorBorder: enabled ?
-                                    active ? themeSource.colorBorderHover :
-                                             themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorTitle: themeSource.colorTitle
     property color colorInput: themeSource.colorInput
     property color colorPresetIcon: themeSource.colorPresetIcon
     property color colorPresetText: themeSource.colorPresetText
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder {
+        color: enabled ?
+                   active ? themeSource.colorBorderHover :
+                            themeSource.colorBorder : themeSource.colorBorderDisabled
+    }
 
     property var themeSource: HusTheme.HusColorPicker
 
@@ -120,17 +122,19 @@ T.Control {
         sourceComponent: control.presetsOrientation === Qt.Horizontal ? __horLayout : __verLayout
     }
     background: HusRectangleInternal {
+        color: control.colorBg
+        border.width: control.borderBg.width
+        border.color: control.borderBg.color
+        border.pixelAligned: control.borderBg.pixelAligned
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight
         bottomLeftRadius: control.radiusBg.bottomLeft
         bottomRightRadius: control.radiusBg.bottomRight
-        color: control.colorBg
-        border.color: control.colorBorder
     }
 
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on borderBg.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
     component PickerView: ColumnLayout {
         spacing: 12

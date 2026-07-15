@@ -76,9 +76,9 @@ T.Control {
     property int visualSeconds: currentSeconds
 
     property color colorBg: themeSource.colorBg
-    property color colorBorder: themeSource.colorBorder
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property HusRadius radiusItemBg: HusRadius { all: themeSource.radiusItemBg }
+    property HusBorder borderBg: HusBorder { color: themeSource.colorBorder }
     property string sizeHint: 'normal'
     property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property var themeSource: HusTheme.HusDateTimePicker
@@ -94,7 +94,7 @@ T.Control {
         font: control.font
         radiusBg: control.radiusItemBg
         effectEnabled: false
-        colorBorder: model.today ? control.themeSource.colorDayBorderToday : 'transparent'
+        borderBg.color: model.today ? control.themeSource.colorDayBorderToday : 'transparent'
         colorText: {
             if (control.datePickerMode == HusDateTimePicker.Mode_Week) {
                 return isCurrentWeek || isHoveredWeek ? control.themeSource.colorDayTextCurrent :
@@ -709,7 +709,9 @@ T.Control {
     }
     background: HusRectangleInternal {
         color: control.colorBg
-        border.color: control.colorBorder
+        border.width: control.borderBg.width
+        border.color: control.borderBg.color
+        border.pixelAligned: control.borderBg.pixelAligned
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight
@@ -855,10 +857,6 @@ T.Control {
         animationEnabled: control.animationEnabled
         sizeRatio: control.sizeRatio
         type: HusButton.Type_Link
-        font {
-            family: control.themeSource.fontFamily
-            pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
-        }
         iconSize: 16 * control.sizeRatio
         colorIcon: hovered ? control.themeSource.colorPageIconHover : control.themeSource.colorPageIcon
     }
@@ -988,14 +986,14 @@ T.Control {
         animationEnabled: control.animationEnabled
         sizeRatio: control.sizeRatio
         effectEnabled: false
-        colorBorder: 'transparent'
+        borderBg.color: 'transparent'
         colorBg: checked ? control.themeSource.colorDayBgCurrent :
                            hovered ? control.themeSource.colorDayBgHover :
                                      control.themeSource.colorDayBg
         colorText: checked ? control.themeSource.colorDayTextCurrent : control.themeSource.colorDayText
         font {
             family: control.themeSource.fontFamily
-            pixelSize: parseInt(control.themeSource.fontSize) * control.sizeRatio
+            pixelSize: parseInt(control.themeSource.fontSize) * sizeRatio
         }
         radiusBg: control.radiusItemBg
     }

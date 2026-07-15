@@ -1,6 +1,8 @@
 #ifndef HUSSYSTEMTHEMEHELPER_H
 #define HUSSYSTEMTHEMEHELPER_H
 
+#include "husglobal.h"
+
 #include <QtCore/QObject>
 #include <QtGui/QColor>
 #include <QtGui/QWindow>
@@ -9,8 +11,6 @@
 #ifdef QT_WIDGETS_LIB
 #include <QtWidgets/QWidget>
 #endif
-
-#include "husglobal.h"
 
 QT_FORWARD_DECLARE_CLASS(HusSystemThemeHelperPrivate);
 

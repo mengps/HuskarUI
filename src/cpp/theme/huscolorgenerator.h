@@ -1,11 +1,11 @@
 #ifndef HUSCOLORGENERATOR_H
 #define HUSCOLORGENERATOR_H
 
+#include "husglobal.h"
+
 #include <QtCore/QObject>
 #include <QtGui/QColor>
 #include <QtQml/qqml.h>
-
-#include "husglobal.h"
 
 class HUSKARUI_EXPORT HusColorGenerator : public QObject
 {

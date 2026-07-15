@@ -179,7 +179,7 @@ HusPopup {
                     return HusTheme.HusMenu.colorBgDisabled;
                 }
             }
-            border.color: menuButton.colorBorder
+            border.color: menuButton.borderBg.color
             border.width: 1
 
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }

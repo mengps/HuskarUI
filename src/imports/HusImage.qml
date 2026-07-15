@@ -34,6 +34,7 @@ Image {
     property string fallback: ''
     property string placeholder: ''
     property var items: []
+    property var themeSource: HusTheme.HusImage
 
     objectName: '__HusImage__'
     onSourceChanged: {
@@ -75,7 +76,7 @@ Image {
         anchors.fill: parent
         active: control.previewEnabled
         sourceComponent: Rectangle {
-            color: HusTheme.Primary.colorTextTertiary
+            color: control.themeSource.colorOverlay
             opacity: control.hovered ? 1.0 : 0.0
 
             Behavior on color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
@@ -87,15 +88,15 @@ Image {
 
                 HusIconText {
                     anchors.verticalCenter: parent.verticalCenter
-                    colorIcon: HusTheme.HusImage.colorText
+                    colorIcon: control.themeSource.colorText
                     iconSource: HusIcon.EyeOutlined
-                    iconSize: parseInt(HusTheme.HusImage.fontSize) + 2
+                    iconSize: parseInt(control.themeSource.fontSize) + 2
                 }
 
                 HusText {
                     anchors.verticalCenter: parent.verticalCenter
                     text: qsTr('预览')
-                    color: HusTheme.HusImage.colorText
+                    color: control.themeSource.colorText
                 }
             }
 
