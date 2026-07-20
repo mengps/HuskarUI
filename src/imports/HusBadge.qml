@@ -47,8 +47,12 @@ T.Control {
     property int overflowCount: 99
     property color colorBg: presetColor == '' ? (!__private.isNumber ? 'transparent' : HusTheme.Primary.colorError) :
                                                 __private.isCustom ? presetColor : __private.colorArray[5]
-    property alias colorBorder: __border.border.color
     property color colorText: 'white'
+
+    property HusBorder borderBg: HusBorder {
+        width: 2
+        color: !__private.isNumber ? 'transparent' : 'white'
+    }
 
     onCountChanged: {
         const max = Math.min(count, overflowCount);
@@ -166,8 +170,9 @@ T.Control {
             anchors.centerIn: __badge
             radius: height * 0.5
             color: 'transparent'
-            border.width: 2
-            border.color: !__private.isNumber ? 'transparent' : 'white'
+            border.width: control.borderBg.width
+            border.color: control.borderBg.color
+            border.pixelAligned: control.borderBg.pixelAligned
             scale: __badge.scale
         }
 

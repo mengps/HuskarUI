@@ -35,8 +35,8 @@ dot | bool | false | 不展示数字,只有一个小红点(默认 false)
 showZero | bool | false | 当数值为 0 时, 是否展示 HusBadge
 overflowCount | int | 99 | 展示封顶的数字值
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 边框颜色
 colorText | color | - | 文本颜色
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
                        `)
         }
 
@@ -89,7 +89,7 @@ colorText | color | - | 文本颜色
 
                         HusBadge {
                             iconSource: HusIcon.ClockCircleOutlined
-                            colorBorder: 'transparent'
+                            borderBg.color: 'transparent'
                             colorBg: 'transparent'
                             colorText: '#f5222d'
                         }
@@ -119,7 +119,7 @@ colorText | color | - | 文本颜色
 
                     HusBadge {
                         iconSource: HusIcon.ClockCircleOutlined
-                        colorBorder: 'transparent'
+                        borderBg.color: 'transparent'
                         colorBg: 'transparent'
                         colorText: '#f5222d'
                     }
@@ -149,7 +149,7 @@ colorText | color | - | 文本颜色
                     HusBadge { count: showSwitch.checked ? 25 : 0 }
                     HusBadge {
                         iconSource: showSwitch.checked ? HusIcon.ClockCircleOutlined : 0
-                        colorBorder: 'transparent'
+                        borderBg.color: 'transparent'
                         colorBg: 'transparent'
                         colorText: '#f5222d'
                     }
@@ -168,7 +168,7 @@ colorText | color | - | 文本颜色
                 HusBadge { count: showSwitch.checked ? 25 : 0 }
                 HusBadge {
                     iconSource: showSwitch.checked ? HusIcon.ClockCircleOutlined : 0
-                    colorBorder: 'transparent'
+                    borderBg.color: 'transparent'
                     colorBg: 'transparent'
                     colorText: '#f5222d'
                 }
