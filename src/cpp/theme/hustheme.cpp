@@ -849,8 +849,6 @@ HusTheme::HusTheme(QObject *parent)
     d->m_sizeHintMap["large"] = 1.25;
 
     reloadTheme();
-
-    qDebug() << d->m_sizeHintMap;
 }
 
 HusTheme::~HusTheme()
