@@ -46,10 +46,10 @@ leftClearIconPadding | int(readonly) | - | 清除图标在左边时的填充
 rightClearIconPadding | int(readonly) | - | 清除图标在右边时的填充
 colorIcon | color | - | 图标颜色
 colorText | color | - | 文本颜色
-colorBorder | color | - | 边框颜色
 colorBg | color | - | 背景颜色
 colorShadow | color | - | 阴影颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 sizeHint | string | 'normal' | 尺寸提示
 contentDescription | string | '' | 内容描述(提高可用性)
 \n<br/>

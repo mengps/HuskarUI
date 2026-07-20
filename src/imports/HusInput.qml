@@ -62,9 +62,6 @@ T.TextField {
     readonly property int rightClearIconPadding: clearIconPosition === HusInput.Position_Right ? __private.clearIconSize : 0
     property color colorIcon: enabled ? themeSource.colorIcon : themeSource.colorIconDisabled
     property alias colorText: control.color
-    property color colorBorder: enabled ?
-                                    active ? themeSource.colorBorderHover :
-                                             themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorBg: {
         if (enabled) {
             if (type === HusInput.Type_Borderless || type === HusInput.Type_Underlined) {
@@ -80,6 +77,10 @@ T.TextField {
     }
     property color colorShadow: enabled ? themeSource.colorShadow : 'transparent'
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder {
+        color: enabled ? active ? themeSource.colorBorderHover :
+                                  themeSource.colorBorder : themeSource.colorBorderDisabled
+    }
     property string sizeHint: 'normal'
     property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property string contentDescription: ''
@@ -131,7 +132,9 @@ T.TextField {
             active: control.type === HusInput.Type_Outlined || control.type === HusInput.Type_Filled
             sourceComponent: HusRectangleInternal {
                 color: control.colorBg
-                border.color: control.colorBorder
+                border.color: control.borderBg.color
+                border.width: control.borderBg.width
+                border.pixelAligned: control.borderBg.pixelAligned
                 radius: control.radiusBg.all
                 topLeftRadius: control.radiusBg.topLeft
                 topRightRadius: control.radiusBg.topRight
@@ -147,7 +150,7 @@ T.TextField {
             visible: active
             active: control.type === HusInput.Type_Underlined
             sourceComponent: HusRectangleInternal {
-                color: control.colorBorder
+                color: control.borderBg.color
             }
         }
 
@@ -157,7 +160,8 @@ T.TextField {
             active: control.type === HusInput.Type_Dashed
             sourceComponent: HusRectangle {
                 color: control.colorBg
-                border.color: control.colorBorder
+                border.color: control.borderBg.color
+                border.width: control.borderBg.width
                 border.style: Qt.DashLine
                 radius: control.radiusBg.all
                 topLeftRadius: control.radiusBg.topLeft
@@ -207,8 +211,8 @@ T.TextField {
     }
 
     Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on borderBg.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
     QtObject {
         id: __private
