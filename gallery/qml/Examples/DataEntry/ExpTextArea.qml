@@ -43,9 +43,9 @@ colorText | color | - | 文本颜色
 colorPlaceholderText | color | - | 占位文本颜色
 colorSelectedText | color | - | 选中文本颜色
 colorSelection | color | - | 选区颜色
-colorBorder | color | - | 边框颜色
 colorBg | color | - | 背景颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 contentDescription | string | '' | 内容描述(提高可用性)
 textArea | TextArea | - | 访问内部文本区域
 verScrollBar | [HusScrollBar](internal://HusScrollBar) | - | 访问内部垂直滚动条
