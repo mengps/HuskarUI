@@ -426,7 +426,7 @@ Item {
             showShadow: true
             colorBg: HusThemeFunctions.alpha(HusTheme.Primary.colorBgBase, 0.7)
             colorShadow: componentCard.accentColor
-            colorBorder: componentCard.borderColor
+            borderBg.color: componentCard.borderColor
             titleDelegate: null
             coverDelegate: null
             actionDelegate: null

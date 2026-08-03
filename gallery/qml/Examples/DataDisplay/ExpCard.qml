@@ -48,12 +48,13 @@ bodyTitleFont | font | - | 主体部分标题字体
 bodyDescriptionFont | font | - | 主体部分描述字体
 colorTitle | color | - | 标题文本颜色
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 边框颜色
 colorShadow | color | - | 阴影颜色
 colorBodyAvatar | color | - | 主体部分头像颜色
 colorBodyAvatarBg | color | - | 主体部分头像背景颜色
 colorBodyTitle | color | - | 主体部分标题颜色
 colorBodyDescription | color | - | 主体部分描述颜色
+radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 \n **注意** \`[bodyAvatarIcon/bodyAvatarSource/bodyAvatarText]\`只需提供一种即可
                        `)
         }
