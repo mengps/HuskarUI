@@ -446,7 +446,7 @@ T.Control {
             animationEnabled: control.animationEnabled
             sizeRatio: control.sizeRatio
             colorBg: 'transparent'
-            colorBorder: 'transparent'
+            borderBg.color: 'transparent'
             clearEnabled: false
             model: isBefore ? control.beforeLabel : control.afterLabel
             currentIndex: isBefore ? control.initBeforeLabelIndex : control.initAfterLabelIndex

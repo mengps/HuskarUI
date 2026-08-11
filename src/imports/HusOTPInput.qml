@@ -134,10 +134,10 @@ T.Control {
             showShadow: control.showShadow
             font: control.font
             colorText: control.colorItemText
-            colorBorder: active ? control.colorItemBorderActive : control.colorItemBorder
             colorBg: control.colorItemBg
             colorShadow: control.colorShadow
             radiusBg: control.radiusBg
+            borderBg.color: active ? control.colorItemBorderActive : control.colorItemBorder
             validator: control.itemValidator
             inputMethodHints: control.itemInputMethodHints
             echoMode: control.itemPassword ? HusInput.Password : HusInput.Normal
