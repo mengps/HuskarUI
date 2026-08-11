@@ -26,11 +26,10 @@ Flickable {
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-borderWidth | real | 1 | 边框线宽
 colorTitle | color | - | 标题颜色
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 边框颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 sizeHint | string | 'normal' | 尺寸提示
 \n<br/>
                        `)

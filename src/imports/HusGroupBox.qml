@@ -29,13 +29,15 @@ import HuskarUI.Basic
 T.GroupBox {
     id: control
 
-    property real borderWidth: 1 / Screen.devicePixelRatio
     property color colorTitle: enabled ? themeSource.colorTitle :
                                          themeSource.colorTitleDisabled
     property color colorBg: 'transparent'
-    property color colorBorder: enabled ? themeSource.colorBorder :
-                                          themeSource.colorBorderDisabled
     property HusRadius radiusBg: HusRadius { all: HusTheme.Primary.radiusPrimary }
+    property HusBorder borderBg: HusBorder {
+        width: 1 / Screen.devicePixelRatio
+        color: enabled ? themeSource.colorBorder :
+                         themeSource.colorBorderDisabled
+    }
     property string sizeHint: 'normal'
     property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property var themeSource: HusTheme.HusGroupBox
@@ -73,11 +75,18 @@ T.GroupBox {
             
             ShapePath {
                 id: __path
-                strokeColor: control.colorBorder
-                strokeWidth: control.borderWidth
+                strokeColor: control.borderBg.color
+                strokeWidth: control.borderBg.width
+                strokeStyle: {
+                    switch (control.borderBg.style) {
+                    case Qt.SolidLine: return ShapePath.SolidLine;
+                    case Qt.DashLine: return ShapePath.DashLine;
+                    default: return ShapePath.SolidLine;
+                    }
+                }
                 fillColor: control.colorBg
                 
-                property real inset: control.borderWidth * 0.5
+                property real inset: strokeWidth * 0.5
                 property real w: __shape.width - inset
                 property real h: __shape.height - inset
                 
