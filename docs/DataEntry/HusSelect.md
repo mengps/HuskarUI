@@ -47,11 +47,11 @@ loading | bool | false | 是否在加载中
 placeholderText | string | '' | 占位符文本
 defaultPopupMaxHeight | int | 240 | 默认弹窗最大高度
 colorText | color | - | 文本颜色
-colorBorder | color | - | 边框颜色
 colorBg | color | - | 背景颜色
 radiusBg | [HusRadius](../General/HusRadius.md) | - | 背景圆角
 radiusItemBg | [HusRadius](../General/HusRadius.md) | - | 选项背景圆角
 radiusPopupBg | [HusRadius](../General/HusRadius.md) | - | 弹窗背景圆角
+borderBg | [HusBorder](../General/HusBorder.md) | - | 背景边框
 sizeHint | string | 'normal' | 尺寸提示
 contentDescription | string | '' | 内容描述(提高可用性)
 

@@ -4,6 +4,7 @@
 
 General分类包含以下组件：
 
+- [HusBorder 边框](./HusBorder.md)
 - [HusButton 按钮](./HusButton.md)
 - [HusButtonBlock 按钮块(HusIconButton变种) ](./HusButtonBlock.md)
 - [HusCaptionBar 标题栏](./HusCaptionBar.md)

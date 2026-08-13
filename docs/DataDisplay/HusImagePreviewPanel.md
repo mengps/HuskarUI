@@ -2,14 +2,14 @@
 
 [← 返回本类别目录](./index.md)
 
-# HusImagePreview 图片预览
+# HusImagePreviewPanel 图片预览面板
 
 
-用于预览的图片的基本弹出式工具，提供常用的图片变换(平移/缩放/翻转/旋转)操作。
+用于预览的图片的基本面板，提供常用的图片变换(平移/缩放/翻转/旋转)操作。
 
 * **模块 { HuskarUI.Basic }**
 
-* **继承自 { [HusPopup](../General/HusPopup.md) }**
+* **继承自 { Control }**
 
 
 <br/>
@@ -19,8 +19,6 @@
 - **sourceDelegate: Component** 预览源项目代理(可以是 `Image/AnimatedImage/Video` 等)，必须提供 `sourceSize` 属性，代理可访问属性：
 
   - `sourceUrl: url` 源url
-
-- **closeDelegate: Component** 关闭按钮代理。
 
 - **prevDelegate: Component** 前一幅按钮代理。
 
@@ -45,7 +43,10 @@ currentScale | real(readonly) | - | 当前缩放值
 currentRotation | real(readonly) | - | 当前旋转(角度)值
 currentIndex | int | - | 当前图片索引
 count | int(readonly) | - | 当前图片数量
-panel | [HusImagePreviewPanel](./HusImagePreviewPanel.md) | - | 访问内部日期时间选择面板
+minViewHeight | real | height | 最小视图高度
+colorBg | color | - | 背景颜色
+radiusBg | [HusRadius](../General/HusRadius.md) | - | 背景圆角
+borderBg | [HusBorder](../General/HusBorder.md) | - | 背景边框
 
 <br/>
 
@@ -94,6 +95,19 @@ url | url | 必选 | 图片源
 
 <br/>
 
+### 支持的信号：
+
+- `clicked(inImage: bool)` 点击时发出
+
+  - `inImage` 指针坐标是否在图像内
+
+- `doubleClicked(inImage: bool)` 双击时发出
+
+  - `inImage` 点击坐标是否在图像内
+
+
+<br/>
+
 ## 代码演示
 
 ### 示例 1 - 基本用法
@@ -108,16 +122,10 @@ import HuskarUI.Basic
 Column {
     spacing: 10
 
-    HusButton {
-        text: 'Show image preview'
-        type: HusButton.Type_Primary
-        onClicked: {
-            imagePreview.open();
-        }
-    }
-
-    HusImagePreview {
+    HusImagePreviewPanel {
         id: imagePreview
+        width: parent.width
+        height: 500
         items: [
             { url: 'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp' },
             { url: 'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp' },
@@ -141,22 +149,16 @@ import HuskarUI.Basic
 Column {
     spacing: 10
 
-    HusButton {
-        text: 'Show gif image preview'
-        type: HusButton.Type_Primary
-        onClicked: {
-            gifPreview.open();
-        }
-    }
-
-    HusImagePreview {
-        id: gifPreview
+    HusImagePreviewPanel {
+        id: gifPreviewPanel
+        width: parent.width
+        height: 500
         sourceDelegate: AnimatedImage {
             source: sourceUrl
             fillMode: Image.PreserveAspectFit
             onStatusChanged: {
                 if (status == Image.Ready)
-                    gifPreview.resetTransform();
+                    gifPreviewPanel.resetTransform();
             }
         }
         items: [
