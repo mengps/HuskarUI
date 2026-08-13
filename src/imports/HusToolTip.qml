@@ -43,7 +43,7 @@ T.ToolTip {
     property color colorText: HusTheme.HusToolTip.colorText
     property color colorBg: HusTheme.isDark ? HusTheme.HusToolTip.colorBgDark : HusTheme.HusToolTip.colorBg
     property HusRadius radiusBg: HusRadius { all: HusTheme.HusToolTip.radiusBg }
-    property HusBorder borderBg: HusBorder { }
+    property HusBorder borderBg: HusBorder { color: 'transparent' }
 
     component Arrow: Canvas {
         onWidthChanged: requestPaint();

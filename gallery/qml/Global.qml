@@ -41,8 +41,8 @@ QtObject {
                     key: 'HusButton',
                     label: qsTr('HusButton 按钮'),
                     source: './Examples/General/ExpButton.qml',
-                    updateVersion: '0.6.1.0',
-                    desc: qsTr('新增 borderWidth 边框宽度。')
+                    updateVersion: '0.7.0.0',
+                    desc: qsTr('新增 borderBg 背景边框。')
                 },
                 {
                     key: 'HusIconButton',

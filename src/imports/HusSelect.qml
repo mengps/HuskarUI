@@ -42,14 +42,15 @@ T.ComboBox {
     property color colorText: enabled ?
                                   (popup.visible && !editable) ? themeSource.colorTextActive :
                                                                  themeSource.colorText : themeSource.colorTextDisabled
-    property color colorBorder: enabled ?
-                                    active ? themeSource.colorBorderHover :
-                                             themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
 
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property HusRadius radiusItemBg: HusRadius { all: themeSource.radiusItemBg }
     property HusRadius radiusPopupBg: HusRadius { all: themeSource.radiusPopupBg }
+    property HusBorder borderBg: HusBorder {
+        color: enabled ? active ? themeSource.colorBorderHover :
+                                  themeSource.colorBorder : themeSource.colorBorderDisabled
+    }
     property string sizeHint: 'normal'
     property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property string contentDescription: ''
@@ -129,8 +130,8 @@ T.ComboBox {
     }
 
     Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
+    Behavior on borderBg.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationFast } }
 
     objectName: '__HusSelect__'
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -172,7 +173,7 @@ T.ComboBox {
         verticalAlignment: Text.AlignVCenter
         colorText: control.colorText
         colorBg: 'transparent'
-        colorBorder: 'transparent'
+        borderBg.color: 'transparent'
 
         Keys.onEnterPressed: if (active && !control.popup.opened) control.popup.open();
 
@@ -206,8 +207,9 @@ T.ComboBox {
     }
     background: HusRectangleInternal {
         color: control.colorBg
-        border.color: control.colorBorder
-        border.width: 1
+        border.color: control.borderBg.color
+        border.width: control.borderBg.width
+        border.pixelAligned: control.borderBg.pixelAligned
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight

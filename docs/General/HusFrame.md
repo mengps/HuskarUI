@@ -25,10 +25,9 @@
 
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
-borderWidth | real | 1 | 边框宽度
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 边框颜色
 radiusBg | [HusRadius](./HusRadius.md) | - | 背景圆角
+borderBg | [HusBorder](./HusBorder.md) | - | 背景边框
 
 <br/>
 

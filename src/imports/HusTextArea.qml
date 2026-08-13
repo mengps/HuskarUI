@@ -49,10 +49,12 @@ T.Control {
     property alias colorPlaceholderText: __textArea.placeholderTextColor
     property alias colorSelectedText: __textArea.selectedTextColor
     property alias colorSelection: __textArea.selectionColor
-    property color colorBorder: enabled ? active ? themeSource.colorBorderHover :
-                                                   themeSource.colorBorder : themeSource.colorBorderDisabled
     property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder {
+        color: enabled ? active ? themeSource.colorBorderHover :
+                                  themeSource.colorBorder : themeSource.colorBorderDisabled
+    }
     property string contentDescription: ''
     property var themeSource: HusTheme.HusTextArea
 
@@ -62,7 +64,9 @@ T.Control {
 
     property Component bgDelegate: HusRectangleInternal {
         color: control.colorBg
-        border.color: control.colorBorder
+        border.color: control.borderBg.color
+        border.width: control.borderBg.width
+        border.pixelAligned: control.borderBg.pixelAligned
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight
@@ -85,8 +89,8 @@ T.Control {
     Behavior on colorText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     Behavior on colorPlaceholderText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     Behavior on colorSelectedText { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
-    Behavior on colorBorder { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
     Behavior on colorBg { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
+    Behavior on borderBg.color { enabled: control.animationEnabled; ColorAnimation { duration: HusTheme.Primary.durationMid } }
 
     onTextChanged: __private.removeExcess();
     onMaxLengthChanged: __private.removeExcess();

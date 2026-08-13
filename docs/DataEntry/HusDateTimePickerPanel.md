@@ -80,9 +80,9 @@ visualHours | int | - | 视觉小时(通常不需要使用)
 visualMinutes | int | - | 视觉分钟(通常不需要使用)
 visualSeconds | int | - | 视觉秒数(通常不需要使用)
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 边框颜色
 radiusBg | [HusRadius](../General/HusRadius.md) | - | 背景圆角
 radiusItemBg | [HusRadius](../General/HusRadius.md) | - | 选择项圆角
+borderBg | [HusBorder](../General/HusBorder.md) | - | 背景边框
 sizeHint | string | 'normal' | 尺寸提示
 
 <br/>
