@@ -124,7 +124,7 @@ void HusRectangle::setGradient(const QJSValue &gradient)
 
     static int updatedSignalIdx = QMetaMethod::fromSignal(&QQuickGradient::updated).methodIndex();
     if (d->doUpdateSlotIdx < 0)
-        d->doUpdateSlotIdx = QQuickRectangle::staticMetaObject.indexOfSlot("doUpdate()");
+        d->doUpdateSlotIdx = HusRectangle::staticMetaObject.indexOfSlot("doUpdate()");
 
     if (auto oldGradient = qobject_cast<QQuickGradient*>(d->m_gradient.toQObject()))
         QMetaObject::disconnect(oldGradient, updatedSignalIdx, this, d->doUpdateSlotIdx);
