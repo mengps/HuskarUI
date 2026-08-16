@@ -38,7 +38,7 @@ Item {
         height: control.previewCardTotalHeight(componentData.key, compactMode)
         padding: 14
         colorBg: HusThemeFunctions.alpha(HusTheme.Primary.colorBgBase, 0.92)
-        colorBorder: HusTheme.Primary.colorBorderSecondary
+        borderBg.color: HusTheme.Primary.colorBorderSecondary
 
         required property var componentData
         property bool compactMode: false
@@ -101,7 +101,7 @@ Item {
         width: control.sectionWidthFor(sectionData)
         padding: 18
         colorBg: HusThemeFunctions.alpha(HusTheme.Primary.colorBgBase, 0.88)
-        colorBorder: HusTheme.Primary.colorBorderSecondary
+        borderBg.color: HusTheme.Primary.colorBorderSecondary
 
         required property var sectionData
         property bool compactMode: control.isWideSection(sectionData)
@@ -3338,7 +3338,7 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     padding: 18
                     colorBg: HusThemeFunctions.alpha(HusTheme.Primary.colorBgBase, 0.88)
-                    colorBorder: HusTheme.Primary.colorBorderSecondary
+                    borderBg.color: HusTheme.Primary.colorBorderSecondary
 
                     Column {
                         width: parent.width
@@ -3437,10 +3437,9 @@ Item {
         anchors.bottomMargin: 16
         padding: 12
         colorBg: HusThemeFunctions.alpha(HusTheme.Primary.colorBgBase, 0.8)
-        colorBorder: HusTheme.Primary.colorBorderSecondary
+        borderBg.color: HusTheme.Primary.colorBorderSecondary
 
         RowLayout {
-
             HusCheckBox {
                 text: qsTr('Enabled')
                 checked: true
