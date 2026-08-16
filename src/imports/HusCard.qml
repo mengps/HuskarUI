@@ -64,8 +64,8 @@ T.Control {
     property color colorBodyDescription: themeSource.colorBodyDescription
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
     property HusBorder borderBg: HusBorder {
-        color: themeSource.colorBorder
         width: 1
+        color: themeSource.colorBorder
     }
     property var themeSource: HusTheme.HusCard
 
