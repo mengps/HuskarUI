@@ -47,11 +47,13 @@ T.Control {
     property var closeIconSource: 0 ?? ''
     property int closeIconSize: parseInt(HusTheme.HusButton.fontSize)
     property string presetColor: ''
-    property color colorText: presetColor == '' ? control.themeSource.colorDefaultText : __private.isCustom ? '#fff' : __private.colorArray[5]
-    property color colorBg: presetColor == '' ? control.themeSource.colorDefaultBg : __private.isCustom ? presetColor : __private.colorArray[0]
-    property color colorBorder: presetColor == '' ? control.themeSource.colorDefaultBorder : __private.isCustom ? 'transparent' : __private.colorArray[2]
+    property color colorText: presetColor == '' ? themeSource.colorDefaultText : __private.isCustom ? '#fff' : __private.colorArray[5]
+    property color colorBg: presetColor == '' ? themeSource.colorDefaultBg : __private.isCustom ? presetColor : __private.colorArray[0]
     property color colorIcon: colorText
-    property HusRadius radiusBg: HusRadius { all: control.themeSource.radiusBg }
+    property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder {
+        color: presetColor === '' ? themeSource.colorDefaultBorder : __private.isCustom ? 'transparent' : __private.colorArray[2]
+    }
     property var themeSource: HusTheme.HusTag
 
     onTagStateChanged: {
@@ -166,7 +168,9 @@ T.Control {
     }
     background: HusRectangleInternal {
         color: control.colorBg
-        border.color: control.colorBorder
+        border.width: control.borderBg.width
+        border.color: control.borderBg.color
+        border.pixelAligned: control.borderBg.pixelAligned
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight

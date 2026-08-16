@@ -38,9 +38,9 @@ closeIconSize | int | true | 关闭图标大小
 presetColor | string | '' | 预设颜色
 colorText | color | - |文本颜色
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 边框颜色
 colorIcon | color | - | 图标颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 \n<br/>
 \n### 支持的信号：\n
 - \`close()\` 点击关闭图标(如果有)时发出\n
