@@ -36,9 +36,9 @@ closeIconSize | int | true | 关闭图标大小
 presetColor | string | '' | 预设颜色
 colorText | color | - |文本颜色
 colorBg | color | - | 背景颜色
-colorBorder | color | - | 边框颜色
 colorIcon | color | - | 图标颜色
 radiusBg | [HusRadius](../General/HusRadius.md) | - | 背景圆角
+borderBg | [HusBorder](../General/HusBorder.md) | - | 背景边框
 
 <br/>
 

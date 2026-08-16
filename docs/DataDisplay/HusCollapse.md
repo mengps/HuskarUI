@@ -56,8 +56,8 @@ colorTitle | color | - | 标题文本颜色
 colorTitleBg | color | - | 标题背景颜色
 colorContent | color | - | 内容文本颜色
 colorContentBg | color | - | 内容背景颜色
-colorBorder | color | - | 边框颜色
 radiusBg | [HusRadius](../General/HusRadius.md) | - | 背景圆角
+borderBg | [HusBorder](../General/HusBorder.md) | - | 背景边框
 
 <br/>
 
