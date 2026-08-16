@@ -204,4 +204,4 @@ Windows 11 / Ubuntu 24.04.2, Qt Version >= 6.7
 
 ## 🎉 Star 历史
 
-[![Star History Chart](https://api.star-history.com/svg?repos=mengps/HuskarUI&type=Date)](https://star-history.com/#mengps/HuskarUI&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=mengps/HuskarUI&type=Date)](https://star-history.dera.page/#mengps/HuskarUI&Date)
