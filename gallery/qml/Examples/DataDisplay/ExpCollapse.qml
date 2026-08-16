@@ -51,8 +51,8 @@ colorTitle | color | - | 标题文本颜色
 colorTitleBg | color | - | 标题背景颜色
 colorContent | color | - | 内容文本颜色
 colorContentBg | color | - | 内容背景颜色
-colorBorder | color | - | 边框颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 \n<br/>
 \n### 模型支持的属性：\n
 属性名 | 类型 | 可选/必选 | 描述

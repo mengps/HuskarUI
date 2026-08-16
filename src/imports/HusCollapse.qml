@@ -46,14 +46,14 @@ T.Control {
                                            family: themeSource.fontFamily,
                                            pixelSize: parseInt(themeSource.fontSizeContent)
                                        })
-    property color colorBg: themeSource.colorBg
-    property color colorIcon: themeSource.colorIcon
-    property color colorTitle: themeSource.colorTitle
-    property color colorTitleBg: themeSource.colorTitleBg
-    property color colorContent: themeSource.colorContent
-    property color colorContentBg: themeSource.colorContentBg
-    property color colorBorder: themeSource.colorBorder
+    property color colorBg: enabled ? themeSource.colorBg : themeSource.colorBgDisabled
+    property color colorIcon: enabled ? themeSource.colorIcon : themeSource.colorIconDisabled
+    property color colorTitle: enabled ? themeSource.colorTitle : themeSource.colorTitleDisabled
+    property color colorTitleBg: enabled ? themeSource.colorTitleBg : themeSource.colorTitleBgDisabled
+    property color colorContent: enabled ? themeSource.colorContent : themeSource.colorContentDisabled
+    property color colorContentBg: enabled ? themeSource.colorContentBg : themeSource.colorContentBgDisabled
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder { color: enabled ? themeSource.colorBorder : themeSource.colorBorderDisabled }
     property var themeSource: HusTheme.HusCollapse
 
     property Component titleDelegate: Row {
@@ -161,14 +161,15 @@ T.Control {
         delegate: HusRectangleInternal {
             id: __rootItem
             width: __listView.width
-            height: __column.height + ((detached && active) ? 1 : 0)
+            height: __column.height + ((detached && active) ? control.borderBg.width : 0)
             topLeftRadius: (isStart || detached) ? control.radiusBg.topLeft : 0
             topRightRadius: (isStart || detached) ? control.radiusBg.topRight : 0
             bottomLeftRadius: (isEnd || detached) ? control.radiusBg.bottomLeft : 0
             bottomRightRadius: (isEnd || detached) ? control.radiusBg.bottomRight : 0
             color: control.colorBg
-            border.color: control.colorBorder
-            border.width: detached ? 1 : 0
+            border.width: detached ? control.borderBg.width : 0
+            border.color: control.borderBg.color
+            border.pixelAligned: control.borderBg.pixelAligned
             clip: true
 
             required property var model
@@ -196,7 +197,9 @@ T.Control {
                     bottomLeftRadius: (isEnd && !active) || (detached && !active) ? control.radiusBg.bottomLeft : 0
                     bottomRightRadius: (isEnd && !active) || (detached && !active) ? control.radiusBg.bottomRight : 0
                     color: control.colorTitleBg
-                    border.color: control.colorBorder
+                    border.width: control.borderBg.width
+                    border.color: control.borderBg.color
+                    border.pixelAligned: control.borderBg.pixelAligned
 
                     Loader {
                         id: __titleLoader
@@ -261,7 +264,9 @@ T.Control {
         active: control.spacing === -1
         sourceComponent: Rectangle {
             color: 'transparent'
-            border.color: control.colorBorder
+            border.width: control.borderBg.width
+            border.color: control.borderBg.color
+            border.pixelAligned: control.borderBg.pixelAligned
             radius: control.radiusBg.all
             topLeftRadius: control.radiusBg.topLeft
             topRightRadius: control.radiusBg.topRight
