@@ -29,7 +29,6 @@ T.Frame {
     id: control
 
     property color colorBg: 'transparent'
-    property color colorBorder: HusTheme.Primary.colorSplit
     property HusRadius radiusBg: HusRadius { all: HusTheme.Primary.radiusPrimary }
     property HusBorder borderBg: HusBorder { color: HusTheme.Primary.colorSplit }
 
