@@ -43,8 +43,8 @@ T.Control {
                                     })
     property color colorBg: HusTheme.isDark ? themeSource.colorBgDark : themeSource.colorBg
     property color colorIndicatorBg: themeSource.colorIndicatorBg
-    property color colorBorder: themeSource.colorBorder
     property HusRadius radiusBg: HusRadius { all: themeSource.radiusBg }
+    property HusBorder borderBg: HusBorder { color: themeSource.colorBorder }
     property string sizeHint: 'normal'
     property real sizeRatio: HusTheme.sizeHint[sizeHint]
     property var themeSource: HusTheme.HusSegmented
@@ -173,7 +173,9 @@ T.Control {
     }
     background: HusRectangleInternal {
         color: control.colorBg
-        border.color: control.colorBorder
+        border.width: control.borderBg.width
+        border.color: control.borderBg.color
+        border.pixelAligned: control.borderBg.pixelAligned
         radius: control.radiusBg.all
         topLeftRadius: control.radiusBg.topLeft
         topRightRadius: control.radiusBg.topRight

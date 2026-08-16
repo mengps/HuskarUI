@@ -55,8 +55,8 @@ iconSpacing | int | 5 | 图标间隔
 iconFont | font | - | 图标字体
 colorBg | color | - | 背景颜色
 colorIndicatorBg | color | - | 指示器颜色
-colorBorder | color | - | 边框颜色
 radiusBg | [HusRadius](internal://HusRadius) | - | 背景圆角
+borderBg | [HusBorder](internal://HusBorder) | - | 背景边框
 sizeHint | string | 'normal' | 尺寸提示
 \n<br/>
 \n### 选项支持的属性：\n
@@ -182,7 +182,7 @@ iconSource | int丨string | 可选 | 本标签的图标源
                     HusSegmented {
                         id: customSegmented
                         width: 100
-                        colorBorder: '#77BEF0'
+                        borderBg.color: '#77BEF0'
                         orientation: Qt.Vertical
                         options: [
                             {
@@ -215,7 +215,7 @@ iconSource | int丨string | 可选 | 本标签的图标源
                 HusSegmented {
                     id: customSegmented
                     width: 100
-                    colorBorder: '#77BEF0'
+                    borderBg.color: '#77BEF0'
                     orientation: Qt.Vertical
                     options: [
                         {
