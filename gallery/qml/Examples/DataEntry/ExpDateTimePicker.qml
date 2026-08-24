@@ -39,6 +39,7 @@ showTime | bool | true | 显示时间部分
 datePickerMode | int | HusDateTimePicker.Mode_Day | 日期选择模式(来自 HusDateTimePicker)
 timePickerMode | int | HusDateTimePicker.Mode_HHMMSS | 时间选择模式(来自 HusDateTimePicker)
 format | string | 'yyyy-MM-dd hh:mm:ss' | 日期时间格式
+pickerMonthTable | list<string> | - | 月份选择表(长度需为12)
 visualYearTitle | string | - | 视觉年份标题(顶部年份部分)
 visualMonthTitle | string | - | 视觉月份标题(顶部月份部分)
 prevIconSource | int丨string | HusIcon.LeftOutlined | 往前图标(来自 HusIcon)或图标链接

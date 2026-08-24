@@ -50,6 +50,7 @@ HusInput {
     property alias datePickerMode: __dateTimePickerPanel.datePickerMode
     property alias timePickerMode: __dateTimePickerPanel.timePickerMode
     property alias format: __dateTimePickerPanel.format
+    property alias pickerMonthTable: __dateTimePickerPanel.pickerMonthTable
     property alias visualYearTitle: __dateTimePickerPanel.visualYearTitle
     property alias visualMonthTitle: __dateTimePickerPanel.visualMonthTitle
 

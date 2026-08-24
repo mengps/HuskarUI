@@ -5,14 +5,14 @@
  * https://github.com/mengps/HuskarUI
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
+ * this software and associated documentation files (the 'Software'), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
  * - The above copyright notice and this permission notice shall be included in
  *   all copies or substantial portions of the Software.
- * - The Software is provided "as is", without warranty of any kind, express or
+ * - The Software is provided 'as is', without warranty of any kind, express or
  *   implied, including but not limited to the warranties of merchantability,
  *   fitness for a particular purpose and noninfringement. In no event shall the
  *   authors or copyright holders be liable for any claim, damages or other
@@ -40,6 +40,11 @@ T.Control {
     property int datePickerMode: HusDateTimePicker.Mode_Day
     property int timePickerMode: HusDateTimePicker.Mode_HHMMSS
     property string format: 'yyyy-MM-dd hh:mm:ss'
+    property list<string> pickerMonthTable: [
+        qsTr('1月'), qsTr('2月'), qsTr('3月'), qsTr('4月'),
+        qsTr('5月'), qsTr('6月'), qsTr('7月'), qsTr('8月'),
+        qsTr('9月'), qsTr('10月'), qsTr('11月'), qsTr('12月')
+    ]
     property string visualYearTitle: visualYear + qsTr('年')
     property string visualMonthTitle: (visualMonth + 1) + qsTr('月')
 
@@ -473,8 +478,8 @@ T.Control {
                                 PickerButton {
                                     id: __monthPickerButton
                                     anchors.centerIn: parent
-                                    text: (month + 1) + qsTr('月')
-                                    checked: month == control.visualMonth
+                                    text: control.pickerMonthTable[month]
+                                    checked: month === control.visualMonth
                                     onClicked: {
                                         control.visualMonth = month;
                                         if (control.datePickerMode == HusDateTimePicker.Mode_Day ||
