@@ -340,15 +340,15 @@ QtObject {
                     key: 'HusDateTimePicker',
                     label: qsTr('HusDateTimePicker 日期时间选择框'),
                     source: './Examples/DataEntry/ExpDateTimePicker.qml',
-                    addVersion: '0.6.1.0',
-                    desc: qsTr('新增 visual[Year/Month]Title 属性。')
+                    addVersion: '0.7.0.0',
+                    desc: qsTr('新增 pickerMonthTable 属性。')
                 },
                 {
                     key: 'HusDateTimePickerPanel',
                     label: qsTr('HusDateTimePickerPanel 日期时间选择面板'),
                     source: './Examples/DataEntry/ExpDateTimePickerPanel.qml',
-                    addVersion: '0.6.1.0',
-                    desc: qsTr('新增 visual[Year/Month]Title 属性。')
+                    addVersion: '0.7.0.0',
+                    desc: qsTr('新增 pickerMonthTable 属性。')
                 },
                 {
                     key: 'HusTransfer',
