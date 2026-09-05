@@ -261,7 +261,8 @@ import HuskarUI.Basic
 Row {
     HusAutoComplete {
         width: 280
-        height: 40
+        topPadding: 10
+        bottomPadding: 10
         radiusBg.topRight: 0
         radiusBg.bottomRight: 0
         showToolTip: true
@@ -295,7 +296,8 @@ Row {
 
     HusIconButton {
         id: searchButton
-        height: 40
+        topPadding: 10
+        bottomPadding: 10
         type: HusButton.Type_Primary
         iconSource: HusIcon.SearchOutlined
         radiusBg.topLeft: 0
