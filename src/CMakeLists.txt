@@ -185,7 +185,15 @@ qt_add_shaders(${PROJECT_NAME} "shaders"
 )
 
 # HuskarUI library output dir
-set_target_properties(${PLUGIN_NAME} PROPERTIES DEBUG_POSTFIX "d")
+# NOTE: Do not give the QML plugin a debug postfix off Windows. The plugin target name is
+# written into the generated qmldir as the "plugin <name>" entry, and a qmldir is written once
+# at configure time. Qt's QML plugin importer only probes a "d"-suffixed file name on Windows
+# ("<name>d.dll"); on Unix/macOS it probes only "lib<name>.so" / "lib<name>.dylib", so a
+# postfixed plugin would never be found there. The backing library (${PROJECT_NAME}) keeps the
+# postfix: its file name is not referenced by the qmldir and is resolved by CMake/the linker.
+if(WIN32)
+    set_target_properties(${PLUGIN_NAME} PROPERTIES DEBUG_POSTFIX "d")
+endif()
 set_target_properties(${PROJECT_NAME} PROPERTIES
     EXPORT_NAME "Basic"
     DEBUG_POSTFIX "d"

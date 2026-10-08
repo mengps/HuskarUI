@@ -80,7 +80,12 @@ qt_add_qml_module(${PROJECT_NAME}
 )
 
 # HuskarUI library output dir
-set_target_properties(${PLUGIN_NAME} PROPERTIES DEBUG_POSTFIX "d")
+# NOTE: See src/CMakeLists.txt - the QML plugin file name must match the "plugin" entry in the
+# generated qmldir, which only supports a "d" suffix on Windows. The backing library
+# (${PROJECT_NAME}) keeps the postfix; its file name is not referenced by the qmldir.
+if(WIN32)
+    set_target_properties(${PLUGIN_NAME} PROPERTIES DEBUG_POSTFIX "d")
+endif()
 set_target_properties(${PROJECT_NAME} PROPERTIES
     EXPORT_NAME "Impl"
     DEBUG_POSTFIX "d"
