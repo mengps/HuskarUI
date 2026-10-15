@@ -18,7 +18,7 @@ Flickable {
 # HusInputNumber 数字输入框 \n
 通过鼠标或键盘，输入范围内的数值。\n
 * **模块 { HuskarUI.Basic }**\n
-* **继承自 { Control }**\n
+* **继承自 { DoubleSpinBox }**\n
 \n<br/>
 \n### 支持的代理：\n
 - **beforeDelegate: Component** 前置标签代理\n
@@ -42,8 +42,8 @@ alwaysShowHandler | bool | false | 是否始终显示增减按钮
 useWheel | bool | false | 是否使用鼠标滚轮控制
 useKeyboard | bool | true | 是否使用键盘控制
 value | real | 0 | 当前值
-min | real | Number.MIN_SAFE_INTEGER | 最小值
-max | real | Number.MAX_SAFE_INTEGER | 最大值
+min | real | -2147483648 | 最小值
+max | real | 2147483647 | 最大值
 step | real | 1 | 增减步长
 precision | int | 0 | 精度(保留小数位)
 validator | Validator | DoubleValidator | 输入验证器
@@ -104,7 +104,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         ThemeToken {
             source: 'HusInput'
-            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusInputNumber.qml'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusInputNumber.qml.in'
         }
 
         Description {
