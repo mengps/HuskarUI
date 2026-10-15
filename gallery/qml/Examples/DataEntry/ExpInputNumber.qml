@@ -79,8 +79,6 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
   - \`data\` 选择项数据\n
 \n<br/>
 \n### 支持的函数：\n
-- \`increase()\` 增加数值(步长由属性 \`step\` 给出) \n
-- \`decrease()\` 减少数值(步长由属性 \`step\` 给出) \n
 - \`getFullText(): string\` 获取完整输入文本 \n
 以下函数来自 \`TextInput\`，具体请查阅官方文档：\n
 - \`select(start: int, end: int)\` \n
@@ -104,7 +102,7 @@ input | [HusInput](internal://HusInput) | - | 访问内部输入框
 
         ThemeToken {
             source: 'HusInput'
-            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusInputNumber.qml.in'
+            historySource: 'https://github.com/mengps/HuskarUI/blob/master/src/imports/HusInputNumber.qml'
         }
 
         Description {
