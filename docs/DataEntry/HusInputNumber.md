@@ -9,7 +9,7 @@
 
 * **模块 { HuskarUI.Basic }**
 
-* **继承自 { Control }**
+* **继承自 { DoubleSpinBox }**
 
 
 <br/>
@@ -43,8 +43,8 @@ alwaysShowHandler | bool | false | 是否始终显示增减按钮
 useWheel | bool | false | 是否使用鼠标滚轮控制
 useKeyboard | bool | true | 是否使用键盘控制
 value | real | 0 | 当前值
-min | real | Number.MIN_SAFE_INTEGER | 最小值
-max | real | Number.MAX_SAFE_INTEGER | 最大值
+min | real | -2147483648 | 最小值
+max | real | 2147483647 | 最大值
 step | real | 1 | 增减步长
 precision | int | 0 | 精度(保留小数位)
 validator | Validator | DoubleValidator | 输入验证器

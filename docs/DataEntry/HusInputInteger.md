@@ -45,8 +45,8 @@ alwaysShowHandler | bool | false | 是否始终显示增减按钮
 useWheel | bool | false | 是否使用鼠标滚轮控制
 useKeyboard | bool | true | 是否使用键盘控制
 value | int | 0 | 当前值
-min | int | INT_MIN | 最小值
-max | int | INT_MAX | 最大值
+min | int | -2147483648 | 最小值
+max | int | 2147483647 | 最大值
 step | int | 1 | 增减步长
 prefix | string | '' | 前缀文本(图标)
 suffix | string | '' | 后缀文本(图标)
