@@ -63,8 +63,8 @@ T.SpinBox {
     property int initAfterLabelIndex: 0
     property string currentBeforeLabel: ''
     property string currentAfterLabel: ''
-    property var formatter: (value, locale) => value.toLocaleString(locale, 'f', 0)
-    property var parser: (text, locale) => HusApi.clamp(Number.fromLocaleString(locale, text), min, max)
+    property alias formatter: control.textFromValue
+    property alias parser: control.valueFromText
     property int defaultHandlerWidth: 22
     property alias colorText: __input.colorText
     property alias colorBg: __input.colorBg
@@ -123,7 +123,7 @@ T.SpinBox {
         property color colorHandlerBg: 'transparent'
 
         Behavior on width {
-            enabled: control.animationEnabled;
+            enabled: control.animationEnabled
             NumberAnimation {
                 easing.type: Easing.OutCubic
                 duration: HusTheme.Primary.durationMid
@@ -273,8 +273,6 @@ T.SpinBox {
         family: themeSource.fontFamily
         pixelSize: parseInt(themeSource.fontSize) * sizeRatio
     }
-    valueFromText: parser
-    textFromValue: formatter
     contentItem: HusInput {
         id: __input
         z: 1

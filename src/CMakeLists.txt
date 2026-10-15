@@ -106,6 +106,14 @@ if(QT_HAS_LABSQMLMODEL_PRIVATE)
     )
 endif()
 
+set(QT_DOUBLESPINBOX_SOURCES "")
+if(QT_HAS_QUICKTEMPLATES2_PRIVATE AND Qt6_VERSION VERSION_LESS "6.11.0")
+    set(QT_DOUBLESPINBOX_SOURCES
+        cpp/controls/qquickabstractspinbox_p.h
+        cpp/controls/qquickdoublespinbox_p.h cpp/controls/qquickdoublespinbox.cpp
+    )
+endif()
+
 hus_get_dir_sources(OUTPUT QML_SOURCES FILTER "imports/*.qml")
 
 qt_add_qml_module(${PROJECT_NAME}
@@ -144,6 +152,8 @@ qt_add_qml_module(${PROJECT_NAME}
         cpp/items/husrectangle.h cpp/items/husrectangle.cpp
         # Qt.labs.qmlmodels
         ${QT_TREEMODEL_SOURCES}
+        # Qml DoubleSpinBox
+        ${QT_DOUBLESPINBOX_SOURCES}
         # QR-Code-generator
         ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/QR-Code-generator/cpp/qrcodegen.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/QR-Code-generator/cpp/qrcodegen.cpp
