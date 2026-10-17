@@ -9,8 +9,8 @@
 
 ### huskarui
 
-- `agent/skills/huskarui/query_metainfo.py`
-- `agent/skills/huskarui/guide.metainfo.json`
+- `.agents/skills/huskarui/query_metainfo.py`
+- `.agents/skills/huskarui/guide.metainfo.json`
 - 系统中已安装 Python (`python`)
 
 ### qmlpreviewer
@@ -21,8 +21,8 @@
 
 将这些文件夹复制（或创建符号链接/联结）到你的智能体的 skills 目录中（即你的智能体扫描 `SKILL.md` 文件的目录）：
 
-- `agent/skills/huskarui`
-- `agent/skills/qmlpreviewer`
+- `.agents/skills/huskarui`
+- `.agents/skills/qmlpreviewer`
 
 ## 使用方法
 
@@ -38,7 +38,7 @@
 * “使用头像、用户名输入和保存按钮创建一个用户配置文件表单。”
 * “使用确认对话框执行删除操作，并提供完整代码。”    
 
-当请求涉及HuskarUI组件、属性、示例或页面生成时，AI应主动调用“HuskarUI”技能。它应该使用`agent/stkillings/huskarui/query_meinfo.py `从`agent/stskills/hashkarui/guide.metainfo.json `中检索准确的信息，然后生成符合项目标准的代码。
+当请求涉及HuskarUI组件、属性、示例或页面生成时，AI应主动调用“HuskarUI”技能。它应该使用`.agents/skills/huskarui/query_metainfo.py`从`.agents/skills/huskarui/guide.metainfo.json`中检索准确的信息，然后生成符合项目标准的代码。
 
 ### qmlpreviewer 示例
 

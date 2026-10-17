@@ -79,7 +79,7 @@ Anyone can discuss through issues, QQ groups, or WeChat groups, and ultimately m
 > - Obtain scenario based development examples
 > - Automatically iterate and preview code
 
-👉 See [AI Agent Skill Guide](./agent/README.md) for more details.
+👉 See [AI Agent Skill Guide](./.agents/README.md) for more details.
 
 ## 🔖 Online Document
 

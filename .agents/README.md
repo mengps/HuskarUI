@@ -9,8 +9,8 @@ This directory provides two agent skills for this repository:
 
 ### huskarui
 
-- `agent/skills/huskarui/query_metainfo.py`
-- `agent/skills/huskarui/guide.metainfo.json`
+- `.agents/skills/huskarui/query_metainfo.py`
+- `.agents/skills/huskarui/guide.metainfo.json`
 - Python available on your system (`python`)
 
 ### qmlpreviewer
@@ -21,8 +21,8 @@ This directory provides two agent skills for this repository:
 
 Copy (or symlink/junction) these folders into your agent's skills directory (the directory your agent scans for `SKILL.md`):
 
-- `agent/skills/huskarui`
-- `agent/skills/qmlpreviewer`
+- `.agents/skills/huskarui`
+- `.agents/skills/qmlpreviewer`
 
 ## Usage
 
@@ -38,7 +38,7 @@ Users only need to describe what they want to build or learn. They do not need t
 * "Build a user profile form with avatar, username input, and a save button."
 * "Implement a delete action with a confirmation dialog and provide the full code."
 
-When the request is about HuskarUI components, properties, examples, or page generation, the AI should proactively invoke the `HuskarUI` skill. It should use `agent/skills/huskarui/query_metainfo.py` to retrieve accurate information from `agent/skills/huskarui/guide.metainfo.json` and then generate code that follows the project's standards.
+When the request is about HuskarUI components, properties, examples, or page generation, the AI should proactively invoke the `HuskarUI` skill. It should use `.agents/skills/huskarui/query_metainfo.py` to retrieve accurate information from `.agents/skills/huskarui/guide.metainfo.json` and then generate code that follows the project's standards.
 
 ### qmlpreviewer examples
 

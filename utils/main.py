@@ -18,7 +18,7 @@ def gen_docs() -> None:
     if docs_dir.exists():
         rmtree(docs_dir)
     examples_dir = cwd / "gallery/qml/Examples"
-    output_meta_path = cwd / "agent/skills/huskarui/guide.metainfo.json"
+    output_meta_path = cwd / ".agents/skills/huskarui/guide.metainfo.json"
     docs = extract_all_docs(examples_dir, cwd)
     save_docs_to_json(docs, output_meta_path)
     generate_markdown(output_meta_path)

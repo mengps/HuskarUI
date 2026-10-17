@@ -79,7 +79,7 @@ Qt Qml 的 Ant 设计组件库
 > - 获取场景化的开发示例
 > - 自动迭代并预览代码
 
-👉 查看 [AI Agent 技能使用指南](./agent/README-zh_CN.md) 了解更多。
+👉 查看 [AI Agent 技能使用指南](./.agents/README-zh_CN.md) 了解更多。
 
 ## 🔖 在线文档
 
