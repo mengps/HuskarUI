@@ -56,7 +56,7 @@ HusPopup {
         borderBg.color: colorBg
         onClicked: control.close();
     }
-    property alias prevDelegate: __panel.sourceDelegate
+    property alias prevDelegate: __panel.prevDelegate
     property alias nextDelegate: __panel.nextDelegate
     property alias indicatorDelegate: __panel.indicatorDelegate
     property alias operationDelegate: __panel.operationDelegate
