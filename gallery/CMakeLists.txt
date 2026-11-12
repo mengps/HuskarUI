@@ -133,9 +133,12 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Controls/UpdateDesc.qml
         qml/Controls/CommitHistory.qml
         qml/Controls/GradientFlowEffect.qml
+        qml/Controls/MarkdownView.qml
+        qml/Controls/markdown.js
         qml/Home/HomePage.qml
         qml/Home/AboutPage.qml
         qml/Home/SettingsPage.qml
+        qml/Home/HistoryPage.qml
         qml/Home/CreatorPage.qml
         qml/Home/OverviewPage.qml
         qml/Global.qml
@@ -155,6 +158,39 @@ qt_add_resources(${PROJECT_NAME} "images"
         images/huskarui_new_square.svg
         images/switch_effect1.jpg
         images/switch_effect2.jpg
+)
+
+# Changelog resources
+set(CHANGELOG_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../changelogs")
+file(GLOB CHANGELOG_MD_FILES CONFIGURE_DEPENDS "${CHANGELOG_DIR}/*.md")
+list(SORT CHANGELOG_MD_FILES)
+
+set(CHANGELOG_INDEX_ITEMS "")
+foreach(changelog_file IN LISTS CHANGELOG_MD_FILES)
+    get_filename_component(changelog_name "${changelog_file}" NAME)
+    if(CHANGELOG_INDEX_ITEMS STREQUAL "")
+        set(CHANGELOG_INDEX_ITEMS "\"${changelog_name}\"")
+    else()
+        set(CHANGELOG_INDEX_ITEMS "${CHANGELOG_INDEX_ITEMS}, \"${changelog_name}\"")
+    endif()
+endforeach()
+
+set(CHANGELOG_INDEX_DIR "${CMAKE_CURRENT_BINARY_DIR}/changelogs")
+file(MAKE_DIRECTORY "${CHANGELOG_INDEX_DIR}")
+file(WRITE "${CHANGELOG_INDEX_DIR}/index.json" "{\"items\": [${CHANGELOG_INDEX_ITEMS}]}")
+
+if(CHANGELOG_MD_FILES)
+    qt_add_resources(${PROJECT_NAME} "changelogs"
+        PREFIX "/changelogs"
+        BASE "${CHANGELOG_DIR}"
+        FILES ${CHANGELOG_MD_FILES}
+    )
+endif()
+
+qt_add_resources(${PROJECT_NAME} "changelogs_index"
+    PREFIX "/changelogs"
+    BASE "${CHANGELOG_INDEX_DIR}"
+    FILES "${CHANGELOG_INDEX_DIR}/index.json"
 )
 
 qt_add_shaders(${PROJECT_NAME} "shaders"

@@ -565,6 +565,13 @@ HusWindow {
             sourceComponent: SettingsPage { visible: settingsLoader.visible }
         }
 
+        Loader {
+            id: historyLoader
+            active: false
+            visible: false
+            sourceComponent: HistoryPage { visible: historyLoader.visible }
+        }
+
         Column {
             id: buttonsColumn
             width: galleryMenu.width
@@ -612,6 +619,28 @@ HusWindow {
                     visible: parent.hovered
                     showArrow: true
                     text: qsTr('关于')
+                }
+            }
+
+            HusIconButton {
+                id: changelogButton
+                width: parent.width
+                height: 40
+                type: HusButton.Type_Text
+                radiusBg.all: 0
+                text: galleryMenu.compactMode !== HusMenu.Mode_Relaxed ? '' : qsTr('历史')
+                colorText: HusTheme.Primary.colorTextBase
+                iconSize: galleryMenu.defaultMenuIconSize
+                iconSource: HusIcon.HistoryOutlined
+                onClicked: {
+                    if (!historyLoader.active) historyLoader.active = true;
+                    historyLoader.visible = !historyLoader.visible;
+                }
+
+                HusToolTip {
+                    visible: parent.hovered
+                    showArrow: true
+                    text: qsTr('历史')
                 }
             }
 
