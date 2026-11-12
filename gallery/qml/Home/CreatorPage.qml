@@ -6,6 +6,8 @@ import QtQuick.Controls.Basic
 import HuskarUI.Basic
 import Gallery
 
+import '../Controls'
+
 HusWindow {
     id: root
     width: 800
@@ -25,12 +27,13 @@ HusWindow {
     captionBar.showMaximizeButton: false
     captionBar.color: HusTheme.Primary.colorFillTertiary
     captionBar.closeCallback: () => creatorLoader.visible = false;
-    Component.onCompleted: setSpecialEffect(galleryWindow.specialEffect);
 
-    Connections {
-        target: galleryWindow
-        function onSpecialEffectChanged() {
-            root.setSpecialEffect(galleryWindow.specialEffect);
+    Item {
+        anchors.fill: parent
+
+        GradientFlowEffect {
+            anchors.fill: parent
+            opacity: 0.3
         }
     }
 
