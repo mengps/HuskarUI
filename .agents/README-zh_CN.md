@@ -3,7 +3,7 @@
 本目录为本仓库提供了两个智能体技能：
 
 - **`huskarui`**：通过 Python 从仓库元数据中查询 HuskarUI 组件的文档、属性和示例。
-- **`qmlpreviewer`**：使用 `qmlscene` 预览当前编辑的 QML文件，并捕获运行截图到剪贴板。
+- **`qmlpreviewer`**：使用 Qt 6 的 `qml` 在 Linux 和 Windows 上预览 QML 并保存 PNG，支持复制到剪贴板。
 
 ## 前置条件
 
@@ -15,7 +15,7 @@
 
 ### qmlpreviewer
 
-- `qmlscene.exe` 的绝对路径 (Qt)
+- 包含 `qml`（Windows 为 `qml.exe`）的 Qt 6 套件。截图需要 Python 3 和 `QtTest` QML 模块。
 
 ## 安装
 

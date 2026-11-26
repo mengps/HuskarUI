@@ -3,7 +3,7 @@
 This directory provides two agent skills for this repository:
 
 - `huskarui`: Query HuskarUI component documentation, properties, and examples from repository metadata via Python.
-- `qmlpreviewer`: Preview the currently edited QML file with `qmlscene` and capture the running screenshot to the clipboard.
+- `qmlpreviewer`: Preview QML with Qt 6's `qml` on Linux and Windows. Save a PNG and copy it to the clipboard when available.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ This directory provides two agent skills for this repository:
 
 ### qmlpreviewer
 
-- `qmlscene.exe` absolute path (Qt)
+- Qt 6 kit with `qml` (`qml.exe` on Windows). PNG capture also uses Python 3 and the `QtTest` QML module.
 
 ## Installation
 

@@ -72,7 +72,7 @@ Anyone can discuss through issues, QQ groups, or WeChat groups, and ultimately m
 > # Intelligent agent skills
 >This warehouse provides two intelligent agent skills:
 > - **`huskarui`**：: Use Python to query the documentation, properties, and examples of HuskarUI components from the repository metadata.
-> - **`qmlpreviewer`**：: Use ` qmlscene ` to preview the currently edited QML file and capture a screenshot of the run to the clipboard.
+> - **`qmlpreviewer`** uses the Qt 6 `qml` runtime on Linux and Windows to preview QML and save a PNG, with clipboard support when available.
 > 
 > They are designed specifically for AI Agent programming tools such as Claude Code and Codex. It can help you:
 > - Quickly query component documents and properties

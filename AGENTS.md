@@ -31,7 +31,7 @@ Visual Studio generator 则把构建目标换成 `ALL_BUILD INSTALL`。Windows �
 ## 验证
 
 - 仓库没有自动化测试，也没有 clang-format / qmllint 配置。CI（`.github/workflows/`）只做构建，覆盖 Windows MSVC、Linux GCC、macOS Clang 及 Qt 6.7.3–6.10.3。
-- 修改后至少要构建通过。UI 改动应运行 Gallery 验证，或用 `.agents/skills/qmlpreviewer` 的 `qmlscene` 截图流程单独预览 QML 文件。
+- 修改后至少要构建通过。UI 改动应运行 Gallery 验证，或用 `.agents/skills/qmlpreviewer` 的 Qt 6 `qml` 截图流程单独预览 QML 文件。
 
 ## 架构
 
