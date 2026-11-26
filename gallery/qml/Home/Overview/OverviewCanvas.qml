@@ -8,24 +8,46 @@ Item {
 
     default property alias sceneContent: scene.data
     property real zoom: 0.76
-    readonly property real minZoom: 0.25
+    readonly property real minZoom: Math.min(__defaultMinZoom, __fitZoom)
     readonly property real maxZoom: 4
     property bool sceneEnabled: true
     property real backgroundOpacity: 1
 
     readonly property int __cameraMargin: 1600
+    readonly property real __defaultMinZoom: 0.25
     readonly property int __fitPadding: 144
     readonly property int __fitReferenceHeight: 980
+    readonly property real __fitZoom: Math.min(1,
+                                               Math.max(1, width - __fitPadding) / Math.max(1, scene.width),
+                                               Math.max(1, height - __fitPadding) / Math.max(1, scene.height))
     readonly property real __gridSpacing: Math.max(12, 24 * zoom)
     readonly property point __gridOrigin: Qt.point(scene.x - viewport.contentX, scene.y - viewport.contentY)
 
     clip: true
 
+    onMinZoomChanged: {
+        if (zoom < minZoom)
+            fit();
+    }
+
     function fit() {
+        zoom = __fitZoom;
+        __moveTo((viewport.contentWidth - width) * 0.5, (viewport.contentHeight - height) * 0.5);
+    }
+
+    function fitInitialView() {
         const widthZoom = (width - __fitPadding) / Math.max(1, scene.width);
         const heightZoom = (height - __fitPadding) / __fitReferenceHeight;
-        const worldY = (viewport.contentY - scene.y) / zoom;
-        zoom = HusApi.clamp(Math.min(widthZoom, heightZoom), minZoom, 1);
+        __setCenteredZoom(HusApi.clamp(Math.min(widthZoom, heightZoom), __defaultMinZoom, 1));
+    }
+
+    function resetZoom() {
+        __setCenteredZoom(1);
+    }
+
+    function __setCenteredZoom(nextZoom) {
+        const worldY = Math.max(0, (viewport.contentY - scene.y) / zoom);
+        zoom = nextZoom;
         __moveTo((viewport.contentWidth - width) * 0.5, scene.y + worldY * zoom);
     }
 
@@ -117,8 +139,8 @@ Item {
 
         Item {
             id: scene
-            x: root.__cameraMargin * root.zoom
-            y: root.__cameraMargin * root.zoom
+            x: Math.max(root.__cameraMargin * root.zoom, viewport.width * 0.5)
+            y: Math.max(root.__cameraMargin * root.zoom, viewport.height * 0.5)
             width: childrenRect.width
             height: childrenRect.height
             scale: root.zoom

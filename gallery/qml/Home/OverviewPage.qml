@@ -41,7 +41,7 @@ Item {
         if (!__viewportReady || __columnCount > 0)
             return;
         __columnCount = __columnsForWidth((width - 72) / canvas.zoom);
-        canvas.fit();
+        canvas.fitInitialView();
     }
 
     function __columnsForWidth(width) {
@@ -222,10 +222,7 @@ Item {
 
             ZoomButton {
                 iconSource: HusIcon.BorderInnerOutlined
-                onClicked: {
-                    canvas.fit();
-                    canvas.zoomTo(1);
-                }
+                onClicked: canvas.resetZoom()
             }
 
             ZoomButton {
