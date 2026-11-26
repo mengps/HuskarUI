@@ -1,124 +1,44 @@
 ---
-name: "QmlPreviewer"
-description: "Auto-detects the active QML file from editor context, runs qmlscene, and copies the rendered image to the clipboard by default. Invoke proactively when the agent needs to preview or visually verify a QML UI."
+name: qmlpreviewer
+description: Preview or visually verify QML on Linux and Windows with the Qt 6 qml runtime. Use for live previews and screenshots of QML items or windows.
 ---
 
 # QML Previewer
 
-Use this skill whenever the agent needs to preview or visually verify a QML UI. Prefer the clipboard capture flow by default, and fall back to launching `qmlscene` directly when capture is unavailable or unsuitable.
+Use the QML file the user names or the active editor file. Resolve the path against the workspace. For a component that needs required properties, resources, or application context, use the project's normal entry point or a temporary QML wrapper that supplies those dependencies.
 
-## When To Use
+Use the `qml` executable (`qml.exe` on Windows) from the project's Qt 6 kit. Qt 6.8's `qmlscene` warns that it is deprecated and points to `qml`. Pass the kit executable with `--qml` when it is outside PATH or when several kits are installed.
 
-Invoke this skill proactively when any of the following is true:
+## Capture a preview
 
-1. The agent needs to preview the active QML file to understand the visual result.
-2. The agent needs to visually verify QML changes it just made or reviewed.
-3. The agent needs screenshot-based evidence to inspect layout, rendering, clipping, or missing assets.
-4. The agent needs to confirm whether a QML page loads successfully.
-5. Visual verification is needed even if the user did not explicitly ask for a preview.
+Run the [preview script](preview_qml.py) with the QML file. Capture requires Python 3 and the kit's `QtTest` QML module. Pass `-I` once per QML import directory as needed. For the HuskarUI build, point it at `build/HuskarUI/qml` and make the matching shared libraries available through the environment when necessary.
 
-## Capabilities
+Linux example:
 
-1. **Auto Detection**: Resolve the active QML file from editor context.
-2. **Clipboard Preview**: Run the capture script and copy the rendered result to the clipboard.
-3. **Direct Launch**: Fall back to `qmlscene` when clipboard capture is unavailable or unsuitable.
-4. **Visual Verification**: Report whether the page loads and whether obvious visual problems are present.
-5. **Failure Reporting**: Surface path issues, launch failures, and runtime errors.
+```sh
+python3 .agents/skills/qmlpreviewer/preview_qml.py /path/to/Page.qml \
+  --qml /path/to/Qt/6.x/gcc_64/bin/qml \
+  -I build/HuskarUI/qml
+```
 
-## Critical Rules
-
-These rules are always enforced. Follow them in this order.
-
-### File Resolution
-
-- **Prefer the active editor file when it is a `.qml` file.**
-- **If multiple files are open, use the focused editor tab.**
-- **If editor context is missing, search for the most relevant recently edited `.qml` file.**
-- **If auto-detection still fails, ask the user once for the QML file path.**
-
-### Preview Execution
-
-- **Use the clipboard capture flow by default.**
-- **Pass absolute paths only** for both `qmlscene.exe` and the QML file.
-- **Use the direct `qmlscene` launch only as a fallback** when capture is unavailable or unsuitable.
-- **Do not silently skip preview.** If preview cannot run, explain why.
-
-### Reporting
-
-- **Report whether the QML page loads successfully.**
-- **Report obvious layout or rendering issues** such as clipping, blank content, missing assets, or unexpected sizing.
-- **Include runtime or terminal errors** when QML fails to launch.
-- **Be explicit about which flow was used**: clipboard capture or direct launch.
-
-## Execution Workflow
-
-1. Resolve the QML file path from editor context.
-2. Validate that the QML file path is absolute and exists.
-3. Resolve the absolute path to `qmlscene.exe`.
-4. Run the default clipboard capture flow:
+Windows example in PowerShell:
 
 ```powershell
-& "<SKILL_DIR>\capture_qmlscene_to_clipboard.ps1" -QmlScenePath "<qmlscene.exe>" -QmlFilePath "<auto-detected absolute QML file path>"
+python .agents/skills/qmlpreviewer/preview_qml.py C:\project\Page.qml `
+  --qml C:\Qt\6.x\msvc2022_64\bin\qml.exe `
+  -I build\HuskarUI\qml
 ```
 
-5. If clipboard capture is unavailable or unsuitable, launch the page directly:
+The script prints the saved PNG path. Pick a destination with `-o preview.png`, or use `--delay-ms` when the page needs more time to load. It copies the image to the clipboard when available using `wl-copy` on Wayland, `xclip` on X11, or Windows PowerShell. The PNG is still available if clipboard copying fails. Use `--no-clipboard` for file-only output.
 
-```powershell
-& "<qmlscene.exe>" "<auto-detected absolute QML file path>" --maximized
+Linux without a display uses offscreen rendering automatically. Use `--headless` to request offscreen software rendering explicitly. For GPU effects, use the desktop Qt backend and verify the result there.
+
+## Open a live preview
+
+Run the kit executable directly with the QML file and any needed import paths. Use this for interaction or when the capture dependencies are unavailable.
+
+```sh
+/path/to/Qt/6.x/gcc_64/bin/qml -I build/HuskarUI/qml /path/to/Page.qml
 ```
 
-6. Inspect the clipboard image or live preview.
-7. Report load status, visible issues, and any runtime failures.
-
-## Fallback Workflow
-
-Use this fallback order:
-
-1. If clipboard capture fails, verify both paths and retry only if the failure is clearly path-related.
-2. If capture remains unsuitable, launch the page directly with `qmlscene`.
-3. If auto-detection fails, ask once for the QML file path, then continue.
-4. If QML cannot load, capture terminal or runtime error output and include it in the report.
-
-## Response Policy
-
-When using this skill in an answer:
-
-1. State which QML file was previewed.
-2. State which execution flow was used.
-3. Report whether the page loaded successfully.
-4. Summarize obvious visual findings.
-5. Include launch or runtime errors when present.
-6. State what blocked verification if preview could not be completed.
-
-## Quick Reference
-
-```powershell
-# Default clipboard capture flow
-& "<SKILL_DIR>\capture_qmlscene_to_clipboard.ps1" -QmlScenePath "<qmlscene.exe>" -QmlFilePath "<absolute QML file path>"
-
-# Direct qmlscene fallback
-& "<qmlscene.exe>" "<absolute QML file path>" --maximized
-```
-
-## Current Skill Context
-
-The skill currently depends on:
-
-```text
-<SKILL_DIR>\SKILL.md
-<SKILL_DIR>\capture_qmlscene_to_clipboard.ps1
-```
-
-The capture script currently supports:
-
-- Required `-QmlScenePath`
-- Required `-QmlFilePath`
-- Optional `-StartupDelayMs`
-- Optional `-WindowPollTimeoutMs`
-- Optional `-WindowPollIntervalMs`
-- Optional `-KeepOpen`
-
-## Detailed References
-
-- `capture_qmlscene_to_clipboard.ps1` - default preview and clipboard capture entrypoint
-- `qmlscene.exe` - fallback runtime for direct QML preview
+Inspect the rendered UI and report the file, any visible issues, and the relevant Qt error if the preview fails.
