@@ -141,6 +141,17 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/Home/HistoryPage.qml
         qml/Home/CreatorPage.qml
         qml/Home/OverviewPage.qml
+        qml/Home/Overview/OverviewCanvas.qml
+        qml/Home/Overview/OverviewDataDisplayPreviews.qml
+        qml/Home/Overview/OverviewDataEntryPreviews.qml
+        qml/Home/Overview/OverviewEffectsAndUtilitiesPreviews.qml
+        qml/Home/Overview/OverviewFeedbackPreviews.qml
+        qml/Home/Overview/OverviewGeneralPreviews.qml
+        qml/Home/Overview/OverviewLayoutNavigationPreviews.qml
+        qml/Home/Overview/OverviewPreviews.qml
+        qml/Home/Overview/OverviewSample.qml
+        qml/Home/Overview/OverviewSection.qml
+        qml/Home/Overview/OverviewThemeAndApiPreviews.qml
         qml/Global.qml
         qml/Gallery.qml
     SOURCES
