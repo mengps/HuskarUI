@@ -1,5 +1,5 @@
 <div align=center>
-<img width=64 src="resources/huskarui_new_square.svg">
+<img width="64" src="./resources/v2/huskarui_new_square.svg" alt="HuskarUI app icon">
 
 # 「 HuskarUI 」 Modern UI for Qml 
 

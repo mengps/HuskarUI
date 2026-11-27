@@ -1,5 +1,5 @@
 <div align=center>
-<img width=64 src="resources/huskarui_new_square.svg">
+<img width="64" src="./resources/v2/huskarui_new_square.svg" alt="HuskarUI 应用图标">
 
 # 「 HuskarUI 」 基于 Qml 的现代 UI
 
