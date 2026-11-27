@@ -21,26 +21,32 @@ Flickable {
 * **继承自 { Control }**\n
 \n<br/>
 \n### 支持的代理：\n
+- **contentDelegate: Component** 局部加载遮罩下的内容代理\n
 - **indicatorDelegate: Component** 指示器代理\n
 - **indicatorItemDelegate: Component** 指示器子项代理，代理可访问属性：\n
   - \`index: int\` 指示器索引\n
-  - \`itemSize: int\` 子项大小(等同于 \`indicatorSize\` )\n
+  - \`itemSize: real\` 子项大小(等同于 \`indicatorSize\` )\n
 - **tipDelegate: Component** 提示代理\n
 \n<br/>
 \n### 支持的属性：\n
 属性名 | 类型 | 默认值 | 描述
 ------ | --- | :---: | ---
 animationEnabled | bool | HusTheme.animationEnabled | 是否开启动画
-spinSize | real | 24 | 内容项大小
-indicatorSize | real | 7 | 指示器大小
+spinSize | real | 20 | 指示器整体尺寸
+indicatorSize | real | 9 | 指示器子项大小
 indicatorItemCount | int | 4 | 指示项数量
 spinning | bool | true | 是否为加载中状态
+delay | int | 0 | 加载指示器和遮罩出现前的延迟（毫秒）
+fullscreen | bool | false | 是否遮罩整个窗口
 tip | string | '' | 提示文本
-percent | string丨int | 'auto' | 进度百分比
+percent | string丨real | undefined | 未设置或为 0 时显示旋转指示器，'auto' 自动模拟进度，正数显示实际进度
 colorTip | color | - | 提示文本颜色
 colorIndicator | color | - | 指示器颜色
-colorProgressBar | color | - | 进度条颜色
-sizeHint | string | 'normal' | 尺寸提示
+colorProgressBar | color | - | 进度环颜色
+colorProgressTrack | color | - | 进度环轨道颜色
+colorContentMask | color | - | 局部加载遮罩颜色
+colorFullscreenMask | color | - | 全屏加载遮罩颜色
+sizeHint | string | 'normal' | 支持 'small'（14）、'normal'（20）、'large'（32）
 contentDescription | string | '' | 内容描述(提高可用性)
                        `)
         }
@@ -115,7 +121,7 @@ contentDescription | string | '' | 内容描述(提高可用性)
             async: false
             descTitle: qsTr('卡片加载中')
             desc: qsTr(`
-切换卡片加载中状态。\n
+通过 \`contentDelegate\` 提供卡片内容。开启加载 200 毫秒后显示遮罩并暂停卡片交互。
                        `)
             code: `
                 import QtQuick
@@ -124,88 +130,116 @@ contentDescription | string | '' | 内容描述(提高可用性)
                 Column {
                     spacing: 10
 
-                    Rectangle {
+                    HusSpin {
                         width: parent.width
-                        height: 100
-                        radius: 6
-                        enabled: !loadingSwitch.checked
-                        color: enabled ? HusThemeFunctions.alpha(HusTheme.Primary.colorInfoBgHover, 0.5) :
-                                         HusThemeFunctions.alpha(HusTheme.Primary.colorInfoBg, 0.5)
-                        border.color: enabled ? HusThemeFunctions.alpha(HusTheme.Primary.colorInfoBorderHover, 0.5) :
-                                                HusThemeFunctions.alpha(HusTheme.Primary.colorInfoBorder, 0.5)
+                        spinning: loadingSwitch.checked
+                        delay: 200
+                        tip: qsTr('加载中')
+                        contentDelegate: Rectangle {
+                            implicitHeight: 100
+                            radius: 6
+                            color: HusTheme.Primary.colorInfoBg
+                            border.color: HusTheme.Primary.colorInfoBorder
 
-                        Behavior on color { ColorAnimation { duration: HusTheme.Primary.durationMid } }
-
-                        HusText {
-                            x: 20
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: 'Alert message title\n\nFurther details about the context of this alert.'
-                            color: enabled ? HusTheme.Primary.colorTextPrimary : HusTheme.Primary.colorTextQuaternary
-
-                            Behavior on color { ColorAnimation { duration: HusTheme.Primary.durationMid } }
-                        }
-
-                        HusSpin {
-                            anchors.centerIn: parent
-                            spinning: loadingSwitch.checked
+                            HusText {
+                                x: 20
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: qsTr('卡片内容')
+                            }
                         }
                     }
 
-                    Row {
-                        spacing: 10
-
-                        HusText {
-                            text: 'Loading state：'
-                        }
-
-                        HusSwitch {
-                            id: loadingSwitch
-                            checked: false
-                        }
+                    HusSwitch {
+                        id: loadingSwitch
+                        checked: false
+                        checkedText: qsTr('加载中')
+                        uncheckedText: qsTr('已就绪')
                     }
                 }
             `
             exampleDelegate: Column {
                 spacing: 10
 
-                Rectangle {
+                HusSpin {
                     width: parent.width
-                    height: 100
-                    radius: 6
-                    enabled: !loadingSwitch.checked
-                    color: enabled ? HusThemeFunctions.alpha(HusTheme.Primary.colorInfoBgHover, 0.5) :
-                                     HusThemeFunctions.alpha(HusTheme.Primary.colorInfoBg, 0.5)
-                    border.color: enabled ? HusThemeFunctions.alpha(HusTheme.Primary.colorInfoBorderHover, 0.5) :
-                                            HusThemeFunctions.alpha(HusTheme.Primary.colorInfoBorder, 0.5)
+                    spinning: loadingSwitch.checked
+                    delay: 200
+                    tip: qsTr('加载中')
+                    contentDelegate: Rectangle {
+                        implicitHeight: 100
+                        radius: 6
+                        color: HusTheme.Primary.colorInfoBg
+                        border.color: HusTheme.Primary.colorInfoBorder
 
-                    Behavior on color { ColorAnimation { duration: HusTheme.Primary.durationMid } }
-
-                    HusText {
-                        x: 20
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: 'Alert message title\n\nFurther details about the context of this alert.'
-                        color: enabled ? HusTheme.Primary.colorTextPrimary : HusTheme.Primary.colorTextQuaternary
-
-                        Behavior on color { ColorAnimation { duration: HusTheme.Primary.durationMid } }
-                    }
-
-                    HusSpin {
-                        anchors.centerIn: parent
-                        spinning: loadingSwitch.checked
+                        HusText {
+                            x: 20
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: qsTr('卡片内容')
+                        }
                     }
                 }
 
-                Row {
-                    spacing: 10
+                HusSwitch {
+                    id: loadingSwitch
+                    checked: false
+                    checkedText: qsTr('加载中')
+                    uncheckedText: qsTr('已就绪')
+                }
+            }
+        }
 
-                    HusText {
-                        text: 'Loading state：'
+        CodeBox {
+            width: parent.width
+            async: false
+            descTitle: qsTr('全屏加载')
+            desc: qsTr(`
+通过 \`fullscreen\` 在当前窗口上显示遮罩。
+                       `)
+            code: `
+                import QtQuick
+                import HuskarUI.Basic
+
+                HusButton {
+                    text: qsTr('显示全屏加载')
+                    onClicked: {
+                        fullscreenSpin.spinning = true;
+                        fullscreenTimer.restart();
                     }
 
-                    HusSwitch {
-                        id: loadingSwitch
-                        checked: false
+                    HusSpin {
+                        id: fullscreenSpin
+                        fullscreen: true
+                        spinning: false
+                        sizeHint: 'large'
+                        tip: qsTr('加载中')
                     }
+
+                    Timer {
+                        id: fullscreenTimer
+                        interval: 2000
+                        onTriggered: fullscreenSpin.spinning = false
+                    }
+                }
+            `
+            exampleDelegate: HusButton {
+                text: qsTr('显示全屏加载')
+                onClicked: {
+                    fullscreenSpin.spinning = true;
+                    fullscreenTimer.restart();
+                }
+
+                HusSpin {
+                    id: fullscreenSpin
+                    fullscreen: true
+                    spinning: false
+                    sizeHint: 'large'
+                    tip: qsTr('加载中')
+                }
+
+                Timer {
+                    id: fullscreenTimer
+                    interval: 2000
+                    onTriggered: fullscreenSpin.spinning = false
                 }
             }
         }
@@ -243,102 +277,26 @@ contentDescription | string | '' | 内容描述(提高可用性)
             async: false
             descTitle: qsTr('展示进度')
             desc: qsTr(`
-通过 \`percent\` 属性设置进度百分比，设置为 \`'auto'\` 时显示为加载中，设置为 \`0~100\` 时显示为进度条。\n
+将 \`percent\` 设为 \`'auto'\` 可自动模拟进度，也可直接传入百分比来显示真实进度。
                        `)
             code: `
                 import QtQuick
                 import HuskarUI.Basic
 
                 Row {
-                    spacing: 10
+                    spacing: 20
 
-                    HusSwitch {
-                        id: progressSwitch
-                        checked: true
-                        checkedText: 'Auto'
-                        uncheckedText: 'Progress'
-                        onCheckedChanged: {
-                            if (checked) {
-                                progressTimer.stop();
-                            } else {
-                                progressTimer.progress = 0;
-                                progressTimer.restart();
-                            }
-                        }
-
-                        Timer {
-                            id: progressTimer
-                            interval: 50
-                            repeat: true
-                            onTriggered: {
-                                progress += 1;
-                                if (progress >= 100)
-                                    stop();
-                            }
-                            property real progress: 0
-                        }
-                    }
-
-                    HusSpin {
-                        sizeHint: 'small'
-                        percent: progressSwitch.checked ? 'auto' : progressTimer.progress
-                    }
-
-                    HusSpin {
-                        sizeHint: 'normal'
-                        percent: progressSwitch.checked ? 'auto' : progressTimer.progress
-                    }
-
-                    HusSpin {
-                        sizeHint: 'large'
-                        percent: progressSwitch.checked ? 'auto' : progressTimer.progress
-                    }
+                    HusSpin { percent: 'auto' }
+                    HusSpin { percent: 40 }
+                    HusSpin { percent: 80 }
                 }
             `
             exampleDelegate: Row {
-                spacing: 10
+                spacing: 20
 
-                HusSwitch {
-                    id: progressSwitch
-                    checked: true
-                    checkedText: 'Auto'
-                    uncheckedText: 'Progress'
-                    onCheckedChanged: {
-                        if (checked) {
-                            progressTimer.stop();
-                        } else {
-                            progressTimer.progress = 0;
-                            progressTimer.restart();
-                        }
-                    }
-
-                    Timer {
-                        id: progressTimer
-                        interval: 50
-                        repeat: true
-                        onTriggered: {
-                            progress += 1;
-                            if (progress >= 100)
-                                stop();
-                        }
-                        property real progress: 0
-                    }
-                }
-
-                HusSpin {
-                    sizeHint: 'small'
-                    percent: progressSwitch.checked ? 'auto' : progressTimer.progress
-                }
-
-                HusSpin {
-                    sizeHint: 'normal'
-                    percent: progressSwitch.checked ? 'auto' : progressTimer.progress
-                }
-
-                HusSpin {
-                    sizeHint: 'large'
-                    percent: progressSwitch.checked ? 'auto' : progressTimer.progress
-                }
+                HusSpin { percent: 'auto' }
+                HusSpin { percent: 40 }
+                HusSpin { percent: 80 }
             }
         }
 
