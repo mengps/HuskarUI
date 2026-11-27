@@ -4,6 +4,9 @@
         "fontSize": "@fontPrimarySize",
         "colorTip": "@colorPrimary",
         "colorIndicator": "@colorPrimary",
-        "colorProgressBar": "@colorPrimary"
+        "colorProgressBar": "@colorPrimary",
+        "colorProgressTrack": "@colorFillSecondary",
+        "colorContentMask": "$alpha(@colorBgContainer, 0.4)",
+        "colorFullscreenMask": "@colorBgMask"
     }
 }

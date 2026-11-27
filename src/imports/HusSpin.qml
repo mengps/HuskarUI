@@ -21,6 +21,8 @@
  *   Software.
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
@@ -30,82 +32,55 @@ T.Control {
     id: control
 
     property bool animationEnabled: HusTheme.animationEnabled
-    property real spinSize: 24 * control.sizeRatio
-    property real indicatorSize: 7 * control.sizeRatio
+    property real spinSize: 20 * control.sizeRatio
+    property real indicatorSize: Math.max(0, (control.spinSize - 2) * 0.5)
     property int indicatorItemCount: 4
     property bool spinning: true
+    property int delay: 0
+    property bool fullscreen: false
     property string tip: ''
-    property var percent: 'auto' || 0
-    property color colorTip: themeSource.colorTip
-    property color colorIndicator: themeSource.colorIndicator
-    property color colorProgressBar: themeSource.colorProgressBar
+    property var percent: undefined
+    property color colorTip: control.fullscreen ? 'white' : themeSource.colorTip
+    property color colorIndicator: control.fullscreen ? 'white' : themeSource.colorIndicator
+    property color colorProgressBar: control.fullscreen ? 'white' : themeSource.colorProgressBar
+    property color colorProgressTrack: themeSource.colorProgressTrack
+    property color colorContentMask: themeSource.colorContentMask
+    property color colorFullscreenMask: themeSource.colorFullscreenMask
     property string sizeHint: 'normal'
     property real sizeRatio: {
         switch (sizeHint) {
-        case 'small': return 0.6;
-        case 'normal': return 1.0;
+        case 'small': return 0.7;
         case 'large': return 1.6;
+        default: return 1.0;
         }
     }
     property string contentDescription: ''
     property var themeSource: HusTheme.HusSpin
 
-    property Component indicatorDelegate: Repeater {
-        model: control.indicatorItemCount
-        delegate: Item {
-            id: __rootItem
-            x: halfSize + (halfSize - control.indicatorSize * 0.5) *
-               Math.cos(2 * Math.PI * index / control.indicatorItemCount) - control.indicatorSize * 0.5
-            y: halfSize + (halfSize - control.indicatorSize * 0.5) *
-               Math.sin(2 * Math.PI * index / control.indicatorItemCount) - control.indicatorSize * 0.5
-
-            required property int index
-
-            Loader {
-                sourceComponent: control.indicatorItemDelegate
-                property alias index: __rootItem.index
-                property real itemSize: control.indicatorSize
-            }
-        }
-        property real halfSize: control.spinSize * 0.5
-    }
+    property Component contentDelegate: null
+    property Component indicatorDelegate: __defaultIndicator
     property Component indicatorItemDelegate: Rectangle {
-        id: __indicatorDelegate
-        width: itemSize
+        id: __dot
+
+        readonly property int __index: (parent as SpinDotLoader)?.index ?? 0
+
+        width: control.indicatorSize
         height: width
         radius: width * 0.5
         color: control.colorIndicator
+        scale: 0.75
+        opacity: 0.3
 
-        OpacityAnimator on opacity {
-            id: opacityAnimator
-            duration: 1200
-            loops: 1
-            alwaysRunToEnd: true
-            onFinished: {
-                reverse = !reverse;
-                from = reverse ? 1.0 : 0.2;
-                to = reverse ? 0.2 : 1.0;
-                restart();
-            }
-            property bool reverse: false
-        }
+        SequentialAnimation {
+            running: control.animationEnabled && __indicatorLoader.visible
+            onStopped: __dot.opacity = 0.3;
 
-        Timer {
-            interval: (index + 1) * 1200 / control.indicatorItemCount
-            onCanRunChanged: {
-                if (canRun) {
-                    restart();
-                } else {
-                    opacityAnimator.stop();
-                }
+            PauseAnimation { duration: __dot.__index * 400 }
+            SequentialAnimation {
+                loops: Animation.Infinite
+                OpacityAnimator { target: __dot; from: 0.3; to: 1; duration: 1000 }
+                OpacityAnimator { target: __dot; from: 1; to: 0.3; duration: 1000 }
             }
-            onTriggered: {
-                opacityAnimator.reverse = false;
-                opacityAnimator.from = 0.2;
-                opacityAnimator.to = 1.0;
-                opacityAnimator.restart();
-            }
-            property bool canRun: control.animationEnabled && control.spinning
         }
     }
     property Component tipDelegate: HusText {
@@ -120,75 +95,220 @@ T.Control {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
     padding: 0
-    spacing: 5
+    spacing: 12
     font {
         family: control.themeSource.fontFamily
         pixelSize: parseInt(control.themeSource.fontSize)
     }
-    contentItem: ColumnLayout {
+
+    onSpinningChanged: {
+        if (!spinning)
+            __delayTimer.elapsed = false;
+    }
+
+    QtObject {
+        id: __private
+
+        readonly property bool showIndicator: control.spinning && (control.delay <= 0 || __delayTimer.elapsed)
+        readonly property real progress: {
+            const percent = control.percent;
+            if (percent === 'auto')
+                return __autoProgress.value;
+            if (typeof percent === 'number' && !Number.isNaN(percent))
+                return Math.max(0, Math.min(percent, 100));
+            return 0;
+        }
+    }
+
+    component SpinDotLoader: Loader {
+        required property int index
+        readonly property real itemSize: control.indicatorSize
+        readonly property real __offset: (control.spinSize - itemSize) * 0.5
+        readonly property bool __fourDots: control.indicatorItemCount === 4
+        readonly property real __angle: 2 * Math.PI * index / control.indicatorItemCount -
+                                       (__fourDots ? 3 * Math.PI / 4 : 0)
+        readonly property real __radius: __offset * (__fourDots ? Math.SQRT2 : 1)
+
+        x: __offset + __radius * Math.cos(__angle)
+        y: __offset + __radius * Math.sin(__angle)
+        sourceComponent: control.indicatorItemDelegate
+    }
+
+    Component {
+        id: __defaultIndicator
+
+        Repeater {
+            model: control.indicatorItemCount
+            delegate: SpinDotLoader { }
+        }
+    }
+
+    Timer {
+        id: __delayTimer
+
+        property bool elapsed: false
+        interval: Math.max(0, control.delay)
+        running: control.spinning && control.delay > 0 && !elapsed
+        onTriggered: elapsed = true
+    }
+
+    Timer {
+        id: __autoProgress
+
+        property real value: 0
+        readonly property bool autoMode: __private.showIndicator && control.visible && control.percent === 'auto'
+
+        interval: 200
+        repeat: true
+        running: autoMode && value <= 96
+        onAutoModeChanged: value = 0
+        onTriggered: {
+            const remaining = 100 - value;
+            if (value <= 30)
+                value += remaining * 0.05;
+            else if (value <= 70)
+                value += remaining * 0.03;
+            else
+                value += remaining * 0.01;
+        }
+    }
+
+    contentItem: Item {
+        id: __body
+
+        implicitWidth: __contentLoader.active ? __contentLoader.implicitWidth :
+                       __section.parent === __body && __section.visible ? __section.implicitWidth : 0
+        implicitHeight: __contentLoader.active ? __contentLoader.implicitHeight :
+                        __section.parent === __body && __section.visible ? __section.implicitHeight : 0
+
+        Loader {
+            id: __contentLoader
+
+            anchors.fill: parent
+            active: control.contentDelegate !== null
+            sourceComponent: control.contentDelegate
+            enabled: !__private.showIndicator || control.fullscreen
+            opacity: enabled ? 1 : 0.5
+
+            Behavior on opacity {
+                enabled: control.animationEnabled
+                NumberAnimation { duration: HusTheme.Primary.durationSlow }
+            }
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            visible: opacity > 0
+            color: control.colorContentMask
+            opacity: __contentLoader.active && !__contentLoader.enabled ? 1 : 0
+
+            Behavior on opacity {
+                enabled: control.animationEnabled
+                NumberAnimation { duration: HusTheme.Primary.durationSlow }
+            }
+        }
+    }
+
+    T.Popup {
+        id: __fullscreenPopup
+
+        parent: T.Overlay.overlay
+        visible: control.fullscreen && control.visible && __private.showIndicator && parent !== null
+        modal: true
+        focus: true
+        closePolicy: T.Popup.NoAutoClose
+        width: parent ? parent.width : 0
+        height: parent ? parent.height : 0
+        background: Rectangle { color: control.colorFullscreenMask }
+        contentItem: Item { }
+
+        enter: Transition {
+            NumberAnimation {
+                property: 'opacity'
+                from: 0
+                to: 1
+                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+            }
+        }
+        exit: Transition {
+            NumberAnimation {
+                property: 'opacity'
+                from: 1
+                to: 0
+                duration: control.animationEnabled ? HusTheme.Primary.durationMid : 0
+            }
+        }
+    }
+
+    ColumnLayout {
+        id: __section
+
+        parent: control.fullscreen ? __fullscreenPopup.contentItem : __body
+        anchors.centerIn: parent
         spacing: control.spacing
+        visible: __private.showIndicator && control.visible
+        z: 1
 
         Item {
             id: __spinner
+
             Layout.preferredWidth: control.spinSize
             Layout.preferredHeight: control.spinSize
             Layout.alignment: Qt.AlignHCenter
-            visible: control.spinning
-            opacity: control.spinning ? 1 : 0
 
-            property bool isProgress: typeof control.percent === 'number'
+            property real progressMix: __private.progress > 0 ? 1 : 0
+
+            Behavior on progressMix {
+                enabled: control.animationEnabled
+                NumberAnimation {
+                    duration: HusTheme.Primary.durationSlow
+                    easing.type: Easing.InOutQuad
+                }
+            }
 
             Loader {
                 id: __indicatorLoader
+
                 anchors.fill: parent
-                scale: __spinner.isProgress ? 0.0 : 1.0
-                visible: scale > 0
                 sourceComponent: control.indicatorDelegate
+                visible: opacity > 0
+                opacity: 1 - __spinner.progressMix
+                scale: 1 - 0.7 * __spinner.progressMix
+                rotation: initialRotation
 
-                Behavior on scale {
-                    enabled: control.animationEnabled
-                    NumberAnimation {
-                        easing.type: Easing.InOutQuad
-                        duration: HusTheme.Primary.durationSlow
-                    }
-                }
-
-                Behavior on opacity {
-                    enabled: control.animationEnabled;
-                    NumberAnimation {
-                        easing.type: Easing.InOutQuad
-                        duration: HusTheme.Primary.durationMid
-                    }
-                }
+                readonly property real initialRotation:
+                    control.indicatorDelegate === __defaultIndicator && control.indicatorItemCount === 4 ? 45 : 0
 
                 RotationAnimator on rotation {
-                    running: control.animationEnabled && control.spinning
-                    from: 0
-                    to: 360
+                    running: control.animationEnabled && __indicatorLoader.visible
+                    from: __indicatorLoader.initialRotation
+                    to: from + 360
                     duration: 1200
                     loops: Animation.Infinite
                 }
             }
 
-            Loader {
-                active: __spinner.isProgress
+            HusProgress {
                 anchors.fill: parent
-                scale: 1.0 - __indicatorLoader.scale
-                visible: scale > 0
-                sourceComponent: HusProgress {
-                    type: HusProgress.Type_Circle
-                    animationEnabled: control.animationEnabled
-                    showInfo: false
-                    percent: control.percent
-                    barThickness: 4 * control.sizeRatio
-                    colorBar: control.colorProgressBar
-                }
+                // 补偿 HusProgress 圆环的内缩，保持指示器外径。
+                anchors.margins: -barThickness * 0.5
+                visible: opacity > 0
+                opacity: __spinner.progressMix
+                scale: 0.3 + 0.7 * __spinner.progressMix
+                type: HusProgress.Type_Circle
+                animationEnabled: control.animationEnabled
+                percent: __private.progress
+                barThickness: __spinner.width * 0.2
+                showInfo: false
+                colorBar: control.colorProgressBar
+                colorTrack: control.colorProgressTrack
             }
         }
 
         Loader {
             Layout.alignment: Qt.AlignHCenter
-            active: control.tip !== ''
+            active: __section.visible && control.tip !== ''
+            visible: active
             sourceComponent: control.tipDelegate
         }
     }
