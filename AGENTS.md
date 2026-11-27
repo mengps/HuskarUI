@@ -72,6 +72,7 @@ python .agents/skills/huskarui/query_metainfo.py .agents/skills/huskarui/guide.m
 ## 代码约定
 
 - QML import 顺序：`QtQuick` → `QtQuick.*` → `HuskarUI.Basic`；继承模板时使用 `import QtQuick.Templates as T`。
-- 组件名 PascalCase，属性/函数/id camelCase，私有成员双下划线前缀（`__`）；4 空格缩进；优先 `let`/`const`，使用 `===`/`!==`。
+- 组件名 PascalCase，属性/函数/id camelCase，内部对象 id 可用双下划线前缀（`__`）；4 空格缩进；优先 `let`/`const`，使用 `===`/`!==`。
+- QML 组件根对象只声明公开接口。内部状态、派生属性和辅助函数放在 `QtObject { id: __private }` 中，通过 `__private.xxx` 使用。根对象上带 `__` 前缀的属性仍可被外部访问。
 - 枚举常量命名形如 `Type_Default`、`Shape_Circle`。
 - 源文件保留 MIT 许可头。
